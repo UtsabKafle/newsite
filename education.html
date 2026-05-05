@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Education — Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Gotu&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F172A;
+      --navy-light: #1E293B;
+      --teal:       #0D9488;
+      --teal-light: #14B8A6;
+      --amber:      #F59E0B;
+      --amber-light:#FBBF24;
+      --graphite:   #1E293B;
+      --steel:      #64748B;
+      --steel-light:#94A3B8;
+      --slate:      #F8FAFC;
+      --slate2:     #F1F5F9;
+      --white:      #FFFFFF;
+      --border:     #E2E8F0;
+      --font-head:  'Fraunces', serif;
+      --font-body:  'Instrument Sans', sans-serif;
+      --easing:     cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--slate);
+      color: var(--graphite);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3 { color: var(--graphite); }
+    p { font-size: 1.05rem; }
+
+    /* NAV */
+    body > nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(248, 250, 252, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(24px, 5vw, 72px);
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-name { font-weight: 600; font-size: 1.05rem; color: var(--navy); letter-spacing: -0.01em; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--steel); font-size: 0.9rem;
+      font-weight: 500; transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--navy); }
+
+    .btn {
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      padding: 10px 24px; border-radius: 100px;
+      text-decoration: none; transition: all 0.3s var(--easing);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none;
+    }
+    .btn-ghost { color: var(--graphite); background: transparent; }
+    .btn-ghost:hover { background: var(--slate2); }
+    .btn-filled {
+      background: var(--navy); color: var(--white);
+    }
+    .btn-filled:hover {
+      background: #1a2450;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(15,23,42,0.18);
+    }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--teal); color: var(--teal);
+      transform: translateY(-1px);
+    }
+    .btn-amber {
+      background: var(--amber); color: var(--navy);
+      font-weight: 600;
+    }
+    .btn-amber:hover {
+      background: var(--amber-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245,158,11,0.3);
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--navy);
+      padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 72px) 60px;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(13,148,136,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 800px; margin: 0 auto; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px; padding: 6px 18px;
+      font-size: 0.82rem; font-weight: 500; color: var(--steel-light);
+      margin-bottom: 36px; letter-spacing: 0.02em;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 400; line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .hero h1 em { font-style: italic; font-weight: 300; color: var(--teal-light); }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.15rem); color: var(--steel-light);
+      max-width: 520px; margin: 0 auto 36px; line-height: 1.6;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* QUOTE SECTION */
+    .quote-section {
+      background: var(--white);
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+      position: relative;
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute; top: 0; left: 10%; right: 10%;
+      height: 1px; background: var(--border);
+    }
+    .quote-inner { max-width: 780px; margin: 0 auto; text-align: center; }
+    .quote-label {
+      display: inline-block; font-size: 0.78rem; font-weight: 500;
+      color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 32px;
+    }
+    .sanskrit {
+      font-family: 'Gotu', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; line-height: 1.9;
+      color: var(--graphite);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .sanskrit .word-orange { color: var(--amber); }
+    .sanskrit .word-blue { color: #2563EB; }
+    .quote-translation {
+      font-size: 1rem; color: var(--steel);
+      line-height: 1.7; max-width: 560px; margin: 0 auto;
+      font-style: italic;
+    }
+    .quote-source {
+      font-size: 0.82rem; color: var(--steel-light);
+      margin-top: 16px; font-weight: 500;
+    }
+
+    /* PHILOSOPHY CARDS */
+    .philosophy-section {
+      background: var(--slate);
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+    }
+    .phil-inner { max-width: 1100px; margin: 0 auto; }
+    .phil-header { text-align: center; margin-bottom: 56px; }
+    .phil-header h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .phil-header p { color: var(--steel); font-size: 1.05rem; }
+    .phil-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .phil-card {
+      background: var(--white);
+      border-radius: 16px; padding: 36px 28px;
+      border: 1px solid var(--border);
+      position: relative;
+      transition: transform 0.35s var(--easing), box-shadow 0.35s var(--easing);
+    }
+    .phil-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+    }
+    .phil-card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 1.2rem;
+    }
+    .phil-card-icon.wisdom { background: rgba(13,148,136,0.1); color: var(--teal); }
+    .phil-card-icon.humility { background: rgba(245,158,11,0.1); color: var(--amber); }
+    .phil-card-icon.growth { background: rgba(15,23,42,0.06); color: var(--navy); }
+    .phil-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .phil-card p { font-size: 0.93rem; color: var(--steel); line-height: 1.6; }
+    .phil-card .step-num {
+      font-family: var(--font-head);
+      font-size: 0.78rem; font-weight: 500; color: var(--steel-light);
+      letter-spacing: 0.04em; margin-bottom: 12px;
+    }
+
+    /* SECTIONS (Students, Teachers, Resources) */
+    .info-section {
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+      background: var(--white);
+    }
+    .info-section.alt { background: var(--slate); }
+    .info-row {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px); align-items: center;
+    }
+    .info-row.rev .info-text { order: 2; }
+    .info-row.rev .info-visual { order: 1; }
+    .info-label {
+      display: inline-block; font-size: 0.78rem; font-weight: 500;
+      color: var(--teal); text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .info-text h3 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400; line-height: 1.15; letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .info-text p { color: var(--steel); margin-bottom: 28px; font-size: 1rem; line-height: 1.7; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .info-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.95rem; color: var(--graphite); line-height: 1.5;
+    }
+    .info-list li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0;
+      background: var(--teal);
+    }
+    .info-visual {
+      border-radius: 20px; overflow: hidden;
+      background: var(--slate2);
+      aspect-ratio: 5/4;
+      position: relative;
+    }
+    .info-visual.no-ratio { aspect-ratio: unset; background: transparent; }
+    .iv-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .iv-inner svg { width: 100%; height: 100%; }
+
+    .students-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; height: 100%; align-content: center;
+    }
+    .sv-card {
+      background: var(--slate2); border-radius: 14px;
+      padding: 24px 18px; text-align: center;
+      transition: transform 0.3s var(--easing);
+    }
+    .sv-card:hover { transform: translateY(-2px); }
+    .sv-icon {
+      width: 36px; height: 36px;
+      margin: 0 auto 12px; color: var(--teal);
+    }
+    .sv-icon svg { width: 100%; height: 100%; }
+    .sv-card:nth-child(2) .sv-icon { color: var(--amber); }
+    .sv-card:nth-child(3) .sv-icon { color: var(--navy); }
+    .sv-card:nth-child(4) .sv-icon { color: var(--teal-light); }
+    .sv-card h4 {
+      font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 4px; color: var(--graphite);
+    }
+    .sv-card p {
+      font-size: 0.76rem; color: var(--steel); line-height: 1.4;
+    }
+
+    /* TECH PACKS */
+    .packs-section {
+      background: var(--slate);
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+      text-align: center;
+    }
+    .packs-inner {
+      max-width: 900px; margin: 0 auto;
+    }
+    .packs-inner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: var(--graphite); margin-bottom: 14px;
+    }
+    .packs-sub { color: var(--steel); font-size: 1.05rem; margin-bottom: 48px; }
+    .pack-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; text-align: left;
+    }
+    .pack-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px 28px;
+      text-decoration: none; color: var(--graphite);
+      transition: all 0.35s var(--easing);
+    }
+    .pack-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+    }
+    .pack-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.06em; padding: 4px 12px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .pack-badge.explorer { background: rgba(13,148,136,0.1); color: var(--teal); }
+    .pack-badge.builder { background: rgba(245,158,11,0.1); color: var(--amber); }
+    .pack-card h4 {
+      font-size: 1.3rem; font-weight: 600; margin-bottom: 6px;
+      letter-spacing: -0.01em;
+      color: var(--graphite);
+    }
+    .pack-card .pack-level {
+      font-size: 0.85rem; color: var(--steel); margin-bottom: 14px;
+    }
+    .pack-card .pack-desc {
+      font-size: 0.93rem; color: var(--steel); line-height: 1.6; margin-bottom: 18px;
+    }
+    .pack-link {
+      font-size: 0.9rem; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pack-card.explorer .pack-link { color: var(--teal); }
+    .pack-card.builder .pack-link { color: var(--amber); }
+    .pack-link::after {
+      content: '→'; transition: transform 0.3s ease;
+    }
+    .pack-card:hover .pack-link::after {
+      transform: translateX(4px);
+    }
+    .pack-meta {
+      display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .pack-meta span {
+      font-size: 0.72rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--slate2);
+      color: var(--steel);
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--white);
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+      text-align: center;
+    }
+    .cta-inner { max-width: 560px; margin: 0 auto; }
+    .cta-inner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .cta-inner p { color: var(--steel); font-size: 1.05rem; margin-bottom: 32px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); padding: 48px clamp(24px, 5vw, 72px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .f-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .f-name { font-weight: 600; font-size: 1.05rem; color: rgba(255,255,255,0.85); letter-spacing: -0.01em; }
+    .f-links { display: flex; align-items: center; gap: 28px; }
+    .f-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+    .f-links a:hover { color: rgba(255,255,255,0.8); }
+    .f-copy { font-size: 0.88rem; color: rgba(255,255,255,0.25); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--easing), transform 0.7s var(--easing); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Decorative */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .info-row, .info-row.rev { grid-template-columns: 1fr; gap: 40px; }
+      .info-row.rev .info-text { order: 1; }
+      .info-row.rev .info-visual { order: 2; }
+      .pack-cards { grid-template-columns: 1fr; }
+      .phil-grid { grid-template-columns: 1fr; }
+      .students-visual { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .f-links { flex-wrap: wrap; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <span class="logo-mark"><img src="assets/logos/logo_bg_w.png" alt="Consica Labs logo"></span>
+    <span class="logo-name">Consica Labs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#students">Students</a></li>
+    <li><a href="#teachers">Teachers</a></li>
+    <li><a href="#packs">Tech Packs</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <a href="mailto:info@consicalabs.com" class="btn btn-filled">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner reveal">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Consica Labs — Education
+    </div>
+    <h1>
+      Learning that <em>stays</em>, skills that <em>work</em>.
+    </h1>
+    <p class="hero-sub">
+      We bring thoughtful technology education to schools, teachers, and curious learners — built on a philosophy that knowledge is only the beginning.
+    </p>
+    <div class="hero-actions">
+      <a href="#packs" class="btn btn-amber">Explore Tech Packs</a>
+      <a href="#philosophy" class="btn btn-ghost" style="color:#94A3B8; background:rgba(255,255,255,0.06);">Our Philosophy</a>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY / QUOTE -->
+<section class="quote-section" id="philosophy">
+  <div class="quote-inner reveal">
+    <span class="quote-label">Our Education Philosophy</span>
+    <p class="sanskrit">
+      <span>विद्या</span>
+      <span>ददाति</span>
+      <span class="word-orange">विनयं</span>
+      <span>विनयाद्याति</span>
+      <span>पात्रताम्</span>
+      <span>।</span>
+      <br>
+      <span>पात्रत्वाद्धनमाप्नोति</span>
+      <span>धनाद्धर्मं</span>
+      <span>ततः</span>
+      <span class="word-blue">सुखम्</span>
+      <span>॥</span>
+    </p>
+    <p class="quote-translation">
+      "Knowledge gives humility; from humility comes worthiness; from worthiness comes wealth; from wealth comes righteousness; and from righteousness comes true happiness."
+    </p>
+    <p class="quote-source">— Hitopadesha</p>
+  </div>
+</section>
+
+
+
+<!-- FOR STUDENTS -->
+<section class="info-section" id="students">
+  <div class="info-row reveal">
+    <div class="info-text">
+      <span class="info-label">For Students</span>
+      <h3>From curious beginners to confident builders.</h3>
+      <p>
+        We work with school children across multiple levels — introducing them to technology the right way.
+        Our programs are designed to meet students where they are, not where a textbook thinks they should be.
+      </p>
+      <ul class="info-list">
+        <li><strong>Primary Level (Class 3–4):</strong> Digital literacy, safe internet use, and creative computing with visual tools.</li>
+        <li><strong>Lower Secondary (Class 5–7):</strong> How computers and the internet work, visual programming, and hands-on electronics.</li>
+        <li><strong>Secondary (Class 8–10):</strong> Real programming, robotics, AI tools, and full-stack projects.</li>
+        <li><strong>Higher Secondary (Class 11–12):</strong> Advanced software engineering, AI/ML fundamentals, and career-ready skills.</li>
+      </ul>
+      <a href="#packs" class="btn btn-filled">View our structured packs</a>
+    </div>
+    <div class="info-visual no-ratio">
+      <div class="students-visual">
+        <div class="sv-card">
+          <div class="sv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h4>Class 3 – 4</h4>
+          <p>Digital literacy &amp; creative computing</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h4>Class 5 – 7</h4>
+          <p>Programming &amp; hands-on electronics</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1"/><line x1="9" y1="2" x2="9" y2="6"/><line x1="15" y1="2" x2="15" y2="6"/><line x1="9" y1="18" x2="9" y2="22"/><line x1="15" y1="18" x2="15" y2="22"/><line x1="2" y1="9" x2="6" y2="9"/><line x1="2" y1="15" x2="6" y2="15"/><line x1="18" y1="9" x2="22" y2="9"/><line x1="18" y1="15" x2="22" y2="15"/></svg>
+          </div>
+          <h4>Class 8 – 10</h4>
+          <p>Robotics, AI &amp; full-stack projects</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </div>
+          <h4>Class 11 – 12</h4>
+          <p>Software engineering &amp; career skills</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOR TEACHERS -->
+<section class="info-section alt" id="teachers">
+  <div class="info-row rev reveal">
+    <div class="info-visual">
+      <div class="iv-inner" style="background: #F1F5F9;">
+        <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#F1F5F9"/>
+          <rect x="60" y="60" width="120" height="80" rx="12" fill="none" stroke="#0F172A" stroke-opacity="0.1" stroke-width="1.5"/>
+          <rect x="220" y="60" width="120" height="80" rx="12" fill="none" stroke="#0D9488" stroke-opacity="0.2" stroke-width="1.5"/>
+          <rect x="60" y="180" width="120" height="80" rx="12" fill="none" stroke="#F59E0B" stroke-opacity="0.2" stroke-width="1.5"/>
+          <rect x="220" y="180" width="120" height="80" rx="12" fill="none" stroke="#0D9488" stroke-opacity="0.15" stroke-width="1.5"/>
+          <line x1="120" y1="90" x2="120" y2="50" stroke="#64748B" stroke-opacity="0.15" stroke-width="1"/>
+          <line x1="280" y1="90" x2="280" y2="50" stroke="#64748B" stroke-opacity="0.15" stroke-width="1"/>
+          <line x1="120" y1="170" x2="120" y2="140" stroke="#64748B" stroke-opacity="0.15" stroke-width="1"/>
+          <line x1="280" y1="170" x2="280" y2="140" stroke="#64748B" stroke-opacity="0.15" stroke-width="1"/>
+          <circle cx="120" cy="45" r="3" fill="#0F172A" opacity="0.15"/>
+          <circle cx="280" cy="45" r="3" fill="#0D9488" opacity="0.25"/>
+        </svg>
+      </div>
+    </div>
+    <div class="info-text">
+      <span class="info-label">For Teachers</span>
+      <h3>Empower the people who empower students.</h3>
+      <p>
+        Great technology education needs great teachers. We train school instructors in modern tools,
+        classroom technology integration, and how to make technical subjects come alive for students of all ages.
+      </p>
+      <ul class="info-list">
+        <li><strong>Digital Pedagogy Workshops:</strong> How to teach programming, robotics, and AI effectively in a classroom.</li>
+        <li><strong>Tool Familiarization:</strong> Hands-on sessions with the hardware and software your students will use.</li>
+        <li><strong>Curriculum Co-design:</strong> Work with us to adapt our modules to your school's unique rhythm and needs.</li>
+        <li><strong>Ongoing Mentorship:</strong> A direct line to our engineers when your teachers hit a technical roadblock.</li>
+      </ul>
+      <a href="mailto:info@consicalabs.com?subject=Teacher%20Training%20Inquiry" class="btn btn-outline">Inquire about teacher training</a>
+    </div>
+  </div>
+</section>
+
+<!-- FREE RESOURCES -->
+<section class="info-section" id="resources">
+  <div class="info-row reveal">
+    <div class="info-text">
+      <span class="info-label">Free Learning Resources</span>
+      <h3>Good learning should not always need a price tag.</h3>
+      <p>
+        We maintain a growing collection of free, open resources for anyone who wants to learn —
+        students, teachers, or self-learners. No catch, no sign-up walls, just good material.
+      </p>
+      <ul class="info-list">
+        <li><strong>Visual Explainer Series:</strong> Short, illustrated guides on how the internet, computers, and AI work.</li>
+        <li><strong>Activity Templates:</strong> Downloadable worksheets and project ideas for classroom or self-study use.</li>
+        <li><strong>Open Code Repositories:</strong> Sample projects, starter kits, and reference code for common concepts.</li>
+        <li><strong>Community Sessions:</strong> Occasional free webinars and Q&A sessions on trending tech topics.</li>
+      </ul>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="mailto:info@consicalabs.com?subject=Access%20Free%20Resources" class="btn btn-outline">Request resource access</a>
+        <a href="#packs" class="btn btn-ghost">See our structured packs</a>
+      </div>
+    </div>
+    <div class="info-visual">
+      <div class="iv-inner" style="background: #F1F5F9;">
+        <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#F1F5F9"/>
+          <rect x="80" y="50" width="100" height="120" rx="10" fill="none" stroke="#0F172A" stroke-opacity="0.08" stroke-width="1.2"/>
+          <rect x="190" y="70" width="100" height="120" rx="10" fill="none" stroke="#0D9488" stroke-opacity="0.12" stroke-width="1.2"/>
+          <rect x="135" y="130" width="100" height="120" rx="10" fill="none" stroke="#F59E0B" stroke-opacity="0.1" stroke-width="1.2"/>
+          <rect x="95" y="60" width="70" height="4" rx="2" fill="#0F172A" opacity="0.06"/>
+          <rect x="95" y="75" width="50" height="4" rx="2" fill="#0F172A" opacity="0.04"/>
+          <rect x="205" y="80" width="70" height="4" rx="2" fill="#0D9488" opacity="0.1"/>
+          <rect x="205" y="95" width="50" height="4" rx="2" fill="#0D9488" opacity="0.06"/>
+          <rect x="150" y="145" width="65" height="4" rx="2" fill="#F59E0B" opacity="0.08"/>
+          <rect x="150" y="160" width="45" height="4" rx="2" fill="#F59E0B" opacity="0.05"/>
+          <circle cx="250" cy="200" r="20" fill="#0D9488" opacity="0.06"/>
+          <circle cx="110" cy="250" r="25" fill="#F59E0B" opacity="0.05"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH PACKS -->
+<section class="packs-section" id="packs">
+  <div class="packs-inner reveal">
+    <h2>Structured Tech Packs</h2>
+    <p class="packs-sub">Two meticulously designed programs that take students from zero to building real things.</p>
+    <div class="pack-cards">
+      <a href="explorer-pack.html" class="pack-card explorer">
+        <span class="pack-badge explorer">Explorer Pack</span>
+        <h4>Foundational Discovery</h4>
+        <p class="pack-level">For Class 5 – 7</p>
+        <div class="pack-meta">
+          <span>10 Modules</span>
+          <span>Beginner</span>
+          <span>Hands-on Activities</span>
+        </div>
+        <p class="pack-desc">
+          From how the internet works to building your first programs and robots.
+          A curiosity-driven journey through the fundamentals of technology.
+        </p>
+        <span class="pack-link">View full pack details</span>
+      </a>
+      <a href="builder-pack.html" class="pack-card builder">
+        <span class="pack-badge builder">Builder Pack</span>
+        <h4>Deep Application</h4>
+        <p class="pack-level">For Class 8 – 10</p>
+        <div class="pack-meta">
+          <span>7 Modules</span>
+          <span>Intermediate</span>
+          <span>Project-Based</span>
+        </div>
+        <p class="pack-desc">
+          Write real code, build hardware, work with AI tools, and create applications
+          that solve actual problems. For students ready to build.
+        </p>
+        <span class="pack-link">View full pack details</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2>Ready to bring these to your school?</h2>
+    <p>Whether you are a school administrator, a teacher, or a curious parent — we would love to talk about how we can help.</p>
+    <div class="cta-actions">
+      <a href="mailto:info@consicalabs.com" class="btn btn-amber">Get in Touch</a>
+      <a href="index.html" class="btn btn-outline">Visit Consica Labs</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="f-logo" href="index.html">
+    <span class="f-name">Consica Labs</span>
+  </a>
+  <nav class="f-links">
+    <a href="index.html">Home</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#packs">Tech Packs</a>
+    <a href="#resources">Resources</a>
+    <a href="mailto:info@consicalabs.com">Contact</a>
+  </nav>
+  <span class="f-copy">© 2025 Consica Labs</span>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

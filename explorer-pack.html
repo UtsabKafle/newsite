@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explorer Pack — Consica Labs Education</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F172A;
+      --navy-light: #1E293B;
+      --teal:       #0D9488;
+      --teal-light: #14B8A6;
+      --amber:      #F59E0B;
+      --amber-light:#FBBF24;
+      --graphite:   #1E293B;
+      --steel:      #64748B;
+      --steel-light:#94A3B8;
+      --slate:      #F8FAFC;
+      --slate2:     #F1F5F9;
+      --white:      #FFFFFF;
+      --border:     #E2E8F0;
+      --font-head:  'Fraunces', serif;
+      --font-body:  'Instrument Sans', sans-serif;
+      --easing:     cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--slate);
+      color: var(--graphite);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3 { color: var(--graphite); }
+
+    /* NAV */
+    body > nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(248, 250, 252, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(24px, 5vw, 72px);
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-name { font-weight: 600; font-size: 1.05rem; color: var(--navy); letter-spacing: -0.01em; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--steel); font-size: 0.9rem;
+      font-weight: 500; transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--navy); }
+
+    .btn {
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      padding: 10px 24px; border-radius: 100px;
+      text-decoration: none; transition: all 0.3s var(--easing);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none;
+    }
+    .btn-filled {
+      background: var(--navy); color: var(--white);
+    }
+    .btn-filled:hover {
+      background: #1a2450;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(15,23,42,0.18);
+    }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--teal); color: var(--teal);
+      transform: translateY(-1px);
+    }
+    .btn-amber {
+      background: var(--amber); color: var(--navy);
+      font-weight: 600;
+    }
+    .btn-amber:hover {
+      background: var(--amber-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245,158,11,0.3);
+    }
+    .btn-teal {
+      background: var(--teal); color: var(--white);
+    }
+    .btn-teal:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(13,148,136,0.25);
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--navy);
+      padding: clamp(70px, 10vh, 100px) clamp(24px, 5vw, 72px) 50px;
+      position: relative;
+    }
+    .hero-inner {
+      position: relative; z-index: 2; max-width: 800px;
+      margin: 0 auto; text-align: center;
+    }
+    .hero-breadcrumb {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: var(--steel-light);
+      margin-bottom: 24px;
+    }
+    .hero-breadcrumb a { color: var(--teal-light); text-decoration: none; font-weight: 500; }
+    .hero-breadcrumb a:hover { text-decoration: underline; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(13,148,136,0.1);
+      border-radius: 100px; padding: 5px 16px;
+      font-size: 0.75rem; font-weight: 600; color: var(--teal-light);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 32px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal-light);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-weight: 400; line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; font-weight: 300; color: var(--teal-light); }
+    .hero-meta {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-meta span {
+      font-size: 0.82rem; font-weight: 500; color: var(--steel-light);
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px; padding: 4px 14px;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.1rem); color: var(--steel-light);
+      max-width: 540px; margin: 0 auto 36px; line-height: 1.6;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* FEATURES */
+    .features {
+      background: var(--white);
+      padding: clamp(50px, 6vw, 80px) clamp(24px, 5vw, 72px);
+    }
+    .features-inner { max-width: 1100px; margin: 0 auto; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feat-card {
+      background: var(--slate);
+      border-radius: 16px; padding: 32px 26px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing);
+    }
+    .feat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15,23,42,0.05);
+    }
+    .feat-card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(13,148,136,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .feat-card-icon svg { width: 22px; height: 22px; stroke: var(--teal); }
+    .feat-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .feat-card p { font-size: 0.93rem; color: var(--steel); line-height: 1.6; }
+
+    /* MODULES */
+    .modules-section {
+      padding: clamp(50px, 6vw, 80px) clamp(24px, 5vw, 72px);
+      background: var(--slate);
+    }
+    .mod-inner { max-width: 1100px; margin: 0 auto; }
+    .mod-header { margin-bottom: 40px; }
+    .mod-header h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .mod-header p { color: var(--steel); font-size: 1rem; }
+    .mod-header .mod-count {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 600; color: var(--teal);
+      background: rgba(13,148,136,0.08);
+      border-radius: 100px; padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .mod-card {
+      background: var(--white);
+      border-radius: 14px; padding: 22px 20px;
+      border: 1px solid var(--border);
+      transition: all 0.3s var(--easing);
+    }
+    .mod-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--teal);
+      box-shadow: 0 8px 20px rgba(13,148,136,0.06);
+    }
+    .mod-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--teal); margin-bottom: 14px;
+      transition: transform 0.3s ease;
+    }
+    .mod-card:hover .mod-dot { transform: scale(1.3); }
+    .mod-card h4 {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .mod-card p { font-size: 0.82rem; color: var(--steel); line-height: 1.4; }
+    .mod-num {
+      font-family: var(--font-head);
+      font-size: 0.7rem; color: var(--steel-light);
+      margin-bottom: 8px; letter-spacing: 0.03em;
+    }
+
+    /* ASSIGNMENTS */
+    .assignments-section {
+      background: var(--white);
+      padding: clamp(50px, 6vw, 80px) clamp(24px, 5vw, 72px);
+    }
+    .assign-inner { max-width: 1100px; margin: 0 auto; }
+    .assign-header { margin-bottom: 40px; }
+    .assign-header h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .assign-header p { color: var(--steel); font-size: 1rem; }
+    .assign-header .assign-count {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 600; color: var(--amber);
+      background: rgba(245,158,11,0.08);
+      border-radius: 100px; padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .assign-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 12px;
+    }
+    .assign-card {
+      background: var(--slate);
+      border-radius: 14px; padding: 22px 24px;
+      border: 1px solid var(--border);
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: all 0.3s var(--easing);
+    }
+    .assign-card:hover {
+      border-color: var(--amber);
+      background: #FDFBF7;
+      transform: translateY(-1px);
+    }
+    .assign-num {
+      font-family: var(--font-head);
+      font-size: 2rem; font-weight: 400; color: var(--amber);
+      opacity: 0.5; line-height: 1; flex-shrink: 0;
+      transition: opacity 0.3s ease;
+    }
+    .assign-card:hover .assign-num { opacity: 0.9; }
+    .assign-content h4 {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .assign-content p {
+      font-size: 0.85rem; color: var(--steel); line-height: 1.5;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--slate);
+      padding: clamp(50px, 6vw, 80px) clamp(24px, 5vw, 72px);
+      text-align: center;
+    }
+    .cta-inner { max-width: 560px; margin: 0 auto; }
+    .cta-inner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: var(--graphite); margin-bottom: 14px;
+    }
+    .cta-inner p { color: var(--steel); font-size: 1rem; margin-bottom: 28px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); padding: 40px clamp(24px, 5vw, 72px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+    .f-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .f-name { font-weight: 600; font-size: 1.05rem; color: rgba(255,255,255,0.85); }
+    .f-links { display: flex; align-items: center; gap: 28px; }
+    .f-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+    .f-links a:hover { color: rgba(255,255,255,0.8); }
+    .f-copy { font-size: 0.88rem; color: rgba(255,255,255,0.25); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--easing), transform 0.7s var(--easing); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .assign-list { grid-template-columns: 1fr; }
+      .modules-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      footer { flex-direction: column; align-items: flex-start; }
+      .f-links { flex-wrap: wrap; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <span class="logo-mark"><img src="assets/logos/logo_bg_w.png" alt="Consica Labs logo"></span>
+    <span class="logo-name">Consica Labs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="education.html">Education</a></li>
+    <li><a href="explorer-pack.html" style="color: var(--teal);">Explorer Pack</a></li>
+    <li><a href="builder-pack.html">Builder Pack</a></li>
+  </ul>
+  <a href="mailto:info@consicalabs.com" class="btn btn-teal">Request Syllabus</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner reveal">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Explorer Pack
+    </div>
+    <div class="hero-breadcrumb">
+      <a href="education.html">Education</a>
+      <span>/</span>
+      <span>Explorer Pack</span>
+    </div>
+    <h1>Foundational <em>Discovery</em></h1>
+    <div class="hero-meta">
+      <span>Class 5 – 7</span>
+      <span>Beginner Level</span>
+      <span>10 Modules</span>
+    </div>
+    <p class="hero-sub">
+      A foundational journey into technology — from understanding how the internet works to building your first programs and robots. No prior experience needed.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:info@consicalabs.com?subject=Explorer%20Pack%20Syllabus" class="btn btn-amber">Request Full Syllabus</a>
+      <a href="education.html" class="btn btn-outline" style="color:#94A3B8; border-color:rgba(255,255,255,0.15); background:rgba(255,255,255,0.04);">Back to Education</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <div class="features-grid reveal">
+      <div class="feat-card">
+        <div class="feat-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+            <path d="M7 8l2 2-2 2M13 12h4"/>
+          </svg>
+        </div>
+        <h3>Visual Simulations</h3>
+        <p>Interactive demos for every module — see how things work, not just read about them. Built to make abstract concepts tangible.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-icon" style="background:rgba(245,158,11,0.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 11V6a2 2 0 0 0-4 0v1M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/>
+            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+          </svg>
+        </div>
+        <h3>Hands-On Activities</h3>
+        <p>A4 paper assignments, website tasks, and physical activities for every single module. Learning by doing, not just listening.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-icon" style="background:rgba(15,23,42,0.06);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l1.912 5.813h6.112l-4.969 3.574 1.912 5.813L12 14.626l-4.967 3.574 1.912-5.813L3.976 8.813h6.112z"/>
+          </svg>
+        </div>
+        <h3>Creative Assignments</h3>
+        <p>Unique tasks after every module — dramas, games, builds, and experiments. Not your ordinary homework.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules-section">
+  <div class="mod-inner">
+    <div class="mod-header reveal">
+      <span class="mod-count">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        10 Modules
+      </span>
+      <h2>What students will explore</h2>
+      <p>Each module is a full session with theory, demonstrations, and practical activities.</p>
+    </div>
+    <div class="modules-grid">
+      <div class="mod-card reveal"><div class="mod-num">Module 01</div><div class="mod-dot"></div><h4>How Internet Works</h4><p>Packets, DNS, servers, and the invisible infrastructure of the web.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 02</div><div class="mod-dot"></div><h4>How Computers Work</h4><p>Input, process, output — the fundamental cycle that powers everything.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 03</div><div class="mod-dot"></div><h4>Computer Assembly</h4><p>Learn to assemble and disassemble a computer. Know every part by name and function.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 04</div><div class="mod-dot"></div><h4>CPU Components</h4><p>Inside the brain of the computer — ALU, control unit, registers, and how they work together.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 05</div><div class="mod-dot"></div><h4>How Apps Work</h4><p>Behind the screens: frontend, backend, databases, and how apps talk to each other.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 06</div><div class="mod-dot"></div><h4>Building Websites</h4><p>Made from scratch — HTML, CSS, and the basics of making things live on the web.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 07</div><div class="mod-dot"></div><h4>How Robots Work</h4><p>Sensors, logic, and simple automation — the building blocks of robotics.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 08</div><div class="mod-dot"></div><h4>Scratch Programming</h4><p>Block-based coding that makes programming visual, fun, and immediately rewarding.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 09</div><div class="mod-dot"></div><h4>Blockchain Tech</h4><p>Decentralized ledgers, digital trust, and how blockchain changes how we keep records.</p></div>
+      <div class="mod-card reveal"><div class="mod-num">Module 10</div><div class="mod-dot"></div><h4>Mini Projects</h4><p>Creative paper tasks and hands-on builds that bring everything together.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSIGNMENTS -->
+<section class="assignments-section">
+  <div class="assign-inner">
+    <div class="assign-header reveal">
+      <span class="assign-count">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        10 Creative Assignments
+      </span>
+      <h2>Not your ordinary homework</h2>
+      <p>These are experiences — designed to make learning stick through drama, games, building, and experimentation.</p>
+    </div>
+    <div class="assign-list">
+      <div class="assign-card reveal">
+        <span class="assign-num">01</span>
+        <div class="assign-content">
+          <h4>Binary Name Encoding</h4>
+          <p>Encode and decode your name into binary — understand how computers see text at the most fundamental level.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">02</span>
+        <div class="assign-content">
+          <h4>Message Delivery Drama</h4>
+          <p>Perform an act showing how a message travels from one phone to another through networks, routers, and cables.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">03</span>
+        <div class="assign-content">
+          <h4>Password Cracking Demo</h4>
+          <p>A physical demonstration of brute-force, dictionary, and other attack methods — and why strong passwords matter.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">04</span>
+        <div class="assign-content">
+          <h4>Custom Encryption System</h4>
+          <p>Design your own encryption method — become a cryptography engineer for a day and protect your messages.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">05</span>
+        <div class="assign-content">
+          <h4>Algorithm Demonstration</h4>
+          <p>Create and demonstrate the algorithms used in real apps and blockchain systems through role-play.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">06</span>
+        <div class="assign-content">
+          <h4>Programming Concepts Explained</h4>
+          <p>Creative explanations of functions, variables, and loops — teach these concepts in your own unique way.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">07</span>
+        <div class="assign-content">
+          <h4>Smart Light System</h4>
+          <p>Build a smart light using an LDR sensor and LED — your first real hardware project that responds to the world.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">08</span>
+        <div class="assign-content">
+          <h4>Responsive Webpage Origami</h4>
+          <p>Learn responsive design through a creative origami folding activity — analog meets digital design.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">09</span>
+        <div class="assign-content">
+          <h4>Basic Webpage Design</h4>
+          <p>Design and build your very first webpage from scratch — and see it live on the internet.</p>
+        </div>
+      </div>
+      <div class="assign-card reveal">
+        <span class="assign-num">10</span>
+        <div class="assign-content">
+          <h4>Blockchain Transaction Game</h4>
+          <p>Sit with a diary and track a network's transactions — become a node in a blockchain and see consensus in action.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2>Bring the Explorer Pack to your school</h2>
+    <p>Get the full syllabus, module breakdown, and pricing. We will work with you to tailor it to your school's needs.</p>
+    <div class="cta-actions">
+      <a href="mailto:info@consicalabs.com?subject=Explorer%20Pack%20Inquiry" class="btn btn-amber">Request Syllabus</a>
+      <a href="builder-pack.html" class="btn btn-outline">See Builder Pack</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="f-logo" href="index.html">
+    <span class="f-name">Consica Labs</span>
+  </a>
+  <nav class="f-links">
+    <a href="education.html">Education</a>
+    <a href="explorer-pack.html">Explorer Pack</a>
+    <a href="builder-pack.html">Builder Pack</a>
+    <a href="mailto:info@consicalabs.com">Contact</a>
+  </nav>
+  <span class="f-copy">© 2025 Consica Labs</span>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
