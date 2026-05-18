@@ -1,0 +1,13 @@
+.desktop-main {
+  padding-top: var(--nav-height);
+}
+
+.desktop-main section {
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+@media (min-width: 1441px) {
+  .desktop-main .section-title {
+    letter-spacing: -0.03em;
+  }
+}

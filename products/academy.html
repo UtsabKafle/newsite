@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Consica Academy | Consica Labs</title>
+  <meta name="description" content="Premium coding education for the next generation. Structured learning paths, live mentorship, and project-based curricula designed to launch careers in technology.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC',
+              100: '#C5DBF7',
+              200: '#8EB8EF',
+              300: '#5694E4',
+              400: '#2475D9',
+              500: '#0959C8',
+              600: '#0747A3',
+              700: '#05367A',
+              800: '#032652',
+              900: '#021629',
+            },
+            surface: {
+              dark: '#0A0E17',
+              darker: '#060910',
+              card: 'rgba(255,255,255,0.04)',
+              glass: 'rgba(255,255,255,0.06)',
+            },
+          },
+          fontFamily: {
+            display: ['Poppins', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            glow: '0 0 60px rgba(9, 89, 200, 0.25)',
+            'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)',
+            glass: '0 8px 32px rgba(0, 0, 0, 0.24)',
+          },
+        },
+      },
+    };
+  </script>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('consica-theme');
+      var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <script>window.CONSICA_BASE='../';window.CONSICA_PRODUCT_ID='academy';</script>
+  <link rel="stylesheet" href="../shared/styles/base.css">
+  <link rel="stylesheet" href="../shared/styles/animations.css">
+  <link rel="stylesheet" href="../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../assets/images/logol.png">
+  <style>
+    /* Static layout helper overrides */
+    .static-main {
+      padding-top: var(--nav-height);
+    }
+    .static-main section {
+      scroll-margin-top: calc(var(--nav-height) + 1rem);
+    }
+    @media (max-width: 1024px) {
+      .static-main {
+        padding-top: 3.5rem;
+      }
+      .static-main section {
+        scroll-margin-top: 4rem;
+      }
+      .static-main .glass-panel {
+        border-radius: 1rem;
+      }
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .mobile-bottom-nav {
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+    }
+    #mobile-drawer aside {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .safe-top {
+      padding-top: env(safe-area-inset-top, 0);
+    }
+    @media (hover: none) {
+      .card-3d:hover {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a0a716c0a71ec1c34c481ee/1joscm46l';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Loader Shell -->
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <!-- Aurora Layer background -->
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <!-- Navbar / Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <!-- White logo for dark mode -->
+            <img src="../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <!-- Black logo for light mode -->
+            <img src="../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <!-- Theme Toggle Button -->
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+          <a href="../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 8h16M4 16h16"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Logo overlay for branded interaction -->
+    <div id="logo-branding-overlay" class="logo-overlay">
+      <img src="../assets/images/consica.png" alt="Consica Labs">
+    </div>
+
+    <!-- Mobile Drawer menu -->
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+          <span class="font-display font-semibold">Menu</span>
+          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">✕</button>
+        </div>
+        <div class="flex flex-col gap-4">
+          <a href="../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
+          <a href="../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Quick Nav Bottom bar (Visible only on mobile/tablet viewports `< lg`) -->
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
+          <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+          <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span class="text-[10px] font-medium">Services</span>
+        </a>
+        <a href="../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
+          <span class="text-[10px] font-medium">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <a href="../index.html#products" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">← Back to ecosystem</a>
+        <p class="section-label">EdTech</p>
+        <h1 class="section-title text-3xl tracking-tight leading-tight mt-2.5 lg:text-5xl lg:mt-3">Consica Academy</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Premium coding education for the next generation</p>
+        <p class="mt-3.5 text-[14px] leading-relaxed lg:mt-6 lg:text-lg text-theme-muted">Structured learning paths, live mentorship, and project-based curricula designed to launch careers in technology.</p>
+        
+        <div class="mt-6 p-5 lg:mt-10 lg:p-8 glass-panel reveal">
+          <h2 class="font-display font-semibold text-lg">Built for scale</h2>
+          <p class="mt-3 text-theme-muted text-sm leading-relaxed">
+            Consica Academy integrates seamlessly with the Consica Labs ecosystem — shared identity, unified analytics, and enterprise-grade security from day one.
+          </p>
+          <div class="mt-6 flex flex-col gap-2.5 lg:mt-8 lg:flex-row lg:gap-4">
+            <a href="../index.html#contact" class="btn-primary magnetic-btn text-center">Request a demo</a>
+            <a href="../index.html#products" class="btn-ghost text-center font-semibold">View all products</a>
+          </div>
+        </div>
+
+        <!-- Academy Specific Details -->
+        <section class="mt-12 space-y-12 lg:mt-20 lg:space-y-24">
+          
+          <!-- Philosophy -->
+          <div class="text-center max-w-5xl mx-auto reveal">
+            <p class="section-label mb-2">Our Philosophy</p>
+            <h2 class="section-title text-3xl tracking-tight leading-tight mb-4 lg:text-4xl lg:mb-6">Empowering critical minds</h2>
+            <div class="grid grid-cols-1 gap-4 mt-6 lg:grid-cols-2 lg:gap-6 text-left">
+              <div class="glass-panel p-4 border-l-4 border-brand-400">
+                <h4 class="font-display font-bold text-lg mb-1.5">Curiosity</h4>
+                <p class="text-sm text-theme-muted">Asking 'why' and 'how' to understand the digital world.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-brand-400">
+                <h4 class="font-display font-bold text-lg mb-1.5">Critical Thinking</h4>
+                <p class="text-sm text-theme-muted">Analyze, decompose, and solve complex problems.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-brand-400">
+                <h4 class="font-display font-bold text-lg mb-1.5">Hands-on Learning</h4>
+                <p class="text-sm text-theme-muted">Learning by doing through project-based curricula.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-brand-400">
+                <h4 class="font-display font-bold text-lg mb-1.5">Future-Ready Skills</h4>
+                <p class="text-sm text-theme-muted">Preparing for the evolving technological landscape.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Focus -->
+          <div class="text-center max-w-6xl mx-auto reveal">
+            <p class="section-label">Think like a scientist, build like an engineer.</p>
+            <h2 class="section-title text-3xl tracking-tight leading-tight mt-3 mb-6 lg:text-5xl lg:mt-4 lg:mb-12">Building confident builders</h2>
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto border border-brand-500/20">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="font-display font-semibold text-lg">Problem Solvers</h3>
+                <p class="text-sm text-theme-faint leading-relaxed">Tackle real-world challenges through logical decomposition.</p>
+              </div>
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto border border-brand-500/20">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="font-display font-semibold text-lg">Digital Citizens</h3>
+                <p class="text-sm text-theme-faint leading-relaxed">Navigate the digital world safely, ethically, and responsibly.</p>
+              </div>
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto border border-brand-500/20">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="font-display font-semibold text-lg">Creators</h3>
+                <p class="text-sm text-theme-faint leading-relaxed">Transform abstract ideas into tangible digital reality.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Levels -->
+          <div class="reveal">
+            <h2 class="section-title text-2xl tracking-tight leading-tight mb-4 lg:text-3xl lg:mb-8">Learning paths for every stage</h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+              <div class="glass-panel p-4 lg:p-6 border-t-2 border-brand-500/20">
+                <p class="text-xs font-bold text-brand-300 uppercase tracking-widest mb-1">Class 3 – 4</p>
+                <h3 class="font-display font-semibold text-lg mb-2">Digital Literacy</h3>
+                <p class="text-sm text-theme-muted leading-relaxed">Digital literacy, safe internet use, and creative computing with visual tools.</p>
+              </div>
+              <div class="glass-panel p-4 lg:p-6 border-t-2 border-brand-500/20">
+                <p class="text-xs font-bold text-brand-300 uppercase tracking-widest mb-1">Class 5 – 7</p>
+                <h3 class="font-display font-semibold text-lg mb-2">Programming</h3>
+                <p class="text-sm text-theme-muted leading-relaxed">How computers and the internet work, visual programming, and hands-on electronics.</p>
+              </div>
+              <div class="glass-panel p-4 lg:p-6 border-t-2 border-brand-500/20">
+                <p class="text-xs font-bold text-brand-300 uppercase tracking-widest mb-1">Class 8 – 10</p>
+                <h3 class="font-display font-semibold text-lg mb-2">Robotics &amp; AI</h3>
+                <p class="text-sm text-theme-muted leading-relaxed">Real programming, robotics, AI tools, and full-stack projects.</p>
+              </div>
+              <div class="glass-panel p-4 lg:p-6 border-t-2 border-brand-500/20">
+                <p class="text-xs font-bold text-brand-300 uppercase tracking-widest mb-1">Class 11 – 12</p>
+                <h3 class="font-display font-semibold text-lg mb-2">Engineering</h3>
+                <p class="text-sm text-theme-muted leading-relaxed">Advanced software engineering, AI/ML fundamentals, and career-ready skills.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Structured Packs -->
+          <div class="reveal">
+            <h2 class="section-title text-2xl tracking-tight leading-tight mb-4 lg:text-3xl lg:mb-8">Structured Tech Packs</h2>
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+              <div class="glass-panel p-5 lg:p-8 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4">
+                  <span class="text-[10px] font-bold px-2 py-1 rounded bg-brand-500/20 text-brand-200 uppercase">Beginner</span>
+                </div>
+                <p class="section-label">Class 5 – 7</p>
+                <h3 class="font-display font-bold text-xl mt-1.5 lg:text-2xl lg:mt-2 group-hover:text-brand-300 transition-colors">Explorer Pack</h3>
+                <p class="text-xs text-theme-faint mt-1">10 Modules</p>
+                <p class="mt-3 text-xs leading-normal lg:mt-4 lg:text-sm lg:leading-relaxed text-theme-muted">From how the internet works to building your first programs and robots. A curiosity-driven journey through the fundamentals of technology.</p>
+                <a href="courses/explorer-pack.html" class="mt-4 text-xs lg:mt-6 lg:text-sm font-semibold text-brand-300 hover:text-white transition-colors inline-flex items-center gap-1">View full pack details →</a>
+              </div>
+              <div class="glass-panel p-5 lg:p-8 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4">
+                  <span class="text-[10px] font-bold px-2 py-1 rounded bg-brand-500/20 text-brand-200 uppercase">Intermediate</span>
+                </div>
+                <p class="section-label">Class 8 – 10</p>
+                <h3 class="font-display font-bold text-xl mt-1.5 lg:text-2xl lg:mt-2 group-hover:text-brand-300 transition-colors">Builder Pack</h3>
+                <p class="text-xs text-theme-faint mt-1">7 Modules</p>
+                <p class="mt-3 text-xs leading-normal lg:mt-4 lg:text-sm lg:leading-relaxed text-theme-muted">Write real code, build hardware, work with AI tools, and create applications that solve actual problems. For students ready to build.</p>
+                <a href="courses/builder-pack.html" class="mt-4 text-xs lg:mt-6 lg:text-sm font-semibold text-brand-300 hover:text-white transition-colors inline-flex items-center gap-1">View full pack details →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teacher Training -->
+          <div class="bg-brand-500/5 rounded-3xl p-5 lg:p-8 md:p-12 border border-brand-500/10 reveal">
+            <div class="max-w-5xl mx-auto">
+              <h2 class="section-title text-2xl tracking-tight leading-tight mb-2 lg:text-3xl lg:mb-4">Empower the educators</h2>
+              <p class="text-sm mb-6 lg:text-base lg:mb-10 text-theme-muted leading-relaxed font-medium">We train instructors in modern pedagogy, integration techniques, and technical toolsets to make digital education come alive.</p>
+              <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+                <div>
+                  <h4 class="font-display font-semibold text-brand-200">Pedagogy Workshops</h4>
+                  <p class="text-sm text-theme-faint mt-1">How to teach programming, robotics, and AI effectively in a classroom.</p>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-brand-200">Tool Familiarization</h4>
+                  <p class="text-sm text-theme-faint mt-1">Hands-on sessions with hardware and software your students will use.</p>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-brand-200">Curriculum Co-design</h4>
+                  <p class="text-sm text-theme-faint mt-1">Work with us to adapt our modules to your school's unique rhythm.</p>
+                </div>
+                <div>
+                  <h4 class="font-display font-semibold text-brand-200">Ongoing Mentorship</h4>
+                  <p class="text-sm text-theme-faint mt-1">A direct line to our engineers when teachers hit a technical roadblock.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resources -->
+          <div class="text-center max-w-6xl mx-auto pb-12 reveal">
+            <p class="section-label">Good learning should not always need a price tag.</p>
+            <h2 class="section-title text-3xl tracking-tight leading-tight mt-3 mb-4 lg:text-4xl lg:mt-4 lg:mb-6">Free Learning Resources</h2>
+            <p class="text-sm mb-6 lg:text-base lg:mb-12 text-theme-muted">Access open-source projects, tutorials, and materials to start your tech journey.</p>
+            <div class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+              <div class="glass-panel p-3.5 lg:p-4 flex flex-col items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-theme-soft">Visual Explainer Series</span>
+              </div>
+              <div class="glass-panel p-3.5 lg:p-4 flex flex-col items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-theme-soft">Activity Templates</span>
+              </div>
+              <div class="glass-panel p-3.5 lg:p-4 flex flex-col items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-theme-soft">Open Code Repositories</span>
+              </div>
+              <div class="glass-panel p-3.5 lg:p-4 flex flex-col items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-theme-soft">Community Sessions</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Related products -->
+        <section class="mt-16 reveal">
+          <h2 class="font-display font-semibold text-lg mb-4">Related products</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a href="lms.html" class="glass-panel p-4 block hover:border-brand-400/30 transition-colors">
+              <p class="font-display font-medium">LMS Platforms</p>
+              <p class="text-xs text-theme-faint mt-1">EdTech</p>
+            </a>
+            <a href="school-systems.html" class="glass-panel p-4 block hover:border-brand-400/30 transition-colors">
+              <p class="font-display font-medium">School Systems</p>
+              <p class="text-xs text-theme-faint mt-1">Education</p>
+            </a>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../index.html" class="flex items-center gap-2.5">
+              <!-- White logo for dark mode -->
+              <img src="../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <!-- Black logo for light mode -->
+              <img src="../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software · EdTech · SaaS · Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Company</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../index.html#vision" class="hover:text-theme transition-colors">Philosophy</a></li>
+              <li><a href="../index.html#team" class="hover:text-theme transition-colors">Team</a></li>
+              <li><a href="../index.html#careers" class="hover:text-theme transition-colors">Careers</a></li>
+              <li><a href="../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>© 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Loading script files -->
+  <script src="../shared/data/brand.js" defer></script>
+  <script src="../shared/data/products.js" defer></script>
+  <script src="../shared/utils/dom.js" defer></script>
+  <script src="../shared/utils/accessibility.js" defer></script>
+  <script src="../shared/scripts/animation-engine.js" defer></script>
+
+  <!-- Static Page Initializer -->
+  <script src="../shared/scripts/static-init.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+.tablet-main {
+  padding-top: 4rem;
+}
+
+.tablet-main section {
+  scroll-margin-top: 5rem;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tablet-main .glass-panel {
+    border-radius: 1rem;
+  }
+}

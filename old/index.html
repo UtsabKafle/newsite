@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consica Labs — AI-Integrated Smart System Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Refined Minimalist Palette */
+      --white:     #ffffff;
+      --surface:   #fafafa;
+      --surface2:  #f4f4f4;
+      --text:      #0f0f0f;
+      --muted:     #5e5e5e;
+      --subtle:    #a3a3a3;
+      --border:    #eaeaea;
+      --border-soft: #f0f0f0;
+      --accent:    #0f0f0f;
+      --dark-bg:   #050505;
+      --font-head: 'Fraunces', serif;
+      --font-body: 'Instrument Sans', sans-serif;
+      --easing:    cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* TYPOGRAPHY REFINEMENTS */
+    h1, h2, h3 { color: var(--text); }
+    p { font-size: 1.05rem; }
+
+    /* NAV */
+    body > nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 0 clamp(24px, 5vw, 72px);
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em;
+    }
+    .logo-name { font-weight: 500; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; }
+    
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { 
+      text-decoration: none; color: var(--muted); font-size: 0.9rem; 
+      font-weight: 500; transition: color 0.3s ease; 
+    }
+    .nav-links a:hover { color: var(--text); }
+    
+    .nav-right { display: flex; gap: 12px; align-items: center; }
+    
+    .btn {
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      padding: 10px 24px; border-radius: 100px; /* Pill shape for elegance */
+      text-decoration: none; transition: all 0.3s var(--easing);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .btn-ghost { color: var(--text); background: transparent; }
+    .btn-ghost:hover { background: var(--surface2); }
+    .btn-school {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding-inline: 20px;
+      position: relative;
+    }
+    .btn-school::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+      margin-right: 8px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .btn-school:hover {
+      background: var(--white);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    .btn-filled { background: var(--accent); color: var(--white); }
+    .btn-filled:hover { 
+      background: #333; 
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--white);
+      padding: clamp(80px, 15vh, 140px) clamp(24px, 5vw, 72px) 0;
+      text-align: center;
+      position: relative;
+    }
+    .hero-inner { position: relative; max-width: 860px; margin: 0 auto; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 16px 6px 12px; 
+      font-size: 0.8rem; font-weight: 500; color: var(--muted); 
+      margin-bottom: 32px; letter-spacing: 0.02em;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+      position: relative;
+    }
+    .hero-badge-dot::after {
+      content: ''; position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px;
+      border-radius: 50%; background: rgba(34,197,94,0.3);
+      animation: pulse 2s infinite var(--easing);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 7.5vw, 5.5rem);
+      font-weight: 400; line-height: 1.05; letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--muted); font-weight: 300; }
+    .hero h1 .sloka-highlight {
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .sanskrit-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .sanskrit-wrapper .meaning {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s var(--easing);
+      letter-spacing: 0.01em;
+    }
+    .sanskrit-wrapper:hover .meaning {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .hero-sub {
+      font-size: clamp(1.1rem, 2vw, 1.25rem); color: var(--muted);
+      max-width: 560px; margin: 0 auto 48px; line-height: 1.6;
+    }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    
+    /* ABSTRACT BLENDED ART */
+    .hero-art { 
+      max-width: 900px; margin: 0 auto; height: 300px; 
+      position: relative; z-index: 1;
+      opacity: 0.9;
+    }
+    .hero-art svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* STRIP */
+    .strip { 
+      background: var(--white); 
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 72px);
+    }
+    .strip-inner { 
+      max-width: 1200px; margin: 0 auto; 
+      display: grid; grid-template-columns: repeat(3, 1fr); 
+      gap: 40px;
+    }
+    .strip-item { display: flex; flex-direction: column; gap: 16px; }
+    .strip-icon {
+      width: 48px; height: 48px; border-radius: 12px; background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-soft);
+    }
+    .strip-icon svg { width: 20px; height: 20px; stroke: var(--text); }
+    .strip-item h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+    .strip-item p  { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
+
+    /* FEATURE SECTIONS */
+    .feature-section { 
+      padding: clamp(80px, 12vw, 160px) clamp(24px, 5vw, 72px); 
+    }
+    .feature-section.bg-surface { background: var(--surface); }
+    .feature-row {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.1fr;
+      gap: clamp(60px, 8vw, 120px); align-items: center;
+    }
+    .feature-row.rev .feat-text { order: 2; }
+    .feature-row.rev .feat-art  { order: 1; }
+    
+    .feat-label {
+      display: inline-block; font-size: 0.8rem; font-weight: 500;
+      color: var(--subtle); margin-bottom: 16px; letter-spacing: 0.02em;
+    }
+    .feat-text h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .feat-text p { color: var(--muted); margin-bottom: 32px; font-size: 1.1rem; }
+    .feat-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 500; font-size: 1rem; color: var(--text);
+      text-decoration: none; 
+      transition: gap 0.3s var(--easing), color 0.3s ease;
+    }
+    .feat-link::after {
+      content: '→'; transition: transform 0.3s var(--easing);
+    }
+    .feat-link:hover { color: var(--muted); gap: 12px; }
+
+    /* FEATURE ARTWORKS - Minimal & Abstract */
+    .feat-art {
+      border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;
+      background: var(--surface2);
+      position: relative;
+    }
+    .art-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .art-inner svg { width: 100%; height: 100%; }
+
+    /* DARK BAND */
+    .dark-band {
+      background: var(--dark-bg);
+      padding: clamp(100px, 12vw, 140px) clamp(24px, 5vw, 72px);
+      color: var(--white); text-align: center;
+    }
+    .dark-band h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+      color: var(--white);
+      font-weight: 400; letter-spacing: -0.03em; margin-bottom: 20px;
+    }
+    .dark-band p { 
+      font-size: 1.1rem; color: #a0a0a0; 
+      max-width: 500px; margin: 0 auto 48px; 
+    }
+    .chips { 
+      display: flex; flex-wrap: wrap; gap: 12px; 
+      justify-content: center; max-width: 800px; margin: 0 auto; 
+    }
+    .chip {
+      background: rgba(255,255,255,0.03); 
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px; padding: 10px 20px;
+      font-size: 0.9rem; font-weight: 400; color: #d0d0d0;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: background 0.3s ease; cursor: default;
+    }
+    .chip:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+    /* CLIENTS */
+    .clients-section {
+      background: var(--white);
+      padding: clamp(100px, 12vw, 160px) clamp(24px, 5vw, 72px);
+    }
+    .clients-inner { max-width: 1200px; margin: 0 auto; }
+    .clients-header { text-align: center; margin-bottom: 72px; }
+    .clients-header h2 {
+      font-family: var(--font-head); font-weight: 400;
+      font-size: clamp(2.2rem, 4vw, 3rem); letter-spacing: -0.03em; margin-bottom: 16px;
+    }
+    .clients-header p { color: var(--muted); font-size: 1.1rem; }
+    
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .client-card {
+      background: var(--surface);
+      border-radius: 20px; padding: 40px; 
+      display: flex; flex-direction: column; gap: 20px;
+      border: 1px solid var(--border-soft);
+      transition: background 0.4s ease, transform 0.4s var(--easing);
+    }
+    .client-card:hover { 
+      background: var(--surface2); 
+      transform: translateY(-4px);
+    }
+    .client-logo { 
+      width: 48px; height: 48px; 
+      background: var(--white); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; 
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .client-logo svg { width: 22px; height: 22px; stroke: var(--text); }
+    .client-name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+    .client-desc { font-size: 0.95rem; color: var(--muted); flex: 1; }
+    .client-tag {
+      font-size: 0.8rem; font-weight: 500; color: var(--subtle);
+      border: 1px solid var(--border); border-radius: 100px; 
+      padding: 6px 14px; align-self: flex-start;
+      background: var(--white);
+    }
+    .client-add { align-items: center; text-align: center; border-style: dashed; background: transparent; }
+    .client-add:hover { background: var(--surface); border-style: solid; }
+
+    /* PROJECTS */
+    .projects-wrap { 
+      padding: clamp(100px, 12vw, 140px) clamp(24px, 5vw, 72px); 
+    }
+    .projects-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .proj-card {
+      background: var(--surface); border-radius: 32px;
+      padding: clamp(60px, 8vw, 100px) 40px;
+      border: 1px solid var(--border-soft);
+    }
+    .proj-card h3 { 
+      font-family: var(--font-head); font-size: clamp(2rem, 3.5vw, 2.5rem); 
+      font-weight: 400; margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .proj-card p { color: var(--muted); max-width: 460px; margin: 0 auto; }
+
+    /* CONTACT */
+    .contact-section {
+      padding: clamp(100px, 12vw, 160px) clamp(24px, 5vw, 72px);
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      border-top: 1px solid var(--border-soft);
+    }
+    .contact-text h2 {
+      font-family: var(--font-head); font-weight: 400;
+      font-size: clamp(2.5rem, 4.5vw, 3.5rem); letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .contact-card { 
+      background: var(--surface); border-radius: 24px; padding: 48px; 
+      border: 1px solid var(--border-soft);
+    }
+    .contact-card-head { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .cc-icon {
+      width: 52px; height: 52px; border-radius: 14px; background: var(--text);
+      display: flex; align-items: center; justify-content: center; 
+    }
+    .cc-icon svg { width: 24px; height: 24px; stroke: var(--white); }
+    .contact-card-head h3 { font-weight: 600; font-size: 1.1rem; }
+    .contact-card-head span { font-size: 0.9rem; color: var(--muted); display: block; }
+    .email-row {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .email-row span { font-size: 1rem; font-weight: 500; }
+    .copy-btn {
+      font-size: 0.85rem; font-weight: 500; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 100px; cursor: pointer;
+      font-family: var(--font-body); transition: all 0.2s ease;
+    }
+    .copy-btn:hover { background: var(--border-soft); }
+    .loc-row { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark-bg); padding: 48px clamp(24px, 5vw, 72px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .f-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .f-name { font-weight: 500; font-size: 1.1rem; color: rgba(255,255,255,0.9); letter-spacing: -0.01em; }
+    .f-links { display: flex; align-items: center; gap: 32px; }
+    .f-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+    .f-links a:hover { color: rgba(255,255,255,0.9); }
+    .f-copy { font-size: 0.9rem; color: rgba(255,255,255,0.3); }
+
+    /* REVEAL ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--easing), transform 0.8s var(--easing); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-contact { display: none; }
+      .strip-inner { grid-template-columns: 1fr; gap: 40px; }
+      .feature-row, .feature-row.rev { grid-template-columns: 1fr; gap: 48px; }
+      .feature-row.rev .feat-text { order: 1; }
+      .feature-row.rev .feat-art  { order: 2; }
+      .contact-section { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .f-links { flex-wrap: wrap; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <span class="logo-mark"><img src="assets/logos/logo_bg_w.png" height="50px" width="50px"></span>
+    <span class="logo-name">Consica Labs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#focus">Focus</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#projects">Work</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="education.html" class="btn btn-school">Education</a>
+    <a href="#contact" class="btn btn-ghost nav-contact">Contact</a>
+    <a href="mailto:info@consicalabs.com" class="btn btn-filled">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner reveal">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Building from Kathmandu
+    </div>
+    <h1>
+      <span class="sanskrit-wrapper">
+        योगः कर्मसु <span class="sloka-highlight"></span> <span class="sloka-highlight">कौशलम्</span>
+        <span class="meaning">Skill in action</span>
+      </span>
+    </h1>
+    <p class="hero-sub">
+      Consica Labs helps businesses turn messy ideas into practical AI products, internal tools, and smart systems people can actually use.
+    </p>
+    <div class="hero-actions">
+      <a href="#about" class="btn btn-filled">Explore our approach</a>
+      <a href="#projects" class="btn btn-ghost">View our work</a>
+    </div>
+  </div>
+  
+  <!-- NEW BLENDED & MINIMAL NEURAL NETWORK SVG -->
+  <div class="hero-art reveal">
+    <svg viewBox="0 0 1000 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <!-- Soft glowing blurs behind the network -->
+        <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="60" result="blur" />
+        </filter>
+        <filter id="glow-light" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="30" result="blur" />
+        </filter>
+        <!-- Gradients to make the lines fade out gracefully -->
+        <linearGradient id="fade-left" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#111" stop-opacity="0" />
+          <stop offset="100%" stop-color="#111" stop-opacity="0.15" />
+        </linearGradient>
+        <linearGradient id="fade-right" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#111" stop-opacity="0.15" />
+          <stop offset="100%" stop-color="#111" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="fade-center" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#111" stop-opacity="0.02" />
+          <stop offset="50%" stop-color="#111" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#111" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+
+      <!-- Atmospheric background blobs (The "Blended" feel) -->
+      <circle cx="250" cy="200" r="150" fill="#f0f0f0" filter="url(#glow-heavy)" opacity="0.8"/>
+      <circle cx="750" cy="180" r="180" fill="#f0f0f0" filter="url(#glow-heavy)" opacity="0.6"/>
+      <circle cx="500" cy="250" r="120" fill="#f4f4f4" filter="url(#glow-light)" opacity="0.5"/>
+
+      <!-- Organic, curved connection paths -->
+      <path d="M-50 150 C 200 180, 350 80, 500 200" stroke="url(#fade-left)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M500 200 C 650 320, 800 150, 1050 200" stroke="url(#fade-right)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M100 280 C 300 250, 450 350, 600 200" stroke="url(#fade-center)" stroke-width="1"/>
+      <path d="M400 50 C 500 150, 650 100, 900 250" stroke="url(#fade-center)" stroke-width="1"/>
+      <path d="M250 160 C 400 250, 600 100, 750 220" stroke="url(#fade-center)" stroke-width="2"/>
+      
+      <!-- Abstract Nodes (Soft, semi-transparent circles) -->
+      <g opacity="0.9">
+        <circle cx="250" cy="160" r="4" fill="#111"/>
+        <circle cx="250" cy="160" r="16" fill="#111" opacity="0.05">
+           <animate attributeName="r" values="16; 32; 16" dur="5s" repeatCount="indefinite" />
+           <animate attributeName="opacity" values="0.05; 0; 0.05" dur="5s" repeatCount="indefinite" />
+        </circle>
+
+        <circle cx="500" cy="200" r="6" fill="#111"/>
+        <circle cx="500" cy="200" r="24" fill="#111" opacity="0.05">
+           <animate attributeName="r" values="24; 48; 24" dur="4s" repeatCount="indefinite" />
+           <animate attributeName="opacity" values="0.05; 0; 0.05" dur="4s" repeatCount="indefinite" />
+        </circle>
+
+        <circle cx="400" cy="260" r="3" fill="#111" opacity="0.5"/>
+        <circle cx="600" cy="200" r="4" fill="#111" opacity="0.8"/>
+        <circle cx="750" cy="220" r="5" fill="#111"/>
+        <circle cx="750" cy="220" r="20" fill="#111" opacity="0.05">
+           <animate attributeName="r" values="20; 36; 20" dur="6s" repeatCount="indefinite" />
+           <animate attributeName="opacity" values="0.05; 0; 0.05" dur="6s" repeatCount="indefinite" />
+        </circle>
+        
+        <!-- Subtle floating accent particles -->
+        <circle cx="320" cy="120" r="2" fill="#111" opacity="0.3"/>
+        <circle cx="680" cy="150" r="1.5" fill="#111" opacity="0.4"/>
+        <circle cx="450" cy="90" r="2" fill="#111" opacity="0.2"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip" id="about">
+  <div class="strip-inner">
+    <div class="strip-item reveal">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5a3 3 0 1 0-5.996.328 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+          <path d="M12 5a3 3 0 1 1 5.996.328 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+          <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+          <path d="M17.599 6.5a3 3 0 0 0 .399-1.375M6.003 5.125A3 3 0 0 0 6.401 6.5M3.477 10.896a4 4 0 0 1 .585-.396M19.938 10.5a4 4 0 0 1 .585.396M6 18a4 4 0 0 1-1.967-.516M19.967 17.484A4 4 0 0 1 18 18"/>
+        </svg>
+      </div>
+      <h3>AI-First Engineering</h3>
+      <p>We do not bolt AI on at the end. We plan for it from the start so it genuinely improves the product, not just the pitch.</p>
+    </div>
+    <div class="strip-item reveal">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="3"/>
+          <rect x="9" y="9" width="6" height="6" rx="1"/>
+          <path d="M15 2v2M9 2v2M2 9h2M2 15h2M22 9h-2M22 15h-2M15 22v-2M9 22v-2"/>
+        </svg>
+      </div>
+      <h3>Smart Architecture</h3>
+      <p>We design systems that connect the full flow, from data collection to decision-making, in a way that stays reliable as things grow.</p>
+    </div>
+    <div class="strip-item reveal">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+          <path d="M2 12h20"/>
+        </svg>
+      </div>
+      <h3>Global Ambition</h3>
+      <p>We build in Nepal, work with real constraints, and aim for solutions that are solid enough to serve teams anywhere.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE 1 -->
+<section class="feature-section" id="focus">
+  <div class="feature-row reveal">
+    <div class="feat-text">
+      <span class="feat-label">Philosophy</span>
+      <h2>Thoughtful systems, built to be useful.</h2>
+      <p>
+        Good software starts with listening. We take time to understand the real problem, the people using the product, and the limits around it, then build something clear, dependable, and easy to grow.
+      </p>
+      <a href="#contact" class="feat-link">Talk through your project</a>
+    </div>
+    <div class="feat-art">
+      <div class="art-inner" style="background: var(--surface);">
+        <!-- Redesigned, softer abstract core illustration -->
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glass" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000" flood-opacity="0.05"/>
+            </filter>
+            <linearGradient id="grad-block" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#222"/>
+              <stop offset="100%" stop-color="#050505"/>
+            </linearGradient>
+          </defs>
+          <!-- Faint grid background -->
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="#000" opacity="0.05"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)"/>
+          
+          <rect x="60" y="110" width="80" height="80" rx="20" fill="none" stroke="#ddd" stroke-width="1"/>
+          <rect x="260" y="110" width="80" height="80" rx="20" fill="none" stroke="#ddd" stroke-width="1"/>
+          
+          <path d="M 140 150 C 170 150, 180 150, 200 150" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <path d="M 200 150 C 220 150, 230 150, 260 150" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4 4"/>
+          
+          <rect x="150" y="90" width="100" height="120" rx="24" fill="url(#grad-block)" filter="url(#glass)"/>
+          <circle cx="200" cy="150" r="16" fill="#fff" opacity="0.1"/>
+          <circle cx="200" cy="150" r="6" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2 -->
+<section class="feature-section bg-surface">
+  <div class="feature-row rev reveal">
+    <div class="feat-art">
+      <div class="art-inner" style="background: var(--white);">
+        <!-- Redesigned minimal globe/network concept -->
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sphere-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="60%" stop-color="#fff" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#f0f0f0" stop-opacity="1"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="150" r="100" fill="url(#sphere-glow)"/>
+          
+          <ellipse cx="200" cy="150" rx="98" ry="60" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+          <ellipse cx="200" cy="150" rx="60" ry="98" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+          <ellipse cx="200" cy="150" rx="98" ry="20" fill="none" stroke="#eaeaea" stroke-width="1"/>
+          <ellipse cx="200" cy="150" rx="20" ry="98" fill="none" stroke="#eaeaea" stroke-width="1"/>
+          
+          <circle cx="200" cy="150" r="6" fill="#111"/>
+          <circle cx="270" cy="110" r="4" fill="#999"/>
+          <circle cx="130" cy="190" r="4" fill="#999"/>
+          <circle cx="160" cy="90" r="3" fill="#ccc"/>
+          
+          <path d="M 200 150 L 270 110" stroke="#111" stroke-opacity="0.1" stroke-width="1"/>
+          <path d="M 200 150 L 130 190" stroke="#111" stroke-opacity="0.1" stroke-width="1"/>
+          
+          <circle cx="200" cy="150" r="40" fill="none" stroke="#111" stroke-opacity="0.05" stroke-width="1">
+            <animate attributeName="r" values="40; 100; 40" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.05; 0; 0.05" dur="4s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+    <div class="feat-text">
+      <span class="feat-label">Origins</span>
+      <h2>Grounded locally. Scaled globally.</h2>
+      <p>
+        Building from Nepal has taught us to work carefully, solve problems with the resources available, and focus on what really matters. That mindset helps us create products that are lean, practical, and ready for real use.
+      </p>
+      <a href="mailto:info@consicalabs.com" class="feat-link">Partner with us</a>
+    </div>
+  </div>
+</section>
+
+<!-- DARK BAND -->
+<div class="dark-band">
+  <div class="reveal">
+    <h2>Capabilities</h2>
+    <p>We work across AI, software, hardware-connected systems, and cloud infrastructure to build products that solve everyday business problems.</p>
+    <div class="chips">
+      <span class="chip">Machine Learning</span>
+      <span class="chip">Computer Vision</span>
+      <span class="chip">Deep Learning</span>
+      <span class="chip">Edge AI</span>
+      <span class="chip">Connected Devices</span>
+      <span class="chip">Cloud Infrastructure</span>
+      <span class="chip">Real-time Analytics</span>
+      <span class="chip">Data Engineering</span>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<section class="clients-section" id="clients">
+  <div class="clients-inner">
+    <div class="clients-header reveal">
+      <span class="feat-label" style="display:block;margin-bottom:12px;">Partnerships</span>
+      <h2>People we've worked with</h2>
+      <p>Teams in Nepal that trust us for thoughtful technical work, training, and product support.</p>
+    </div>
+    <div class="clients-grid reveal">
+
+      <div class="client-card">
+        <div class="client-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-6.5-4.35-9-8.55C1.2 9.46 3 5.5 7 5.5c2.14 0 3.35 1.1 5 3 1.65-1.9 2.86-3 5-3 4 0 5.8 3.96 4 6.95-2.5 4.2-9 8.55-9 8.55z"/>
+          </svg>
+        </div>
+        <div class="client-name">Lami Nepal</div>
+        <div class="client-desc">A matrimonial company based in Nepal, focused on helping people make meaningful connections with more trust, clarity, and confidence.</div>
+        <span class="client-tag">Matrimonial</span>
+      </div>
+
+      <div class="client-card">
+        <div class="client-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19h16"/>
+            <path d="M4 15l4-8 4 6 4-10 4 12"/>
+          </svg>
+        </div>
+        <div class="client-name">Geekbind</div>
+        <div class="client-desc">An advanced IT training center offering strong, practical courses for learners who want real technical skills they can use in the field.</div>
+        <span class="client-tag">IT Training</span>
+      </div>
+
+      <div class="client-card">
+        <div class="client-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l1.9 3.86L18 9l-4.1 2.14L12 15l-1.9-3.86L6 9l4.1-2.14L12 3z"/>
+            <path d="M5 19h14"/>
+          </svg>
+        </div>
+        <div class="client-name">Nepal AI Academy</div>
+        <div class="client-desc">An AI training school helping students and professionals learn machine learning, modern tools, and the hands-on side of working with AI.</div>
+        <span class="client-tag">AI Education</span>
+      </div>
+
+      <div class="client-card">
+        <div class="client-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M12 4a5 5 0 0 1 5 5c0 5-5 7-5 7s-5-2-5-7a5 5 0 0 1 5-5z"/>
+            <circle cx="12" cy="9" r="1.5"/>
+          </svg>
+        </div>
+        <div class="client-name">Guiders Tech Nepal</div>
+        <div class="client-desc">A technical counselling and tutoring agency in Nepal that supports students and learners with clearer direction, better guidance, and practical help.</div>
+        <span class="client-tag">Tutoring</span>
+      </div>
+
+      <div class="client-card client-add">
+        <div class="client-logo" style="box-shadow:none; background:transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="client-name" style="color:var(--subtle);">Collaborate</div>
+        <div class="client-desc">If you are building something useful and need a thoughtful technical partner, we would love to hear what you are working on.</div>
+        <a href="mailto:consicalabs@gmail.com" class="feat-link" style="font-size:0.9rem;">Start a conversation</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div class="projects-wrap bg-surface" id="projects">
+  <div class="projects-inner reveal">
+    <div class="proj-card">
+      <div class="hero-badge" style="background:var(--white); margin-bottom: 24px;">
+        <span class="hero-badge-dot" style="background: var(--text);"></span>
+        Internal Pipeline
+      </div>
+      <h3>New work is on the way.</h3>
+      <p>We are currently building and refining internal products. We will share case studies, demos, and a closer look at the work here as those projects are ready.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-text reveal">
+    <span class="feat-label">Inquiries</span>
+    <h2>Let's talk about what you're building.</h2>
+    <p>If you have an idea, a stuck project, or a technical problem you want a second brain on, reach out. We are happy to have a real conversation and see if we can help.</p>
+  </div>
+  <div class="reveal">
+    <div class="contact-card">
+      <div class="contact-card-head">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Talk to us directly</h3>
+          <span>Email or message us on WhatsApp.</span>
+        </div>
+      </div>
+      <div class="email-row">
+        <span>info@consicalabs.com</span>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('info@consicalabs.com');this.textContent='Copied';setTimeout(()=>this.textContent='Copy',2000);">Copy</button>
+      </div>
+      <div class="email-row">
+        <span>WhatsApp: +977 9816087568</span>
+        <a class="copy-btn" href="https://wa.me/9779816087568" target="_blank" rel="noopener noreferrer">Open</a>
+      </div>
+      <div class="loc-row">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Kathmandu, Nepal
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="f-logo" href="#">
+    <span class="f-name">Consica Labs</span>
+  </a>
+  <nav class="f-links">
+    <a href="#about">Philosophy</a>
+    <a href="#clients">Partnerships</a>
+    <a href="#projects">Work</a>
+    <a href="mailto:consicalabs@gmail.com">Contact</a>
+    <a href="https://wa.me/9779816087568" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </nav>
+  <span class="f-copy">© 2024 Consica Labs</span>
+</footer>
+
+<script>
+  // Smoother scroll reveal observer
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 100);
+        io.unobserve(e.target); // Stop observing once revealed for performance
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
