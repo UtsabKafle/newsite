@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>HTML Playground — Consica Labs</title>
+
+  <!-- CodeMirror 5 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Palette ───────────────────────────────────────────────── */
+    :root {
+      --dust:      #cfdbd5;
+      --ivory:     #e8eddf;
+      --sun:       #f5cb5c;
+      --shadow:    #242423;
+      --graphite:  #333533;
+      --deep:      #1a1a18;
+      --mid:       #2b2b29;
+      --border:    rgba(207,219,213,0.10);
+      --sun-dim:   rgba(245,203,92,0.15);
+      --font-ui:   'DM Sans', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --font-brand:'Barlow Condensed', sans-serif;
+      --radius:    6px;
+      --hdr:       52px;
+      --tab-h:     48px;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--deep);
+      color: var(--ivory);
+      font-family: var(--font-ui);
+      overflow: hidden;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────────── */
+    #header {
+      height: var(--hdr);
+      background: var(--shadow);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    .tool-title {
+      font-family: var(--font-brand);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dust);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* indicator dot */
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4caf79;
+      box-shadow: 0 0 6px #4caf79;
+      flex-shrink: 0;
+    }
+    .live-dot.updating {
+      background: var(--sun);
+      box-shadow: 0 0 6px var(--sun);
+      animation: pulse 0.6s ease infinite alternate;
+    }
+    @keyframes pulse { from { opacity: 1; } to { opacity: 0.4; } }
+
+    .spacer { flex: 1; }
+
+    /* header buttons */
+    .hbtn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--dust);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .hbtn:hover { background: var(--mid); color: var(--ivory); border-color: rgba(207,219,213,0.25); }
+    .hbtn.run {
+      background: var(--sun);
+      color: var(--shadow);
+      border-color: var(--sun);
+      font-weight: 600;
+    }
+    .hbtn.run:hover { background: #f8d97a; border-color: #f8d97a; }
+    .hbtn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    .hbtn-label { display: inline; }
+    @media (max-width: 600px) {
+      .hbtn-label { display: none; }
+      .hbtn { padding: 6px 8px; }
+    }
+
+    /* ─── App layout ─────────────────────────────────────────────── */
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - var(--hdr));
+    }
+
+    /* ─── Mobile tab bar ─────────────────────────────────────────── */
+    #tab-bar {
+      display: none;
+      height: var(--tab-h);
+      background: var(--graphite);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) { #tab-bar { display: flex; } }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: transparent;
+      border: none;
+      color: var(--dust);
+      font-family: var(--font-brand);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .tab-btn svg { width: 16px; height: 16px; }
+    .tab-btn.active {
+      color: var(--sun);
+      border-bottom-color: var(--sun);
+      background: var(--sun-dim);
+    }
+
+    /* ─── Main panes ─────────────────────────────────────────────── */
+    #workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #editor-pane, #preview-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    /* desktop: 50/50 split with resize handle */
+    #editor-pane { border-right: 1px solid var(--border); }
+
+    /* mobile: only one pane visible at a time */
+    @media (max-width: 768px) {
+      #workspace { position: relative; }
+      #editor-pane, #preview-pane {
+        position: absolute;
+        inset: 0;
+        flex: none;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.2s, transform 0.2s;
+      }
+      #editor-pane.hidden  { opacity: 0; pointer-events: none; transform: translateX(-20px); }
+      #preview-pane.hidden { opacity: 0; pointer-events: none; transform: translateX(20px); }
+    }
+
+    /* ─── Resize handle ─────────────────────────────────────────── */
+    #resize-handle {
+      width: 4px;
+      background: var(--border);
+      cursor: col-resize;
+      flex-shrink: 0;
+      transition: background 0.15s;
+      position: relative;
+    }
+    #resize-handle:hover, #resize-handle.dragging { background: var(--sun); }
+    #resize-handle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 12px;
+      left: -4px;
+    }
+    @media (max-width: 768px) { #resize-handle { display: none; } }
+
+    /* ─── Pane headers ───────────────────────────────────────────── */
+    .pane-header {
+      height: 36px;
+      background: var(--graphite);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .pane-label {
+      font-family: var(--font-brand);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dust);
+    }
+    .pane-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sun);
+      opacity: 0.6;
+    }
+
+    /* ─── CodeMirror custom theme ────────────────────────────────── */
+    .CodeMirror {
+      height: 100% !important;
+      font-family: var(--font-code) !important;
+      font-size: 13.5px !important;
+      line-height: 1.7 !important;
+    }
+    .cm-s-consica.CodeMirror           { background: var(--deep) !important; color: var(--ivory); }
+    .cm-s-consica .CodeMirror-cursor   { border-left: 2px solid var(--sun); }
+    .cm-s-consica .CodeMirror-selected { background: rgba(245,203,92,0.18) !important; }
+    .cm-s-consica .CodeMirror-gutters  { background: var(--shadow); border-right: 1px solid var(--border); }
+    .cm-s-consica .CodeMirror-linenumber { color: #555; padding: 0 8px; }
+    .cm-s-consica .CodeMirror-activeline-background { background: rgba(255,255,255,0.03) !important; }
+    .cm-s-consica .CodeMirror-matchingtag { background: rgba(245,203,92,0.12); outline: 1px solid rgba(245,203,92,0.35); }
+
+    /* Syntax colors */
+    .cm-s-consica .cm-tag       { color: var(--sun); }
+    .cm-s-consica .cm-attribute { color: #aacbff; }
+    .cm-s-consica .cm-string    { color: #8ec07c; }
+    .cm-s-consica .cm-comment   { color: #5c6370; font-style: italic; }
+    .cm-s-consica .cm-bracket   { color: #a9b7c6; }
+    .cm-s-consica .cm-meta      { color: #c792ea; }
+    .cm-s-consica .cm-number    { color: #f78c6c; }
+    .cm-s-consica .cm-keyword   { color: #c792ea; }
+    .cm-s-consica .cm-operator  { color: var(--dust); }
+    .cm-s-consica .cm-error     { background: rgba(220,50,50,0.25); border-radius: 2px; }
+    .cm-s-consica .cm-atom      { color: #ff9d00; }
+
+    /* Autocomplete dropdown */
+    .CodeMirror-hints {
+      background: var(--shadow) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius) !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+      font-family: var(--font-code) !important;
+      font-size: 12.5px !important;
+      padding: 4px !important;
+      z-index: 100 !important;
+    }
+    .CodeMirror-hint {
+      color: var(--dust) !important;
+      border-radius: 4px !important;
+      padding: 4px 10px !important;
+    }
+    .CodeMirror-hint-active {
+      background: var(--sun-dim) !important;
+      color: var(--sun) !important;
+    }
+
+    /* scrollbar */
+    .CodeMirror-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .CodeMirror-scroll::-webkit-scrollbar-track { background: transparent; }
+    .CodeMirror-scroll::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+    .CodeMirror-scroll::-webkit-scrollbar-thumb:hover { background: #666; }
+
+    /* editor wrapper */
+    #editor-wrapper {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #editor-wrapper .CodeMirror { flex: 1; }
+
+    /* ─── Preview iframe ─────────────────────────────────────────── */
+    #preview-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      background: #fff;
+    }
+
+    /* ─── Status bar ─────────────────────────────────────────────── */
+    #status-bar {
+      height: 26px;
+      background: var(--shadow);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 16px;
+      font-size: 10.5px;
+      color: #666;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .status-item { display: flex; align-items: center; gap: 4px; }
+    .status-item span { color: var(--dust); }
+    .status-sep { width: 1px; height: 12px; background: var(--border); }
+    #toast {
+      position: fixed;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--graphite);
+      border: 1px solid var(--border);
+      color: var(--ivory);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ─── Scrollbar global ───────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #3a3a38; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ HEADER ════════════════════ -->
+<header id="header">
+  <div class="brand">
+    <img src="https://www.consicalabs.com/assets/images/logob.png" alt="Consica Labs" class="brand-logo" />
+  </div>
+
+  <div class="header-divider"></div>
+  <span class="tool-title">HTML Playground</span>
+  <div class="live-dot" id="live-dot" title="Live preview active"></div>
+
+  <div class="spacer"></div>
+
+  <button class="hbtn" id="btn-reset" title="Reset to starter code">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/></svg>
+    <span class="hbtn-label">Reset</span>
+  </button>
+
+  <button class="hbtn" id="btn-copy" title="Copy code">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+    <span class="hbtn-label">Copy</span>
+  </button>
+
+  <button class="hbtn run" id="btn-run" title="Run (Ctrl+Enter)">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+    <span class="hbtn-label">Run</span>
+  </button>
+</header>
+
+<!-- ════════════════════ APP ════════════════════ -->
+<div id="app">
+
+  <!-- Mobile tab bar -->
+  <div id="tab-bar">
+    <button class="tab-btn active" id="tab-editor" onclick="switchTab('editor')">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z"/></svg>
+      Editor
+    </button>
+    <button class="tab-btn" id="tab-preview" onclick="switchTab('preview')">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+      Preview
+    </button>
+  </div>
+
+  <!-- Main workspace -->
+  <div id="workspace">
+
+    <!-- Editor pane -->
+    <div id="editor-pane" style="flex: 1; min-width: 0;">
+      <div class="pane-header">
+        <div class="pane-dot"></div>
+        <span class="pane-label">HTML Editor</span>
+        <span style="margin-left:auto;font-size:10px;color:#555;">Ctrl+Space for hints · Ctrl+Enter to run</span>
+      </div>
+      <div id="editor-wrapper" style="flex:1;overflow:hidden;">
+        <textarea id="code-editor"></textarea>
+      </div>
+    </div>
+
+    <!-- Resize handle -->
+    <div id="resize-handle" title="Drag to resize"></div>
+
+    <!-- Preview pane -->
+    <div id="preview-pane" style="flex: 1; min-width: 0;">
+      <div class="pane-header">
+        <div class="pane-dot"></div>
+        <span class="pane-label">Live Preview</span>
+      </div>
+      <iframe id="preview-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-modals" title="Preview"></iframe>
+    </div>
+
+  </div>
+
+  <!-- Status bar -->
+  <div id="status-bar">
+    <div class="status-item">Ln <span id="stat-line">1</span></div>
+    <div class="status-item">Col <span id="stat-col">1</span></div>
+    <div class="status-sep"></div>
+    <div class="status-item"><span id="stat-chars">0</span> chars</div>
+    <div class="status-sep"></div>
+    <div class="status-item">HTML · UTF-8</div>
+    <div class="spacer"></div>
+    <div class="status-item" style="color:#555">© Consica Labs</div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/xml-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/html-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchtags.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/xml-fold.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.js"></script>
+
+<script>
+// ─── Starter code ───────────────────────────────────────────────────────────
+const STARTER = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My First Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #fafafa;
+      color: #333;
+    }
+    h1 { color: #e07b00; }
+    .card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hello, World! 👋</h1>
+  <p>Welcome to <strong>Consica Labs HTML Playground</strong>. Edit this code and watch the preview update live.</p>
+
+  <div class="card">
+    <h2>Try These Tags</h2>
+    <ul>
+      <li><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> — Headings</li>
+      <li><code>&lt;p&gt;</code> — Paragraph</li>
+      <li><code>&lt;a href=""&gt;</code> — Link</li>
+      <li><code>&lt;img src="" alt=""&gt;</code> — Image</li>
+      <li><code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code> — Lists</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>A Simple Button</h2>
+    <button onclick="alert('You clicked me!')">Click Me!</button>
+  </div>
+
+</body>
+</html>`;
+
+// ─── Init CodeMirror ─────────────────────────────────────────────────────────
+const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+  mode: 'htmlmixed',
+  theme: 'consica',
+  lineNumbers: true,
+  lineWrapping: false,
+  autoCloseTags: true,
+  matchTags: { bothTags: true },
+  styleActiveLine: true,
+  tabSize: 2,
+  indentWithTabs: false,
+  extraKeys: {
+    'Ctrl-Space': 'autocomplete',
+    'Ctrl-Enter': runPreview,
+    'Tab': function(cm) {
+      if (cm.somethingSelected()) { cm.indentSelection('add'); }
+      else { cm.replaceSelection('  ', 'end'); }
+    }
+  },
+  hintOptions: {
+    completeSingle: false,
+    closeOnUnfocus: true
+  }
+});
+
+editor.setValue(STARTER);
+editor.setSize('100%', '100%');
+
+// ─── Auto-hint on '<' ────────────────────────────────────────────────────────
+editor.on('keyup', function(cm, event) {
+  const char = event.key;
+  if (!cm.state.completionActive && (char === '<' || char === ' ')) {
+    CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
+  }
+});
+
+// ─── Cursor position in status bar ──────────────────────────────────────────
+editor.on('cursorActivity', function(cm) {
+  const cursor = cm.getCursor();
+  document.getElementById('stat-line').textContent = cursor.line + 1;
+  document.getElementById('stat-col').textContent  = cursor.ch + 1;
+  document.getElementById('stat-chars').textContent = cm.getValue().length;
+});
+
+// ─── Live preview ────────────────────────────────────────────────────────────
+let debounceTimer;
+const liveDot  = document.getElementById('live-dot');
+const iframe   = document.getElementById('preview-iframe');
+
+function runPreview() {
+  const html = editor.getValue();
+  iframe.srcdoc = html;
+  liveDot.classList.remove('updating');
+  void liveDot.offsetWidth; // reflow to restart animation
+}
+
+editor.on('change', function() {
+  liveDot.classList.add('updating');
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(runPreview, 700);
+});
+
+// Initial render
+runPreview();
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+document.getElementById('btn-run').addEventListener('click', runPreview);
+
+document.getElementById('btn-reset').addEventListener('click', function() {
+  if (confirm('Reset to starter code? Your changes will be lost.')) {
+    editor.setValue(STARTER);
+    runPreview();
+    showToast('Reset to starter ↺');
+  }
+});
+
+document.getElementById('btn-copy').addEventListener('click', function() {
+  navigator.clipboard.writeText(editor.getValue()).then(function() {
+    showToast('Code copied to clipboard ✓');
+  }).catch(function() {
+    showToast('Copy failed — try selecting all (Ctrl+A)');
+  });
+});
+
+// ─── Toast ───────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── Mobile tabs ─────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  const editorPane  = document.getElementById('editor-pane');
+  const previewPane = document.getElementById('preview-pane');
+  const tabEditor   = document.getElementById('tab-editor');
+  const tabPreview  = document.getElementById('tab-preview');
+
+  if (tab === 'editor') {
+    editorPane.classList.remove('hidden');
+    previewPane.classList.add('hidden');
+    tabEditor.classList.add('active');
+    tabPreview.classList.remove('active');
+    editor.refresh();
+  } else {
+    previewPane.classList.remove('hidden');
+    editorPane.classList.add('hidden');
+    tabPreview.classList.add('active');
+    tabEditor.classList.remove('active');
+    runPreview();
+  }
+}
+
+// ─── Resizable panes (desktop) ───────────────────────────────────────────────
+(function() {
+  const handle   = document.getElementById('resize-handle');
+  const workspace= document.getElementById('workspace');
+  const edPane   = document.getElementById('editor-pane');
+  const pvPane   = document.getElementById('preview-pane');
+
+  let dragging = false;
+  let startX, startEdW, startPvW;
+
+  handle.addEventListener('mousedown', function(e) {
+    dragging = true;
+    startX   = e.clientX;
+    startEdW = edPane.offsetWidth;
+    startPvW = pvPane.offsetWidth;
+    handle.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    const dx     = e.clientX - startX;
+    const totalW = startEdW + startPvW;
+    const newEdW = Math.max(200, Math.min(totalW - 200, startEdW + dx));
+    const newPvW = totalW - newEdW;
+    edPane.style.flex = 'none';
+    pvPane.style.flex = 'none';
+    edPane.style.width = newEdW + 'px';
+    pvPane.style.width = newPvW + 'px';
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    handle.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    editor.refresh();
+  });
+})();
+
+// ─── Refresh editor on window resize ────────────────────────────────────────
+window.addEventListener('resize', () => editor.refresh());
+</script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consica Labs - Python Simulator</title>
+    
+    <!-- Tailwind CSS for layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CodeMirror for Code Editor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/darcula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+
+    <!-- Skulpt for in-browser Python Execution -->
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+    <style>
+        /* Custom Scrollbars to match VS Code / Windows */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; border: 1px solid #1e1e1e; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+        
+        /* VS Code specific overrides */
+        .CodeMirror {
+            height: 100% !important;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            background-color: #1e1e1e !important;
+        }
+        .CodeMirror-gutters {
+            background-color: #1e1e1e !important;
+            border-right: none !important;
+        }
+        .CodeMirror-linenumber {
+            color: #858585 !important;
+        }
+        
+        /* Terminal Blinking Cursor */
+        #term-input {
+            caret-color: #cccccc;
+        }
+        #term-input:focus {
+            outline: none;
+        }
+
+        /* Prevent zooming on mobile inputs */
+        @media screen and (max-width: 768px) {
+            .CodeMirror { font-size: 16px; } 
+            input[type="text"] { font-size: 16px; }
+        }
+    </style>
+</head>
+<body class="bg-black h-screen w-screen overflow-hidden flex flex-col font-sans select-none">
+
+    <!-- Teacher Controls (Floating Toolbar) -->
+    <div class="py-2 sm:py-0 sm:h-14 bg-gray-900 border-b border-gray-700 flex flex-col sm:flex-row items-center justify-between px-2 sm:px-4 z-50 shrink-0 gap-3 sm:gap-0">
+        <!-- Branding Section -->
+        <div class="text-gray-300 font-semibold text-sm sm:text-base flex items-center gap-3">
+            <img src="https://www.consicalabs.com/assets/logos/logo_bg_w.png" alt="Consica Labs" class="h-6 sm:h-8 w-auto object-contain bg-white rounded p-0.5">
+            <span class="hidden sm:inline text-gray-500">|</span>
+            <span class="hidden sm:inline text-gray-300 font-medium">Python Simulator</span>
+        </div>
+        <!-- Controls -->
+        <div class="flex flex-wrap justify-center gap-2 w-full sm:w-auto">
+            <button onclick="playDemo()" class="px-3 py-1.5 sm:px-4 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm rounded shadow transition flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                Demo
+            </button>
+            <button onclick="runManualCode()" class="px-3 py-1.5 sm:px-4 bg-green-600 hover:bg-green-500 text-white text-xs sm:text-sm rounded shadow transition flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Run Code
+            </button>
+            <button onclick="toggleTerminal()" class="px-3 py-1.5 sm:px-4 bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm rounded shadow transition flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                <span class="hidden sm:inline">Toggle</span> Terminal
+            </button>
+            <button onclick="clearTerminal()" class="px-3 py-1.5 sm:px-4 bg-gray-700 hover:bg-gray-600 text-white text-xs sm:text-sm rounded shadow transition">
+                Clear
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Workspace (Stacks vertically on mobile, side-by-side on desktop) -->
+    <div class="flex-1 flex flex-col md:flex-row gap-1 p-1 bg-[#000000] overflow-hidden">
+        
+        <!-- ==================== LEFT/TOP: VS CODE WINDOW ==================== -->
+        <div class="flex-1 flex flex-col bg-[#1e1e1e] rounded-md overflow-hidden border border-[#333333]">
+            
+            <!-- VS Code Header -->
+            <div class="h-8 bg-[#333333] flex items-center px-3 gap-3 shrink-0">
+                <div class="flex gap-1.5">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="flex-1 flex justify-center text-[#cccccc] text-xs space-x-4 px-4 hidden lg:flex">
+                    <span class="hover:bg-gray-700 px-2 py-0.5 rounded cursor-pointer">File</span>
+                    <span class="hover:bg-gray-700 px-2 py-0.5 rounded cursor-pointer">Edit</span>
+                    <span class="hover:bg-gray-700 px-2 py-0.5 rounded cursor-pointer">View</span>
+                    <span class="hover:bg-gray-700 px-2 py-0.5 rounded cursor-pointer">Run</span>
+                    <span class="hover:bg-gray-700 px-2 py-0.5 rounded cursor-pointer">Terminal</span>
+                </div>
+                <div class="text-[#cccccc] text-[10px] sm:text-xs ml-auto">first.py - VS Code</div>
+            </div>
+
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Activity Bar (Hidden on Mobile) -->
+                <div class="w-12 bg-[#333333] flex-col items-center py-2 gap-4 shrink-0 border-r border-[#252526] hidden sm:flex">
+                    <!-- SVGs for VS Code Icons -->
+                    <div class="text-white border-l-2 border-blue-500 pl-2 -ml-2 cursor-pointer opacity-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                    </div>
+                    <div class="text-[#858585] cursor-pointer hover:text-white transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <div class="text-[#858585] cursor-pointer hover:text-white transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Editor Area -->
+                <div class="flex-1 flex flex-col min-w-0 bg-[#1e1e1e]">
+                    
+                    <!-- Tabs -->
+                    <div class="flex h-9 bg-[#252526] shrink-0 text-[#969696] text-[11px] sm:text-sm overflow-hidden">
+                        <div class="flex items-center px-2 sm:px-3 bg-[#2d2d2d] cursor-pointer border-r border-[#252526] hidden sm:flex">
+                            <svg class="w-4 h-4 mr-1 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span class="italic">Welcome</span>
+                        </div>
+                        <div class="flex items-center px-2 sm:px-3 bg-[#1e1e1e] text-white border-t border-blue-500 cursor-pointer flex-1 sm:flex-none">
+                            <span class="text-blue-400 font-bold mr-2 text-xs">py</span>
+                            first.py
+                            <svg class="w-4 h-4 ml-2 hover:bg-gray-700 rounded p-0.5 ml-auto sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Breadcrumbs -->
+                    <div class="flex h-6 bg-[#1e1e1e] items-center px-2 sm:px-4 text-[#a9a9a9] text-[10px] sm:text-xs gap-1 border-b border-[#2d2d2d] shrink-0 shadow-sm overflow-x-hidden whitespace-nowrap">
+                        <span class="hidden sm:inline">C:</span> <span class="text-[10px] hidden sm:inline">></span>
+                        <span class="hidden sm:inline">Users</span> <span class="text-[10px] hidden sm:inline">></span>
+                        <span>ConsicaLabs</span> <span class="text-[10px]">></span>
+                        <span>Projects</span> <span class="text-[10px]">></span>
+                        <span class="text-blue-400 font-bold mr-1 text-[10px]">py</span><span>first.py</span> <span class="text-[10px]">></span>
+                        <span>...</span>
+                    </div>
+
+                    <!-- CodeMirror Container -->
+                    <div class="flex-1 relative text-left">
+                        <textarea id="code-editor"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== RIGHT/BOTTOM: POWERSHELL WINDOW ==================== -->
+        <div id="terminal-container" class="flex-1 flex flex-col bg-[#0c0c0c] rounded-md overflow-hidden border border-[#333333]">
+            
+            <!-- PowerShell Title Bar -->
+            <div class="h-8 bg-[#1f1f1f] flex justify-between items-center px-2 sm:px-3 shrink-0 select-none">
+                <div class="flex items-center text-white text-[10px] sm:text-xs gap-2">
+                    <div class="w-4 h-4 bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center leading-none">>_</div>
+                    Windows PowerShell
+                </div>
+                <div class="flex text-gray-400 text-base sm:text-lg">
+                    <div class="px-2 sm:px-3 hover:bg-gray-700 cursor-pointer flex items-center justify-center -mt-2">_</div>
+                    <div class="px-2 sm:px-3 hover:bg-gray-700 cursor-pointer flex items-center justify-center text-xs sm:text-sm">□</div>
+                    <div onclick="toggleTerminal()" class="px-2 sm:px-3 hover:bg-red-500 hover:text-white cursor-pointer flex items-center justify-center text-lg sm:text-xl leading-none">×</div>
+                </div>
+            </div>
+
+            <!-- Terminal Output Area -->
+            <div id="terminal-scroll-area" class="flex-1 p-2 sm:p-3 overflow-y-auto text-[#cccccc] font-mono text-[13px] sm:text-sm cursor-text selection:bg-gray-600 whitespace-pre-wrap break-words leading-relaxed" onclick="document.getElementById('term-input').focus()">
+                <div id="terminal-content" class="inline"></div>
+                <!-- Interactive Input Field -->
+                <input type="text" id="term-input" class="bg-transparent text-[#cccccc] outline-none border-none font-mono text-[13px] sm:text-sm hidden inline-block w-32 sm:w-64" autocomplete="off" spellcheck="false" />
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Floating Educational Tooltip -->
+    <div id="code-tooltip" class="absolute z-50 hidden bg-blue-50 border border-blue-400 text-gray-800 text-sm font-medium px-4 py-2 rounded shadow-xl pointer-events-none max-w-xs transition-opacity duration-150"></div>
+
+    <script>
+        // --- 1. CONFIGURATION & STATE ---
+        const DEMO_CODE = `print("simple interest calculator")\n\ndef calculate_simple_interest(principal, rate, time):\n    return (principal * rate * time) / 100\n\nprincipal = float(input("Enter the principal amount: "))\nrate = float(input("Enter the rate of interest: "))\ntime = float(input("Enter the time in years: "))\nsimple_interest = calculate_simple_interest(principal, rate, time)\nprint("The simple interest is:", simple_interest)\n`;
+        const BASE_PROMPT = "C:\\Users\\ConsicaLabs\\Projects>";
+        
+        let isAnimating = false;
+        let terminalVisible = true;
+
+        // Smart Code Explainer Engine
+        function getExplanationForLine(lineText) {
+            if (!lineText || lineText.trim() === "") return null;
+            
+            // Define rules to match Python syntax to simple explanations
+            const rules = [
+                { regex: /#.*/, text: "ℹ️ <b>Comment</b>: A note for humans. The computer ignores this completely." },
+                { regex: /^def\s+\w+\(/, text: "🛠️ <b>def</b>: We are defining a reusable 'function' (like a recipe)." },
+                { regex: /\bprint\s*\(/, text: "📝 <b>print()</b>: This command displays a message or result onto the screen." },
+                { regex: /\binput\s*\(/, text: "📥 <b>input()</b>: Asks the user to type in some information." },
+                { regex: /\b(float|int)\s*\(/, text: "🔢 <b>Number Conversion</b>: Ensures the input is treated as a math number, not just text." },
+                { regex: /\breturn\b/, text: "🧮 <b>return</b>: Calculates a result and gives the answer back from the function." },
+                { regex: /\bif\s+.*:/, text: "🔀 <b>if statement</b>: Makes a decision. Runs the code block if the condition is true." },
+                { regex: /\belif\s+.*:/, text: "🔀 <b>elif</b>: 'Else if' - checks another condition if the first one was false." },
+                { regex: /\belse:/, text: "🔀 <b>else</b>: The fallback option if all previous conditions were false." },
+                { regex: /\bfor\s+.*\s+in\s+.*:/, text: "🔄 <b>for loop</b>: Repeats an action for each item in a sequence or list." },
+                { regex: /\bwhile\s+.*:/, text: "🔄 <b>while loop</b>: Keeps repeating an action as long as the condition remains true." },
+                { regex: /^import\s+\w+/, text: "📦 <b>import</b>: Brings in external tools or libraries to use in this code." },
+                { regex: /^\w+\s*=/, text: "💾 <b>Variable</b>: Creates a memory box and stores the calculated value or data inside it." }
+            ];
+
+            // Check if the line matches any of our rules
+            for (let rule of rules) {
+                if (rule.regex.test(lineText.trim())) {
+                    return rule.text;
+                }
+            }
+            
+            return null; // Return null if it's just a generic line with no specific keywords
+        }
+
+        // --- 2. INITIALIZE CODEMIRROR ---
+        const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "python",
+            theme: "darcula",
+            lineNumbers: true,
+            indentUnit: 4,
+            matchBrackets: true,
+            viewportMargin: Infinity
+        });
+
+        // --- TOOLTIP HOVER LOGIC ---
+        const tooltip = document.getElementById('code-tooltip');
+        
+        // Listen to mouse movements over the code editor wrapper
+        editor.getWrapperElement().addEventListener('mousemove', function(e) {
+            // Find out which character/line the mouse is pointing at
+            const pos = editor.coordsChar({left: e.clientX, top: e.clientY});
+            const coords = editor.charCoords(pos);
+            
+            // Make sure the mouse is actually vertically over the text area
+            if (e.clientY >= coords.top && e.clientY <= coords.bottom) {
+                // Get the actual text of the line being hovered
+                const lineText = editor.getLine(pos.line);
+                const explanation = getExplanationForLine(lineText);
+                
+                if (explanation) {
+                    tooltip.innerHTML = explanation;
+                    
+                    // Position tooltip near cursor, keep it within screen bounds
+                    let leftPos = e.clientX + 15;
+                    let topPos = e.clientY + 15;
+                    
+                    tooltip.style.left = leftPos + 'px';
+                    tooltip.style.top = topPos + 'px';
+                    tooltip.classList.remove('hidden');
+                } else {
+                    tooltip.classList.add('hidden');
+                }
+            } else {
+                tooltip.classList.add('hidden');
+            }
+        });
+
+        editor.getWrapperElement().addEventListener('mouseleave', function() {
+            tooltip.classList.add('hidden');
+        });
+
+
+        // --- 3. TERMINAL I/O LOGIC ---
+        const termContent = document.getElementById("terminal-content");
+        const termInput = document.getElementById("term-input");
+        const scrollArea = document.getElementById("terminal-scroll-area");
+        const termContainer = document.getElementById("terminal-container");
+
+        function toggleTerminal() {
+            terminalVisible = !terminalVisible;
+            if (terminalVisible) {
+                termContainer.classList.remove('hidden');
+                termContainer.classList.add('flex');
+            } else {
+                termContainer.classList.add('hidden');
+                termContainer.classList.remove('flex');
+            }
+            // CodeMirror requires a refresh when its container dimensions change
+            setTimeout(() => editor.refresh(), 50);
+        }
+
+        function scrollToBottom() {
+            if(terminalVisible) {
+                scrollArea.scrollTop = scrollArea.scrollHeight;
+            }
+        }
+
+        // Standard output function for Skulpt
+        function outf(text) {
+            termContent.insertBefore(document.createTextNode(text), termInput);
+            scrollToBottom();
+        }
+
+        // Synchronous Input function for Skulpt (Returns a Promise)
+        function inputfun(promptText) {
+            return new Promise((resolve) => {
+                if (promptText) {
+                    termContent.insertBefore(document.createTextNode(promptText), termInput);
+                }
+                
+                termInput.style.display = 'inline-block';
+                termInput.value = '';
+                
+                if(terminalVisible) {
+                    termInput.focus();
+                }
+                scrollToBottom();
+
+                termInput.onkeydown = function(e) {
+                    if (e.key === "Enter") {
+                        const val = termInput.value;
+                        termInput.style.display = 'none'; 
+                        
+                        termContent.insertBefore(document.createTextNode(val + "\n"), termInput);
+                        termInput.onkeydown = null; 
+                        scrollToBottom();
+                        
+                        resolve(val); 
+                    }
+                };
+            });
+        }
+
+        function clearTerminal() {
+            termContent.innerHTML = '';
+            termContent.appendChild(termInput);
+            termInput.style.display = 'none';
+            termContent.insertBefore(document.createTextNode(BASE_PROMPT + " "), termInput);
+            scrollToBottom();
+        }
+
+        // --- 4. ANIMATION LOGIC ---
+        async function playDemo() {
+            if (isAnimating) return;
+            isAnimating = true;
+            
+            // Ensure terminal is visible for the demo
+            if (!terminalVisible) {
+                toggleTerminal();
+            }
+
+            editor.setValue("");
+            clearTerminal();
+            
+            termContent.innerHTML = '';
+            termContent.appendChild(termInput);
+            termInput.style.display = 'none';
+            
+            for (let i = 0; i < DEMO_CODE.length; i++) {
+                editor.replaceRange(DEMO_CODE[i], editor.posFromIndex(editor.getValue().length));
+                
+                const lastLine = editor.lineCount() - 1;
+                editor.setCursor(lastLine, editor.getLine(lastLine).length);
+                
+                let delay = 30 + Math.random() * 40;
+                if (DEMO_CODE[i] === '\n') delay += 150; 
+                if (DEMO_CODE[i] === ' ') delay += 10;
+                
+                await new Promise(r => setTimeout(r, delay));
+            }
+
+            await new Promise(r => setTimeout(r, 600)); 
+
+            termContent.insertBefore(document.createTextNode(BASE_PROMPT + " "), termInput);
+            scrollToBottom();
+            
+            const cmd = "python first.py";
+            for (let i = 0; i < cmd.length; i++) {
+                termContent.insertBefore(document.createTextNode(cmd[i]), termInput);
+                scrollToBottom();
+                await new Promise(r => setTimeout(r, 50 + Math.random() * 50));
+            }
+            
+            termContent.insertBefore(document.createTextNode("\n"), termInput);
+            scrollToBottom();
+            
+            await new Promise(r => setTimeout(r, 200));
+
+            executeSkulpt(editor.getValue());
+            isAnimating = false;
+        }
+
+        // --- 5. SKULPT EXECUTION ---
+        function runManualCode() {
+            if (isAnimating) return;
+
+            // Ensure terminal is open when running code manually
+            if (!terminalVisible) {
+                toggleTerminal();
+            }
+
+            const code = editor.getValue();
+            termContent.insertBefore(document.createTextNode("python first.py\n"), termInput);
+            scrollToBottom();
+            
+            executeSkulpt(code);
+        }
+
+        function executeSkulpt(code) {
+            Sk.configure({
+                output: outf,
+                read: function(x) {
+                    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+                        throw "File not found: '" + x + "'";
+                    }
+                    return Sk.builtinFiles["files"][x];
+                },
+                inputfun: inputfun
+            });
+
+            const myPromise = Sk.misceval.asyncToPromise(function() {
+                return Sk.importMainWithBody("<stdin>", false, code, true);
+            });
+
+            myPromise.then(function(mod) {
+                termContent.insertBefore(document.createTextNode("\n" + BASE_PROMPT + " "), termInput);
+                scrollToBottom();
+            }, function(err) {
+                termContent.insertBefore(document.createTextNode(err.toString() + "\n"), termInput);
+                termContent.insertBefore(document.createTextNode("\n" + BASE_PROMPT + " "), termInput);
+                scrollToBottom();
+            });
+        }
+
+        window.onload = () => {
+            clearTerminal();
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1026 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest Kids - Learn Logic Through Play</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #f0fdf4; /* Light green background */
+            touch-action: none; /* Prevent default touch actions like scrolling on the game area */
+        }
+
+        /* The Game Grid */
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 2px;
+            background-color: #86efac;
+            border: 4px solid #166534;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .cell {
+            background-color: #bbf7d0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+
+        .cell.obstacle {
+            background-color: #fca5a5;
+            background-image: radial-gradient(#ef4444 20%, transparent 20%);
+            background-size: 10px 10px;
+        }
+
+        .cell.goal {
+            background-color: #fef08a;
+            box-shadow: inset 0 0 10px #eab308;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: inset 0 0 5px #eab308; }
+            100% { transform: scale(1); box-shadow: inset 0 0 15px #ca8a04; }
+        }
+
+        /* The Player Character */
+        #player {
+            position: absolute;
+            width: calc(100% / 8 - 4px); /* Match cell size roughly */
+            height: calc(100% / 8 - 4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        /* Block Workspace Area */
+        .workspace-area {
+            min-height: 150px;
+            background-color: #e5e7eb;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Draggable Code Blocks */
+        .code-block {
+            background-color: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: grab;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-bottom: 4px solid #2563eb; /* 3D effect */
+            transition: transform 0.1s;
+        }
+
+        .code-block:active {
+            cursor: grabbing;
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+
+        .code-block.move-up { background-color: #3b82f6; border-bottom-color: #2563eb; }
+        .code-block.move-down { background-color: #ef4444; border-bottom-color: #dc2626; }
+        .code-block.move-left { background-color: #f59e0b; border-bottom-color: #d97706; }
+        .code-block.move-right { background-color: #10b981; border-bottom-color: #059669; }
+
+        /* Control Blocks (Loops, Conditionals) */
+        .code-block.loop-block { background-color: #8b5cf6; border-bottom-color: #6d28d9; flex-direction: column; align-items: stretch; gap: 4px; }
+        .code-block.if-block { background-color: #ec4899; border-bottom-color: #be185d; flex-direction: column; align-items: stretch; gap: 4px; }
+        .code-block.while-block { background-color: #0ea5e9; border-bottom-color: #0369a1; flex-direction: column; align-items: stretch; gap: 4px; }
+        
+        .code-block-header { display: flex; align-items: center; gap: 8px; justify-content: space-between; width: 100%;}
+        
+        /* Drop zones for nested blocks */
+        .drop-zone {
+            min-height: 40px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        
+        .nested-workspace {
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 50px;
+        }
+        
+        .nested-workspace:empty::after {
+            content: "Drop blocks here";
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+            display: block;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .drop-zone.drag-over {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-color: #fbbf24;
+        }
+        
+        /* Stop drag on inputs */
+        .no-drag { cursor: text; }
+
+        /* Dragging state */
+        .dragging {
+            opacity: 0.5;
+        }
+
+        /* Modal styling */
+        #message-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 50;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <header class="bg-green-600 text-white p-4 shadow-md text-center relative">
+        <h1 class="text-3xl font-bold tracking-wider"><i class="fa-solid fa-puzzle-piece mr-2"></i>CodeQuest Kids</h1>
+        <p class="text-green-100 text-sm mt-1">Guide the Robot to the Star!</p>
+        <button id="mute-btn" title="Toggle Sound" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-xl opacity-80 hover:opacity-100 transition">
+            <i class="fa-solid fa-volume-high"></i>
+        </button>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 flex flex-col lg:flex-row gap-6 max-w-[1400px]">
+        
+        <!-- Left Column: Game Area -->
+        <section class="w-full lg:w-[400px] shrink-0 flex flex-col items-center">
+            <div class="flex justify-between items-center w-full max-w-[400px] mb-2 px-2 gap-2">
+                <select id="level-select" class="font-bold text-sm text-green-900 bg-green-200 px-3 py-1 rounded-full outline-none cursor-pointer border-2 border-green-400 hover:border-green-500 transition-colors shadow-sm flex-1">
+                    <option value="0">🌐 Free World (Sandbox)</option>
+                    <option value="1">Level 1: Straight Line</option>
+                    <option value="2">Level 2: Stairs</option>
+                    <option value="3">Level 3: The Maze</option>
+                </select>
+                <button id="reset-btn" class="text-red-500 hover:text-red-700 font-bold transition text-sm whitespace-nowrap shrink-0"><i class="fa-solid fa-rotate-right mr-1"></i>Reset</button>
+            </div>
+            
+            <!-- The actual grid -->
+            <div id="game-board">
+                <!-- Cells generated by JS -->
+                <div id="player">🤖</div>
+            </div>
+
+            <!-- Controls (Run button) -->
+            <div class="mt-6">
+                <button id="run-btn" class="bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-3 px-8 rounded-full shadow-lg border-b-4 border-green-700 active:border-b-0 active:translate-y-1 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-play"></i> Run Code!
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Column: Workspace & Blocks -->
+        <section class="flex-1 flex flex-col md:flex-row gap-4 min-w-0">
+            
+            <!-- Available Blocks -->
+            <div class="bg-white p-4 rounded-xl shadow-md border-2 border-slate-200 md:w-[280px] lg:w-[320px] shrink-0 flex flex-col">
+                <h2 class="text-lg font-bold mb-3 text-slate-600 border-b pb-2"><i class="fa-solid fa-toolbox mr-2"></i>Toolbox (Drag these)</h2>
+                <div class="flex flex-col gap-3 overflow-y-auto p-2 flex-grow" id="toolbox">
+                    
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Actions</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="code-block move-up" draggable="true" data-type="action" data-action="up">
+                            <i class="fa-solid fa-arrow-up"></i> Move Up
+                        </div>
+                        <div class="code-block move-down" draggable="true" data-type="action" data-action="down">
+                            <i class="fa-solid fa-arrow-down"></i> Move Down
+                        </div>
+                        <div class="code-block move-left" draggable="true" data-type="action" data-action="left">
+                            <i class="fa-solid fa-arrow-left"></i> Move Left
+                        </div>
+                        <div class="code-block move-right" draggable="true" data-type="action" data-action="right">
+                            <i class="fa-solid fa-arrow-right"></i> Move Right
+                        </div>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mt-2">Control Flow</h3>
+                    <div class="flex flex-col gap-2">
+                        <!-- Repeat Block -->
+                        <div class="code-block loop-block" draggable="true" data-type="loop">
+                            <div class="code-block-header">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-rotate-right"></i> Repeat</span>
+                                <span>
+                                    <input type="number" class="w-12 text-black px-1 py-0.5 rounded text-center font-bold no-drag" value="3" min="1" max="10"> times
+                                </span>
+                            </div>
+                            <div class="drop-zone nested-workspace"></div>
+                        </div>
+
+                        <!-- While Block -->
+                        <div class="code-block while-block" draggable="true" data-type="while">
+                            <div class="code-block-header">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-infinity"></i> While not at ⭐</span>
+                            </div>
+                            <div class="drop-zone nested-workspace"></div>
+                        </div>
+
+                        <!-- If Block -->
+                        <div class="code-block if-block" draggable="true" data-type="if">
+                            <div class="code-block-header">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-code-branch"></i> If path clear</span>
+                                <select class="text-black px-1 py-0.5 rounded font-bold no-drag">
+                                    <option value="up">Up</option>
+                                    <option value="down">Down</option>
+                                    <option value="left">Left</option>
+                                    <option value="right">Right</option>
+                                </select>
+                            </div>
+                            <div class="drop-zone nested-workspace"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assembly Area -->
+            <div class="bg-white p-4 rounded-xl shadow-md border-2 border-slate-200 flex-grow flex flex-col min-w-0">
+                <div class="flex justify-between items-center mb-3 border-b pb-2">
+                    <h2 class="text-lg font-bold text-slate-600"><i class="fa-solid fa-list-check mr-2"></i>Your Program</h2>
+                    <button id="clear-workspace-btn" class="text-sm text-slate-400 hover:text-red-500 transition"><i class="fa-solid fa-trash"></i> Clear</button>
+                </div>
+                <p class="text-sm text-slate-400 mb-2 italic">Drop blocks here. You can drop blocks inside loops!</p>
+                
+                <div id="workspace" class="workspace-area drop-zone flex-grow">
+                    <!-- Blocks dropped here -->
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Message Modal -->
+    <div id="message-modal">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+            <div id="modal-icon" class="text-5xl mb-4"></div>
+            <h2 id="modal-title" class="text-2xl font-bold mb-2"></h2>
+            <p id="modal-message" class="text-slate-600 mb-6"></p>
+            <button id="modal-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition"></button>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        // --- Sound Engine (Web Audio API — no external files) ---
+        const SoundEngine = (() => {
+            let ctx = null;
+            let _muted = false;
+
+            function getCtx() {
+                if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (ctx.state === 'suspended') ctx.resume();
+                return ctx;
+            }
+
+            function tone(freq, duration, type = 'sine', vol = 0.25, startTime = 0) {
+                if (_muted) return;
+                const c = getCtx();
+                const t = c.currentTime + startTime;
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.connect(gain);
+                gain.connect(c.destination);
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, t);
+                gain.gain.setValueAtTime(vol, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
+                osc.start(t);
+                osc.stop(t + duration + 0.01);
+            }
+
+            const api = {
+                get muted() { return _muted; },
+                set muted(v) { _muted = v; },
+
+                // Soft upward bloop — the robot's little footstep
+                move() {
+                    if (_muted) return;
+                    const c = getCtx();
+                    const t = c.currentTime;
+                    const osc = c.createOscillator();
+                    const gain = c.createGain();
+                    osc.connect(gain);
+                    gain.connect(c.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(420, t);
+                    osc.frequency.exponentialRampToValueAtTime(640, t + 0.09);
+                    gain.gain.setValueAtTime(0.18, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
+                    osc.start(t);
+                    osc.stop(t + 0.14);
+                },
+
+                // Happy ascending 4-note arpeggio — level won!
+                win() {
+                    [261.63, 329.63, 392.00, 523.25].forEach((freq, i) => {
+                        tone(freq, 0.22, 'sine', 0.28, i * 0.13);
+                    });
+                },
+
+                // Sandbox "done" — gentle two-note chime
+                done() {
+                    tone(523.25, 0.18, 'sine', 0.22, 0);
+                    tone(659.25, 0.22, 'sine', 0.22, 0.15);
+                },
+
+                // Descending "oops" — hit a wall
+                error() {
+                    if (_muted) return;
+                    const c = getCtx();
+                    const t = c.currentTime;
+                    const osc = c.createOscillator();
+                    const gain = c.createGain();
+                    osc.connect(gain);
+                    gain.connect(c.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, t);
+                    osc.frequency.exponentialRampToValueAtTime(110, t + 0.35);
+                    gain.gain.setValueAtTime(0.2, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                    osc.start(t);
+                    osc.stop(t + 0.36);
+                },
+
+                // Tiny soft tick — block dropped into workspace
+                drop() { tone(900, 0.06, 'sine', 0.12); },
+
+                // Tiny click — block removed
+                remove() { tone(300, 0.07, 'sine', 0.10); }
+            };
+
+            return api;
+        })();
+
+        // --- Game Configuration & State ---
+        const gridSize = 8;
+        let currentLevel = 1; // Start at Level 1 by default
+        let isRunning = false;
+        
+        // Player state
+        let playerPos = { x: 0, y: 0 };
+        const startPos = { x: 0, y: 0 };
+        
+        // Levels definition
+        // 0: Empty, 1: Obstacle, 2: Goal, 3: Start
+        const levels = [
+            {
+                // Level 0: Sandbox / Free World — open grid for teaching
+                isSandbox: true,
+                grid: [
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0]
+                ]
+            },
+            {
+                // Level 1: Intro to Repeat — just a long straight line
+                grid: [
+                    [3, 0, 0, 0, 0, 0, 0, 2],
+                    [1, 1, 1, 1, 1, 1, 1, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0]
+                ]
+            },
+            {
+                // Level 2: Staircase (Repeat nested)
+                grid: [
+                    [3, 0, 1, 0, 0, 0, 0, 0],
+                    [1, 0, 0, 1, 0, 0, 0, 0],
+                    [0, 1, 0, 0, 1, 0, 0, 0],
+                    [0, 0, 1, 0, 0, 1, 0, 0],
+                    [0, 0, 0, 1, 0, 0, 1, 0],
+                    [0, 0, 0, 0, 1, 0, 0, 2],
+                    [0, 0, 0, 0, 0, 1, 1, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0]
+                ]
+            },
+            {
+                // Level 3: While & If
+                grid: [
+                    [3, 1, 0, 0, 0, 0, 1, 2],
+                    [0, 1, 0, 1, 1, 0, 1, 0],
+                    [0, 1, 0, 1, 1, 0, 1, 0],
+                    [0, 1, 0, 1, 1, 0, 1, 0],
+                    [0, 1, 0, 1, 1, 0, 1, 0],
+                    [0, 1, 0, 1, 1, 0, 1, 0],
+                    [0, 0, 0, 1, 1, 0, 0, 0],
+                    [1, 1, 1, 1, 1, 1, 1, 1]
+                ]
+            }
+        ];
+
+        // --- DOM Elements ---
+        const boardEl = document.getElementById('game-board');
+        const playerEl = document.getElementById('player');
+        const toolbox = document.getElementById('toolbox');
+        const workspace = document.getElementById('workspace');
+        const runBtn = document.getElementById('run-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const clearWorkspaceBtn = document.getElementById('clear-workspace-btn');
+        const levelSelect = document.getElementById('level-select');
+        
+        // Modal Elements
+        const modal = document.getElementById('message-modal');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalBtn = document.getElementById('modal-btn');
+
+        function initGrid() {
+            boardEl.innerHTML = ''; 
+            
+            const levelData = levels[currentLevel].grid;
+            levelSelect.value = currentLevel;
+
+            // Show a banner hint for sandbox mode
+            const existingBanner = document.getElementById('sandbox-banner');
+            if (existingBanner) existingBanner.remove();
+            if (currentLevel === 0) {
+                const banner = document.createElement('p');
+                banner.id = 'sandbox-banner';
+                banner.className = 'text-xs text-center text-green-700 bg-green-100 border border-green-300 rounded-lg px-2 py-1 mt-2 max-w-[400px] w-full';
+                banner.innerHTML = '🌐 <strong>Free World:</strong> No walls, no goal — just you and the blocks!';
+                boardEl.parentElement.appendChild(banner);
+            }
+
+            for (let y = 0; y < gridSize; y++) {
+                for (let x = 0; x < gridSize; x++) {
+                    const cellType = levelData[y][x];
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.dataset.x = x;
+                    cell.dataset.y = y;
+
+                    if (cellType === 1) {
+                        cell.classList.add('obstacle');
+                        cell.innerHTML = '🧱'; 
+                    } else if (cellType === 2) {
+                        cell.classList.add('goal');
+                        cell.innerHTML = '⭐'; 
+                    } else if (cellType === 3) {
+                        startPos.x = x;
+                        startPos.y = y;
+                        cell.innerHTML = '🏁';
+                    }
+                    boardEl.appendChild(cell);
+                }
+            }
+            boardEl.appendChild(playerEl); 
+            resetPlayer();
+        }
+
+        function updatePlayerVisuals() {
+            const cellWidth = 100 / gridSize;
+            playerEl.style.left = `calc(${playerPos.x * cellWidth}% + 2px)`; 
+            playerEl.style.top = `calc(${playerPos.y * cellWidth}% + 2px)`;
+        }
+
+        function resetPlayer() {
+            playerPos.x = startPos.x;
+            playerPos.y = startPos.y;
+            playerEl.style.transform = 'scale(1) rotate(0deg)';
+            playerEl.style.opacity = '1';
+            updatePlayerVisuals();
+        }
+
+        let draggedItem = null;
+
+        function setupDragAndDrop() {
+            const draggables = document.querySelectorAll('#toolbox .code-block');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                        e.preventDefault();
+                        return;
+                    }
+                    draggedItem = draggable;
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', draggable.outerHTML);
+                });
+            });
+
+            document.addEventListener('dragover', (e) => {
+                const dropZone = e.target.closest('.drop-zone');
+                if (!dropZone) return;
+                
+                e.preventDefault();
+                
+                document.querySelectorAll('.drop-zone').forEach(dz => dz.classList.remove('drag-over'));
+                dropZone.classList.add('drag-over');
+
+                const afterElement = getDragAfterElement(dropZone, e.clientY);
+                const currentDraggable = document.querySelector('.dragging');
+                
+                if (currentDraggable) {
+                    if (afterElement == null) {
+                        dropZone.appendChild(currentDraggable);
+                    } else {
+                        dropZone.insertBefore(currentDraggable, afterElement);
+                    }
+                }
+            });
+
+            document.addEventListener('dragleave', (e) => {
+                const dropZone = e.target.closest('.drop-zone');
+                if (dropZone) dropZone.classList.remove('drag-over');
+            });
+
+            document.addEventListener('drop', (e) => {
+                const dropZone = e.target.closest('.drop-zone');
+                if (!dropZone) return;
+                
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+
+                const data = e.dataTransfer.getData('text/plain');
+                if (data && !document.querySelector('.dragging')) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = data;
+                    const newBlock = tempDiv.firstElementChild;
+                    
+                    const inputs = newBlock.querySelectorAll('input, select');
+                    inputs.forEach(input => {
+                        input.addEventListener('mousedown', ev => ev.stopPropagation());
+                        input.addEventListener('touchstart', ev => ev.stopPropagation());
+                    });
+                    
+                    addRemoveButton(newBlock);
+                    setupWorkspaceItemDrag(newBlock);
+                    SoundEngine.drop();
+                    
+                    const afterElement = getDragAfterElement(dropZone, e.clientY);
+                    if (afterElement == null) {
+                        dropZone.appendChild(newBlock);
+                    } else {
+                        dropZone.insertBefore(newBlock, afterElement);
+                    }
+                }
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = Array.from(container.children).filter(child => child.classList.contains('code-block') && !child.classList.contains('dragging'));
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function setupWorkspaceItemDrag(item) {
+            item.setAttribute('draggable', 'true');
+            
+            item.addEventListener('dragstart', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                    e.preventDefault();
+                    return;
+                }
+                item.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                setTimeout(() => item.classList.add('opacity-50'), 0);
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging', 'opacity-50');
+            });
+        }
+
+        function addRemoveButton(block) {
+            const header = block.querySelector('.code-block-header') || block;
+            const removeBtn = document.createElement('span');
+            removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            removeBtn.className = 'ml-auto cursor-pointer hover:text-red-300 bg-black bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center shrink-0';
+            removeBtn.onclick = function(e) {
+                e.stopPropagation(); 
+                SoundEngine.remove();
+                block.remove();
+            };
+            if(block.classList.contains('loop-block') || block.classList.contains('if-block') || block.classList.contains('while-block')){
+                header.appendChild(removeBtn);
+            } else {
+                block.appendChild(removeBtn);
+            }
+        }
+
+        async function runCode() {
+            if (isRunning) return;
+            isRunning = true;
+            runBtn.disabled = true;
+            runBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            resetPlayer();
+
+            const topLevelBlocks = Array.from(workspace.children).filter(el => el.classList.contains('code-block'));
+
+            if (topLevelBlocks.length === 0) {
+                showModal('No Code!', 'Drag some blocks into your program area first.', 'warning');
+                endRun();
+                return;
+            }
+
+            try {
+                await executeBlockSequence(topLevelBlocks);
+            } catch (error) {
+                if(error.message === 'obstacle' || error.message === 'bounds') {
+                    SoundEngine.error();
+                    playerEl.style.transform = 'scale(0.8) rotate(15deg)';
+                    playerEl.style.opacity = '0.5';
+                    showModal('Oops!', 'You hit a wall or went out of bounds. Try again!', 'error');
+                } else if (error.message === 'infinite_loop') {
+                    showModal('Warning!', 'Infinite loop detected! Be careful with "While" blocks.', 'error');
+                } else {
+                    console.error(error);
+                }
+                endRun();
+                return;
+            }
+
+            document.querySelectorAll('.code-block').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'z-10'));
+            checkWinCondition();
+        }
+
+        async function executeBlockSequence(blocks) {
+            for (let i = 0; i < blocks.length; i++) {
+                const block = blocks[i];
+                
+                document.querySelectorAll('.code-block').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'z-10'));
+                block.classList.add('ring-4', 'ring-yellow-400', 'z-10');
+
+                const type = block.dataset.type || 'action';
+
+                if (type === 'action') {
+                    const action = block.dataset.action;
+                    const success = await movePlayer(action);
+                    await new Promise(r => setTimeout(r, 400)); 
+                    if (!success) throw new Error('obstacle');
+                } 
+                else if (type === 'loop') {
+                    const input = block.querySelector('input');
+                    const count = parseInt(input.value) || 1;
+                    const nestedContainer = block.querySelector('.nested-workspace');
+                    const nestedBlocks = Array.from(nestedContainer.children).filter(el => el.classList.contains('code-block'));
+                    
+                    for(let c = 0; c < count; c++) {
+                        document.querySelectorAll('.code-block').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'z-10'));
+                        block.classList.add('ring-4', 'ring-yellow-400', 'z-10');
+                        await new Promise(r => setTimeout(r, 200));
+                        
+                        await executeBlockSequence(nestedBlocks);
+                    }
+                }
+                else if (type === 'while') {
+                    const nestedContainer = block.querySelector('.nested-workspace');
+                    const nestedBlocks = Array.from(nestedContainer.children).filter(el => el.classList.contains('code-block'));
+                    
+                    let iterations = 0;
+                    while (!isPlayerAtGoal()) {
+                        iterations++;
+                        if (iterations > 100) throw new Error('infinite_loop');
+                        
+                        document.querySelectorAll('.code-block').forEach(b => b.classList.remove('ring-4', 'ring-yellow-400', 'z-10'));
+                        block.classList.add('ring-4', 'ring-yellow-400', 'z-10');
+                        await new Promise(r => setTimeout(r, 200));
+
+                        if (nestedBlocks.length === 0) {
+                            await new Promise(r => setTimeout(r, 200));
+                        } else {
+                            await executeBlockSequence(nestedBlocks);
+                        }
+                    }
+                }
+                else if (type === 'if') {
+                    const select = block.querySelector('select');
+                    const conditionDir = select.value;
+                    const nestedContainer = block.querySelector('.nested-workspace');
+                    const nestedBlocks = Array.from(nestedContainer.children).filter(el => el.classList.contains('code-block'));
+                    
+                    if (isPathClear(conditionDir)) {
+                        await executeBlockSequence(nestedBlocks);
+                    } else {
+                        await new Promise(r => setTimeout(r, 200));
+                    }
+                }
+            }
+        }
+
+        function isPlayerAtGoal() {
+            if (currentLevel === 0) return false; // Sandbox has no goal
+            return levels[currentLevel].grid[playerPos.y][playerPos.x] === 2;
+        }
+
+        function isPathClear(direction) {
+            let newX = playerPos.x;
+            let newY = playerPos.y;
+
+            switch (direction) {
+                case 'up': newY--; break;
+                case 'down': newY++; break;
+                case 'left': newX--; break;
+                case 'right': newX++; break;
+            }
+
+            if (newX < 0 || newX >= gridSize || newY < 0 || newY >= gridSize) return false;
+            
+            const cellType = levels[currentLevel].grid[newY][newX];
+            return cellType !== 1;
+        }
+
+        function movePlayer(direction) {
+            return new Promise((resolve) => {
+                let newX = playerPos.x;
+                let newY = playerPos.y;
+
+                switch (direction) {
+                    case 'up': newY--; break;
+                    case 'down': newY++; break;
+                    case 'left': newX--; break;
+                    case 'right': newX++; break;
+                }
+
+                // Check boundaries
+                if (newX < 0 || newX >= gridSize || newY < 0 || newY >= gridSize) {
+                    resolve(false);
+                    return;
+                }
+
+                // Check obstacles
+                const cellType = levels[currentLevel].grid[newY][newX];
+                if (cellType === 1) {
+                    resolve(false);
+                    return;
+                }
+
+                // Move is valid
+                playerPos.x = newX;
+                playerPos.y = newY;
+                
+                SoundEngine.move();
+
+                // Add minor rotation for animation effect
+                const rot = direction === 'left' ? -10 : (direction === 'right' ? 10 : 0);
+                playerEl.style.transform = `rotate(${rot}deg)`;
+                
+                updatePlayerVisuals();
+                
+                // Reset rotation after move
+                setTimeout(() => {
+                    playerEl.style.transform = `rotate(0deg)`;
+                    resolve(true);
+                }, 300); // Wait for transition to finish
+            });
+        }
+
+        function checkWinCondition() {
+            // Sandbox — no win/loss, just show execution feedback
+            if (currentLevel === 0) {
+                SoundEngine.done();
+                showModal('Finished! 🤖', 'The robot executed all your commands. Try changing the blocks and running again!', 'success');
+                endRun();
+                return;
+            }
+
+            const currentCellType = levels[currentLevel].grid[playerPos.y][playerPos.x];
+            
+            if (currentCellType === 2) {
+                // Goal reached!
+                SoundEngine.win();
+                playerEl.style.transform = 'scale(1.3)';
+                fireConfetti();
+                
+                if (currentLevel < levels.length - 1) {
+                    showModal('Great Job!', 'You solved the puzzle. Ready for the next one?', 'success', () => {
+                        currentLevel++;
+                        workspace.innerHTML = ''; // Clear workspace for next level
+                        initGrid();
+                    });
+                } else {
+                    showModal('You Won!', 'You completed all the levels! You are a coding master.', 'success', () => {
+                        currentLevel = 1; // Loop back to Level 1 (skip Sandbox)
+                        workspace.innerHTML = '';
+                        initGrid();
+                    });
+                }
+            } else {
+                // Sequence ended but not on goal
+                showModal('Almost!', 'Your program finished, but the robot isn\'t on the star.', 'warning');
+            }
+            endRun();
+        }
+
+        function endRun() {
+            isRunning = false;
+            runBtn.disabled = false;
+            runBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        // Custom Modal Logic
+        function showModal(title, message, type, onConfirm = null) {
+            modalTitle.innerText = title;
+            modalMessage.innerText = message;
+            
+            // Styling based on type
+            modalIcon.innerHTML = '';
+            modalBtn.className = 'w-full text-white font-bold py-3 px-4 rounded-xl shadow-md transition ';
+            
+            if (type === 'success') {
+                modalIcon.innerHTML = '<i class="fa-solid fa-star text-yellow-400"></i>';
+                modalBtn.innerText = 'Continue';
+                modalBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+            } else if (type === 'error') {
+                modalIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation text-red-500"></i>';
+                modalBtn.innerText = 'Try Again';
+                modalBtn.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                modalIcon.innerHTML = '<i class="fa-solid fa-lightbulb text-blue-400"></i>';
+                modalBtn.innerText = 'OK';
+                modalBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            }
+
+            modal.style.display = 'flex';
+            const modalContent = document.getElementById('modal-content');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            // Handle button click
+            modalBtn.onclick = () => {
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    if (onConfirm) onConfirm();
+                }, 200);
+            };
+        }
+
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function fireConfetti() {
+            confettis = [];
+            const colors = ['#fce18a', '#ff726d', '#b48def', '#f4306d'];
+            for (let i = 0; i < 150; i++) {
+                confettis.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2 + 100, // Start slightly below center
+                    r: Math.random() * 6 + 2,
+                    dx: Math.random() * 20 - 10,
+                    dy: Math.random() * -15 - 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.floor(Math.random() * 10) - 10,
+                    tiltAngleIncrement: (Math.random() * 0.07) + 0.05,
+                    tiltAngle: 0
+                });
+            }
+            if (!animationId) animateConfetti();
+            
+            // Stop after 3 seconds
+            setTimeout(() => {
+                confettis = [];
+                cancelAnimationFrame(animationId);
+                animationId = null;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }, 3000);
+        }
+
+        function animateConfetti() {
+            animationId = requestAnimationFrame(animateConfetti);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            confettis.forEach((confetti, index) => {
+                confetti.tiltAngle += confetti.tiltAngleIncrement;
+                confetti.y += (Math.cos(confetti.tiltAngle) + 1 + confetti.r / 2) / 2;
+                confetti.x += Math.sin(confetti.tiltAngle) * 2;
+                confetti.dy += 0.1; // gravity
+                confetti.y += confetti.dy;
+                confetti.x += confetti.dx;
+
+                ctx.beginPath();
+                ctx.lineWidth = confetti.r;
+                ctx.strokeStyle = confetti.color;
+                ctx.moveTo(confetti.x + confetti.tilt + confetti.r, confetti.y);
+                ctx.lineTo(confetti.x + confetti.tilt, confetti.y + confetti.tilt + confetti.r);
+                ctx.stroke();
+
+                // Remove off-screen particles
+                if (confetti.y > canvas.height) {
+                    confettis.splice(index, 1);
+                }
+            });
+        }
+
+        runBtn.addEventListener('click', runCode);
+        
+        resetBtn.addEventListener('click', () => {
+            if(!isRunning) resetPlayer();
+        });
+
+        clearWorkspaceBtn.addEventListener('click', () => {
+            if(!isRunning) workspace.innerHTML = '';
+        });
+
+        // Handle Level switching
+        levelSelect.addEventListener('change', (e) => {
+            if (!isRunning) {
+                currentLevel = parseInt(e.target.value);
+                workspace.innerHTML = '';
+                initGrid();
+            } else {
+                // Prevent changing level while code is running
+                e.target.value = currentLevel;
+            }
+        });
+
+        // Initialize Game
+        window.onload = () => {
+            setupDragAndDrop();
+            initGrid();
+
+            // Mute toggle
+            const muteBtn = document.getElementById('mute-btn');
+            let muted = false;
+            muteBtn.addEventListener('click', () => {
+                muted = !muted;
+                SoundEngine.muted = muted;
+                muteBtn.innerHTML = muted
+                    ? '<i class="fa-solid fa-volume-xmark"></i>'
+                    : '<i class="fa-solid fa-volume-high"></i>';
+                muteBtn.title = muted ? 'Unmute Sound' : 'Mute Sound';
+            });
+        };
+
+    </script>
+</body>
+</html>

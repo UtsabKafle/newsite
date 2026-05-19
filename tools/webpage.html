@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebBuilder Kids - Learn HTML!</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for a playful look -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SortableJS for Drag and Drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-green': '#2ecc71',
+                        'bg-soft': '#f4f9f4',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f0fdf4;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .toolbox-block {
+            cursor: grab;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .toolbox-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .toolbox-block:active {
+            cursor: grabbing;
+        }
+
+        .sortable-ghost {
+            opacity: 0.4;
+            background-color: #e2e8f0;
+            border: 2px dashed #94a3b8;
+        }
+
+        .workspace-block {
+            cursor: grab;
+            animation: popIn 0.3s ease-out;
+        }
+        .workspace-block:active {
+            cursor: grabbing;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .token-tag { color: #e06c75; }
+        .token-attr { color: #d19a66; }
+        .token-string { color: #98c379; }
+        .token-text { color: #abb2bf; }
+
+        /* Mobile tab bar */
+        .mobile-tab-bar {
+            display: none;
+        }
+        @media (max-width: 767px) {
+            .mobile-tab-bar {
+                display: flex;
+            }
+        }
+
+        /* Mobile tab active styling */
+        .mobile-tab.active {
+            color: #2ecc71;
+            background-color: #f0fdf4;
+        }
+
+        /* Mobile panel visibility */
+        .mobile-panel {
+            display: none;
+        }
+        .mobile-panel.active {
+            display: flex;
+        }
+        @media (min-width: 768px) {
+            .mobile-panel {
+                display: flex !important;
+            }
+        }
+
+        /* Toolbox blocks in a compact grid on mobile */
+        @media (max-width: 767px) {
+            #toolbox {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            #toolbox .toolbox-block {
+                justify-content: center;
+                text-align: center;
+                font-size: 0.8rem;
+                padding: 0.5rem 0.75rem;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="md:h-screen flex flex-col font-sans md:overflow-hidden overflow-auto text-gray-800 pb-16 md:pb-0">
+
+    <!-- Top Header -->
+    <header class="bg-brand-green text-white py-2 md:py-4 shadow-md z-10 flex-shrink-0">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h1 class="text-xl md:text-3xl font-black tracking-wide flex items-center justify-center gap-2 md:gap-3">
+                <i class="fas fa-puzzle-piece"></i> WebBuilder Kids
+            </h1>
+            <p class="text-green-100 font-bold mt-0.5 md:mt-1 text-xs md:text-sm">Drag blocks to build your own website!</p>
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Tab Bar -->
+    <nav class="mobile-tab-bar fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+        <button class="mobile-tab flex-1 flex flex-col items-center justify-center py-2 text-gray-500 transition-colors active" data-tab="toolbox" onclick="switchMobileTab('toolbox')">
+            <i class="fas fa-toolbox text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">Toolbox</span>
+        </button>
+        <button class="mobile-tab flex-1 flex flex-col items-center justify-center py-2 text-gray-500 transition-colors" data-tab="workspace" onclick="switchMobileTab('workspace')">
+            <i class="fas fa-layer-group text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">Build</span>
+        </button>
+        <button class="mobile-tab flex-1 flex flex-col items-center justify-center py-2 text-gray-500 transition-colors" data-tab="preview" onclick="switchMobileTab('preview')">
+            <i class="fas fa-globe text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">Preview</span>
+        </button>
+        <button class="mobile-tab flex-1 flex flex-col items-center justify-center py-2 text-gray-500 transition-colors" data-tab="code" onclick="switchMobileTab('code')">
+            <i class="fas fa-code text-lg"></i>
+            <span class="text-[10px] font-bold mt-0.5">Code</span>
+        </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col md:flex-row gap-3 md:gap-4 p-3 md:p-4 overflow-hidden container mx-auto max-w-7xl">
+        
+        <!-- COLUMN 1: Toolbox (Left) -->
+        <div class="mobile-panel active w-full md:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 flex-col h-full overflow-hidden" id="panel-toolbox">
+            <div class="p-4 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+                <i class="fas fa-toolbox text-gray-500"></i>
+                <h2 class="font-bold text-lg text-gray-700">Toolbox</h2>
+            </div>
+            
+            <div class="p-4 overflow-y-auto flex-1">
+                <p class="text-sm text-gray-500 mb-4 font-bold uppercase tracking-wider">HTML Elements</p>
+                
+                <!-- Draggable Blocks Container -->
+                <div id="toolbox" class="flex flex-col gap-3">
+                    
+                    <!-- Navbar Block -->
+                    <div class="toolbox-block bg-teal-500 text-white p-3 rounded-xl font-bold flex items-center gap-3 select-none" data-type="navbar">
+                        <i class="fas fa-bars fa-fw text-teal-200"></i> Navigation Bar
+                    </div>
+
+                    <!-- Heading Block -->
+                    <div class="toolbox-block bg-blue-500 text-white p-3 rounded-xl font-bold flex items-center gap-3 select-none" data-type="heading">
+                        <i class="fas fa-heading fa-fw text-blue-200"></i> Big Heading (h1)
+                    </div>
+
+                    <!-- Paragraph Block -->
+                    <div class="toolbox-block bg-indigo-500 text-white p-3 rounded-xl font-bold flex items-center gap-3 select-none" data-type="paragraph">
+                        <i class="fas fa-paragraph fa-fw text-indigo-200"></i> Text Paragraph (p)
+                    </div>
+
+                    <!-- Image Block -->
+                    <div class="toolbox-block bg-orange-500 text-white p-3 rounded-xl font-bold flex items-center gap-3 select-none" data-type="image">
+                        <i class="fas fa-image fa-fw text-orange-200"></i> Picture (img)
+                    </div>
+
+                    <!-- Button Block -->
+                    <div class="toolbox-block bg-pink-500 text-white p-3 rounded-xl font-bold flex items-center gap-3 select-none" data-type="button">
+                        <i class="fas fa-hand-pointer fa-fw text-pink-200"></i> Click Button
+                    </div>
+
+                </div>
+                
+                <div class="mt-8 text-xs text-center text-gray-400 bg-gray-50 p-3 rounded-lg">
+                    <i class="fas fa-arrow-right animate-pulse mr-1"></i> Drag these blocks into your workspace!
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: Workspace (Middle) -->
+        <div class="mobile-panel w-full md:w-2/4 bg-white rounded-2xl shadow-lg border border-gray-100 flex-col h-full overflow-hidden md:min-h-0" id="panel-workspace">
+            <div class="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-layer-group text-brand-green"></i>
+                    <h2 class="font-bold text-lg text-gray-700">Your Webpage Blocks</h2>
+                </div>
+                <button onclick="clearWorkspace()" class="text-sm text-red-500 hover:text-red-700 font-bold flex items-center gap-1 transition-colors">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                </button>
+            </div>
+            
+            <!-- Dropzone -->
+            <div class="p-3 md:p-4 flex-1 overflow-y-auto bg-gray-50">
+                <div id="workspace" class="min-h-[200px] md:min-h-full border-4 border-dashed border-gray-300 rounded-xl p-3 md:p-4 flex flex-col gap-3 transition-colors pb-24">
+                    <!-- Placeholder when empty -->
+                    <div id="workspace-empty" class="h-full flex flex-col items-center justify-center text-gray-400 gap-3 mt-10 md:mt-20 pointer-events-none">
+                        <i class="fas fa-box-open text-5xl opacity-50"></i>
+                        <p class="font-bold text-lg">Drop blocks here!</p>
+                        <p class="text-sm">Build your page from top to bottom.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 3: Preview & Code (Right) -->
+        <div class="mobile-panel w-full md:w-1/4 flex-col gap-4 h-full" id="panel-preview-code">
+            
+            <!-- Live Preview Area -->
+            <div class="flex-1 bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col overflow-hidden transition-all duration-300">
+                <div class="p-3 bg-green-500 text-white border-b border-green-600 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-globe"></i>
+                        <h2 class="font-bold text-sm md:text-base">Live Preview</h2>
+                    </div>
+                    <button onclick="openPreviewInNewTab()" class="text-xs bg-green-600 hover:bg-green-700 px-2 md:px-3 py-1.5 rounded-lg shadow transition-colors flex items-center gap-1 font-bold" title="Open preview in full page">
+                        <i class="fas fa-external-link-alt"></i> <span class="hidden md:inline">Full Page</span>
+                    </button>
+                </div>
+                <!-- Sandbox for previewing HTML -->
+                <div id="live-preview" class="p-0 flex-1 overflow-y-auto bg-white min-h-[200px] md:min-h-0">
+                    <!-- Rendered HTML goes here -->
+                </div>
+            </div>
+
+            <!-- Code Area -->
+            <div id="code-panel" class="flex-1 bg-[#282c34] rounded-2xl shadow-lg border border-gray-800 flex flex-col overflow-hidden transition-all duration-300">
+                <div class="p-3 bg-gray-800 text-gray-300 border-b border-gray-700 flex justify-between items-center cursor-pointer select-none" onclick="toggleCodeSection()">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-code"></i>
+                        <h2 class="font-bold text-sm md:text-base">HTML Code</h2>
+                        <i id="code-toggle-icon" class="fas fa-chevron-down text-xs ml-1 transition-transform hidden md:inline"></i>
+                    </div>
+                    <button onclick="openCodeInNewTab(); event.stopPropagation();" class="text-xs bg-gray-700 hover:bg-gray-600 px-2 md:px-3 py-1.5 rounded-lg shadow transition-colors flex items-center gap-1 font-bold text-white" title="Open code in full page">
+                        <i class="fas fa-external-link-alt"></i> <span class="hidden md:inline">Full Page</span>
+                    </button>
+                </div>
+                <div class="p-3 md:p-4 flex-1 overflow-y-auto text-sm font-mono whitespace-pre text-gray-300 min-h-[200px] md:min-h-0" id="code-output">
+                    <!-- Code goes here -->
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Block Templates (Hidden) -->
+    <!-- These are injected into the workspace when a toolbox item is dropped -->
+    <template id="tpl-navbar">
+        <div class="workspace-block bg-teal-500 p-3 md:p-4 rounded-xl shadow-md border-b-4 border-teal-700" data-type="navbar">
+            <div class="flex justify-between items-center mb-3 text-white">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-bars"></i> Navigation Bar</span>
+                <button class="delete-btn hover:text-red-200 transition-colors"><i class="fas fa-times-circle text-xl"></i></button>
+            </div>
+            <div class="flex flex-col gap-2 bg-teal-600 p-3 rounded-lg">
+                <div class="flex items-center gap-2">
+                    <label class="text-teal-100 text-xs font-bold w-16">Site Title:</label>
+                    <input type="text" class="input-title flex-1 p-1.5 rounded text-sm text-gray-800 font-bold border-none" value="My Awesome Site">
+                </div>
+                <div class="flex items-center gap-2">
+                    <label class="text-teal-100 text-xs font-bold w-16">Bg Color:</label>
+                    <select class="input-color flex-1 p-1.5 rounded text-sm text-gray-800 border-none">
+                        <option value="#333333">Dark Gray</option>
+                        <option value="#2ecc71">Green</option>
+                        <option value="#3498db">Blue</option>
+                        <option value="#e74c3c">Red</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-heading">
+        <div class="workspace-block bg-blue-500 p-3 md:p-4 rounded-xl shadow-md border-b-4 border-blue-700" data-type="heading">
+            <div class="flex justify-between items-center mb-3 text-white">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-heading"></i> Heading (h1)</span>
+                <button class="delete-btn hover:text-red-200 transition-colors"><i class="fas fa-times-circle text-xl"></i></button>
+            </div>
+            <div class="flex flex-col gap-2 bg-blue-600 p-3 rounded-lg">
+                <input type="text" class="input-text w-full p-2 rounded text-gray-800 font-bold text-lg border-none" value="Welcome to my Page!">
+                <div class="flex items-center gap-2 mt-1">
+                    <label class="text-blue-100 text-xs font-bold">Text Color:</label>
+                    <select class="input-color p-1 rounded text-sm text-gray-800 border-none">
+                        <option value="black">Black</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="red">Red</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-paragraph">
+        <div class="workspace-block bg-indigo-500 p-3 md:p-4 rounded-xl shadow-md border-b-4 border-indigo-700" data-type="paragraph">
+            <div class="flex justify-between items-center mb-3 text-white">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-paragraph"></i> Paragraph (p)</span>
+                <button class="delete-btn hover:text-red-200 transition-colors"><i class="fas fa-times-circle text-xl"></i></button>
+            </div>
+            <div class="bg-indigo-600 p-3 rounded-lg">
+                <textarea class="input-text w-full p-2 rounded text-gray-800 text-sm border-none resize-none h-16" placeholder="Type your story here...">This is a paragraph of text. I am learning how to build websites using HTML blocks!</textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-image">
+        <div class="workspace-block bg-orange-500 p-3 md:p-4 rounded-xl shadow-md border-b-4 border-orange-700" data-type="image">
+            <div class="flex justify-between items-center mb-3 text-white">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-image"></i> Picture (img)</span>
+                <button class="delete-btn hover:text-red-200 transition-colors"><i class="fas fa-times-circle text-xl"></i></button>
+            </div>
+            <div class="bg-orange-600 p-3 rounded-lg flex items-center gap-3">
+                <img src="https://placekitten.com/100/100" class="preview-thumb w-12 h-12 rounded bg-white object-cover hidden">
+                <div class="flex-1">
+                    <label class="text-orange-100 text-xs font-bold block mb-1">Choose an Image:</label>
+                    <select class="input-url w-full p-1.5 rounded text-sm text-gray-800 border-none">
+                        <option value="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?auto=format&fit=crop&w=400&q=80">Cute Cat</option>
+                        <option value="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=400&q=80">Happy Dog</option>
+                        <option value="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=400&q=80">Cool Robot</option>
+                        <option value="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=400&q=80">Outer Space</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-button">
+        <div class="workspace-block bg-pink-500 p-3 md:p-4 rounded-xl shadow-md border-b-4 border-pink-700" data-type="button">
+            <div class="flex justify-between items-center mb-3 text-white">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-hand-pointer"></i> Button</span>
+                <button class="delete-btn hover:text-red-200 transition-colors"><i class="fas fa-times-circle text-xl"></i></button>
+            </div>
+            <div class="bg-pink-600 p-3 rounded-lg flex flex-col gap-2">
+                <input type="text" class="input-text w-full p-2 rounded text-gray-800 text-sm font-bold border-none text-center" value="Click Me!">
+                <div class="flex items-center justify-center gap-2 mt-1">
+                    <label class="text-pink-100 text-xs font-bold">Button Color:</label>
+                    <select class="input-color p-1 rounded text-sm text-gray-800 border-none">
+                        <option value="#ec4899">Pink</option>
+                        <option value="#3b82f6">Blue</option>
+                        <option value="#22c55e">Green</option>
+                        <option value="#f59e0b">Orange</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // Mobile tab switching
+        function switchMobileTab(tabName) {
+            document.querySelectorAll('.mobile-tab').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('text-brand-green', 'bg-green-50');
+                btn.classList.add('text-gray-500');
+            });
+            const activeBtn = document.querySelector(`.mobile-tab[data-tab="${tabName}"]`);
+            activeBtn.classList.add('active', 'text-brand-green', 'bg-green-50');
+            activeBtn.classList.remove('text-gray-500');
+
+            const panels = {
+                toolbox: 'panel-toolbox',
+                workspace: 'panel-workspace',
+                preview: 'panel-preview-code',
+                code: 'panel-preview-code'
+            };
+            document.querySelectorAll('.mobile-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(panels[tabName]).classList.add('active');
+
+            if (tabName === 'code') {
+                const output = document.getElementById('code-output');
+                output.classList.remove('hidden');
+            }
+        }
+
+        // DOM Elements
+        const toolboxEl = document.getElementById('toolbox');
+        const workspaceEl = document.getElementById('workspace');
+        const emptyStateEl = document.getElementById('workspace-empty');
+        const livePreviewEl = document.getElementById('live-preview');
+        const codeOutputEl = document.getElementById('code-output');
+
+        // Initialize Sortable for Toolbox (Source)
+        Sortable.create(toolboxEl, {
+            group: {
+                name: 'blocks',
+                pull: 'clone', // Clone elements out of here
+                put: false     // Don't allow items to be dropped back in
+            },
+            sort: false,       // Don't sort the toolbox itself
+            animation: 150
+        });
+
+        // Initialize Sortable for Workspace (Target)
+        Sortable.create(workspaceEl, {
+            group: 'blocks',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onAdd: function (evt) {
+                const item = evt.item;
+                const type = item.getAttribute('data-type');
+                
+                const template = document.getElementById(`tpl-${type}`);
+                if (template) {
+                    const newContent = template.content.cloneNode(true).firstElementChild;
+                    item.replaceWith(newContent);
+                }
+                
+                updateUI();
+
+                if (window.innerWidth < 768) {
+                    switchMobileTab('workspace');
+                }
+            },
+            onUpdate: function() {
+                // Triggered when blocks are reordered
+                updateUI();
+            },
+            onRemove: function() {
+                updateUI();
+            }
+        });
+
+        // Event Delegation for Workspace interactions (typing, changing colors, deleting)
+        workspaceEl.addEventListener('input', updateUI);
+        workspaceEl.addEventListener('change', updateUI);
+        workspaceEl.addEventListener('click', function(e) {
+            // Handle Delete Button clicks
+            const deleteBtn = e.target.closest('.delete-btn');
+            if (deleteBtn) {
+                const block = deleteBtn.closest('.workspace-block');
+                block.style.animation = 'popIn 0.2s reverse ease-in';
+                setTimeout(() => {
+                    block.remove();
+                    updateUI();
+                }, 190);
+            }
+        });
+
+        // Main Rendering Logic
+        function updateUI() {
+            // 1. Toggle Empty State
+            const blocks = workspaceEl.querySelectorAll('.workspace-block');
+            if (blocks.length === 0) {
+                emptyStateEl.style.display = 'flex';
+                workspaceEl.classList.add('border-dashed');
+                workspaceEl.classList.remove('bg-white');
+            } else {
+                emptyStateEl.style.display = 'none';
+                workspaceEl.classList.remove('border-dashed');
+                workspaceEl.classList.add('bg-white', 'shadow-inner');
+            }
+
+            // 2. Generate HTML and Code
+            let rawHTML = '';
+            let formattedCode = '';
+
+            blocks.forEach(block => {
+                const type = block.getAttribute('data-type');
+                
+                if (type === 'navbar') {
+                    const title = block.querySelector('.input-title').value || 'My Site';
+                    const bgColor = block.querySelector('.input-color').value;
+                    
+                    rawHTML += `<nav style="background-color: ${bgColor}; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; margin-bottom: 15px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><strong style="color: white; font-size: 1.2rem;">${title}</strong><div style="color: white; font-size: 0.9rem; opacity: 0.8;">Home | About</div></nav>\n`;
+                    
+                    formattedCode += `<span class="token-tag">&lt;nav</span> <span class="token-attr">style</span>=<span class="token-string">"background-color: ${bgColor}; padding: 15px;"</span><span class="token-tag">&gt;</span>\n`;
+                    formattedCode += `  <span class="token-tag">&lt;strong</span> <span class="token-attr">style</span>=<span class="token-string">"color: white;"</span><span class="token-tag">&gt;</span><span class="token-text">${title}</span><span class="token-tag">&lt;/strong&gt;</span>\n`;
+                    formattedCode += `  <span class="token-tag">&lt;div&gt;</span><span class="token-text">Home | About</span><span class="token-tag">&lt;/div&gt;</span>\n`;
+                    formattedCode += `<span class="token-tag">&lt;/nav&gt;</span>\n\n`;
+                }
+                
+                else if (type === 'heading') {
+                    const text = block.querySelector('.input-text').value || 'Heading';
+                    const color = block.querySelector('.input-color').value;
+                    
+                    rawHTML += `<h1 style="color: ${color}; font-family: sans-serif; font-size: 2.5rem; font-weight: bold; margin: 15px 20px;">${text}</h1>\n`;
+                    
+                    formattedCode += `<span class="token-tag">&lt;h1</span> <span class="token-attr">style</span>=<span class="token-string">"color: ${color};"</span><span class="token-tag">&gt;</span>\n`;
+                    formattedCode += `  <span class="token-text">${text}</span>\n`;
+                    formattedCode += `<span class="token-tag">&lt;/h1&gt;</span>\n\n`;
+                }
+                
+                else if (type === 'paragraph') {
+                    const text = block.querySelector('.input-text').value || '';
+                    // Convert newlines to breaks for preview
+                    const safeText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    
+                    rawHTML += `<p style="font-family: sans-serif; font-size: 1.1rem; line-height: 1.6; color: #444; margin: 15px 20px;">${text}</p>\n`;
+                    
+                    formattedCode += `<span class="token-tag">&lt;p&gt;</span>\n`;
+                    formattedCode += `  <span class="token-text">${safeText}</span>\n`;
+                    formattedCode += `<span class="token-tag">&lt;/p&gt;</span>\n\n`;
+                }
+                
+                else if (type === 'image') {
+                    const url = block.querySelector('.input-url').value;
+                    
+                    rawHTML += `<div style="margin: 15px 20px;"><img src="${url}" alt="My Picture" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" /></div>\n`;
+                    
+                    formattedCode += `<span class="token-tag">&lt;img</span> \n  <span class="token-attr">src</span>=<span class="token-string">"${url}"</span> \n  <span class="token-attr">alt</span>=<span class="token-string">"My Picture"</span> \n  <span class="token-attr">style</span>=<span class="token-string">"border-radius: 12px;"</span>\n<span class="token-tag">/&gt;</span>\n\n`;
+                }
+
+                else if (type === 'button') {
+                    const text = block.querySelector('.input-text').value || 'Click Me';
+                    const bgColor = block.querySelector('.input-color').value;
+                    
+                    rawHTML += `<div style="margin: 20px;"><button style="background-color: ${bgColor}; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 rgba(0,0,0,0.2); transition: transform 0.1s;">${text}</button></div>\n`;
+                    
+                    formattedCode += `<span class="token-tag">&lt;button</span> <span class="token-attr">style</span>=<span class="token-string">"background-color: ${bgColor}; color: white;"</span><span class="token-tag">&gt;</span>\n`;
+                    formattedCode += `  <span class="token-text">${text}</span>\n`;
+                    formattedCode += `<span class="token-tag">&lt;/button&gt;</span>\n\n`;
+                }
+            });
+
+            // Update Views
+            livePreviewEl.innerHTML = rawHTML;
+            
+            if (blocks.length === 0) {
+                codeOutputEl.innerHTML = `<span class="text-gray-500 italic">// Your HTML code will appear here...</span>\n\n<span class="token-tag">&lt;!-- Drop blocks to start --&gt;</span>`;
+            } else {
+                codeOutputEl.innerHTML = formattedCode;
+            }
+        }
+
+        // Global function to clear the workspace
+        window.clearWorkspace = function() {
+            const blocks = workspaceEl.querySelectorAll('.workspace-block');
+            if (blocks.length > 0) {
+                if(confirm("Are you sure you want to clear your entire program?")) {
+                    blocks.forEach(b => b.remove());
+                    updateUI();
+                }
+            }
+        };
+
+        // Open Live Preview in New Tab
+        window.openPreviewInNewTab = function() {
+            const previewContent = livePreviewEl.innerHTML;
+            const newWindow = window.open('', '_blank');
+            if (newWindow) {
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>My Built Webpage</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                font-family: sans-serif;
+                                background-color: #ffffff;
+                                min-height: 100vh;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        ${previewContent}
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            }
+        };
+
+        // Toggle Code Section
+        window.toggleCodeSection = function() {
+            const panel = document.getElementById('code-panel');
+            const output = document.getElementById('code-output');
+            const icon = document.getElementById('code-toggle-icon');
+            
+            if (output.classList.contains('hidden')) {
+                // Expand
+                output.classList.remove('hidden');
+                panel.classList.add('flex-1');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                // Minimize
+                output.classList.add('hidden');
+                panel.classList.remove('flex-1');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        };
+
+        // Open Code in New Tab
+        window.openCodeInNewTab = function() {
+            const codeHTML = codeOutputEl.innerHTML;
+            const newWindow = window.open('', '_blank');
+            if (newWindow) {
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>My HTML Code</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 20px;
+                                background-color: #282c34;
+                                color: #abb2bf;
+                                font-family: monospace;
+                                font-size: 16px;
+                                line-height: 1.5;
+                            }
+                            pre {
+                                white-space: pre-wrap;
+                                word-wrap: break-word;
+                            }
+                            .token-tag { color: #e06c75; }
+                            .token-attr { color: #d19a66; }
+                            .token-string { color: #98c379; }
+                            .token-text { color: #abb2bf; }
+                            .text-gray-500 { color: #6b7280; }
+                            .italic { font-style: italic; }
+                        </style>
+                    </head>
+                    <body>
+                        <pre><code>${codeHTML}</code></pre>
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            }
+        };
+
+        // Initialize UI on load
+        updateUI();
+
+    </script>
+</body>
+</html>
