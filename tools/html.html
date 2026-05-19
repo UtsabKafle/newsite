@@ -398,6 +398,115 @@
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    /* ─── Mobile key bar ─────────────────────────────────────────── */
+    #mobile-keybar {
+      display: none;
+      flex-direction: column;
+      background: var(--shadow);
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+      z-index: 20;
+    }
+    @media (max-width: 768px) {
+      #editor-pane:not(.hidden) #mobile-keybar { display: flex; }
+    }
+
+    .keybar-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .keybar-row::-webkit-scrollbar { display: none; }
+
+    .keybar-label {
+      font-family: var(--font-brand);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      padding: 0 4px;
+      flex-shrink: 0;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .key-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 30px;
+      padding: 0 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--mid);
+      color: var(--dust);
+      font-family: var(--font-code);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .key-btn:active {
+      background: var(--sun);
+      color: var(--shadow);
+      transform: scale(0.93);
+    }
+
+    .tag-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 30px;
+      padding: 0 9px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--graphite);
+      color: var(--dust);
+      font-family: var(--font-code);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.1s;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .tag-btn .tag-name { color: var(--sun); }
+    .tag-btn:active {
+      background: var(--sun-dim);
+      border-color: var(--sun);
+      transform: scale(0.93);
+    }
+
+    .keybar-collapse-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: #666;
+      font-size: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-left: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .keybar-collapse-btn:active { color: var(--sun); }
+
+    #mobile-keybar.collapsed .keybar-row { display: none; }
+    #mobile-keybar.collapsed .keybar-collapse-btn::after { content: '▲'; }
+
     /* ─── Scrollbar global ───────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -491,6 +600,74 @@
       </div>
       <div id="editor-wrapper" style="flex:1;overflow:hidden;">
         <textarea id="code-editor"></textarea>
+      </div>
+
+      <!-- Mobile key bar -->
+      <div id="mobile-keybar">
+        <div class="keybar-row">
+          <span class="keybar-label">Char</span>
+          <button class="key-btn" data-insert="<">&lt;</button>
+          <button class="key-btn" data-insert=">">&gt;</button>
+          <button class="key-btn" data-insert="/">/</button>
+          <button class="key-btn" data-insert="=">=</button>
+          <button class="key-btn" data-insert='"'>"</button>
+          <button class="key-btn" data-insert="'">'</button>
+          <button class="key-btn" data-insert=";">;</button>
+          <button class="key-btn" data-insert="{">{</button>
+          <button class="key-btn" data-insert="}">}</button>
+          <button class="key-btn" data-insert="(">(</button>
+          <button class="key-btn" data-insert=")">)</button>
+          <button class="key-btn" data-insert="#">#</button>
+          <button class="key-btn" data-insert=".">.</button>
+          <button class="key-btn" data-insert="!">!</button>
+          <button class="key-btn" data-insert="&">&amp;</button>
+          <button class="key-btn" data-insert="-">-</button>
+          <button class="key-btn" data-insert="_">_</button>
+          <button class="key-btn" data-insert=":">:</button>
+        </div>
+        <div class="keybar-row">
+          <span class="keybar-label">Tags</span>
+          <button class="tag-btn" data-tag="div"><span class="tag-name">&lt;div&gt;</span></button>
+          <button class="tag-btn" data-tag="p"><span class="tag-name">&lt;p&gt;</span></button>
+          <button class="tag-btn" data-tag="span"><span class="tag-name">&lt;span&gt;</span></button>
+          <button class="tag-btn" data-tag="h1"><span class="tag-name">&lt;h1&gt;</span></button>
+          <button class="tag-btn" data-tag="h2"><span class="tag-name">&lt;h2&gt;</span></button>
+          <button class="tag-btn" data-tag="h3"><span class="tag-name">&lt;h3&gt;</span></button>
+          <button class="tag-btn" data-tag="a" data-attrs='href=""'><span class="tag-name">&lt;a&gt;</span></button>
+          <button class="tag-btn" data-tag="img" data-void='src="" alt=""'><span class="tag-name">&lt;img&gt;</span></button>
+          <button class="tag-btn" data-tag="button"><span class="tag-name">&lt;button&gt;</span></button>
+          <button class="tag-btn" data-tag="input" data-void='type=""'><span class="tag-name">&lt;input&gt;</span></button>
+          <button class="tag-btn" data-tag="br" data-void><span class="tag-name">&lt;br&gt;</span></button>
+          <button class="tag-btn" data-tag="hr" data-void><span class="tag-name">&lt;hr&gt;</span></button>
+          <button class="tag-btn" data-tag="ul"><span class="tag-name">&lt;ul&gt;</span></button>
+          <button class="tag-btn" data-tag="ol"><span class="tag-name">&lt;ol&gt;</span></button>
+          <button class="tag-btn" data-tag="li"><span class="tag-name">&lt;li&gt;</span></button>
+          <button class="tag-btn" data-tag="section"><span class="tag-name">&lt;section&gt;</span></button>
+          <button class="tag-btn" data-tag="header"><span class="tag-name">&lt;header&gt;</span></button>
+          <button class="tag-btn" data-tag="footer"><span class="tag-name">&lt;footer&gt;</span></button>
+          <button class="tag-btn" data-tag="nav"><span class="tag-name">&lt;nav&gt;</span></button>
+          <button class="tag-btn" data-tag="main"><span class="tag-name">&lt;main&gt;</span></button>
+          <button class="tag-btn" data-tag="table"><span class="tag-name">&lt;table&gt;</span></button>
+          <button class="tag-btn" data-tag="tr"><span class="tag-name">&lt;tr&gt;</span></button>
+          <button class="tag-btn" data-tag="td"><span class="tag-name">&lt;td&gt;</span></button>
+          <button class="tag-btn" data-tag="th"><span class="tag-name">&lt;th&gt;</span></button>
+          <button class="tag-btn" data-tag="form" data-attrs='action=""'><span class="tag-name">&lt;form&gt;</span></button>
+          <button class="tag-btn" data-tag="label"><span class="tag-name">&lt;label&gt;</span></button>
+          <button class="tag-btn" data-tag="select"><span class="tag-name">&lt;select&gt;</span></button>
+          <button class="tag-btn" data-tag="option"><span class="tag-name">&lt;option&gt;</span></button>
+          <button class="tag-btn" data-tag="textarea"><span class="tag-name">&lt;textarea&gt;</span></button>
+          <button class="tag-btn" data-tag="style"><span class="tag-name">&lt;style&gt;</span></button>
+          <button class="tag-btn" data-tag="script"><span class="tag-name">&lt;script&gt;</span></button>
+          <button class="tag-btn" data-tag="link" data-void='rel="stylesheet" href=""'><span class="tag-name">&lt;link&gt;</span></button>
+          <button class="tag-btn" data-tag="meta" data-void='charset="UTF-8"'><span class="tag-name">&lt;meta&gt;</span></button>
+          <button class="tag-btn" data-tag="strong"><span class="tag-name">&lt;strong&gt;</span></button>
+          <button class="tag-btn" data-tag="em"><span class="tag-name">&lt;em&gt;</span></button>
+          <button class="tag-btn" data-tag="code"><span class="tag-name">&lt;code&gt;</span></button>
+          <button class="tag-btn" data-tag="pre"><span class="tag-name">&lt;pre&gt;</span></button>
+          <button class="tag-btn" data-tag="div" data-attrs='class=""'><span class="tag-name">&lt;.div&gt;</span></button>
+          <button class="tag-btn" data-tag="span" data-attrs='id=""'><span class="tag-name">&lt;#span&gt;</span></button>
+          <button class="keybar-collapse-btn" id="keybar-collapse">▼</button>
+        </div>
       </div>
     </div>
 
@@ -704,6 +881,40 @@ document.getElementById('btn-copy').addEventListener('click', function() {
   }).catch(function() {
     showToast('Copy failed — try selecting all (Ctrl+A)');
   });
+});
+
+// ─── Mobile keybar ───────────────────────────────────────────────────────────
+document.querySelectorAll('.key-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    editor.focus();
+    editor.replaceSelection(this.dataset.insert);
+  });
+});
+
+document.querySelectorAll('.tag-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    editor.focus();
+    var tag = this.dataset.tag;
+    if (this.hasAttribute('data-void')) {
+      var attrs = this.dataset.void;
+      if (attrs) {
+        editor.replaceSelection('<' + tag + ' ' + attrs + ' />');
+      } else {
+        editor.replaceSelection('<' + tag + '>');
+      }
+    } else {
+      var extra = this.dataset.attrs || '';
+      if (extra) {
+        editor.replaceSelection('<' + tag + ' ' + extra + '></' + tag + '>');
+      } else {
+        editor.replaceSelection('<' + tag + '></' + tag + '>');
+      }
+    }
+  });
+});
+
+document.getElementById('keybar-collapse').addEventListener('click', function() {
+  document.getElementById('mobile-keybar').classList.toggle('collapsed');
 });
 
 // ─── Toast ───────────────────────────────────────────────────────────────────
