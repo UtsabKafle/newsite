@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Consica Labs | Builder Tier — Instructor Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC',
+              100: '#C5DBF7',
+              200: '#8EB8EF',
+              300: '#5694E4',
+              400: '#2475D9',
+              500: '#0959C8',
+              600: '#0747A3',
+              700: '#05367A',
+              800: '#032652',
+              900: '#021629',
+            },
+            ink: {
+              DEFAULT: '#0f172a',
+              muted: '#475569',
+              soft: '#64748b',
+              faint: '#94a3b8',
+            }
+          },
+          fontFamily: {
+            display: ['Poppins', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="../shared/styles/base.css">
+  <link rel="stylesheet" href="../shared/styles/animations.css">
+  <link rel="icon" type="image/png" href="../assets/images/logol.png">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+    }
+    ::selection { background: rgba(9, 89, 200, 0.12); color: #0959C8; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .sidebar-link.active {
+      background: #0959C8;
+      color: #fff !important;
+      font-weight: 600;
+    }
+
+    .module-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+    .module-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border-color: #cbd5e1;
+    }
+
+    .lesson-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lesson-card:hover {
+      border-color: #0959C8;
+      box-shadow: 0 2px 12px rgba(9, 89, 200, 0.08);
+      transform: translateY(-1px);
+    }
+    .lesson-card.selected {
+      border-color: #0959C8;
+      box-shadow: 0 0 0 1px #0959C8;
+      background: #f8fafc;
+    }
+
+    .section-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+    }
+
+    .audio-progress-fill { transition: width 0.3s linear; }
+
+    .fade-in { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- MOBILE HEADER -->
+  <div class="md:hidden fixed top-0 left-0 right-0 bg-white z-30 border-b border-slate-200">
+    <div class="flex justify-between items-center p-4">
+      <h1 class="text-base font-bold font-display text-ink">
+        <i class="fa-solid fa-graduation-cap text-brand-500 mr-2"></i>Consica Labs
+      </h1>
+      <button id="mobile-menu-btn" class="text-slate-500 hover:text-ink p-1" aria-label="Open menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-nav-overlay" class="md:hidden fixed inset-0 z-40 hidden">
+    <div class="absolute inset-0 bg-black/40" id="overlay-backdrop"></div>
+    <aside class="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-2xl flex flex-col z-50 border-r border-slate-200">
+      <div class="p-5 flex justify-between items-center border-b border-slate-100">
+        <h2 class="font-display font-semibold text-ink">Lessons</h2>
+        <button id="mobile-nav-close" class="text-slate-400 hover:text-ink text-2xl p-1 leading-none">&times;</button>
+      </div>
+      <nav class="flex-1 overflow-y-auto p-4" id="mobile-nav-inner"></nav>
+      <div class="p-4 border-t border-slate-100">
+        <a href="../index.html" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-sm rounded-lg transition-colors flex items-center justify-center gap-2 text-slate-600 no-underline">
+          <i class="fa-solid fa-arrow-left"></i> Back to Main Site
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- DESKTOP SIDEBAR -->
+  <aside class="fixed top-0 left-0 bottom-0 w-60 bg-white flex flex-col z-30 border-r border-slate-200 hidden md:flex">
+    <div class="p-5 border-b border-slate-100 flex-shrink-0">
+      <h1 class="text-lg font-bold text-ink flex items-center gap-2 font-display">
+        <i class="fa-solid fa-graduation-cap text-brand-500"></i> Consica Labs
+      </h1>
+      <p class="text-[10px] text-slate-400 mt-0.5 uppercase tracking-wider font-display">Instructor Portal</p>
+    </div>
+    <nav class="flex-1 overflow-y-auto p-4" id="desktop-nav-inner"></nav>
+    <div class="p-4 border-t border-slate-100 flex-shrink-0">
+      <a href="../index.html" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-sm rounded-lg transition-colors flex items-center justify-center gap-2 text-slate-600 no-underline">
+        <i class="fa-solid fa-arrow-left"></i> Back to Main Site
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="md:ml-60 min-h-screen pt-16 md:pt-0">
+    <div class="max-w-4xl mx-auto p-4 md:p-8 pb-20">
+
+      <!-- HERO -->
+      <header class="mb-10 pt-6 md:pt-10">
+        <span class="bg-brand-50 text-brand-600 text-xs font-semibold px-3 py-1 rounded-full inline-block font-display tracking-wide mb-3">
+          Builder Tier &middot; Class 8–10
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-ink font-display leading-tight mb-3">
+          10-Day Coding Curriculum
+        </h2>
+        <p class="text-slate-500 leading-relaxed max-w-xl">
+          From binary logic to building a personal portfolio website. Each day includes a hook, guided build, engagement checks, and troubleshooting notes.
+        </p>
+      </header>
+
+      <!-- MODULE + DAY GRID -->
+      <div id="modules-grid" class="space-y-8 fade-in"></div>
+
+      <!-- SELECTED LESSON DETAIL -->
+      <div id="lesson-detail" class="mt-10 fade-in" style="display:none"></div>
+
+    </div>
+  </main>
+
+  <script>
+    const courseData = {
+      "day1": {
+        module: "Module 1 &mdash; Foundations",
+        title: "Day 1: How Computers Think (Binary)",
+        objective: "Understand binary logic before coding",
+        audioSrc: "assets/voice/day1-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook & The 'Why'", time: "10 Mins", content: '<p class="text-ink/80 mb-3">Before we turn on any computers or screens, ask the class:</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic leading-relaxed">"How does a computer actually read what we type? If I press \'A\', how does the machine know?"</div><p class="mt-3 text-sm text-slate-500 leading-relaxed">Explain that computers don\'t speak English or Nepali. They run on electricity. Electricity can only be ON or OFF. Therefore, computers use a system of ONs (1s) and OFFs (0s) called <strong class="text-ink">Binary</strong>.</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "2. The Engagement Check", time: "5 Mins", content: '<p class="text-sm text-slate-500 mb-3">Do not proceed until you have asked these questions.</p><ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">Q1:</strong> "If a computer only understands on and off, how does it represent the number 2?" <em class="text-slate-400 block mt-0.5">Look for answers about combinations of signals</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">Q2:</strong> "Why not just use decimal numbers (0-9) like we do?" <em class="text-slate-400 block mt-0.5">Hardware can\'t measure 10 different voltage levels accurately</em></span></li></ul>' },
+          { icon: "fa-solid fa-wrench text-sky-500", title: "3. The 'How' & Tool Introduction", time: "10 Mins", content: '<p class="text-sm text-slate-500 mb-3 leading-relaxed">Have students open the Consica HTML Playground.</p><div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs leading-relaxed"><span class="text-sky-300">&lt;h1&gt;</span><span class="text-slate-200">Hello World</span><span class="text-sky-300">&lt;/h1&gt;</span></div><p class="mt-3 text-sm text-slate-500 leading-relaxed">Explain: HTML is a \'high-level language\'. The browser translates it behind the scenes into binary code (1s and 0s) that the processor understands.</p>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. The Guided Build", time: "20 Mins", content: '<p class="text-sm text-slate-500 mb-3 leading-relaxed">Instruct students to load <strong class="text-ink">Template #1: Basic Structure</strong>.</p><p class="text-sm text-slate-500 leading-relaxed">Walk around the room. Have them modify the text inside <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">&lt;h1&gt;</code> and <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">&lt;p&gt;</code> tags. Missing a closing bracket <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">&gt;</code> breaks the translation (syntax error).</p>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Sandbox & Troubleshooting", time: "15 Mins", content: '<h4 class="font-semibold text-sm mb-2 text-ink">Common Errors to watch for today:</h4><ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Forgetting the forward slash <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">/</code> in closing tags.</li><li>Typing <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">h1</code> without the angle brackets.</li></ul><p class="mt-3 text-xs font-semibold text-amber-600 uppercase font-display tracking-wide">Instructor Rule: Do not type the code for them. Point to the screen and ask "what is missing here?"</p>' }
+        ]
+      },
+      "day2": {
+        module: "Module 1 &mdash; Foundations",
+        title: "Day 2: Logic Gates & Basic Arduino",
+        objective: "Connect binary to physical hardware",
+        audioSrc: "assets/voice/day2-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook & Recap", time: "10 Mins", content: '<p class="text-sm text-slate-500 mb-3 leading-relaxed">Start with a quick binary recap. Hold up the Arduino board and say:</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic leading-relaxed">"This tiny green board is like a brain that speaks in 1s and 0s. Let\'s teach it our language."</div><p class="mt-3 text-sm text-slate-500 leading-relaxed">Explain that the pins are just sending out \'1s\' (5 Volts) and \'0s\' (0 Volts).</p>' },
+          { icon: "fa-solid fa-diagram-project text-sky-500", title: "2. Logic Gates Introduction", time: "15 Mins", content: '<p class="text-sm text-slate-500 mb-3">Draw AND, OR, and NOT gates on the board:</p><ul class="space-y-2.5 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-circle-check text-sky-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">AND Gate:</strong> "You need BOTH your homework AND your notebook to enter."</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-circle-check text-sky-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">OR Gate:</strong> "You can use EITHER a pen OR a pencil to write."</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-circle-check text-sky-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">NOT Gate:</strong> "If it\'s NOT raining, we go outside."</span></li></ul>' },
+          { icon: "fa-solid fa-microchip text-sky-500", title: "3. Arduino Hands-On", time: "20 Mins", content: '<p class="text-sm text-slate-500 mb-3">Distribute Arduino kits. Guide students through connecting an LED to pin 13.</p><div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200 leading-relaxed"><span class="text-sky-300">void</span> <span>setup</span>() {<br>&nbsp;&nbsp;<span>pinMode</span>(<span class="text-amber-300">13</span>, <span class="text-slate-400">OUTPUT</span>);<br>}<br><br><span class="text-sky-300">void</span> <span>loop</span>() {<br>&nbsp;&nbsp;<span>digitalWrite</span>(<span class="text-amber-300">13</span>, <span class="text-slate-400">HIGH</span>);<br>&nbsp;&nbsp;<span>delay</span>(<span class="text-amber-300">1000</span>);<br>&nbsp;&nbsp;<span>digitalWrite</span>(<span class="text-amber-300">13</span>, <span class="text-slate-400">LOW</span>);<br>&nbsp;&nbsp;<span>delay</span>(<span class="text-amber-300">1000</span>);<br>}</div><p class="mt-3 text-sm text-slate-500">Let students upload and see their first blinking LED.</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "4. The Engagement Check", time: "10 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">Q1:</strong> "If you wanted the LED to only turn on when it\'s dark AND someone is in the room, which logic gate would you use?"</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5 flex-shrink-0"></i><span><strong class="text-ink">Q2:</strong> "What happens if we connect the LED without a resistor? Why is that dangerous?"</span></li></ul>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Sandbox & Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>LED not lighting? Check if the longer leg (anode) is connected to pin 13.</li><li>Board not detected? Verify USB cable and driver installation.</li><li>Compilation error? Double-check semicolons at every statement.</li></ul>' }
+        ]
+      },
+      "day3": {
+        module: "Module 1 &mdash; Foundations",
+        title: "Day 3: Variables & Data Types",
+        objective: "Introduce programming variables with real-world analogies",
+        audioSrc: "assets/voice/day3-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook — What's in a Box?", time: "10 Mins", content: '<p class="text-sm text-slate-500 mb-3">Bring a physical box to class. Write "age" on it and put the number 12 inside.</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic leading-relaxed">"This box is a \'variable\'. The label is its \'name\', and whatever is inside is its \'value\'. Computers use thousands of these boxes to remember things."</div>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. Coding Variables", time: "20 Mins", content: '<p class="text-sm text-slate-500 mb-3">Open the Consica Playground:</p><div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200 leading-relaxed"><span class="text-sky-300">let</span> <span>studentName</span> = <span class="text-amber-300">"Ram"</span>;<br><span class="text-sky-300">let</span> <span>age</span> = <span class="text-amber-300">14</span>;<br><span class="text-sky-300">let</span> <span>isPresent</span> = <span class="text-amber-300">true</span>;<br><span>console.log</span>(studentName + <span class="text-amber-300">" is "</span> + age);</div><p class="mt-3 text-sm text-slate-500">Three basic types: <strong class="text-ink">String</strong> (quotes), <strong class="text-ink">Number</strong> (no quotes), <strong class="text-ink">Boolean</strong> (true/false).</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "10 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "If age = 14, what type of data is age?" <em class="text-slate-400 block mt-0.5">Number</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "Why quotes around \'Ram\' but not 14?" <em class="text-slate-400 block mt-0.5">Text needs quotes, numbers don\'t</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Guided Practice", time: "15 Mins", content: '<p class="text-sm text-slate-500">Ask students to create variables for: their name, age, favorite subject, and whether they have a pet. Then print it all using <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">console.log()</code>. Walk around and assist.</p>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Strings without quotes are treated as variable names.</li><li><code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">let</code> cannot be used twice for same variable.</li><li>Case matters: <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">studentName</code> vs <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">studentname</code>.</li></ul>' }
+        ]
+      },
+      "day4": {
+        module: "Module 2 &mdash; Logic & Control Flow",
+        title: "Day 4: If/Else Decisions",
+        objective: "Teach conditional logic through gamified examples",
+        audioSrc: "assets/voice/day4-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. Real-World Decisions", time: "10 Mins", content: '<p class="text-sm text-slate-500 mb-3">Ask the class:</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"How do you decide whether to bring an umbrella to school?"</div><p class="mt-3 text-sm text-slate-500">Write their answers: <span class="text-brand-500 font-semibold">IF</span> it\'s raining <span class="text-brand-500 font-semibold">THEN</span> bring umbrella <span class="text-brand-500 font-semibold">ELSE</span> don\'t bring it.</p>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. Coding If/Else", time: "20 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200"><span class="text-sky-300">let</span> <span>weather</span> = <span class="text-amber-300">"rainy"</span>;<br><br><span class="text-sky-300">if</span> (weather === <span class="text-amber-300">"rainy"</span>) {<br>&nbsp;&nbsp;<span>console.log</span>(<span class="text-amber-300">"Bring an umbrella!"</span>);<br>} <span class="text-sky-300">else</span> {<br>&nbsp;&nbsp;<span>console.log</span>(<span class="text-amber-300">"No umbrella needed."</span>);<br>}</div><p class="mt-3 text-sm text-slate-500">Have students modify conditions. Try adding <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">else if</code>.</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "10 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "What if none of the if/else if conditions are true?" <em class="text-slate-400 block mt-0.5">The else block runs</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "Can you have an if without an else?" <em class="text-slate-400 block mt-0.5">Yes, else is optional</em></span></li></ul>' },
+          { icon: "fa-solid fa-gamepad text-sky-500", title: "4. Mini Game: Number Guesser", time: "15 Mins", content: '<p class="text-sm text-slate-500 mb-2">Challenge: write a program where a secret number is set (e.g., 7), and the code says "Too high!", "Too low!", or "Correct!".</p><p class="text-xs text-slate-400 font-display uppercase tracking-wide mt-3">Hint: Use if / else if / else with &gt;, &lt;, ===</p>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li><code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">=</code> is assignment, <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">===</code> is comparison.</li><li>Curly braces <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">{}</code> must match.</li><li>Conditions inside parentheses must be true or false.</li></ul>' }
+        ]
+      },
+      "day5": {
+        module: "Module 2 &mdash; Logic & Control Flow",
+        title: "Day 5: Loops — Doing Things Repeatedly",
+        objective: "Master for loops and while loops with visual examples",
+        audioSrc: "assets/voice/day5-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook — Repetition", time: "8 Mins", content: '<p class="text-sm text-slate-500 mb-3">Ask: "If I asked you to write your name 100 times on the board, how would you feel? Now imagine telling a computer to do it."</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"Computers love repetition. They never get tired. That\'s why we have LOOPS."</div>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. The For Loop", time: "25 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200"><span class="text-sky-300">for</span> (<span class="text-sky-300">let</span> <span>i</span> = <span class="text-amber-300">1</span>; i &lt;= <span class="text-amber-300">5</span>; i++) {<br>&nbsp;&nbsp;<span>console.log</span>(<span class="text-amber-300">"Count: "</span> + i);<br>}</div><p class="mt-3 text-sm text-slate-500">Break down: <strong class="text-ink">init</strong> (<code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">let i=1</code>), <strong class="text-ink">condition</strong> (<code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">i&lt;=5</code>), <strong class="text-ink">increment</strong> (<code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">i++</code>).</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "7 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "What happens if the while loop condition is always true?" <em class="text-slate-400 block mt-0.5">Infinite loop!</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "When use while instead of for?" <em class="text-slate-400 block mt-0.5">When iteration count is unknown</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Guided Practice", time: "15 Mins", content: '<ol class="list-decimal list-inside text-sm text-slate-500 space-y-1.5"><li>Print numbers from 10 down to 1 (countdown)</li><li>Print only even numbers from 1 to 20</li><li>Print a multiplication table for the number 7</li></ol>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Infinite loop? Ensure condition becomes false.</li><li>Off-by-one? Check <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">&lt;=</code> vs <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">&lt;</code>.</li><li>Forgot increment? Add <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">i++</code> inside loop.</li></ul>' }
+        ]
+      },
+      "day6": {
+        module: "Module 3 &mdash; HTML & Web Pages",
+        title: "Day 6: Building Your First Web Page",
+        objective: "Create a complete HTML page from scratch",
+        audioSrc: "assets/voice/day6-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook", time: "8 Mins", content: '<p class="text-sm text-slate-500 mb-3">Show source code of a popular website (right-click &gt; View Page Source).</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"Every website you\'ve ever visited is just a text file with instructions. By the end of today, you\'ll have made your own."</div>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. HTML Structure", time: "20 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200"><span class="text-sky-300">&lt;!DOCTYPE html&gt;</span><br><span class="text-sky-300">&lt;html&gt;</span><br><span class="text-sky-300">&lt;head&gt;</span><br>&nbsp;&nbsp;<span class="text-sky-300">&lt;title&gt;</span><span>My Page</span><span class="text-sky-300">&lt;/title&gt;</span><br><span class="text-sky-300">&lt;/head&gt;</span><br><span class="text-sky-300">&lt;body&gt;</span><br>&nbsp;&nbsp;<span class="text-sky-300">&lt;h1&gt;</span><span>Welcome!</span><span class="text-sky-300">&lt;/h1&gt;</span><br>&nbsp;&nbsp;<span class="text-sky-300">&lt;p&gt;</span><span>My first page.</span><span class="text-sky-300">&lt;/p&gt;</span><br><span class="text-sky-300">&lt;/body&gt;</span><br><span class="text-sky-300">&lt;/html&gt;</span></div><p class="mt-3 text-sm text-slate-500">Anatomy: <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">html</code>, <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">head</code> (metadata), <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">body</code> (visible).</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "8 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "Why do we need opening AND closing tags?"</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "What if you put text in head instead of body?" <em class="text-slate-400 block mt-0.5">It won\'t show on the page</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Guided Build", time: "19 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>An image using <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">&lt;img&gt;</code> tag</li><li>A link using <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">&lt;a&gt;</code> tag</li><li>A list (ordered or unordered)</li><li>A table with 3 rows and 2 columns</li></ul>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Tags not closing properly — use proper nesting.</li><li>Image not showing? Check file path and extension.</li><li>Link not working? Check <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">href</code> attribute.</li></ul>' }
+        ]
+      },
+      "day7": {
+        module: "Module 3 &mdash; HTML & Web Pages",
+        title: "Day 7: CSS — Making Pages Beautiful",
+        objective: "Style web pages with colors, fonts, and layouts",
+        audioSrc: "assets/voice/day7-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook", time: "8 Mins", content: '<p class="text-sm text-slate-500 mb-3">Show two versions of the same page: one with CSS, one without.</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"HTML is the skeleton. CSS is the skin, clothes, and makeup. It makes things beautiful."</div>' },
+          { icon: "fa-solid fa-paint-brush text-sky-500", title: "2. CSS Basics", time: "25 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200 leading-relaxed"><span class="text-amber-300">body</span> {<br>&nbsp;&nbsp;<span class="text-slate-400">background-color</span>: <span class="text-sky-300">#f0f0f0</span>;<br>&nbsp;&nbsp;<span class="text-slate-400">font-family</span>: <span class="text-sky-300">Arial, sans-serif</span>;<br>}<br><br><span class="text-amber-300">h1</span> {<br>&nbsp;&nbsp;<span class="text-slate-400">color</span>: <span class="text-sky-300">blue</span>;<br>}<br><br><span class="text-amber-400">.highlight</span> {<br>&nbsp;&nbsp;<span class="text-slate-400">background-color</span>: <span class="text-sky-300">yellow</span>;<br>}</div><p class="mt-3 text-sm text-slate-500">Cover selectors (element, class, id), properties, values. Demo inline, internal, external CSS.</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "7 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "Class (.) vs id (#) in CSS?"</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "If two rules target same element, which wins?" <em class="text-slate-400 block mt-0.5">The more specific or last one</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Styling Practice", time: "15 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>A custom background color</li><li>Styled headings with different fonts</li><li>Borders around images</li><li>Hover effects on links</li></ul>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Semicolon missing at end of CSS property.</li><li>Wrong selector name (typo in class/id).</li><li>CSS file not linked properly in HTML head.</li></ul>' }
+        ]
+      },
+      "day8": {
+        module: "Module 4 &mdash; JavaScript Interactivity",
+        title: "Day 8: Buttons & Click Events",
+        objective: "Make web pages respond to user actions",
+        audioSrc: "assets/voice/day8-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook", time: "8 Mins", content: '<p class="text-sm text-slate-500 mb-3">Open a page with a button that changes background on click.</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"Everything you click, type, or hover over on a webpage triggers an EVENT. JavaScript\'s job is to listen and respond."</div>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. Event Listeners", time: "20 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200"><span class="text-sky-300">let</span> <span>button</span> = <span>document</span>.<span class="text-amber-400">getElementById</span>(<span class="text-amber-300">"myBtn"</span>);<br><br>button.<span class="text-amber-400">addEventListener</span>(<span class="text-amber-300">"click"</span>, <span class="text-sky-300">function</span>() {<br>&nbsp;&nbsp;<span>alert</span>(<span class="text-amber-300">"Button was clicked!"</span>);<br>});</div><p class="mt-3 text-sm text-slate-500">Introduce <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-brand-600">onclick</code> in HTML as simpler alternative.</p>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "8 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "What other events besides \'click\'?" <em class="text-slate-400 block mt-0.5">mouseover, keypress, scroll, submit, etc.</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "Why getElementById?" <em class="text-slate-400 block mt-0.5">To grab the HTML element so JS can talk to it</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Mini Projects", time: "19 Mins", content: '<ol class="list-decimal list-inside text-sm text-slate-500 space-y-1.5"><li>A counter app (+ and - buttons)</li><li>A dark mode toggle button</li><li>A button that shows/hides a secret message</li></ol>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>JS before HTML? Put script at bottom or use DOMContentLoaded.</li><li><code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">getElementById</code> null? Check spelling.</li><li>Event not firing? Check <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">addEventListener</code> spelling.</li></ul>' }
+        ]
+      },
+      "day9": {
+        module: "Module 4 &mdash; JavaScript Interactivity",
+        title: "Day 9: Forms & User Input",
+        objective: "Collect and process user data through forms",
+        audioSrc: "assets/voice/day9-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. The Hook", time: "8 Mins", content: '<p class="text-sm text-slate-500 mb-3">Ask: "How many of you have filled out a form online? Login? Sign up?"</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"Every login page, every comment box, every search bar — they\'re all FORMS. Today you\'ll build one."</div>' },
+          { icon: "fa-solid fa-code text-sky-500", title: "2. HTML Forms + JS", time: "20 Mins", content: '<div class="bg-slate-800 border border-slate-700 rounded-lg p-3.5 font-mono text-xs text-slate-200"><span class="text-sky-300">&lt;input</span> <span class="text-slate-400">type</span>=<span class="text-amber-300">"text"</span> <span class="text-slate-400">id</span>=<span class="text-amber-300">"nameInput"</span><span class="text-sky-300">&gt;</span><br><span class="text-sky-300">&lt;button</span> <span class="text-slate-400">onclick</span>=<span class="text-amber-300">"greet()"</span><span class="text-sky-300">&gt;</span>Say Hello<span class="text-sky-300">&lt;/button&gt;</span><br><br><span class="text-sky-300">function</span> <span>greet</span>() {<br>&nbsp;&nbsp;<span class="text-sky-300">let</span> <span>name</span> = <span>document</span>.<span class="text-amber-400">getElementById</span>(<span class="text-amber-300">"nameInput"</span>).<span class="text-amber-400">value</span>;<br>&nbsp;&nbsp;<span>document</span>.<span class="text-amber-400">getElementById</span>(<span class="text-amber-300">"output"</span>).<span class="text-amber-400">innerText</span> = <span class="text-amber-300">"Hello, "</span> + name;<br>}</div>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Engagement Check", time: "8 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "What does <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">.value</code> do?" <em class="text-slate-400 block mt-0.5">Gets whatever the user typed</em></span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "innerText vs innerHTML?" <em class="text-slate-400 block mt-0.5">innerText is plain text, innerHTML can include tags</em></span></li></ul>' },
+          { icon: "fa-solid fa-cubes text-sky-500", title: "4. Build a Simple Login", time: "19 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Username and password fields</li><li>A submit button</li><li>JS checks if username is "admin" and password is "1234"</li><li>Shows "Access Granted" or "Access Denied"</li></ul>' },
+          { icon: "fa-solid fa-triangle-exclamation text-amber-500", title: "5. Troubleshooting", time: "5 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>Form refreshing? Add <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">type="button"</code>.</li><li>Input empty? Read value after user types.</li><li>Comparison fails? Use <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">===</code> not <code class="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono text-brand-600">=</code>.</li></ul>' }
+        ]
+      },
+      "day10": {
+        module: "Module 5 &mdash; Final Project",
+        title: "Day 10: Build Your Portfolio Page",
+        objective: "Combine all skills into a personal portfolio website",
+        audioSrc: "assets/voice/day10-briefing.mp3",
+        sections: [
+          { icon: "fa-solid fa-lightbulb text-amber-500", title: "1. Project Overview", time: "10 Mins", content: '<p class="text-sm text-slate-500 mb-3">Show an example portfolio page.</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"Today you\'ll build a website about YOURSELF. It will have everything we\'ve learned: HTML, CSS, JavaScript, and you\'ll publish it."</div>' },
+          { icon: "fa-solid fa-list-check text-sky-500", title: "2. Requirements Checklist", time: "15 Mins", content: '<ul class="list-disc list-inside text-sm text-slate-500 space-y-1.5"><li>A header with your name and a navigation menu</li><li>An "About Me" section with a paragraph and an image</li><li>A "My Projects" section with at least 2 project cards</li><li>A contact form with name, email, and message</li><li>A button that changes the background color (dark/light mode)</li><li>CSS styling throughout (colors, fonts, spacing)</li></ul>' },
+          { icon: "fa-solid fa-circle-question text-amber-500", title: "3. The Check-in", time: "10 Mins", content: '<ul class="space-y-3 text-sm"><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q1:</strong> "Which part of this project excites you the most?"</span></li><li class="flex items-start gap-2.5 text-slate-700"><i class="fa-solid fa-clipboard-question text-amber-500 mt-0.5"></i><span><strong class="text-ink">Q2:</strong> "Which part do you think will be the hardest?"</span></li></ul>' },
+          { icon: "fa-solid fa-rocket text-sky-500", title: "4. Build Time", time: "20 Mins", content: '<p class="text-sm text-slate-500 leading-relaxed">Let students work independently. Circulate and help one-on-one. Encourage them to help each other. Celebrate when someone solves a problem on their own.</p><p class="mt-3 text-xs font-semibold text-sky-600 uppercase font-display tracking-wide">Remember: The goal is a working page, not a perfect one.</p>' },
+          { icon: "fa-solid fa-star text-amber-500", title: "5. Showcase & Celebration", time: "5 Mins", content: '<p class="text-sm text-slate-500 mb-3">Have 2-3 volunteers share their screen and show their portfolio. Applause for everyone!</p><div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-slate-600 italic">"You started 10 days ago knowing nothing about code. Now look at what you\'ve built. This is just the beginning."</div>' }
+        ]
+      }
+    };
+
+    /* ── Module icons ── */
+    var moduleMeta = {
+      "Module 1 — Foundations":              { icon: "fa-solid fa-microchip", desc: "Binary, transistors, logic gates, and variables" },
+      "Module 2 — Logic & Control Flow":     { icon: "fa-solid fa-code-branch", desc: "If/else decisions and loop structures" },
+      "Module 3 — HTML & Web Pages":        { icon: "fa-solid fa-globe", desc: "Building and styling complete web pages" },
+      "Module 4 — JavaScript Interactivity": { icon: "fa-solid fa-hand-pointer", desc: "Buttons, events, forms, and user interaction" },
+      "Module 5 — Final Project":           { icon: "fa-solid fa-trophy", desc: "Combine everything into a portfolio website" },
+    };
+
+    var dayIds = Object.keys(courseData);
+    var currentDay = null;
+
+    /* ── Group lessons by module ── */
+    function getModules() {
+      var modules = {};
+      dayIds.forEach(function(id) {
+        var m = courseData[id].module.replace(/&mdash;/g, '\u2014');
+        if (!modules[m]) modules[m] = [];
+        modules[m].push(id);
+      });
+      return modules;
+    }
+
+    /* ── Render sidebar nav ── */
+    function renderSidebar() {
+      var modules = getModules();
+      var html = '';
+
+      html += '<p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-3 font-display">Builder Tier (Class 8\u201310)</p>';
+
+      Object.keys(modules).forEach(function(modName) {
+        html += '<p class="text-[10px] font-semibold text-brand-500 uppercase tracking-wider mt-5 mb-2 font-display opacity-70">' + modName + '</p>';
+        modules[modName].forEach(function(dayId) {
+          var data = courseData[dayId];
+          var label = data.title.replace(/Day \d+: /, '');
+          var isActive = currentDay === dayId;
+          html += '<a href="#' + dayId + '" class="sidebar-link block px-3 py-2 rounded-lg text-sm transition-colors no-underline '
+            + (isActive ? 'active text-white font-semibold' : 'text-slate-500 hover:bg-slate-100 hover:text-ink')
+            + '" data-day="' + dayId + '"><span class="text-[10px] text-slate-400 mr-1.5">' + data.title.match(/Day \d+/)[0] + '</span>' + label + '</a>';
+        });
+      });
+
+      html += '<p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-5 mb-2 font-display">Resources</p>';
+      html += '<a href="why-computers-use-binary.html" class="sidebar-link block px-3 py-2 rounded-lg text-sm transition-colors no-underline text-slate-500 hover:bg-slate-100 hover:text-ink"><i class="fa-solid fa-file-lines text-xs mr-2 opacity-40"></i>Why Binary?</a>';
+
+      document.getElementById('desktop-nav-inner').innerHTML = html;
+      document.getElementById('mobile-nav-inner').innerHTML = html;
+
+      /* Bind nav clicks */
+      var links = document.querySelectorAll('.sidebar-link[data-day]');
+      links.forEach(function(link) {
+        link.onclick = function(e) {
+          e.preventDefault();
+          var dayId = link.getAttribute('data-day');
+          selectLesson(dayId);
+          closeMobileNav();
+        };
+      });
+    }
+
+    /* ── Render module + lesson grid ── */
+    function renderGrid() {
+      var modules = getModules();
+      var html = '';
+
+      Object.keys(modules).forEach(function(modName) {
+        var meta = moduleMeta[modName.replace(/\u2014/g, '—')] || {};
+        html += '<div class="module-card p-5 md:p-6">';
+        html += '<div class="flex items-center gap-3 mb-4">';
+        html += '<div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-500 text-lg"><i class="' + (meta.icon || 'fa-solid fa-book') + '"></i></div>';
+        html += '<div><h3 class="font-bold text-ink font-display text-lg leading-tight">' + modName + '</h3>';
+        html += '<p class="text-xs text-slate-400 mt-0.5">' + (meta.desc || '') + '</p></div></div>';
+        html += '<div class="grid sm:grid-cols-2 gap-2.5">';
+
+        modules[modName].forEach(function(dayId) {
+          var data = courseData[dayId];
+          var dayNum = data.title.match(/Day \d+/)[0];
+          var label = data.title.replace(/Day \d+: /, '');
+          var isSelected = currentDay === dayId;
+          html += '<div class="lesson-card p-4 ' + (isSelected ? 'selected' : '') + '" data-day="' + dayId + '" id="card-' + dayId + '">';
+          html += '<div class="flex justify-between items-start mb-1.5">';
+          html += '<span class="text-[11px] font-semibold text-brand-500 uppercase tracking-wider font-display">' + dayNum + '</span>';
+          html += '<span class="text-[10px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i>60 min</span>';
+          html += '</div>';
+          html += '<h4 class="font-semibold text-ink mb-1 text-sm">' + label + '</h4>';
+          html += '<p class="text-xs text-slate-400 leading-relaxed line-clamp-2">' + data.objective + '</p>';
+          html += '</div>';
+        });
+
+        html += '</div></div>';
+      });
+
+      document.getElementById('modules-grid').innerHTML = html;
+
+      /* Bind card clicks */
+      var cards = document.querySelectorAll('.lesson-card');
+      cards.forEach(function(card) {
+        card.onclick = function() {
+          var dayId = card.getAttribute('data-day');
+          selectLesson(dayId);
+        };
+      });
+    }
+
+    /* ── Select & load a lesson ── */
+    function selectLesson(dayId) {
+      currentDay = dayId;
+
+      /* Update sidebar active */
+      renderSidebar();
+      /* Update card selection */
+      var cards = document.querySelectorAll('.lesson-card');
+      cards.forEach(function(c) { c.classList.toggle('selected', c.getAttribute('data-day') === dayId); });
+
+      /* Scroll card into view */
+      var activeCard = document.getElementById('card-' + dayId);
+      if (activeCard) activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      /* Render detail */
+      renderDetail(dayId);
+    }
+
+    /* ── Render lesson detail ── */
+    function renderDetail(dayId) {
+      var data = courseData[dayId];
+      var detail = document.getElementById('lesson-detail');
+      detail.style.display = 'block';
+
+      var html = '';
+      html += '<div class="border-t-2 border-brand-500 pt-8">';
+      html += '<div class="flex flex-wrap items-center justify-between gap-3 mb-6">';
+      html += '<div>';
+      html += '<span class="text-xs text-brand-500 font-semibold uppercase tracking-wider font-display">' + data.module + '</span>';
+      html += '<h2 class="text-2xl font-extrabold text-ink font-display mt-1">' + data.title + '</h2>';
+      html += '<p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-bullseye mr-1.5 text-brand-400"></i>' + data.objective + '</p>';
+      html += '</div>';
+      html += '<button id="close-detail" class="text-slate-400 hover:text-ink transition-colors p-2" title="Close"><i class="fa-solid fa-xmark text-lg"></i></button>';
+      html += '</div>';
+
+      /* Audio player */
+      if (data.audioSrc) {
+        html += '<div class="mb-6 rounded-xl p-4 bg-brand-50 border border-brand-100">';
+        html += '<audio id="audio-player" controls preload="auto" src="' + data.audioSrc + '" class="audio-native w-full h-9 rounded-lg bg-white outline-none"></audio>';
+        html += '<p class="text-[10px] text-brand-400 mt-2 uppercase tracking-wider font-medium"><i class="fa-solid fa-headphones mr-1"></i>Founder\'s Briefing</p>';
+        html += '</div>';
+      }
+
+      /* Sections */
+      html += '<div class="space-y-4">';
+      data.sections.forEach(function(sec) {
+        var iconColor = sec.icon.match(/text-(\w+-\d+)/) ? sec.icon.match(/text-(\w+-\d+)/)[1] : 'brand-500';
+        html += '<div class="section-item p-5">';
+        html += '<div class="flex justify-between items-center mb-3">';
+        html += '<h3 class="font-bold text-ink font-display flex items-center gap-2.5"><i class="' + sec.icon + ' text-lg"></i>' + sec.title + '</h3>';
+        html += '<span class="text-xs font-semibold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full font-display"><i class="fa-regular fa-clock mr-1"></i>' + sec.time + '</span>';
+        html += '</div>';
+        html += '<div class="text-sm leading-relaxed">' + sec.content + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+
+      detail.innerHTML = html;
+
+      /* Bind close */
+      document.getElementById('close-detail').onclick = function() {
+        currentDay = null;
+        detail.style.display = 'none';
+        renderSidebar();
+        var cards = document.querySelectorAll('.lesson-card');
+        cards.forEach(function(c) { c.classList.remove('selected'); });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      /* Scroll to detail */
+      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── Mobile nav ── */
+    function setupMobileNav() {
+      var overlay = document.getElementById('mobile-nav-overlay');
+      document.getElementById('mobile-menu-btn').onclick = function() { overlay.classList.remove('hidden'); };
+      document.getElementById('mobile-nav-close').onclick = function() { overlay.classList.add('hidden'); };
+      document.getElementById('overlay-backdrop').onclick = function() { overlay.classList.add('hidden'); };
+    }
+
+    function closeMobileNav() {
+      document.getElementById('mobile-nav-overlay').classList.add('hidden');
+    }
+
+    /* ── Init ── */
+    renderSidebar();
+    renderGrid();
+    setupMobileNav();
+  </script>
+</body>
+</html>

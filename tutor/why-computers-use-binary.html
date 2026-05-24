@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Why Computers Use Binary — Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC',
+              100: '#C5DBF7',
+              200: '#8EB8EF',
+              300: '#5694E4',
+              400: '#2475D9',
+              500: '#0959C8',
+              600: '#0747A3',
+              700: '#05367A',
+              800: '#032652',
+              900: '#021629',
+            },
+            ink: {
+              DEFAULT: '#0f172a',
+              muted: '#475569',
+              soft: '#64748b',
+              faint: '#94a3b8',
+            }
+          },
+          fontFamily: {
+            display: ['Poppins', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="icon" type="image/png" href="../assets/images/logol.png">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    ::selection { background: rgba(9, 89, 200, 0.15); color: #0959C8; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Reading progress bar */
+    #reading-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #0959C8, #5694E4);
+      z-index: 100;
+      transition: width 50ms linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Audio player */
+    .audio-progress-fill { transition: width 0.3s linear; }
+    .audio-native {
+      width: 100%;
+      height: 36px;
+      border-radius: 8px;
+      background: #ffffff;
+      outline: none;
+    }
+    .audio-native::-webkit-media-controls-panel {
+      background: #ffffff;
+      border-radius: 8px;
+    }
+    .audio-native::-webkit-media-controls-play-button {
+      color: #0959C8;
+    }
+    .audio-native::-webkit-media-controls-current-time-display,
+    .audio-native::-webkit-media-controls-time-remaining-display {
+      color: #475569;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+    }
+    .audio-native::-webkit-media-controls-timeline {
+      border-radius: 4px;
+      margin: 0 8px;
+    }
+
+    /* Cards */
+    .article-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .article-card:hover {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      border-color: #cbd5e1;
+    }
+
+    .highlight-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #0959C8;
+    }
+
+    .callout-box {
+      background: linear-gradient(135deg, #E8F1FC, #f8fafc);
+      border: 1px solid #C5DBF7;
+    }
+
+    .key-takeaway {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #22c55e;
+    }
+
+    /* SVG animations */
+    @keyframes pulse-current {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    @keyframes flow-electron {
+      0% { transform: translateX(0); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes flicker-signal {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.3; }
+    }
+    @keyframes toggle-on-off {
+      0%, 45% { fill: #22c55e; }
+      50%, 95% { fill: #94a3b8; }
+      100% { fill: #22c55e; }
+    }
+    @keyframes gate-pulse {
+      0%, 100% { fill: #0959C8; }
+      50% { fill: #5694E4; }
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes count-bit {
+      0%, 100% { transform: scale(1); fill: #0f172a; }
+      50% { transform: scale(1.3); fill: #0959C8; }
+    }
+    @keyframes noise-jitter {
+      0%, 100% { transform: translateY(0); }
+      25% { transform: translateY(3px); }
+      75% { transform: translateY(-2px); }
+    }
+
+    .animate-pulse-current { animation: pulse-current 1.5s ease-in-out infinite; }
+    .animate-toggle { animation: toggle-on-off 3s ease-in-out infinite; }
+    .animate-gate { animation: gate-pulse 2s ease-in-out infinite; }
+    .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+    .animate-bit-1 { animation: count-bit 2s ease-in-out infinite; }
+    .animate-bit-2 { animation: count-bit 2s ease-in-out 0.3s infinite; }
+    .animate-bit-3 { animation: count-bit 2s ease-in-out 0.6s infinite; }
+    .animate-bit-4 { animation: count-bit 2s ease-in-out 0.9s infinite; }
+
+    .fade-in-section { opacity: 1; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in-section.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-section.init-hidden { opacity: 0; }
+
+    /* Sidebar TOC */
+    .toc-link { transition: all 0.2s ease; }
+    .toc-link.active { color: #0959C8; font-weight: 600; border-left-color: #0959C8; }
+
+    /* Code-like styling */
+    .mono-highlight {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
+      color: #0959C8;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-pulse-current, .animate-toggle, .animate-gate, .animate-float-slow,
+      .animate-bit-1, .animate-bit-2, .animate-bit-3, .animate-bit-4 {
+        animation: none !important;
+      }
+      .fade-in-section { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- READING PROGRESS BAR -->
+  <div id="reading-progress" style="width: 0%"></div>
+
+  <!-- BACK TO TUTOR -->
+  <div class="fixed top-4 left-4 z-40">
+    <a href="day-1.html" class="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur border border-slate-200 rounded-full shadow-sm text-slate-600 hover:text-brand-500 hover:border-brand-200 transition-all text-sm no-underline">
+      <i class="fa-solid fa-arrow-left text-xs"></i> Back to Lessons
+    </a>
+  </div>
+
+  <!-- DESKTOP SIDEBAR TOC -->
+  <aside class="fixed top-24 right-8 w-56 hidden xl:block z-30">
+    <nav class="sticky top-28">
+      <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 font-display">On this page</p>
+      <ul class="space-y-1" id="toc-list"></ul>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-3xl mx-auto px-4 md:px-8 pt-20 pb-20">
+
+    <!-- HERO / HEADER -->
+    <header class="mb-12 text-center">
+      <span class="bg-brand-50 text-brand-600 text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block font-display tracking-wide">
+        Foundations
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-ink mb-4 font-display leading-tight tracking-tight">
+        Why Do Computers Speak<br class="hidden sm:block">in <span class="text-brand-500">1s and 0s</span>?
+      </h1>
+      <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">
+        The fascinating story of how billions of tiny switches, clever logic, and the limits of physics
+        gave rise to the language every computer on Earth speaks.
+      </p>
+
+      <!-- AUDIO PLAYER -->
+      <div class="mt-8 max-w-md mx-auto">
+        <div class="rounded-xl p-4 bg-brand-50 border border-brand-100">
+          <div class="flex justify-between text-xs mb-2 font-medium">
+            <span class="text-brand-700">Audio Narration</span>
+            <span class="text-brand-400 text-[10px] font-mono">computers_binary.m4a</span>
+          </div>
+          <audio id="audio-player" controls preload="auto" src="assets/voice/computers_binary.m4a" class="audio-native"></audio>
+          <!-- Row 2: Speed + Skip Controls -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-brand-200/50">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] text-brand-500 font-medium uppercase tracking-wider mr-1">Speed</span>
+              <button data-speed="0.5" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-400 hover:bg-brand-100 transition-colors font-mono">0.5x</button>
+              <button data-speed="0.75" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-400 hover:bg-brand-100 transition-colors font-mono">0.75x</button>
+              <button data-speed="1" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-500 bg-brand-100 font-mono transition-colors">1x</button>
+              <button data-speed="1.25" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-400 hover:bg-brand-100 transition-colors font-mono">1.25x</button>
+              <button data-speed="1.5" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-400 hover:bg-brand-100 transition-colors font-mono">1.5x</button>
+              <button data-speed="2" class="speed-btn text-[10px] font-semibold px-2 py-1 rounded text-brand-400 hover:bg-brand-100 transition-colors font-mono">2x</button>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button id="skip-back-btn" class="w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center text-brand-500 hover:bg-brand-50 hover:border-brand-200 transition-all" title="Rewind 10s">
+                <i class="fa-solid fa-rotate-left text-xs"></i>
+              </button>
+              <button id="skip-fwd-btn" class="w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center text-brand-500 hover:bg-brand-50 hover:border-brand-200 transition-all" title="Forward 10s">
+                <i class="fa-solid fa-rotate-right text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== SECTION 1: HUMANS vs COMPUTERS ==================== -->
+    <section class="fade-in-section mb-16" id="intro">
+      <div class="article-card p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-fingerprint text-brand-500 text-lg"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-ink font-display">
+            <span class="text-brand-400 text-base font-semibold block -mb-1">The Starting Point</span>
+            How Humans Count vs How Computers Count
+          </h2>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          If you ask a human to count, they'll almost certainly use the numbers <strong>0 through 9</strong>.
+          This is the <strong class="text-ink">decimal system</strong> (Base-10). It makes perfect sense for us — after all,
+          we evolved with ten fingers, making Base-10 the most natural way for our ancestors to count and calculate.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          But if you look deep into the "brain" of any smartphone, laptop, or supercomputer, you
+          <strong class="text-ink">won't find the numbers 2 through 9</strong>. You will only find <span class="mono-highlight">0</span>s and <span class="mono-highlight">1</span>s.
+          This is the <strong class="text-ink">binary system</strong> (Base-2).
+        </p>
+
+        <!-- Comparison SVG -->
+        <div class="my-6 flex justify-center">
+          <svg viewBox="0 0 600 120" width="100%" height="auto" class="max-w-lg">
+            <defs>
+              <linearGradient id="humanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0959C8"/>
+                <stop offset="100%" stop-color="#5694E4"/>
+              </linearGradient>
+              <linearGradient id="compGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0f172a"/>
+                <stop offset="100%" stop-color="#475569"/>
+              </linearGradient>
+            </defs>
+            <!-- Human -->
+            <text x="100" y="28" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="600" fill="#0f172a">Humans</text>
+            <g transform="translate(10, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">0</text>
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,0;0,0;0,0;0,0;0,0;0,0;0,0;0,0;0,0" dur="10s" repeatCount="indefinite"/>
+            </g>
+            <g transform="translate(46, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)" opacity="0.6"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">1</text>
+            </g>
+            <g transform="translate(82, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)" opacity="0.5"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">2</text>
+            </g>
+            <g transform="translate(118, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)" opacity="0.4"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">3</text>
+            </g>
+            <g transform="translate(154, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)" opacity="0.3"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">~</text>
+            </g>
+            <g transform="translate(190, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#humanGrad)" opacity="0.2"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">9</text>
+            </g>
+            <text x="245" y="62" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" fill="#64748b">10 possibilities</text>
+
+            <text x="300" y="70" text-anchor="middle" font-family="Poppins, sans-serif" font-size="28" fill="#e2e8f0" font-weight="800" dy="-15">VS</text>
+
+            <!-- Computer -->
+            <text x="500" y="28" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="600" fill="#0f172a">Computers</text>
+            <g transform="translate(380, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#compGrad)"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">0</text>
+              <animateTransform attributeName="transform" type="translate" values="380,40;380,40;380,40;380,40;380,40;380,40;380,40;380,40;380,40;380,40;380,40" dur="10s" repeatCount="indefinite"/>
+            </g>
+            <g transform="translate(416, 40)">
+              <rect x="0" y="0" width="30" height="36" rx="6" fill="url(#compGrad)" opacity="0.6"/>
+              <text x="15" y="25" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600">1</text>
+            </g>
+            <g transform="translate(452, 40)"><rect x="0" y="0" width="1" height="36" fill="#e2e8f0"/></g>
+            <g transform="translate(460, 40)">
+              <rect x="0" y="0" width="25" height="36" rx="6" fill="#e2e8f0"/>
+              <text x="12" y="25" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="14">—</text>
+            </g>
+            <g transform="translate(491, 40)"><rect x="0" y="0" width="1" height="36" fill="#e2e8f0"/></g>
+            <g transform="translate(500, 40)">
+              <rect x="0" y="0" width="25" height="36" rx="6" fill="#e2e8f0"/>
+              <text x="12" y="25" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="14">—</text>
+            </g>
+            <text x="500" y="95" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" fill="#64748b">Only 2 possibilities</text>
+          </svg>
+        </div>
+
+        <div class="highlight-box rounded-lg p-4 mt-4">
+          <p class="text-slate-700 leading-relaxed text-sm">
+            <strong class="text-ink">The big question:</strong> If humans built computers to help us solve problems,
+            why didn't we build them to think the way we do? The answer comes down to
+            <strong>hardware</strong>, <strong>reliability</strong>, and the <strong>beautiful simplicity of logic</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: TRANSISTORS ==================== -->
+    <section class="fade-in-section mb-16" id="transistors">
+      <div class="article-card p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-microchip text-brand-500 text-lg"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-ink font-display">
+            <span class="text-brand-400 text-base font-semibold block -mb-1">Section 1</span>
+            Computers Are Just Billions of Tiny Switches
+          </h2>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          To understand binary, you have to understand what a computer actually is at a physical level.
+          At the heart of every computer processor are microscopic components called <strong class="text-ink">transistors</strong>.
+        </p>
+
+        <!-- Transistor SVG Animation -->
+        <div class="my-6 flex justify-center">
+          <svg viewBox="0 0 520 180" width="100%" height="auto" class="max-w-md">
+            <defs>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <!-- Background plate -->
+            <rect x="80" y="15" width="360" height="150" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+            <!-- Source terminal -->
+            <rect x="60" y="60" width="40" height="16" rx="3" fill="#cbd5e1"/>
+            <text x="80" y="78" text-anchor="middle" font-size="9" fill="#64748b" font-weight="600">SOURCE</text>
+
+            <!-- Drain terminal -->
+            <rect x="420" y="60" width="40" height="16" rx="3" fill="#cbd5e1"/>
+            <text x="440" y="78" text-anchor="middle" font-size="9" fill="#64748b" font-weight="600">DRAIN</text>
+
+            <!-- Gate terminal -->
+            <rect x="245" y="40" width="30" height="14" rx="3" fill="#cbd5e1"/>
+            <text x="260" y="50" text-anchor="middle" font-size="8" fill="#64748b" font-weight="600">GATE</text>
+
+            <!-- Gate vertical line -->
+            <line x1="260" y1="54" x2="260" y2="68" stroke="#94a3b8" stroke-width="1.5"/>
+
+            <!-- Channel (silicon bar) -->
+            <rect x="100" y="68" width="320" height="12" rx="6" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+
+            <!-- Electron flow dot ON -->
+            <circle cx="120" cy="74" r="5" fill="#22c55e" filter="url(#glow)" class="animate-toggle">
+              <animate attributeName="cx" values="120;370;370;120;120;120;120;120;120;370;370;120;120;120;120;120;120;370;370;120;120" dur="8s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- State label -->
+            <text x="420" y="125" text-anchor="end" font-family="Poppins, sans-serif" font-size="10" fill="#64748b">
+              <animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0;0;1;1;0;0;0;0;0;0;1;1;0" dur="8s" repeatCount="indefinite"/>
+              ON (1) — Electricity Flowing
+            </text>
+            <text x="100" y="125" font-family="Poppins, sans-serif" font-size="10" fill="#94a3b8">
+              <animate attributeName="opacity" values="1;1;0;0;1;1;1;1;1;1;0;0;1;1;1;1;1;1;0;0;1" dur="8s" repeatCount="indefinite"/>
+              OFF (0) — No Current
+            </text>
+
+            <!-- Annotation -->
+            <text x="260" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#475569" font-weight="500">
+              Transistor = Electronic Valve
+            </text>
+            <text x="260" y="165" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#94a3b8">
+              Gate voltage controls the flow between Source &amp; Drain
+            </text>
+          </svg>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-3">
+          A transistor is a tiny piece of semiconducting material (usually <strong class="text-ink">silicon</strong>)
+          that acts like an electronic valve. Unlike a regular light switch that you flip with your finger, a
+          transistor uses a <strong class="text-ink">small electrical signal</strong> to control a much larger
+          flow of electricity. It can either <span class="text-green-600 font-semibold">block</span> the current
+          or <span class="text-brand-500 font-semibold">let it pass through</span>.
+        </p>
+
+        <p class="text-slate-600 leading-relaxed mb-3">
+          This means a transistor really only has <strong class="text-ink">two functional states</strong>:
+        </p>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+            <span class="font-mono text-2xl font-bold text-green-600">1</span>
+            <p class="text-sm text-green-700 font-medium mt-1">Electricity is flowing<br><span class="text-green-500 text-xs">ON</span></p>
+          </div>
+          <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 text-center">
+            <span class="font-mono text-2xl font-bold text-slate-400">0</span>
+            <p class="text-sm text-slate-600 font-medium mt-1">Electricity is stopped<br><span class="text-slate-400 text-xs">OFF</span></p>
+          </div>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          When a computer is "thinking," it's rapidly flipping <strong class="text-ink">billions</strong> of these
+          microscopic switches on and off. Transistors are wired together so the electrical output of one switch
+          controls the input of the next — a <strong class="text-ink">cascading domino effect</strong> that forms
+          the physical foundation of everything a computer does.
+        </p>
+
+        <div class="callout-box rounded-lg p-4">
+          <p class="text-slate-700 text-sm leading-relaxed">
+            <i class="fa-solid fa-lightbulb text-brand-400 mr-2"></i>
+            <strong>Think about this:</strong> Every video you watch, every text you send, every video game you play —
+            it's all ultimately just a massive, complex arrangement of these ON and OFF states.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: WHY NOT DECIMAL ==================== -->
+    <section class="fade-in-section mb-16" id="dimmer-switch">
+      <div class="article-card p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-bolt text-brand-500 text-lg"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-ink font-display">
+            <span class="text-brand-400 text-base font-semibold block -mb-1">Section 2</span>
+            Why Not Use Decimal in Hardware?
+          </h2>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          <em>"Okay,"</em> you might ask, <em>"why can't we build a switch with 10 states instead of just 2?"</em>
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          In theory, <strong class="text-ink">we could</strong>! Early computer scientists actually experimented
+          with decimal-based computers. The idea would be to use different voltage levels to represent different numbers:
+        </p>
+
+        <div class="my-5 flex justify-center">
+          <svg viewBox="0 0 520 140" width="100%" height="auto" class="max-w-md">
+            <rect x="0" y="0" width="520" height="140" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+            <!-- Voltage steps -->
+            <g font-family="JetBrains Mono, monospace" font-size="10" fill="#475569" text-anchor="middle">
+              <rect x="35" y="20" width="40" height="28" rx="5" fill="#e2e8f0"/>
+              <text x="55" y="39">0V = 0</text>
+              <rect x="90" y="20" width="40" height="28" rx="5" fill="#E8F1FC"/>
+              <text x="110" y="39" fill="#0959C8">1V = 1</text>
+              <rect x="145" y="20" width="40" height="28" rx="5" fill="#E8F1FC"/>
+              <text x="165" y="39" fill="#0959C8">2V = 2</text>
+              <rect x="200" y="20" width="40" height="28" rx="5" fill="#E8F1FC"/>
+              <text x="220" y="39" fill="#0959C8">3V = 3</text>
+              <text x="260" y="39" font-family="Inter, sans-serif" fill="#94a3b8">···</text>
+              <rect x="290" y="20" width="40" height="28" rx="5" fill="#E8F1FC"/>
+              <text x="310" y="39" fill="#0959C8">9V = 9</text>
+            </g>
+
+            <!-- Question mark overlay -->
+            <g transform="translate(390, 20)">
+              <circle cx="24" cy="14" r="22" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+              <text x="24" y="20" text-anchor="middle" font-family="Poppins, sans-serif" font-size="20" font-weight="700" fill="#ef4444">?</text>
+            </g>
+
+            <text x="260" y="70" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#475569">
+              Seems logical, right? But the physical world is messy...
+            </text>
+
+            <!-- Signal comparison -->
+            <!-- Binary signal -->
+            <text x="70" y="95" text-anchor="start" font-family="Inter, sans-serif" font-size="10" fill="#22c55e" font-weight="600">Binary:</text>
+            <polyline points="110,90 150,90 150,105 190,105 190,90 230,90 230,105 270,105" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- Noisy decimal signal -->
+            <text x="300" y="95" text-anchor="start" font-family="Inter, sans-serif" font-size="10" fill="#ef4444" font-weight="600">Decimal w/ noise:</text>
+            <path d="M340,95 Q348,88 355,92 Q362,100 370,95 Q378,90 385,97 Q392,104 400,98 Q408,92 415,100 Q422,108 430,102 Q438,96 445,103 Q452,110 460,104" fill="none" stroke="#ef4444" stroke-width="1.8" opacity="0.8">
+              <animate attributeName="d" values="M340,95 Q348,88 355,92 Q362,100 370,95 Q378,90 385,97 Q392,104 400,98 Q408,92 415,100 Q422,108 430,102 Q438,96 445,103 Q452,110 460,104;M340,97 Q348,105 355,98 Q362,90 370,96 Q378,103 385,97 Q392,89 400,94 Q408,102 415,98 Q422,90 430,97 Q438,105 445,100 Q452,92 460,98;M340,95 Q348,88 355,92 Q362,100 370,95 Q378,90 385,97 Q392,104 400,98 Q408,92 415,100 Q422,108 430,102 Q438,96 445,103 Q452,110 460,104" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+
+            <text x="70" y="125" font-family="Inter, sans-serif" font-size="9" fill="#64748b">Clean, sharp, unmistakable.</text>
+            <text x="300" y="125" font-family="Inter, sans-serif" font-size="9" fill="#94a3b8">Jittery, ambiguous, error-prone.</text>
+
+          </svg>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          <strong class="text-ink">Here's the problem:</strong> Wires get hot, power supplies fluctuate, and
+          electronic components create <strong class="text-ink">"noise" (interference)</strong>. Imagine a traditional
+          light switch — it's either flipped up or down. Even if it gets a little wiggly, you still definitely know
+          if the light is on or off. This is binary.
+        </p>
+
+        <!-- Dimmer switch analogy illustration -->
+        <div class="my-5 bg-slate-50 border border-slate-200 rounded-lg p-5">
+          <h4 class="font-display font-semibold text-ink mb-3 text-sm uppercase tracking-wider">The Dimmer Switch Analogy</h4>
+          <div class="flex flex-col sm:flex-row gap-5">
+            <div class="flex-1 bg-white rounded-lg border border-slate-200 p-4 text-center">
+              <svg viewBox="0 0 120 80" width="100%" height="60">
+                <rect x="35" y="10" width="50" height="55" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+                <rect x="53" y="18" width="14" height="30" rx="7" fill="#22c55e"/>
+                <text x="60" y="65" text-anchor="middle" font-size="8" fill="#475569" font-weight="600">ON/OFF</text>
+              </svg>
+              <p class="text-xs text-slate-600 mt-2 font-semibold text-green-700">Binary Switch</p>
+              <p class="text-[10px] text-slate-400">Unambiguous — even with vibration</p>
+            </div>
+            <div class="flex-1 bg-white rounded-lg border border-slate-200 p-4 text-center">
+              <svg viewBox="0 0 120 80" width="100%" height="60">
+                <rect x="35" y="10" width="50" height="55" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+                <rect x="42" y="18" width="36" height="8" rx="4" fill="#94a3b8"/>
+                <rect x="42" y="24" width="36" height="2" rx="1" fill="#cbd5e1" opacity="0.6"/>
+                <rect x="52" y="28" width="16" height="4" rx="2" fill="#cbd5e1" opacity="0.5"/>
+                <!-- Jittering indicator -->
+                <rect x="56" y="30" width="8" height="4" rx="2" fill="#ef4444" opacity="0.6">
+                  <animate attributeName="y" values="30;26;30;34;30" dur="0.6s" repeatCount="indefinite"/>
+                </rect>
+                <text x="60" y="65" text-anchor="middle" font-size="8" fill="#475569" font-weight="600">10 NOTCHES</text>
+              </svg>
+              <p class="text-xs text-slate-600 mt-2 font-semibold text-red-600">Decimal (10-level) Switch</p>
+              <p class="text-[10px] text-slate-400">Fragile — slight nudge = wrong value</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-3">
+          If a computer used ten different voltage levels, a tiny bit of electrical interference could make a
+          <strong class="text-ink">3.8-volt signal look like a 4.1-volt signal</strong>. The computer would mistake
+          a '3' for a '4', leading to catastrophic calculation errors.
+        </p>
+
+        <div class="key-takeaway rounded-lg p-4 mt-4">
+          <p class="text-sm text-green-800 leading-relaxed">
+            <i class="fa-solid fa-shield-halved mr-2 text-green-600"></i>
+            <strong>Key Insight:</strong> By sticking to just two states — "High voltage" (1) and "Low voltage" (0) —
+            the computer has a <strong>massive margin for error</strong>. Even if the signal fluctuates wildly,
+            the computer can still easily tell "mostly on" from "mostly off." This makes binary
+            <strong>incredibly reliable</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: BOOLEAN LOGIC ==================== -->
+    <section class="fade-in-section mb-16" id="logic-gates">
+      <div class="article-card p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-diagram-project text-brand-500 text-lg"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-ink font-display">
+            <span class="text-brand-400 text-base font-semibold block -mb-1">Section 3</span>
+            The Power of "True" and "False"
+          </h2>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          Aside from hardware limitations, binary is also <strong class="text-ink">perfectly suited for logic</strong>.
+          In the 1800s, a mathematician named <strong class="text-ink">George Boole</strong> invented a type of
+          algebra based entirely on logic. In <strong>Boolean algebra</strong>, everything is simply
+          <span class="text-brand-500 font-semibold">True</span> or
+          <span class="text-slate-400 font-semibold">False</span>. There are no "maybes."
+        </p>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          It turns out you can solve incredibly complex math and logic problems using only True/False statements strung together.
+          And conveniently, <strong class="text-ink">True and False map perfectly onto 1 and 0</strong> (or ON and OFF).
+        </p>
+
+        <!-- Logic Gates SVG -->
+        <div class="my-6 flex justify-center">
+          <svg viewBox="0 0 600 240" width="100%" height="auto" class="max-w-xl">
+            <!-- AND Gate -->
+            <g transform="translate(0, 0)">
+              <rect x="0" y="0" width="280" height="110" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="140" y="22" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="700" fill="#0f172a">AND Gate</text>
+              <text x="140" y="36" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#64748b">Both inputs must be 1</text>
+
+              <!-- Input A -->
+              <circle cx="40" cy="60" r="8" fill="#22c55e" class="animate-toggle"/>
+              <text x="40" y="84" text-anchor="middle" font-size="9" fill="#475569" font-weight="600">Input A = 1</text>
+
+              <!-- Input B -->
+              <circle cx="40" cy="80" r="8" fill="#22c55e" class="animate-toggle" style="animation-delay: 1.5s"/>
+              <text x="40" y="104" text-anchor="middle" font-size="9" fill="#475569" font-weight="600">Input B = 1</text>
+
+              <!-- Gate body -->
+              <path d="M100,48 L100,92 L140,92 Q170,92 170,70 Q170,48 140,48 Z" fill="#E8F1FC" stroke="#0959C8" stroke-width="1.5"/>
+
+              <!-- Output -->
+              <line x1="170" y1="70" x2="210" y2="70" stroke="#0959C8" stroke-width="2"/>
+              <circle cx="220" cy="70" r="8" fill="#22c55e" class="animate-toggle" style="animation-delay: 0.5s"/>
+              <text x="240" y="74" font-size="9" fill="#475569" font-weight="600">Output = 1</text>
+
+              <text x="140" y="104" text-anchor="middle" font-size="8" fill="#94a3b8">"You need BOTH homework AND notebook"</text>
+            </g>
+
+            <!-- OR Gate -->
+            <g transform="translate(300, 0)">
+              <rect x="0" y="0" width="280" height="110" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="140" y="22" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="700" fill="#0f172a">OR Gate</text>
+              <text x="140" y="36" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#64748b">Any input can be 1</text>
+
+              <!-- Input A (OFF) -->
+              <circle cx="40" cy="58" r="8" fill="#94a3b8"/>
+              <text x="40" y="82" text-anchor="middle" font-size="9" fill="#475569" font-weight="600">Input A = 0</text>
+
+              <!-- Input B (ON) -->
+              <circle cx="40" cy="78" r="8" fill="#22c55e" class="animate-toggle" style="animation-delay: 1s"/>
+              <text x="40" y="102" text-anchor="middle" font-size="9" fill="#475569" font-weight="600">Input B = 1</text>
+
+              <!-- Gate body (OR shape) -->
+              <path d="M90,48 Q110,48 130,55 Q165,65 165,70 Q165,75 130,85 Q110,92 90,92 L100,92 L100,48 Z" fill="#E8F1FC" stroke="#0959C8" stroke-width="1.5"/>
+
+              <!-- Output -->
+              <line x1="165" y1="70" x2="205" y2="70" stroke="#0959C8" stroke-width="2"/>
+              <circle cx="215" cy="70" r="8" fill="#22c55e" class="animate-toggle" style="animation-delay: 0.8s"/>
+              <text x="235" y="74" font-size="9" fill="#475569" font-weight="600">Output = 1</text>
+
+              <text x="140" y="104" text-anchor="middle" font-size="8" fill="#94a3b8">"You can use EITHER pen OR pencil"</text>
+            </g>
+
+            <!-- Connecting insight text -->
+            <text x="300" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569" font-weight="500">
+              Chain thousands of these simple gates together...
+            </text>
+            <text x="300" y="175" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" fill="#0959C8" font-weight="700">
+              → A machine that can do anything ←
+            </text>
+
+            <!-- Binary addition table -->
+            <g transform="translate(120, 190)">
+              <rect x="0" y="0" width="360" height="38" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+              <text x="180" y="16" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" font-weight="600" fill="#475569">Binary rules are beautifully simple:</text>
+              <text x="180" y="31" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#0959C8">
+                1 + 1 = 10 in binary (that's just 2 in decimal!)
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          Because the rules of binary math are so simple, it's <strong class="text-ink">incredibly fast and cheap</strong>
+          to build physical circuits to process them. You chain enough of these simple True/False gates together, and
+          suddenly you have a machine capable of rendering 3D graphics or calculating the orbit of a rocket.
+        </p>
+
+        <div class="callout-box rounded-lg p-4">
+          <p class="text-slate-700 text-sm leading-relaxed">
+            <i class="fa-solid fa-brain text-brand-400 mr-2"></i>
+            <strong>Think about it:</strong> Every single AND gate, OR gate, and NOT gate is just a handful of
+            transistors wired together. Modern processors contain <strong>billions</strong> of these gates,
+            all working in parallel at unimaginable speeds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5: SUMMARY ==================== -->
+    <section class="fade-in-section mb-16" id="summary">
+      <div class="article-card p-6 md:p-8 border-brand-200" style="border-width: 2px;">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-brand-500 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-star text-white text-lg"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-ink font-display">
+            <span class="text-brand-400 text-base font-semibold block -mb-1">Summary</span>
+            A Perfect Compromise
+          </h2>
+        </div>
+
+        <!-- Binary counter visualization -->
+        <div class="my-5 flex justify-center">
+          <svg viewBox="0 0 440 90" width="100%" height="auto" class="max-w-sm">
+            <rect x="0" y="0" width="440" height="90" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+            <text x="220" y="22" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#0f172a">
+              The number <tspan fill="#0959C8" font-weight="700">200</tspan> in decimal =
+            </text>
+
+            <!-- Binary digits with animation -->
+            <g font-family="JetBrains Mono, monospace" font-size="18" font-weight="600">
+              <text x="88" y="55" text-anchor="middle" fill="#0f172a" class="animate-bit-1">1</text>
+              <text x="118" y="55" text-anchor="middle" fill="#0f172a" class="animate-bit-2">1</text>
+              <text x="148" y="55" text-anchor="middle" fill="#0f172a" class="animate-bit-3">0</text>
+              <text x="178" y="55" text-anchor="middle" fill="#0f172a" class="animate-bit-4">0</text>
+              <text x="208" y="55" text-anchor="middle" fill="#0f172a">1</text>
+              <text x="238" y="55" text-anchor="middle" fill="#0f172a">0</text>
+              <text x="268" y="55" text-anchor="middle" fill="#0f172a">0</text>
+              <text x="298" y="55" text-anchor="middle" fill="#0f172a">0</text>
+            </g>
+
+            <text x="220" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#64748b">
+              ... takes more space, but the hardware that processes it never makes mistakes.
+            </text>
+          </svg>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-4">
+          Computers <strong class="text-ink">don't</strong> use binary because it's the most efficient way to represent
+          numbers — in fact, writing numbers in binary takes up way more space. Computers use binary because it is the
+          <strong class="text-ink">most reliable</strong> way to physically build a machine that does math.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          By reducing the universe of numbers down to just <strong class="text-ink">two states</strong> — ON and OFF,
+          1 and 0 — we can build machines out of simple, error-proof switches. And by packing billions of those switches
+          onto a tiny silicon chip, we can simulate the complexity of the entire world.
+        </p>
+
+        <!-- Key takeaways -->
+        <div class="grid sm:grid-cols-3 gap-3 mt-6">
+          <div class="bg-brand-50 rounded-lg p-4 border border-brand-100">
+            <div class="text-brand-500 text-2xl mb-1 font-bold font-display">01</div>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>Transistors</strong> are the physical foundation — they only have two reliable states: ON (1) and OFF (0).
+            </p>
+          </div>
+          <div class="bg-brand-50 rounded-lg p-4 border border-brand-100">
+            <div class="text-brand-500 text-2xl mb-1 font-bold font-display">02</div>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>Noise immunity</strong> — two voltage levels leave a massive safety margin against electrical interference.
+            </p>
+          </div>
+          <div class="bg-brand-50 rounded-lg p-4 border border-brand-100">
+            <div class="text-brand-500 text-2xl mb-1 font-bold font-display">03</div>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>Boolean logic</strong> maps perfectly to 1/0, letting us build decision-making circuits from simple gates.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION FOOTER -->
+    <footer class="mt-16 pt-8 border-t border-slate-200">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <a href="day-1.html" class="inline-flex items-center gap-2 text-slate-500 hover:text-brand-500 transition-colors text-sm no-underline">
+          <i class="fa-solid fa-arrow-left"></i> Back to Lesson Plans
+        </a>
+        <p class="text-xs text-slate-400">
+          Consica Labs &middot; Instructor Resource
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    (function() {
+      /* Reading progress bar */
+      const progressBar = document.getElementById('reading-progress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+          progressBar.style.width = Math.min((scrollTop / docHeight) * 100, 100) + '%';
+        }
+      });
+
+      /* Fade-in sections on scroll */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.fade-in-section').forEach(section => {
+        observer.observe(section);
+      });
+
+      /* TOC generation */
+      const sections = [
+        { id: 'intro', label: 'How Humans vs Computers Count' },
+        { id: 'transistors', label: 'Billions of Tiny Switches' },
+        { id: 'dimmer-switch', label: 'Why Not Use Decimal?' },
+        { id: 'logic-gates', label: 'The Power of True & False' },
+        { id: 'summary', label: 'A Perfect Compromise' },
+      ];
+      const tocList = document.getElementById('toc-list');
+      sections.forEach(sec => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + sec.id;
+        a.className = 'toc-link block px-3 py-1.5 border-l-2 border-slate-200 text-slate-500 text-sm no-underline hover:text-brand-500 hover:border-brand-300 transition-all';
+        a.textContent = sec.label;
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+
+      /* Highlight active TOC item */
+      const tocLinks = document.querySelectorAll('.toc-link');
+      const sectionIds = sections.map(s => s.id);
+      window.addEventListener('scroll', () => {
+        let current = sectionIds[0];
+        const scrollPos = window.scrollY + 120;
+        sectionIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollPos) current = id;
+        });
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+      });
+
+      /* Audio controls hooking into native player */
+      var nativeAudio = document.getElementById('audio-player');
+      var skipBackBtn = document.getElementById('skip-back-btn');
+      var skipFwdBtn = document.getElementById('skip-fwd-btn');
+
+      /* Speed controls */
+      var speedBtns = document.querySelectorAll('.speed-btn');
+      function setSpeedUI(speed) {
+        speedBtns.forEach(function(b) {
+          var isActive = parseFloat(b.getAttribute('data-speed')) === speed;
+          b.className = 'speed-btn text-[10px] font-semibold px-2 py-1 rounded transition-colors font-mono '
+            + (isActive ? 'text-brand-500 bg-brand-100' : 'text-brand-400 hover:bg-brand-100');
+        });
+      }
+      speedBtns.forEach(function(btn) {
+        btn.onclick = function() {
+          var s = parseFloat(btn.getAttribute('data-speed'));
+          nativeAudio.playbackRate = s;
+          setSpeedUI(s);
+        };
+      });
+
+      /* Skip buttons */
+      skipBackBtn.onclick = function() {
+        nativeAudio.currentTime = Math.max(0, nativeAudio.currentTime - 10);
+      };
+      skipFwdBtn.onclick = function() {
+        if (nativeAudio.duration) nativeAudio.currentTime = Math.min(nativeAudio.duration, nativeAudio.currentTime + 10);
+      };
+
+      /* Keyboard shortcuts */
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        switch (e.key) {
+          case ' ':
+            if (e.target.tagName === 'BUTTON') return;
+            e.preventDefault();
+            if (nativeAudio.paused) nativeAudio.play().catch(function() {});
+            else nativeAudio.pause();
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            nativeAudio.currentTime = Math.max(0, nativeAudio.currentTime - 5);
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            if (nativeAudio.duration) nativeAudio.currentTime = Math.min(nativeAudio.duration, nativeAudio.currentTime + 5);
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            nativeAudio.playbackRate = Math.min(2, nativeAudio.playbackRate + 0.25);
+            setSpeedUI(nativeAudio.playbackRate);
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            nativeAudio.playbackRate = Math.max(0.5, nativeAudio.playbackRate - 0.25);
+            setSpeedUI(nativeAudio.playbackRate);
+            break;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
