@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 11: The Journey of a Webpage | Consica Academy</title>
+  <meta name="description" content="Chapter 11: The Journey of a Webpage. Follow a request step by step from browser to server and back.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-10-data-centers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 10</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 11</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Journey of a Webpage</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Putting it all together &mdash; a single request, end to end</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="intro">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-lg mb-4">Let's follow a webpage request.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Student opens:</p>
+            <div class="p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 text-center mt-3">
+              <code class="text-brand-200 font-mono text-lg lg:text-xl font-semibold">www.consicaacademy.com</code>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="steps">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">The Steps</h2>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">1</span>
+                <div><p class="text-sm font-semibold text-brand-200">Browser asks DNS</p><p class="text-xs text-theme-faint mt-0.5">"Where is this website?"</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">2</span>
+                <div><p class="text-sm font-semibold text-brand-200">DNS returns IP address</p><p class="text-xs text-theme-faint mt-0.5">The address is found</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">3</span>
+                <div><p class="text-sm font-semibold text-brand-200">Browser sends request</p><p class="text-xs text-theme-faint mt-0.5">To the server's IP address</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">4</span>
+                <div><p class="text-sm font-semibold text-brand-200">Packets travel through routers</p><p class="text-xs text-theme-faint mt-0.5">Across the network</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">5</span>
+                <div><p class="text-sm font-semibold text-brand-200">Server receives request</p><p class="text-xs text-theme-faint mt-0.5">The server gets your message</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">6</span>
+                <div><p class="text-sm font-semibold text-brand-200">Server sends webpage files</p><p class="text-xs text-theme-faint mt-0.5">HTML, CSS, images, and more</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">7</span>
+                <div><p class="text-sm font-semibold text-brand-200">Browser rebuilds files</p><p class="text-xs text-theme-faint mt-0.5">Assembles the webpage</p></div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
+                <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">8</span>
+                <div><p class="text-sm font-semibold text-brand-200">Webpage appears on screen</p><p class="text-xs text-theme-faint mt-0.5">You see the page!</p></div>
+              </div>
+            </div>
+            <div class="mt-6 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 text-center">
+              <p class="text-sm text-brand-200 font-medium">All of this often happens in less than one second.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-11-webpage-journey/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Every time you type a website address and press Enter, you set off an invisible chain reaction that spans the globe. In under a second, your browser talks to multiple computers, asks for directions, follows a path across continents, and returns with a webpage. This chapter pulls back the curtain on that journey, step by step.</p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine you want to send a letter to a friend who lives far away. First, you look up their address in a phone book &mdash; that's like the DNS, which finds the address of a website. Then you write your letter and drop it in a mailbox. The postal service picks it up and your letter travels through multiple sorting facilities and trucks until it reaches your friend's house. Your friend reads the letter and writes back, sending the reply through the same system. This is exactly how a webpage works: your browser looks up the address, sends a request, and the server sends the page back.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Ordering a package online is a good way to understand a webpage request. When you click "buy," the store looks up your address (DNS resolution), prepares your items, and hands them to a shipping carrier. The carrier breaks your order into individual packages (data packets), each labeled with your address and the store's return address. These packages travel through a network of hubs and trucks (routers) to reach your door. If one truck breaks down, the system finds another route. Once all packages arrive, you open each one and assemble your order. Your browser does the same thing: it receives packets, checks they're all there, and assembles the webpage on your screen.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">A webpage request involves the full TCP/IP stack. At the application layer, the browser sends an HTTP GET request to the server's IP obtained via DNS resolution (using BIND or similar). The transport layer establishes a TCP connection through a three-way handshake (SYN, SYN-ACK, ACK), optionally wrapped in a TLS handshake for HTTPS. The network layer fragments data into IP packets, each carrying source and destination addresses. Routers along the path use BGP and OSPF to forward these packets toward their destination. At the link layer, Ethernet or Wi-Fi frames carry packets across individual hops. The server processes the request, often through a reverse proxy (Nginx, HAProxy) to an application server, which generates an HTML response. That response is sent back through the same layered model, reassembled by the browser, parsed into a DOM tree, combined with CSSOM, and rendered through the browser's rendering pipeline (layout, paint, composite).</p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead><tr class="border-b border-brand-500/20"><th class="py-3 px-4 font-semibold text-theme">Term</th><th class="py-3 px-4 font-semibold text-theme">Definition</th></tr></thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">DNS</td><td class="py-3 px-4 text-theme-muted">The internet's phone book that translates domain names into IP addresses</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IP Address</td><td class="py-3 px-4 text-theme-muted">A unique numeric label assigned to every device on a network</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Packet</td><td class="py-3 px-4 text-theme-muted">A small chunk of data sent over a network, containing headers and payload</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Router</td><td class="py-3 px-4 text-theme-muted">A device that forwards packets between networks along the best path</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Server</td><td class="py-3 px-4 text-theme-muted">A computer that stores website files and responds to browser requests</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">HTTP</td><td class="py-3 px-4 text-theme-muted">The protocol browsers and servers use to communicate and transfer web content</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">URL</td><td class="py-3 px-4 text-theme-muted">The web address that specifies the location of a resource on the internet</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Cache</td><td class="py-3 px-4 text-theme-muted">A temporary storage that saves copies of files to speed up future requests</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">TLS</td><td class="py-3 px-4 text-theme-muted">A cryptographic protocol that secures communication between browser and server</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Rendering</td><td class="py-3 px-4 text-theme-muted">The process by which a browser converts HTML and CSS into pixels on screen</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <ul class="mt-6 space-y-4">
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span><p class="text-theme-muted leading-relaxed text-[15px]">A single webpage request can travel over 15,000 kilometers &mdash; crossing oceans and continents &mdash; in under 200 milliseconds.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span><p class="text-theme-muted leading-relaxed text-[15px]">Your browser may send dozens of separate requests just to load one webpage &mdash; one for the HTML, several for images, several for stylesheets, and several for scripts.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span><p class="text-theme-muted leading-relaxed text-[15px]">Google processes over 99,000 search queries every second &mdash; each one completing the entire webpage journey in milliseconds.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">4</span><p class="text-theme-muted leading-relaxed text-[15px]">The first web request ever made was "http://info.cern.ch" by Tim Berners-Lee in 1990.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">5</span><p class="text-theme-muted leading-relaxed text-[15px]">A single Netflix stream can involve requests to dozens of servers across multiple CDNs, all juggled in real time.</p></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
+            <div class="mt-6 space-y-5">
+              <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "A webpage is downloaded as one big file."</p><p class="text-xs text-theme-muted mt-1.5">In reality, a webpage is assembled from dozens or hundreds of separate files &mdash; HTML, CSS, JavaScript, images, fonts &mdash; each requested independently and often from different servers.</p></div>
+              <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "The internet is a cloud, so data just floats through the air."</p><p class="text-xs text-theme-muted mt-1.5">Data travels through physical cables, fiber optic lines, and routers. The "cloud" is a metaphor &mdash; the real infrastructure is very tangible.</p></div>
+              <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "When I press Enter, the request goes directly to the website's server."</p><p class="text-xs text-theme-muted mt-1.5">The request passes through multiple hops: your router, your ISP, several backbone routers, possibly a CDN edge server, and then the destination server &mdash; each hop adds a tiny delay.</p></div>
+              <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "HTTPS means the data is invisible during travel."</p><p class="text-xs text-theme-muted mt-1.5">HTTPS encrypts the content, but metadata like source and destination IP addresses, packet sizes, and timing are still visible to intermediate routers.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">The interactive diagram for this chapter shows a complete end-to-end webpage journey. You will see a browser icon on the left, a DNS server, a series of routers forming a network path, and a destination server on the right. As you click through each step, packets animate from the browser to the server and back, with labels explaining what happens at each stage. Color-coded arrows distinguish the request path (orange) from the response path (green). Router hops highlight in sequence so you can trace the exact route data takes across the network.</p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Multiple Choice</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+                <li>What does DNS stand for? <span class="block text-xs text-theme-faint mt-1">A) Domain Network Service &nbsp; B) Domain Name System &nbsp; C) Digital Network Server &nbsp; D) Data Name Service</span></li>
+                <li>Which device forwards packets between networks? <span class="block text-xs text-theme-faint mt-1">A) Switch &nbsp; B) Modem &nbsp; C) Router &nbsp; D) Hub</span></li>
+                <li>What protocol do browsers use to request webpages? <span class="block text-xs text-theme-faint mt-1">A) FTP &nbsp; B) SMTP &nbsp; C) HTTP &nbsp; D) SNMP</span></li>
+              </ol></div>
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">True or False</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+                <li>A webpage is sent as one single file from the server to the browser. <span class="block text-xs text-theme-faint mt-1">Answer: False</span></li>
+                <li>Packets can travel along different routes and still arrive at the same destination. <span class="block text-xs text-theme-faint mt-1">Answer: True</span></li>
+              </ol></div>
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Matching</p><p class="text-theme-muted text-[15px]">Match each term to its role:<br>1. DNS &mdash; <span class="text-theme-faint">Finds the IP address</span><br>2. Router &mdash; <span class="text-theme-faint">Forwards packets</span><br>3. Server &mdash; <span class="text-theme-faint">Stores website files</span><br>4. Browser &mdash; <span class="text-theme-faint">Renders the webpage</span></p></div>
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Fill in the Blanks</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+                <li>The process of translating a domain name into an IP address is called ________. <span class="block text-xs text-theme-faint mt-1">Answer: DNS resolution</span></li>
+                <li>Small chunks of data sent over a network are called ________. <span class="block text-xs text-theme-faint mt-1">Answer: packets</span></li>
+              </ol></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
+            <ol class="mt-6 space-y-4 list-decimal pl-5">
+              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">What would happen if the DNS system went down globally?</span><br>Consider how your daily internet use would change and what systems might still work.</li>
+              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">Why do you think data is broken into packets instead of being sent as one large block?</span><br>Think about network congestion, error recovery, and fairness among users.</li>
+              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">If you could redesign the webpage loading process, what would you change to make it faster?</span><br>Consider caching, compression, parallel connections, and server location.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Project 1: Packet Diary</p><p class="text-xs text-theme-muted mt-2">Open your browser's developer tools (F12) and go to the Network tab. Reload any website and watch the list of requests appear. Pick five requests and write down the URL, file type, size, and load time. Draw a diagram showing the order in which they loaded.</p></div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Project 2: Trace the Route</p><p class="text-xs text-theme-muted mt-2">Use the <code class="text-brand-300">tracert</code> command (Windows) or <code class="text-brand-300">traceroute</code> (Mac/Linux) to trace the path from your computer to <code class="text-brand-300">consicaacademy.com</code>. Record each hop's IP address and response time. Map the route on paper or using a simple drawing tool.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <div class="mt-6 space-y-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Learning Objectives</p><p class="text-xs text-theme-muted mt-1.5">Students should be able to list the eight steps of a webpage request, explain the role of DNS and routers, and differentiate between packets and files. They should understand that the internet is a packet-switched network where data takes multiple paths.</p></div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Discussion Prompts</p><p class="text-xs text-theme-muted mt-1.5">Ask students: "What is the slowest part of loading a website?" and "Why do some websites load faster than others?" Compare loading a local file vs. a remote website. Discuss how CDNs (Content Delivery Networks) shorten the journey.</p></div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Extended Activity</p><p class="text-xs text-theme-muted mt-1.5">Have students work in groups to act out the webpage journey. Assign roles: Browser, DNS Server, Router 1, Router 2, Router 3, Web Server. Use index cards as packets and physically walk the path across the classroom.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-12-why-the-internet-is-reliable.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 12 &mdash; Why the Internet Is Reliable
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-10-data-centers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 10</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 11</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

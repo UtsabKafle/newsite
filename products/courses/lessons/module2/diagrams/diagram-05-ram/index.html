@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAM Memory Diagram | Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="page-wrapper" id="main-content" role="main">
+    <header class="top-header">
+      <div class="section-label">Module 2 &middot; How Computers Work</div>
+      <h1 class="diagram-title">RAM Memory</h1>
+      <p class="diagram-subtitle">Random Access Memory &mdash; data is written to and read from addressable memory cells</p>
+    </header>
+    <figure class="diagram-area" aria-label="RAM memory grid animation showing data being written to and read from memory cells with address and data buses">
+      <div class="canvas-container" id="canvasContainer">
+        <svg class="diagram-svg" viewBox="0 0 1000 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glowStrong">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <linearGradient id="cellGradWrite" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0959C8" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0959C8" stop-opacity="0.05"/>
+            </linearGradient>
+          </defs>
+          <rect width="1000" height="540" fill="#0A0E17" rx="12"/>
+
+          <text class="diagram-section-label" x="500" y="28">RAM Memory Array &mdash; 4 &times; 8 Grid</text>
+
+          <g id="ram-grid" transform="translate(180, 50)">
+            <g class="grid-header">
+              <text class="grid-hdr-label" x="-40" y="20">Addr</text>
+              <text class="grid-hdr-label" x="20" y="20">D7</text>
+              <text class="grid-hdr-label" x="60" y="20">D6</text>
+              <text class="grid-hdr-label" x="100" y="20">D5</text>
+              <text class="grid-hdr-label" x="140" y="20">D4</text>
+              <text class="grid-hdr-label" x="180" y="20">D3</text>
+              <text class="grid-hdr-label" x="220" y="20">D2</text>
+              <text class="grid-hdr-label" x="260" y="20">D1</text>
+              <text class="grid-hdr-label" x="300" y="20">D0</text>
+            </g>
+
+            <g class="grid-rows" id="gridRows">
+              <g class="mem-row" data-row="0">
+                <text class="row-addr" x="-40" y="52">0x0000</text>
+                <rect class="mem-cell" x="10" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="50" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="90" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="130" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="170" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="210" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="250" y="36" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="290" y="36" width="36" height="24" rx="3"/>
+                <text class="row-bits" x="340" y="52">00</text>
+              </g>
+              <g class="mem-row" data-row="1">
+                <text class="row-addr" x="-40" y="84">0x0001</text>
+                <rect class="mem-cell" x="10" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="50" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="90" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="130" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="170" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="210" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="250" y="68" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="290" y="68" width="36" height="24" rx="3"/>
+                <text class="row-bits" x="340" y="84">00</text>
+              </g>
+              <g class="mem-row" data-row="2">
+                <text class="row-addr" x="-40" y="116">0x0002</text>
+                <rect class="mem-cell" x="10" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="50" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="90" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="130" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="170" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="210" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="250" y="100" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="290" y="100" width="36" height="24" rx="3"/>
+                <text class="row-bits" x="340" y="116">00</text>
+              </g>
+              <g class="mem-row" data-row="3">
+                <text class="row-addr" x="-40" y="148">0x0003</text>
+                <rect class="mem-cell" x="10" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="50" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="90" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="130" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="170" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="210" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="250" y="132" width="36" height="24" rx="3"/>
+                <rect class="mem-cell" x="290" y="132" width="36" height="24" rx="3"/>
+                <text class="row-bits" x="340" y="148">00</text>
+              </g>
+            </g>
+          </g>
+
+          <g id="address-bus" transform="translate(50, 85)">
+            <rect class="bus-box" x="0" y="0" width="110" height="40" rx="6"/>
+            <text class="bus-label" x="55" y="24">Address Bus</text>
+            <g class="bus-arrows">
+              <polygon class="bus-arrow" points="110,10 130,20 110,30" fill="rgba(255,255,255,0.3)"/>
+              <line class="bus-arrow-line" x1="110" y1="12" x2="120" y2="12"/>
+              <line class="bus-arrow-line" x1="110" y1="20" x2="130" y2="20"/>
+              <line class="bus-arrow-line" x1="110" y1="28" x2="120" y2="28"/>
+            </g>
+          </g>
+
+          <g id="data-bus" transform="translate(50, 150)">
+            <rect class="bus-box" x="0" y="0" width="110" height="40" rx="6"/>
+            <text class="bus-label" x="55" y="24">Data Bus</text>
+            <g class="bus-arrows">
+              <polygon class="bus-arrow data-bus-arrow" points="110,10 130,20 110,30" fill="rgba(9,89,200,0.5)"/>
+              <line class="bus-arrow-line data-bus-line" x1="110" y1="12" x2="120" y2="12"/>
+              <line class="bus-arrow-line data-bus-line" x1="110" y1="20" x2="130" y2="20"/>
+              <line class="bus-arrow-line data-bus-line" x1="110" y1="28" x2="120" y2="28"/>
+            </g>
+          </g>
+
+          <g id="data-bytes" transform="translate(50, 220)">
+            <text class="byte-label-title" x="55" y="0">Data In / Out</text>
+            <rect class="byte-box" x="5" y="10" width="100" height="36" rx="4"/>
+            <text class="byte-value" id="byteValue" x="55" y="33">0x00</text>
+          </g>
+
+          <g id="ram-info" transform="translate(600, 50)">
+            <rect class="info-box" x="0" y="0" width="350" height="200" rx="10"/>
+            <text class="info-title" x="175" y="28">Memory Status</text>
+            <text class="info-row" x="20" y="56">Operation:</text>
+            <text class="info-val" id="infoOperation" x="160" y="56">Idle</text>
+            <text class="info-row" x="20" y="80">Address:</text>
+            <text class="info-val" id="infoAddress" x="160" y="80">--</text>
+            <text class="info-row" x="20" y="104">Data:</text>
+            <text class="info-val" id="infoData" x="160" y="104">--</text>
+            <text class="info-row" x="20" y="128">Bytes Written:</text>
+            <text class="info-val" id="infoWritten" x="160" y="128">0</text>
+            <text class="info-row" x="20" y="152">Bytes Read:</text>
+            <text class="info-val" id="infoRead" x="160" y="152">0</text>
+            <rect class="info-led" x="20" y="170" width="12" height="12" rx="3" fill="rgba(255,255,255,0.1)"/>
+            <text class="info-led-label" x="40" y="180">Active</text>
+          </g>
+
+          <g id="ram-controls-desc" transform="translate(600, 270)">
+            <rect class="info-box" x="0" y="0" width="350" height="90" rx="10"/>
+            <text class="info-title" x="175" y="24">How RAM Works</text>
+            <text class="info-para" x="20" y="46">1. CPU sends an address on the Address Bus</text>
+            <text class="info-para" x="20" y="64">2. Data is written to or read from that address</text>
+            <text class="info-para" x="20" y="82">3. Data travels on the bidirectional Data Bus</text>
+          </g>
+
+          <g id="legend" transform="translate(600, 380)">
+            <rect class="cell-legend" x="0" y="0" width="14" height="14" rx="2"/>
+            <text class="legend-label" x="20" y="11">Empty cell</text>
+            <rect class="cell-legend cell-legend-write" x="100" y="0" width="14" height="14" rx="2"/>
+            <text class="legend-label" x="120" y="11">Writing data</text>
+            <rect class="cell-legend cell-legend-read" x="220" y="0" width="14" height="14" rx="2"/>
+            <text class="legend-label" x="240" y="11">Reading data</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="visually-hidden">Animation: Data bytes travel on the Data Bus to specific memory addresses, lighting up cells as they are written or read.</figcaption>
+    </figure>
+    <div class="status-bar" role="status" aria-live="polite">
+      <span class="status-text" id="statusText">Press <strong>Play</strong> to simulate RAM read/write operations</span>
+    </div>
+    <section class="controls-section" aria-label="Animation controls">
+      <div class="controls-row">
+        <button class="ctrl-btn primary" id="playBtn" aria-label="Play RAM simulation">
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+          <span class="btn-label">Play</span>
+        </button>
+        <button class="ctrl-btn" id="pauseBtn" aria-label="Pause simulation" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1"/><rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1"/></svg>
+          <span class="btn-label">Pause</span>
+        </button>
+        <button class="ctrl-btn" id="resetBtn" aria-label="Reset and clear all memory cells" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,4,12,4z" fill="currentColor"/></svg>
+          <span class="btn-label">Reset</span>
+        </button>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 13: Cloud Computing | Consica Academy</title>
+  <meta name="description" content="Chapter 13: Cloud Computing. Learn what the cloud is and why we use remote servers for storage and processing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-12-why-the-internet-is-reliable.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 12</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 13</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Cloud Computing</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">What "the cloud" really is and why it matters</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="what-is-cloud">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-lg mb-4">You've probably heard people say, "Save it to the cloud" or "It's stored in the cloud." But what is the cloud?</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">The cloud is not really a cloud in the sky. It's just a fancy word for <strong class="text-brand-200">someone else's computer</strong> &mdash; actually, thousands of powerful computers stored in data centers around the world that you can access over the internet.</p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="examples">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Everyday Cloud Examples</h2>
+            <div class="mt-6 space-y-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <h3 class="text-base font-semibold text-brand-200">Google Drive</h3>
+                <p class="text-sm text-theme-faint mt-1">Your documents and photos are stored on Google's servers, not on your laptop. You can access them from any device.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <h3 class="text-base font-semibold text-brand-200">Microsoft OneDrive</h3>
+                <p class="text-sm text-theme-faint mt-1">Saves your files to Microsoft's cloud so they are backed up and available anywhere.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <h3 class="text-base font-semibold text-brand-200">YouTube &amp; Netflix</h3>
+                <p class="text-sm text-theme-faint mt-1">Videos are stored on cloud servers and streamed to your device when you press play.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="why-cloud">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Why Use the Cloud?</h2>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
+                <p class="text-sm font-semibold text-brand-200">Access anywhere</p>
+                <p class="text-xs text-theme-faint mt-1">From school, home, or a friend's phone</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
+                <p class="text-sm font-semibold text-brand-200">No storage limits</p>
+                <p class="text-xs text-theme-faint mt-1">The cloud provider manages the hardware</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
+                <p class="text-sm font-semibold text-brand-200">Automatic backups</p>
+                <p class="text-xs text-theme-faint mt-1">Your data is safe even if your device breaks</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
+                <p class="text-sm font-semibold text-brand-200">Always updated</p>
+                <p class="text-xs text-theme-faint mt-1">Services update on the server side</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="wrap">
+          <div class="glass-panel p-6 lg:p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg></div>
+              <div>
+                <p class="text-sm text-brand-200 font-semibold">In short</p>
+                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-1">The cloud is just a network of remote servers that store, manage, and process data for you. When you use cloud services, you rely on data centers full of servers that belong to companies like Google, Microsoft, or Amazon.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see cloud computing in action.</p>
+            <a href="diagrams/diagram-13-cloud-computing/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine being able to access all your files, photos, and apps from any device anywhere in the world — without carrying a USB drive or external hard disk. That's the power of cloud computing. The cloud has changed how we work, learn, and play. In this chapter, you'll discover what the cloud really is, how it works, and why it matters in everyday life.</p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of the cloud like a giant digital backpack that lives on the internet. Instead of carrying your drawings, games, and songs on a single computer, you can store them in this backpack and grab them from any computer, tablet, or phone. The cloud keeps your stuff safe so even if your tablet breaks, your things are still there.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cloud computing means using remote servers hosted on the internet to store, manage, and process data instead of using your local computer. Services like Google Drive, iCloud, and Dropbox are examples of cloud storage. Platforms like Netflix, Spotify, and Google Stadia use cloud processing to stream content or run apps. The cloud lets you collaborate in real time — think Google Docs where multiple people edit the same document at once.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cloud computing delivers on-demand computing resources — servers, storage, databases, networking, software, and analytics — over the internet (the cloud). Providers like AWS, Microsoft Azure, and Google Cloud offer Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). Businesses use the cloud to scale infrastructure without capital expenditure, deploy globally in minutes, and leverage serverless architectures, containerization (Docker, Kubernetes), and edge computing for modern applications.</p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Cloud Computing Vocabulary</h2>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full text-sm lg:text-base">
+                <thead><tr class="border-b border-brand-500/20"><th class="text-left py-2 pr-4 text-theme font-semibold">Term</th><th class="text-left py-2 text-theme font-semibold">Definition</th></tr></thead>
+                <tbody class="text-theme-muted divide-y divide-brand-500/10">
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Cloud</td><td class="py-3 text-theme-muted">Remote servers accessed over the internet for storage and processing</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Data Center</td><td class="py-3 text-theme-muted">A facility that houses computer systems and associated components</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Server</td><td class="py-3 text-theme-muted">A powerful computer that provides data or services to other computers</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">SaaS</td><td class="py-3 text-theme-muted">Software as a Service — apps you use over the internet without installing</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">IaaS</td><td class="py-3 text-theme-muted">Infrastructure as a Service — virtual servers and storage you rent</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">PaaS</td><td class="py-3 text-theme-muted">Platform as a Service — a platform to build and deploy apps</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Scalability</td><td class="py-3 text-theme-muted">The ability to grow or shrink resources on demand</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Virtualization</td><td class="py-3 text-theme-muted">Running multiple virtual machines on a single physical server</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Bandwidth</td><td class="py-3 text-theme-muted">The maximum data transfer rate of a network</td></tr>
+                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Latency</td><td class="py-3 text-theme-muted">The delay before data begins to transfer after a request</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <ul class="mt-6 space-y-3 text-sm lg:text-base text-theme-muted list-disc pl-5">
+              <li>More than 60% of all corporate data is stored in the cloud.</li>
+              <li>The term "cloud" came from early network diagrams that used a cloud symbol to represent the internet.</li>
+              <li>A single data center can use as much electricity as a small town.</li>
+              <li>Netflix uses AWS to stream videos to over 200 million subscribers worldwide.</li>
+              <li>You can rent supercomputers in the cloud for just a few dollars per hour.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="mt-6 space-y-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">"The cloud is a single place."</p>
+                <p class="text-xs text-theme-faint mt-1">The cloud is a network of millions of servers distributed worldwide.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">"Cloud storage is not secure."</p>
+                <p class="text-xs text-theme-faint mt-1">Cloud providers use encryption, multi-factor auth, and strict security protocols — often more secure than personal devices.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">"The cloud is free."</p>
+                <p class="text-xs text-theme-faint mt-1">Basic tiers may be free, but storage and computing power are paid services at scale.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">"The cloud uses real clouds in the sky."</p>
+                <p class="text-xs text-theme-faint mt-1">It's just a metaphor — the cloud is a network of physical servers in data centers.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine a simple diagram: You (your device) connect to the internet, which connects to a data center. Inside the data center are rows of servers. Your files are stored across multiple servers so if one fails, another takes over. This is called <strong class="text-brand-200">redundancy</strong>. The cloud isn't one computer — it's thousands working together.</p>
+            <div class="mt-4 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
+              <p class="text-sm text-brand-200 font-medium">[Device] → [Internet] → [Data Center] → [Servers] → [Your Data]</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">1. (MCQ) What does "the cloud" refer to?</p>
+                <p class="text-xs text-theme-muted">a) Weather satellites  b) Remote servers accessed over the internet  c) A type of antivirus  d) Your computer's hard drive</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">2. (MCQ) Which is an example of cloud storage?</p>
+                <p class="text-xs text-theme-muted">a) A USB flash drive  b) Google Drive  c) A DVD  d) A printer</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">3. (MCQ) What does SaaS stand for?</p>
+                <p class="text-xs text-theme-muted">a) Safe as a Service  b) Storage as a Software  c) Software as a Service  d) System as a Solution</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">4. (T/F) Data centers consume very little electricity.</p>
+                <p class="text-xs text-theme-muted">True / False</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">5. (T/F) Cloud services are always free to use.</p>
+                <p class="text-xs text-theme-muted">True / False</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">6. (Match) Connect each term to its description:</p>
+                <p class="text-xs text-theme-muted">IaaS → (Virtual servers and storage you rent)<br>SaaS → (Software you use over the internet)<br>PaaS → (Platform to build and deploy apps)</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">7. (Fill-in) The cloud is a network of ________ that store and process data.</p>
+                <p class="text-xs text-theme-muted">Answer: remote servers</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-2">8. (Fill-in) ________ allows the cloud to run multiple virtual systems on one physical machine.</p>
+                <p class="text-xs text-theme-muted">Answer: Virtualization</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
+            <div class="mt-6 space-y-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">Question 1</p>
+                <p class="text-xs text-theme-faint mt-1">Why might a company choose cloud servers instead of buying its own physical servers? What are the trade-offs?</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">Question 2</p>
+                <p class="text-xs text-theme-faint mt-1">If the cloud stores data in another country, which country's laws apply? Should it matter?</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">Question 3</p>
+                <p class="text-xs text-theme-faint mt-1">How would your school change if all its files and software moved entirely to the cloud?</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <div class="mt-6 space-y-4">
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">Project 1: Cloud Service Comparison</p>
+                <p class="text-xs text-theme-faint mt-1">Research three cloud storage providers (Google Drive, iCloud, Dropbox). Compare their free storage limits, features, and security. Create a chart and share your recommendation.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200">Project 2: My Cloud Diagram</p>
+                <p class="text-xs text-theme-faint mt-1">Draw a diagram showing how data moves from your device to the cloud and back. Label each step: device, internet, data center, server, storage. Add arrows and color-code each stage.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <div class="mt-6 space-y-3 text-sm lg:text-base text-theme-muted">
+              <p><strong class="text-brand-200">Learning Objectives:</strong> Understand the concept of cloud computing, identify real-world cloud services, and explain the benefits and risks of using the cloud.</p>
+              <p><strong class="text-brand-200">Discussion Prompts:</strong> Ask students: "What cloud services do you use daily?" and "What happens if a cloud provider goes offline?"</p>
+              <p><strong class="text-brand-200">Extensions:</strong> Invite a guest speaker from IT or cloud operations. Use Google Classroom or a shared doc to demonstrate real-time collaboration.</p>
+              <p><strong class="text-brand-200">Assessment:</strong> Use the knowledge check as a quiz. Review mini projects for understanding. Look for accurate use of terms like server, data center, and virtualization.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the final chapter</p>
+            <a href="chapter-14-internet-safety-basics.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 14 &mdash; Internet Safety Basics
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-12-why-the-internet-is-reliable.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 12</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 13</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

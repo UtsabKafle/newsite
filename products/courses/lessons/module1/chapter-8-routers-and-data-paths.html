@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 8: Routers and Data Paths | Consica Academy</title>
+  <meta name="description" content="Chapter 8: Routers and Data Paths. Learn how routers direct packets and data finds the best path.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-7-dns.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 7</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 8</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Routers and Data Paths</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How data finds its way across the Internet</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="intro">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Data doesn't travel randomly. It follows paths.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Routers help decide the best path.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="what-is-router">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">What Is a Router?</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A router directs packets to their destination.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Think of it as a traffic police officer.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">It decides:</p>
+            <ul class="mt-3 space-y-2 text-sm text-theme-muted">
+              <li class="flex items-center gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Which road to use</li>
+              <li class="flex items-center gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Which route is fastest</li>
+              <li class="flex items-center gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> How to avoid congestion</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="example">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Example</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Traveling from Nepal to Japan.
+            </p>
+            <p class="mt-2 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              You might use:
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
+              <div class="glass-panel px-4 py-2 text-sm text-theme-soft">Kathmandu</div>
+              <svg class="w-4 h-4 text-brand-300 rotate-90 sm:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <div class="glass-panel px-4 py-2 text-sm text-theme-soft">Delhi</div>
+              <svg class="w-4 h-4 text-brand-300 rotate-90 sm:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <div class="glass-panel px-4 py-2 text-sm text-theme-soft">Singapore</div>
+              <svg class="w-4 h-4 text-brand-300 rotate-90 sm:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <div class="glass-panel px-4 py-2 text-sm text-theme-soft bg-brand-500/10">Tokyo</div>
+            </div>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Data packets also pass through multiple locations.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-08-routers/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The internet is a massive network of interconnected devices. But how does your data find the right destination?
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Routers are the traffic directors of the internet — they examine each packet and forward it along the best available path.
+            </p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Imagine you are mailing a letter. The post office looks at the address and decides which truck should carry it.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A router does the same for data — it reads the destination and sends the packet the right way.
+            </p>
+            <div class="mt-4 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20">
+              <p class="text-sm text-brand-200 font-medium">Key Idea: Routers are like postal workers for the internet.</p>
+            </div>
+            <hr class="my-6 border-theme/20">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Every packet traveling across the internet contains a source and destination IP address. Routers use routing tables to decide where to send each packet.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              These tables are constantly updated using protocols like BGP (Border Gateway Protocol) and OSPF (Open Shortest Path First).
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              If one path goes down, routers automatically re-route traffic through an alternate path.
+            </p>
+            <hr class="my-6 border-theme/20">
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Routers operate at Layer 3 (Network Layer) of the OSI model. They examine the IP header of each packet, perform a longest-prefix match against the routing table, and forward the packet to the next hop.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Core internet routers use BGP to exchange reachability information between Autonomous Systems (AS). Interior gateway protocols like OSPF or IS-IS handle routing within an AS.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Features like NAT, ACLs, QoS, and VPN termination are commonly handled by enterprise-grade routers.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead>
+                  <tr class="border-b border-theme">
+                    <th class="py-2 pr-4 font-semibold text-theme">Term</th>
+                    <th class="py-2 pr-4 font-semibold text-theme">Meaning</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Router</td><td class="py-2 pr-4">Device that forwards data packets between networks</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Packet</td><td class="py-2 pr-4">Small unit of data transmitted over a network</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Routing Table</td><td class="py-2 pr-4">Database of routes used by a router to forward packets</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Hop</td><td class="py-2 pr-4">One leg of a packet's journey between routers</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">BGP</td><td class="py-2 pr-4">Border Gateway Protocol — routes between autonomous systems</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">OSPF</td><td class="py-2 pr-4">Open Shortest Path First — interior gateway protocol</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Latency</td><td class="py-2 pr-4">Time delay for data to travel from source to destination</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">NAT</td><td class="py-2 pr-4">Network Address Translation — maps private IPs to public IPs</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Autonomous System</td><td class="py-2 pr-4">Large network under a single administrative control</td></tr>
+                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Next Hop</td><td class="py-2 pr-4">The next router a packet is sent to on its path</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <ul class="mt-4 space-y-3 text-sm text-theme-muted">
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The first router was built in 1969 as part of the ARPANET project.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Core internet routers can handle over 100 billion packets per second.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The BGP routing table has grown to over 950,000 routes as of 2025.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Routers use something called "split horizon" to prevent routing loops.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>A packet can take a completely different return path than its outbound path.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
+            <div class="mt-4 space-y-4">
+              <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                <p class="text-sm font-semibold text-red-300">A router and a modem are the same thing</p>
+                <p class="text-sm text-theme-muted mt-1">A modem connects to your ISP; a router distributes that connection to devices. Many home devices combine both.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                <p class="text-sm font-semibold text-red-300">Data always takes the shortest path</p>
+                <p class="text-sm text-theme-muted mt-1">Routers consider speed, congestion, and policies — not just distance.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                <p class="text-sm font-semibold text-red-300">More hops always means slower speed</p>
+                <p class="text-sm text-theme-muted mt-1">A shorter path through congested links can be slower than a longer path with high-speed fiber.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                <p class="text-sm font-semibold text-red-300">Routers only forward data</p>
+                <p class="text-sm text-theme-muted mt-1">Modern routers also filter traffic, enforce security rules, translate addresses, and manage bandwidth.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
+            <div class="mt-4 flex flex-col items-center">
+              <div class="w-full max-w-lg p-6 rounded-xl bg-brand-500/5 border border-brand-500/20">
+                <div class="flex flex-col items-center gap-3 text-sm">
+                  <div class="glass-panel px-4 py-2 text-brand-200 font-medium">Your device</div>
+                  <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">Home Router (NAT)</div>
+                  <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">ISP Router</div>
+                  <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">Regional Router (BGP)</div>
+                  <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <div class="glass-panel px-4 py-2 text-brand-200 font-medium bg-brand-500/10">Destination Server</div>
+                </div>
+              </div>
+              <p class="mt-4 text-xs text-theme-faint text-center">A packet traverses multiple routers from source to destination.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div>
+                <p class="text-sm font-semibold text-theme">1. What does a router use to decide where to send a packet?</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> MAC address table</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> Routing table</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> DNS cache</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">2. Which protocol is used for routing between different autonomous systems?</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> OSPF</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> BGP</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> HTTP</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">3. At which OSI layer do routers operate?</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Layer 2 (Data Link)</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Layer 3 (Network)</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Layer 4 (Transport)</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">4. True or False: A packet always takes the same path for both directions.</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> True</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> False</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">5. True or False: Routers can filter traffic based on security rules.</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> True</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> False</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">6. Match: NAT stands for ___ .</p>
+                <div class="mt-2 space-y-1 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2"><input type="radio" name="q6" class="accent-brand-500"> Network Address Translation</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q6" class="accent-brand-500"> Node Access Table</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q6" class="accent-brand-500"> Network Allocation Tool</label>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">7. Fill in the blank: A router uses a ___ to store known routes.</p>
+                <div class="mt-2 text-sm text-theme-muted">
+                  <input type="text" placeholder="Type your answer" class="w-full max-w-xs px-3 py-2 rounded-lg bg-surface-dark border border-theme text-theme text-sm" disabled>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-theme">8. Fill in the blank: The time delay for data to travel is called ___ .</p>
+                <div class="mt-2 text-sm text-theme-muted">
+                  <input type="text" placeholder="Type your answer" class="w-full max-w-xs px-3 py-2 rounded-lg bg-surface-dark border border-theme text-theme text-sm" disabled>
+                </div>
+              </div>
+            </div>
+            <details class="mt-6">
+              <summary class="text-sm text-brand-300 cursor-pointer hover:text-theme transition-colors">Show Answers</summary>
+              <div class="mt-3 p-4 rounded-xl bg-brand-500/10 text-sm text-theme-muted space-y-1">
+                <p>1. Routing table</p>
+                <p>2. BGP</p>
+                <p>3. Layer 3 (Network)</p>
+                <p>4. False</p>
+                <p>5. True</p>
+                <p>6. Network Address Translation</p>
+                <p>7. routing table</p>
+                <p>8. latency</p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
+            <div class="mt-4 space-y-4 text-sm text-theme-muted">
+              <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
+                <p class="font-semibold text-theme">1. What happens to a packet if a router along its path fails?</p>
+                <p class="mt-1">Consider how routing protocols handle failures and reconvergence.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
+                <p class="font-semibold text-theme">2. Why might a network administrator prefer a longer path with less latency over a shorter but congested path?</p>
+                <p class="mt-1">Think about the trade-offs between distance, speed, and reliability.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
+                <p class="font-semibold text-theme">3. How does NAT allow multiple devices to share a single public IP address?</p>
+                <p class="mt-1">Explore how routers map private addresses to public ones.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <div class="mt-4 grid gap-4 sm:grid-cols-2">
+              <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
+                <h3 class="text-sm font-semibold text-brand-200">Project 1: Traceroute</h3>
+                <p class="mt-2 text-sm text-theme-muted">Run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Count the hops and note the IPs.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
+                <h3 class="text-sm font-semibold text-brand-200">Project 2: Map Your Home Network</h3>
+                <p class="mt-2 text-sm text-theme-muted">Draw a diagram of all devices connected to your home router. Identify which ones use wired vs wireless connections.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <div class="mt-4 space-y-3 text-sm text-theme-muted">
+              <p><strong class="text-brand-200">Learning Objectives:</strong> Students should understand the role of routers, how routing tables work, and basic routing protocols.</p>
+              <p><strong class="text-brand-200">Discussion Prompts:</strong> Use the postal service analogy. Ask students what happens when a road is closed and traffic is re-routed.</p>
+              <p><strong class="text-brand-200">Assessment Ideas:</strong> Have students trace a route to a distant server and document each hop. Use the knowledge check for review.</p>
+              <p><strong class="text-brand-200">Extensions:</strong> Introduce concepts like BGP hijacking, anycast routing, and software-defined networking (SDN).</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-9-undersea-internet-cables.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 9 &mdash; Undersea Internet Cables
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-7-dns.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 7</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 8</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

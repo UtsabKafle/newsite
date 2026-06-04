@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 06: HDD vs SSD Storage | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="app-wrapper">
+    <header role="banner" class="app-header">
+      <div class="brand">Consica Labs</div>
+      <h1>HDD vs SSD Storage</h1>
+    </header>
+    <main id="main-content" role="main">
+      <div class="diagram-container" role="figure" aria-label="HDD vs SSD comparison visualization">
+        <div class="drive-section hdd-section" id="hddSection" tabindex="0" role="button" aria-label="Click for HDD details">
+          <h2>HDD</h2>
+          <div class="drive-visual">
+            <canvas id="hddCanvas" width="240" height="240" aria-label="Animated hard disk drive showing spinning platter and read write arm"></canvas>
+          </div>
+          <div class="drive-stats" id="hddStats">
+            <div class="stat"><span class="stat-label">Capacity</span><span class="stat-value">2 TB</span></div>
+            <div class="stat"><span class="stat-label">Read</span><span class="stat-value">160 MB/s</span></div>
+            <div class="stat"><span class="stat-label">Write</span><span class="stat-value">150 MB/s</span></div>
+            <div class="stat"><span class="stat-label">Durability</span><span class="stat-value">Fragile</span></div>
+          </div>
+        </div>
+        <div class="speed-comparison" role="region" aria-label="Speed comparison">
+          <div class="speed-bar-container">
+            <span class="speed-label">HDD</span>
+            <div class="speed-track">
+              <div class="speed-fill hdd-fill" id="hddSpeedFill" style="width:16%"></div>
+            </div>
+            <span class="speed-value" id="hddSpeedVal">160 MB/s</span>
+          </div>
+          <div class="speed-bar-container">
+            <span class="speed-label">SSD</span>
+            <div class="speed-track">
+              <div class="speed-fill ssd-fill" id="ssdSpeedFill" style="width:100%"></div>
+            </div>
+            <span class="speed-value" id="ssdSpeedVal">3500 MB/s</span>
+          </div>
+          <div class="vs-badge">VS</div>
+        </div>
+        <div class="drive-section ssd-section" id="ssdSection" tabindex="0" role="button" aria-label="Click for SSD details">
+          <h2>SSD</h2>
+          <div class="drive-visual">
+            <canvas id="ssdCanvas" width="240" height="240" aria-label="Animated solid state drive showing flash memory chip grid"></canvas>
+          </div>
+          <div class="drive-stats" id="ssdStats">
+            <div class="stat"><span class="stat-label">Capacity</span><span class="stat-value">1 TB</span></div>
+            <div class="stat"><span class="stat-label">Read</span><span class="stat-value">3500 MB/s</span></div>
+            <div class="stat"><span class="stat-label">Write</span><span class="stat-value">3000 MB/s</span></div>
+            <div class="stat"><span class="stat-label">Durability</span><span class="stat-value">Durable</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="info-panel" id="infoPanel" role="region" aria-label="Drive details panel" aria-live="polite">
+        <p id="infoText">Click on a drive or press Enter to see detailed information.</p>
+      </div>
+      <div class="controls" role="toolbar" aria-label="Animation controls">
+        <button id="playBtn" class="ctrl-btn" aria-label="Play animation">Play</button>
+        <button id="pauseBtn" class="ctrl-btn" aria-label="Pause animation">Pause</button>
+        <button id="resetBtn" class="ctrl-btn" aria-label="Reset animation">Reset</button>
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

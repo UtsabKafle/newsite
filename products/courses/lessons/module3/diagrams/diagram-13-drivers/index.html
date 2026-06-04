@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drivers &amp; Software Diagram | Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="page-wrapper" id="main-content" role="main">
+    <header class="top-header">
+      <div class="section-label">Module 3 &middot; Computer Assembly</div>
+      <h1 class="diagram-title">Drivers &amp; Software</h1>
+      <p class="diagram-subtitle">Device Manager &mdash; install drivers for each hardware category</p>
+    </header>
+    <figure class="diagram-area" aria-label="Interactive Device Manager with driver installation for each hardware category">
+      <div class="canvas-container" id="canvasContainer">
+        <svg class="diagram-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="1000" height="600" fill="#0A0E17" rx="12"/>
+          <text class="diagram-chip-label" x="500" y="22">Device Manager &mdash; Driver Installation Status</text>
+
+          <!-- Device Manager Window -->
+          <rect class="device-manager" x="30" y="36" width="520" height="460" rx="6"/>
+          <!-- Header -->
+          <rect class="dm-header" x="30" y="36" width="520" height="32" rx="6"/>
+          <rect class="dm-header" x="30" y="60" width="520" height="8"/>
+          <text class="dm-header-text" x="290" y="57" text-anchor="middle">Device Manager</text>
+
+          <!-- Categories -->
+          <g id="cat-display" class="dm-category" data-category="display">
+            <rect x="44" y="74" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,88 62,82 68,88"/>
+            <rect x="75" y="78" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="96" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">D</text>
+            <text class="cat-label" x="148" y="93">Display Adapters</text>
+            <g class="install-progress" id="progress-display" display="none">
+              <rect class="install-progress-bg" x="300" y="82" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="84" width="0" height="8" rx="2" id="prog-display-fill"/>
+              <text class="install-progress-text" x="350" y="93" id="prog-display-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-network" class="dm-category" data-category="network">
+            <rect x="44" y="114" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,128 62,122 68,128"/>
+            <rect x="75" y="118" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="136" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">N</text>
+            <text class="cat-label" x="148" y="133">Network Adapters</text>
+            <g class="install-progress" id="progress-network" display="none">
+              <rect class="install-progress-bg" x="300" y="122" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="124" width="0" height="8" rx="2" id="prog-network-fill"/>
+              <text class="install-progress-text" x="350" y="133" id="prog-network-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-sound" class="dm-category" data-category="sound">
+            <rect x="44" y="154" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,168 62,162 68,168"/>
+            <rect x="75" y="158" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="176" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">S</text>
+            <text class="cat-label" x="148" y="173">Sound, video and game controllers</text>
+            <g class="install-progress" id="progress-sound" display="none">
+              <rect class="install-progress-bg" x="300" y="162" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="164" width="0" height="8" rx="2" id="prog-sound-fill"/>
+              <text class="install-progress-text" x="350" y="173" id="prog-sound-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-storage" class="dm-category" data-category="storage">
+            <rect x="44" y="194" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,208 62,202 68,208"/>
+            <rect x="75" y="198" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="216" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">S</text>
+            <text class="cat-label" x="148" y="213">Storage Controllers</text>
+            <g class="install-progress" id="progress-storage" display="none">
+              <rect class="install-progress-bg" x="300" y="202" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="204" width="0" height="8" rx="2" id="prog-storage-fill"/>
+              <text class="install-progress-text" x="350" y="213" id="prog-storage-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-chipset" class="dm-category" data-category="chipset">
+            <rect x="44" y="234" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,248 62,242 68,248"/>
+            <rect x="75" y="238" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="256" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">C</text>
+            <text class="cat-label" x="148" y="253">System &amp; Chipset</text>
+            <g class="install-progress" id="progress-chipset" display="none">
+              <rect class="install-progress-bg" x="300" y="242" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="244" width="0" height="8" rx="2" id="prog-chipset-fill"/>
+              <text class="install-progress-text" x="350" y="253" id="prog-chipset-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-usb" class="dm-category" data-category="usb">
+            <rect x="44" y="274" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,288 62,282 68,288"/>
+            <rect x="75" y="278" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="296" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">U</text>
+            <text class="cat-label" x="148" y="293">Universal Serial Bus (USB)</text>
+            <g class="install-progress" id="progress-usb" display="none">
+              <rect class="install-progress-bg" x="300" y="282" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="284" width="0" height="8" rx="2" id="prog-usb-fill"/>
+              <text class="install-progress-text" x="350" y="293" id="prog-usb-text">0%</text>
+            </g>
+          </g>
+
+          <g id="cat-input" class="dm-category" data-category="input">
+            <rect x="44" y="314" width="490" height="38" rx="4"/>
+            <polygon class="cat-arrow" points="56,328 62,322 68,328"/>
+            <rect x="75" y="318" width="60" height="28" rx="4" fill="rgba(9,89,200,0.08)" stroke="rgba(9,89,200,0.15)" stroke-width="0.5"/>
+            <text x="105" y="336" fill="#0959C8" font-size="12" text-anchor="middle" font-family="var(--font-display)" font-weight="700">I</text>
+            <text class="cat-label" x="148" y="333">Keyboards &amp; Mice</text>
+            <g class="install-progress" id="progress-input" display="none">
+              <rect class="install-progress-bg" x="300" y="322" width="100" height="12" rx="3"/>
+              <rect class="install-progress-fill" x="302" y="324" width="0" height="8" rx="2" id="prog-input-fill"/>
+              <text class="install-progress-text" x="350" y="333" id="prog-input-text">0%</text>
+            </g>
+          </g>
+
+          <!-- Detail Panel -->
+          <g transform="translate(570, 36)">
+            <rect class="driver-detail-panel" x="0" y="0" width="400" height="240" rx="6"/>
+            <text class="detail-title" id="detailTitle" x="200" y="24" text-anchor="middle">Select a driver category</text>
+            <text class="detail-text" id="detailDesc" x="16" y="48">Click any category on the left to see which driver is needed and what it does.</text>
+            <rect class="driver-detail-panel" x="0" y="260" width="400" height="180" rx="6"/>
+            <text class="detail-title" x="200" y="282" text-anchor="middle">System Tray Notifications</text>
+            <!-- Notification popup -->
+            <g class="notification-popup" id="notifPopup">
+              <rect x="40" y="296" width="320" height="52" rx="6"/>
+              <rect class="notif-icon" x="52" y="306" width="20" height="20" rx="4"/>
+              <text class="notif-icon-text" x="62" y="320" fill="#fff" font-size="10" text-anchor="middle" font-weight="700">!</text>
+              <text class="notif-title" id="notifTitle" x="82" y="318">Driver installed</text>
+              <text class="notif-text" id="notifText" x="82" y="334">Display driver installed successfully</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="visually-hidden">Device Manager with seven hardware categories. Click to see driver details. Play auto-installs all drivers.</figcaption>
+    </figure>
+    <div class="status-bar" role="status" aria-live="polite">
+      <span class="status-text" id="statusText">Press <strong>Play</strong> to install all drivers sequentially</span>
+    </div>
+    <section class="controls-section" aria-label="Animation controls">
+      <div class="controls-row">
+        <button class="ctrl-btn primary" id="playBtn" aria-label="Play driver installation sequence">
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+          <span class="btn-label">Play</span>
+        </button>
+        <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1"/><rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1"/></svg>
+          <span class="btn-label">Pause</span>
+        </button>
+        <button class="ctrl-btn" id="resetBtn" aria-label="Reset animation" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,4,12,4z" fill="currentColor"/></svg>
+          <span class="btn-label">Reset</span>
+        </button>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

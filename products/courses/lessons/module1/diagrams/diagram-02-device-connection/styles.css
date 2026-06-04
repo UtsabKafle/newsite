@@ -1,0 +1,582 @@
+/* ===== Consica Labs — Device Connection Flowchart ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+/* ── CSS Variables ────────────────────────────────────── */
+:root {
+  --brand-blue: #0959C8;
+  --brand-blue-hover: #0d6ef0;
+  --brand-blue-glow: rgba(9, 89, 200, 0.4);
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: rgba(17, 24, 39, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --success: #22c55e;
+  --success-dark: #166534;
+  --warning: #eab308;
+  --arrow-track: rgba(255, 255, 255, 0.08);
+  --arrow-fill: #0959C8;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 40px rgba(9, 89, 200, 0.15);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Poppins', 'Inter', sans-serif;
+}
+
+/* ── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(9, 89, 200, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(9, 89, 200, 0.04) 0%, transparent 60%);
+}
+
+/* ── Container ────────────────────────────────────────── */
+.flowchart-container {
+  max-width: 1120px;
+  width: 100%;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px 36px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.flowchart-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(9, 89, 200, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Header ───────────────────────────────────────────── */
+.flowchart-header {
+  text-align: center;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.flowchart-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.125rem);
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.flowchart-description {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Progress Bar ─────────────────────────────────────── */
+.progress-bar {
+  position: relative;
+  z-index: 1;
+  height: 6px;
+  background: var(--arrow-track);
+  border-radius: 3px;
+  margin-bottom: 40px;
+  overflow: visible;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--brand-blue), #3b82f6);
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px var(--brand-blue-glow);
+  position: relative;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.progress-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--arrow-track);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transform: translateY(-9px);
+  transition: var(--transition);
+  position: relative;
+  z-index: 2;
+}
+
+.progress-step.active {
+  border-color: var(--brand-blue);
+  background: var(--brand-blue);
+  color: #fff;
+  box-shadow: 0 0 16px var(--brand-blue-glow);
+}
+
+.progress-step.done {
+  border-color: var(--success);
+  background: var(--success-dark);
+  color: var(--success);
+}
+
+/* ── Flowchart Grid ───────────────────────────────────── */
+.flowchart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: nowrap;
+}
+
+/* ── Nodes ────────────────────────────────────────────── */
+.node {
+  position: relative;
+  width: 160px;
+  min-width: 120px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 22px 12px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  outline: none;
+}
+
+.node:hover {
+  border-color: rgba(9, 89, 200, 0.35);
+  background: rgba(9, 89, 200, 0.06);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.node:focus-visible {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px var(--brand-blue-glow), var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.node.active {
+  border-color: var(--brand-blue);
+  background: rgba(9, 89, 200, 0.1);
+  box-shadow: var(--shadow-glow);
+}
+
+.node.completed {
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.node-icon {
+  width: 52px;
+  height: 52px;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.node.active .node-icon {
+  color: var(--brand-blue);
+}
+
+.node.completed .node-icon {
+  color: var(--success);
+}
+
+.node-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.node-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+/* ── Arrows ───────────────────────────────────────────── */
+.arrow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1 1 auto;
+  min-width: 40px;
+  max-width: 120px;
+  position: relative;
+}
+
+.arrow-track {
+  flex: 1;
+  height: 3px;
+  background: var(--arrow-track);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.arrow-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--brand-blue), #3b82f6);
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--brand-blue-glow);
+}
+
+.arrow-fill.animated {
+  width: 100%;
+}
+
+.arrow-head {
+  flex-shrink: 0;
+  color: var(--arrow-track);
+  margin-left: -2px;
+  transition: var(--transition);
+  opacity: 0;
+}
+
+.arrow-head.visible {
+  opacity: 1;
+  color: var(--brand-blue);
+}
+
+/* ── Tooltips ─────────────────────────────────────────── */
+.node-tooltip {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 220px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  text-align: left;
+}
+
+.node-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #1e293b;
+}
+
+.node-tooltip h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--brand-blue);
+  margin-bottom: 6px;
+}
+
+.node-tooltip p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.node-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Overlay to catch clicks when tooltip is open */
+.tooltip-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: transparent;
+}
+
+.tooltip-overlay.active {
+  display: block;
+}
+
+/* ── Status Text ──────────────────────────────────────── */
+.status-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  min-height: 1.5em;
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.status-text strong {
+  color: var(--brand-blue);
+}
+
+/* ── Controls ─────────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  background: var(--bg-glass);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.control-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.control-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.control-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-blue-glow);
+  border-color: var(--brand-blue);
+}
+
+.control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.control-btn .btn-label {
+  display: inline;
+}
+
+.play-btn {
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: #fff;
+}
+
+.play-btn:hover:not(:disabled) {
+  background: var(--brand-blue-hover);
+  border-color: var(--brand-blue-hover);
+  color: #fff;
+}
+
+.play-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-blue-glow);
+}
+
+.reset-btn:hover:not(:disabled) {
+  color: var(--warning);
+}
+
+.pause-btn:hover:not(:disabled) {
+  color: #facc15;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .flowchart-container {
+    padding: 28px 20px 28px;
+    border-radius: var(--radius-lg);
+  }
+
+  .flowchart {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .arrow {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    height: 48px;
+    flex: none;
+    flex-direction: column;
+  }
+
+  .arrow-track {
+    width: 3px;
+    height: 100%;
+    flex: none;
+  }
+
+  .arrow-fill {
+    width: 100%;
+    height: 0%;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .arrow-fill.animated {
+    width: 100%;
+    height: 100%;
+  }
+
+  .arrow-head {
+    margin-left: 0;
+    margin-top: -2px;
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+
+  .node {
+    width: 100%;
+    max-width: 280px;
+    flex-direction: row;
+    padding: 14px 18px;
+    gap: 14px;
+  }
+
+  .node-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .node-label {
+    font-size: 0.95rem;
+  }
+
+  .node-tooltip {
+    left: 50%;
+    bottom: calc(100% + 14px);
+    width: 250px;
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .flowchart-container {
+    padding: 20px 14px 24px;
+    border-radius: var(--radius-md);
+  }
+
+  .flowchart-header {
+    margin-bottom: 24px;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .control-btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .control-btn .btn-label {
+    display: none;
+  }
+
+  .node-tooltip {
+    width: 220px;
+  }
+
+  .progress-bar {
+    margin-bottom: 28px;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1024px) {
+  .node {
+    width: 130px;
+    min-width: 100px;
+    padding: 18px 10px 14px;
+  }
+
+  .node-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .arrow {
+    min-width: 30px;
+    max-width: 60px;
+  }
+}

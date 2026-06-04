@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safety & Tools — Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#diagram">Skip to diagram</a>
+  <div class="diagram-wrapper" id="diagram" role="application" aria-label="Safety and Tools interactive diagram">
+    <div class="diagram-header">
+      <h1 class="diagram-title">Safety &amp; Tools</h1>
+      <p class="diagram-subtitle">Essential tools and safety practices for computer assembly</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="Animation controls">
+      <button class="ctrl-btn" id="playBtn" aria-label="Auto-cycle through tools">&#9654; Play</button>
+      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause cycling">&#9646;&#9646; Pause</button>
+      <button class="ctrl-btn" id="resetBtn" aria-label="Reset view">&#8634; Reset</button>
+      <span class="step-indicator" id="stepIndicator" aria-live="polite">Ready</span>
+    </div>
+    <div class="canvas-container">
+      <canvas id="safetyCanvas" width="900" height="520" role="img" aria-label="Workstation with labeled computer repair tools"></canvas>
+      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
+    </div>
+    <div class="bottom-panel">
+      <div class="tool-tags" id="toolTags" role="list" aria-label="Tools list"></div>
+      <div class="practice-icons" role="region" aria-label="Safe and unsafe practices">
+        <div class="practice good"><span class="p-icon">&#10003;</span> Anti-static wrist strap</div>
+        <div class="practice good"><span class="p-icon">&#10003;</span> Work on hard surface</div>
+        <div class="practice bad"><span class="p-icon">&#10007;</span> Work on carpet</div>
+        <div class="practice bad"><span class="p-icon">&#10007;</span> Touch components by pins</div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

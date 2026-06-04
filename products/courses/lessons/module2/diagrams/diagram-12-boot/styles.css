@@ -1,0 +1,264 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brand: #0959C8;
+  --brand-glow: rgba(9, 89, 200, 0.35);
+  --surface: #0A0E17;
+  --darker: #060910;
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --radius: 12px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--darker);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  padding: 8px 16px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 0 0 8px 8px;
+  z-index: 1000;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+.diagram-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.diagram-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.controls { display: flex; gap: 8px; align-items: center; }
+
+.ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  transition: all var(--transition);
+}
+.ctrl-btn:hover:not(:disabled) { background: rgba(255,255,255,0.08); border-color: var(--brand); }
+.ctrl-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.status-badge.active { color: #4fc3f7; border-color: #4fc3f7; }
+
+.diagram-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.progress-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 10px;
+  background: var(--glass-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand), #4fc3f7);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12px var(--brand-glow);
+}
+
+.progress-percent {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 48px;
+  text-align: right;
+  color: var(--brand);
+}
+
+.timeline-flow {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 4px 20px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand) transparent;
+}
+
+.timeline-flow::-webkit-scrollbar { height: 6px; }
+.timeline-flow::-webkit-scrollbar-track { background: transparent; }
+.timeline-flow::-webkit-scrollbar-thumb { background: var(--brand); border-radius: 3px; }
+
+.stage-card {
+  flex: 0 0 160px;
+  min-height: 200px;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.stage-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+.stage-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.stage-card.active {
+  border-color: var(--brand);
+  box-shadow: 0 0 20px var(--brand-glow), inset 0 0 20px rgba(9, 89, 200, 0.08);
+  transform: translateY(-4px);
+}
+.stage-card.completed {
+  border-color: rgba(9, 89, 200, 0.5);
+  background: rgba(9, 89, 200, 0.08);
+}
+.stage-card.completed::after {
+  content: '✓';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.8rem;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.stage-icon { font-size: 1.8rem; line-height: 1; }
+.stage-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.stage-time { font-size: 0.7rem; color: var(--text-muted); }
+.stage-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  display: none;
+  margin-top: auto;
+}
+.stage-card.active .stage-desc { display: block; }
+
+.detail-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 480px;
+  width: 90%;
+  z-index: 100;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 40px var(--brand-glow);
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  padding: 4px;
+  line-height: 1;
+}
+.detail-close:hover { color: var(--text); }
+.detail-close:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.detail-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--brand);
+}
+
+.detail-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .diagram-header { padding: 12px 16px; flex-direction: column; align-items: stretch; }
+  .diagram-title { font-size: 1.1rem; min-width: auto; }
+  .controls { justify-content: center; }
+  .stage-card { flex: 0 0 140px; min-height: 180px; padding: 12px; }
+}
+
+@media (max-width: 480px) {
+  .ctrl-btn { padding: 6px 12px; font-size: 0.8rem; }
+  .ctrl-btn span { display: none; }
+  .progress-section { flex-wrap: wrap; }
+}

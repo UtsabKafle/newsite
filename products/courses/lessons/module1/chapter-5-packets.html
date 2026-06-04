@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 5: Packets | Consica Academy</title>
+  <meta name="description" content="Chapter 5: Packets – The Internet's Delivery Boxes. Learn how data is broken into packets and reassembled.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-4-understanding-servers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 4</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 5</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Packets</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The Internet's delivery boxes</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="what-is-a-packet">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">What Is a Packet?</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              One of the most important Internet concepts is <strong class="text-brand-200">packets</strong>.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A packet is a small piece of data. Large information is broken into many packets before traveling.
+            </p>
+
+            <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Example</p>
+              <p class="text-sm text-theme-muted mb-3">Imagine sending a 500-page book.</p>
+              <p class="text-sm text-theme-muted">Instead of one giant package:</p>
+              <ul class="mt-2 space-y-2 text-sm text-theme-muted">
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> You split it into hundreds of smaller boxes.</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> These boxes travel separately.</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> At the destination: the boxes are reassembled.</li>
+              </ul>
+              <p class="mt-3 text-sm text-theme-muted italic">The Internet does the same thing.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="why-packets">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Why Use Packets?</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Packets make communication:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+              <div class="glass-panel p-4 text-center">
+                <svg class="w-8 h-8 text-green-400 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span class="text-sm font-semibold text-brand-200">Faster</span>
+              </div>
+              <div class="glass-panel p-4 text-center">
+                <svg class="w-8 h-8 text-green-400 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span class="text-sm font-semibold text-brand-200">More reliable</span>
+              </div>
+              <div class="glass-panel p-4 text-center">
+                <svg class="w-8 h-8 text-green-400 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="text-sm font-semibold text-brand-200">Easier to manage</span>
+              </div>
+            </div>
+            <p class="mt-5 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              If one packet gets lost: only that packet needs to be resent. Not the entire file.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="example-video">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Example: Watching a Video</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A video may contain millions of packets.
+            </p>
+            <p class="mt-2 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Packets travel through:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+              <div class="glass-panel p-3 text-center text-sm text-theme-soft">Routers</div>
+              <div class="glass-panel p-3 text-center text-sm text-theme-soft">Cables</div>
+              <div class="glass-panel p-3 text-center text-sm text-theme-soft">Data centers</div>
+            </div>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Then your device combines them into a smooth video.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see packets in action.</p>
+            <a href="diagrams/diagram-05-packets/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: The Internet's Delivery Boxes</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Every time you load a web page, send an email, stream a song, or play a game online, your data is being broken down, labeled, shipped, routed, and reassembled — all in a fraction of a second.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The secret behind this invisible high-speed delivery service is the <strong class="text-brand-200">packet</strong> — the fundamental unit of data transmission on the Internet.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter we explore what packets are, how they work, and why they make the Internet fast, reliable, and scalable.
+            </p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-6">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
+              <h3 class="text-xl font-display font-bold mt-3">Packets Explained Like You Are 5</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Imagine you want to mail a giant teddy bear to your cousin in another city. The box is way too big to fit in the mail truck! So you take the bear apart — one arm here, one leg there, the head, the body — and put each piece in its own small box. You write your cousin's address on each box and mail them separately.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Some boxes might take a different road. Some might arrive at different times. But once all the boxes reach your cousin, she opens them up and puts the teddy bear back together — good as new!
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                That is exactly how the Internet sends data. Your photo, video, or message is broken into <strong class="text-brand-200">packets</strong>, each packet is sent separately, and when they all arrive, your device puts them back together.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
+              <h3 class="text-xl font-display font-bold mt-3">Packets for Intermediate Learners</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                When you send data over the Internet, your computer does not shoot out one giant blob of information. Instead, it chops the data into thousands of tiny chunks called <strong class="text-brand-200">packets</strong>.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Each packet contains three key parts:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Header</h4>
+                  <p class="text-xs text-theme-muted mt-1">Contains the source IP, destination IP, packet number, and other metadata. Like the "To" and "From" labels on a package.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Payload</h4>
+                  <p class="text-xs text-theme-muted mt-1">The actual chunk of data — a few bytes of your photo, video, or email. This is the "stuffing" inside the package.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Trailer</h4>
+                  <p class="text-xs text-theme-muted mt-1">Often includes error-checking info so the receiver can tell if the packet got damaged in transit.</p>
+                </div>
+              </div>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Packets can take different paths to the same destination. Some routes are faster, some avoid traffic. When they arrive, they might be out of order! Your device reorders them using the packet numbers in the headers.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                This is called <strong class="text-brand-200">packet switching</strong> — the technology that makes the Internet efficient and resilient.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
+              <h3 class="text-xl font-display font-bold mt-3">Packet Switching: A Technical Deep Dive</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Packet switching is a communication method where data is divided into independently routed packets. Unlike circuit switching (used by old telephone networks), packet switching does not require a dedicated communication path. Each packet contains enough addressing information to travel from source to destination independently.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Key characteristics:</strong>
+              </p>
+              <ul class="mt-3 space-y-2 text-sm text-theme-muted">
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Store-and-forward:</strong> Each router receives a packet completely before forwarding it to the next hop.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Statistical multiplexing:</strong> Network links are shared dynamically among many users; packets queue and are sent as bandwidth becomes available.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Best-effort delivery:</strong> Packets may be lost, delayed, duplicated, or delivered out of order. Upper-layer protocols (like TCP) handle reliability.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Maximum Transmission Unit (MTU):</strong> Each network link has a maximum packet size (typically 1500 bytes for Ethernet). Larger data must be fragmented.</span></li>
+              </ul>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                The Internet Protocol (IP) operates at the network layer and defines the packet structure. The Transmission Control Protocol (TCP) sits above IP and manages retransmission, ordering, and flow control.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-brand-500/20">
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Packet</td><td class="py-3 px-4">A small unit of data transmitted over a network.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Packet Switching</td><td class="py-3 px-4">The method of breaking data into packets and routing them independently.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Header</td><td class="py-3 px-4">The part of a packet containing source/destination addresses and metadata.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Payload</td><td class="py-3 px-4">The actual data content carried inside a packet.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Trailer</td><td class="py-3 px-4">The end section of a packet, often used for error detection.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">MTU</td><td class="py-3 px-4">Maximum Transmission Unit — the largest packet size a network can handle.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Fragmentation</td><td class="py-3 px-4">The process of splitting a packet into smaller pieces to fit network limits.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Router</td><td class="py-3 px-4">A device that forwards packets between networks based on IP addresses.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Latency</td><td class="py-3 px-4">The time it takes for a packet to travel from source to destination.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Throughput</td><td class="py-3 px-4">The rate at which packets are successfully delivered over a network.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About Packets</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">1500</p>
+                <p class="text-sm text-theme-muted mt-1">The default MTU for Ethernet is 1500 bytes. Most packets are smaller than a single text message.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Billions per second</p>
+                <p class="text-sm text-theme-muted mt-1">The global Internet carries billions of packets every second across millions of routers.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Lost in transit</p>
+                <p class="text-sm text-theme-muted mt-1">About 0.1–1% of packets are lost on the open Internet. TCP automatically retransmits them.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Different paths</p>
+                <p class="text-sm text-theme-muted mt-1">Two packets from the same file can travel entirely different routes across continents and arrive at different times.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="space-y-4 mt-4">
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">Packets always travel the same path</p>
+                <p class="text-sm text-theme-muted mt-1">Not true. Packets can take different routes based on network conditions, congestion, and router decisions. This is what makes the Internet resilient — if one path fails, packets are rerouted.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">Packets arrive in order</p>
+                <p class="text-sm text-theme-muted mt-1">They often arrive out of order! Each packet carries a sequence number so the receiving device can reassemble them in the correct order regardless of arrival time.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">All packets are the same size</p>
+                <p class="text-sm text-theme-muted mt-1">Packet sizes vary. While Ethernet limits packets to 1500 bytes, the actual payload size depends on the application and protocol. VoIP packets are tiny; video streaming uses larger packets.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning: Packet Journey</h2>
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Step-by-Step Walkthrough</p>
+              <div class="space-y-4 text-sm text-theme-muted">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">1</span>
+                  <div><strong class="text-theme">Data is created.</strong> You press send on a photo. Your device reads the file.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
+                  <div><strong class="text-theme">Fragmentation.</strong> The photo is split into many packets (each ~1500 bytes or less).</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
+                  <div><strong class="text-theme">Header attached.</strong> Each packet gets a header: your IP, destination IP, sequence number, and checksum.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">4</span>
+                  <div><strong class="text-theme">Routing.</strong> Packets leave your device, pass through your home router, ISP routers, and across the Internet backbone.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">5</span>
+                  <div><strong class="text-theme">Reassembly.</strong> The destination device collects packets, checks for errors, reorders them, and reconstructs the original photo.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">6</span>
+                  <div><strong class="text-theme">Delivery.</strong> If any packet is missing, the receiver asks for a retransmit. The photo appears on the recipient's screen.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of packets.</p>
+
+            <div class="mt-6 space-y-6">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What is a packet?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A permanent connection between two computers</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A small unit of data transmitted over a network</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A type of router</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A domain name</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">A small unit of data transmitted over a network.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which protocol ensures packets are retransmitted if lost?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>HTTP</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>DNS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>TCP</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>FTP</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">TCP (Transmission Control Protocol).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the typical MTU for Ethernet networks?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>512 bytes</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>1024 bytes</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>1500 bytes</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>8192 bytes</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">1500 bytes.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: All packets in a message travel the same path.</p>
+                <div class="mt-2 flex gap-4 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>True</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>False</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">False. Packets can take different paths.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: A packet header contains the destination address.</p>
+                <div class="mt-2 flex gap-4 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>True</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>False</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The header contains source and destination IP addresses.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">6. Matching: Connect each term to its description.</p>
+                <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-theme-muted">
+                  <div class="glass-panel p-3">Header</div>
+                  <div class="glass-panel p-3">Contains addressing and sequence info</div>
+                  <div class="glass-panel p-3">Payload</div>
+                  <div class="glass-panel p-3">The actual data inside a packet</div>
+                  <div class="glass-panel p-3">MTU</div>
+                  <div class="glass-panel p-3">Maximum packet size for a network</div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: The process of splitting data into packets is called __________.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Fragmentation (or packetization).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: The __________ sits above IP and handles retransmission of lost packets.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">TCP (Transmission Control Protocol).</p></details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking Questions</h2>
+            <div class="space-y-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. Efficiency vs. Reliability</p>
+                <p class="text-sm text-theme-muted mt-1">Why does breaking a file into thousands of small packets make the Internet more efficient than sending the entire file as one block? What happens if one packet out of a thousand gets lost — how does this compare to losing one giant block?</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Real-World Analogy</p>
+                <p class="text-sm text-theme-muted mt-1">Think of a highway system. How are packets like cars? How are routers like highway interchanges? What would happen if there were no traffic lights (routers) directing the flow?</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. Privacy and Packets</p>
+                <p class="text-sm text-theme-muted mt-1">Since packets travel through many routers across the Internet, who could potentially read the payload of your packets? How do encryption technologies (like HTTPS) protect your packet contents?</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 1: Packet Puzzle</h4>
+                <p class="text-sm text-theme-muted mt-1">Print a short poem or sentence on paper. Cut it into 5-10 strips (packets). Mix them up. Ask a partner to reassemble them using sequence numbers you wrote on the back. Discuss how this mirrors Internet packet reassembly.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 2: Traceroute Explorer</h4>
+                <p class="text-sm text-theme-muted mt-1">Open a terminal or command prompt and run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Observe the list of routers your packets pass through. Count the hops. Research what each hop represents.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <div class="space-y-4 mt-4 text-sm text-theme-muted">
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Learning Objectives</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>Define what a packet is and why data is broken into packets.</li>
+                  <li>Describe the three parts of a packet: header, payload, trailer.</li>
+                  <li>Explain packet switching and how it differs from circuit switching.</li>
+                  <li>Understand the role of TCP in reliable packet delivery.</li>
+                  <li>Identify the path a packet travels from source to destination.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Preparation</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>Ensure the interactive diagram at <code class="text-brand-300 font-mono text-xs">diagrams/diagram-05-packets/</code> is deployed and tested.</li>
+                  <li>Prepare the "Packet Puzzle" materials: printed sentences, scissors.</li>
+                  <li>Verify traceroute is available on classroom computers.</li>
+                  <li>Review Wireshark basics if doing the live capture extension.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Discussion Prompts</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>What would happen if the Internet used circuit switching instead of packet switching?</li>
+                  <li>Why do streaming services buffer? Relate this to packet arrival times.</li>
+                  <li>How does encryption protect packet payloads from interception?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-6-ip-addresses.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 6 &mdash; IP Addresses
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-4-understanding-servers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 4</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 5</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 6: IP Addresses | Consica Academy</title>
+  <meta name="description" content="Chapter 6: IP Addresses. Learn why every device needs an address and how IP addresses work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-5-packets.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 5</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 6</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">IP Addresses</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The unique address of every device on the Internet</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="what-is-ip">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">What Is an IP Address?</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Every device connected to the Internet has an address.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              This address is called an <strong class="text-brand-200">IP Address</strong>.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="why-need-ip">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Why Do We Need IP Addresses?</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Just like homes need postal addresses, devices need network addresses.
+            </p>
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
+              <p class="text-sm text-theme-muted italic">Without addresses: data would not know where to go.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="example-ip">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Example</h2>
+            <div class="comparison-grid mt-4">
+              <div class="internet-vs-web rounded-xl p-5 bg-brand-500/[0.04]">
+                <h3 class="font-display font-semibold text-brand-200 mb-3">Home Address</h3>
+                <ul class="space-y-1 text-sm text-theme-faint">
+                  <li>House 10</li>
+                  <li>Kathmandu</li>
+                  <li>Nepal</li>
+                </ul>
+              </div>
+              <div class="internet-vs-web rounded-xl p-5 bg-brand-500/[0.04]">
+                <h3 class="font-display font-semibold text-brand-200 mb-3">Internet Address</h3>
+                <ul class="space-y-1 text-sm text-theme-faint">
+                  <li><code class="text-brand-300 font-mono">192.168.1.1</code></li>
+                  <li class="text-theme-muted text-xs italic">or</li>
+                  <li><code class="text-brand-300 font-mono">103.45.22.7</code></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Purpose</p>
+              <p class="text-sm text-theme-muted">IP addresses help:</p>
+              <ul class="mt-2 space-y-1 text-sm text-theme-faint">
+                <li>&bull; Identify devices</li>
+                <li>&bull; Deliver data</li>
+                <li>&bull; Route Internet traffic</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore how IP addresses work.</p>
+            <a href="diagrams/diagram-06-ip-address/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: Why Every Device Needs a Unique Address</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In the previous chapter, we learned that data is broken into packets. But how does each packet know exactly where to go? The answer lies in the <strong class="text-brand-200">IP address</strong> — a unique numeric label assigned to every device connected to the Internet.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Without IP addresses, packets would wander aimlessly like letters with no address on the envelope. IP addresses make it possible for routers to forward data across the globe with pinpoint accuracy.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, we will explore what IP addresses look like, the difference between IPv4 and IPv6, how devices get their addresses, and why the world is gradually transitioning to IPv6.
+            </p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-6">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
+              <h3 class="text-xl font-display font-bold mt-3">IP Addresses Explained Like You Are 5</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Imagine your house has a street address so the mail carrier knows where to deliver letters. That address is unique — no other house in the world has the exact same address.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Now imagine your tablet, phone, laptop, and game console each need their own mailbox. On the Internet, every device gets its own special number called an <strong class="text-brand-200">IP address</strong>.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                When you ask for a website, your device puts its IP address on the request packet — like writing a return address on an envelope. The website sends the response back to that address. And that is how your screen fills with the right content, not someone else's!
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
+              <h3 class="text-xl font-display font-bold mt-3">IP Addresses for Intermediate Learners</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                An IP address is a unique identifier that allows devices to find and communicate with each other on a network. There are two main versions in use today:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">IPv4 (Version 4)</h4>
+                  <p class="text-xs text-theme-muted mt-1">Uses 32-bit addresses written as four numbers separated by dots: <code class="text-brand-300 font-mono text-xs">192.168.1.1</code>. Each number ranges from 0 to 255. Provides about 4.3 billion unique addresses.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">IPv6 (Version 6)</h4>
+                  <p class="text-xs text-theme-muted mt-1">Uses 128-bit addresses written in hexadecimal: <code class="text-brand-300 font-mono text-xs">2001:db8::ff00:42:8329</code>. Provides 340 undecillion addresses — enough for every device on Earth many times over.</p>
+                </div>
+              </div>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Devices get IP addresses in two ways:
+              </p>
+              <ul class="mt-3 space-y-2 text-sm text-theme-muted">
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong class="text-brand-200">Static:</strong> Manually assigned and never changes (used for servers).</li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong class="text-brand-200">Dynamic (DHCP):</strong> Automatically assigned by a router when you connect. Your phone gets a new "lease" each time it joins a Wi-Fi network.</li>
+              </ul>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Most home networks use a router that performs <strong class="text-brand-200">NAT (Network Address Translation)</strong>, allowing many devices to share one public IP address.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
+              <h3 class="text-xl font-display font-bold mt-3">IP Addressing: A Technical Deep Dive</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                An IP address operates at Layer 3 (Network Layer) of the OSI model. It serves two primary functions: network interface identification and location addressing.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">IPv4 Structure:</strong> 32-bit number, typically written in dotted decimal notation (e.g., <code class="text-brand-300 font-mono">203.0.113.42</code>). Each octet represents 8 bits. The address is divided into a network portion and a host portion, determined by the subnet mask.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Subnetting:</strong> A subnet mask (e.g., <code class="text-brand-300 font-mono">255.255.255.0</code> or <code class="text-brand-300 font-mono">/24</code>) separates the network ID from the host ID. This allows networks to be divided into smaller subnetworks for efficient routing and management.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">IPv6 Structure:</strong> 128-bit number written as eight groups of four hexadecimal digits (e.g., <code class="text-brand-300 font-mono">2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). Leading zeros can be omitted, and consecutive zero groups can be replaced with <code class="text-brand-300 font-mono">::</code> (once). IPv6 eliminates the need for NAT and provides built-in IPSec support.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Special Addresses:</strong>
+              </p>
+              <ul class="mt-2 space-y-1 text-sm text-theme-muted">
+                <li><code class="text-brand-300 font-mono text-xs">127.0.0.1</code> — Localhost (loopback), points back to your own device.</li>
+                <li><code class="text-brand-300 font-mono text-xs">10.0.0.0/8</code>, <code class="text-brand-300 font-mono text-xs">172.16.0.0/12</code>, <code class="text-brand-300 font-mono text-xs">192.168.0.0/16</code> — Private (RFC 1918) addresses, not routable on the public Internet.</li>
+                <li><code class="text-brand-300 font-mono text-xs">169.254.0.0/16</code> — APIPA (Automatic Private IP Addressing), used when DHCP fails.</li>
+                <li><code class="text-brand-300 font-mono text-xs">0.0.0.0</code> — Default route, represents "all networks."</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-brand-500/20">
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IP Address</td><td class="py-3 px-4">A unique numeric identifier assigned to each device on a network.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IPv4</td><td class="py-3 px-4">Internet Protocol version 4, using 32-bit addresses.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IPv6</td><td class="py-3 px-4">Internet Protocol version 6, using 128-bit addresses to replace IPv4.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Subnet Mask</td><td class="py-3 px-4">A number that separates the network and host portions of an IP address.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">DHCP</td><td class="py-3 px-4">Dynamic Host Configuration Protocol — automatically assigns IP addresses to devices.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">NAT</td><td class="py-3 px-4">Network Address Translation — maps private IPs to a public IP for Internet access.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Loopback</td><td class="py-3 px-4">Address <code class="text-brand-300 font-mono">127.0.0.1</code> used to test network software locally.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Default Gateway</td><td class="py-3 px-4">The router that connects a local network to the Internet.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">DNS</td><td class="py-3 px-4">Domain Name System — translates domain names into IP addresses.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Public IP</td><td class="py-3 px-4">An IP address that is globally routable on the Internet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About IP Addresses</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">4.3 billion</p>
+                <p class="text-sm text-theme-muted mt-1">That is how many IPv4 addresses exist. We ran out in 2011. That is why IPv6 was created.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">340 undecillion</p>
+                <p class="text-sm text-theme-muted mt-1">IPv6 can provide 340,282,366,920,938,463,463,374,607,431,768,211,456 addresses. That is enough for every grain of sand on Earth.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Your IP changes</p>
+                <p class="text-sm text-theme-muted mt-1">Most home users get a dynamic public IP from their ISP. It can change every time the router restarts.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">You can find yours</p>
+                <p class="text-sm text-theme-muted mt-1">Visit <code class="text-brand-300 font-mono text-xs">whatismyip.com</code> or ask a search engine "what is my IP" to see your public IP address right now.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="space-y-4 mt-4">
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">An IP address never changes</p>
+                <p class="text-sm text-theme-muted mt-1">Most home IPs are dynamic and change periodically. Only static IPs (usually for servers) are permanent.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">My IP address reveals my exact location</p>
+                <p class="text-sm text-theme-muted mt-1">A public IP can usually identify your city or region, but not your exact street address or home. Geolocation databases are approximate.</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">IPv4 and IPv6 are compatible</p>
+                <p class="text-sm text-theme-muted mt-1">They are not directly compatible. IPv6-only devices cannot reach IPv4-only websites without translation gateways (like NAT64).</p>
+              </div>
+              <div class="glass-panel p-4 border-l-4 border-green-500">
+                <p class="font-display font-semibold text-green-400 text-sm">Every device needs a unique public IP</p>
+                <p class="text-sm text-theme-muted mt-1">With NAT, multiple devices on a home network share a single public IP. Private IPs (like 192.168.x.x) are used internally.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning: How an IP Address Routes a Packet</h2>
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Step-by-Step Walkthrough</p>
+              <div class="space-y-4 text-sm text-theme-muted">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">1</span>
+                  <div><strong class="text-theme">You type a URL.</strong> Your browser needs the server's IP address. It asks DNS for <code class="text-brand-300 font-mono text-xs">google.com</code>.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
+                  <div><strong class="text-theme">DNS returns the IP.</strong> Google's server IP is, for example, <code class="text-brand-300 font-mono text-xs">142.250.193.14</code>.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
+                  <div><strong class="text-theme">Packet created.</strong> Your device creates a packet with: source IP (your device), destination IP (Google server), and the request data.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">4</span>
+                  <div><strong class="text-theme">Router reads destination.</strong> Your home router looks at the destination IP and forwards the packet to your ISP's gateway.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">5</span>
+                  <div><strong class="text-theme">Internet routing.</strong> Routers across the Internet examine the destination IP and forward the packet hop-by-hop toward Google's network.</div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">6</span>
+                  <div><strong class="text-theme">Google replies.</strong> The server sends back a response packet, using your source IP as the destination address — and the process repeats in reverse.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of IP addresses.</p>
+
+            <div class="mt-6 space-y-6">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What does IP stand for?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Internet Protocol</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Internal Process</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Information Packet</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Integrated Path</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Internet Protocol.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. How many bits are in an IPv4 address?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>16 bits</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>32 bits</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>64 bits</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>128 bits</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">32 bits.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. Which protocol automatically assigns IP addresses to devices on a network?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>DNS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>NAT</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>DHCP</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>HTTP</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">DHCP (Dynamic Host Configuration Protocol).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: IPv6 was created because we ran out of IPv4 addresses.</p>
+                <div class="mt-2 flex gap-4 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>True</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>False</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The IPv4 address pool was exhausted in 2011.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: The IP address 127.0.0.1 refers to your own computer.</p>
+                <div class="mt-2 flex gap-4 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>True</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>False</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. 127.0.0.1 is the loopback address (localhost).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">6. Matching: Connect each term to its description.</p>
+                <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-theme-muted">
+                  <div class="glass-panel p-3">IPv4</div>
+                  <div class="glass-panel p-3">32-bit address, e.g., 192.168.1.1</div>
+                  <div class="glass-panel p-3">IPv6</div>
+                  <div class="glass-panel p-3">128-bit address, e.g., 2001:db8::1</div>
+                  <div class="glass-panel p-3">NAT</div>
+                  <div class="glass-panel p-3">Maps private IPs to a public IP</div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: A __________ mask separates the network and host parts of an IP address.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Subnet.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: __________ translates domain names like <code class="text-brand-300 font-mono text-xs">google.com</code> into IP addresses.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">DNS (Domain Name System).</p></details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking Questions</h2>
+            <div class="space-y-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. The Address Shortage</p>
+                <p class="text-sm text-theme-muted mt-1">We have run out of IPv4 addresses. What technologies (NAT, IPv6, carrier-grade NAT) help solve this problem? What are the trade-offs of each approach, especially for peer-to-peer applications like gaming or video calls?</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Privacy and Tracking</p>
+                <p class="text-sm text-theme-muted mt-1">Your IP address can reveal your approximate location and Internet service provider. How does this affect your privacy online? What tools (VPNs, proxies, Tor) can hide your IP, and how do they work?</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. The Future of IPv6</p>
+                <p class="text-sm text-theme-muted mt-1">Many Internet services still use IPv4. Why is the transition to IPv6 so slow? What would happen if the world suddenly switched off IPv4 tomorrow? Research what "dual stack" means and why it is the current common approach.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 1: Find Your IP Addresses</h4>
+                <p class="text-sm text-theme-muted mt-1">Open a terminal and run <code class="text-brand-300 font-mono text-xs">ipconfig</code> (Windows) or <code class="text-brand-300 font-mono text-xs">ifconfig</code> (macOS/Linux). Find your private IP address, subnet mask, and default gateway. Then visit a website to find your public IP. Compare the two. Why are they different?</p>
+              </div>
+              <div class="glass-panel p-4">
+                <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 2: Subnet Calculator</h4>
+                <p class="text-sm text-theme-muted mt-1">Using an online subnet calculator, experiment with different subnet masks. Start with <code class="text-brand-300 font-mono text-xs">192.168.1.0/24</code> — how many usable host addresses does it provide? Try <code class="text-brand-300 font-mono text-xs">/16</code> and <code class="text-brand-300 font-mono text-xs">/28</code>. Write down the network address, broadcast address, and usable range for each.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <div class="space-y-4 mt-4 text-sm text-theme-muted">
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Learning Objectives</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>Define an IP address and explain its role in network communication.</li>
+                  <li>Distinguish between IPv4 and IPv6 formats and address spaces.</li>
+                  <li>Explain how DHCP assigns IP addresses dynamically.</li>
+                  <li>Describe NAT and its role in conserving IPv4 addresses.</li>
+                  <li>Understand subnet masks and how they divide networks.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Preparation</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>Ensure the interactive diagram at <code class="text-brand-300 font-mono text-xs">diagrams/diagram-06-ip-address/</code> is deployed and tested.</li>
+                  <li>Verify <code class="text-brand-300 font-mono text-xs">ipconfig</code>/<code class="text-brand-300 font-mono text-xs">ifconfig</code> is available on classroom computers.</li>
+                  <li>Prepare a subnet calculator link or worksheet for the mini project.</li>
+                  <li>Check that whatismyip.com or similar is accessible from the classroom network.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-display font-semibold text-brand-200">Discussion Prompts</h4>
+                <ul class="mt-2 space-y-1 list-disc pl-5">
+                  <li>Why does the Internet need both names (domains) and numbers (IPs)?</li>
+                  <li>What would happen if your phone kept the same IP address everywhere you went?</li>
+                  <li>How does a VPN change your apparent IP address?</li>
+                  <li>Why might an ISP assign dynamic IPs instead of static ones?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-7-dns.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 7 &mdash; DNS
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-5-packets.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 5</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 6</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

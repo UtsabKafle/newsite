@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 12: The Boot Process | Consica Academy</title>
+  <meta name="description" content="Chapter 12: The Boot Process. Learn what happens when you press the power button — from BIOS to operating system load.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-11-files-and-folders.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 11</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 12</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Boot Process</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">What happens from the moment you press the power button</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: The Journey from Off to On</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Press the power button. Your screen lights up. A logo appears. Seconds later, you see your desktop. It feels simple — but in those few seconds, your computer performs a carefully choreographed sequence of hundreds of tiny operations.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              This sequence is called the <strong class="text-brand-200">boot process</strong> (short for "bootstrap," from the old phrase "pulling yourself up by your bootstraps"). When a computer is off, its memory is empty — it has no instructions to run. The boot process is how the computer wakes up, checks itself, finds the operating system, and hands over control so you can start working.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, we will walk through every stage of the boot process: from power-on, through the BIOS/UEFI firmware, the Power-On Self Test (POST), the bootloader, kernel loading, and finally the operating system initialization. Understanding the boot process helps you troubleshoot startup problems and appreciate the engineering behind every modern computer.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-6">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
+              <h3 class="text-xl font-display font-bold mt-3">The Boot Process Like You Are 5</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Imagine you wake up in the morning. First, you open your eyes (power on). Then you check that your arms and legs work (self-test). Next, you remember who you are and where you are (find the operating system). Finally, you get out of bed and start your day (the OS is ready for you to use).
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Your computer does the same thing. When you press the power button, electricity flows to the motherboard. A tiny chip called the <strong class="text-brand-200">BIOS</strong> (or UEFI) wakes up first. It checks that all the basic parts are working — the CPU, the memory, the keyboard, the display. If something is broken, the computer beeps to tell you there is a problem.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                If everything looks good, the BIOS looks for the operating system on your hard drive or SSD. It finds a small program called the <strong class="text-brand-200">bootloader</strong>, which then loads the operating system into memory. Once the OS is running, you see your login screen — your computer is ready to go!
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
+              <h3 class="text-xl font-display font-bold mt-3">The Stages of Booting a Computer</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                The boot process can be broken down into five major stages:
+              </p>
+              <div class="mt-4 space-y-4 text-sm text-theme-muted">
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200">1. Power-On</h4>
+                  <p class="mt-1">The power supply sends a signal to the motherboard. The CPU resets and begins executing the first instruction stored in the firmware (BIOS or UEFI) at a fixed memory address.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200">2. POST (Power-On Self Test)</h4>
+                  <p class="mt-1">The firmware checks essential hardware: CPU registers, RAM integrity, peripheral controllers, and storage interfaces. If critical hardware fails, the system halts and may emit beep codes to indicate the fault.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200">3. Boot Device Selection</h4>
+                  <p class="mt-1">The firmware reads the configured boot order (e.g., USB first, then SSD, then network). It scans each device's master boot record (MBR) or GPT partition table for a valid bootloader.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200">4. Bootloader Execution</h4>
+                  <p class="mt-1">The bootloader (e.g., GRUB for Linux, Windows Boot Manager) loads into memory. It presents a menu if multiple OSes are installed, then loads the OS kernel and initial RAM disk into memory.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200">5. Kernel and OS Initialization</h4>
+                  <p class="mt-1">The kernel decompresses itself, initializes core subsystems (memory management, process scheduler, drivers), mounts the root file system, and starts the <code class="text-brand-300 font-mono text-xs">init</code> or <code class="text-brand-300 font-mono text-xs">systemd</code> process, which launches all system services and the graphical user interface.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
+              <h3 class="text-xl font-display font-bold mt-3">Firmware Deep Dive: BIOS vs. UEFI</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">BIOS (Basic Input/Output System)</strong> is the traditional firmware interface dating back to the IBM PC in 1981. It runs in 16-bit real mode, limits boot disks to 2.2 TB, and uses the Master Boot Record (MBR) partitioning scheme. BIOS interacts with hardware through software interrupts (INT 13h for disk I/O) and stores configuration in CMOS memory backed by a small battery.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">UEFI (Unified Extensible Firmware Interface)</strong> is the modern replacement. It runs in 32-bit or 64-bit protected mode, supports GPT partition tables (disks up to 9.4 zettabytes), has a graphical interface, and supports mouse input. UEFI can load drivers from the firmware itself, and it supports Secure Boot — a feature that cryptographically verifies the bootloader's signature to prevent rootkits and boot-level malware.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">UEFI Boot Process:</strong> On power-on, the UEFI firmware initializes the platform, then scans the EFI System Partition (ESP) for <code class="text-brand-300 font-mono text-xs">.efi</code> bootloader files. It executes the one specified in the boot manager configuration (stored in NVRAM). The bootloader then loads the kernel. UEFI can even boot directly into an OS without a traditional bootloader by using the <strong class="text-brand-200">EFI stub</strong> built into the kernel itself.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Fast Boot and Hybrid Sleep:</strong> Modern systems use "Fast Startup" (Windows) or "warm boot" techniques that save the kernel and driver state to a hibernation file on shutdown. On the next power-on, the system restores that state instead of performing a full reinitialization, reducing boot time from 30+ seconds to just a few seconds — at the cost of not fully clearing kernel memory.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Troubleshooting Boot Failures:</strong> Common failure points include: a dead CMOS battery (loses firmware settings), corrupted bootloader (requires recovery media), failed hard drive (clicking sounds or SMART errors), incompatible UEFI settings (Secure Boot, CSM/Legacy mode), or bad RAM that causes POST to halt. Beep codes from the motherboard speaker are the firmware's way of communicating the fault — a pattern like one long, three short beeps often indicates a graphics card issue.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-brand-500/20">
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Boot Process</td><td class="py-3 px-4">The sequence of events that starts when a computer is powered on and ends when the OS is ready.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">BIOS</td><td class="py-3 px-4">Basic Input/Output System — the legacy firmware that initializes hardware and boots the OS.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">UEFI</td><td class="py-3 px-4">Unified Extensible Firmware Interface — the modern replacement for BIOS with more features.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">POST</td><td class="py-3 px-4">Power-On Self Test — a diagnostic check of essential hardware during boot.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Bootloader</td><td class="py-3 px-4">A small program that loads the operating system kernel into memory.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Kernel</td><td class="py-3 px-4">The core component of an OS that manages hardware, processes, and system resources.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">MBR</td><td class="py-3 px-4">Master Boot Record — the first 512 bytes of a disk containing the bootloader and partition table (legacy).</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">GPT</td><td class="py-3 px-4">GUID Partition Table — a modern partitioning scheme that supports large disks and redundant headers.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Secure Boot</td><td class="py-3 px-4">A UEFI feature that verifies the cryptographic signature of the bootloader before execution.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">CMOS</td><td class="py-3 px-4">Complementary Metal-Oxide-Semiconductor — a small memory chip that stores BIOS/UEFI settings.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About the Boot Process</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">The term "boot" comes from "bootstrap"</p>
+                <p class="text-sm text-theme-muted mt-1">The phrase "pulling yourself up by your bootstraps" describes the paradox of a computer loading itself from an empty state — it has to start itself up with no help.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">The first PC booted in 30 seconds</p>
+                <p class="text-sm text-theme-muted mt-1">The IBM PC 5150 (1981) took about 30 seconds to boot from its floppy disk drive. Modern NVMe SSDs can boot Windows in under 5 seconds.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Beep codes are diagnostic tools</p>
+                <p class="text-sm text-theme-muted mt-1">Motherboard speakers use beep patterns to diagnose hardware problems. One short beep usually means "all OK." Continuous beeping often means a RAM or power supply issue.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Secure Boot stops rootkits</p>
+                <p class="text-sm text-theme-muted mt-1">Secure Boot, introduced with UEFI, prevents malware from loading before the OS by checking that every boot component has a valid digital signature.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Dual-boot is a bootloader trick</p>
+                <p class="text-sm text-theme-muted mt-1">When you dual-boot Windows and Linux, the bootloader (like GRUB) presents a menu. It can chain-load one OS or load another directly depending on your choice.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-12-boot/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of the boot process.</p>
+
+            <div class="mt-6 space-y-6">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What does POST stand for?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Pre-Operating System Test</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Power-On Self Test</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Primary Output System Test</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Processor Override Startup Test</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Power-On Self Test.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which is a key advantage of UEFI over legacy BIOS?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It runs in 16-bit mode</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It supports disks larger than 2.2 TB</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It uses MBR partitioning</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It cannot use Secure Boot</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It supports disks larger than 2.2 TB (and GPT partitions).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the main purpose of the bootloader?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To run the Power-On Self Test</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To load the operating system kernel into memory</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To manage user accounts and passwords</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To provide the graphical user interface</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To load the operating system kernel into memory.</p></details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-13-computer-health.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 13 &mdash; Computer Health &amp; Maintenance
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-11-files-and-folders.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 11</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 2 &middot; Chapter 12</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

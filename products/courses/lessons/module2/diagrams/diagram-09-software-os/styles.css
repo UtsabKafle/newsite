@@ -1,0 +1,182 @@
+:root {
+  --brand-blue: #0959C8;
+  --surface: #0A0E17;
+  --darker: #060910;
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.55);
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --transition: 0.3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--darker);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--brand-blue);
+  color: #fff;
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+  font-weight: 500;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+.app-wrapper { max-width: 700px; margin: 0 auto; padding: 1rem; }
+
+.app-header {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 2rem;
+}
+.brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brand-blue);
+  font-weight: 600;
+}
+.app-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.diagram-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.onion-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+#onionCanvas {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.layer-info {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  backdrop-filter: blur(12px);
+  margin-top: 1rem;
+  min-height: 5rem;
+}
+.layer-info h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-blue);
+  margin-bottom: 0.4rem;
+}
+.layer-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.data-flow-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.flow-track {
+  position: relative;
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.flow-dot {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--brand-blue);
+  transform: translate(-50%, -50%);
+  left: 0%;
+  box-shadow: 0 0 12px rgba(9,89,200,0.6);
+  transition: none;
+}
+
+.flow-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding: 0 8px;
+}
+.flow-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctrl-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+.ctrl-btn:hover, .ctrl-btn:focus-visible {
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: #fff;
+  outline: none;
+}
+.ctrl-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(9,89,200,0.4);
+}
+
+@media (max-width: 520px) {
+  .app-header h1 { font-size: 1.35rem; }
+  .layer-info { padding: 1rem; }
+  .layer-info h3 { font-size: 0.9rem; }
+  .layer-info p { font-size: 0.8rem; }
+  .ctrl-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+}

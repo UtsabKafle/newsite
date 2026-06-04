@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Assembly Overview — Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#diagram">Skip to diagram</a>
+
+  <div class="diagram-wrapper" id="diagram" role="application" aria-label="Computer Assembly Overview interactive diagram">
+    <div class="diagram-header">
+      <h1 class="diagram-title">Computer Assembly Overview</h1>
+      <p class="diagram-subtitle">Explore the key components of a desktop PC — click any part to learn more</p>
+    </div>
+
+    <div class="controls" role="toolbar" aria-label="Animation controls">
+      <button class="ctrl-btn" id="playBtn" aria-label="Play assembly animation">&#9654; Play</button>
+      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation">&#9646;&#9646; Pause</button>
+      <button class="ctrl-btn" id="resetBtn" aria-label="Reset to exploded view">&#8634; Reset</button>
+      <span class="step-indicator" id="stepIndicator" aria-live="polite">Step 0 / 8</span>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="assemblyCanvas" width="900" height="600" role="img" aria-label="An exploded-view diagram of a desktop computer showing all major components"></canvas>
+      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
+    </div>
+
+    <div class="component-list" role="list" aria-label="Components list">
+      <button class="comp-tag" data-comp="case" role="listitem">Case</button>
+      <button class="comp-tag" data-comp="motherboard" role="listitem">Motherboard</button>
+      <button class="comp-tag" data-comp="cpu" role="listitem">CPU</button>
+      <button class="comp-tag" data-comp="ram" role="listitem">RAM</button>
+      <button class="comp-tag" data-comp="storage" role="listitem">Storage</button>
+      <button class="comp-tag" data-comp="psu" role="listitem">PSU</button>
+      <button class="comp-tag" data-comp="gpu" role="listitem">GPU</button>
+      <button class="comp-tag" data-comp="cooling" role="listitem">Cooling</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

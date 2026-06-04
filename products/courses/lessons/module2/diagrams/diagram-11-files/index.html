@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File System Hierarchy - Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="diagram-header">
+    <h1 class="diagram-title">File System Hierarchy</h1>
+    <div class="controls" role="toolbar" aria-label="Diagram controls">
+      <button id="playBtn" class="ctrl-btn" aria-label="Play animation - simulated file save operation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span>Play</span>
+      </button>
+      <button id="pauseBtn" class="ctrl-btn" aria-label="Pause animation" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        <span>Pause</span>
+      </button>
+      <button id="resetBtn" class="ctrl-btn" aria-label="Reset file system to initial state">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+        <span>Reset</span>
+      </button>
+    </div>
+    <div class="status-badge" id="statusBadge" role="status" aria-live="polite">Idle</div>
+  </header>
+
+  <main id="main-content" class="diagram-container">
+    <div class="explorer-panel">
+      <div class="tree-panel" role="tree" aria-label="File system folders">
+        <div class="tree-header">Folders</div>
+        <ul class="tree-root" id="treeRoot" role="group">
+          <li class="tree-node" role="treeitem" aria-expanded="true" data-path="/">
+            <div class="node-label folder expanded" tabindex="0" role="button" aria-label="Root folder">
+              <span class="toggle-icon">▼</span>
+              <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+              <span class="node-name">My Computer</span>
+            </div>
+            <ul class="children" role="group">
+              <li class="tree-node" role="treeitem" aria-expanded="true" data-path="/C:">
+                <div class="node-label folder expanded" tabindex="0" role="button" aria-label="Local Disk C:">
+                  <span class="toggle-icon">▼</span>
+                  <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                  <span class="node-name">Local Disk (C:)</span>
+                </div>
+                <ul class="children" role="group">
+                  <li class="tree-node" role="treeitem" aria-expanded="false" data-path="/C:/Users">
+                    <div class="node-label folder" tabindex="0" role="button" aria-label="Users folder">
+                      <span class="toggle-icon">▶</span>
+                      <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                      <span class="node-name">Users</span>
+                    </div>
+                    <ul class="children" role="group">
+                      <li class="tree-node" role="treeitem" aria-expanded="false" data-path="/C:/Users/Student">
+                        <div class="node-label folder" tabindex="0" role="button" aria-label="Student folder">
+                          <span class="toggle-icon">▶</span>
+                          <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                          <span class="node-name">Student</span>
+                        </div>
+                        <ul class="children" role="group">
+                          <li class="tree-node file-item" role="treeitem" data-path="/C:/Users/Student/readme.txt">
+                            <div class="node-label file" tabindex="0">
+                              <svg class="file-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                              <span class="node-name">readme.txt</span>
+                            </div>
+                          </li>
+                          <li class="tree-node file-item" role="treeitem" data-path="/C:/Users/Student/photo.jpg">
+                            <div class="node-label file" tabindex="0">
+                              <svg class="file-icon image" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                              <span class="node-name">photo.jpg</span>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="tree-node" role="treeitem" aria-expanded="false" data-path="/C:/Program Files">
+                    <div class="node-label folder" tabindex="0" role="button" aria-label="Program Files folder">
+                      <span class="toggle-icon">▶</span>
+                      <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                      <span class="node-name">Program Files</span>
+                    </div>
+                    <ul class="children" role="group">
+                      <li class="tree-node file-item" role="treeitem" data-path="/C:/Program Files/app.exe">
+                        <div class="node-label file" tabindex="0">
+                          <svg class="file-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 10V5l-3-3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h6v-2H5V8h14v2h2zm-3-5.5L19.5 7H18V4.5z"/></svg>
+                          <span class="node-name">app.exe</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="tree-node" role="treeitem" aria-expanded="false" data-path="/C:/Documents">
+                    <div class="node-label folder" tabindex="0" role="button" aria-label="Documents folder">
+                      <span class="toggle-icon">▶</span>
+                      <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                      <span class="node-name">Documents</span>
+                    </div>
+                    <ul class="children" role="group">
+                      <li class="tree-node file-item" role="treeitem" data-path="/C:/Documents/report.docx">
+                        <div class="node-label file" tabindex="0">
+                          <svg class="file-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                          <span class="node-name">report.docx</span>
+                        </div>
+                      </li>
+                      <li class="tree-node file-item" role="treeitem" data-path="/C:/Documents/budget.xlsx">
+                        <div class="node-label file" tabindex="0">
+                          <svg class="file-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                          <span class="node-name">budget.xlsx</span>
+                        </div>
+                      </li>
+                      <li class="tree-node file-item" role="treeitem" data-path="/C:/Documents/vacation.mp4">
+                        <div class="node-label file" tabindex="0">
+                          <svg class="file-icon video" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                          <span class="node-name">vacation.mp4</span>
+                        </div>
+                      </li>
+                      <li class="tree-node file-item" role="treeitem" data-path="/C:/Documents/song.mp3">
+                        <div class="node-label file" tabindex="0">
+                          <svg class="file-icon music" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                          <span class="node-name">song.mp3</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="content-panel" id="contentPanel" role="region" aria-label="File details">
+        <div class="content-header">File Details</div>
+        <div class="content-body" id="contentBody">
+          <div class="empty-state">Select a file to view details</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="alert" aria-live="assertive" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

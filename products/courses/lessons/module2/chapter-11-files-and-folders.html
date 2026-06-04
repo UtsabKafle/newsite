@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 11: Files and Folders | Consica Academy</title>
+  <meta name="description" content="Chapter 11: Files and Folders. Learn how computers organize data into files and folders for storage and retrieval.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-10-how-computers-communicate.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 10</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 11</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Files &amp; Folders</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How computers organize data so you can find it again</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: Why Files and Folders Matter</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Imagine a library with thousands of books but no shelves, no labels, and no catalogue. Every book is just tossed into a giant pile. Finding a specific book would be nearly impossible. Your computer faces the same problem — except it stores millions of pieces of data, not books.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              That is why computers use <strong class="text-brand-200">files</strong> and <strong class="text-brand-200">folders</strong> (also called directories). A file is a container that holds a specific piece of information — a document, a photo, a song, a program. A folder is a container that holds files and other folders, creating a tree-like structure that keeps everything organized.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, we will explore how files are named, how folders create hierarchies, what file extensions mean, how the file system keeps track of everything, and why good organization makes your computer faster and easier to use.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-6">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
+              <h3 class="text-xl font-display font-bold mt-3">Files and Folders Like You Are 5</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Think of your computer like a giant toy box. If you throw all your toys into the box without sorting them, finding one specific toy is hard. But if you use smaller boxes inside — one for LEGO bricks, one for cars, one for action figures — you always know where everything is.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                On a computer, a <strong class="text-brand-200">file</strong> is like one toy or one drawing. A <strong class="text-brand-200">folder</strong> is like the smaller box that holds similar things together. You can put folders inside other folders, just like putting a small box inside a bigger one.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                When you double-click a folder, you open it to see what is inside. When you double-click a file, the computer opens it with the right program — a picture opens in a photo viewer, a song plays in a music player, a document opens in a word processor. The computer knows which program to use because every file has a special label called a <strong class="text-brand-200">file extension</strong> — like <code class="text-brand-300 font-mono text-xs">.jpg</code> for pictures or <code class="text-brand-300 font-mono text-xs">.mp3</code> for music.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
+              <h3 class="text-xl font-display font-bold mt-3">File Systems and Organization</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Every operating system includes a <strong class="text-brand-200">file system</strong> — the software that manages how data is stored, named, and retrieved. The most common file systems are NTFS (Windows), APFS (macOS), and ext4 (Linux). They differ in features like security, maximum file size, and journaling (protecting against data loss during crashes).
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Files live in a hierarchy that starts at the <strong class="text-brand-200">root directory</strong> (like <code class="text-brand-300 font-mono text-xs">C:\</code> on Windows or <code class="text-brand-300 font-mono text-xs">/</code> on macOS/Linux). From there, folders branch out like an upside-down tree. The <strong class="text-brand-200">path</strong> to a file describes its location: <code class="text-brand-300 font-mono text-xs">C:\Users\Alice\Documents\report.docx</code> tells you exactly which folders to open to reach the file.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">File extensions</strong> (like <code class="text-brand-300 font-mono text-xs">.pdf</code>, <code class="text-brand-300 font-mono text-xs">.png</code>, <code class="text-brand-300 font-mono text-xs">.exe</code>) tell the OS what type of data the file contains and which application should open it. Extensions are usually hidden by default, but you can configure your OS to show them. Renaming a file's extension does not change its contents — it just confuses the OS about which program to use.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Metadata</strong> is extra information stored alongside each file: the date it was created, the date it was last modified, its size, its permissions (who can read or edit it), and sometimes tags or comments. This metadata helps both you and the operating system sort and find files quickly.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
+              <h3 class="text-xl font-display font-bold mt-3">Under the Hood: How File Systems Really Work</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                At the hardware level, a hard drive or SSD is divided into tiny storage units called <strong class="text-brand-200">sectors</strong> (typically 512 bytes or 4 KB each). The file system groups sectors into <strong class="text-brand-200">clusters</strong> (or blocks) — the smallest amount of space a file can occupy. A 1 KB file on a 4 KB cluster system wastes 3 KB; this wasted space is called <strong class="text-brand-200">slack space</strong>.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                The file system maintains a <strong class="text-brand-200">master table</strong> (like the MFT in NTFS or the inode table in ext4) that maps each file to its clusters on disk. When you open a file, the OS looks up its location in this table, then reads the data from those sectors. This is why deleting a file is instant — the OS simply marks those clusters as "free" in the table without erasing the actual data. Until the clusters are overwritten, the file can often be recovered with data recovery tools.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Fragmentation</strong> occurs when a file is split across non-adjacent clusters. On HDDs this slows read speed because the read head must physically move. SSDs are less affected but still experience write amplification. Modern file systems and operating systems include automatic defragmentation (for HDDs) or TRIM commands (for SSDs) to optimize performance.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Journaling</strong> is a feature that records pending file operations in a log (journal) before executing them. If the system crashes mid-operation, the journal allows the OS to pick up where it left off or roll back the partial change — preventing the catastrophic data loss that plagued early file systems. NTFS, APFS, and ext3/ext4 all use journaling (though APFS uses a more modern copy-on-write approach).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-brand-500/20">
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File</td><td class="py-3 px-4">A container that holds data such as a document, image, or program.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Folder (Directory)</td><td class="py-3 px-4">A container used to organize files and other folders into a hierarchy.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File Extension</td><td class="py-3 px-4">A suffix (e.g., .pdf, .jpg) that indicates the file type and associated application.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File System</td><td class="py-3 px-4">The software that manages how data is stored, named, and retrieved on a storage device.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Path</td><td class="py-3 px-4">A string that specifies the location of a file or folder in the directory tree.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Root Directory</td><td class="py-3 px-4">The top-level directory from which all other folders and files branch.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Metadata</td><td class="py-3 px-4">Data about a file, including size, creation date, permissions, and tags.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Cluster</td><td class="py-3 px-4">The smallest unit of disk space a file system can allocate to a file.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Journaling</td><td class="py-3 px-4">A feature that logs pending operations to protect against data loss during crashes.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Fragmentation</td><td class="py-3 px-4">A condition where a file is split into non-contiguous clusters, slowing access times.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About Files and Folders</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">The first file system</p>
+                <p class="text-sm text-theme-muted mt-1">Early computers had no file systems. Programs loaded data directly from magnetic tape by rewinding to the right position. The first true file system was IBM's ICF in the 1960s.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Trash is a folder</p>
+                <p class="text-sm text-theme-muted mt-1">When you delete a file, it moves to the Recycle Bin or Trash — which is just a special hidden folder. The file is not actually erased until you empty the trash.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">NTFS supports giant files</p>
+                <p class="text-sm text-theme-muted mt-1">NTFS can theoretically handle files up to 16 exabytes (16 billion GB). In practice, other limits kick in long before that.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Dot files are hidden</p>
+                <p class="text-sm text-theme-muted mt-1">On Linux and macOS, any file whose name starts with a dot (like <code class="text-brand-300 font-mono text-xs">.bashrc</code>) is automatically hidden from normal directory listings — a convention borrowed from Unix.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">FAT32 has a 4 GB limit</p>
+                <p class="text-sm text-theme-muted mt-1">The old FAT32 file system (used on USB drives) cannot store any single file larger than 4 GB. That is why modern drives use exFAT or NTFS.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-11-files/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of files, folders, and file systems.</p>
+
+            <div class="mt-6 space-y-6">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What does a file extension tell the operating system?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The size of the file</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Which application should open the file</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>When the file was created</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The file's location on disk</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Which application should open the file.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which file system is commonly used on modern Windows computers?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>FAT32</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>ext4</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>NTFS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>APFS</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">NTFS (New Technology File System).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the purpose of journaling in a file system?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To compress files and save space</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To encrypt files for security</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To protect data integrity during crashes</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To automatically back up files</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To protect data integrity during crashes by logging pending operations.</p></details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-4">Continue to the next chapter</p>
+            <a href="chapter-12-the-boot-process.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Next: Chapter 12 &mdash; The Boot Process
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-10-how-computers-communicate.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 10</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 2 &middot; Chapter 11</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

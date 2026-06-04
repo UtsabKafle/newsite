@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internet Safety Interactive Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container" role="main">
+    <header class="tool-header">
+      <div class="brand">Consica Labs</div>
+      <h1 tabindex="0">Internet Safety Awareness</h1>
+      <p class="instructions" tabindex="0">
+        Interact with each section below to test and improve your online safety knowledge.
+        Your actions are scored in real time.
+      </p>
+      <div class="score-bar">
+        <div class="score-label">
+          <span id="scoreText" aria-live="polite">Safety Score: 0%</span>
+          <button id="resetAllBtn" class="reset-btn" aria-label="Reset all sections">Reset All</button>
+        </div>
+        <div class="score-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Safety score progress">
+          <div class="score-fill" id="scoreFill" style="width:0%"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Password Strength Meter -->
+      <section class="card glass" aria-label="Password Strength Meter">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">&#128272;</span>
+          <h2>Password Strength Meter</h2>
+        </div>
+        <p class="card-desc">Type a password to see how strong it is.</p>
+        <div class="card-body">
+          <label for="passwordInput" class="visually-hidden">Enter a password</label>
+          <input type="text" id="passwordInput" class="password-input" placeholder="Type a password..." autocomplete="off" aria-describedby="passwordStrengthBar passwordCriteria">
+          <div class="strength-bar-wrap">
+            <div class="strength-bar" id="strengthBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4" aria-label="Password strength">
+              <div class="strength-fill" id="strengthFill" style="width:0%"></div>
+            </div>
+          </div>
+          <span class="strength-label" id="strengthLabel" aria-live="polite">No password</span>
+          <ul class="criteria-list" id="criteriaList" aria-label="Password criteria checklist">
+            <li data-criteria="length" class="criteria-item">At least 8 characters</li>
+            <li data-criteria="upper" class="criteria-item">Uppercase letter</li>
+            <li data-criteria="lower" class="criteria-item">Lowercase letter</li>
+            <li data-criteria="number" class="criteria-item">Number</li>
+            <li data-criteria="special" class="criteria-item">Special character</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Card 2: HTTPS vs HTTP Toggle -->
+      <section class="card glass" aria-label="HTTPS versus HTTP Toggle">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">&#128274;</span>
+          <h2>HTTPS vs HTTP</h2>
+        </div>
+        <p class="card-desc">Toggle to see the difference between secure and insecure connections.</p>
+        <div class="card-body center">
+          <div class="toggle-wrap">
+            <button id="httpsToggle" class="toggle-switch" role="switch" aria-checked="true" aria-label="Toggle HTTPS connection">
+              <span class="toggle-thumb" id="toggleThumb"></span>
+            </button>
+            <span class="toggle-state" id="toggleState" aria-live="polite">HTTPS</span>
+            <span class="padlock" id="padlock" aria-label="Connection is secure">&#128274;</span>
+          </div>
+          <div class="https-info" id="httpsInfo" tabindex="0">
+            <strong>HTTPS</strong> encrypts data between your browser and the website, protecting your information from eavesdroppers. Always look for the padlock!
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 3: Share / Don't Share Sorter -->
+      <section class="card glass" aria-label="Share or Don't Share Sorter">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">&#128373;</span>
+          <h2>Share / Don't Share</h2>
+        </div>
+        <p class="card-desc">Click each item, then choose a bucket to sort it.</p>
+        <div class="card-body">
+          <div class="sorter-items" id="sorterItems" role="list" aria-label="Items to sort">
+            <button class="sorter-item" data-id="name" role="listitem" aria-label="Your name">Your name</button>
+            <button class="sorter-item" data-id="password" role="listitem" aria-label="Your password">Your password</button>
+            <button class="sorter-item" data-id="email" role="listitem" aria-label="Your email">Your email</button>
+            <button class="sorter-item" data-id="address" role="listitem" aria-label="Your address">Your address</button>
+            <button class="sorter-item" data-id="color" role="listitem" aria-label="Your favorite color">Your favorite color</button>
+            <button class="sorter-item" data-id="phone" role="listitem" aria-label="Your phone number">Your phone number</button>
+          </div>
+          <div class="buckets">
+            <div class="bucket safe" id="bucketSafe" role="region" aria-label="Safe to Share bucket" tabindex="0">
+              <h3>&#9989; Safe to Share</h3>
+              <div class="bucket-list" id="safeList"></div>
+            </div>
+            <div class="bucket private" id="bucketPrivate" role="region" aria-label="Keep Private bucket" tabindex="0">
+              <h3>&#128683; Keep Private</h3>
+              <div class="bucket-list" id="privateList"></div>
+            </div>
+          </div>
+          <div class="sorter-feedback" id="sorterFeedback" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Card 4: Password Generator -->
+      <section class="card glass" aria-label="Password Generator">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">&#9889;</span>
+          <h2>Password Generator</h2>
+        </div>
+        <p class="card-desc">Generate a strong, random password and copy it.</p>
+        <div class="card-body center">
+          <div class="gen-password-display" id="genPasswordDisplay" tabindex="0" aria-label="Generated password">Click "Generate" to create a password</div>
+          <div class="gen-actions">
+            <button id="generateBtn" class="gen-btn primary-btn" aria-label="Generate a strong password">Generate</button>
+            <button id="copyBtn" class="gen-btn secondary-btn" aria-label="Copy password to clipboard" disabled>Copy</button>
+          </div>
+          <div class="gen-options">
+            <label class="gen-option">
+              <input type="number" id="genLength" value="16" min="12" max="64" aria-label="Password length">
+              <span>Length</span>
+            </label>
+            <label class="gen-option">
+              <input type="checkbox" id="genUpper" checked aria-label="Include uppercase letters">
+              <span>A-Z</span>
+            </label>
+            <label class="gen-option">
+              <input type="checkbox" id="genLower" checked aria-label="Include lowercase letters">
+              <span>a-z</span>
+            </label>
+            <label class="gen-option">
+              <input type="checkbox" id="genNumbers" checked aria-label="Include numbers">
+              <span>0-9</span>
+            </label>
+            <label class="gen-option">
+              <input type="checkbox" id="genSpecial" checked aria-label="Include special characters">
+              <span>!@#$%</span>
+            </label>
+          </div>
+          <div class="gen-feedback" id="genFeedback" aria-live="polite"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

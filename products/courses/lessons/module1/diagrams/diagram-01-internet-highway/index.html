@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0959C8">
+  <title>The Internet Highway | Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="diagram-container">
+    <header class="diagram-header">
+      <span class="section-label">Chapter 1: What Is the Internet</span>
+      <h1 class="diagram-title">The Internet Highway</h1>
+      <p class="diagram-subtitle">Watch data packets travel across the network like cars on a highway</p>
+    </header>
+
+    <div class="map-wrapper">
+      <div class="map-container" id="mapContainer">
+        <svg class="map-svg" viewBox="0 0 1000 600" id="mapSvg" aria-hidden="true">
+          <defs>
+            <filter id="roadGlow">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="packetGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="rgba(86,148,228,0.3)"/>
+            </marker>
+          </defs>
+          <g id="roadsLayer"></g>
+          <g id="packetsLayer"></g>
+        </svg>
+
+        <div class="node" id="node-home" style="left:8%;top:10%;" data-label="Home" data-type="home">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          </div>
+          <span class="node-label">Home</span>
+          <span class="node-type">Residential</span>
+        </div>
+
+        <div class="node" id="node-school" style="left:42%;top:6%;" data-label="School" data-type="school">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path d="M12 14l9-5-9-5-9 5 9 5z" opacity="0"/><path d="M4 8v6"/></svg>
+          </div>
+          <span class="node-label">School</span>
+          <span class="node-type">Educational</span>
+        </div>
+
+        <div class="node" id="node-business" style="left:78%;top:10%;" data-label="Business" data-type="business">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M5 7l7-5 7 5"/></svg>
+          </div>
+          <span class="node-label">Business</span>
+          <span class="node-type">Commercial</span>
+        </div>
+
+        <div class="node" id="node-datacenter" style="left:42%;top:44%;" data-label="Data Center" data-type="datacenter">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 6h6M9 10h6M9 14h6M9 18h6"/></svg>
+          </div>
+          <span class="node-label">Data Center</span>
+          <span class="node-type">Infrastructure</span>
+        </div>
+
+        <div class="node" id="node-phone" style="left:12%;top:78%;" data-label="Phone" data-type="phone">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <span class="node-label">Phone</span>
+          <span class="node-type">Mobile</span>
+        </div>
+
+        <div class="node" id="node-tablet" style="left:72%;top:78%;" data-label="Tablet" data-type="tablet">
+          <div class="node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <span class="node-label">Tablet</span>
+          <span class="node-type">Mobile</span>
+        </div>
+
+        <div class="highway-sign highway-sign-left" aria-hidden="true">
+          <div class="highway-sign-inner">
+            <span>INTERNET</span>
+            <span>HIGHWAY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div class="controls-group">
+        <button class="ctrl-btn ctrl-play" id="playBtn" aria-label="Play animation">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+          <span>Play</span>
+        </button>
+        <button class="ctrl-btn ctrl-pause" id="pauseBtn" aria-label="Pause animation" disabled>
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          <span>Pause</span>
+        </button>
+        <button class="ctrl-btn ctrl-reset" id="resetBtn" aria-label="Reset animation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 12a9 9 0 119 9M3 3v6h6"/></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+      <div class="speed-group">
+        <label for="speedSlider" class="speed-label">Speed</label>
+        <input type="range" id="speedSlider" class="speed-slider" min="0.5" max="3" step="0.25" value="1">
+        <span class="speed-value" id="speedValue">1x</span>
+      </div>
+    </div>
+
+    <div class="status-bar" id="statusBar" role="status" aria-live="polite">
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-text" id="statusText">Press <strong>Play</strong> to see data packets travel across the Internet Highway</span>
+    </div>
+
+    <div class="bottom-section">
+      <div class="legend">
+        <span class="legend-title">Location Types</span>
+        <div class="legend-items">
+          <div class="legend-item" data-type="home">
+            <span class="legend-dot" style="background:#FF6B6B"></span>
+            <span class="legend-label">Home</span>
+            <span class="legend-sub">Residential</span>
+          </div>
+          <div class="legend-item" data-type="school">
+            <span class="legend-dot" style="background:#FFD93D"></span>
+            <span class="legend-label">School</span>
+            <span class="legend-sub">Educational</span>
+          </div>
+          <div class="legend-item" data-type="business">
+            <span class="legend-dot" style="background:#6BCB77"></span>
+            <span class="legend-label">Business</span>
+            <span class="legend-sub">Commercial</span>
+          </div>
+          <div class="legend-item" data-type="datacenter">
+            <span class="legend-dot" style="background:#4D96FF"></span>
+            <span class="legend-label">Data Center</span>
+            <span class="legend-sub">Infrastructure</span>
+          </div>
+          <div class="legend-item" data-type="phone">
+            <span class="legend-dot" style="background:#C084FC"></span>
+            <span class="legend-label">Phone</span>
+            <span class="legend-sub">Mobile</span>
+          </div>
+          <div class="legend-item" data-type="tablet">
+            <span class="legend-dot" style="background:#F472B6"></span>
+            <span class="legend-label">Tablet</span>
+            <span class="legend-sub">Mobile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-value" id="packetCount">0</span>
+          <span class="stat-label">Packets Sent</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="activeCount">0</span>
+          <span class="stat-label">Active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

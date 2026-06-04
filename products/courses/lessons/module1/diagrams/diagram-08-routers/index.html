@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Routers Work — Mesh Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container" role="main">
+    <header class="header">
+      <div class="header-badge">Interactive Diagram</div>
+      <h1 class="header-title">How Routers Work</h1>
+      <p class="header-subtitle">Mesh Network Visualization</p>
+    </header>
+
+    <div class="diagram-wrapper">
+      <div class="canvas-container" id="canvasContainer">
+        <canvas id="networkCanvas" aria-label="Router mesh network diagram"></canvas>
+        <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div class="controls-group route-selector">
+        <span class="controls-label" id="routeLabel">Route</span>
+        <div class="route-buttons" role="radiogroup" aria-labelledby="routeLabel">
+          <button id="routeA" class="route-btn route-a" role="radio" aria-checked="false" aria-label="Select Route A through Delhi and London" tabindex="0">A</button>
+          <button id="routeB" class="route-btn route-b" role="radio" aria-checked="false" aria-label="Select Route B through Dubai and London" tabindex="0">B</button>
+          <button id="routeC" class="route-btn route-c" role="radio" aria-checked="false" aria-label="Select Route C through Delhi and Dubai" tabindex="0">C</button>
+        </div>
+      </div>
+      <div class="controls-group play-controls">
+        <span class="controls-label" id="playLabel">Controls</span>
+        <div class="play-buttons" aria-labelledby="playLabel">
+          <button id="playBtn" class="ctrl-btn ctrl-play" aria-label="Play animation" tabindex="0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <button id="pauseBtn" class="ctrl-btn ctrl-pause" aria-label="Pause animation" tabindex="0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>
+          </button>
+          <button id="resetBtn" class="ctrl-btn ctrl-reset" aria-label="Reset animation" tabindex="0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bar">
+      <div class="legend" aria-label="Route legend">
+        <span class="legend-item"><span class="swatch swatch-a"></span>Route A</span>
+        <span class="legend-item"><span class="swatch swatch-b"></span>Route B</span>
+        <span class="legend-item"><span class="swatch swatch-c"></span>Route C</span>
+      </div>
+      <div id="status" class="status" aria-live="polite">Select a route to begin</div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

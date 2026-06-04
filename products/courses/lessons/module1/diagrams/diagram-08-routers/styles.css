@@ -1,0 +1,333 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0e1a;
+  color: #f9fafb;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  background: #111827;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  padding: 1.5rem 2rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-badge {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0959C8;
+  background: rgba(9, 89, 200, 0.12);
+  border: 1px solid rgba(9, 89, 200, 0.25);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.header-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f9fafb;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 0.15rem;
+  font-weight: 400;
+}
+
+/* Diagram */
+.diagram-wrapper {
+  padding: 1rem;
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%;
+  border-radius: 0.875rem;
+  background: #0a0e1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.canvas-container canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  max-width: 220px;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  font-size: 0.8rem;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-city {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #f9fafb;
+  margin-bottom: 0.15rem;
+}
+
+.tooltip-data {
+  font-size: 0.75rem;
+  color: #0959C8;
+  font-weight: 500;
+}
+
+.tooltip-desc {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  margin-top: 0.15rem;
+}
+
+/* Controls Bar */
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1rem 2rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.controls-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.route-buttons,
+.play-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Route Buttons */
+.route-btn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.route-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #d1d5db;
+}
+
+.route-btn:focus-visible {
+  outline: 2px solid #0959C8;
+  outline-offset: 2px;
+}
+
+.route-btn[aria-checked="true"] {
+  color: #fff;
+}
+
+.route-btn.route-a[aria-checked="true"] {
+  background: rgba(9, 89, 200, 0.25);
+  border-color: #0959C8;
+  box-shadow: 0 0 16px rgba(9, 89, 200, 0.25);
+}
+
+.route-btn.route-b[aria-checked="true"] {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+}
+
+.route-btn.route-c[aria-checked="true"] {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #F59E0B;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+}
+
+/* Play Controls */
+.ctrl-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f9fafb;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ctrl-btn:focus-visible {
+  outline: 2px solid #0959C8;
+  outline-offset: 2px;
+}
+
+.ctrl-btn:active {
+  transform: scale(0.93);
+}
+
+.ctrl-btn.ctrl-play:active svg {
+  color: #0959C8;
+}
+
+/* Info Bar */
+.info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 2rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+.swatch {
+  width: 1rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.swatch-a { background: #0959C8; }
+.swatch-b { background: #10B981; }
+.swatch-c { background: #F59E0B; }
+
+.status {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-align: right;
+  min-height: 1.2em;
+}
+
+.status.active {
+  color: #9ca3af;
+}
+
+.status.congested {
+  color: #EF4444;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { padding: 0.5rem; }
+  .header { padding: 1.25rem 1rem 0.75rem; }
+  .header-title { font-size: 1.35rem; }
+  .header-subtitle { font-size: 0.8rem; }
+  .diagram-wrapper { padding: 0.5rem; }
+  .controls-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem 1rem;
+  }
+  .info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 1rem 1rem;
+  }
+  .status { text-align: left; width: 100%; }
+  .route-btn, .ctrl-btn { width: 2.25rem; height: 2.25rem; }
+}
+
+@media (min-width: 768px) {
+  .header-title { font-size: 2rem; }
+}

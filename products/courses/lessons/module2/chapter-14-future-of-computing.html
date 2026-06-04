@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#0959C8">
+  <title>Chapter 14: Future of Computing | Consica Academy</title>
+  <meta name="description" content="Chapter 14: Future of Computing. Explore AI, quantum computing, IoT, and what comes next in technology.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a><a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a><a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a><a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a><a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a><a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a><a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a><a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a><a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+
+        <a href="chapter-13-computer-health.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 mb-5 lg:mb-8">&larr; Back to Chapter 13</a>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 14</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Future of Computing</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">What comes next in the world of technology</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: The Journey Ahead</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Over the past thirteen chapters, you have journeyed from the very basics of what a computer is all the way through the boot process, operating systems, memory, storage, binary, logic gates, and even how to keep a computer healthy. You now have a solid foundation in how computers work today.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              But computing never stands still. Every year, new technologies push the boundaries of what is possible. In this final chapter of Module 2, we will look ahead at the future of computing &mdash; from quantum computers that shatter conventional limits to artificial intelligence that learns and creates, and a world where billions of devices are connected in the Internet of Things.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Understanding where computing is headed will prepare you for the exciting innovations that lie ahead. Let us explore the technologies that will shape tomorrow.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-6">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
+              <h3 class="text-xl font-display font-bold mt-3">The Future Like You Are 5</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Imagine if your toy robot could learn new tricks just by watching you. Or if your school bag could tell you when you forgot your homework. And what if there was a magical computer that could solve a puzzle in seconds that would take today's best computers thousands of years?
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                That is where computing is going. Computers are learning to think more like us, talk to each other without humans in the middle, and even work in completely new ways using the strange rules of quantum physics. It sounds like science fiction, but scientists and engineers are building this future right now.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
+              <h3 class="text-xl font-display font-bold mt-3">Emerging Technologies to Know</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                Several major trends are shaping the future of computing. Here are the ones you should know about:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Artificial Intelligence (AI)</h4>
+                  <p class="text-xs text-theme-muted mt-1">AI enables computers to learn from data, recognize patterns, and make decisions. From virtual assistants to self-driving cars, AI is already transforming our world.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Quantum Computing</h4>
+                  <p class="text-xs text-theme-muted mt-1">Instead of bits (0 or 1), quantum computers use qubits that can be both 0 and 1 at the same time. This allows them to solve certain problems exponentially faster than classical computers.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Internet of Things (IoT)</h4>
+                  <p class="text-xs text-theme-muted mt-1">IoT connects everyday objects — lights, thermostats, refrigerators, watches — to the Internet. These devices can sense, communicate, and be controlled remotely.</p>
+                </div>
+                <div class="glass-panel p-4">
+                  <h4 class="font-display font-semibold text-brand-200 text-sm">Edge Computing</h4>
+                  <p class="text-xs text-theme-muted mt-1">Instead of sending all data to the cloud, edge computing processes data closer to where it is generated (on the device itself), reducing latency and bandwidth use.</p>
+                </div>
+              </div>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                These technologies are not just theoretical — they are being deployed today in hospitals, factories, homes, and cities around the world.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
+              <h3 class="text-xl font-display font-bold mt-3">Deep Dive: The Next Frontier</h3>
+              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Quantum Computing — Beyond Classical Limits:</strong> Classical computers process information as bits — either a 0 or a 1. Quantum computers use <strong class="text-brand-200">qubits</strong>, which leverage superposition (existing in multiple states simultaneously) and entanglement (correlating qubits so the state of one instantly affects another, regardless of distance). This allows quantum computers to explore many possible solutions at once. Companies like Google, IBM, and IonQ have demonstrated quantum supremacy — solving a problem in minutes that would take a classical supercomputer thousands of years. However, quantum computers are extremely sensitive to environmental noise and require near-absolute-zero temperatures to operate.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Neuromorphic Computing:</strong> Inspired by the human brain, neuromorphic chips use artificial neurons and synapses to process information in a massively parallel, energy-efficient way. Unlike traditional CPUs that follow the von Neumann architecture (fetch-decode-execute), neuromorphic systems integrate memory and computation. IBM's TrueNorth and Intel's Loihi are early examples. These chips could power the next generation of AI, enabling real-time learning on edge devices with minimal power consumption.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Optical Computing:</strong> Instead of electrons moving through wires, optical computers use photons (light particles) to transmit and process data. Light-based communication is already used in fiber optics, but fully optical computing — where logic gates operate using light — could achieve speeds far beyond electronic circuits while generating far less heat. Challenges include miniaturizing optical components and integrating them with existing silicon technology.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Brain-Computer Interfaces (BCI):</strong> BCI systems create a direct communication pathway between the brain and an external device. Companies like Neuralink are developing implantable chips that could allow people to control computers with their thoughts. Applications range from restoring mobility for paralyzed patients to enabling new forms of human-computer interaction that bypass keyboards, mice, and touchscreens entirely.
+              </p>
+              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+                <strong class="text-brand-200">Ethical and Societal Implications:</strong> With great power comes great responsibility. Advanced AI raises questions about job displacement, privacy, bias in algorithms, and the potential for autonomous systems to make life-or-death decisions. Quantum computing could break current encryption standards, threatening global cybersecurity. As these technologies mature, society must grapple with how to regulate them, ensure equitable access, and prevent misuse.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-brand-500/20">
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
+                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Artificial Intelligence</td><td class="py-3 px-4">The simulation of human intelligence by machines, including learning, reasoning, and problem-solving.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Quantum Computing</td><td class="py-3 px-4">A type of computing that uses qubits and quantum mechanics to solve problems far beyond classical capability.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Qubit</td><td class="py-3 px-4">The fundamental unit of quantum information, capable of existing in multiple states at once (superposition).</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Internet of Things</td><td class="py-3 px-4">The network of physical objects embedded with sensors and software that connect and exchange data.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Edge Computing</td><td class="py-3 px-4">Processing data near the source (on local devices) rather than in a centralized cloud data center.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Neuromorphic</td><td class="py-3 px-4">A computing architecture inspired by the brain, using artificial neurons and synapses for efficient processing.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Machine Learning</td><td class="py-3 px-4">A subset of AI where systems learn and improve from experience without being explicitly programmed.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">BCI</td><td class="py-3 px-4">Brain-Computer Interface — a direct communication link between the brain and an external device.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Optical Computing</td><td class="py-3 px-4">Computing that uses photons (light) instead of electrons for faster, cooler data processing.</td></tr>
+                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Superposition</td><td class="py-3 px-4">A quantum property where a qubit exists in multiple states simultaneously until measured.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About the Future of Computing</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Cold as space</p>
+                <p class="text-sm text-theme-muted mt-1">Quantum computers must be cooled to near absolute zero (-273&deg;C), colder than outer space, to keep qubits stable.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Trillions of devices</p>
+                <p class="text-sm text-theme-muted mt-1">By 2030, experts predict over 30 billion IoT devices will be connected worldwide — more than 3 devices for every person on Earth.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Brain power</p>
+                <p class="text-sm text-theme-muted mt-1">The human brain uses about 20 watts of power — roughly the same as a dim light bulb. Today's AI systems need thousands of watts to do a fraction of what a brain can do.</p>
+              </div>
+              <div class="glass-panel p-4">
+                <p class="text-lg font-display font-bold text-brand-200">Quantum supremacy</p>
+                <p class="text-sm text-theme-muted mt-1">In 2019, Google's Sycamore quantum processor solved a problem in 200 seconds that would take the world's fastest supercomputer 10,000 years.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-14-future-computing/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of the future of computing.</p>
+
+            <div class="mt-6 space-y-6">
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What makes a quantum computer different from a classical computer?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses more electricity</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses qubits that can be 0 and 1 at the same time</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It has a faster CPU</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses more RAM</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It uses qubits that can be 0 and 1 at the same time (superposition).</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which technology processes data closer to where it is generated rather than sending it to the cloud?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Cloud Computing</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Edge Computing</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Distributed Computing</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Cluster Computing</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Edge Computing.</p></details>
+              </div>
+
+              <div class="glass-panel p-4">
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the Internet of Things (IoT)?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A faster version of the Internet</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A network of everyday objects connected to the Internet</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A type of computer chip</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A programming language</span></label>
+                </div>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">A network of everyday objects (devices, appliances, sensors) connected to the Internet.</p></details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8 text-center mb-8">
+            <p class="text-sm text-theme-muted mb-2">Congratulations! You have completed Module 2.</p>
+            <p class="text-xs text-theme-muted mb-4">Review the module or explore the next learning pack.</p>
+            <a href="how-computers-work.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+              Complete! Back to Module Overview
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="chapter-13-computer-health.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Chapter 13</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 2 &middot; Chapter 14</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
+          <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint"><p>&copy; 2026 Consica Labs. All rights reserved.</p><p>info@consicalabs.com</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

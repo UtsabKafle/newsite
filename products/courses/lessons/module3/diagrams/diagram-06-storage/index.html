@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage Installation — Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#diagram">Skip to diagram</a>
+  <div class="diagram-wrapper" id="diagram" role="application" aria-label="Storage Installation interactive diagram">
+    <div class="diagram-header">
+      <h1 class="diagram-title">Storage Installation</h1>
+      <p class="diagram-subtitle">Three drive types: 2.5" SSD, 3.5" HDD, and M.2 NVMe SSD</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="Animation controls">
+      <button class="ctrl-btn" id="playBtn" aria-label="Cycle through drive installations">&#9654; Play</button>
+      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause cycling">&#9646;&#9646; Pause</button>
+      <button class="ctrl-btn" id="resetBtn" aria-label="Reset view">&#8634; Reset</button>
+      <span class="step-indicator" id="stepIndicator" aria-live="polite">Ready</span>
+    </div>
+    <div class="canvas-container">
+      <canvas id="storageCanvas" width="900" height="500" role="img" aria-label="Three drive types and their installation methods"></canvas>
+      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
+    </div>
+    <div class="drive-list" role="list" aria-label="Drive type selectors">
+      <button class="drive-btn" data-drive="m2" role="listitem">M.2 NVMe</button>
+      <button class="drive-btn" data-drive="ssd" role="listitem">2.5" SSD</button>
+      <button class="drive-btn" data-drive="hdd" role="listitem">3.5" HDD</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

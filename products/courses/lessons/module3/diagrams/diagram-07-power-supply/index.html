@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Supply Unit — Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#diagram">Skip to diagram</a>
+  <div class="diagram-wrapper" id="diagram" role="application" aria-label="Power Supply Unit interactive diagram">
+    <div class="diagram-header">
+      <h1 class="diagram-title">Power Supply Unit</h1>
+      <p class="diagram-subtitle">Explore PSU cables, modular ports, and system power draw</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="Animation controls">
+      <button class="ctrl-btn" id="playBtn" aria-label="Animate cable connections">&#9654; Play</button>
+      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation">&#9646;&#9646; Pause</button>
+      <button class="ctrl-btn" id="resetBtn" aria-label="Reset view">&#8634; Reset</button>
+      <span class="step-indicator" id="stepIndicator" aria-live="polite">Ready</span>
+    </div>
+    <div class="canvas-container">
+      <canvas id="psuCanvas" width="900" height="520" role="img" aria-label="Modular PSU with labeled cables and connectors"></canvas>
+      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
+    </div>
+    <div class="load-meter" role="region" aria-label="Power draw meter">
+      <span class="load-label">System Power Draw</span>
+      <div class="meter-bar">
+        <div class="meter-fill" id="meterFill" style="width:0%"></div>
+      </div>
+      <span class="load-value" id="loadValue">0 W</span>
+    </div>
+    <div class="cable-list" role="list" aria-label="Cable type selectors">
+      <button class="cable-btn" data-cable="24pin" role="listitem">24-pin MB</button>
+      <button class="cable-btn" data-cable="8pin" role="listitem">8-pin CPU</button>
+      <button class="cable-btn" data-cable="pcie" role="listitem">6+2 PCIe</button>
+      <button class="cable-btn" data-cable="sata" role="listitem">SATA Power</button>
+      <button class="cable-btn" data-cable="molex" role="listitem">Molex</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

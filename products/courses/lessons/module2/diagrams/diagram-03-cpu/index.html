@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Architecture Diagram | Consica Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="page-wrapper" id="main-content" role="main">
+    <header class="top-header">
+      <div class="section-label">Module 2 &middot; How Computers Work</div>
+      <h1 class="diagram-title">Inside the CPU</h1>
+      <p class="diagram-subtitle">The brain of the computer &mdash; explore the Control Unit, ALU, Registers, Cache, and Bus</p>
+    </header>
+    <figure class="diagram-area" aria-label="CPU internal architecture diagram with animated data flow between components">
+      <div class="canvas-container" id="canvasContainer">
+        <svg class="diagram-svg" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glowStrong">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <linearGradient id="pathGrad1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0959C8" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#0959C8" stop-opacity="1"/>
+            </linearGradient>
+          </defs>
+          <rect width="1000" height="520" fill="#0A0E17" rx="12"/>
+          <text class="diagram-chip-label" x="500" y="30">CPU Die &mdash; Internal Architecture</text>
+
+          <g id="component-cu" class="component-group" data-component="cu">
+            <rect class="component-box" x="40" y="60" width="200" height="160" rx="12"/>
+            <rect class="component-box-inner" x="50" y="70" width="180" height="140" rx="8"/>
+            <text class="component-name" x="140" y="120">Control Unit</text>
+            <text class="component-desc" x="140" y="140">Fetches &amp; decodes</text>
+            <text class="component-desc" x="140" y="156">instructions from</text>
+            <text class="component-desc" x="140" y="172">memory. Directs</text>
+            <text class="component-desc" x="140" y="188">all other components.</text>
+            <rect class="cu-inner-icon" x="100" y="82" width="80" height="20" rx="4"/>
+            <text class="cu-alu-text" x="140" y="96" font-size="9">Instruction Decoder</text>
+          </g>
+
+          <g id="component-alu" class="component-group" data-component="alu">
+            <rect class="component-box" x="280" y="60" width="200" height="160" rx="12"/>
+            <rect class="component-box-inner" x="290" y="70" width="180" height="140" rx="8"/>
+            <text class="component-name" x="380" y="120">ALU</text>
+            <text class="component-desc" x="380" y="140">Arithmetic &amp; Logic Unit</text>
+            <text class="component-desc" x="380" y="158">Performs math</text>
+            <text class="component-desc" x="380" y="174">operations (+, &minus;,)</text>
+            <text class="component-desc" x="380" y="190">and logic (AND, OR, NOT)</text>
+            <g class="alu-icons" transform="translate(350,85)">
+              <text x="0" y="14" fill="#0959C8" font-size="16" font-family="Poppins, sans-serif" font-weight="700">+ &minus; &amp; |</text>
+            </g>
+          </g>
+
+          <g id="component-registers" class="component-group" data-component="registers">
+            <rect class="component-box" x="520" y="60" width="200" height="160" rx="12"/>
+            <rect class="component-box-inner" x="530" y="70" width="180" height="140" rx="8"/>
+            <text class="component-name" x="620" y="120">Registers</text>
+            <text class="component-desc" x="620" y="140">Ultra-fast storage</text>
+            <text class="component-desc" x="620" y="158">inside the CPU.</text>
+            <text class="component-desc" x="620" y="176">Hold data being</text>
+            <text class="component-desc" x="620" y="194">currently processed.</text>
+            <g class="register-cells" transform="translate(560,82)">
+              <rect x="0" y="0" width="40" height="16" rx="2" class="reg-cell"/>
+              <rect x="44" y="0" width="40" height="16" rx="2" class="reg-cell"/>
+              <rect x="88" y="0" width="40" height="16" rx="2" class="reg-cell"/>
+              <rect x="0" y="20" width="40" height="16" rx="2" class="reg-cell"/>
+              <rect x="44" y="20" width="40" height="16" rx="2" class="reg-cell"/>
+              <rect x="88" y="20" width="40" height="16" rx="2" class="reg-cell"/>
+            </g>
+          </g>
+
+          <g id="component-cache" class="component-group" data-component="cache">
+            <rect class="component-box" x="760" y="60" width="200" height="160" rx="12"/>
+            <rect class="component-box-inner" x="770" y="70" width="180" height="140" rx="8"/>
+            <text class="component-name" x="860" y="120">Cache</text>
+            <text class="component-desc" x="860" y="140">Small, fast memory</text>
+            <text class="component-desc" x="860" y="158">that stores frequently</text>
+            <text class="component-desc" x="860" y="176">used data for quick</text>
+            <text class="component-desc" x="860" y="194">access by the CPU.</text>
+            <g class="cache-blocks" transform="translate(800,82)">
+              <rect x="0" y="0" width="36" height="12" rx="2" class="cache-block"/>
+              <rect x="40" y="0" width="36" height="12" rx="2" class="cache-block"/>
+              <rect x="80" y="0" width="36" height="12" rx="2" class="cache-block"/>
+              <rect x="0" y="16" width="36" height="12" rx="2" class="cache-block"/>
+              <rect x="40" y="16" width="36" height="12" rx="2" class="cache-block"/>
+              <rect x="80" y="16" width="36" height="12" rx="2" class="cache-block"/>
+            </g>
+          </g>
+
+          <g id="component-bus" class="component-group" data-component="bus">
+            <rect class="component-box component-box-wide" x="40" y="260" width="920" height="100" rx="12"/>
+            <rect class="component-box-inner" x="50" y="270" width="900" height="80" rx="8"/>
+            <text class="component-name" x="500" y="305">System Bus</text>
+            <text class="component-desc" x="500" y="322">Connects all components &mdash; carries data, addresses, and control signals</text>
+            <g class="bus-lines" transform="translate(100,278)">
+              <line x1="0" y1="5" x2="840" y2="5" class="bus-line"/>
+              <line x1="0" y1="15" x2="840" y2="15" class="bus-line"/>
+              <line x1="0" y1="25" x2="840" y2="25" class="bus-line"/>
+              <line x1="0" y1="35" x2="840" y2="35" class="bus-line"/>
+              <line x1="0" y1="45" x2="840" y2="45" class="bus-line"/>
+              <line x1="0" y1="55" x2="840" y2="55" class="bus-line"/>
+            </g>
+          </g>
+
+          <g id="data-paths">
+            <line class="data-path cu-alu-path" x1="240" y1="140" x2="280" y2="140" stroke-width="3"/>
+            <line class="data-path alu-reg-path" x1="480" y1="140" x2="520" y2="140" stroke-width="3"/>
+            <line class="data-path reg-cache-path" x1="720" y1="140" x2="760" y2="140" stroke-width="3"/>
+            <line class="data-path cu-bus-path" x1="140" y1="220" x2="140" y2="260" stroke-width="3"/>
+            <line class="data-path alu-bus-path" x1="380" y1="220" x2="380" y2="260" stroke-width="3"/>
+            <line class="data-path reg-bus-path" x1="620" y1="220" x2="620" y2="260" stroke-width="3"/>
+            <line class="data-path cache-bus-path" x1="860" y1="220" x2="860" y2="260" stroke-width="3"/>
+          </g>
+
+          <g id="data-packet" class="data-packet" filter="url(#glowStrong)">
+            <rect class="packet-body" x="-12" y="-8" width="24" height="16" rx="3"/>
+            <text class="packet-text" x="0" y="3" font-size="8">DATA</text>
+          </g>
+
+          <g id="legend" transform="translate(40, 390)">
+            <text class="legend-title" x="0" y="0">Data Flow Paths</text>
+            <line class="legend-line" x1="0" y1="16" x2="40" y2="16"/>
+            <text class="legend-text" x="48" y="20">Active data path</text>
+            <circle class="legend-dot" cx="200" cy="16" r="5"/>
+            <text class="legend-text" x="214" y="20">Data packet</text>
+          </g>
+
+          <g transform="translate(40, 460)">
+            <text class="legend-title" x="0" y="0">CPU Pipeline Stages</text>
+            <g class="pipeline-stages" transform="translate(0, 16)">
+              <rect class="pipe-stage" x="0" y="0" width="90" height="28" rx="4"/>
+              <text class="pipe-text" x="45" y="19">Fetch</text>
+              <rect class="pipe-stage" x="100" y="0" width="90" height="28" rx="4"/>
+              <text class="pipe-text" x="145" y="19">Decode</text>
+              <rect class="pipe-stage" x="200" y="0" width="90" height="28" rx="4"/>
+              <text class="pipe-text" x="245" y="19">Execute</text>
+              <rect class="pipe-stage" x="300" y="0" width="90" height="28" rx="4"/>
+              <text class="pipe-text" x="345" y="19">Memory</text>
+              <rect class="pipe-stage" x="400" y="0" width="90" height="28" rx="4"/>
+              <text class="pipe-text" x="445" y="19">Writeback</text>
+            </g>
+            <g class="pipeline-highlight" id="pipelineHighlight">
+              <rect class="pipe-highlight-bar" x="0" y="0" width="90" height="28" rx="4"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="visually-hidden">Animation: A data packet travels from the Control Unit through the ALU, Registers, and Cache, connected by the System Bus.</figcaption>
+    </figure>
+    <div class="status-bar" role="status" aria-live="polite">
+      <span class="status-text" id="statusText">Press <strong>Play</strong> to see data flow through the CPU</span>
+      <span class="cycle-counter" id="cycleCounter" aria-live="polite"></span>
+    </div>
+    <section class="controls-section" aria-label="Animation controls">
+      <div class="controls-row">
+        <button class="ctrl-btn primary" id="playBtn" aria-label="Play CPU data flow animation">
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+          <span class="btn-label">Play</span>
+        </button>
+        <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1"/><rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1"/></svg>
+          <span class="btn-label">Pause</span>
+        </button>
+        <button class="ctrl-btn" id="resetBtn" aria-label="Reset animation" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,4,12,4z" fill="currentColor"/></svg>
+          <span class="btn-label">Reset</span>
+        </button>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
