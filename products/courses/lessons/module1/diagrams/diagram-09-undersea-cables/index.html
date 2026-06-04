@@ -2,156 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Undersea Cable Map | Consica Labs</title>
-  <link href="styles.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Undersea Cables — Interactive Diagram | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app">
-    <header class="header">
-      <h1><span class="brand">Consica Labs</span> Undersea Cable Map</h1>
-      <p class="subtitle">Interactive visualization of global submarine cable networks</p>
-    </header>
-
-    <main class="main-content">
-      <div class="map-wrapper">
-        <div class="map-container">
-          <svg viewBox="0 0 1000 500" class="map-svg" role="img" aria-label="World map showing undersea cable routes">
-            <defs>
-              <radialGradient id="oceanGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#0d1b36" />
-                <stop offset="100%" stop-color="#0a0e1a" />
-              </radialGradient>
-              <linearGradient id="continentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#1e293b" />
-                <stop offset="100%" stop-color="#0f172a" />
-              </linearGradient>
-              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <filter id="glowHeavy" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            <rect width="1000" height="500" fill="url(#oceanGrad)" />
-
-            <g class="grid-lines" opacity="0.035">
-              <line x1="0" y1="100" x2="1000" y2="100" stroke="#60a5fa" stroke-width="1" />
-              <line x1="0" y1="200" x2="1000" y2="200" stroke="#60a5fa" stroke-width="1" />
-              <line x1="0" y1="300" x2="1000" y2="300" stroke="#60a5fa" stroke-width="1" />
-              <line x1="0" y1="400" x2="1000" y2="400" stroke="#60a5fa" stroke-width="1" />
-              <line x1="200" y1="0" x2="200" y2="500" stroke="#60a5fa" stroke-width="1" />
-              <line x1="400" y1="0" x2="400" y2="500" stroke="#60a5fa" stroke-width="1" />
-              <line x1="600" y1="0" x2="600" y2="500" stroke="#60a5fa" stroke-width="1" />
-              <line x1="800" y1="0" x2="800" y2="500" stroke="#60a5fa" stroke-width="1" />
-            </g>
-
-            <g class="waves">
-              <path class="wave wave-1" d="M-100,180 Q-50,172 0,180 Q50,188 100,180 Q150,172 200,180 Q250,188 300,180 Q350,172 400,180 Q450,188 500,180 Q550,172 600,180 Q650,188 700,180 Q750,172 800,180 Q850,188 900,180 Q950,172 1000,180 Q1050,188 1100,180" />
-              <path class="wave wave-2" d="M-100,230 Q-50,224 0,230 Q50,236 100,230 Q150,224 200,230 Q250,236 300,230 Q350,224 400,230 Q450,236 500,230 Q550,224 600,230 Q650,236 700,230 Q750,224 800,230 Q850,236 900,230 Q950,224 1000,230 Q1050,236 1100,230" />
-              <path class="wave wave-3" d="M-100,280 Q-50,270 0,280 Q50,290 100,280 Q150,270 200,280 Q250,290 300,280 Q350,270 400,280 Q450,290 500,280 Q550,270 600,280 Q650,290 700,280 Q750,270 800,280 Q850,290 900,280 Q950,270 1000,280 Q1050,290 1100,280" />
-              <path class="wave wave-4" d="M-100,340 Q-50,335 0,340 Q50,345 100,340 Q150,335 200,340 Q250,345 300,340 Q350,335 400,340 Q450,345 500,340 Q550,335 600,340 Q650,345 700,340 Q750,335 800,340 Q850,345 900,340 Q950,335 1000,340 Q1050,345 1100,340" />
-            </g>
-
-            <g class="continents" fill="url(#continentGrad)" stroke="#334155" stroke-width="1.5" stroke-linejoin="round">
-              <path d="M 150,35 C 200,25 260,30 290,55 C 310,75 300,110 285,145 C 270,180 250,210 230,225 C 210,240 190,230 175,210 C 160,190 145,165 125,135 C 105,105 90,75 110,55 C 120,42 135,38 150,35 Z" />
-              <path d="M 230,230 C 255,228 275,240 285,270 C 295,305 280,350 260,385 C 245,410 225,440 215,460 C 200,440 190,400 185,360 C 180,320 185,280 195,255 C 205,238 218,232 230,230 Z" />
-              <path d="M 445,50 C 470,38 500,35 520,48 C 540,60 545,85 538,110 C 530,135 510,155 490,165 C 470,175 445,170 430,155 C 415,140 420,115 425,90 C 430,68 435,55 445,50 Z" />
-              <path d="M 455,165 C 480,163 505,172 520,195 C 535,220 540,260 530,305 C 520,345 500,380 480,405 C 460,425 440,420 425,395 C 410,370 405,335 405,295 C 405,255 415,215 430,190 C 438,174 446,167 455,165 Z" />
-              <path d="M 535,45 C 580,28 650,25 720,38 C 780,50 830,75 860,105 C 880,130 880,165 860,200 C 840,235 800,260 760,275 C 720,290 675,285 635,270 C 600,255 565,230 540,200 C 520,175 515,145 518,115 C 520,85 522,60 535,45 Z" />
-              <path d="M 790,340 C 820,332 850,340 870,360 C 885,380 885,410 870,430 C 850,450 820,455 795,445 C 770,435 755,415 750,395 C 745,375 755,350 790,340 Z" />
-              <path d="M 305,30 C 325,25 340,35 345,55 C 350,75 345,100 335,115 C 325,130 310,125 300,110 C 290,95 285,70 290,50 C 293,38 298,32 305,30 Z" />
-            </g>
-
-            <g class="cables">
-              <path class="cable-glow" data-cable="transatlantic" d="M 200,90 Q 340,30 480,70" stroke="#00d4ff" />
-              <path class="cable-path" data-cable="transatlantic" d="M 200,90 Q 340,30 480,70" stroke="#00d4ff" stroke-width="2" fill="none" stroke-linecap="round" />
-
-              <path class="cable-glow" data-cable="panamerican" d="M 250,210 C 270,260 250,310 240,350" stroke="#ff6b35" />
-              <path class="cable-path" data-cable="panamerican" d="M 250,210 C 270,260 250,310 240,350" stroke="#ff6b35" stroke-width="2" fill="none" stroke-linecap="round" />
-
-              <path class="cable-glow" data-cable="africacoast" d="M 480,160 C 460,200 500,240 485,280" stroke="#7bed9f" />
-              <path class="cable-path" data-cable="africacoast" d="M 480,160 C 460,200 500,240 485,280" stroke="#7bed9f" stroke-width="2" fill="none" stroke-linecap="round" />
-
-              <path class="cable-glow" data-cable="eurasia" d="M 520,100 C 600,80 660,140 720,180" stroke="#ffd93d" />
-              <path class="cable-path" data-cable="eurasia" d="M 520,100 C 600,80 660,140 720,180" stroke="#ffd93d" stroke-width="2" fill="none" stroke-linecap="round" />
-
-              <path class="cable-glow" data-cable="asiaaustralia" d="M 770,260 C 800,310 790,360 820,400" stroke="#ff6b9d" />
-              <path class="cable-path" data-cable="asiaaustralia" d="M 770,260 C 800,310 790,360 820,400" stroke="#ff6b9d" stroke-width="2" fill="none" stroke-linecap="round" />
-
-              <path class="cable-glow" data-cable="transpacific" d="M 740,55 C 500,20 350,70 130,45" stroke="#a855f7" />
-              <path class="cable-path" data-cable="transpacific" d="M 740,55 C 500,20 350,70 130,45" stroke="#a855f7" stroke-width="2" fill="none" stroke-linecap="round" />
-            </g>
-
-            <g class="cable-labels" font-family="Inter, sans-serif" font-size="8" fill="#94a3b8">
-              <text x="340" y="48" text-anchor="middle" class="cable-label" data-cable="transatlantic">Transatlantic</text>
-              <text x="275" y="290" text-anchor="middle" class="cable-label" data-cable="panamerican">Pan-American</text>
-              <text x="475" y="232" text-anchor="middle" class="cable-label" data-cable="africacoast">Africa Coast</text>
-              <text x="620" y="130" text-anchor="middle" class="cable-label" data-cable="eurasia">Eurasia Express</text>
-              <text x="810" y="342" text-anchor="middle" class="cable-label" data-cable="asiaaustralia">Asia-Australia</text>
-              <text x="440" y="28" text-anchor="middle" class="cable-label" data-cable="transpacific">Trans-Pacific</text>
-            </g>
-          </svg>
-
-          <div class="info-panel" id="infoPanel" role="dialog" aria-label="Cable information" aria-hidden="true">
-            <button class="info-close" id="infoClose" aria-label="Close cable information">&times;</button>
-            <div class="info-content">
-              <h3 class="info-name" id="infoName"></h3>
-              <div class="info-details">
-                <div class="info-row"><span class="info-label">Route</span><span class="info-value" id="infoRoute"></span></div>
-                <div class="info-row"><span class="info-label">Length</span><span class="info-value" id="infoLength"></span></div>
-                <div class="info-row"><span class="info-label">Capacity</span><span class="info-value" id="infoCapacity"></span></div>
-                <div class="info-row"><span class="info-label">Year Built</span><span class="info-value" id="infoYear"></span></div>
-              </div>
-              <p class="info-desc" id="infoDesc"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="legend" role="region" aria-label="Cable legend">
-        <h3 class="legend-title">Cable Routes</h3>
-        <div class="legend-items" id="legendItems"></div>
-      </div>
-
-      <div class="stats" role="region" aria-label="Statistics">
-        <div class="stat-item">
-          <span class="stat-number" id="statCables">00</span>
-          <span class="stat-label">Cables</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" id="statLength">0</span>
-          <span class="stat-label">Total km</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" id="statCapacity">0</span>
-          <span class="stat-label">Total Tbps</span>
-        </div>
-      </div>
-    </main>
-
-    <div class="controls" role="toolbar" aria-label="Animation controls">
-      <button class="control-btn" id="playBtn" aria-label="Pause animation" tabindex="0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
-        <span>Pause</span>
-      </button>
-      <button class="control-btn" id="resetBtn" aria-label="Reset animation" tabindex="0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-        <span>Reset</span>
-      </button>
-    </div>
-  </div>
-
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

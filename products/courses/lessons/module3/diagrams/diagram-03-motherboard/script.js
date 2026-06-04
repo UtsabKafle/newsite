@@ -1,215 +1,29 @@
-(function(){
-  const canvas=document.getElementById('mbCanvas');
-  const ctx=canvas.getContext('2d');
-  const tooltip=document.getElementById('tooltip');
-  const stepInd=document.getElementById('stepIndicator');
-  const playBtn=document.getElementById('playBtn');
-  const pauseBtn=document.getElementById('pauseBtn');
-  const resetBtn=document.getElementById('resetBtn');
-  const zoneList=document.getElementById('zoneList');
+(function(){'use strict';
+var components = [    {id:"socket",name:"CPU Socket",category:"Hardware",purpose:"Provides the physical and electrical interface for the CPU to connect to the motherboard",description:"The CPU socket is a precision connector with hundreds of pins or contacts that align with the CPU\\'s pads, establishing data and power connections.",why:"The socket determines which CPUs are compatible with a motherboard",analogy:"Like a specific power plug design that only matches certain devices",funFact:"Modern Intel LGA sockets have over 1,700 pins",takeaway:"Always match the CPU socket type when choosing a motherboard",mistake:"Forcing a CPU into the wrong socket can bend pins and destroy both components",descriptionDetailed:"LGA sockets have pins on the motherboard, PGA sockets have pins on the CPU. The socket lever secures the CPU in place with correct pressure. Different generations use different sockets (LGA1700, AM5, etc.)."},    {id:"chipset",name:"Chipset",category:"Hardware",purpose:"Manages data flow between the CPU, memory, peripherals, and expansion slots",description:"The chipset is a set of chips that handles I/O operations, PCIe lane distribution, USB ports, SATA connections, and system management.",why:"The chipset determines the features and expansion capabilities of the motherboard",analogy:"Like a traffic control center managing data flow between city districts",funFact:"Modern chipsets like Z790 and X670E support PCIe 5.0 and DDR5",takeaway:"The chipset version determines available features like overclocking and PCIe lanes",mistake:"The chipset doesn\\'t affect CPU performance directly—it handles connectivity",descriptionDetailed:"The chipset connects to the CPU via DMI (Intel) or Infinity Fabric (AMD). It provides PCIe lanes for expansion slots, SATA ports, USB controllers, and networking. Northbridge functions (memory control) are now integrated into the CPU."},    {id:"slots",name:"Expansion Slots",category:"Hardware",purpose:"Provides connections for add-in cards like GPUs, sound cards, and network adapters",description:"PCI Express slots come in x1, x4, x8, and x16 sizes, with the x16 slot typically used for the graphics card.",why:"Expansion slots allow customization and upgrading of computer capabilities",analogy:"Like docking ports that let you attach different tools to a vehicle",funFact:"The first PCIe 5.0 x16 slot provides 63 GB/s bandwidth",takeaway:"PCIe slots are backward compatible—a x16 card works in a x8 slot (at slower speed)",mistake:"Not all PCIe slots connect directly to the CPU—some go through the chipset",descriptionDetailed:"PCIe uses serial lanes that can be combined. The physical slot size indicates maximum lanes. PCIe versions (3.0, 4.0, 5.0) double bandwidth each generation."},    {id:"headers",name:"Front Panel Headers",category:"Hardware",purpose:"Connects the case\\'s front panel buttons and indicators to the motherboard",description:"Headers are small pin connectors on the motherboard that attach to the case\\'s front panel—power button, reset, LEDs, and audio/USB ports.",why:"Headers make the case controls functional—power button, USB ports, and LEDs",analogy:"Like the nerve endings that connect a body\\'s interface to its brain",funFact:"Front panel header pin layouts are standardized but still confusing for new builders",takeaway:"Consult the motherboard manual for exact front panel header pin layout",mistake:"Plugging front panel connectors into the wrong pins can prevent booting",descriptionDetailed:"Common headers include PWR_SW (power button), RST_SW (reset), HDD_LED (drive activity), PWR_LED (power indicator), and front audio/USB. Polarity matters for LEDs but not for switches."},    {id:"ports",name:"Rear I/O Ports",category:"Hardware",purpose:"Provides external connectivity for peripherals and networking",description:"The rear I/O panel includes USB ports, audio jacks, Ethernet, video outputs (HDMI, DisplayPort), and antenna mounts for Wi-Fi.",why:"Rear I/O ports are the computer\\'s interface with external devices",analogy:"Like the dashboard of a car with all the controls and displays",funFact:"USB-C on rear I/O can support Thunderbolt 4 on modern motherboards",takeaway:"Rear I/O ports are connected directly to the motherboard or chipset",mistake:"The rear I/O shield must be installed before the motherboard in the case",descriptionDetailed:"USB ports vary by generation (USB 2.0, 3.2, 4) and speed. Audio jacks support multi-channel output. Video outputs depend on whether the CPU has integrated graphics."},    {id:"vrms",name:"Voltage Regulator Module (VRM)",category:"Hardware",purpose:"Converts the PSU\\'s voltage to the precise levels required by the CPU",description:"VRMs are power regulation circuits near the CPU socket that step down the +12V supply to the CPU\\'s required voltage (around 1.2-1.4V).",why:"VRMs ensure stable, clean power delivery to the CPU",analogy:"Like a water pressure regulator that ensures the right pressure for different appliances",funFact:"High-end motherboards can have 20+ VRM phases for ultra-stable power",takeaway:"Better VRMs allow stable overclocking and support higher-end CPUs",mistake:"VRMs generate significant heat—their cooling matters for system stability",descriptionDetailed:"VRMs use MOSFETs, chokes, and capacitors to filter and regulate voltage. More phases distribute the load and reduce ripple. VRM quality varies widely between budget and premium motherboards."}];
+var connections = [{from:"socket",to:"chipset"},{from:"chipset",to:"slots"},{from:"slots",to:"headers"},{from:"headers",to:"ports"},{from:"ports",to:"vrms"}];
+var steps = [{label:"Step 1: CPU Socket",status:"Exploring: CPU Socket - Provides the physical and electrical interface for the CPU to connect to the motherboard"},{label:"Step 2: Chipset",status:"Exploring: Chipset - Manages data flow between the CPU, memory, peripherals, and expansion slots"},{label:"Step 3: Expansion Slots",status:"Exploring: Expansion Slots - Provides connections for add-in cards like GPUs, sound cards, and network adapters"},{label:"Step 4: Front Panel Headers",status:"Exploring: Front Panel Headers - Connects the case\\'s front panel buttons and indicators to the motherboard"},{label:"Step 5: Rear I/O Ports",status:"Exploring: Rear I/O Ports - Provides external connectivity for peripherals and networking"},{label:"Step 6: Voltage Regulator Module (VRM)",status:"Exploring: Voltage Regulator Module (VRM) - Converts the PSU\\'s voltage to the precise levels required by the CPU"}];
+var tour = [{title:"CPU Socket",description:"Provides the physical and electrical interface for the CPU to connect to the motherboard",componentId:"socket"},{title:"Chipset",description:"Manages data flow between the CPU, memory, peripherals, and expansion slots",componentId:"chipset"},{title:"Expansion Slots",description:"Provides connections for add-in cards like GPUs, sound cards, and network adapters",componentId:"slots"},{title:"Front Panel Headers",description:"Connects the case\\'s front panel buttons and indicators to the motherboard",componentId:"headers"},{title:"Rear I/O Ports",description:"Provides external connectivity for peripherals and networking",componentId:"ports"},{title:"Voltage Regulator Module (VRM)",description:"Converts the PSU\\'s voltage to the precise levels required by the CPU",componentId:"vrms"}];
 
-  const W=900,H=580;
-  canvas.width=W;canvas.height=H;
-
-  const zones=[
-    {id:'cpu',name:'CPU Socket',desc:'LGA socket where the processor is installed. Handles all computations and data routing.',
-     x:300,y:160,w:100,h:100,color:'#8a3a2a'},
-    {id:'ram',name:'RAM Slots',desc:'DIMM slots for system memory. Usually installed in pairs for dual-channel mode.',
-     x:460,y:120,w:120,h:40,color:'#2a5a8a'},
-    {id:'pcie',name:'PCIe Slots',desc:'Expansion slots for GPU, network cards, and other add-on boards. x16 for GPU.',
-     x:270,y:300,w:180,h:30,color:'#4a2a6a'},
-    {id:'sata',name:'SATA Ports',desc:'Connects SATA storage drives (SSD/HDD). Usually 4-6 ports on a motherboard.',
-     x:600,y:370,w:60,h:40,color:'#5a4a2a'},
-    {id:'m2',name:'M.2 Slot',desc:'Direct NVMe SSD connection. Offers much faster speeds than SATA.',
-     x:470,y:200,w:90,h:22,color:'#2a6a6a'},
-    {id:'chipset',name:'Chipset',desc:'Manages data flow between CPU, memory, and peripherals. Often has a heatsink.',
-     x:180,y:200,w:70,h:70,color:'#336699'},
-    {id:'vrm',name:'VRM Area',desc:'Voltage Regulator Module — converts and stabilizes power for the CPU.',
-     x:220,y:100,w:100,h:30,color:'#883366'},
-    {id:'cmos',name:'CMOS Battery',desc:'CR2032 battery that keeps BIOS settings and the system clock when powered off.',
-     x:550,y:280,w:30,h:30,color:'#667788'},
-    {id:'io',name:'I/O Panel',desc:'Rear ports for USB, audio, Ethernet, video output. Pre-installed on the motherboard.',
-     x:130,y:320,w:20,h:100,color:'#556677'},
-    {id:'fan',name:'Fan Headers',desc:'Small connectors for case fans and CPU cooler fans. PWM-controlled for speed.',
-     x:370,y:260,w:30,h:20,color:'#778855'},
-    {id:'power',name:'Power Connectors',desc:'24-pin ATX main power and 8-pin CPU power from the PSU.',
-     x:370,y:80,w:60,h:30,color:'#885544'}
-  ];
-
-  let activeIndex=-1;
-  let isPlaying=false;
-  let cycleTimer=null;
-
-  function drawMB(){
-    ctx.save();ctx.translate(450,300);
-    ctx.fillStyle='#0d1220';ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=2;
-    roundRect(ctx,-200,-240,400,480,8);
-    ctx.fill();ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawZone(z,i){
-    ctx.save();
-    const isActive=i===activeIndex;
-    const cx=z.x,cy=z.y,w=z.w,h=z.h;
-
-    ctx.fillStyle=isActive?z.color+'80':z.color+'30';
-    ctx.strokeStyle=isActive?'#0959C8':z.color+'60';
-    ctx.lineWidth=isActive?3:1;
-    ctx.shadowColor=isActive?'#0959C880':'transparent';
-    ctx.shadowBlur=isActive?20:0;
-
-    roundRect(ctx,cx-w/2,cy-h/2,w,h,4);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle=isActive?'#fff':z.color;
-    ctx.font=isActive?'bold 11px Inter,sans-serif':'10px Inter,sans-serif';
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(z.name,cx,cy);
-
-    if(!isActive){
-      ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='10px Inter,sans-serif';
-      ctx.fillText('\u2192',cx+w/2+15,cy);
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Motherboard',
+    subtitle: 'Computer Assembly',
+    desc: 'Explore the key components and connectors on a motherboard.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to explore');
+    },
+    
+    animate: function(engine) {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    ctx.restore();
-  }
-
-  function roundRect(ctx,x,y,w,h,r){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
-    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);
-    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);
-    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);
-    ctx.quadraticCurveTo(x,y,x+r,y);
-    ctx.closePath();
-  }
-
-  function render(){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#060910';ctx.fillRect(0,0,W,H);
-    drawMB();
-    zones.forEach((z,i)=>drawZone(z,i));
-  }
-
-  function showTooltip(x,y,z){
-    tooltip.style.display='block';
-    tooltip.style.left=Math.min(x+15,W-260)+'px';
-    tooltip.style.top=Math.min(y+15,H-120)+'px';
-    tooltip.innerHTML=`<span class="tt-name">${z.name}</span><span class="tt-desc">${z.desc}</span>`;
-    tooltip.setAttribute('aria-hidden','false');
-  }
-
-  function hideTooltip(){
-    tooltip.style.display='none';
-    tooltip.setAttribute('aria-hidden','true');
-  }
-
-  function selectZone(idx){
-    if(isPlaying)return;
-    if(activeIndex===idx){activeIndex=-1;hideTooltip();updateZones();stepInd.textContent='Ready';render();return}
-    activeIndex=idx;
-    const z=zones[idx];
-    showTooltip(z.x-z.w/2,z.y-z.h/2-10,z);
-    updateZones();
-    stepInd.textContent=z.name;
-    render();
-  }
-
-  function updateZones(){
-    document.querySelectorAll('.zone-list button').forEach((btn,i)=>{
-      btn.classList.toggle('active',i===activeIndex);
-    });
-  }
-
-  function buildZoneList(){
-    zones.forEach((z,i)=>{
-      const btn=document.createElement('button');
-      btn.textContent=z.name;
-      btn.dataset.index=i;
-      btn.setAttribute('aria-label',`Select ${z.name}`);
-      btn.addEventListener('click',()=>selectZone(i));
-      zoneList.appendChild(btn);
-    });
-  }
-
-  function getCanvasPos(e){
-    const rect=canvas.getBoundingClientRect();
-    const scaleX=W/rect.width;
-    const scaleY=H/rect.height;
-    const clientX=e.clientX||(e.touches&&e.touches[0].clientX);
-    const clientY=e.clientY||(e.touches&&e.touches[0].clientY);
-    return {x:(clientX-rect.left)*scaleX,y:(clientY-rect.top)*scaleY};
-  }
-
-  function hitTest(pos){
-    for(let i=zones.length-1;i>=0;i--){
-      const z=zones[i];
-      if(Math.abs(pos.x-z.x)<z.w/2+5 && Math.abs(pos.y-z.y)<z.h/2+5)return i;
-    }
-    return -1;
-  }
-
-  function handleClick(e){
-    if(isPlaying)return;
-    const pos=getCanvasPos(e);
-    const idx=hitTest(pos);
-    if(idx>=0)selectZone(idx);
-    else{activeIndex=-1;hideTooltip();updateZones();stepInd.textContent='Ready';render()}
-  }
-
-  canvas.addEventListener('click',handleClick);
-  canvas.addEventListener('touchstart',(e)=>{e.preventDefault();handleClick(e)},{passive:false});
-
-  function playSequence(){
-    if(isPlaying)return;
-    isPlaying=true;
-    playBtn.textContent='\u25B6 Running';
-    playBtn.setAttribute('aria-label','Highlighting motherboard zones');
-    let idx=0;
-    function step(){
-      if(!isPlaying)return;
-      activeIndex=idx;
-      const z=zones[idx];
-      showTooltip(z.x-z.w/2,z.y-z.h/2-10,z);
-      updateZones();
-      stepInd.textContent=z.name;
-      render();
-      idx++;
-      if(idx<zones.length)cycleTimer=setTimeout(step,1800);
-      else{isPlaying=false;playBtn.textContent='\u25B6 Play';playBtn.setAttribute('aria-label','Sequentially highlight each motherboard zone')}
-    }
-    step();
-  }
-
-  function pauseSequence(){
-    isPlaying=false;
-    if(cycleTimer){clearTimeout(cycleTimer);cycleTimer=null}
-    playBtn.textContent='\u25B6 Play';
-    playBtn.setAttribute('aria-label','Sequentially highlight each motherboard zone');
-  }
-
-  function resetView(){
-    pauseSequence();
-    activeIndex=-1;
-    hideTooltip();
-    updateZones();
-    stepInd.textContent='Ready';
-    render();
-  }
-
-  playBtn.addEventListener('click',playSequence);
-  pauseBtn.addEventListener('click',pauseSequence);
-  resetBtn.addEventListener('click',resetView);
-
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape'){activeIndex=-1;hideTooltip();updateZones();stepInd.textContent='Ready';render()}
   });
-
-  buildZoneList();
-  resetView();
+});
 })();

@@ -2,133 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Route Redundancy &mdash; Interactive Network Diagram</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Route Redundancy — Interactive Diagram | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <main class="app" id="app">
-
-    <!-- Header -->
-    <header class="header">
-      <h1 class="header-title">Route Redundancy</h1>
-      <p class="header-sub">Interactive Break / Fix Network Simulation</p>
-    </header>
-
-    <!-- Status & Stats bar -->
-    <div class="status-bar">
-      <div class="status-indicator">
-        <span class="status-dot" id="statusDot" aria-hidden="true"></span>
-        <span id="statusText" aria-live="polite">Route 1 (Primary) &mdash; Active</span>
-      </div>
-      <div class="stats">
-        <span class="stat-item">Failovers: <strong id="failoverCount">0</strong></span>
-        <span class="stat-item">Uptime: <strong id="uptimeDisplay">0</strong>s</span>
-      </div>
-    </div>
-
-    <!-- Diagram -->
-    <div class="diagram-wrapper">
-      <div class="diagram" id="diagram" role="img" aria-label="Route redundancy network diagram with three routes between Source and Destination">
-
-        <!-- SVG overlay for lines & packets -->
-        <svg id="svgLayer" class="svg-layer" aria-hidden="true"></svg>
-
-        <!-- Nodes -->
-        <div class="node node-source" id="node-source" data-id="source" data-route="" tabindex="0" role="button" aria-label="Source node">
-          <span class="node-letter">SRC</span>
-          <span class="node-name">Source</span>
-        </div>
-
-        <div class="node node-router" id="node-router-a" data-id="router-a" data-route="1" tabindex="0" role="button" aria-label="Router A on Route 1 — Active">
-          <span class="node-letter">A</span>
-          <span class="node-name">Router A</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-router" id="node-router-b" data-id="router-b" data-route="1" tabindex="0" role="button" aria-label="Router B on Route 1 — Active">
-          <span class="node-letter">B</span>
-          <span class="node-name">Router B</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-router" id="node-router-c" data-id="router-c" data-route="2" tabindex="0" role="button" aria-label="Router C on Route 2 — Standby">
-          <span class="node-letter">C</span>
-          <span class="node-name">Router C</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-router" id="node-router-d" data-id="router-d" data-route="2" tabindex="0" role="button" aria-label="Router D on Route 2 — Standby">
-          <span class="node-letter">D</span>
-          <span class="node-name">Router D</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-router" id="node-router-e" data-id="router-e" data-route="3" tabindex="0" role="button" aria-label="Router E on Route 3 — Standby">
-          <span class="node-letter">E</span>
-          <span class="node-name">Router E</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-router" id="node-router-f" data-id="router-f" data-route="3" tabindex="0" role="button" aria-label="Router F on Route 3 — Standby">
-          <span class="node-letter">F</span>
-          <span class="node-name">Router F</span>
-          <span class="node-status-dot" aria-hidden="true"></span>
-        </div>
-
-        <div class="node node-destination" id="node-destination" data-id="destination" data-route="" tabindex="0" role="button" aria-label="Destination node">
-          <span class="node-letter">DST</span>
-          <span class="node-name">Destination</span>
-        </div>
-
-        <!-- Route labels -->
-        <div class="route-label route-label-1" id="routeLabel1">Route 1 <small>Primary</small></div>
-        <div class="route-label route-label-2" id="routeLabel2">Route 2 <small>Backup</small></div>
-        <div class="route-label route-label-3" id="routeLabel3">Route 3 <small>Secondary</small></div>
-
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls" role="toolbar" aria-label="Simulation controls">
-      <div class="controls-group">
-        <button id="break1" class="btn btn-danger"  aria-label="Break Route 1 to trigger failover">Break Route 1</button>
-        <button id="break2" class="btn btn-danger"  aria-label="Break Route 2 to trigger failover">Break Route 2</button>
-        <button id="restoreAll" class="btn btn-success" aria-label="Restore all routes">Restore All</button>
-      </div>
-      <div class="controls-group">
-        <button id="autoDemo" class="btn btn-primary" aria-label="Toggle auto-demonstration mode">Auto Demo</button>
-        <button id="togglePause" class="btn btn-outline" aria-label="Pause or resume animation">Pause</button>
-        <button id="resetBtn" class="btn btn-outline" aria-label="Reset simulation to initial state">Reset</button>
-      </div>
-    </div>
-
-    <!-- Legend -->
-    <div class="legend" aria-label="Route legend">
-      <div class="legend-item">
-        <span class="legend-swatch swatch-1" aria-hidden="true"></span>
-        <span>Route 1 (Primary)</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-swatch swatch-2" aria-hidden="true"></span>
-        <span>Route 2 (Backup)</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-swatch swatch-3" aria-hidden="true"></span>
-        <span>Route 3 (Secondary)</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-swatch swatch-broken" aria-hidden="true"></span>
-        <span>Link Failure</span>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Global tooltip -->
-  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
-
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

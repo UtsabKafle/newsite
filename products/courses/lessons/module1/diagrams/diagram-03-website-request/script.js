@@ -1,442 +1,56 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [
+  {id:"browser",name:"Web Browser",category:"Software",icon:"browser",shape:"circle",x:50,y:30,w:120,h:56,purpose:"Initiates and displays web content by sending requests and rendering responses",description:"The browser takes a URL you type, sends a request to fetch the page, then renders the HTML, CSS, and JavaScript into a visual display.",why:"The browser is your window into the World Wide Web",analogy:"Like a TV that tunes into channels and shows you the content",funFact:"The first web browser, WorldWideWeb, was also a page editor",takeaway:"Browsers translate code into the visual web pages you see",mistake:"The browser doesn\\'t fetch pages directly—it asks servers for them",descriptionDetailed:"The browser first performs a DNS lookup on the URL\\'s domain, then opens a TCP connection to the server. It sends an HTTP GET request and receives the response containing HTML, CSS, JavaScript, and media files. The browser\\'s rendering engine parses HTML into a DOM tree, applies CSS styles, executes JavaScript, and paints the final page."},
+  {id:"dns",name:"DNS Server",category:"Network",icon:"globe",shape:"rounded-rect",x:210,y:30,w:120,h:56,purpose:"Translates the domain name in the URL into the server\\'s IP address",description:"When you type example.com, DNS servers find the matching IP address so your browser knows where to send the request.",why:"DNS allows us to use memorable names instead of numeric IPs",analogy:"Like looking up a friend\\'s address in your contacts list",funFact:"There are only 13 logical root DNS servers in the world",takeaway:"DNS is the first step in every web request after you press Enter",mistake:"DNS isn\\'t instant—it queries multiple servers in a hierarchy",descriptionDetailed:"The recursive resolver first checks its local cache, then queries the root server, then the TLD server (.com, .org), and finally the authoritative name server. Each level provides the address of the next server to query. The final answer is cached locally for faster future lookups."},
+  {id:"server",name:"Web Server",category:"Software",icon:"server",shape:"cylinder",x:50,y:125,w:120,h:56,purpose:"Receives the browser\\'s request and responds with the requested webpage files",description:"The web server receives the HTTP request, locates the requested file, and sends it back to the browser with a status code.",why:"Servers do the heavy lifting of storing and delivering all web content",analogy:"Like a restaurant kitchen that prepares your meal after you order",funFact:"Apache web server has been running since 1995 and still powers 25% of websites",takeaway:"Every website you visit is stored on one or more servers somewhere in the world",mistake:"The server doesn\\'t send the whole website at once—it sends files one by one",descriptionDetailed:"The server parses the HTTP request method (GET, POST, etc.), headers, and URL path. It maps the path to a file in its document root, applies access controls, and returns the file with an HTTP status code (200 OK, 404 Not Found, etc.) and appropriate MIME type headers. Dynamic content may trigger server-side scripts."},
+  {id:"isp",name:"Internet Service Provider",category:"Network",icon:"cloud",shape:"cloud-shape",x:210,y:125,w:120,h:56,purpose:"Carries your request from your router to the destination server across the Internet",description:"Your ISP routes your request through multiple network hops until it reaches the server hosting the website.",why:"ISPs build and maintain the physical infrastructure that connects everyone",analogy:"Like the postal service that carries your letter across the country",funFact:"Data can travel from New York to Sydney in under 200 milliseconds",takeaway:"Your request may pass through 10-20 different networks before reaching the server",mistake:"Your data doesn\\'t travel in a straight line—it hops between many routers",descriptionDetailed:"When data leaves your home, it traverses the ISP\\'s regional network, then connects to larger backbone networks at Internet Exchange Points. Tier 1 ISPs interconnect without payment, while lower tiers pay for transit. The path your data takes is determined by BGP routing protocols that consider path length, policies, and network health."},
+  {id:"packet",name:"Data Packet",category:"Data",icon:"packet",shape:"diamond",x:50,y:220,w:120,h:56,purpose:"Transports the request and response data in small, manageable chunks",description:"Your web request is broken into packets that travel independently and are reassembled at the destination.",why:"Packet switching makes the Internet efficient and resilient to failures",analogy:"Like sending a puzzle in separate pieces that arrive and get put back together",funFact:"Each packet can take a completely different route to reach the same destination",takeaway:"The Internet is designed to handle lost packets by requesting retransmission",mistake:"Packets can arrive out of order—TCP puts them back in sequence",descriptionDetailed:"Each IP packet contains a header (20-60 bytes) and payload (up to 65535 bytes, but typically 1500 bytes for Ethernet). The header includes source/destination IP, TTL, protocol type, and checksum. TCP adds sequence numbers so the receiver can reorder packets and request retransmission of missing ones."},
+  {id:"website",name:"Website Content",category:"Content",icon:"globe",shape:"rounded-rect",x:210,y:220,w:120,h:56,purpose:"The collection of files and data that make up the webpage being requested",description:"HTML structures the page, CSS styles it, JavaScript adds interactivity, and media files enrich the experience.",why:"Understanding how web content is assembled helps you build better websites",analogy:"Like a house built from blueprints (HTML), paint (CSS), and appliances (JavaScript)",funFact:"The average webpage is over 2 MB and makes 70+ separate requests",takeaway:"A modern website is a combination of many different file types working together",mistake:"The HTML file is just the starting point—browsers then fetch CSS, JS, images, and fonts"}
+];
+var connections = [{from:"browser",to:"dns"},{from:"dns",to:"server"},{from:"server",to:"isp"},{from:"isp",to:"packet"},{from:"packet",to:"website"}];
+var steps = [{label:"Step 1: Web Browser",status:"Exploring: Web Browser - Initiates and displays web content by sending requests and rendering responses"},{label:"Step 2: DNS Server",status:"Exploring: DNS Server - Translates the domain name in the URL into the server\\'s IP address"},{label:"Step 3: Web Server",status:"Exploring: Web Server - Receives the browser\\'s request and responds with the requested webpage files"},{label:"Step 4: Internet Service Provider",status:"Exploring: Internet Service Provider - Carries your request from your router to the destination server across the Internet"},{label:"Step 5: Data Packet",status:"Exploring: Data Packet - Transports the request and response data in small, manageable chunks"},{label:"Step 6: Website Content",status:"Exploring: Website Content - The collection of files and data that make up the webpage being requested"}];
+var tour = [{title:"Web Browser",description:"Initiates and displays web content by sending requests and rendering responses",componentId:"browser"},{title:"DNS Server",description:"Translates the domain name in the URL into the server\\'s IP address",componentId:"dns"},{title:"Web Server",description:"Receives the browser\\'s request and responds with the requested webpage files",componentId:"server"},{title:"Internet Service Provider",description:"Carries your request from your router to the destination server across the Internet",componentId:"isp"},{title:"Data Packet",description:"Transports the request and response data in small, manageable chunks",componentId:"packet"},{title:"Website Content",description:"The collection of files and data that make up the webpage being requested",componentId:"website"}];
 
-  var STEP_DURATION = 3000;
-  var URL_TEXT = 'https://www.example.com';
-  var URL_TYPING_INTERVAL = 90;
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Website Request',
+    subtitle: 'How Internet Works',
+    desc: 'Trace what happens when you type a URL — from browser to DNS, server, and back.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    packetFlow: [
+      {label:'DNS Query',color:'#22c55e'},
+      {label:'IP Found',color:'#60a5fa'},
+      {label:'HTTP 200',color:'#c084fc'},
+      {label:'Data Stream',color:'#f59e0b'},
+      {label:'Render',color:'#22c55e'}
+    ],
 
-  var steps = [
-    {
-      id: 'type-url',
-      title: 'Type URL',
-      detailTitle: 'You type the website address',
-      shortDesc: 'You type the website address into the browser&rsquo;s address bar and press Enter.',
-      longDesc: 'When you type a URL like <strong>https://www.example.com</strong> into your browser&rsquo;s address bar and press Enter, the browser first parses the URL to identify the protocol (HTTPS), the domain name (example.com), and the path (/). It checks its local cache for a matching page and, if none is found, begins preparing a network request. The browser also checks for HSTS (HTTP Strict Transport Security) to ensure a secure connection is used. This simple act of typing a URL sets off a chain of events that spans multiple systems across the globe.',
+    render: function(container, engine) {
+      engine.buildVisual(container);
+      engine._setStatus('Click any component to learn more');
     },
-    {
-      id: 'dns-lookup',
-      title: 'DNS Lookup',
-      detailTitle: 'The browser looks up the server IP',
-      shortDesc: 'The browser asks a DNS server to translate the domain name into an IP address.',
-      longDesc: 'The browser sends a DNS (Domain Name System) query to resolve <strong>example.com</strong> into a machine-readable IP address like <strong>93.184.216.34</strong>. This query travels through multiple DNS servers: first the browser&rsquo;s cache, then the OS cache, then a recursive resolver (often your ISP&rsquo;s), then root name servers, TLD servers, and finally the authoritative name server for the domain. Each level either returns a cached result or passes the query deeper. Without DNS, you&rsquo;d have to memorize IP addresses for every website you visit.',
+
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        var shape = bg.querySelector(':scope > :first-child');
+        if(!shape)return;
+        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
     },
-    {
-      id: 'connect',
-      title: 'Connect to Server',
-      detailTitle: 'A TCP connection is established',
-      shortDesc: 'The browser and server perform a TCP three-way handshake to establish a connection.',
-      longDesc: 'A <strong>TCP three-way handshake</strong> takes place between your browser and the server. The browser sends a SYN (synchronize) packet, the server responds with SYN-ACK (synchronize-acknowledge), and the browser sends an ACK (acknowledge) back. If HTTPS is used (as it is for most sites today), a <strong>TLS handshake</strong> also occurs after the TCP handshake, negotiating encryption keys so that all data sent between you and the server is encrypted and secure. This ensures that no one in between can read or tamper with the data.',
-    },
-    {
-      id: 'request',
-      title: 'Request Page',
-      detailTitle: 'The browser requests the webpage',
-      shortDesc: 'The browser sends an HTTP GET request to the server asking for the webpage content.',
-      longDesc: 'The browser sends an <strong>HTTP GET request</strong> to the server, specifying the resource it wants (e.g., <strong>GET / HTTP/1.1</strong>). The request includes headers that tell the server about the browser, accepted content types, language preferences, caching instructions, and cookies. For example, the <code>User-Agent</code> header identifies the browser, the <code>Accept</code> header lists which content types it can handle, and <code>Cookie</code> headers send any stored session data. The server uses this information to tailor its response.',
-    },
-    {
-      id: 'respond',
-      title: 'Server Responds',
-      detailTitle: 'The server sends back the data',
-      shortDesc: 'The server processes the request and sends back an HTTP response with the page data.',
-      longDesc: 'The server processes the request and sends back an <strong>HTTP response</strong> with a status code (e.g., <strong>200 OK</strong>) and the requested content. The response includes headers like <code>Content-Type</code> (telling the browser it&rsquo;s HTML), <code>Content-Length</code> (the size of the data), <code>Cache-Control</code> (caching instructions), and <code>Set-Cookie</code> (if the server wants to store cookies). The body contains the actual HTML of the page. For a modern webpage, this initial HTML often references additional resources like CSS, JavaScript, and images, triggering more requests.',
-    },
-    {
-      id: 'render',
-      title: 'Browser Renders',
-      detailTitle: 'The browser displays the page',
-      shortDesc: 'The browser parses the HTML, builds the DOM, and renders the visual page.',
-      longDesc: 'The browser parses the HTML and constructs the <strong>DOM (Document Object Model)</strong> tree. It also fetches and processes linked CSS stylesheets to build the <strong>CSSOM (CSS Object Model)</strong>. These two trees are combined into the <strong>render tree</strong>, which determines the visual layout of each element. The browser then performs <strong>layout</strong> (calculating positions and sizes) and <strong>painting</strong> (drawing pixels to the screen). JavaScript is executed as it is encountered, which may modify the DOM and trigger re-layouts. Once all resources are loaded and painted, you see the fully rendered webpage.',
-    },
-  ];
 
-  var state = {
-    currentStep: -1,
-    isPlaying: false,
-    isPaused: false,
-    completed: false,
-    timerId: null,
-    stepStartTime: 0,
-    elapsedInStep: 0,
-  };
-
-  var els = {};
-  var urlChars = [];
-  var urlTypingTimer = null;
-  var urlIndex = 0;
-  var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function cacheElements() {
-    els.playBtn = document.getElementById('playBtn');
-    els.pauseBtn = document.getElementById('pauseBtn');
-    els.resetBtn = document.getElementById('resetBtn');
-    els.progressFill = document.getElementById('progressFill');
-    els.stepCounter = document.getElementById('stepCounter');
-    els.browserUrl = document.getElementById('browserUrl');
-    els.browserCursor = document.getElementById('browserCursor');
-    els.detailPanel = document.getElementById('detailPanel');
-    els.detailStepLabel = document.getElementById('detailStepLabel');
-    els.detailTitle = document.getElementById('detailTitle');
-    els.detailText = document.getElementById('detailText');
-    els.detailDismiss = document.getElementById('detailDismiss');
-
-    els.stepNodes = [];
-    els.stepArrows = [];
-    for (var i = 0; i < 6; i++) {
-      els.stepNodes[i] = document.getElementById('step' + i);
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    var arrows = document.querySelectorAll('.step-arrow');
-    for (var j = 0; j < arrows.length; j++) {
-      els.stepArrows[j] = arrows[j];
-    }
-    els.progressMarkers = document.querySelectorAll('.progress-marker');
-  }
-
-  function init() {
-    cacheElements();
-    bindEvents();
-    setDetail('Welcome', 'Press <strong>Play</strong> to watch the step-by-step process of what happens when you visit a website. You can also click any step to learn more.', '');
-    resetUI();
-  }
-
-  function bindEvents() {
-    els.playBtn.addEventListener('click', play);
-    els.pauseBtn.addEventListener('click', togglePause);
-    els.resetBtn.addEventListener('click', reset);
-
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      els.stepNodes[i].addEventListener('click', makeStepClickHandler(i));
-      els.stepNodes[i].addEventListener('keydown', makeStepKeydownHandler(i));
-    }
-
-    els.detailDismiss.addEventListener('click', dismissDetail);
-    els.detailDismiss.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        dismissDetail();
-      }
-    });
-
-    var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    motionQuery.addEventListener('change', function (e) {
-      isReducedMotion = e.matches;
-      if (isReducedMotion) reset();
-    });
-  }
-
-  function makeStepClickHandler(index) {
-    return function () {
-      handleStepClick(index);
-    };
-  }
-
-  function makeStepKeydownHandler(index) {
-    return function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleStepClick(index);
-      }
-    };
-  }
-
-  function handleStepClick(index) {
-    if (state.isPlaying && !state.isPaused) {
-      togglePause();
-    }
-    showStepDetail(index);
-  }
-
-  function showStepDetail(index) {
-    var step = steps[index];
-    var label = 'Step ' + (index + 1) + ' of 6';
-    setDetail(step.detailTitle, step.longDesc, label);
-    highlightDetailPanel(true);
-
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      els.stepNodes[i].classList.remove('active');
-    }
-    els.stepNodes[index].classList.add('active');
-  }
-
-  function setDetail(title, text, stepLabel) {
-    els.detailTitle.textContent = title;
-    els.detailText.innerHTML = text;
-    if (stepLabel) {
-      els.detailStepLabel.textContent = stepLabel;
-    }
-  }
-
-  function highlightDetailPanel(show) {
-    els.detailPanel.classList.toggle('active-detail', show);
-    els.detailDismiss.classList.toggle('visible', show);
-  }
-
-  function dismissDetail() {
-    highlightDetailPanel(false);
-    if (!state.isPlaying && state.currentStep === -1) {
-      setDetail('Welcome', 'Press <strong>Play</strong> to watch the step-by-step process of what happens when you visit a website. You can also click any step to learn more.', '');
-    } else if (!state.isPlaying && state.currentStep >= 0) {
-      var step = steps[state.currentStep];
-      var label = 'Step ' + (state.currentStep + 1) + ' of 6';
-      setDetail(step.detailTitle, step.longDesc, label);
-    }
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      if (state.currentStep === i) {
-        els.stepNodes[i].classList.add('active');
-      } else {
-        els.stepNodes[i].classList.remove('active');
-      }
-    }
-  }
-
-  function play() {
-    if (state.isPlaying) return;
-    if (state.completed) {
-      resetInternal();
-      resetUI();
-    }
-
-    state.isPlaying = true;
-    state.isPaused = false;
-    state.completed = false;
-
-    els.playBtn.disabled = true;
-    els.pauseBtn.disabled = false;
-
-    if (state.currentStep === -1) {
-      advanceToStep(0);
-    } else {
-      state.stepStartTime = performance.now() - state.elapsedInStep;
-      scheduleStepAdvance();
-    }
-  }
-
-  function togglePause() {
-    if (!state.isPlaying) return;
-    state.isPaused = !state.isPaused;
-
-    if (state.isPaused) {
-      if (state.timerId) {
-        clearTimeout(state.timerId);
-        state.timerId = null;
-      }
-      state.elapsedInStep = performance.now() - state.stepStartTime;
-      if (state.currentStep === 0 && urlTypingTimer) {
-        clearInterval(urlTypingTimer);
-        urlTypingTimer = null;
-      }
-      els.pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Resume</span>';
-    } else {
-      state.stepStartTime = performance.now() - state.elapsedInStep;
-      scheduleStepAdvance();
-      if (state.currentStep === 0) {
-        resumeUrlTyping();
-      }
-      els.pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pause</span>';
-    }
-  }
-
-  function advanceToStep(index) {
-    state.currentStep = index;
-    state.stepStartTime = performance.now();
-    state.elapsedInStep = 0;
-
-    updateStepUI(index);
-
-    if (index === 0) {
-      startUrlTyping();
-    }
-
-    if (index < 6) {
-      scheduleStepAdvance();
-    }
-  }
-
-  function scheduleStepAdvance() {
-    if (state.timerId) {
-      clearTimeout(state.timerId);
-    }
-    state.timerId = setTimeout(function () {
-      if (state.isPlaying && !state.isPaused) {
-        var next = state.currentStep + 1;
-        if (next < 6) {
-          advanceToStep(next);
-        } else {
-          completeAnimation();
-        }
-      }
-    }, STEP_DURATION);
-  }
-
-  function completeAnimation() {
-    state.completed = true;
-    state.isPlaying = false;
-    els.playBtn.disabled = false;
-    els.pauseBtn.disabled = true;
-    els.pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pause</span>';
-
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      els.stepNodes[i].classList.remove('active');
-      els.stepNodes[i].classList.add('completed');
-    }
-    for (var j = 0; j < els.stepArrows.length; j++) {
-      els.stepArrows[j].classList.remove('active');
-      els.stepArrows[j].classList.add('completed');
-    }
-    for (var k = 0; k < els.progressMarkers.length; k++) {
-      els.progressMarkers[k].classList.remove('active');
-      els.progressMarkers[k].classList.add('complete');
-    }
-
-    els.progressFill.style.width = '100%';
-    els.progressFill.setAttribute('aria-valuenow', 6);
-
-    var lastStep = steps[steps.length - 1];
-    var label = 'Step ' + steps.length + ' of 6';
-    setDetail(lastStep.detailTitle, lastStep.longDesc, label);
-    highlightDetailPanel(true);
-
-    if (urlTypingTimer) {
-      clearInterval(urlTypingTimer);
-      urlTypingTimer = null;
-    }
-    els.browserCursor.classList.remove('visible');
-  }
-
-  function updateStepUI(index) {
-    var step = steps[index];
-    var label = 'Step ' + (index + 1) + ' of 6';
-
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      els.stepNodes[i].classList.remove('active');
-      if (i < index) {
-        els.stepNodes[i].classList.add('completed');
-      } else {
-        els.stepNodes[i].classList.remove('completed');
-      }
-    }
-    els.stepNodes[index].classList.add('active');
-    els.stepNodes[index].classList.remove('completed');
-
-    for (var j = 0; j < els.stepArrows.length; j++) {
-      els.stepArrows[j].classList.remove('active', 'completed');
-      if (j < index) {
-        els.stepArrows[j].classList.add('completed');
-      } else if (j === index) {
-        els.stepArrows[j].classList.add('active');
-      }
-    }
-
-    var progress = ((index + 1) / 6) * 100;
-    if (progress > 100) progress = 100;
-    els.progressFill.style.width = progress + '%';
-    els.progressFill.setAttribute('aria-valuenow', index + 1);
-
-    for (var k = 0; k < els.progressMarkers.length; k++) {
-      els.progressMarkers[k].classList.remove('active', 'complete');
-      if (k < index) {
-        els.progressMarkers[k].classList.add('complete');
-      } else if (k === index) {
-        els.progressMarkers[k].classList.add('active');
-      }
-    }
-
-    els.stepCounter.textContent = label;
-    setDetail(step.detailTitle, step.shortDesc, label);
-    highlightDetailPanel(true);
-
-    if (index === 0) {
-      els.browserCursor.classList.add('visible');
-    } else {
-      els.browserCursor.classList.remove('visible');
-    }
-  }
-
-  function startUrlTyping() {
-    urlIndex = 0;
-    els.browserUrl.textContent = '';
-    urlChars = URL_TEXT.split('');
-    if (urlTypingTimer) {
-      clearInterval(urlTypingTimer);
-    }
-    var delay = isReducedMotion ? 1 : URL_TYPING_INTERVAL;
-    urlTypingTimer = setInterval(function () {
-      if (state.isPaused) return;
-      if (urlIndex < urlChars.length) {
-        els.browserUrl.textContent += urlChars[urlIndex];
-        urlIndex++;
-      } else {
-        clearInterval(urlTypingTimer);
-        urlTypingTimer = null;
-      }
-    }, delay);
-  }
-
-  function resumeUrlTyping() {
-    if (urlTypingTimer) {
-      clearInterval(urlTypingTimer);
-      urlTypingTimer = null;
-    }
-    var delay = isReducedMotion ? 1 : URL_TYPING_INTERVAL;
-    urlTypingTimer = setInterval(function () {
-      if (state.isPaused) return;
-      if (urlIndex < urlChars.length) {
-        els.browserUrl.textContent += urlChars[urlIndex];
-        urlIndex++;
-      } else {
-        clearInterval(urlTypingTimer);
-        urlTypingTimer = null;
-      }
-    }, delay);
-  }
-
-  function reset() {
-    if (state.timerId) {
-      clearTimeout(state.timerId);
-      state.timerId = null;
-    }
-    if (urlTypingTimer) {
-      clearInterval(urlTypingTimer);
-      urlTypingTimer = null;
-    }
-    resetInternal();
-    resetUI();
-    els.playBtn.disabled = false;
-    els.pauseBtn.disabled = true;
-    els.pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pause</span>';
-  }
-
-  function resetInternal() {
-    state.isPlaying = false;
-    state.isPaused = false;
-    state.completed = false;
-    state.currentStep = -1;
-    state.stepStartTime = 0;
-    state.elapsedInStep = 0;
-  }
-
-  function resetUI() {
-    els.progressFill.style.width = '0%';
-    els.progressFill.setAttribute('aria-valuenow', 0);
-    els.stepCounter.textContent = 'Step 0 of 6';
-
-    els.browserUrl.textContent = '';
-    els.browserCursor.classList.remove('visible');
-
-    for (var i = 0; i < els.stepNodes.length; i++) {
-      els.stepNodes[i].classList.remove('active', 'completed');
-    }
-    for (var j = 0; j < els.stepArrows.length; j++) {
-      els.stepArrows[j].classList.remove('active', 'completed');
-    }
-    for (var k = 0; k < els.progressMarkers.length; k++) {
-      els.progressMarkers[k].classList.remove('active', 'complete');
-    }
-
-    highlightDetailPanel(false);
-    setDetail('Welcome', 'Press <strong>Play</strong> to watch the step-by-step process of what happens when you visit a website. You can also click any step to learn more.', '');
-  }
-
-  init();
-
+  });
+});
 })();

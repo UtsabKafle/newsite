@@ -1,130 +1,56 @@
-(function () {
-  'use strict';
-  var DEFAULT_DOMAIN = 'www.consicaacademy.com';
-  var RESULT_IP = '192.0.2.1';
-  var STEP_DELAY = 1400;
-  var PACKET_DURATION = 500;
-  var TOTAL_STEPS = 7;
-  var stepInfo = {
-    1: { title: 'Step 1: Browser Cache', heading: 'Browser checks its cache', body: 'Your browser stores recent DNS lookups locally in a temporary cache. If you have visited this domain recently, the IP address is already known and no lookup is needed \u2014 the page loads instantly. This is why your second visit to a site is often faster than the first.', status: 'Checking browser cache for a saved IP address\u2026', short: 'Checking local cache\u2026' },
-    2: { title: 'Step 2: DNS Resolver', heading: 'DNS Resolver receives the query', body: 'Since the IP was not cached, your browser sends the domain name to a DNS Resolver (sometimes called a Recursive Resolver). This is typically provided by your Internet Service Provider (ISP) or a public DNS service like Google (8.8.8.8) or Cloudflare (1.1.1.1). The resolver is responsible for asking multiple DNS servers on your behalf.', status: 'Resolver received the query. Asking the Root DNS Server\u2026', short: 'Receiving your query\u2026' },
-    3: { title: 'Step 3: Root DNS Server', heading: 'Root DNS Server', body: 'The DNS Resolver contacts one of 13 root server clusters (named A through M) that form the backbone of the global DNS system. Root servers don\u2019t know the exact IP address, but they know where to find the TLD (Top-Level Domain) servers. For your domain, the root server points to the .com TLD servers.', status: 'Root server found the .com TLD server. Forwarding\u2026', short: 'Looking up TLD records\u2026' },
-    4: { title: 'Step 4: TLD Server (.com)', heading: 'TLD Server (.com)', body: 'The Top-Level Domain (TLD) server manages the .com extension. It maintains a registry of all domains ending in .com. When asked about consicaacademy.com, the TLD server checks its database and finds the nameservers responsible for this domain \u2014 these are the authoritative DNS servers.', status: '.com TLD server found the Authoritative Nameservers\u2026', short: 'Finding <span class="tld-highlight">.com</span> records\u2026' },
-    5: { title: 'Step 5: Authoritative DNS Server', heading: 'Authoritative DNS Server', body: 'The Authoritative DNS Server is the final authority for the domain. It holds the actual DNS records \u2014 including the A record that maps the domain name to an IP address. When the resolver asks, the authoritative server responds with the exact IP address where the website is hosted.', status: 'Authoritative server found the A record. IP resolved\u2026', short: 'Retrieving IP address\u2026' },
-    6: { title: 'Step 6: IP Address Found', heading: 'IP Address Found', body: 'The DNS Resolver now has the IP address! It sends this information back to your browser. The IP address ' + RESULT_IP + ' is the unique numeric identifier for the server hosting ' + DEFAULT_DOMAIN + '. The resolver may also cache this result so future lookups are instant.', status: 'IP address ' + RESULT_IP + ' resolved successfully!', short: 'Found IP: <span class="ip-display">' + RESULT_IP + '</span>' },
-    7: { title: 'Step 7: Browser Connects', heading: 'Browser connects to the server', body: 'Armed with the IP address, your browser opens a direct connection to the web server at ' + RESULT_IP + '. It sends an HTTP request asking for the webpage. The server responds with the website data, and your browser renders the page you see. The DNS lookup is complete \u2014 all in under a second!', status: 'Browser connecting to server at ' + RESULT_IP + '\u2026', short: 'Establishing connection\u2026' }
-  };
-  var connections = [{ from: 1, to: 2 }, { from: 2, to: 3 }, { from: 3, to: 4 }, { from: 4, to: 5 }, { from: 5, to: 6 }, { from: 6, to: 7 }];
-  var el = {};
-  var state = { running: false, currentStep: 0, animTimer: null, packetRaf: null };
-  function qs(sel) { return document.querySelector(sel); }
-  function qsa(sel) { return document.querySelectorAll(sel); }
-  function init() { cacheElements(); bindEvents(); drawConnections(); updateProgress(0); }
-  function cacheElements() {
-    el.domainInput = qs('#domainInput'); el.lookupBtn = qs('#lookupBtn'); el.resetBtn = qs('#resetBtn'); el.controlsForm = qs('#controlsForm'); el.diagramGrid = qs('#diagramGrid'); el.connectionsSvg = qs('#connectionsSvg'); el.packetsSvg = qs('#packetsSvg'); el.progressFill = qs('#progressFill'); el.stepCounter = qs('#stepCounter'); el.statusHeading = qs('#statusHeading'); el.statusBody = qs('#statusBody'); el.ipDisplay = qs('#ipDisplay'); el.infoSection = qs('#infoSection'); el.infoTitle = qs('#infoTitle'); el.infoBody = qs('#infoBody'); el.infoClose = qs('#infoClose'); el.statusCardIcon = qs('#statusCardIcon'); el.nodes = qsa('.step-node');
-  }
-  function bindEvents() {
-    el.controlsForm.addEventListener('submit', function (e) { e.preventDefault(); startLookup(); });
-    el.resetBtn.addEventListener('click', resetAll);
-    el.domainInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); startLookup(); } });
-    el.nodes.forEach(function (node) {
-      node.addEventListener('click', function () { showStepInfo(parseInt(node.getAttribute('data-step'), 10)); });
-      node.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showStepInfo(parseInt(node.getAttribute('data-step'), 10)); } });
-    });
-    el.infoClose.addEventListener('click', function () { el.infoSection.hidden = true; });
-    el.infoSection.addEventListener('keydown', function (e) { if (e.key === 'Escape') el.infoSection.hidden = true; });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !el.infoSection.hidden) el.infoSection.hidden = true; });
-    window.addEventListener('resize', debounce(function () { if (!state.running) drawConnections(); }, 250));
-  }
-  function startLookup() {
-    if (state.running) return;
-    var domain = el.domainInput.value.trim();
-    if (!domain) { el.domainInput.value = DEFAULT_DOMAIN; domain = DEFAULT_DOMAIN; }
-    resetAll(); state.running = true; el.lookupBtn.disabled = true; el.resetBtn.disabled = false;
-    updateStatus('Starting DNS lookup for ' + domain + '\u2026', 'DNS Lookup'); enterStep(1);
-  }
-  function enterStep(stepId) {
-    if (stepId > TOTAL_STEPS) { finishLookup(); return; }
-    state.currentStep = stepId; var idx = stepId - 1;
-    updateProgress(idx); setNodeCurrent(stepId); setNodeStatus(stepId, 'loading'); updateStatusBar(stepId);
-    if (stepId === 6) el.ipDisplay.textContent = RESULT_IP;
-    if (stepId === 7) updateStatus('Establishing secure connection\u2026', 'Browser Connects');
-    state.animTimer = setTimeout(function () { if (!state.running) return; completeStep(stepId, stepId + 1); }, STEP_DELAY);
-  }
-  function completeStep(stepId, nextStep) {
-    if (stepId >= 1) { setNodeComplete(stepId); setNodeStatus(stepId, 'check'); }
-    if (nextStep > TOTAL_STEPS) { finishLookup(); return; }
-    var conn = getConnection(stepId, nextStep);
-    if (conn) { animatePacket(stepId, nextStep, function () { if (!state.running) return; markLineTraversed(stepId, nextStep); enterStep(nextStep); }); }
-    else { enterStep(nextStep); }
-  }
-  function finishLookup() {
-    state.running = false; el.lookupBtn.disabled = false; el.resetBtn.disabled = false;
-    updateProgress(TOTAL_STEPS); updateStatus('DNS lookup complete! The browser connected to <strong>' + el.domainInput.value.trim() + '</strong> at <strong>' + RESULT_IP + '</strong>.', 'Complete \u2713');
-  }
-  function setNodeCurrent(stepId) {
-    el.nodes.forEach(function (node) { var s = parseInt(node.getAttribute('data-step'), 10); node.classList.remove('is-current', 'is-complete', 'node-idle'); if (s === stepId) node.classList.add('is-current'); else if (s < stepId) node.classList.add('is-complete'); else node.classList.add('node-idle'); });
-  }
-  function setNodeComplete(stepId) {
-    var node = qs('.step-node[data-step="' + stepId + '"]'); if (!node) return; node.classList.remove('is-current'); node.classList.add('is-complete');
-  }
-  function setNodeStatus(stepId, type) {
-    var node = qs('.step-node[data-step="' + stepId + '"]'); if (!node) return; var icon = node.querySelector('.status-icon'); if (!icon) return; icon.className = 'status-icon status-' + type; icon.textContent = type === 'check' ? '\u2713' : type === 'cross' ? '\u2717' : '';
-  }
-  function getConnection(fromStep, toStep) { for (var i = 0; i < connections.length; i++) { if (connections[i].from === fromStep && connections[i].to === toStep) return connections[i]; } return null; }
-  function markLineTraversed(fromStep, toStep) { var line = qs('.connection-line[data-from="' + fromStep + '"][data-to="' + toStep + '"]'); if (line) { line.classList.remove('is-active'); line.classList.add('is-traversed'); } }
-  function drawConnections() {
-    el.connectionsSvg.innerHTML = ''; el.packetsSvg.innerHTML = '';
-    var stage = el.diagramGrid; var stageRect = stage.getBoundingClientRect();
-    el.connectionsSvg.setAttribute('viewBox', '0 0 ' + stageRect.width + ' ' + stageRect.height);
-    el.packetsSvg.setAttribute('viewBox', '0 0 ' + stageRect.width + ' ' + stageRect.height);
-    connections.forEach(function (conn) {
-      var fromNode = qs('.step-node[data-step="' + conn.from + '"]'); var toNode = qs('.step-node[data-step="' + conn.to + '"]'); if (!fromNode || !toNode) return;
-      var fromRect = fromNode.getBoundingClientRect(); var toRect = toNode.getBoundingClientRect();
-      var fx = fromRect.left - stageRect.left + fromRect.width / 2; var fy = fromRect.top - stageRect.top + fromRect.height / 2;
-      var tx = toRect.left - stageRect.left + toRect.width / 2; var ty = toRect.top - stageRect.top + toRect.height / 2;
-      var dx = tx - fx; var dy = ty - fy; var d;
-      if (toNode.offsetLeft <= fromNode.offsetLeft) { var cx = fx + dx * 0.5; d = 'M' + fx + ',' + fy + ' Q' + cx + ',' + (fy + dy * 0.5) + ' ' + tx + ',' + ty; }
-      else { d = 'M' + fx + ',' + fy + ' C' + (fx + dx * 0.3) + ',' + fy + ' ' + (tx - dx * 0.3) + ',' + ty + ' ' + tx + ',' + ty; }
-      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); path.setAttribute('d', d); path.setAttribute('class', 'connection-line'); path.setAttribute('data-from', conn.from); path.setAttribute('data-to', conn.to); el.connectionsSvg.appendChild(path);
-    });
-  }
-  function animatePacket(fromStep, toStep, callback) {
-    var linePath = qs('.connection-line[data-from="' + fromStep + '"][data-to="' + toStep + '"]'); if (!linePath) { if (callback) callback(); return; }
-    linePath.classList.add('is-active');
-    var ghostPath = document.createElementNS('http://www.w3.org/2000/svg', 'path'); ghostPath.setAttribute('d', linePath.getAttribute('d')); el.packetsSvg.appendChild(ghostPath);
-    var length = ghostPath.getTotalLength(); var startTime = null;
-    var defs = el.packetsSvg.querySelector('defs'); if (!defs) { defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs'); el.packetsSvg.appendChild(defs); }
-    var filterId = 'glow-' + Date.now(); var filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter'); filter.setAttribute('id', filterId);
-    var blur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur'); blur.setAttribute('stdDeviation', '2.5'); blur.setAttribute('result', 'blur'); filter.appendChild(blur);
-    var merge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge'); var mn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode'); mn1.setAttribute('in', 'blur'); var mn2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode'); mn2.setAttribute('in', 'SourceGraphic'); merge.appendChild(mn1); merge.appendChild(mn2); filter.appendChild(merge); defs.appendChild(filter);
-    var trail = document.createElementNS('http://www.w3.org/2000/svg', 'line'); trail.setAttribute('class', 'packet-trail'); el.packetsSvg.appendChild(trail);
-    var packet = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); packet.setAttribute('class', 'packet'); packet.setAttribute('r', '5'); packet.setAttribute('fill', '#0959C8'); packet.setAttribute('filter', 'url(#' + filterId + ')'); el.packetsSvg.appendChild(packet);
-    function frame(timestamp) { if (!startTime) startTime = timestamp; var elapsed = timestamp - startTime; var progress = Math.min(elapsed / PACKET_DURATION, 1); var eased = easeInOutCubic(progress); var pos = ghostPath.getPointAtLength(eased * length); packet.setAttribute('cx', pos.x); packet.setAttribute('cy', pos.y); var trailLen = Math.min(40, length * 0.15); var trailEnd = Math.max(0, eased * length - trailLen); var trailStart = Math.max(0, trailEnd - trailLen); var p1 = ghostPath.getPointAtLength(trailStart); var p2 = ghostPath.getPointAtLength(trailEnd); trail.setAttribute('x1', p1.x); trail.setAttribute('y1', p1.y); trail.setAttribute('x2', p2.x); trail.setAttribute('y2', p2.y); if (progress < 1) { state.packetRaf = requestAnimationFrame(frame); } else { cleanup(); if (callback) callback(); } }
-    function cleanup() { try { if (packet.parentNode) el.packetsSvg.removeChild(packet); if (trail.parentNode) el.packetsSvg.removeChild(trail); if (ghostPath.parentNode) el.packetsSvg.removeChild(ghostPath); if (filter.parentNode) defs.removeChild(filter); } catch (e) {} }
-    state.packetRaf = requestAnimationFrame(frame);
-  }
-  function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-  function updateProgress(stepIndex) { var pct = stepIndex / TOTAL_STEPS * 100; el.progressFill.style.width = Math.min(pct, 100) + '%'; el.stepCounter.textContent = stepIndex; var dots = qsa('.progress-dot'); dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i < stepIndex); }); }
-  function updateStatusBar(stepId) {
-    var info = stepInfo[stepId]; if (!info) return; el.statusHeading.textContent = info.heading; el.statusBody.innerHTML = info.status;
-    var svg; if (stepId === 6) { svg = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="8,12 11,15 16,9" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'; }
-    else if (stepId === 7) { svg = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'; }
-    else { svg = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'; }
-    el.statusCardIcon.innerHTML = svg;
-  }
-  function updateStatus(body, heading) { if (heading) el.statusHeading.textContent = heading; el.statusBody.innerHTML = body; }
-  function showStepInfo(stepId) { var info = stepInfo[stepId]; if (!info) return; el.infoTitle.textContent = info.title; el.infoBody.innerHTML = '<strong>' + info.heading + '</strong><br><br>' + info.body; el.infoSection.hidden = false; el.infoSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); el.infoClose.focus(); }
-  function resetAll() {
-    state.running = false; state.currentStep = 0;
-    if (state.animTimer) { clearTimeout(state.animTimer); state.animTimer = null; }
-    if (state.packetRaf) { cancelAnimationFrame(state.packetRaf); state.packetRaf = null; }
-    el.lookupBtn.disabled = false; el.packetsSvg.innerHTML = ''; el.infoSection.hidden = true;
-    el.nodes.forEach(function (node) { node.classList.remove('is-current', 'is-complete', 'is-error', 'node-idle'); });
-    var lines = qsa('.connection-line'); lines.forEach(function (l) { l.classList.remove('is-active', 'is-traversed'); });
-    el.nodes.forEach(function (node) { var icon = node.querySelector('.status-icon'); if (icon) { icon.className = 'status-icon status-pending'; icon.textContent = '?'; } });
-    el.stepCounter.textContent = '0'; updateProgress(0); updateStatus('Type a domain name and click <strong>Lookup</strong> to see the DNS resolution process.', 'Ready'); el.ipDisplay.textContent = RESULT_IP; drawConnections();
-  }
-  function debounce(fn, ms) { var timer = null; return function () { var ctx = this, args = arguments; if (timer) clearTimeout(timer); timer = setTimeout(function () { fn.apply(ctx, args); timer = null; }, ms); }; }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+(function(){'use strict';
+var components = [
+  {id:"browser",name:"Web Browser",category:"Software",icon:"browser",shape:"circle",x:125,y:15,w:110,h:50,purpose:"Triggers a DNS lookup when you type a URL and press Enter",description:"The browser checks its own cache first, and if the IP isn\\'t found, it asks the operating system\\'s resolver to perform a DNS query.",why:"DNS lookup is the critical first step before any web request can happen",analogy:"Like looking up a friend\\'s phone number before calling them",funFact:"Browsers cache DNS results aggressively, sometimes for minutes or hours",takeaway:"Every website visit starts with a DNS query, even if you don\\'t notice it",mistake:"The browser doesn\\'t query DNS servers directly?'it asks the OS resolver",descriptionDetailed:"The browser first checks its internal DNS cache, then calls the operating system\\'s gethostbyname or getaddrinfo function. The browser sets a timeout for the DNS query and will display an error if it fails. Chrome and Firefox also support DNS-over-HTTPS for encrypted lookups."},
+  {id:"resolver",name:"DNS Recursive Resolver",category:"Network",icon:"dns",shape:"rounded-rect",x:125,y:95,w:110,h:50,purpose:"Queries the DNS hierarchy on behalf of the client to find the IP address",description:"The resolver starts the lookup chain by contacting root servers, then TLD servers, and finally authoritative servers until it finds the answer.",why:"Resolvers do the heavy lifting of navigating the DNS hierarchy",analogy:"Like a research assistant who goes to the library, checks the catalog, and finds the book for you",funFact:"Google\\'s public DNS at 8.8.8.8 handles over 100 billion queries per day",takeaway:"The resolver acts as your agent in the DNS lookup process",mistake:"A resolver doesn\\'t own any domain data?'it\\'s just a middleman",descriptionDetailed:"The resolver is configured by the ISP or manually (like 8.8.8.8). It queries servers iteratively, starting from the root and following referrals. Results are cached with TTL values to speed up subsequent queries."},
+  {id:"root",name:"Root Name Server",category:"Network",icon:"server",shape:"hexagon",x:125,y:170,w:110,h:50,purpose:"Directs resolvers to the appropriate TLD server for the domain extension",description:"Root servers are the top of the DNS hierarchy, answering queries by pointing to TLD servers like .com, .org, or .net.",why:"Root servers are the starting point for every DNS resolution",analogy:"Like the main library index that tells you which section of the library to go to",funFact:"There are 13 root server identities, but they are replicated across hundreds of physical servers",takeaway:"Root servers don\\'t know individual domain IPs?'only where to find TLD servers",mistake:"Root servers are not controlled by any single country or company",descriptionDetailed:"Root servers are operated by 12 organizations including Verisign, ICANN, and universities. They answer queries with a referral to the appropriate TLD name server. Anycast routing allows multiple physical servers to share one IP address for resilience."},
+  {id:"tld",name:"TLD Name Server",category:"Network",icon:"globe",shape:"pill",x:50,y:245,w:110,h:50,purpose:"Manages all domains under a specific top-level extension like .com or .org",description:"The TLD server stores the names of authoritative name servers for every domain registered under that extension.",why:"TLD servers are the bridge between domain extensions and specific domains",analogy:"Like a phone book for all names ending in .com",funFact:"The .com TLD has over 150 million registered domains",takeaway:"TLD servers know which authoritative server has details for each domain",mistake:"TLD servers don\\'t store IP addresses?'they store references to authoritative servers",descriptionDetailed:"TLD servers are operated by registries like Verisign (.com, .net) and PIR (.org). They maintain records of which name servers are authoritative for each registered domain. The resolver queries the TLD server with the domain name and receives a referral to the authoritative server."},
+  {id:"authoritative",name:"Authoritative Name Server",category:"Network",icon:"globe",shape:"pill",x:200,y:245,w:110,h:50,purpose:"Holds the actual DNS records for a specific domain and provides the final answer",description:"The authoritative server contains A, AAAA, MX, CNAME, and other records that map a domain to its IP address and services.",why:"Authoritative servers are the source of truth for domain information",analogy:"Like the county clerk\\'s office that holds the official property records",funFact:"Authoritative servers can be configured with TTL values of seconds to days",takeaway:"This is the server that finally tells your browser the IP address",mistake:"Authoritative servers don\\'t perform recursion?'they only answer for domains they control",descriptionDetailed:"Authoritative servers host zone files containing resource records for the domain. They can be primary (master) or secondary (slave) for redundancy. Common record types include A (IPv4), AAAA (IPv6), MX (mail), CNAME (aliases), and TXT (text data)."},
+  {id:"cache",name:"DNS Cache",category:"Network",icon:"database",shape:"rounded-rect",x:125,y:320,w:110,h:50,purpose:"Stores recent DNS lookup results to speed up future queries",description:"DNS caches at every level?'browser, OS, resolver, and server?'store previously resolved IPs so repeat lookups are instant.",why:"Caching drastically reduces DNS lookup times and network traffic",analogy:"Like memorizing a frequently called phone number instead of looking it up each time",funFact:"DNS caching can reduce lookup times from hundreds of milliseconds to under one millisecond",takeaway:"Cached records remain valid only for their configured TTL period",mistake:"DNS caches can serve stale records if not managed properly",descriptionDetailed:"Each DNS response includes a TTL value telling the cache how long to keep the record. When a cached record expires, the next query triggers a fresh lookup. Negative caching also stores failed lookups to prevent repeated queries for nonexistent domains."}
+];
+var connections = [{from:"browser",to:"resolver"},{from:"resolver",to:"root"},{from:"root",to:"tld"},{from:"tld",to:"authoritative"},{from:"authoritative",to:"cache"}];
+var steps = [{label:"Step 1: Web Browser",status:"Exploring: Web Browser - Triggers a DNS lookup when you type a URL and press Enter"},{label:"Step 2: DNS Recursive Resolver",status:"Exploring: DNS Recursive Resolver - Queries the DNS hierarchy on behalf of the client to find the IP address"},{label:"Step 3: Root Name Server",status:"Exploring: Root Name Server - Directs resolvers to the appropriate TLD server for the domain extension"},{label:"Step 4: TLD Name Server",status:"Exploring: TLD Name Server - Manages all domains under a specific top-level extension like .com or .org"},{label:"Step 5: Authoritative Name Server",status:"Exploring: Authoritative Name Server - Holds the actual DNS records for a specific domain and provides the final answer"},{label:"Step 6: DNS Cache",status:"Exploring: DNS Cache - Stores recent DNS lookup results to speed up future queries"}];
+var tour = [{title:"Web Browser",description:"Triggers a DNS lookup when you type a URL and press Enter",componentId:"browser"},{title:"DNS Recursive Resolver",description:"Queries the DNS hierarchy on behalf of the client to find the IP address",componentId:"resolver"},{title:"Root Name Server",description:"Directs resolvers to the appropriate TLD server for the domain extension",componentId:"root"},{title:"TLD Name Server",description:"Manages all domains under a specific top-level extension like .com or .org",componentId:"tld"},{title:"Authoritative Name Server",description:"Holds the actual DNS records for a specific domain and provides the final answer",componentId:"authoritative"},{title:"DNS Cache",description:"Stores recent DNS lookup results to speed up future queries",componentId:"cache"}];
+
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Dns Lookup',
+    subtitle: 'How Internet Works',
+    desc: 'Follow the DNS resolution chain from browser to root, TLD, and authoritative servers.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    packetFlow: [
+      {label:'Recursive Query',color:'#22c55e'},
+      {label:'Root Query',color:'#60a5fa'},
+      {label:'TLD Query',color:'#c084fc'},
+      {label:'Authoritative',color:'#f59e0b'},
+      {label:'Final Answer',color:'#22c55e'}
+    ],
+
+    render: function(container, engine) {
+      engine.buildVisual(container);
+      engine._setStatus('Click any component to learn more');
+    },
+
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        var shape = bg.querySelector(':scope > :first-child');
+        if(!shape)return;
+        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+
+    onReplay: function(engine) {
+      engine.t = 0;
+    }
+  });
+});
 })();

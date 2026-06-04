@@ -2,47 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Packet Travel Diagram | Consica Academy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Packets — Interactive Diagram | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="page-wrapper" role="main">
-    <header class="top-header">
-      <div class="header-badge"><span class="badge-icon" aria-hidden="true">&#9670;</span><span class="badge-text">Consica Academy</span></div>
-      <h1 class="header-title">How Data Travels in Packets</h1>
-      <p class="header-sub">Explorer Pack &middot; Module 1: How Computer Works &middot; Chapter 5: Packets</p>
-    </header>
-    <figure class="diagram-area" role="figure" aria-label="Packet animation diagram showing data splitting into packets, traveling across routers, and reassembling">
-      <svg id="diagram-svg" class="diagram-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
-      <figcaption class="visually-hidden">Animation: A file is split into 7 colored packets, each takes a path through 4 network routers, and they reassemble at the destination.</figcaption>
-    </figure>
-    <section class="progress-section" aria-label="Animation stage progress">
-      <div class="progress-track">
-        <div class="progress-step" data-step="1"><span class="progress-dot" aria-hidden="true"></span><span class="progress-line" aria-hidden="true"></span></div>
-        <div class="progress-step" data-step="2"><span class="progress-dot" aria-hidden="true"></span><span class="progress-line" aria-hidden="true"></span></div>
-        <div class="progress-step" data-step="3"><span class="progress-dot" aria-hidden="true"></span></div>
-      </div>
-      <div class="progress-labels">
-        <span class="progress-label" data-label="1">Splitting</span>
-        <span class="progress-label" data-label="2">Sending</span>
-        <span class="progress-label" data-label="3">Reassembling</span>
-      </div>
-    </section>
-    <section class="controls-section" aria-label="Animation controls">
-      <div class="status-bar"><span class="status-text" id="statusText">Click <strong>Start</strong> to begin</span><span class="packet-counter" id="packetCounter" aria-live="polite"></span></div>
-      <div class="controls-row">
-        <button class="ctrl-btn primary" id="startBtn" aria-label="Start animation">Start</button>
-        <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation" disabled>Pause</button>
-        <button class="ctrl-btn" id="resetBtn" aria-label="Reset animation">Reset</button>
-        <button class="ctrl-btn" id="stepBtn" aria-label="Step one stage">Step</button>
-      </div>
-    </section>
-    <section class="legend" aria-label="Packet legend">
-      <div class="legend-title">Packets</div>
-      <div class="legend-items" id="legendItems"></div>
-    </section>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

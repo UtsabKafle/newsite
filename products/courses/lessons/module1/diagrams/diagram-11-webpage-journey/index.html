@@ -2,58 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Journey of a Webpage — Consica Academy</title>
-  <meta name="description" content="Interactive animated diagram showing the full end-to-end journey of how a webpage loads.">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Webpage Journey — Interactive Diagram | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="app" id="app">
-    <header class="app-header">
-      <div class="header-inner">
-        <p class="badge">Explorer Pack &middot; Module 1 &middot; Chapter 11</p>
-        <h1 class="app-title">The Journey of a Webpage</h1>
-        <p class="app-subtitle">Watch what happens when you visit <strong>consicaacademy.com</strong></p>
-      </div>
-      <div class="progress-area">
-        <div class="progress-label"><span id="progressText">0 / 8 Steps</span><span id="timeDisplay"></span></div>
-        <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="8" aria-label="Journey progress"><div class="progress-fill" id="progressFill"></div></div>
-      </div>
-    </header>
-    <main class="main-content" id="main-content">
-      <div class="diagram-wrapper" id="diagramWrapper">
-        <div class="steps-grid" id="stepsGrid"></div>
-        <svg class="arrows-overlay" id="arrowsOverlay" aria-hidden="true">
-          <defs>
-            <marker id="arrow-pending" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.12)" /></marker>
-            <marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0959C8" /></marker>
-            <marker id="arrow-completed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#22c55e" /></marker>
-          </defs>
-        </svg>
-      </div>
-      <div class="controls-bar">
-        <button class="ctrl-btn ctrl-play" id="playBtn" aria-label="Play animation" type="button"><span class="ctrl-icon">&#9654;</span><span class="ctrl-label">Play</span></button>
-        <button class="ctrl-btn ctrl-pause" id="pauseBtn" aria-label="Pause animation" type="button" disabled><span class="ctrl-icon">&#9208;</span><span class="ctrl-label">Pause</span></button>
-        <button class="ctrl-btn ctrl-reset" id="resetBtn" aria-label="Reset animation" type="button"><span class="ctrl-icon">&#10227;</span><span class="ctrl-label">Reset</span></button>
-      </div>
-      <div class="completion-banner" id="completionBanner" hidden><p>&#127881; <strong>Journey Complete!</strong> The webpage loaded in <span id="totalTime">0.8</span> seconds &mdash; faster than you can blink!</p></div>
-    </main>
-  </div>
-  <div class="modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
-    <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-content" role="document">
-      <button class="modal-close" id="modalClose" aria-label="Close explanation" type="button">&times;</button>
-      <div class="modal-body">
-        <span class="modal-emoji" id="modalEmoji"></span>
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <p class="modal-step-num" id="modalStepNum"></p>
-        <p class="modal-detail" id="modalDetail"></p>
-        <p class="modal-explanation" id="modalExplanation"></p>
-      </div>
-    </div>
-  </div>
-  <div class="sr-only" aria-live="assertive" aria-atomic="true" id="ariaLive"></div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

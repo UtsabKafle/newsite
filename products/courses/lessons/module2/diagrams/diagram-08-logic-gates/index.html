@@ -2,151 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagram 08: Logic Gates | Consica Labs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Logic Gates — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="app-wrapper">
-    <header role="banner" class="app-header">
-      <div class="brand">Consica Labs</div>
-      <h1>Logic Gates</h1>
-    </header>
-    <main id="main-content" role="main">
-      <div class="gates-grid" id="gatesGrid">
-        <!-- AND Gate -->
-        <div class="gate-card" data-gate="and" role="region" aria-label="AND gate">
-          <h2>AND</h2>
-          <div class="gate-body">
-            <div class="gate-inputs">
-              <button class="input-switch" data-gate="and" data-input="a" aria-label="AND gate input A, currently 0" tabindex="0">A: 0</button>
-              <button class="input-switch" data-gate="and" data-input="b" aria-label="AND gate input B, currently 0" tabindex="0">B: 0</button>
-            </div>
-            <div class="gate-symbol">
-              <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20 10 L20 70 L50 70 Q85 70 85 40 Q85 10 50 10 Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-                <line x1="0" y1="20" x2="20" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="0" y1="60" x2="20" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="85" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="gate-output">
-              <span class="output-bulb" id="andOutput" data-state="0" aria-label="AND gate output, currently 0">0</span>
-              <span class="output-label">OUT</span>
-            </div>
-          </div>
-          <div class="truth-table" id="andTruth" role="table" aria-label="AND gate truth table">
-            <div class="tt-row tt-header"><span>A</span><span>B</span><span>OUT</span></div>
-            <div class="tt-row" data-a="0" data-b="0"><span>0</span><span>0</span><span>0</span></div>
-            <div class="tt-row" data-a="0" data-b="1"><span>0</span><span>1</span><span>0</span></div>
-            <div class="tt-row" data-a="1" data-b="0"><span>1</span><span>0</span><span>0</span></div>
-            <div class="tt-row" data-a="1" data-b="1"><span>1</span><span>1</span><span>1</span></div>
-          </div>
-        </div>
-
-        <!-- OR Gate -->
-        <div class="gate-card" data-gate="or" role="region" aria-label="OR gate">
-          <h2>OR</h2>
-          <div class="gate-body">
-            <div class="gate-inputs">
-              <button class="input-switch" data-gate="or" data-input="a" aria-label="OR gate input A, currently 0" tabindex="0">A: 0</button>
-              <button class="input-switch" data-gate="or" data-input="b" aria-label="OR gate input B, currently 0" tabindex="0">B: 0</button>
-            </div>
-            <div class="gate-symbol">
-              <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20 10 Q15 40 20 70 L50 70 Q85 70 85 40 Q85 10 50 10 Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-                <path d="M20 10 Q18 40 20 70" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-                <line x1="0" y1="20" x2="20" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="0" y1="60" x2="20" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="85" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="gate-output">
-              <span class="output-bulb" id="orOutput" data-state="0" aria-label="OR gate output, currently 0">0</span>
-              <span class="output-label">OUT</span>
-            </div>
-          </div>
-          <div class="truth-table" id="orTruth" role="table" aria-label="OR gate truth table">
-            <div class="tt-row tt-header"><span>A</span><span>B</span><span>OUT</span></div>
-            <div class="tt-row" data-a="0" data-b="0"><span>0</span><span>0</span><span>0</span></div>
-            <div class="tt-row" data-a="0" data-b="1"><span>0</span><span>1</span><span>1</span></div>
-            <div class="tt-row" data-a="1" data-b="0"><span>1</span><span>0</span><span>1</span></div>
-            <div class="tt-row" data-a="1" data-b="1"><span>1</span><span>1</span><span>1</span></div>
-          </div>
-        </div>
-
-        <!-- NOT Gate -->
-        <div class="gate-card" data-gate="not" role="region" aria-label="NOT gate">
-          <h2>NOT</h2>
-          <div class="gate-body">
-            <div class="gate-inputs">
-              <button class="input-switch" data-gate="not" data-input="a" aria-label="NOT gate input A, currently 0" tabindex="0">A: 0</button>
-            </div>
-            <div class="gate-symbol">
-              <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <polygon points="20,10 70,40 20,70" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-                <line x1="0" y1="40" x2="20" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="70" y1="40" x2="80" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <circle cx="80" cy="40" r="5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-                <line x1="85" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="gate-output">
-              <span class="output-bulb" id="notOutput" data-state="0" aria-label="NOT gate output, currently 0">0</span>
-              <span class="output-label">OUT</span>
-            </div>
-          </div>
-          <div class="truth-table" id="notTruth" role="table" aria-label="NOT gate truth table">
-            <div class="tt-row tt-header"><span>A</span><span>OUT</span></div>
-            <div class="tt-row" data-a="0"><span>0</span><span>1</span></div>
-            <div class="tt-row" data-a="1"><span>1</span><span>0</span></div>
-          </div>
-        </div>
-
-        <!-- NAND Gate (bonus) -->
-        <div class="gate-card" data-gate="nand" role="region" aria-label="NAND gate">
-          <h2>NAND</h2>
-          <div class="gate-body">
-            <div class="gate-inputs">
-              <button class="input-switch" data-gate="nand" data-input="a" aria-label="NAND gate input A, currently 0" tabindex="0">A: 0</button>
-              <button class="input-switch" data-gate="nand" data-input="b" aria-label="NAND gate input B, currently 0" tabindex="0">B: 0</button>
-            </div>
-            <div class="gate-symbol">
-              <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20 10 L20 70 L50 70 Q85 70 85 40 Q85 10 50 10 Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-                <line x1="0" y1="20" x2="20" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="0" y1="60" x2="20" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <line x1="85" y1="40" x2="95" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                <circle cx="95" cy="40" r="5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-                <line x1="100" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="gate-output">
-              <span class="output-bulb" id="nandOutput" data-state="0" aria-label="NAND gate output, currently 0">0</span>
-              <span class="output-label">OUT</span>
-            </div>
-          </div>
-          <div class="truth-table" id="nandTruth" role="table" aria-label="NAND gate truth table">
-            <div class="tt-row tt-header"><span>A</span><span>B</span><span>OUT</span></div>
-            <div class="tt-row" data-a="0" data-b="0"><span>0</span><span>0</span><span>1</span></div>
-            <div class="tt-row" data-a="0" data-b="1"><span>0</span><span>1</span><span>1</span></div>
-            <div class="tt-row" data-a="1" data-b="0"><span>1</span><span>0</span><span>1</span></div>
-            <div class="tt-row" data-a="1" data-b="1"><span>1</span><span>1</span><span>0</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="controls" role="toolbar" aria-label="Animation controls">
-        <button id="playBtn" class="ctrl-btn" aria-label="Cycle through all input combinations">Play</button>
-        <button id="pauseBtn" class="ctrl-btn" aria-label="Stop cycling">Pause</button>
-        <button id="resetBtn" class="ctrl-btn" aria-label="Reset all inputs to 0">Reset</button>
-      </div>
-    </main>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

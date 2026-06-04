@@ -1,251 +1,29 @@
-(function(){
-  const canvas=document.getElementById('storageCanvas');
-  const ctx=canvas.getContext('2d');
-  const tooltip=document.getElementById('tooltip');
-  const stepInd=document.getElementById('stepIndicator');
-  const playBtn=document.getElementById('playBtn');
-  const pauseBtn=document.getElementById('pauseBtn');
-  const resetBtn=document.getElementById('resetBtn');
-  const driveBtns=document.querySelectorAll('.drive-btn');
+(function(){'use strict';
+var components = [    {id:"ssd",name:"Solid State Drive",category:"Storage",purpose:"Provides fast storage for the OS, applications, and frequently used files",description:"An SSD (2.5-inch SATA or M.2 NVMe) connects to the motherboard and provides significantly faster read/write speeds than HDDs.",why:"An SSD is the single best upgrade for improving overall system responsiveness",analogy:"Like upgrading from a bicycle to a sports car for data access",funFact:"Even budget SSDs are 5x faster than the fastest HDDs for everyday tasks",takeaway:"Install the OS and applications on an SSD for the best experience",mistake:"SATA SSDs are limited by the SATA interface (550 MB/s), while NVMe is much faster",descriptionDetailed:"SATA SSDs use the 2.5-inch form factor and connect via SATA cables and power. M.2 SSDs plug directly into the motherboard. NVMe SSDs use PCIe lanes for speeds up to 14 GB/s (PCIe 5.0)."},    {id:"hdd",name:"Hard Disk Drive",category:"Storage",purpose:"Provides high-capacity, low-cost storage for bulk data and backups",description:"A 3.5-inch HDD mounts in a drive bay and connects via SATA, offering terabytes of storage at the lowest cost per gigabyte.",why:"HDDs are ideal for storing large media collections and backups",analogy:"Like a warehouse that stores lots of inventory cheaply",funFact:"The largest consumer HDDs now hold up to 24 TB",takeaway:"Use HDDs for file storage and backups, SSDs for active use",mistake:"HDDs are more fragile than SSDs—they can fail if dropped during operation",descriptionDetailed:"Desktop HDDs are 3.5 inches and spin at 7,200 RPM. They require a SATA data cable and a power connector from the PSU. Vibration from multiple HDDs can affect performance in the same case."},    {id:"bracket",name:"Mounting Bracket",category:"Hardware",purpose:"Secures storage drives inside the case\\'s drive bays",description:"Brackets or drive cages hold SSDs or HDDs in place, using screws or tool-less slides to prevent movement during operation.",why:"Brackets prevent drive movement that could cause noise or connection issues",analogy:"Like a seat that holds a passenger securely in place",funFact:"Many modern cases have tool-less SSD mounting brackets",takeaway:"Secure all drives firmly to prevent vibration and disconnection",mistake:"Don\\'t overtighten screws into SSDs—they have no moving parts but the PCB can crack",descriptionDetailed:"HDDs typically mount in 3.5-inch bays with four screws on the sides. 2.5-inch SSDs may need an adapter bracket. Some cases have dedicated SSD mounts behind the motherboard tray."},    {id:"cable",name:"SATA Data Cable",category:"Hardware",purpose:"Transfers data between the storage drive and the motherboard",description:"A SATA cable is a thin data cable with L-shaped 7-pin connectors that connects SATA drives to the motherboard\\'s SATA ports.",why:"SATA cables carry all data between storage and the system",analogy:"Like the telephone line between two offices",funFact:"SATA cables are rated for only about 50 insertion cycles",takeaway:"Use quality SATA cables with secure locking latches",mistake:"SATA cables don\\'t carry power—you need a separate SATA power cable from the PSU",descriptionDetailed:"SATA 3.0 supports 6 Gbps (about 550 MB/s after encoding). Cables come in lengths from 12 to 36 inches. Locking latches prevent accidental disconnection. Right-angle connectors help with tight spaces."},    {id:"m2",name:"M.2 Slot",category:"Hardware",purpose:"Directly connects NVMe and SATA SSDs to the motherboard without cables",description:"The M.2 slot is a compact connector on the motherboard that accepts M.2 SSDs, securing them with a single screw at the far end.",why:"M.2 eliminates cables and provides the highest possible SSD speeds",analogy:"Like a book that slides into a built-in slot on a shelf",funFact:"M.2 slots support both NVMe (PCIe) and SATA protocols depending on keying",takeaway:"Check if your M.2 slot supports SATA, NVMe, or both before buying",mistake:"",descriptionDetailed:"M.2 SSDs come in lengths 2230, 2242, 2260, 2280, and 22110. The screw mounting position varies by length. Some M.2 slots share bandwidth with SATA ports or PCIe slots."},    {id:"tray",name:"Drive Tray",category:"Hardware",purpose:"Holds drives in hot-swap bays for easy installation and removal",description:"Drive trays are removable carriers that hold drives and slide into the case\\'s front bays, often with tool-less design and locking mechanisms.",why:"Trays make drive installation and replacement quick and tool-free",analogy:"Like a removable drawer that\\'s easy to access and replace",funFact:"Hot-swap trays allow drive replacement without powering down the system",takeaway:"Drive trays typically accommodate both 3.5-inch and 2.5-inch drives",mistake:"Not all trays are compatible with all cases—they\\'re often proprietary",descriptionDetailed:"Trays have mounting holes for different drive sizes. Some include anti-vibration gaskets. Hot-swap trays require a backplane with SATA or SAS connectors. Locking trays prevent unauthorized removal."}];
+var connections = [{from:"ssd",to:"hdd"},{from:"hdd",to:"bracket"},{from:"bracket",to:"cable"},{from:"cable",to:"m2"},{from:"m2",to:"tray"}];
+var steps = [{label:"Step 1: Solid State Drive",status:"Exploring: Solid State Drive - Provides fast storage for the OS, applications, and frequently used files"},{label:"Step 2: Hard Disk Drive",status:"Exploring: Hard Disk Drive - Provides high-capacity, low-cost storage for bulk data and backups"},{label:"Step 3: Mounting Bracket",status:"Exploring: Mounting Bracket - Secures storage drives inside the case\\'s drive bays"},{label:"Step 4: SATA Data Cable",status:"Exploring: SATA Data Cable - Transfers data between the storage drive and the motherboard"},{label:"Step 5: M.2 Slot",status:"Exploring: M.2 Slot - Directly connects NVMe and SATA SSDs to the motherboard without cables"},{label:"Step 6: Drive Tray",status:"Exploring: Drive Tray - Holds drives in hot-swap bays for easy installation and removal"}];
+var tour = [{title:"Solid State Drive",description:"Provides fast storage for the OS, applications, and frequently used files",componentId:"ssd"},{title:"Hard Disk Drive",description:"Provides high-capacity, low-cost storage for bulk data and backups",componentId:"hdd"},{title:"Mounting Bracket",description:"Secures storage drives inside the case\\'s drive bays",componentId:"bracket"},{title:"SATA Data Cable",description:"Transfers data between the storage drive and the motherboard",componentId:"cable"},{title:"M.2 Slot",description:"Directly connects NVMe and SATA SSDs to the motherboard without cables",componentId:"m2"},{title:"Drive Tray",description:"Holds drives in hot-swap bays for easy installation and removal",componentId:"tray"}];
 
-  const W=900,H=500;
-  canvas.width=W;canvas.height=H;
-
-  const drives=[
-    {id:'m2',name:'M.2 NVMe SSD',desc:'Installs directly on the motherboard at a 30-degree angle. Push in, then screw down. No cables needed. Up to 7000MB/s.',
-     x:450,y:180,w:160,h:60,color:'#2a6a6a',installDesc:'Insert at 30\u00b0 angle, push flat, secure with screw'},
-    {id:'ssd',name:'2.5" SSD',desc:'Mounts in a drive bay. Connect SATA data cable (to motherboard) and SATA power (from PSU). Slim form factor.',
-     x:450,y:330,w:80,h:50,color:'#0959C8',installDesc:'Slide into bay, connect SATA data + power cables'},
-    {id:'hdd',name:'3.5" HDD',desc:'Larger mechanical drive for bulk storage. Same SATA connections as SSD. Handle gently \u2014 sensitive to shocks.',
-     x:450,y:420,w:100,h:60,color:'#5a4a2a',installDesc:'Slide into 3.5" bay, connect SATA data + power, secure with screws'}
-  ];
-
-  let activeDrive=-1;
-  let isPlaying=false;
-  let cycleTimer=null;
-
-  function drawM2(d,isActive){
-    ctx.save();ctx.translate(d.x,d.y);
-    ctx.fillStyle=isActive?d.color+'70':d.color+'20';
-    ctx.strokeStyle=isActive?'#0959C8':d.color+'60';
-    ctx.lineWidth=isActive?3:1;
-    ctx.shadowColor=isActive?'#0959C880':'transparent';
-    ctx.shadowBlur=isActive?15:0;
-
-    ctx.beginPath();
-    ctx.moveTo(-70,25);ctx.lineTo(-70,-25);
-    ctx.lineTo(50,-25);ctx.lineTo(70,-10);
-    ctx.lineTo(70,10);ctx.lineTo(50,25);
-    ctx.closePath();
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle='#fff';ctx.font='bold 10px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText('M.2 NVMe',0,3);
-
-    ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
-    ctx.beginPath();
-    ctx.moveTo(-70,35);ctx.lineTo(70,35);
-    ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='8px Inter,sans-serif';
-    ctx.fillText('Motherboard',0,48);
-    ctx.setLineDash([]);
-
-    ctx.restore();
-  }
-
-  function drawDrive(d,isActive){
-    ctx.save();ctx.translate(d.x,d.y);
-    ctx.fillStyle=isActive?d.color+'70':d.color+'20';
-    ctx.strokeStyle=isActive?'#0959C8':d.color+'60';
-    ctx.lineWidth=isActive?3:1;
-    ctx.shadowColor=isActive?'#0959C880':'transparent';
-    ctx.shadowBlur=isActive?15:0;
-
-    roundRect(ctx,-d.w/2,-d.h/2,d.w,d.h,4);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle='#fff';ctx.font='bold 9px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText(d.name,0,3);
-
-    ctx.restore();
-  }
-
-  function drawSataCables(x,y,color){
-    ctx.save();ctx.translate(x,y);
-    ctx.strokeStyle=color+'80';ctx.lineWidth=2;
-    ctx.setLineDash([4,4]);
-    ctx.beginPath();
-    ctx.moveTo(0,0);ctx.quadraticCurveTo(30,-10,50,0);
-    ctx.moveTo(0,5);ctx.quadraticCurveTo(30,15,50,5);
-    ctx.stroke();
-    ctx.fillStyle=color;ctx.font='7px Inter,sans-serif';
-    ctx.fillText('SATA',-15,-3);
-    ctx.setLineDash([]);
-    ctx.restore();
-  }
-
-  function roundRect(ctx,x,y,w,h,r){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
-    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);
-    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);
-    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);
-    ctx.quadraticCurveTo(x,y,x+r,y);
-    ctx.closePath();
-  }
-
-  function render(showM2,showSSD,showHDD){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#060910';ctx.fillRect(0,0,W,H);
-
-    ctx.fillStyle='rgba(255,255,255,0.03)';ctx.font='10px Inter,sans-serif';
-    ctx.fillText('M.2 Slot (on motherboard)',60,110);
-    ctx.fillText('Drive Bay',60,280);
-
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
-    ctx.strokeRect(60,140,780,100);
-    ctx.strokeRect(60,300,780,180);
-    ctx.setLineDash([]);
-
-    const isM2=activeDrive===0;
-    if(showM2 || isM2)drawM2(drives[0],isM2);
-
-    const isSSD=activeDrive===1;
-    if(showSSD || isSSD){
-      drives[1].y=340;
-      drawDrive(drives[1],isSSD);
-      drawSataCables(drives[1].x-30,drives[1].y-10,'#0959C8');
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Storage',
+    subtitle: 'Computer Assembly',
+    desc: 'Compare storage drives and installation methods.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to explore');
+    },
+    
+    animate: function(engine) {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    const isHDD=activeDrive===2;
-    if(showHDD || isHDD){
-      drives[2].y=430;
-      drawDrive(drives[2],isHDD);
-      drawSataCables(drives[2].x-35,drives[2].y-10,'#5a4a2a');
-    }
-  }
-
-  function showTooltip(x,y,text,title){
-    tooltip.style.display='block';
-    tooltip.style.left=Math.min(x+15,W-270)+'px';
-    tooltip.style.top=Math.min(y+15,H-130)+'px';
-    tooltip.innerHTML=`<span class="tt-name">${title}</span><span class="tt-desc">${text}</span>`;
-    tooltip.setAttribute('aria-hidden','false');
-  }
-
-  function hideTooltip(){
-    tooltip.style.display='none';
-    tooltip.setAttribute('aria-hidden','true');
-  }
-
-  function getCanvasPos(e){
-    const rect=canvas.getBoundingClientRect();
-    const scaleX=W/rect.width;
-    const scaleY=H/rect.height;
-    const clientX=e.clientX||(e.touches&&e.touches[0].clientX);
-    const clientY=e.clientY||(e.touches&&e.touches[0].clientY);
-    return {x:(clientX-rect.left)*scaleX,y:(clientY-rect.top)*scaleY};
-  }
-
-  function hitTest(pos){
-    const regions=[
-      {idx:0,x:450,y:180,w:160,h:60},
-      {idx:1,x:450,y:340,w:80,h:50},
-      {idx:2,x:450,y:430,w:100,h:60}
-    ];
-    for(let i=regions.length-1;i>=0;i--){
-      const r=regions[i];
-      if(Math.abs(pos.x-r.x)<r.w/2+10 && Math.abs(pos.y-r.y)<r.h/2+10)return r.idx;
-    }
-    return -1;
-  }
-
-  function selectDrive(idx){
-    if(isPlaying)return;
-    if(activeDrive===idx){
-      activeDrive=-1;
-      hideTooltip();
-      updateButtons();
-      stepInd.textContent='Ready';
-      render(true,true,true);
-      return;
-    }
-    activeDrive=idx;
-    const d=drives[idx];
-    showTooltip(d.x-60,d.y-50,d.installDesc,d.name);
-    updateButtons();
-    stepInd.textContent=d.name;
-    render(true,true,true);
-  }
-
-  function updateButtons(){
-    driveBtns.forEach((b,i)=>b.classList.toggle('active',i===activeDrive));
-  }
-
-  function handleClick(e){
-    const pos=getCanvasPos(e);
-    const idx=hitTest(pos);
-    if(idx>=0)selectDrive(idx);
-    else{activeDrive=-1;hideTooltip();updateButtons();stepInd.textContent='Ready';render(true,true,true)}
-  }
-
-  canvas.addEventListener('click',handleClick);
-  canvas.addEventListener('touchstart',(e)=>{e.preventDefault();handleClick(e)},{passive:false});
-
-  driveBtns.forEach((btn,i)=>{
-    btn.addEventListener('click',()=>selectDrive(i));
   });
-
-  function playCycle(){
-    if(isPlaying)return;
-    isPlaying=true;
-    playBtn.textContent='\u25B6 Running';
-    playBtn.setAttribute('aria-label','Cycling through drive installations');
-    let idx=0;
-    function step(){
-      if(!isPlaying)return;
-      activeDrive=idx;
-      const d=drives[idx];
-      showTooltip(d.x-60,d.y-50,d.installDesc,d.name);
-      updateButtons();
-      stepInd.textContent=d.name;
-      if(idx===0)render(true,false,false);
-      else if(idx===1)render(false,true,false);
-      else render(false,false,true);
-      idx=(idx+1)%drives.length;
-      cycleTimer=setTimeout(step,2500);
-    }
-    step();
-  }
-
-  function pauseCycle(){
-    isPlaying=false;
-    if(cycleTimer){clearTimeout(cycleTimer);cycleTimer=null}
-    playBtn.textContent='\u25B6 Play';
-    playBtn.setAttribute('aria-label','Cycle through drive installations');
-  }
-
-  function resetView(){
-    pauseCycle();
-    activeDrive=-1;
-    hideTooltip();
-    updateButtons();
-    stepInd.textContent='Ready';
-    render(true,true,true);
-  }
-
-  playBtn.addEventListener('click',playCycle);
-  pauseBtn.addEventListener('click',pauseCycle);
-  resetBtn.addEventListener('click',resetView);
-
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape'){activeDrive=-1;hideTooltip();updateButtons();stepInd.textContent='Ready';render(true,true,true)}
-  });
-
-  resetView();
+});
 })();

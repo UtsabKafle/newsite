@@ -2,89 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagram 07: Binary Numbers | Consica Labs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Binary — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="app-wrapper">
-    <header role="banner" class="app-header">
-      <div class="brand">Consica Labs</div>
-      <h1>Binary Number System</h1>
-    </header>
-    <main id="main-content" role="main">
-      <div class="binary-display" role="region" aria-label="8 bit binary display">
-        <div class="bits-container" id="bitsContainer" role="group" aria-label="8 binary bits from most significant to least significant">
-          <div class="bit-wrapper" data-index="0">
-            <span class="bit-placeholder">128</span>
-            <button class="bit" data-bit="7" aria-label="Bit 7, value 128" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="1">
-            <span class="bit-placeholder">64</span>
-            <button class="bit" data-bit="6" aria-label="Bit 6, value 64" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="2">
-            <span class="bit-placeholder">32</span>
-            <button class="bit" data-bit="5" aria-label="Bit 5, value 32" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="3">
-            <span class="bit-placeholder">16</span>
-            <button class="bit" data-bit="4" aria-label="Bit 4, value 16" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="4">
-            <span class="bit-placeholder">8</span>
-            <button class="bit" data-bit="3" aria-label="Bit 3, value 8" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="5">
-            <span class="bit-placeholder">4</span>
-            <button class="bit" data-bit="2" aria-label="Bit 2, value 4" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="6">
-            <span class="bit-placeholder">2</span>
-            <button class="bit" data-bit="1" aria-label="Bit 1, value 2" tabindex="0">0</button>
-          </div>
-          <div class="bit-wrapper" data-index="7">
-            <span class="bit-placeholder">1</span>
-            <button class="bit" data-bit="0" aria-label="Bit 0, value 1" tabindex="0">0</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="value-panel" role="region" aria-label="Interpretation panel" aria-live="polite">
-        <div class="value-row">
-          <span class="value-label">Decimal</span>
-          <span class="value-display" id="decimalValue">0</span>
-        </div>
-        <div class="value-row">
-          <span class="value-label">Hexadecimal</span>
-          <span class="value-display" id="hexValue">0x00</span>
-        </div>
-        <div class="value-row">
-          <span class="value-label">ASCII</span>
-          <span class="value-display" id="asciiValue">NUL</span>
-        </div>
-        <div class="value-row">
-          <span class="value-label">Color</span>
-          <span class="color-swatch" id="colorSwatch" style="background:#000"></span>
-          <span class="value-display" id="colorValue">#000000</span>
-        </div>
-      </div>
-
-      <div class="controls" role="toolbar" aria-label="Animation controls">
-        <button id="playBtn" class="ctrl-btn" aria-label="Start auto count from 0 to 255">Play</button>
-        <button id="pauseBtn" class="ctrl-btn" aria-label="Pause auto count">Pause</button>
-        <button id="resetBtn" class="ctrl-btn" aria-label="Reset bits to 0">Reset</button>
-        <div class="speed-control" role="group" aria-label="Auto count speed">
-          <label for="speedSlider" class="speed-label">Speed</label>
-          <input type="range" id="speedSlider" min="1" max="10" value="5" aria-label="Counting speed">
-        </div>
-      </div>
-    </main>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

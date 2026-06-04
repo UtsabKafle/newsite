@@ -1,197 +1,45 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"driver",name:"Hardware Driver",category:"Software",purpose:"Enables communication between the OS and specific hardware components",description:"Drivers act as translators between the operating system and hardware, converting generic OS commands into device-specific instructions.",why:"Without the correct drivers, hardware either doesn\\'t work or works poorly",analogy:"Like an interpreter that translates between two languages",funFact:"The Windows Driver Kit allows anyone to develop signed drivers for Windows",takeaway:"Always download drivers from the official manufacturer website, not third-party sites",mistake:"Installing the wrong driver version can cause crashes or hardware malfunction",descriptionDetailed:"Drivers run in kernel or user mode. Signed drivers are verified by the OS for security. Driver updates can improve performance and fix bugs. Device Manager shows all installed drivers with status indicators."},    {id:"utility",name:"System Utility",category:"Software",purpose:"Provides tools for system configuration, monitoring, and maintenance",description:"Utilities include manufacturer software for overclocking, fan control, lighting control, and system monitoring, plus third-party tools.",why:"Utilities give you control over hardware settings not available in the OS",analogy:"Like a remote control that adjusts TV settings beyond basic on/off",funFact:"MSI Afterburner is one of the most popular GPU overclocking utilities",takeaway:"Install only the utilities you need—bloatware slows down your system",mistake:"Some manufacturer utilities run background services that consume resources unnecessarily",descriptionDetailed:"Common utilities include CPU-Z (system info), HWMonitor (temperatures), GPU-Z (graphics info), and manufacturer-specific software for RGB control and fan curves. Many utilities can create system restore points."},    {id:"codec",name:"Audio/Video Codec",category:"Software",purpose:"Encodes and decodes digital media for playback and editing",description:"Codecs compress raw audio and video data into manageable file sizes (encoding) and decompress them for playback (decoding).",why:"Codecs make it possible to store and stream high-quality media efficiently",analogy:"Like a packing system that squeezes clothes into a suitcase and unpacks them",funFact:"H.264 is the most widely used video codec, supported by virtually all devices",takeaway:"Codec packs like K-Lite enable playback of many media formats",mistake:"Missing codecs cause \\'no audio\\' or \\'cannot play\\' errors in media players",descriptionDetailed:"Lossy codecs (MP3, AAC, H.264) sacrifice quality for size. Lossless codecs (FLAC, PNG) preserve original quality. Video codecs use inter-frame compression to reduce file size. Modern codecs like AV1 offer better compression efficiency."},    {id:"runtime",name:"Runtime Library",category:"Software",purpose:"Provides pre-built functions that applications need to run",description:"Runtimes like DirectX, .NET Framework, Visual C++ Redistributable, and Java provide common code libraries that many applications depend on.",why:"Runtimes ensure compatibility and provide standard functions for applications",analogy:"Like shared kitchen facilities in an apartment building that all residents can use",funFact:"Games require DirectX runtime, which installs with Windows or game installers",takeaway:"Install runtimes when prompted—many applications won\\'t start without them",mistake:"Manually deleting runtime files can break multiple applications",descriptionDetailed:"DirectX handles graphics and audio for games. .NET Framework supports C# applications. Visual C++ Redistributables are needed by many programs compiled in C++. Java Runtime Environment runs Java applications."},    {id:"update",name:"Software Update",category:"Software",purpose:"Keeps drivers, utilities, and applications current with latest fixes",description:"Update mechanisms check for newer versions of installed software and apply patches that fix bugs, close security holes, and add features.",why:"Regular updates are critical for security and stability",analogy:"Like getting regular check-ups and vaccinations to stay healthy",funFact:"Windows Update has been providing automatic updates since Windows 98",takeaway:"Enable automatic updates where possible for the best protection",mistake:"Delaying updates leaves security vulnerabilities unpatched",descriptionDetailed:"Updates can be security patches, feature updates, or cumulative rollups. Windows Update manages OS and Microsoft driver updates. Third-party software has its own update checkers. Some updates require system reboot to apply."},    {id:"config",name:"Software Configuration",category:"Software",purpose:"Customizes settings for hardware and software to user preferences",description:"Configuration involves adjusting settings in the OS, BIOS, or individual applications to optimize performance, security, and user experience.",why:"Proper configuration unlocks performance and tailors the system to your needs",analogy:"Like adjusting the seat, mirrors, and steering wheel in a rental car",funFact:"Windows has over 200 configurable Group Policy settings for enterprise management",takeaway:"Default settings work for most users, but tweaking can improve performance",mistake:"Unoptimized settings can leave performance on the table—like RAM running at default JEDEC speeds instead of XMP",descriptionDetailed:"Common configurations include enabling XMP for RAM speed, setting power plan to High Performance, disabling startup programs, and configuring antivirus exclusions for performance applications."}];
+var connections = [{from:"driver",to:"utility"},{from:"utility",to:"codec"},{from:"codec",to:"runtime"},{from:"runtime",to:"update"},{from:"update",to:"config"}];
+var steps = [{label:"Step 1: Hardware Driver",status:"Exploring: Hardware Driver - Enables communication between the OS and specific hardware components"},{label:"Step 2: System Utility",status:"Exploring: System Utility - Provides tools for system configuration, monitoring, and maintenance"},{label:"Step 3: Audio/Video Codec",status:"Exploring: Audio/Video Codec - Encodes and decodes digital media for playback and editing"},{label:"Step 4: Runtime Library",status:"Exploring: Runtime Library - Provides pre-built functions that applications need to run"},{label:"Step 5: Software Update",status:"Exploring: Software Update - Keeps drivers, utilities, and applications current with latest fixes"},{label:"Step 6: Software Configuration",status:"Exploring: Software Configuration - Customizes settings for hardware and software to user preferences"}];
+var tour = [{title:"Hardware Driver",description:"Enables communication between the OS and specific hardware components",componentId:"driver"},{title:"System Utility",description:"Provides tools for system configuration, monitoring, and maintenance",componentId:"utility"},{title:"Audio/Video Codec",description:"Encodes and decodes digital media for playback and editing",componentId:"codec"},{title:"Runtime Library",description:"Provides pre-built functions that applications need to run",componentId:"runtime"},{title:"Software Update",description:"Keeps drivers, utilities, and applications current with latest fixes",componentId:"update"},{title:"Software Configuration",description:"Customizes settings for hardware and software to user preferences",componentId:"config"}];
 
-  var state = { currentCat: '', step: -1, playing: false, timer: null, progTimer: null, progress: 0 };
-  var playBtn, pauseBtn, resetBtn, statusText;
-  var detailTitle, detailDesc, notifPopup, notifTitle, notifText;
-  var categories = {}, progressEls = {}, progFill = {}, progText = {};
-
-  var CAT_ORDER = ['display', 'network', 'sound', 'storage', 'chipset', 'usb', 'input'];
-  var CAT_NAMES = {
-    display: 'Display Adapters',
-    network: 'Network Adapters',
-    sound: 'Sound, video and game controllers',
-    storage: 'Storage Controllers',
-    chipset: 'System &amp; Chipset',
-    usb: 'Universal Serial Bus (USB)',
-    input: 'Keyboards &amp; Mice'
-  };
-  var CAT_SHORT = {
-    display: 'Display Adapters',
-    network: 'Network Adapters',
-    sound: 'Sound Controllers',
-    storage: 'Storage Controllers',
-    chipset: 'Chipset',
-    usb: 'USB Controllers',
-    input: 'Input Devices'
-  };
-
-  var CAT_INFO = {
-    display: 'Driver: NVIDIA GeForce Game Ready or AMD Adrenalin. Handles 2D/3D rendering, video playback, and GPU compute tasks. Essential for gaming and creative work.',
-    network: 'Driver: Intel Ethernet / Wi-Fi adapter driver. Enables wired and wireless network connectivity. Without it, you cannot access the internet or LAN.',
-    sound: 'Driver: Realtek / Intel Audio driver. Provides audio output through speakers/headphones and input through microphones. Includes HD Audio Manager.',
-    storage: 'Driver: Intel RST (Rapid Storage Technology) or NVMe driver. Manages SATA and NVMe storage controllers for proper drive detection and performance.',
-    chipset: 'Driver: Intel Chipset Driver or AMD Chipset Driver. Enables proper communication between CPU, RAM, PCIe, USB, and other system components.',
-    usb: 'Driver: USB 3.0 eXtensible Host Controller. Enables USB ports to work at full speed and supports power management for connected devices.',
-    input: 'Driver: HID (Human Interface Device) drivers. Supports keyboards, mice, touchpads, and other input devices. Usually handled automatically by Windows.'
-  };
-
-  function init() {
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    statusText = document.getElementById('statusText');
-    detailTitle = document.getElementById('detailTitle');
-    detailDesc = document.getElementById('detailDesc');
-    notifPopup = document.getElementById('notifPopup');
-    notifTitle = document.getElementById('notifTitle');
-    notifText = document.getElementById('notifText');
-
-    CAT_ORDER.forEach(function (cat) {
-      categories[cat] = document.getElementById('cat-' + cat);
-      progressEls[cat] = document.getElementById('progress-' + cat);
-      progFill[cat] = document.getElementById('prog-' + cat + '-fill');
-      progText[cat] = document.getElementById('prog-' + cat + '-text');
-
-      categories[cat].addEventListener('click', function () { selectCategory(cat); });
-      categories[cat].addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectCategory(cat); }
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Drivers',
+    subtitle: 'Computer Assembly',
+    desc: 'Match device drivers to their hardware and functions.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildDragMatching(container, {
+        items: [
+          {id: 'driver', label: 'Hardware Driver', slot: 'hwcomm'},
+          {id: 'utility', label: 'System Utility', slot: 'sysopt'},
+          {id: 'codec', label: 'Audio/Video Codec', slot: 'mediaplay'},
+          {id: 'runtime', label: 'Runtime Library', slot: 'appexec'},
+          {id: 'update', label: 'Software Update', slot: 'patch'},
+          {id: 'config', label: 'Software Configuration', slot: 'settings'}
+        ],
+        slots: [
+          {id: 'hwcomm', label: 'Hardware communication'},
+          {id: 'sysopt', label: 'System optimization'},
+          {id: 'mediaplay', label: 'Media playback support'},
+          {id: 'appexec', label: 'Application execution'},
+          {id: 'patch', label: 'Bug fixes and features'},
+          {id: 'settings', label: 'Software settings management'}
+        ]
       });
-      categories[cat].setAttribute('tabindex', '0');
-      categories[cat].setAttribute('role', 'button');
-      categories[cat].setAttribute('aria-label', 'View driver for ' + CAT_NAMES[cat]);
-    });
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    resetAll();
-    updateButtons();
-  }
-
-  function selectCategory(cat) {
-    if (state.playing) return;
-    state.currentCat = cat;
-    CAT_ORDER.forEach(function (c) {
-      categories[c].classList.toggle('active', c === cat);
-    });
-    detailTitle.textContent = CAT_NAMES[cat];
-    detailDesc.textContent = CAT_INFO[cat];
-    statusText.innerHTML = '<strong>' + CAT_SHORT[cat] + ':</strong> ' + CAT_INFO[cat].split('.')[0] + '.';
-    updateButtons();
-  }
-
-  function showNotification(cat) {
-    notifTitle.textContent = CAT_SHORT[cat] + ' driver installed';
-    notifText.textContent = CAT_SHORT[cat] + ' driver installed successfully';
-    notifPopup.classList.add('visible');
-    setTimeout(function () {
-      notifPopup.classList.remove('visible');
-    }, 2000);
-  }
-
-  function animateProgress(cat, callback) {
-    var p = 0;
-    progressEls[cat].removeAttribute('display');
-    var interval = setInterval(function () {
-      p += Math.random() * 15 + 5;
-      if (p >= 100) {
-        p = 100;
-        clearInterval(interval);
-        progFill[cat].setAttribute('width', '96');
-        progText[cat].textContent = '100%';
-        setTimeout(function () {
-          progressEls[cat].setAttribute('display', 'none');
-          categories[cat].classList.remove('active');
-          categories[cat].classList.add('done');
-          showNotification(cat);
-          if (callback) callback();
-        }, 400);
-      }
-      progFill[cat].setAttribute('width', Math.round(p * 0.96));
-      progText[cat].textContent = Math.round(p) + '%';
-    }, 100);
-    return interval;
-  }
-
-  function advanceStep() {
-    if (state.progTimer) { clearInterval(state.progTimer); state.progTimer = null; }
-    state.step++;
-    if (state.step >= CAT_ORDER.length) {
-      if (state.timer) { clearInterval(state.timer); state.timer = null; }
-      state.playing = false;
-      statusText.innerHTML = '<strong>All drivers installed!</strong> System is ready';
-      updateButtons();
-      return;
+    },
+    
+    animate: function() {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    var cat = CAT_ORDER[state.step];
-    selectCategory(cat);
-    state.progTimer = animateProgress(cat, function () {
-      if (state.playing && state.step < CAT_ORDER.length - 1) {
-        // Timer already set to advance
-      }
-    });
-    statusText.innerHTML = '<strong>Installing:</strong> ' + CAT_SHORT[cat] + ' driver...';
-    updateButtons();
-  }
-
-  function play() {
-    if (state.playing) return;
-    state.playing = true;
-    state.step = -1;
-    resetAll();
-    statusText.innerHTML = '<strong>Starting driver installation...</strong>';
-    state.timer = setInterval(advanceStep, 2500);
-    advanceStep();
-    updateButtons();
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    if (state.progTimer) { clearInterval(state.progTimer); state.progTimer = null; }
-    statusText.innerHTML = '<strong>Paused</strong> — installation in progress';
-    updateButtons();
-  }
-
-  function resetAll() {
-    CAT_ORDER.forEach(function (cat) {
-      categories[cat].classList.remove('active', 'done');
-      progressEls[cat].setAttribute('display', 'none');
-      if (progFill[cat]) progFill[cat].setAttribute('width', '0');
-      if (progText[cat]) progText[cat].textContent = '0%';
-    });
-    notifPopup.classList.remove('visible');
-    detailTitle.textContent = 'Select a driver category';
-    detailDesc.textContent = 'Click any category on the left to see which driver is needed and what it does.';
-  }
-
-  function reset() {
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    if (state.progTimer) { clearInterval(state.progTimer); state.progTimer = null; }
-    state.playing = false;
-    state.step = -1;
-    resetAll();
-    statusText.innerHTML = 'Press <strong>Play</strong> to install all drivers sequentially';
-    updateButtons();
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.step < 0 && !state.playing;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

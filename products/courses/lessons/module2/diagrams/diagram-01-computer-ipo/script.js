@@ -1,215 +1,40 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"input",name:"Input",category:"Input",purpose:"Accepts data and commands from the user or other systems into the computer",description:"Input devices like keyboards, mice, and sensors convert physical actions or environmental data into digital signals the computer can process.",why:"Input is how we communicate with computers and give them instructions",analogy:"Like your ears and eyes that gather information for your brain",funFact:"A typical keyboard registers keystrokes in less than 16 milliseconds",takeaway:"All computer operations start with input, whether from a user or another system",mistake:"Input isn\\'t limited to human actions—sensors, networks, and timers all provide input",descriptionDetailed:"Input devices convert physical phenomena into electrical signals. These signals are digitized by analog-to-digital converters and sent to the CPU via buses. The OS processes inputs through device drivers and makes them available to applications."},    {id:"process",name:"Processing",category:"Processing",purpose:"Performs calculations and logical operations on input data to produce output",description:"The CPU executes instructions from programs to transform input data through arithmetic, logic, and control operations.",why:"Processing is where raw data becomes useful information",analogy:"Like your brain thinking, calculating, and making decisions from what you sense",funFact:"A modern CPU can perform billions of calculations per second",takeaway:"Processing is the core function that makes computers useful",mistake:"Processing isn\\'t just math—it includes data movement, comparison, and decision making",descriptionDetailed:"The CPU fetches instructions from memory, decodes them, and executes them using the ALU and control unit. Instructions include arithmetic, data movement, branching, and logical operations. The clock synchronizes all operations at speeds measured in gigahertz."},    {id:"output",name:"Output",category:"Output",purpose:"Presents processed data to the user in a perceivable form",description:"Output devices like monitors, speakers, and printers convert digital data into visual images, sound, or physical media.",why:"Output is how computers communicate results back to us",analogy:"Like your mouth speaking words that your brain has formed",funFact:"The first computer monitor could only display green text on a black screen",takeaway:"Output completes the communication loop between computer and user",mistake:"Output isn\\'t just visual—it includes sound, haptics, data files, and network transmissions",descriptionDetailed:"Output devices receive digital data from the computer and convert it into human-perceptible form. Displays use LCD/LED panels with millions of pixels driven by graphics processors. Speakers use electromagnets to vibrate diaphragms."},    {id:"storage",name:"Storage",category:"Storage",purpose:"Saves data and programs permanently for future use",description:"Storage devices like SSDs and HDDs retain data even when the computer is powered off, holding the OS, applications, and user files.",why:"Storage ensures data persists beyond the current computing session",analogy:"Like a notebook where you write things down to remember them later",funFact:"Modern SSDs can read data in less than 0.1 milliseconds",takeaway:"Storage provides non-volatile retention of programs and data",mistake:"Storage and memory are different—RAM is temporary, storage is permanent",descriptionDetailed:"Storage uses magnetic (HDD) or flash (SSD) technology to retain data. The file system organizes data into files and directories. Data is read/written in blocks and cached in RAM for performance."},    {id:"feedback",name:"Feedback Loop",category:"Processing",purpose:"Uses output to influence future input, creating adaptive behavior",description:"Feedback in computing allows systems to adjust their behavior based on results—like a thermostat adjusting temperature based on readings.",why:"Feedback enables automation, error correction, and intelligent behavior",analogy:"Like a chef tasting soup and adjusting the seasoning",funFact:"Feedback loops are the foundation of all control systems and artificial intelligence",takeaway:"Feedback makes computing systems smarter and more responsive",mistake:"Feedback doesn\\'t have to be user-facing—many feedback loops happen automatically in software",descriptionDetailed:"Feedback involves measuring output and adjusting future input or processing accordingly. Error correction uses feedback to detect and fix transmission errors. Machine learning relies on feedback loops where model outputs are compared to expected results to improve accuracy."}];
+var connections = [{from:"input",to:"process"},{from:"process",to:"output"},{from:"output",to:"storage"},{from:"storage",to:"feedback"}];
+var steps = [{label:"Step 1: Input",status:"Exploring: Input - Accepts data and commands from the user or other systems into the computer"},{label:"Step 2: Processing",status:"Exploring: Processing - Performs calculations and logical operations on input data to produce output"},{label:"Step 3: Output",status:"Exploring: Output - Presents processed data to the user in a perceivable form"},{label:"Step 4: Storage",status:"Exploring: Storage - Saves data and programs permanently for future use"},{label:"Step 5: Feedback Loop",status:"Exploring: Feedback Loop - Uses output to influence future input, creating adaptive behavior"}];
+var tour = [{title:"Input",description:"Accepts data and commands from the user or other systems into the computer",componentId:"input"},{title:"Processing",description:"Performs calculations and logical operations on input data to produce output",componentId:"process"},{title:"Output",description:"Presents processed data to the user in a perceivable form",componentId:"output"},{title:"Storage",description:"Saves data and programs permanently for future use",componentId:"storage"},{title:"Feedback Loop",description:"Uses output to influence future input, creating adaptive behavior",componentId:"feedback"}];
 
-  var state = {
-    phase: 0,
-    progress: 0,
-    playing: false,
-    rafId: null,
-    lastTime: null
-  };
-
-  var PHASE_NAMES = ['', 'Input', 'Process', 'Output'];
-  var PHASE_DURATIONS = [0, 2500, 3000, 2500];
-
-  var arrow1, arrow2, stageInput, stageProcess, stageOutput;
-  var dataDot1, dataDot2, gear1, gear2;
-  var soundWaves, statusText, playBtn, pauseBtn, resetBtn;
-  var allArrows, allStages;
-
-  function init() {
-    statusText = document.getElementById('statusText');
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-
-    arrow1 = document.getElementById('arrow1');
-    arrow2 = document.getElementById('arrow2');
-    stageInput = document.getElementById('stageInput');
-    stageProcess = document.getElementById('stageProcess');
-    stageOutput = document.getElementById('stageOutput');
-    dataDot1 = arrow1.querySelector('.data-dot');
-    dataDot2 = arrow2.querySelector('.data-dot');
-    gear1 = document.querySelector('.gear1');
-    gear2 = document.querySelector('.gear2');
-    soundWaves = document.querySelectorAll('.sound-wave');
-    allArrows = [arrow1, arrow2];
-    allStages = [stageInput, stageProcess, stageOutput];
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    resetUI();
-  }
-
-  function getPhaseDuration() {
-    return PHASE_DURATIONS[state.phase] || 2500;
-  }
-
-  function play() {
-    if (state.playing) return;
-    if (state.phase > 3) { reset(); return; }
-    state.playing = true;
-    if (state.phase === 0) { state.phase = 1; state.progress = 0; state.lastTime = null; }
-    state.lastTime = null;
-    updateUI();
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    updateUI();
-  }
-
-  function reset() {
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    state.phase = 0;
-    state.progress = 0;
-    state.playing = false;
-    state.lastTime = null;
-    resetUI();
-  }
-
-  function resetUI() {
-    allArrows.forEach(function (a) { a.classList.remove('active'); });
-    allStages.forEach(function (s) { s.classList.remove('active', 'completed'); });
-    soundWaves.forEach(function (w) { w.classList.remove('active'); });
-    statusText.innerHTML = 'Press <strong>Play</strong> to start the IPO cycle';
-    updateButtons();
-  }
-
-  function animLoop(timestamp) {
-    if (!state.playing) return;
-    if (state.lastTime === null) { state.lastTime = timestamp; state.rafId = requestAnimationFrame(animLoop); return; }
-    var dt = timestamp - state.lastTime;
-    state.lastTime = timestamp;
-    var dur = getPhaseDuration();
-    state.progress += dt / dur;
-    if (state.progress >= 1) {
-      state.progress = 1;
-      updatePositions();
-      advancePhase();
-      return;
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Computer Ipo',
+    subtitle: 'How Computers Work',
+    desc: 'Understand the Input-Process-Output cycle that powers all computing.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildStepFlow(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    updatePositions();
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  function advancePhase() {
-    if (state.phase >= 3) {
-      state.phase = 4;
-      state.playing = false;
-      updatePositions();
-      updateUI();
-      return;
-    }
-    state.phase++;
-    state.progress = 0;
-    state.lastTime = null;
-    updatePositions();
-    if (state.playing) {
-      state.rafId = requestAnimationFrame(animLoop);
-    }
-    updateUI();
-  }
-
-  function updatePositions() {
-    var p = state.progress;
-    var phase = state.phase;
-
-    allStages.forEach(function (s) { s.classList.remove('active', 'completed'); });
-    allArrows.forEach(function (a) { a.classList.remove('active'); });
-
-    if (phase === 0) { return; }
-
-    var dotProgress1 = 0;
-    var dotProgress2 = 0;
-    var gearRotation1 = 0;
-    var gearRotation2 = 0;
-
-    if (phase === 1) {
-      stageInput.classList.add('active');
-      dotProgress1 = p;
-      var eased1 = 1 - Math.pow(1 - p, 3);
-      dataDot1.setAttribute('cx', 270 + eased1 * 105);
-      dataDot1.setAttribute('cy', 240);
-      arrow1.classList.add('active');
-      if (p >= 0.95) { stageInput.classList.remove('active'); stageInput.classList.add('completed'); }
-    } else if (phase === 2) {
-      stageInput.classList.add('completed');
-      stageProcess.classList.add('active');
-      dataDot1.setAttribute('cx', 375);
-      dataDot1.setAttribute('cy', 240);
-      arrow1.classList.add('active');
-      gearRotation1 = p * 360;
-      gearRotation2 = -p * 360 * 0.7;
-      if (p < 0.3) {
-        var t2 = p / 0.3;
-        dataDot2.setAttribute('cx', 620 + t2 * 105);
-        dataDot2.setAttribute('cy', 240);
-        arrow2.classList.add('active');
-      } else {
-        dataDot2.setAttribute('cx', 725);
-        dataDot2.setAttribute('cy', 240);
-        arrow2.classList.add('active');
-      }
-      if (p >= 0.95) { stageProcess.classList.remove('active'); stageProcess.classList.add('completed'); }
-    } else if (phase === 3) {
-      stageInput.classList.add('completed');
-      stageProcess.classList.add('completed');
-      stageOutput.classList.add('active');
-      dataDot1.setAttribute('cx', 375);
-      dataDot1.setAttribute('cy', 240);
-      arrow1.classList.add('active');
-      dataDot2.setAttribute('cx', 725);
-      dataDot2.setAttribute('cy', 240);
-      arrow2.classList.add('active');
-      gearRotation1 = 360;
-      gearRotation2 = -360 * 0.7;
-      soundWaves.forEach(function (w) { w.classList.add('active'); });
-      if (p >= 0.95) { stageOutput.classList.remove('active'); stageOutput.classList.add('completed'); }
-    } else if (phase === 4) {
-      allStages.forEach(function (s) { s.classList.add('completed'); });
-      allArrows.forEach(function (a) { a.classList.remove('active'); });
-      dataDot1.setAttribute('cx', 375);
-      dataDot1.setAttribute('cy', 240);
-      dataDot2.setAttribute('cx', 725);
-      dataDot2.setAttribute('cy', 240);
-      gearRotation1 = 360;
-      gearRotation2 = -360 * 0.7;
-      soundWaves.forEach(function (w) { w.classList.remove('active'); });
-    }
-
-    if (gear1) gear1.setAttribute('transform', 'translate(470,270) rotate(' + gearRotation1 + ')');
-    if (gear2) gear2.setAttribute('transform', 'translate(530,260) rotate(' + gearRotation2 + ')');
-  }
-
-  function updateUI() {
-    updateButtons();
-    var labels = ['', 'Receiving Input...', 'Processing Data...', 'Sending Output...', 'IPO Cycle Complete!'];
-    if (state.phase === 0) statusText.innerHTML = 'Press <strong>Play</strong> to start the IPO cycle';
-    else if (state.phase === 4) statusText.textContent = labels[4];
-    else if (state.playing) statusText.innerHTML = '<strong>' + labels[state.phase] + '</strong>';
-    else statusText.innerHTML = '<strong>' + labels[state.phase] + '</strong> (paused)';
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing || state.phase === 4;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.phase === 0;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

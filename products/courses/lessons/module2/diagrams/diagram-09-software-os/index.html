@@ -2,51 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagram 09: Operating System Layers | Consica Labs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Software Os — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="app-wrapper">
-    <header role="banner" class="app-header">
-      <div class="brand">Consica Labs</div>
-      <h1>Operating System Layers</h1>
-    </header>
-    <main id="main-content" role="main">
-      <div class="diagram-layout">
-        <div class="onion-container" role="figure" aria-label="Operating system layers onion diagram">
-          <canvas id="onionCanvas" width="500" height="500" aria-label="Interactive OS layers diagram showing Kernel, Drivers, File System, UI, Applications, and User layers"></canvas>
-          <div class="layer-info" id="layerInfo" role="region" aria-live="polite">
-            <h3 id="layerTitle">Kernel</h3>
-            <p id="layerDesc">The core of the OS. Manages memory, processes, and hardware communication. Click a layer to learn more.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="data-flow-panel" id="dataFlowPanel" role="region" aria-label="Data flow visualization">
-        <div class="flow-track" id="flowTrack">
-          <div class="flow-dot" id="flowDot" aria-hidden="true"></div>
-        </div>
-        <div class="flow-labels">
-          <span class="flow-label">App</span>
-          <span class="flow-label">UI</span>
-          <span class="flow-label">FS</span>
-          <span class="flow-label">Drv</span>
-          <span class="flow-label">Kernel</span>
-        </div>
-      </div>
-
-      <div class="controls" role="toolbar" aria-label="Animation controls">
-        <button id="playBtn" class="ctrl-btn" aria-label="Play data packet animation through OS layers">Play</button>
-        <button id="pauseBtn" class="ctrl-btn" aria-label="Pause data flow animation">Pause</button>
-        <button id="resetBtn" class="ctrl-btn" aria-label="Reset to initial state">Reset</button>
-      </div>
-    </main>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

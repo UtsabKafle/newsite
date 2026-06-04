@@ -1,180 +1,38 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"media",name:"Installation Media",category:"Software",purpose:"Bootable USB drive or DVD containing the OS installation files",description:"Installation media is a bootable USB (minimum 8GB) created with Microsoft\\'s Media Creation Tool or similar, containing the OS files to install.",why:"Installation media is required to install or reinstall an operating system",analogy:"Like a seedling that contains everything needed to grow a plant",funFact:"Windows installation USB drives can be created using the official Media Creation Tool",takeaway:"Create installation media on a USB drive for the fastest installation process",mistake:"Simply copying OS files to a USB won\\'t make it bootable—it must be properly prepared",descriptionDetailed:"Creating bootable media requires a tool that writes the ISO image with boot sector information. Tools include Rufus, Media Creation Tool, and dd. The USB must be bootable in UEFI or BIOS mode."},    {id:"partition",name:"Disk Partitioning",category:"Storage",purpose:"Divides the storage drive into separate logical sections for the OS and data",description:"Partitioning creates separate sections on a drive with different filesystems, allowing multiple OSes or separating system files from user data.",why:"Partitions organize the drive for efficient use and multi-boot setups",analogy:"Like dividing a large room into smaller rooms with different purposes",funFact:"GPT partition tables support up to 128 partitions per drive",takeaway:"Create at least one partition for the OS and another for personal data",mistake:"Deleting the wrong partition during installation can wipe all data on the drive",descriptionDetailed:"The installer presents partition options: automatic or custom. The system partition (ESP for UEFI) contains boot files. The main partition holds Windows/programs. Data partitions can be created after installation."},    {id:"format",name:"Drive Formatting",category:"Storage",purpose:"Prepares a partition with a filesystem structure for storing files",description:"Formatting writes the filesystem structure (NTFS, FAT32, exFAT) to a partition, creating the directory hierarchy and file allocation tables.",why:"Formatting is required before any OS or data can be written to a drive",analogy:"Like setting up a filing system in an empty office before adding documents",funFact:"Quick format only clears the file table; full format also checks for bad sectors",takeaway:"NTFS is the default for Windows; FAT32 is for compatibility with other devices",mistake:"Formatting erases all data on the partition—back up before formatting",descriptionDetailed:"Windows uses NTFS for its advanced features (permissions, encryption, compression). FAT32 has a 4GB file size limit. exFAT handles large files without NTFS overhead. The installer formats automatically during setup."},    {id:"install",name:"OS Installation Process",category:"Software",purpose:"Copies system files and configures the operating system on the drive",description:"The installation process copies Windows files, installs the kernel, sets up device drivers, and configures basic system settings.",why:"Installation is the process that creates a functional operating system on your PC",analogy:"Like building a house from the foundation up",funFact:"A clean Windows installation takes about 15-30 minutes on a modern SSD",takeaway:"During installation, you\\'ll set up language, account, and network preferences",mistake:"Interrupting the installation process (power loss) can corrupt the system",descriptionDetailed:"The installer copies files, expands Windows images (WIM/ESD), installs features, applies updates, and runs setup. It detects hardware and installs basic drivers. The system reboots multiple times. After installation, additional drivers and updates are needed."},    {id:"driver",name:"Driver Installation",category:"Software",purpose:"Installs hardware-specific drivers for proper component functionality",description:"After OS installation, chipset, graphics, network, and audio drivers must be installed for all hardware to work correctly.",why:"Drivers enable the OS to properly communicate with all hardware components",analogy:"Like installing translators to communicate with people speaking different languages",funFact:"Windows Update automatically installs many basic drivers, but manufacturer drivers are better",takeaway:"Install drivers in order: chipset first, then GPU, then network/audio",mistake:"Using generic Windows drivers instead of manufacturer drivers can reduce performance",descriptionDetailed:"Essential drivers include chipset (motherboard), GPU (graphics), LAN/Wi-Fi (network), and audio. Download from the manufacturer\\'s website. Driver versions can affect performance and stability. Some drivers require a reboot."},    {id:"activation",name:"OS Activation",category:"Software",purpose:"Verifies that the Windows license is genuine and not in use on another PC",description:"Activation checks the product key against Microsoft\\'s database, ensuring the copy is legitimate and licensed according to terms.",why:"Activation prevents software piracy and enables access to updates and features",analogy:"Like registering a product to activate its warranty",funFact:"Windows activation uses a hardware signature that changes if too many components change",takeaway:"Activate Windows with a valid product key for full functionality",mistake:"Unactivated Windows works but shows watermarks and limits personalization",descriptionDetailed:"Activation uses digital licenses (linked to Microsoft account) or product keys. OEM keys are tied to the motherboard. Retail keys can transfer between PCs. Windows must be activated to receive all updates."}];
+var connections = [{from:"media",to:"partition"},{from:"partition",to:"format"},{from:"format",to:"install"},{from:"install",to:"driver"},{from:"driver",to:"activation"}];
+var steps = [{label:"Step 1: Installation Media",status:"Exploring: Installation Media - Bootable USB drive or DVD containing the OS installation files"},{label:"Step 2: Disk Partitioning",status:"Exploring: Disk Partitioning - Divides the storage drive into separate logical sections for the OS and data"},{label:"Step 3: Drive Formatting",status:"Exploring: Drive Formatting - Prepares a partition with a filesystem structure for storing files"},{label:"Step 4: OS Installation Process",status:"Exploring: OS Installation Process - Copies system files and configures the operating system on the drive"},{label:"Step 5: Driver Installation",status:"Exploring: Driver Installation - Installs hardware-specific drivers for proper component functionality"},{label:"Step 6: OS Activation",status:"Exploring: OS Activation - Verifies that the Windows license is genuine and not in use on another PC"}];
+var tour = [{title:"Installation Media",description:"Bootable USB drive or DVD containing the OS installation files",componentId:"media"},{title:"Disk Partitioning",description:"Divides the storage drive into separate logical sections for the OS and data",componentId:"partition"},{title:"Drive Formatting",description:"Prepares a partition with a filesystem structure for storing files",componentId:"format"},{title:"OS Installation Process",description:"Copies system files and configures the operating system on the drive",componentId:"install"},{title:"Driver Installation",description:"Installs hardware-specific drivers for proper component functionality",componentId:"driver"},{title:"OS Activation",description:"Verifies that the Windows license is genuine and not in use on another PC",componentId:"activation"}];
 
-  var state = { stage: 0, playing: false, timer: null, copyInterval: null, copyProgress: 0 };
-  var playBtn, pauseBtn, resetBtn, statusText;
-  var stageContents = {}, stageNodes = {}, stageConns = {};
-  var copyProgress, copyPercent, overallProgress, overallProgressText;
-  var STAGE_COUNT = 8;
-
-  var STAGE_NAMES = [
-    'Boot from USB',
-    'Language Select',
-    'Install Now',
-    'License Agreement',
-    'Drive Selection',
-    'Partitioning',
-    'Copying Files',
-    'Setup Complete'
-  ];
-
-  var STAGE_DETAILS = [
-    'Insert the bootable USB drive and restart. Press the boot menu key (F12, F11, or ESC) and select the USB drive to start the installer.',
-    'Choose your language, time/currency format, and keyboard layout. Click Next to proceed to the installation screen.',
-    'Click "Install Now" to begin. If upgrading, select "Upgrade" to keep your files. For a fresh install, choose "Custom installation."',
-    'Read and accept the Microsoft Software License Terms. You must accept to continue with the installation.',
-    'Select the drive where Windows will be installed. An NVMe SSD is recommended for the OS drive for best performance.',
-    'The installer creates System Reserved and Primary partitions automatically. Click Format to clean a drive, then Next.',
-    'Windows copies installation files to the selected drive. This is the longest phase — typically 5-20 minutes depending on drive speed.',
-    'The system restarts and finalizes settings. Windows will guide you through region, keyboard, and account setup on first boot.'
-  ];
-
-  function init() {
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    statusText = document.getElementById('statusText');
-    copyProgress = document.getElementById('copyProgress');
-    copyPercent = document.getElementById('copyPercent');
-    overallProgress = document.getElementById('overallProgress');
-    overallProgressText = document.getElementById('overallProgressText');
-
-    for (var i = 0; i < STAGE_COUNT; i++) {
-      stageContents[i] = document.getElementById('stage-' + i);
-      stageNodes[i] = document.getElementById('stagenode-' + i);
-      stageConns[i] = document.getElementById('stageconn-' + i);
-      stageNodes[i].addEventListener('click', makeStageClick(i));
-      stageNodes[i].addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          var idx = parseInt(this.id.replace('stagenode-', ''));
-          goToStage(idx);
-        }
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Os',
+    subtitle: 'Computer Assembly',
+    desc: 'Follow the operating system installation process.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildStepFlow(container, {
+        steps: [
+          {id: 'media', label: 'Create Media', description: 'Create bootable USB drive with OS installer', status: 'Create Media'},
+          {id: 'partition', label: 'Partition Drive', description: 'Divide the storage drive into sections', status: 'Partition Drive'},
+          {id: 'format', label: 'Format Partition', description: 'Format the partition with NTFS/ext4 filesystem', status: 'Format Partition'},
+          {id: 'install', label: 'Install OS', description: 'Copy OS files and configure system', status: 'Install OS'},
+          {id: 'driver', label: 'Install Drivers', description: 'Install hardware drivers for GPU, network, etc.', status: 'Install Drivers'},
+          {id: 'activation', label: 'Activate OS', description: 'Enter product key to activate the operating system', status: 'Activate OS'}
+        ]
       });
-      stageNodes[i].setAttribute('tabindex', '0');
-      stageNodes[i].setAttribute('role', 'button');
-      stageNodes[i].setAttribute('aria-label', 'View stage: ' + STAGE_NAMES[i]);
+    },
+    
+    animate: function(engine) {
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    goToStage(0);
-    updateButtons();
-  }
-
-  function makeStageClick(idx) {
-    return function () { goToStage(idx); };
-  }
-
-  function goToStage(idx) {
-    if (state.playing && idx !== state.stage) return;
-    state.stage = idx;
-    for (var i = 0; i < STAGE_COUNT; i++) {
-      var content = stageContents[i];
-      if (content) {
-        if (i === idx) content.removeAttribute('display');
-        else content.setAttribute('display', 'none');
-      }
-      if (stageNodes[i]) {
-        stageNodes[i].classList.remove('active', 'done');
-        if (i < idx) stageNodes[i].classList.add('done');
-        if (i === idx) stageNodes[i].classList.add('active');
-      }
-      if (stageConns[i]) {
-        stageConns[i].classList.toggle('done', i < idx);
-      }
-    }
-    var pct = Math.round(((idx + 1) / STAGE_COUNT) * 100);
-    overallProgress.setAttribute('width', Math.round(pct * 9.4));
-    overallProgressText.textContent = pct + '% — ' + STAGE_NAMES[idx];
-    statusText.innerHTML = '<strong>' + STAGE_NAMES[idx] + ':</strong> ' + STAGE_DETAILS[idx];
-    updateButtons();
-  }
-
-  function advanceStage() {
-    if (state.copyInterval) {
-      clearInterval(state.copyInterval);
-      state.copyInterval = null;
-    }
-    state.stage++;
-    if (state.stage >= STAGE_COUNT) {
-      if (state.timer) { clearInterval(state.timer); state.timer = null; }
-      state.playing = false;
-      overallProgress.setAttribute('width', '936');
-      overallProgressText.textContent = '100% — Installation Complete';
-      statusText.innerHTML = '<strong>Installation complete!</strong> Welcome to your new OS';
-      updateButtons();
-      return;
-    }
-    goToStage(state.stage);
-    // If stage is Copying Files, animate progress
-    if (state.stage === 6) {
-      state.copyProgress = 0;
-      state.copyInterval = setInterval(function () {
-        state.copyProgress += Math.random() * 8 + 2;
-        if (state.copyProgress >= 100) {
-          state.copyProgress = 100;
-          if (state.copyInterval) { clearInterval(state.copyInterval); state.copyInterval = null; }
-        }
-        copyProgress.setAttribute('width', Math.round(state.copyProgress * 2.8));
-        copyPercent.textContent = Math.round(state.copyProgress) + '%';
-      }, 200);
-    }
-    updateButtons();
-  }
-
-  function play() {
-    if (state.playing) return;
-    if (state.stage >= STAGE_COUNT - 1) {
-      goToStage(0);
-    }
-    state.playing = true;
-    state.stage = 0;
-    goToStage(0);
-    statusText.innerHTML = '<strong>Starting OS installation...</strong>';
-    state.timer = setInterval(advanceStage, 2500);
-    updateButtons();
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    if (state.copyInterval) { clearInterval(state.copyInterval); state.copyInterval = null; }
-    statusText.innerHTML = '<strong>Paused</strong> — ' + STAGE_NAMES[state.stage];
-    updateButtons();
-  }
-
-  function reset() {
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    if (state.copyInterval) { clearInterval(state.copyInterval); state.copyInterval = null; }
-    state.playing = false;
-    state.copyProgress = 0;
-    goToStage(0);
-    copyProgress.setAttribute('width', '0');
-    copyPercent.textContent = '0%';
-    overallProgress.setAttribute('width', '0');
-    overallProgressText.textContent = '0% — Ready';
-    statusText.innerHTML = 'Press <strong>Play</strong> to run through OS installation';
-    updateButtons();
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.stage === 0 && !state.playing;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

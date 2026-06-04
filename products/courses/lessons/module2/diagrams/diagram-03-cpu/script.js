@@ -1,238 +1,40 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"controlunit",name:"Control Unit",category:"Processing",purpose:"Directs and coordinates all CPU operations by fetching, decoding, and sequencing instructions",description:"The control unit reads instructions from memory, decodes them, and generates control signals that orchestrate the ALU, registers, and data flow.",why:"The control unit is the brain\\'s executive—it decides what operations happen when",analogy:"Like a conductor of an orchestra who tells each musician when to play",funFact:"The control unit doesn\\'t process data—it tells other components how to process data",takeaway:"The control unit manages instruction sequencing but doesn\\'t perform calculations itself",mistake:"The control unit doesn\\'t execute instructions—it orchestrates the components that do",descriptionDetailed:"The control unit has hardwired (fixed logic circuits) or microprogrammed (microcode in ROM) implementations. It generates timing signals that coordinate fetch-decode-execute cycles. Modern control units support pipelining, branch prediction, and out-of-order execution."},    {id:"alu",name:"Arithmetic Logic Unit",category:"Processing",purpose:"Performs all arithmetic calculations and logical comparisons",description:"The ALU executes math operations like addition and subtraction, and logical operations like AND, OR, and comparison between values.",why:"The ALU makes all mathematical and logical computation possible",analogy:"Like a calculator that\\'s built into the processor",funFact:"Modern ALUs can perform over 100 billion operations per second",takeaway:"Every mathematical and logical operation happens in the ALU",mistake:"The ALU doesn\\'t handle floating-point math—that\\'s done by the FPU",descriptionDetailed:"The ALU accepts two operands and an opcode, then produces a result and status flags (zero, carry, overflow, negative). It uses logic gates and adder circuits to perform operations in parallel at the bit level."},    {id:"registers",name:"CPU Registers",category:"Processing",purpose:"Provides ultra-fast temporary storage for data the CPU is actively working with",description:"Registers are small storage locations inside the CPU that hold data, addresses, and instruction state with zero-latency access.",why:"Registers provide the fastest possible data access, critical for performance",analogy:"Like your immediate short-term memory holding what you\\'re thinking about right now",funFact:"A CPU register can be read in less than 0.3 nanoseconds",takeaway:"Registers are the fastest memory in the computer hierarchy",mistake:"Registers don\\'t store data permanently—they\\'re volatile and lose data when power is off",descriptionDetailed:"General-purpose registers hold data for ALU operations. Special-purpose registers include the program counter (PC), instruction register (IR), and status register (flags). Register files are built from SRAM."},    {id:"cache",name:"CPU Cache",category:"Memory",purpose:"Stores frequently accessed data closer to the CPU to reduce latency",description:"Cache memory sits between the CPU and main RAM, holding copies of recently used data and instructions for faster access.",why:"Cache bridges the speed gap between the CPU and main memory",analogy:"Like a kitchen counter where you keep frequently used ingredients instead of going to the pantry",funFact:"A CPU cache hit takes about 1 nanosecond, while a RAM access takes about 50 nanoseconds",takeaway:"Cache significantly improves CPU performance by reducing wait time for data",mistake:"Cache isn\\'t just one block—it\\'s organized in levels: L1, L2, and L3",descriptionDetailed:"L1 cache is per-core, fastest but tiny (32-64KB). L2 is per-core, slightly larger (256-512KB). L3 is shared across cores, larger but slower (4-32MB). Cache uses SRAM technology and operates at CPU clock speed."},    {id:"bus",name:"System Bus",category:"Processing",purpose:"Transfers data, addresses, and control signals between CPU components",description:"The system bus is a set of parallel wires that connect the CPU to memory and peripherals, carrying data, memory addresses, and control commands.",why:"The bus is the communication highway connecting all computer components",analogy:"Like roads that connect different parts of a city, allowing traffic to flow",funFact:"Early PC buses were 8 bits wide; modern buses are 64 bits wide",takeaway:"The bus speed and width directly impact overall system performance",mistake:"There isn\\'t just one bus—there are separate buses for data, addresses, and control",descriptionDetailed:"The data bus carries actual data, the address bus specifies memory locations, and the control bus carries commands. Bus width determines how many bits can travel simultaneously."}];
+var connections = [{from:"controlunit",to:"alu"},{from:"alu",to:"registers"},{from:"registers",to:"cache"},{from:"cache",to:"bus"}];
+var steps = [{label:"Step 1: Control Unit",status:"Exploring: Control Unit - Directs and coordinates all CPU operations by fetching, decoding, and sequencing instructions"},{label:"Step 2: Arithmetic Logic Unit",status:"Exploring: Arithmetic Logic Unit - Performs all arithmetic calculations and logical comparisons"},{label:"Step 3: CPU Registers",status:"Exploring: CPU Registers - Provides ultra-fast temporary storage for data the CPU is actively working with"},{label:"Step 4: CPU Cache",status:"Exploring: CPU Cache - Stores frequently accessed data closer to the CPU to reduce latency"},{label:"Step 5: System Bus",status:"Exploring: System Bus - Transfers data, addresses, and control signals between CPU components"}];
+var tour = [{title:"Control Unit",description:"Directs and coordinates all CPU operations by fetching, decoding, and sequencing instructions",componentId:"controlunit"},{title:"Arithmetic Logic Unit",description:"Performs all arithmetic calculations and logical comparisons",componentId:"alu"},{title:"CPU Registers",description:"Provides ultra-fast temporary storage for data the CPU is actively working with",componentId:"registers"},{title:"CPU Cache",description:"Stores frequently accessed data closer to the CPU to reduce latency",componentId:"cache"},{title:"System Bus",description:"Transfers data, addresses, and control signals between CPU components",componentId:"bus"}];
 
-  var state = {
-    stage: 0,
-    progress: 0,
-    playing: false,
-    rafId: null,
-    lastTime: null,
-    cycle: 1
-  };
-
-  var COMPONENTS = ['cu', 'alu', 'registers', 'cache'];
-  var STAGE_DURATIONS = {
-    'cu-bus': 1500,
-    'cu-alu': 2000,
-    'alu-registers': 2000,
-    'registers-cache': 2000,
-    'cache-bus': 1500
-  };
-
-  var STAGE_ORDER = ['cu-bus', 'cu-alu', 'alu-registers', 'registers-cache', 'cache-bus'];
-  var STAGE_LABELS = {
-    'cu-bus': 'Fetch: Data from Bus into Control Unit',
-    'cu-alu': 'Decode &amp; Send: CU to ALU',
-    'alu-registers': 'Execute: ALU to Registers',
-    'registers-cache': 'Memory Access: Registers to Cache',
-    'cache-bus': 'Writeback: Cache to Bus'
-  };
-
-  var componentEls = {};
-  var dataPathEls = {};
-  var dataPacket, pipelineHighlight;
-  var statusText, cycleCounter, playBtn, pauseBtn, resetBtn;
-
-  function init() {
-    statusText = document.getElementById('statusText');
-    cycleCounter = document.getElementById('cycleCounter');
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    dataPacket = document.getElementById('data-packet');
-
-    COMPONENTS.forEach(function (c) {
-      componentEls[c] = document.querySelector('[data-component="' + c + '"]');
-    });
-
-    var paths = document.querySelectorAll('.data-path');
-    paths.forEach(function (p) {
-      var cls = Array.from(p.classList).filter(function (c) { return c !== 'data-path'; })[0];
-      dataPathEls[cls] = p;
-    });
-
-    pipelineHighlight = document.getElementById('pipelineHighlight');
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    resetUI();
-  }
-
-  function getStageDuration() {
-    return STAGE_DURATIONS[STAGE_ORDER[state.stage]] || 2000;
-  }
-
-  function advanceStage() {
-    if (state.stage >= STAGE_ORDER.length - 1) {
-      state.stage = 0;
-      state.progress = 0;
-      state.cycle++;
-      state.lastTime = null;
-      updatePositions();
-      if (state.playing) {
-        state.rafId = requestAnimationFrame(animLoop);
-      }
-      updateUI();
-      return;
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Cpu',
+    subtitle: 'How Computers Work',
+    desc: 'Dive inside the CPU — control unit, ALU, registers, cache, and bus.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    state.stage++;
-    state.progress = 0;
-    state.lastTime = null;
-    updatePositions();
-    if (state.playing) {
-      state.rafId = requestAnimationFrame(animLoop);
-    }
-    updateUI();
-  }
-
-  function play() {
-    if (state.playing) return;
-    state.playing = true;
-    state.lastTime = null;
-    if (state.stage === 0 && state.progress === 0) { state.cycle = 1; }
-    updateUI();
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    updateUI();
-  }
-
-  function reset() {
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    state.stage = 0;
-    state.progress = 0;
-    state.playing = false;
-    state.cycle = 1;
-    state.lastTime = null;
-    resetUI();
-  }
-
-  function resetUI() {
-    COMPONENTS.forEach(function (c) { componentEls[c].classList.remove('active', 'completed'); });
-    Object.keys(dataPathEls).forEach(function (k) { dataPathEls[k].classList.remove('active'); });
-    dataPacket.classList.remove('active');
-    if (pipelineHighlight) pipelineHighlight.setAttribute('transform', 'translate(0, 0)');
-    statusText.innerHTML = 'Press <strong>Play</strong> to see data flow through the CPU';
-    cycleCounter.textContent = '';
-    updateButtons();
-  }
-
-  function animLoop(timestamp) {
-    if (!state.playing) return;
-    if (state.lastTime === null) { state.lastTime = timestamp; state.rafId = requestAnimationFrame(animLoop); return; }
-    var dt = timestamp - state.lastTime;
-    state.lastTime = timestamp;
-    var dur = getStageDuration();
-    state.progress += dt / dur;
-    if (state.progress >= 1) {
-      state.progress = 1;
-      updatePositions();
-      advanceStage();
-      return;
-    }
-    updatePositions();
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  var STAGE_PATHS = {
-    'cu-bus': { from: 'bus', to: 'cu', path: ['cu-bus-path'] },
-    'cu-alu': { from: 'cu', to: 'alu', path: ['cu-alu-path'] },
-    'alu-registers': { from: 'alu', to: 'registers', path: ['alu-reg-path'] },
-    'registers-cache': { from: 'registers', to: 'cache', path: ['reg-cache-path'] },
-    'cache-bus': { from: 'cache', to: 'bus', path: ['cache-bus-path'] }
-  };
-
-  var STAGE_POSITIONS = {
-    'cu-bus': { x: 140, y: 300 },
-    'cu-alu': { x: 260, y: 140 },
-    'alu-registers': { x: 500, y: 140 },
-    'registers-cache': { x: 740, y: 140 },
-    'cache-bus': { x: 860, y: 300 }
-  };
-
-  var PIPE_OFFSETS = { 'cu-bus': 0, 'cu-alu': 1, 'alu-registers': 2, 'registers-cache': 3, 'cache-bus': 4 };
-
-  function updatePositions() {
-    var stageName = STAGE_ORDER[state.stage];
-    var p = state.progress;
-
-    COMPONENTS.forEach(function (c) { componentEls[c].classList.remove('active', 'completed'); });
-    Object.keys(dataPathEls).forEach(function (k) { dataPathEls[k].classList.remove('active'); });
-
-    if (state.progress === 0 && state.stage === 0) {
-      dataPacket.classList.remove('active');
-      return;
-    }
-
-    dataPacket.classList.add('active');
-
-    var stageInfo = STAGE_PATHS[stageName];
-    var startPos = STAGE_POSITIONS[stageName];
-    var nextStage = STAGE_ORDER[Math.min(state.stage + 1, STAGE_ORDER.length - 1)];
-    var endPos = STAGE_POSITIONS[nextStage] || { x: 500, y: 140 };
-
-    if (state.stage >= STAGE_ORDER.length - 1) {
-      endPos = STAGE_POSITIONS['cu-bus'];
-    }
-
-    var ex = startPos.x + (endPos.x - startPos.x) * p;
-    var ey = startPos.y + (endPos.y - startPos.y) * p;
-    dataPacket.setAttribute('transform', 'translate(' + ex + ',' + ey + ')');
-
-    stageInfo.path.forEach(function (pathKey) {
-      if (dataPathEls[pathKey]) dataPathEls[pathKey].classList.add('active');
-    });
-
-    var activeComp = stageInfo.to;
-    if (p > 0.5 && activeComp && componentEls[activeComp]) {
-      componentEls[activeComp].classList.add('active');
-    }
-    var fromComp = stageInfo.from;
-    if (fromComp && componentEls[fromComp]) {
-      componentEls[fromComp].classList.add('completed');
-    }
-
-    if (pipelineHighlight) {
-      var pipeIdx = PIPE_OFFSETS[stageName] || 0;
-      var xOff = pipeIdx * 100;
-      pipelineHighlight.setAttribute('transform', 'translate(' + xOff + ', 0)');
-    }
-  }
-
-  function updateUI() {
-    updateButtons();
-    var stageName = STAGE_ORDER[state.stage];
-    var label = STAGE_LABELS[stageName] || 'Processing...';
-    if (state.stage === 0 && state.progress === 0 && !state.playing) {
-      statusText.innerHTML = 'Press <strong>Play</strong> to see data flow through the CPU';
-    } else if (state.playing) {
-      statusText.innerHTML = '<strong>' + label + '</strong>';
-    } else {
-      statusText.innerHTML = '<strong>' + label + '</strong> (paused)';
-    }
-    cycleCounter.textContent = 'Cycle: ' + state.cycle;
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.stage === 0 && state.progress === 0 && state.cycle === 1;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

@@ -1,283 +1,45 @@
-(function(){
-  const canvas=document.getElementById('safetyCanvas');
-  const ctx=canvas.getContext('2d');
-  const tooltip=document.getElementById('tooltip');
-  const stepInd=document.getElementById('stepIndicator');
-  const playBtn=document.getElementById('playBtn');
-  const pauseBtn=document.getElementById('pauseBtn');
-  const resetBtn=document.getElementById('resetBtn');
-  const toolTags=document.getElementById('toolTags');
+(function(){'use strict';
+var components = [    {id:"wriststrap",name:"Anti-Static Wrist Strap",category:"Tool",purpose:"Prevents electrostatic discharge damage to sensitive electronic components",description:"The wrist strap connects to your wrist with a conductive band and attaches via a coiled wire to a grounded metal object, draining static charge.",why:"ESD can destroy components instantly—the wrist strap prevents this",analogy:"Like grounding yourself before touching sensitive equipment",funFact:"You can generate over 3,000 volts of static just by walking on carpet",takeaway:"Always wear an anti-static wrist strap when handling computer components",mistake:"Static damage isn\\'t always immediate—it can cause latent failures that appear later",descriptionDetailed:"The wrist strap contains a 1-megaohm resistor that limits current for safety. Clip it to a grounded metal object like the PSU case (plugged in but off). Touch bare metal of the case periodically even without a strap."},    {id:"mat",name:"Anti-Static Mat",category:"Tool",purpose:"Provides a static-safe work surface for assembling or repairing computers",description:"The mat is made of conductive material that drains static charge from components placed on it, protecting them from ESD.",why:"The mat protects components by preventing static buildup on the work surface",analogy:"Like a safe zone where static electricity can\\'t harm your components",funFact:"ESD mats are typically blue or green and have a grounding snap",takeaway:"Use an ESD mat with the wrist strap for complete static protection",mistake:"Working on a carpet with a mat still risks static—discharge before starting",descriptionDetailed:"ESD mats have two layers: a dissipative top layer and a conductive bottom layer. Connect the mat\\'s ground snap to a common ground point. The mat should cover your entire work area."},    {id:"screwdriver",name:"Phillips Head Screwdriver",category:"Tool",purpose:"Tightens and loosens the screws that hold computer components in place",description:"A Phillips #2 screwdriver is the standard tool for most computer screws, with magnetic tip and comfortable grip for precise work.",why:"Almost every component in a PC is secured with Phillips screws",analogy:"Like the one key that opens almost every part of a building",funFact:"PC builders typically only need one screwdriver size: Phillips #2",takeaway:"A magnetic tip screwdriver makes assembly much easier",mistake:"Don\\'t use the wrong screwdriver size—it can strip screw heads",descriptionDetailed:"A magnetic tip prevents dropping tiny screws into the case. Precision screwdriver sets include smaller sizes for laptop work. A ratcheting mechanism allows faster turning. Keep screws organized in a tray or magnetic mat."},    {id:"tweezers",name:"Tweezers",category:"Tool",purpose:"Handles small screws, jumpers, and connectors in tight spaces",description:"Fine-tipped tweezers help place and retrieve tiny screws, set jumpers on motherboard headers, and manipulate small cables.",why:"Tweezers provide precision in tight spaces where fingers can\\'t reach",analogy:"Like chopsticks for tiny computer parts",funFact:"Ceramic-tipped tweezers are used to avoid scratching motherboard surfaces",takeaway:"Tweezers are essential for motherboard header connectors and tiny screws",mistake:"Avoid metal tweezers near live circuits—they can cause shorts",descriptionDetailed:"Non-magnetic tweezers are preferred near magnetic storage. Angled tips help reach awkward positions. Antistatic tweezers are coated to prevent static discharge. Precision tweezers come in blunt, sharp, and curved varieties."},    {id:"paste",name:"Thermal Paste",category:"Tool",purpose:"Fills microscopic gaps between the CPU and cooler for efficient heat transfer",description:"Thermal paste is a thermally conductive compound that eliminates air pockets between the CPU\\'s heat spreader and the cooler\\'s base plate.",why:"Thermal paste dramatically improves heat transfer, preventing CPU overheating",analogy:"Like lotion that fills tiny wrinkles between your skin and a bandage for better contact",funFact:"Thermal paste contains materials like silver, ceramic, or diamond powder",takeaway:"Apply a pea-sized drop of thermal paste—more isn\\'t always better",mistake:"Too much thermal paste can insulate and cause overheating instead of cooling",descriptionDetailed:"Thermal paste fills microscopic imperfections in metal surfaces that trap air. Thermal conductivity is measured in W/mK. Common application methods include pea, line, and spread techniques."},    {id:"ties",name:"Cable Ties",category:"Tool",purpose:"Organizes and secures cables for better airflow and aesthetics",description:"Cable ties—zip ties or Velcro straps—bundle cables together neatly inside the case, improving airflow and making future maintenance easier.",why:"Good cable management improves airflow and makes troubleshooting easier",analogy:"Like organizing cords behind your TV to eliminate tangles",funFact:"Velcro straps are reusable, unlike single-use zip ties",takeaway:"Neat cable management reduces clutter, improves airflow, and looks professional",mistake:"Over-tightening zip ties can damage cable insulation",descriptionDetailed:"Cable ties come in various lengths and materials. Velcro straps are preferred for reusability. Route cables behind the motherboard tray when possible. Group cables by type and destination."}];
+var connections = [{from:"wriststrap",to:"mat"},{from:"mat",to:"screwdriver"},{from:"screwdriver",to:"tweezers"},{from:"tweezers",to:"paste"},{from:"paste",to:"ties"}];
+var steps = [{label:"Step 1: Anti-Static Wrist Strap",status:"Exploring: Anti-Static Wrist Strap - Prevents electrostatic discharge damage to sensitive electronic components"},{label:"Step 2: Anti-Static Mat",status:"Exploring: Anti-Static Mat - Provides a static-safe work surface for assembling or repairing computers"},{label:"Step 3: Phillips Head Screwdriver",status:"Exploring: Phillips Head Screwdriver - Tightens and loosens the screws that hold computer components in place"},{label:"Step 4: Tweezers",status:"Exploring: Tweezers - Handles small screws, jumpers, and connectors in tight spaces"},{label:"Step 5: Thermal Paste",status:"Exploring: Thermal Paste - Fills microscopic gaps between the CPU and cooler for efficient heat transfer"},{label:"Step 6: Cable Ties",status:"Exploring: Cable Ties - Organizes and secures cables for better airflow and aesthetics"}];
+var tour = [{title:"Anti-Static Wrist Strap",description:"Prevents electrostatic discharge damage to sensitive electronic components",componentId:"wriststrap"},{title:"Anti-Static Mat",description:"Provides a static-safe work surface for assembling or repairing computers",componentId:"mat"},{title:"Phillips Head Screwdriver",description:"Tightens and loosens the screws that hold computer components in place",componentId:"screwdriver"},{title:"Tweezers",description:"Handles small screws, jumpers, and connectors in tight spaces",componentId:"tweezers"},{title:"Thermal Paste",description:"Fills microscopic gaps between the CPU and cooler for efficient heat transfer",componentId:"paste"},{title:"Cable Ties",description:"Organizes and secures cables for better airflow and aesthetics",componentId:"ties"}];
 
-  const W=900,H=520;
-  canvas.width=W;canvas.height=H;
-
-  const tools=[
-    {id:'screwdriver',name:'Phillips Screwdriver (#1, #2)',desc:'Used for most PC screws. #1 for small drives, #2 for motherboard and case.',
-     x:150,y:120,w:40,h:160,color:'#8899aa'},
-    {id:'wriststrap',name:'Anti-Static Wrist Strap',desc:'Grounds your body to prevent ESD damage to sensitive components.',
-     x:300,y:100,w:60,h:60,color:'#cc8833'},
-    {id:'paste',name:'Thermal Paste',desc:'Applied between CPU and heatsink for efficient heat transfer.',
-     x:450,y:130,w:50,h:50,color:'#aaaaaa'},
-    {id:'cableties',name:'Cable Ties',desc:'Organize and secure cables inside the case for better airflow.',
-     x:570,y:120,w:50,h:70,color:'#336699'},
-    {id:'psutester',name:'PSU Tester',desc:'Tests power supply voltages to ensure they are within safe ranges before installing.',
-     x:690,y:110,w:60,h:70,color:'#885533'},
-    {id:'tweezers',name:'Tweezers',desc:'Helpful for placing jumpers, screws in tight spaces, or handling small connectors.',
-     x:810,y:130,w:30,h:90,color:'#667788'},
-    {id:'esd',name:'ESD Warning',desc:'Electrostatic Discharge can destroy components. Always ground yourself before touching parts.',
-     x:450,y:300,w:80,h:60,color:'#cc3333'}
-  ];
-
-  let activeIndex=-1;
-  let isPlaying=false;
-  let cycleTimer=null;
-  let resetState=true;
-
-  function drawScrewdriver(t){
-    ctx.save();ctx.translate(t.x,t.y);
-    ctx.fillStyle=t.color;ctx.strokeStyle=t.color+'80';ctx.lineWidth=2;
-    ctx.shadowColor=t.color+'60';ctx.shadowBlur=10;
-    roundRect(ctx,-5,-t.h/2,10,t.h,3);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-    ctx.fillStyle='#ccd';ctx.font='bold 10px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText(t.name.split('(')[0].trim(),0,-t.h/2-8);
-    ctx.restore();
-  }
-
-  function drawRectTool(t){
-    ctx.save();ctx.translate(t.x,t.y);
-    ctx.fillStyle=t.color+'50';ctx.strokeStyle=t.color;ctx.lineWidth=2;
-    ctx.shadowColor=t.color+'80';ctx.shadowBlur=10;
-    roundRect(ctx,-t.w/2,-t.h/2,t.w,t.h,6);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-    ctx.fillStyle='#fff';ctx.font='bold 9px Inter,sans-serif';ctx.textAlign='center';
-    const lines=wrapText(t.name,14);
-    lines.forEach((l,i)=>ctx.fillText(l,0,i*12-6));
-    ctx.restore();
-  }
-
-  function drawESD(t){
-    ctx.save();ctx.translate(t.x,t.y);
-    ctx.fillStyle='#cc333340';ctx.strokeStyle='#cc3333';ctx.lineWidth=3;
-    ctx.shadowColor='#cc333380';ctx.shadowBlur=20;
-    ctx.beginPath();ctx.arc(0,0,35,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-    ctx.fillStyle='#cc3333';ctx.font='bold 22px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText('\u26A1',0,-4);
-    ctx.font='bold 8px Inter,sans-serif';
-    ctx.fillStyle='#fff';ctx.fillText('ESD',0,22);
-    ctx.fillStyle='#cc3333';ctx.font='7px Inter,sans-serif';
-    ctx.fillText('DANGER',0,32);
-    ctx.restore();
-  }
-
-  function wrapText(str,maxLen){
-    if(str.length<=maxLen)return [str];
-    const words=str.split(' ');
-    const lines=[];let line='';
-    words.forEach(w=>{
-      if((line+' '+w).trim().length<=maxLen){line+=(line?' ':'')+w}
-      else{lines.push(line);line=w}
-    });
-    if(line)lines.push(line);
-    return lines;
-  }
-
-  function roundRect(ctx,x,y,w,h,r){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
-    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);
-    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);
-    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);
-    ctx.quadraticCurveTo(x,y,x+r,y);
-    ctx.closePath();
-  }
-
-  function render(){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#060910';ctx.fillRect(0,0,W,H);
-
-    ctx.save();
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;
-    ctx.setLineDash([5,5]);
-    ctx.strokeRect(40,60,820,100);
-    ctx.strokeRect(40,200,820,160);
-    ctx.restore();
-
-    ctx.fillStyle='rgba(255,255,255,0.08)';ctx.font='10px Inter,sans-serif';
-    ctx.fillText('TOOLS',20,55);
-    ctx.fillText('WORK AREA',20,195);
-
-    ctx.save();
-    ctx.translate(100,240);
-    ctx.fillStyle='#1a1e2a';ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1;
-    roundRect(ctx,-60,-60,120,120,6);
-    ctx.fill();ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,0.06)';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText('WORKBENCH',0,4);
-    ctx.restore();
-
-    ctx.save();
-    ctx.translate(450,220);
-    ctx.fillStyle='#1a1e2a';ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;
-    roundRect(ctx,-90,-40,180,80,8);
-    ctx.fill();ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,0.15)';ctx.font='10px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText('Anti-Static Mat',0,-26);
-    ctx.fillStyle='rgba(255,255,255,0.05)';ctx.font='8px Inter,sans-serif';
-    ctx.fillText('Place components here',0,-12);
-    ctx.restore();
-
-    drawScrewdriver(tools[0]);
-    drawRectTool(tools[1]);
-    drawRectTool(tools[2]);
-    drawRectTool(tools[3]);
-    drawRectTool(tools[4]);
-    drawRectTool(tools[5]);
-    drawESD(tools[6]);
-
-    if(activeIndex>=0){
-      const t=tools[activeIndex];
-      ctx.save();
-      ctx.strokeStyle='#0959C8';ctx.lineWidth=3;
-      ctx.shadowColor='#0959C880';ctx.shadowBlur=20;
-      if(t.id==='esd'){ctx.strokeRect(t.x-42,t.y-42,84,84)}
-      else if(t.id==='screwdriver'){ctx.strokeRect(t.x-15,t.y-85,30,170)}
-      else{ctx.strokeRect(t.x-t.w/2-6,t.y-t.h/2-6,t.w+12,t.h+12)}
-      ctx.restore();
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Safety Tools',
+    subtitle: 'Computer Assembly',
+    desc: 'Match essential tools to their purposes for safe computer assembly.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildDragMatching(container, {
+        items: [
+          {id: 'wriststrap', label: 'Anti-Static Wrist Strap', slot: 'esd'},
+          {id: 'mat', label: 'Anti-Static Mat', slot: 'surface'},
+          {id: 'screwdriver', label: 'Phillips Head Screwdriver', slot: 'fasten'},
+          {id: 'tweezers', label: 'Tweezers', slot: 'jumpers'},
+          {id: 'paste', label: 'Thermal Paste', slot: 'cool'},
+          {id: 'ties', label: 'Cable Ties', slot: 'cablemgmt'}
+        ],
+        slots: [
+          {id: 'esd', label: 'Anti-static protection'},
+          {id: 'surface', label: 'ESD-safe work surface'},
+          {id: 'fasten', label: 'Screwing components'},
+          {id: 'jumpers', label: 'Placing jumper caps/small parts'},
+          {id: 'cool', label: 'Thermal paste for CPU'},
+          {id: 'cablemgmt', label: 'Cable management'}
+        ]
+      });
+    },
+    
+    animate: function() {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-  }
-
-  function buildTags(){
-    tools.forEach((t,i)=>{
-      const btn=document.createElement('button');
-      btn.textContent=t.name.split('(')[0].trim();
-      btn.dataset.index=i;
-      btn.setAttribute('aria-label',`Select ${t.name}`);
-      btn.addEventListener('click',()=>selectTool(i));
-      toolTags.appendChild(btn);
-    });
-  }
-
-  function selectTool(idx){
-    if(isPlaying)return;
-    if(activeIndex===idx){
-      activeIndex=-1;
-      hideTooltip();
-      updateTagHighlights();
-      render();
-      stepInd.textContent='Ready';
-      return;
-    }
-    activeIndex=idx;
-    const t=tools[idx];
-    showTooltip(t.x+40,t.y-40,t);
-    updateTagHighlights();
-    stepInd.textContent=t.name;
-    render();
-  }
-
-  function updateTagHighlights(){
-    document.querySelectorAll('.tool-tags button').forEach((btn,i)=>{
-      btn.classList.toggle('active',i===activeIndex);
-    });
-  }
-
-  function showTooltip(x,y,comp){
-    tooltip.style.display='block';
-    tooltip.style.left=Math.min(x+10,W-260)+'px';
-    tooltip.style.top=Math.min(y+10,H-120)+'px';
-    tooltip.innerHTML=`<span class="tt-name">${comp.name}</span><span class="tt-desc">${comp.desc}</span>`;
-    tooltip.setAttribute('aria-hidden','false');
-  }
-
-  function hideTooltip(){
-    tooltip.style.display='none';
-    tooltip.setAttribute('aria-hidden','true');
-  }
-
-  function getCanvasPos(e){
-    const rect=canvas.getBoundingClientRect();
-    const scaleX=W/rect.width;
-    const scaleY=H/rect.height;
-    const clientX=e.clientX||(e.touches&&e.touches[0].clientX);
-    const clientY=e.clientY||(e.touches&&e.touches[0].clientY);
-    return {x:(clientX-rect.left)*scaleX,y:(clientY-rect.top)*scaleY};
-  }
-
-  function hitTest(pos){
-    for(let i=tools.length-1;i>=0;i--){
-      const t=tools[i];
-      let halfX=30,halfY=30;
-      if(t.id==='screwdriver'){halfX=20;halfY=85}
-      else if(t.id==='esd'){halfX=42;halfY=42}
-      else{halfX=t.w/2+6;halfY=t.h/2+6}
-      if(Math.abs(pos.x-t.x)<halfX && Math.abs(pos.y-t.y)<halfY)return i;
-    }
-    return -1;
-  }
-
-  function handleClick(e){
-    if(isPlaying)return;
-    const pos=getCanvasPos(e);
-    const idx=hitTest(pos);
-    if(idx>=0)selectTool(idx);
-    else{activeIndex=-1;hideTooltip();updateTagHighlights();stepInd.textContent='Ready';render()}
-  }
-
-  canvas.addEventListener('click',handleClick);
-  canvas.addEventListener('touchstart',(e)=>{e.preventDefault();handleClick(e)},{passive:false});
-
-  function playCycle(){
-    if(isPlaying)return;
-    isPlaying=true;
-    playBtn.textContent='\u25B6 Running';
-    playBtn.setAttribute('aria-label','Auto-cycling through tools');
-    resetState=false;
-    let idx=0;
-    function step(){
-      if(!isPlaying)return;
-      activeIndex=idx;
-      showTooltip(tools[idx].x+40,tools[idx].y-40,tools[idx]);
-      updateTagHighlights();
-      stepInd.textContent=tools[idx].name;
-      render();
-      idx=(idx+1)%tools.length;
-      cycleTimer=setTimeout(step,2000);
-    }
-    step();
-  }
-
-  function pauseCycle(){
-    isPlaying=false;
-    if(cycleTimer){clearTimeout(cycleTimer);cycleTimer=null}
-    playBtn.textContent='\u25B6 Play';
-    playBtn.setAttribute('aria-label','Auto-cycle through tools');
-  }
-
-  function resetView(){
-    pauseCycle();
-    activeIndex=-1;
-    hideTooltip();
-    updateTagHighlights();
-    stepInd.textContent='Ready';
-    resetState=true;
-    render();
-  }
-
-  playBtn.addEventListener('click',playCycle);
-  pauseBtn.addEventListener('click',pauseCycle);
-  resetBtn.addEventListener('click',resetView);
-
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape'){activeIndex=-1;hideTooltip();updateTagHighlights();stepInd.textContent='Ready';render()}
   });
-
-  buildTags();
-  resetView();
+});
 })();

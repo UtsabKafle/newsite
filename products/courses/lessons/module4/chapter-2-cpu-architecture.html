@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Chapter 2: CPU Architecture | Consica Academy</title>
+  <meta name="description" content="Chapter 2: CPU Architecture. Overview of CPU internal design — microarchitecture, ISAs, RISC vs CISC, and pipelining.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
+            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' },
+          },
+          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' },
+        },
+      },
+    };
+  </script>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('consica-theme');
+      var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main { padding-top: var(--nav-height); }
+    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) {
+      .static-main { padding-top: 3.5rem; }
+      .static-main section { scroll-margin-top: 4rem; }
+      .static-main .glass-panel { border-radius: 1rem; }
+    }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
+    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
+    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
+    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
+    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-check p { margin-bottom: 0.25rem; }
+    .kb-answer { display: none; }
+    .kb-answer.revealed { display: block; }
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
+          <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+          <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span class="text-[10px] font-medium">Services</span>
+        </a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
+          <span class="text-[10px] font-medium">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 2</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">CPU Architecture</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Overview of CPU internal design</p>
+
+        <!-- Introduction -->
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Not all CPUs are created equal. The internal design of a processor — its architecture — determines everything from how fast it runs to what software it can execute. Just as the layout of a city's streets and highways determines how efficiently traffic flows, the architecture of a CPU determines how efficiently data and instructions move through the chip.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, we will explore the different families of CPU architecture, the difference between architecture and microarchitecture, and the fundamental design philosophies that have shaped the processors we use every day. Understanding CPU architecture will give you a deep appreciation for why some chips excel at number-crunching while others are optimized for energy efficiency.
+            </p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At the highest level, CPU architecture refers to the <span class="text-brand-200">Instruction Set Architecture (ISA)</span> — the set of commands a processor understands. The ISA is like a language: every program must be translated into this language before the CPU can execute it. Two programs written in different high-level languages can run on the same CPU as long as both are compiled into the same ISA.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The <span class="text-brand-200">microarchitecture</span>, on the other hand, is the physical implementation of the ISA — how the transistors are arranged, how data flows through the chip, and how the pipeline stages are organized. Two CPUs can implement the same ISA (e.g., x86) with completely different microarchitectures (e.g., Intel's Core vs. AMD's Zen), resulting in different performance and power characteristics.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Modern CPU architectures are divided into two major philosophies: <span class="text-brand-200">RISC</span> (Reduced Instruction Set Computer) and <span class="text-brand-200">CISC</span> (Complex Instruction Set Computer). RISC processors use a small set of simple, uniform instructions that execute in a single clock cycle, while CISC processors provide a larger set of more powerful instructions that may take multiple cycles. The x86 architecture is CISC-based; ARM architecture is RISC-based.
+            </p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of CPU architecture like a kitchen layout. The ISA is the recipe book — it defines the available recipes (instructions) and ingredients (data types). The microarchitecture is the actual kitchen design: where the stove is, how the counter space is organized, and how the chef moves between stations. Two kitchens can use the same recipe book but have completely different layouts — one might be optimized for speed with everything within arm's reach, while another might be designed for large banquets with multiple prep stations. Both can cook the same meals, but with different efficiency.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The x86 architecture, developed by Intel in 1978 and later adopted by AMD, has dominated desktop and server computing for over four decades. Its CISC design allows a single instruction to perform complex multi-step operations, which made it easier to program in the early days when memory was scarce and compilers were primitive. Today, modern x86 CPUs internally decode CISC instructions into simpler RISC-like micro-operations, combining the best of both worlds.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              ARM (Advanced RISC Machines) architecture, developed by Acorn Computers in the 1980s and now licensed by Arm Holdings, is the most widely used ISA in the world. ARM processors power over 99% of smartphones, along with an increasing number of laptops, servers, and embedded devices. The ARM architecture emphasizes energy efficiency, using a simpler pipeline and fewer transistors per instruction, which translates directly into longer battery life.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Another fundamental architectural concept is <span class="text-brand-200">pipelining</span>. Instead of waiting for one instruction to complete before starting the next, a pipelined CPU overlaps the stages of multiple instructions. A classic five-stage pipeline includes Fetch, Decode, Execute, Memory Access, and Write-Back. While one instruction is being decoded, the next is being fetched, and the previous one is being executed — dramatically improving throughput.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Modern CPU architectures employ <span class="text-brand-200">superscalar</span> execution, meaning they can issue multiple instructions per clock cycle across several parallel execution pipelines. A typical high-end x86 core might have six or more execution ports: integer ALUs, floating-point units, load/store units, and branch execution units. The CPU's scheduler analyzes the instruction stream and dispatches independent instructions simultaneously.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Out-of-order execution</span> (OoO) further enhances performance by allowing the CPU to execute instructions as soon as their operands are ready, rather than in strict program order. The CPU maintains a <span class="text-brand-200">reorder buffer</span> that tracks instruction dependencies and commits results in the original program order to ensure correctness. This technique can dramatically improve utilization of execution units when instructions stall on cache misses or data hazards.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The RISC-V architecture represents a new, open-standard ISA that is gaining traction in academia and industry. Unlike x86 and ARM, which are proprietary, RISC-V is freely available, enabling anyone to design and manufacture chips without licensing fees. Its modular design includes a small base integer instruction set plus optional extensions for floating-point, vector processing, cryptography, and more. RISC-V is particularly promising for custom application-specific processors, IoT devices, and emerging AI accelerators.
+            </p>
+          </div>
+        </section>
+
+        <!-- Vocabulary Table -->
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr><td>Architecture</td><td>The overall design and structure of a CPU, including its instruction set and data pathways</td></tr>
+                  <tr><td>Microarchitecture</td><td>The physical implementation of an architecture — how transistors and circuits realize the ISA</td></tr>
+                  <tr><td>x86</td><td>A CISC-based ISA developed by Intel, dominant in desktop and server processors</td></tr>
+                  <tr><td>ARM</td><td>A RISC-based ISA known for energy efficiency, used in most smartphones and increasingly in laptops</td></tr>
+                  <tr><td>RISC</td><td>Reduced Instruction Set Computer — uses simple, fixed-length instructions that execute in one cycle</td></tr>
+                  <tr><td>CISC</td><td>Complex Instruction Set Computer — uses variable-length instructions that can perform multi-step operations</td></tr>
+                  <tr><td>ISA</td><td>Instruction Set Architecture — the contract between software and hardware defining available instructions</td></tr>
+                  <tr><td>Pipeline</td><td>A technique where multiple instruction stages (fetch, decode, execute) are overlapped for higher throughput</td></tr>
+                  <tr><td>Superscalar</td><td>A CPU design that can issue and execute multiple instructions per clock cycle</td></tr>
+                  <tr><td>RISC-V</td><td>An open-standard RISC ISA that anyone can use without licensing fees</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fun Facts -->
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The x86 architecture is backward-compatible all the way to the Intel 8086 from 1978. A modern CPU can still run software written almost 50 years ago.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">ARM-based chips sold over 250 billion units by 2024 — more than any other processor architecture in history.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Apple's M-series chips (ARM-based) deliver comparable or better performance than many x86 chips while using significantly less power.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Modern x86 CPUs translate each complex CISC instruction into 1-4 simple RISC-like micro-ops before execution — effectively acting as RISC chips internally.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The first RISC chip, the Berkeley RISC-I (1982), had only 44,500 transistors — about 0.0001% of a modern Apple M3's transistor count.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">RISC-V was originally developed at UC Berkeley in 2010 for a short research project — now it is a global open-standard architecture backed by hundreds of companies.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Explore a visual comparison of different CPU architectures and see how pipelines work under the hood.</p>
+            <a href="diagrams/diagram-02-architecture/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- Knowledge Check -->
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
+            <div class="mt-6 space-y-6">
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What does ISA stand for?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Integrated System Architecture</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Instruction Set Architecture</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Internal Switching Array</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Interconnect Standard Assembly</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Instruction Set Architecture</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. Which architecture is known for energy efficiency and dominates the smartphone market?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> x86</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> ARM</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> CISC</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> RISC-V</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> ARM</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is the difference between architecture and microarchitecture?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> They mean the same thing</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Architecture is the ISA; microarchitecture is the physical implementation</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Architecture is the chip layout; microarchitecture is the software</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Microarchitecture is only used in RISC chips</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Architecture is the ISA; microarchitecture is the physical implementation</p>
+              </div>
+
+            </div>
+
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) {
+                      if (!a.classList.contains('revealed')) hidden = true;
+                    });
+                    answers.forEach(function(a) {
+                      a.classList.toggle('revealed', hidden);
+                    });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+                                <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <a href="chapter-1-what-is-a-cpu.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Previous: Chapter 1 &mdash; What Is a CPU?
+              </a>
+              <a href="chapter-3-the-control-unit.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                Next: Chapter 3 &mdash; The Control Unit
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="cpu-components.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 4 &middot; Chapter 2</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Chapter 12: CPU Performance | Consica Academy</title>
+  <meta name="description" content="Chapter 12: CPU Performance. Benchmarks, performance factors, and how to measure CPU speed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4',
+              400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A',
+              800: '#032652', 900: '#021629',
+            },
+            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' },
+          },
+          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' },
+        },
+      },
+    };
+  </script>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('consica-theme');
+      var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main { padding-top: var(--nav-height); }
+    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) {
+      .static-main { padding-top: 3.5rem; }
+      .static-main section { scroll-margin-top: 4rem; }
+      .static-main .glass-panel { border-radius: 1rem; }
+    }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
+    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
+    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-check p { margin-bottom: 0.25rem; }
+    .kb-answer { display: none; }
+    .kb-answer.revealed { display: block; }
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
+          <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+          <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span class="text-[10px] font-medium">Services</span>
+        </a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
+          <span class="text-[10px] font-medium">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 12</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">CPU Performance</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Benchmarks and performance factors that determine CPU speed</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              When you shop for a CPU, what numbers matter? Clock speed (GHz) is the most commonly quoted metric, but it tells only part of the story. A 4.0 GHz processor from 2025 is dramatically faster than a 4.0 GHz processor from 2010, despite having the same clock speed. Clearly, there is more to performance than just frequency.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              CPU performance is determined by a combination of factors: <span class="text-brand-200">clock speed</span> (how many cycles per second), <span class="text-brand-200">IPC</span> (instructions per cycle — how much work each cycle does), <span class="text-brand-200">core count</span> (how many instructions can run in parallel), <span class="text-brand-200">cache size and speed</span> (how fast data can be accessed), and <span class="text-brand-200">memory bandwidth</span> (how fast data can flow between the CPU and RAM).
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              To make sense of all these factors, the industry uses <span class="text-brand-200">benchmarks</span> — standardised tests that measure real-world performance across different workloads. In this chapter, we explore how CPU performance is measured, what the key metrics mean, and how to interpret benchmark results to make informed purchasing decisions.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm text-theme-muted">CPU performance is like measuring a car's capabilities. Clock speed is the engine RPM — how fast the engine is spinning. IPC is the torque — how much work each rotation does. Core count is the number of engines working in parallel. The benchmark is the lap time around a test track, which takes all factors into account and gives a single, comparable result.</p>
+            </div>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of a CPU as a team of movers carrying boxes out of a house. Clock speed is how fast each mover walks. IPC is how many boxes each mover carries per trip. Core count is the number of movers on the team. A bottleneck is like a narrow doorway that limits how many movers can pass through at once. The total performance is boxes moved per hour — equivalent to instructions per second.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Instructions Per Cycle (IPC)</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">IPC</span> (Instructions Per Cycle) is arguably the most important metric for CPU performance. It measures how many instructions the CPU can complete on average during each clock cycle. A CPU with high IPC can do more work at the same clock speed than a CPU with low IPC. IPC is determined by the microarchitecture — the pipeline depth, branch predictor accuracy, cache design, and execution unit configuration.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The theoretical formula is simple: <span class="text-brand-200">Performance = Clock Speed x IPC</span>. In practice, IPC is not a fixed number — it varies dramatically depending on the workload. A CPU might achieve 3 IPC on a highly parallel, cache-friendly workload but only 0.5 IPC on a branch-heavy, memory-bound workload. This is why benchmark scores vary across different tests, and why a CPU that excels in gaming might not be the best for video rendering.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">FLOPS and MIPS</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">FLOPS</span> (Floating Point Operations Per Second) measures the CPU's ability to perform floating-point arithmetic — calculations using decimal numbers. This is critical for scientific computing, 3D rendering, and machine learning. Modern CPUs can achieve hundreds of GFLOPS (giga-FLOPS) or even TFLOPS (tera-FLOPS) using SIMD extensions like AVX-512.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">MIPS</span> (Millions of Instructions Per Second) is a simpler metric that counts raw instruction throughput. It was popular in the 1980s and 1990s but is less useful today because different instructions have vastly different complexities — a MIPS measurement of one CPU cannot be directly compared to another CPU with a different ISA. FLOPS has largely replaced MIPS as the standard metric for performance comparisons.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Single-Core vs. Multi-Core Performance</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Single-core performance</span> measures how fast a single CPU core can execute instructions. This matters for applications that are not well-optimised for parallelism — most legacy software, many games, and interactive applications. Single-core performance depends on clock speed, IPC, and cache latency.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Multi-core performance</span> measures how well a CPU performs when all cores are working in parallel. It depends on core count, multi-threading efficiency, and how well the workload scales. A 16-core CPU might not be 16 times faster than a single-core CPU on a given task if the task has sequential dependencies, memory bottlenecks, or synchronisation overhead. The relationship between core count and performance is described by Amdahl's Law.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Benchmarks: How Performance Is Measured</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Benchmarks</span> are standardised programs designed to measure CPU performance in a repeatable, comparable way. There are two main types: <span class="text-brand-200">synthetic benchmarks</span> (like Geekbench, Cinebench, and PassMark) that test specific CPU subsystems under controlled conditions, and <span class="text-brand-200">real-world benchmarks</span> (like application-specific tests in Photoshop, Blender, or 7-Zip) that measure performance in actual software.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              No single benchmark tells the whole story. A CPU might score highly in Geekbench's integer tests but poorly in floating-point workloads, or excel in multi-core rendering but lag in single-threaded gaming. The best approach is to look at benchmark results from multiple sources that match your intended use case. Reviewers often provide charts showing performance across a range of applications, giving a balanced picture of a CPU's strengths and weaknesses.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Bottlenecks in CPU Performance</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A <span class="text-brand-200">bottleneck</span> is the component that limits overall system performance. Common CPU bottlenecks include: memory bandwidth (the CPU cannot get data fast enough from RAM), cache misses (data is not in the cache and must be fetched from main memory), pipeline hazards (stalls due to dependencies or branch mispredictions), and thermal throttling (the CPU slows down to prevent overheating).
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In a balanced system, no single component should be a severe bottleneck. If your CPU is much more powerful than your GPU, the GPU limits gaming performance. If your memory is slow, even the fastest CPU will spend cycles waiting for data. Understanding bottlenecks helps you make smart upgrade decisions — sometimes adding faster RAM or a better cooler can improve performance more than upgrading the CPU itself.
+            </p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">CPU performance is multi-dimensional. Clock speed, IPC, core count, cache, memory bandwidth, and thermal design all interact in complex ways. The best CPU for one workload may be mediocre for another. This is why choosing a CPU requires understanding both the processor's specifications and the tasks you intend to run.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr><td>Benchmark</td><td>A standardised test used to measure and compare CPU performance across different systems</td></tr>
+                  <tr><td>IPC</td><td>Instructions Per Cycle — the average number of instructions completed in each clock cycle</td></tr>
+                  <tr><td>FLOPS</td><td>Floating Point Operations Per Second — a measure of the CPU's decimal arithmetic capability</td></tr>
+                  <tr><td>Instructions Per Cycle</td><td>Same as IPC — a key metric of microarchitectural efficiency independent of clock speed</td></tr>
+                  <tr><td>Single-Core</td><td>Performance measured using only one CPU core, important for legacy and interactive software</td></tr>
+                  <tr><td>Multi-Core</td><td>Performance measured using all CPU cores in parallel, important for highly parallel workloads</td></tr>
+                  <tr><td>Bottleneck</td><td>The component or resource that limits overall system performance, creating a performance ceiling</td></tr>
+                  <tr><td>MIPS</td><td>Millions of Instructions Per Second — an early performance metric, less useful across different ISAs</td></tr>
+                  <tr><td>Throughput</td><td>The amount of work completed per unit of time, such as instructions per second</td></tr>
+                  <tr><td>Clock Speed</td><td>The frequency of the CPU's clock signal, measured in GHz, determining cycles per second</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The Intel Core 2 Duo (2006) was a landmark chip that demonstrated massive IPC improvements. At the same 2.13 GHz clock speed, its single-core performance was roughly 40% higher than the previous Pentium M — proving that microarchitecture advances matter as much as clock speed.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Cinebench, one of the most popular CPU benchmarks, renders a 3D scene using Cinema 4D. The 2024 version (R25) can fully utilise 256+ threads, making it an excellent test of multi-core CPU performance for content creation workloads.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The fastest consumer CPU in the world in 2024, the AMD Ryzen 9 7950X, achieves roughly 2,000 GFLOPS (2 TFLOPS) in peak floating-point performance. This is comparable to a mid-range GPU from just a few years ago, highlighting the incredible computational power of modern processors.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The term "MIPS" was not just a metric — it was also a CPU architecture. The MIPS Technologies R-series processors (1980s-1990s) popularised the RISC philosophy and the MIPS metric. Today, MIPS architecture CPUs are still used in some embedded systems and networking equipment.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Modern review sites often use "geomean" (geometric mean) to aggregate benchmark results across multiple tests. The geometric mean prevents fast results in one test from disproportionately skewing the average, giving a more balanced overall performance score.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore CPU Performance.</p>
+            <a href="diagrams/diagram-12-performance/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
+            <div class="mt-6 space-y-6">
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What does IPC (Instructions Per Cycle) measure?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The clock speed of the CPU</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The number of instructions completed per clock cycle, indicating microarchitectural efficiency</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The number of CPU cores</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The temperature of the CPU under load</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The number of instructions completed per clock cycle, indicating microarchitectural efficiency</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. Why might a CPU with a lower clock speed outperform one with a higher clock speed?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Clock speed is irrelevant to performance</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The lower-clock CPU may have higher IPC, more cores, better cache, or a combination of these factors</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Lower clock speeds are always more efficient</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Higher clock speeds cause throttling that reduces performance</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The lower-clock CPU may have higher IPC, more cores, better cache, or a combination of these factors</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is a performance bottleneck in a computer system?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A component that is damaged or broken</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> The component or resource that limits overall system performance, creating a ceiling that cannot be exceeded</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A software bug that causes crashes</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> The maximum temperature a CPU can reach before shutting down</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The component or resource that limits overall system performance, creating a ceiling that cannot be exceeded</p>
+              </div>
+
+            </div>
+
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) {
+                      if (!a.classList.contains('revealed')) hidden = true;
+                    });
+                    answers.forEach(function(a) {
+                      a.classList.toggle('revealed', hidden);
+                    });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+                                <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <a href="chapter-11-instruction-sets.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Previous: Chapter 11 &mdash; Instruction Sets
+              </a>
+              <a href="chapter-13-heat-and-power.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                Next: Chapter 13 &mdash; Heat and Power
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="cpu-components.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 4 &middot; Chapter 12</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+
+</html>

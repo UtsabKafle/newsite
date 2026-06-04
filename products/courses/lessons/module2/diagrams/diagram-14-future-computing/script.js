@@ -1,232 +1,40 @@
-(function () {
-  const playBtn = document.getElementById('playBtn');
-  const pauseBtn = document.getElementById('pauseBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const statusBadge = document.getElementById('statusBadge');
-  const cards = document.querySelectorAll('.concept-card');
-  const timelineFill = document.getElementById('timelineFill');
-  const markers = document.querySelectorAll('.timeline-marker');
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
+(function(){'use strict';
+var components = [    {id:"quantum",name:"Quantum Computing",category:"Processing",purpose:"Uses quantum mechanical phenomena to solve problems impossible for classical computers",description:"Quantum computers use qubits that can exist in superposition of 0 and 1 simultaneously, enabling parallel computation on an exponential scale.",why:"Quantum computing could revolutionize cryptography, drug discovery, and optimization",analogy:"Like a lock that can try every key combination simultaneously",funFact:"Google\\'s Sycamore processor achieved quantum supremacy in 2019, solving a problem in 200 seconds that would take a supercomputer 10,000 years",takeaway:"Quantum computers excel at specific problems but won\\'t replace classical computers entirely",mistake:"Quantum computers don\\'t replace classical computers—they solve different types of problems",descriptionDetailed:"Qubits use quantum superposition and entanglement. Algorithms like Shor\\'s factor large numbers and Grover\\'s search databases exponentially faster. Error correction and qubit coherence remain major challenges."},    {id:"ai",name:"AI Computing",category:"Processing",purpose:"Simulates human intelligence to learn, reason, and make decisions",description:"AI systems use neural networks trained on massive datasets to recognize patterns, understand language, and make predictions.",why:"AI is transforming every industry from healthcare to transportation",analogy:"Like a brain that learns from experience rather than being programmed",funFact:"GPT-4 was trained on trillions of words and can pass professional exams",takeaway:"AI learns patterns from data rather than following explicit instructions",mistake:"AI doesn\\'t think or understand—it predicts statistically based on training data",descriptionDetailed:"Neural networks consist of layers of interconnected neurons. Deep learning uses many layers to learn hierarchical features. Training requires vast datasets and specialized hardware like GPUs."},    {id:"neuromorphic",name:"Neuromorphic Computing",category:"Processing",purpose:"Mimics the structure and function of biological brains for efficient computation",description:"Neuromorphic chips use artificial neurons and synapses that communicate through spikes, similar to biological neural networks.",why:"Neuromorphic computing could achieve brain-like efficiency for AI tasks",analogy:"Like building an artificial brain using electronic neurons and synapses",funFact:"Intel\\'s Loihi chip consumes energy comparable to a biological brain",takeaway:"Neuromorphic computing is designed for ultra-low-power AI processing",mistake:"Neuromorphic isn\\'t the same as neural network software—it\\'s hardware designed to match neural architecture",descriptionDetailed:"Neuromorphic hardware uses event-driven spikes instead of clock cycles. Synaptic weights are stored in memristors or SRAM. This architecture enables real-time learning with minimal power."},    {id:"optical",name:"Optical Computing",category:"Processing",purpose:"Uses light instead of electricity for ultra-fast data processing",description:"Optical computing uses photons to transmit and process data, achieving speeds limited only by the speed of light with minimal heat generation.",why:"Optical computing could overcome the speed and heat limits of electronic circuits",analogy:"Like replacing copper wires with fiber optics inside the computer",funFact:"Optical interconnects are already used in data centers to connect racks",takeaway:"Optical computing promises dramatically faster and more efficient processing",mistake:"Fully optical computers are still experimental—most current uses are optical interconnects",descriptionDetailed:"Optical computing uses lasers, modulators, and photodetectors to process information. Optical logic gates and switches operate at terahertz speeds. Challenges include miniaturization and integration with electronics."},    {id:"dna",name:"DNA Computing",category:"Storage",purpose:"Uses DNA molecules to store and process data at incredible density",description:"DNA computing encodes data in nucleotide sequences, achieving storage densities millions of times greater than electronic media.",why:"DNA storage could solve the growing problem of data storage density",analogy:"Like storing the entire Internet in a sugar cube-sized container",funFact:"1 gram of DNA can theoretically store 215 petabytes of data",takeaway:"DNA storage offers unprecedented data density but slow read/write speed",mistake:"DNA won\\'t replace SSDs—it\\'s best for archival, not active use",descriptionDetailed:"Data is encoded as sequences of A, T, C, G nucleotides. DNA synthesis writes data, and sequencing reads it. Error rates are addressed through redundancy. DNA computing can also solve optimization problems through molecular reactions."},    {id:"edge",name:"Edge Computing",category:"Network",purpose:"Processes data closer to where it\\'s generated rather than in centralized data centers",description:"Edge computing moves computation to local devices and gateways, reducing latency and bandwidth usage compared to cloud-only architectures.",why:"Edge computing enables real-time applications like autonomous vehicles and IoT",analogy:"Like having a local market instead of traveling to a distant city for everything",funFact:"By 2025, over 75% of enterprise data will be processed at the edge",takeaway:"Edge computing reduces latency by processing data locally instead of in the cloud",mistake:"Edge computing doesn\\'t replace the cloud—it complements it for time-sensitive tasks",descriptionDetailed:"Edge nodes include IoT devices, 5G base stations, and local servers. They run machine learning models locally and send only aggregated data to the cloud. Use cases include autonomous driving, industrial automation, and smart cities."}];
+var connections = [{from:"quantum",to:"ai"},{from:"ai",to:"neuromorphic"},{from:"neuromorphic",to:"optical"},{from:"optical",to:"dna"},{from:"dna",to:"edge"}];
+var steps = [{label:"Step 1: Quantum Computing",status:"Exploring: Quantum Computing - Uses quantum mechanical phenomena to solve problems impossible for classical computers"},{label:"Step 2: AI Computing",status:"Exploring: AI Computing - Simulates human intelligence to learn, reason, and make decisions"},{label:"Step 3: Neuromorphic Computing",status:"Exploring: Neuromorphic Computing - Mimics the structure and function of biological brains for efficient computation"},{label:"Step 4: Optical Computing",status:"Exploring: Optical Computing - Uses light instead of electricity for ultra-fast data processing"},{label:"Step 5: DNA Computing",status:"Exploring: DNA Computing - Uses DNA molecules to store and process data at incredible density"},{label:"Step 6: Edge Computing",status:"Exploring: Edge Computing - Processes data closer to where it\\'s generated rather than in centralized data centers"}];
+var tour = [{title:"Quantum Computing",description:"Uses quantum mechanical phenomena to solve problems impossible for classical computers",componentId:"quantum"},{title:"AI Computing",description:"Simulates human intelligence to learn, reason, and make decisions",componentId:"ai"},{title:"Neuromorphic Computing",description:"Mimics the structure and function of biological brains for efficient computation",componentId:"neuromorphic"},{title:"Optical Computing",description:"Uses light instead of electricity for ultra-fast data processing",componentId:"optical"},{title:"DNA Computing",description:"Uses DNA molecules to store and process data at incredible density",componentId:"dna"},{title:"Edge Computing",description:"Processes data closer to where it\\'s generated rather than in centralized data centers",componentId:"edge"}];
 
-  let isPlaying = false, isPaused = false;
-  let animId = null;
-  let particleAnimId = null;
-  let particles = [];
-  let timelineProgress = 0;
-  let cardGlowIdx = -1;
-  let animStep = 0;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2.5 + 0.5;
-      this.speedX = (Math.random() - 0.5) * 0.6;
-      this.speedY = (Math.random() - 0.5) * 0.6;
-      this.opacity = Math.random() * 0.5 + 0.1;
-      this.hue = Math.random() > 0.5 ? 260 : 210;
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Future Computing',
+    subtitle: 'How Computers Work',
+    desc: 'Explore emerging technologies shaping the future of computing.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${this.hue}, 80%, 70%, ${this.opacity})`;
-      ctx.fill();
-    }
-  }
-
-  const particleCount = 120;
-  for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-  let mouseX = -1000, mouseY = -1000;
-  document.addEventListener('mousemove', function (e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
   });
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `hsla(260, 70%, 70%, ${0.08 * (1 - dist / 120)})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-    particleAnimId = requestAnimationFrame(animateParticles);
-  }
-  particleAnimId = requestAnimationFrame(animateParticles);
-
-  function setStatus(text, cls) {
-    statusBadge.textContent = text;
-    statusBadge.className = 'status-badge' + (cls ? ' ' + cls : '');
-  }
-
-  cards.forEach((card, idx) => {
-    card.addEventListener('click', function () {
-      const expanded = this.classList.toggle('expanded');
-      const extra = this.querySelector('.card-extra');
-      const isExpanded = this.getAttribute('aria-expanded') === 'true' ? false : true;
-      this.setAttribute('aria-expanded', isExpanded);
-      if (extra) extra.hidden = !isExpanded;
-    });
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.click();
-      }
-    });
-  });
-
-  function updateTimeline(pct) {
-    timelineFill.style.width = Math.min(pct, 100) + '%';
-    markers.forEach(m => {
-      const year = m.dataset.year || '';
-      if (year === '1940s' && pct > 5) m.classList.add('active');
-      else if (year === '1970s' && pct > 20) m.classList.add('active');
-      else if (year === '1990s' && pct > 38) m.classList.add('active');
-      else if (year === '2020s' && pct > 54) m.classList.add('active');
-      else if (year === '2030s' && pct > 72) m.classList.add('active');
-      else if (year === '2050+' && pct > 90) m.classList.add('active');
-    });
-  }
-
-  function glowCard(idx) {
-    cards.forEach(c => c.classList.remove('glow'));
-    if (idx >= 0 && idx < cards.length) {
-      cards[idx].classList.add('glow');
-      cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }
-
-  function runAnimation() {
-    if (!isPlaying || isPaused) return;
-    const duration = 120;
-    if (animStep > duration) {
-      stopAnimation();
-      setStatus('Complete', 'active');
-      statusBadge.style.color = '#7c4dff';
-      statusBadge.style.borderColor = '#7c4dff';
-      updateTimeline(100);
-      return;
-    }
-    const pct = (animStep / duration) * 100;
-    updateTimeline(pct);
-    timelineProgress = pct;
-
-    const cardCycle = Math.floor(animStep / 10);
-    const glowCardIdx = cardCycle % cards.length;
-    if (animStep % 10 === 0) glowCard(glowCardIdx);
-
-    setStatus(`Evolving... ${Math.round(pct)}%`, 'active');
-    animStep++;
-    animId = setTimeout(runAnimation, 80);
-  }
-
-  function startPlay() {
-    if (isPlaying) {
-      if (isPaused) {
-        isPaused = false;
-        pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-        setStatus('Running...', 'active');
-        animId = setTimeout(runAnimation, 80);
-        return;
-      }
-      return;
-    }
-    isPlaying = true;
-    isPaused = false;
-    playBtn.disabled = true;
-    pauseBtn.disabled = false;
-    resetBtn.disabled = false;
-    statusBadge.style.color = '';
-    statusBadge.style.borderColor = '';
-    setStatus('Starting...', 'active');
-    if (animStep === 0) {
-      cards.forEach(c => c.classList.remove('glow'));
-      updateTimeline(0);
-    }
-    animId = setTimeout(runAnimation, 200);
-  }
-
-  function pauseAnimation() {
-    if (!isPlaying) return;
-    if (isPaused) {
-      isPaused = false;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-      setStatus('Running...', 'active');
-      animId = setTimeout(runAnimation, 80);
-    } else {
-      isPaused = true;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Resume</span>';
-      setStatus('Paused', '');
-      if (animId) { clearTimeout(animId); animId = null; }
-    }
-  }
-
-  function stopAnimation() {
-    if (animId) { clearTimeout(animId); animId = null; }
-    isPlaying = false;
-    isPaused = false;
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-  }
-
-  function resetAll() {
-    stopAnimation();
-    animStep = 0;
-    timelineProgress = 0;
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    resetBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-    statusBadge.style.color = '';
-    statusBadge.style.borderColor = '';
-    setStatus('Idle', '');
-    updateTimeline(0);
-    cards.forEach(c => c.classList.remove('glow', 'expanded'));
-    cards.forEach(c => { c.setAttribute('aria-expanded', 'false'); const e = c.querySelector('.card-extra'); if (e) e.hidden = true; });
-    markers.forEach(m => m.classList.remove('active'));
-  }
-
-  playBtn.addEventListener('click', startPlay);
-  pauseBtn.addEventListener('click', pauseAnimation);
-  resetBtn.addEventListener('click', resetAll);
-  resetBtn.disabled = true;
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') resetAll();
-  });
-
-  window.addEventListener('beforeunload', function () {
-    if (particleAnimId) cancelAnimationFrame(particleAnimId);
-    if (animId) clearTimeout(animId);
-  });
+});
 })();

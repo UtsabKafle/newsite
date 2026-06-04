@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Chapter 7: Clock Speed &amp; Cycles | Consica Academy</title>
+  <meta name="description" content="Chapter 7: Clock Speed & Cycles. How the CPU clock drives everything — hertz, multipliers, turbo boost.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
+            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' },
+          },
+          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' },
+        },
+      },
+    };
+  </script>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('consica-theme');
+      var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main { padding-top: var(--nav-height); }
+    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) {
+      .static-main { padding-top: 3.5rem; }
+      .static-main section { scroll-margin-top: 4rem; }
+      .static-main .glass-panel { border-radius: 1rem; }
+    }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
+    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
+    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
+    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
+    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-check p { margin-bottom: 0.25rem; }
+    .kb-answer { display: none; }
+    .kb-answer.revealed { display: block; }
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
+          <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+          <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span class="text-[10px] font-medium">Services</span>
+        </a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
+          <span class="text-[10px] font-medium">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 7</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Clock Speed &amp; Cycles</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How the CPU clock drives everything</p>
+
+        <!-- Introduction -->
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Every action a CPU performs is synchronized by a clock — a tiny quartz crystal oscillator that generates a steady stream of electrical pulses. Each pulse is called a <span class="text-brand-200">clock cycle</span>, and the number of cycles per second is the CPU's <span class="text-brand-200">clock speed</span>, measured in hertz (Hz).
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A 4 GHz processor ticks 4 billion times per second. In a single tick, a simple instruction like adding two registers can begin and complete. More complex operations like loading from memory or multiplying floating-point numbers may take multiple cycles. The clock speed is one of the most visible specifications of a CPU, but it is only one piece of the performance puzzle — architecture, cache, and pipeline efficiency matter just as much.
+            </p>
+          </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The CPU clock signal is generated by a <span class="text-brand-200">clock generator</span>, typically a quartz crystal oscillator combined with a phase-locked loop (PLL) circuit. The crystal vibrates at a precise frequency when an electric current is applied, and the PLL multiplies that base frequency up to the desired clock speed. A 100 MHz <span class="text-brand-200">base clock</span> (BCLK) can be multiplied by a factor of 40 to achieve 4.0 GHz.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The <span class="text-brand-200">clock multiplier</span> (also called the CPU ratio) determines the final CPU frequency: CPU Frequency = Base Clock &times; Multiplier. For example, with a 100 MHz base clock and a 45x multiplier, the CPU runs at 4.5 GHz. Overclockers increase either the base clock or the multiplier to achieve higher speeds, though this requires additional voltage and cooling to maintain stability.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Modern CPUs use <span class="text-brand-200">Turbo Boost</span> (Intel) or <span class="text-brand-200">Precision Boost</span> (AMD) to dynamically increase clock speed when thermal and power headroom allows. When a workload only uses a few cores, the CPU can boost those cores to a higher frequency than the base speed. For example, an Intel Core i9 might have a base frequency of 3.0 GHz but a single-core turbo of 5.0 GHz — a 67% increase.
+            </p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Imagine a factory assembly line with a conveyor belt. The clock speed is how fast the belt moves. If the belt moves slowly (1 Hz), workers have plenty of time to perform their tasks on each item. If it moves at lightning speed (5 GHz), workers must be incredibly fast and efficient. But moving the belt too fast causes items to fly off (errors) and the motors to overheat (thermal throttling). Turbo Boost is like having a supervisor who temporarily speeds up the belt when only a few stations are active, then slows it down when all stations are busy to avoid overheating. The base clock is the safe, sustainable speed for continuous operation.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Each clock cycle consists of a rising edge (low to high voltage) and a falling edge (high to low). Most CPU operations are triggered on the rising edge. A single instruction may require 1 to 20+ cycles to complete, depending on complexity and whether the data is in cache. The <span class="text-brand-200">CPI</span> (Cycles Per Instruction) metric measures this; a lower CPI means more instructions are completed per cycle.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The <span class="text-brand-200">IPC</span> (Instructions Per Cycle) is the inverse of CPI and is a key measure of CPU efficiency. A CPU with a high IPC can do more work at the same clock speed. The shift from single-core clock speed races (which hit physical limits around 4-5 GHz due to power and heat) to multi-core designs and IPC improvements has been the dominant trend in CPU development since the mid-2000s.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Clock speed is limited by several physical factors. <span class="text-brand-200">Power consumption</span> increases roughly with the cube of clock speed (P &prop; f&sup3;), meaning a 20% overclock can require nearly 75% more power. <span class="text-brand-200">Heat generation</span> follows similarly, requiring massive cooling solutions for high-clock CPUs. <span class="text-brand-200">Signal integrity</span> also degrades at higher frequencies, as electrical signals take time to propagate through the chip and can become corrupted by noise and crosstalk.
+            </p>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Dynamic frequency scaling</span> (DFS) and <span class="text-brand-200">dynamic voltage and frequency scaling</span> (DVFS) are techniques used by modern CPUs to adjust clock speed on the fly based on workload. When the CPU is idle, it drops to a low-power state with reduced frequency and voltage, saving energy and extending battery life. When demand spikes, the frequency ramps up in microseconds. Operating systems expose these states through technologies like Intel's Speed Shift and AMD's Cool'n'Quiet.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The relationship between clock speed and voltage is fundamental to CPU operation. Higher frequencies require higher voltages to maintain stable switching, but higher voltages exponentially increase leakage current and heat. This creates a <span class="text-brand-200">voltage-frequency curve</span> that chip designers optimize carefully. <span class="text-brand-200">Undervolting</span> — reducing voltage while keeping the same clock speed — can significantly reduce power and heat, which is why some enthusiasts and laptop users undervolt their CPUs.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="text-brand-200">Overclocking</span> pushes the CPU beyond its rated specifications by increasing the multiplier, base clock, or voltage. While this can yield noticeable performance gains, it carries risks: voiding warranties, reducing chip lifespan due to <span class="text-brand-200">electromigration</span>, and requiring expensive cooling solutions. Extreme overclockers use liquid nitrogen or liquid helium to cool CPUs to sub-zero temperatures, achieving clock speeds over 8 GHz in short benchmark runs — nearly double the speed of stock consumer processors.
+            </p>
+          </div>
+        </section>
+
+        <!-- Vocabulary Table -->
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr><td>Clock Speed</td><td>The frequency at which a CPU executes instructions, measured in cycles per second</td></tr>
+                  <tr><td>Hertz (Hz)</td><td>The unit of frequency, equal to one cycle per second</td></tr>
+                  <tr><td>GHz</td><td>Gigahertz — billions of cycles per second (1 GHz = 1,000,000,000 Hz)</td></tr>
+                  <tr><td>Clock Cycle</td><td>One tick of the CPU clock, consisting of a rising and falling edge</td></tr>
+                  <tr><td>Overclocking</td><td>Running a CPU at a higher clock speed than its rated specification</td></tr>
+                  <tr><td>Multiplier</td><td>The factor multiplied by base clock to determine CPU frequency</td></tr>
+                  <tr><td>Base Clock</td><td>The reference frequency (typically 100 MHz) used to derive CPU and bus speeds</td></tr>
+                  <tr><td>Turbo Boost</td><td>Intel's technology that dynamically increases clock speed when thermal/power headroom allows</td></tr>
+                  <tr><td>IPC</td><td>Instructions Per Cycle — a measure of CPU efficiency at a given clock speed</td></tr>
+                  <tr><td>Dynamic Frequency Scaling</td><td>Automatic adjustment of CPU clock speed based on real-time workload demand</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fun Facts -->
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The world record for CPU overclocking is over 8.8 GHz on an AMD FX-8370, achieved using liquid helium cooling at temperatures near absolute zero.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">In 20 years (2000-2020), CPU clock speeds only increased from about 1.5 GHz to 5 GHz — a 3.3x increase — while transistor counts grew by over 1000x.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">At 5 GHz, light travels only about 6 centimeters (2.4 inches) in a single clock cycle. This is why CPU die sizes are shrinking — signals must travel shorter distances.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The Intel 8086 (1978) ran at 5-10 MHz. If CPU clocks had continued increasing at the same rate as the 1980s, we would have 1000 GHz processors today — impossible due to physical limits.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Apple's M3 chip achieves comparable single-core performance to Intel's fastest desktop processors while running at just 4.05 GHz — proof that IPC matters as much as clock speed.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Modern CPUs can change their clock speed thousands of times per second, ramping from 800 MHz to 5 GHz in under a millisecond when a task demands it.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">See how clock cycles drive the fetch-decode-execute loop and how Turbo Boost adjusts frequency dynamically.</p>
+            <a href="diagrams/diagram-07-clock/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- Knowledge Check -->
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
+            <div class="mt-6 space-y-6">
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What is the base unit for measuring CPU clock speed?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Bytes per second</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Hertz (cycles per second)</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Bits per second</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Watts per cycle</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Hertz (cycles per second)</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. How is the final CPU frequency calculated?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Base Clock / Multiplier</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Base Clock &times; Multiplier</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Multiplier &times; Voltage</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Power &times; Frequency</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Base Clock &times; Multiplier</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. Why haven't CPU clock speeds continued to increase dramatically since 2005?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Engineers stopped trying</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Physical limits: power consumption and heat increase cubically with frequency</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Software cannot use higher clock speeds</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Memory became too slow</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Physical limits: power consumption and heat increase cubically with frequency</p>
+              </div>
+
+            </div>
+
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) {
+                      if (!a.classList.contains('revealed')) hidden = true;
+                    });
+                    answers.forEach(function(a) {
+                      a.classList.toggle('revealed', hidden);
+                    });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+                                <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <a href="chapter-6-cpu-cache.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Previous: Chapter 6 &mdash; CPU Cache
+              </a>
+              <a href="chapter-8-instruction-cycle.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                Next: Chapter 8 &mdash; The Instruction Cycle
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="cpu-components.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 4 &middot; Chapter 7</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

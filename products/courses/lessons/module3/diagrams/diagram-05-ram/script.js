@@ -1,259 +1,29 @@
-(function(){
-  const canvas=document.getElementById('ramCanvas');
-  const ctx=canvas.getContext('2d');
-  const tooltip=document.getElementById('tooltip');
-  const stepInd=document.getElementById('stepIndicator');
-  const playBtn=document.getElementById('playBtn');
-  const pauseBtn=document.getElementById('pauseBtn');
-  const resetBtn=document.getElementById('resetBtn');
-  const slotBtns=document.querySelectorAll('.slot-btn');
+(function(){'use strict';
+var components = [    {id:"dimm",name:"DIMM Module",category:"Memory",purpose:"A physical RAM module containing multiple DRAM chips on a circuit board",description:"A DIMM has DRAM chips soldered on a PCB with a 288-pin edge connector (DDR4/DDR5) that plugs into the motherboard slot.",why:"DIMMs are the standardized form factor for desktop RAM",analogy:"Like a cartridge that plugs into a console",funFact:"DDR5 DIMMs have the same number of pins as DDR4 but are keyed differently",takeaway:"Handle DIMMs by the edges—avoid touching the gold contacts",mistake:"DDR4 and DDR5 modules are physically different and not interchangeable",descriptionDetailed:"DIMMs have a notch offset that prevents incorrect insertion. The SPD chip stores timing and voltage information. Heatsinks on gaming RAM are decorative but help with thermal dissipation."},    {id:"slot",name:"Memory Slot",category:"Hardware",purpose:"The motherboard connector that accepts RAM modules and connects them to the CPU",description:"Memory slots are DIMM banks with latches at one or both ends that lock the module in place when fully seated.",why:"Memory slots provide the physical and electrical interface for RAM",analogy:"Like power outlets that accept specific plug types",funFact:"Motherboards typically have 2 to 4 DIMM slots",takeaway:"Install RAM in the correct slots for dual-channel operation (check manual)",mistake:"RAM must click fully into place—if the latches don\\'t close, it\\'s not seated",descriptionDetailed:"Slots are usually colored or numbered for channel identification. The CPU memory controller connects to each slot via traces. Slot quality affects signal integrity at high speeds."},    {id:"channel",name:"Memory Channel",category:"Memory",purpose:"Pairs of RAM slots that can be accessed simultaneously for higher bandwidth",description:"Dual-channel memory uses paired slots to double the data path between RAM and CPU, improving memory performance significantly.",why:"Dual-channel can provide up to 15-30% better performance in memory-intensive tasks",analogy:"Like two lanes on a highway instead of one, doubling traffic capacity",funFact:"Triple and quad-channel configurations exist on high-end platforms",takeaway:"Install RAM in matching pairs for dual-channel mode to maximize performance",mistake:"Mixing different RAM capacities, speeds, or brands can prevent dual-channel mode",descriptionDetailed:"Dual-channel requires matching modules in corresponding slots (A1+B1 or A2+B2). Interleaving spreads memory access across channels. The memory controller manages channel balancing automatically."},    {id:"latch",name:"Retention Latch",category:"Hardware",purpose:"Locks the RAM module securely in the slot once fully inserted",description:"The plastic latches at either end of the DIMM slot click outward when the module is fully pressed in, gripping the module\\'s notches.",why:"Latches prevent RAM from working loose due to vibration or movement",analogy:"Like seatbelt buckles that click to secure you in place",funFact:"Some motherboards use latches on one side only for easier installation",takeaway:"Press firmly until both latches snap into place",mistake:"If only one latch clicks, the RAM isn\\'t fully seated",descriptionDetailed:"Latches rotate outward as the module is pressed down. The module\\'s side notches align with the latch hooks. Release latches before removing RAM. Torque from uneven installation can damage slots."},    {id:"dualrank",name:"Dual Rank Memory",category:"Memory",purpose:"Doubles memory capacity per module by using two banks of DRAM chips",description:"Dual-rank modules have two independent 64-bit data banks on one DIMM, effectively making the CPU see two logical modules.",why:"Dual-rank offers a performance advantage over single-rank at the same capacity",analogy:"Like having two separate worktables instead of one larger one",funFact:"Dual-rank can provide 5-15% better performance than single-rank",takeaway:"Dual-rank modules are preferred for better memory performance",mistake:"Dual-rank and dual-channel are different—dual-rank is per-module, dual-channel is per-system",descriptionDetailed:"Rank refers to a 64-bit data set. Single-rank has all chips in one 64-bit bank. Dual-rank splits chips into two 64-bit banks, requiring the memory controller to switch between them. More ranks per channel usually improve performance."},    {id:"capacity",name:"Memory Capacity",category:"Memory",purpose:"Determines how much data and how many programs can be active simultaneously",description:"RAM capacity, measured in GB, limits the total size of all running programs and data the computer can actively work with.",why:"Capacity directly affects multitasking ability and memory-intensive applications",analogy:"Like the size of a workbench—more space means more projects at once",funFact:"Windows 11 requires a minimum of 4GB, but 16GB is recommended",takeaway:"16GB is the current sweet spot for most users; 32GB+ for heavy workloads",mistake:"More RAM doesn\\'t make your computer faster if you don\\'t use it all",descriptionDetailed:"Capacity determines how many browser tabs, applications, and virtual machines can run simultaneously. Streaming textures in games requires significant RAM. Professionals use 64-128GB for video editing and 3D rendering."}];
+var connections = [{from:"dimm",to:"slot"},{from:"slot",to:"channel"},{from:"channel",to:"latch"},{from:"latch",to:"dualrank"},{from:"dualrank",to:"capacity"}];
+var steps = [{label:"Step 1: DIMM Module",status:"Exploring: DIMM Module - A physical RAM module containing multiple DRAM chips on a circuit board"},{label:"Step 2: Memory Slot",status:"Exploring: Memory Slot - The motherboard connector that accepts RAM modules and connects them to the CPU"},{label:"Step 3: Memory Channel",status:"Exploring: Memory Channel - Pairs of RAM slots that can be accessed simultaneously for higher bandwidth"},{label:"Step 4: Retention Latch",status:"Exploring: Retention Latch - Locks the RAM module securely in the slot once fully inserted"},{label:"Step 5: Dual Rank Memory",status:"Exploring: Dual Rank Memory - Doubles memory capacity per module by using two banks of DRAM chips"},{label:"Step 6: Memory Capacity",status:"Exploring: Memory Capacity - Determines how much data and how many programs can be active simultaneously"}];
+var tour = [{title:"DIMM Module",description:"A physical RAM module containing multiple DRAM chips on a circuit board",componentId:"dimm"},{title:"Memory Slot",description:"The motherboard connector that accepts RAM modules and connects them to the CPU",componentId:"slot"},{title:"Memory Channel",description:"Pairs of RAM slots that can be accessed simultaneously for higher bandwidth",componentId:"channel"},{title:"Retention Latch",description:"Locks the RAM module securely in the slot once fully inserted",componentId:"latch"},{title:"Dual Rank Memory",description:"Doubles memory capacity per module by using two banks of DRAM chips",componentId:"dualrank"},{title:"Memory Capacity",description:"Determines how much data and how many programs can be active simultaneously",componentId:"capacity"}];
 
-  const W=900,H=460;
-  canvas.width=W;canvas.height=H;
-
-  const slots=[
-    {id:'A1',x:320,y:200,w:30,h:120,ch:'A',color:'#0959C8'},
-    {id:'A2',x:370,y:200,w:30,h:120,ch:'A',color:'#0959C8'},
-    {id:'B1',x:530,y:200,w:30,h:120,ch:'B',color:'#8a4ac8'},
-    {id:'B2',x:580,y:200,w:30,h:120,ch:'B',color:'#8a4ac8'}
-  ];
-
-  let installed=[false,false,false,false];
-  let highlightSlot=-1;
-  let isPlaying=false;
-  let animTimer=null;
-
-  const slotInfo={
-    A1:'Channel A — slot 1. Pair with A2 or B1 for single/dual channel depending on motherboard layout.',
-    A2:'Channel A — slot 2. Often the second slot to populate in a 2-DIMM config.',
-    B1:'Channel B — slot 3. Use with B2 for a second dual-channel pair. ',
-    B2:'Channel B — slot 4. Last slot to populate. Works in pairs with B1.'
-  };
-
-  function drawMotherboard(){
-    ctx.save();
-    ctx.translate(450,230);
-
-    ctx.fillStyle='#0d1220';ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=2;
-    roundRect(ctx,-280,-160,560,320,8);
-    ctx.fill();ctx.stroke();
-
-    ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
-    for(let i=0;i<40;i++){
-      ctx.strokeRect(-260+i*14,-140,7,280);
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Ram',
+    subtitle: 'Computer Assembly',
+    desc: 'Learn about RAM types, installation, and configuration.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to explore');
+    },
+    
+    animate: function(engine) {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    ctx.fillStyle='rgba(255,255,255,0.08)';ctx.font='10px Inter,sans-serif';ctx.textAlign='center';
-    ctx.fillText('DIMM Slots',0,-130);
-
-    ctx.fillStyle='rgba(255,255,255,0.04)';ctx.font='8px Inter,sans-serif';
-    ctx.fillText('CPU Socket  \u2190',-200,-100);
-
-    ctx.restore();
-  }
-
-  function drawSlot(s,i){
-    ctx.save();
-    const isActive=i===highlightSlot;
-    const isInstalled=installed[i];
-    const chColor=s.color;
-
-    ctx.translate(s.x,s.y);
-
-    ctx.fillStyle=isActive?chColor+'80':isInstalled?chColor+'50':chColor+'20';
-    ctx.strokeStyle=isActive||isInstalled?chColor:'rgba(255,255,255,0.2)';
-    ctx.lineWidth=isActive?3:1;
-    ctx.shadowColor=isActive?'#0959C880':'transparent';
-    ctx.shadowBlur=isActive?15:0;
-
-    roundRect(ctx,-s.w/2,-s.h/2,s.w,s.h,4);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle=isActive?'#fff':s.color;
-    ctx.font=isActive?'bold 12px Inter,sans-serif':'10px Inter,sans-serif';
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(s.id,0,0);
-
-    if(isInstalled){
-      ctx.strokeStyle=chColor+'80';ctx.lineWidth=2;
-      ctx.beginPath();
-      ctx.moveTo(-8,-20);ctx.lineTo(0,-10);ctx.lineTo(8,-30);
-      ctx.stroke();
-    }
-
-    ctx.restore();
-  }
-
-  function drawRamStick(x,y,angle,color){
-    ctx.save();
-    ctx.translate(x,y);
-    ctx.rotate(angle);
-    ctx.fillStyle=color+'60';ctx.strokeStyle=color;ctx.lineWidth=2;
-    ctx.shadowColor=color+'80';ctx.shadowBlur=12;
-    roundRect(ctx,-10,-55,20,110,3);
-    ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='7px Inter,sans-serif';
-    ctx.textAlign='center';
-    for(let i=0;i<8;i++){
-      ctx.fillRect(-7,-40+i*10,14,2);
-    }
-
-    ctx.fillStyle='#fff';ctx.font='bold 8px Inter,sans-serif';
-    ctx.fillText('DDR5',0,4);
-
-    ctx.restore();
-  }
-
-  function roundRect(ctx,x,y,w,h,r){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
-    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);
-    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);
-    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);
-    ctx.quadraticCurveTo(x,y,x+r,y);
-    ctx.closePath();
-  }
-
-  function render(animPhase){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#060910';ctx.fillRect(0,0,W,H);
-    drawMotherboard();
-    slots.forEach((s,i)=>drawSlot(s,i));
-
-    if(animPhase===1){
-      drawRamStick(200,160,0.15,'#0959C8');
-    }
-    if(animPhase===2){
-      drawRamStick(200,160,0.15,'#0959C8');
-      drawRamStick(610,160,-0.15,'#8a4ac8');
-    }
-  }
-
-  function showTooltip(x,y,text,title){
-    tooltip.style.display='block';
-    tooltip.style.left=Math.min(x+15,W-260)+'px';
-    tooltip.style.top=Math.min(y+15,H-120)+'px';
-    tooltip.innerHTML=`<span class="tt-name">${title}</span><span class="tt-desc">${text}</span>`;
-    tooltip.setAttribute('aria-hidden','false');
-  }
-
-  function hideTooltip(){
-    tooltip.style.display='none';
-    tooltip.setAttribute('aria-hidden','true');
-  }
-
-  function getCanvasPos(e){
-    const rect=canvas.getBoundingClientRect();
-    const scaleX=W/rect.width;
-    const scaleY=H/rect.height;
-    const clientX=e.clientX||(e.touches&&e.touches[0].clientX);
-    const clientY=e.clientY||(e.touches&&e.touches[0].clientY);
-    return {x:(clientX-rect.left)*scaleX,y:(clientY-rect.top)*scaleY};
-  }
-
-  function hitTest(pos){
-    for(let i=0;i<slots.length;i++){
-      const s=slots[i];
-      if(Math.abs(pos.x-s.x)<20 && Math.abs(pos.y-s.y)<65)return i;
-    }
-    return -1;
-  }
-
-  function handleClick(e){
-    if(isPlaying)return;
-    const pos=getCanvasPos(e);
-    const idx=hitTest(pos);
-    if(idx>=0){
-      highlightSlot=idx;
-      const s=slots[idx];
-      showTooltip(s.x+20,s.y-30,slotInfo[s.id],'Slot '+s.id+' ('+s.ch+'h Channel)');
-      slotBtns.forEach((b,i)=>b.classList.toggle('active',i===idx));
-      stepInd.textContent='Slot '+s.id;
-    }else{
-      highlightSlot=-1;
-      hideTooltip();
-      slotBtns.forEach(b=>b.classList.remove('active'));
-      stepInd.textContent='Ready';
-    }
-    render(0);
-  }
-
-  canvas.addEventListener('click',handleClick);
-  canvas.addEventListener('touchstart',(e)=>{e.preventDefault();handleClick(e)},{passive:false});
-
-  slotBtns.forEach((btn,i)=>{
-    btn.addEventListener('click',()=>{
-      if(isPlaying)return;
-      highlightSlot=i;
-      const s=slots[i];
-      showTooltip(s.x+20,s.y-30,slotInfo[s.id],'Slot '+s.id+' ('+s.ch+'h Channel)');
-      slotBtns.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      stepInd.textContent='Slot '+s.id;
-      render(0);
-    });
   });
-
-  function playInstall(){
-    if(isPlaying)return;
-    isPlaying=true;
-    playBtn.textContent='\u25B6 Running';
-    playBtn.setAttribute('aria-label','RAM installation running');
-    hideTooltip();
-    slotBtns.forEach(b=>b.classList.remove('active'));
-    installed=[false,false,false,false];
-    stepInd.textContent='Installing A2...';
-    render(1);
-
-    setTimeout(()=>{
-      installed[1]=true;
-      stepInd.textContent='Installing B2...';
-      render(1);
-    },1500);
-
-    setTimeout(()=>{
-      installed[3]=true;
-      stepInd.textContent='Dual-channel complete! A2 + B2 populated.';
-      render(2);
-    },3000);
-
-    setTimeout(()=>{
-      isPlaying=false;
-      playBtn.textContent='\u25B6 Play';
-      playBtn.setAttribute('aria-label','Animate dual-channel RAM installation');
-    },4500);
-  }
-
-  function pauseInstall(){
-    isPlaying=false;
-    if(animTimer){clearTimeout(animTimer);animTimer=null}
-    playBtn.textContent='\u25B6 Play';
-    playBtn.setAttribute('aria-label','Animate dual-channel RAM installation');
-  }
-
-  function resetView(){
-    pauseInstall();
-    installed=[false,false,false,false];
-    highlightSlot=-1;
-    hideTooltip();
-    slotBtns.forEach(b=>b.classList.remove('active'));
-    stepInd.textContent='Ready';
-    render(0);
-  }
-
-  playBtn.addEventListener('click',playInstall);
-  pauseBtn.addEventListener('click',pauseInstall);
-  resetBtn.addEventListener('click',resetView);
-
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape'){highlightSlot=-1;hideTooltip();slotBtns.forEach(b=>b.classList.remove('active'));stepInd.textContent='Ready';render(0)}
-  });
-
-  resetView();
+});
 })();

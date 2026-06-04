@@ -1,295 +1,40 @@
-(function () {
-  const playBtn = document.getElementById('playBtn');
-  const pauseBtn = document.getElementById('pauseBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const statusBadge = document.getElementById('statusBadge');
-  const healthScoreValue = document.getElementById('healthScoreValue');
-  const healthRing = document.getElementById('healthRing');
-  const cpuValue = document.getElementById('cpuValue');
-  const memValue = document.getElementById('memValue');
-  const diskValue = document.getElementById('diskValue');
-  const batValue = document.getElementById('batValue');
-  const cpuStatus = document.getElementById('cpuStatus');
-  const memStatus = document.getElementById('memStatus');
-  const diskStatus = document.getElementById('diskStatus');
-  const batStatus = document.getElementById('batStatus');
-  const issuesList = document.getElementById('issuesList');
-  const scanFill = document.getElementById('scanFill');
-  const scanTrack = document.getElementById('scanTrack');
-  const scanLabel = document.getElementById('scanLabel');
-  const canvases = document.querySelectorAll('.gauge-canvas');
+(function(){'use strict';
+var components = [    {id:"antivirus",name:"Antivirus Protection",category:"Security",purpose:"Detects and removes malicious software that could harm your computer",description:"Antivirus software continuously monitors for known malware signatures, suspicious behavior, and potentially unwanted programs.",why:"Antivirus is essential for protection against the constant threat of malware",analogy:"Like a bodyguard that constantly watches for threats",funFact:"Over 350,000 new malware samples are discovered every day",takeaway:"Antivirus must be kept updated with the latest malware definitions",mistake:"Antivirus alone isn\\'t enough—safe browsing habits are equally important",descriptionDetailed:"Modern antivirus uses signature detection, behavioral monitoring, and machine learning. Real-time scanning checks files when accessed. Heuristic analysis detects new variants."},    {id:"defrag",name:"Disk Defragmentation",category:"Storage",purpose:"Reorganizes fragmented data on hard drives for faster access",description:"Defragmentation rearranges files that are split across non-contiguous disk sectors so they are stored in continuous blocks, reducing seek time.",why:"Defragmentation restores HDD performance lost to file fragmentation over time",analogy:"Like reorganizing a messy desk so everything is in its proper place",funFact:"SSDs don\\'t need defragmentation—it can actually reduce their lifespan",takeaway:"Fragmentation slows HDDs but doesn\\'t affect SSDs the same way",mistake:"Modern Windows and macOS defragment automatically—you rarely need to do it manually",descriptionDetailed:"Defrag tools analyze the volume and move file fragments to contiguous locations. The process reads each fragment and writes it to a new continuous location. TRIM commands replace defrag for SSDs."},    {id:"cleanup",name:"Disk Cleanup",category:"Storage",purpose:"Removes unnecessary files to free up storage space",description:"Disk cleanup deletes temporary files, cache data, old downloads, recycle bin contents, and other files that are no longer needed.",why:"Regular cleanup prevents storage from filling up and slowing the system",analogy:"Like taking out the trash so your house doesn\\'t overflow",funFact:"Temporary files can accumulate tens of gigabytes over time",takeaway:"Cleaning up temporary files regularly helps maintain system performance",mistake:"Emptying the recycle bin permanently deletes files, not moves them elsewhere",descriptionDetailed:"Disk cleanup targets temp files, log files, cache, and previous Windows installations. It can compress old files and remove unused system restore points."},    {id:"update",name:"System Updates",category:"Software",purpose:"Installs the latest security patches and feature improvements",description:"System updates download and install fixes for security vulnerabilities, driver updates, performance improvements, and new features from the OS vendor.",why:"Updates patch security holes that attackers could exploit",analogy:"Like getting regular vaccinations to protect against new diseases",funFact:"Microsoft\\'s Patch Tuesday releases updates on the second Tuesday of each month",takeaway:"Keeping your system updated is the most important security practice",mistake:"Updates don\\'t just add features—they fix critical security flaws",descriptionDetailed:"Updates are delivered through centralized update services like Windows Update or package managers. They include security patches, driver updates, and feature updates."},    {id:"backup",name:"System Backup",category:"Storage",purpose:"Creates copies of system files and data for disaster recovery",description:"Backup software creates snapshots or copies of the entire system or specific files so you can restore after hardware failure or data loss.",why:"Backups are your safety net against data loss from any cause",analogy:"Like an insurance policy that lets you recover from disaster",funFact:"Apple\\'s Time Machine makes automatic hourly backups with no user effort",takeaway:"Follow the 3-2-1 rule: 3 copies, 2 media types, 1 off-site",mistake:"A backup isn\\'t verified until you successfully restore from it",descriptionDetailed:"Backup strategies include full system images, file-level backups, and cloud sync. Versioning allows restoring previous versions of files."},    {id:"monitor",name:"System Monitoring",category:"Software",purpose:"Tracks system performance, temperature, and resource usage",description:"Monitoring tools display real-time data about CPU usage, memory utilization, disk activity, network traffic, and component temperatures.",why:"Monitoring helps detect problems before they cause system failure",analogy:"Like a car dashboard showing speed, fuel level, and engine temperature",funFact:"Windows Task Manager was first introduced in Windows NT 4.0",takeaway:"Monitoring helps identify performance bottlenecks and failing hardware early",mistake:"100% disk usage doesn\\'t always mean failure—it could be normal heavy activity",descriptionDetailed:"Monitoring tools poll system counters for CPU, memory, disk, and network metrics. They can log data over time and trigger alerts when thresholds are exceeded."}];
+var connections = [{from:"antivirus",to:"defrag"},{from:"defrag",to:"cleanup"},{from:"cleanup",to:"update"},{from:"update",to:"backup"},{from:"backup",to:"monitor"}];
+var steps = [{label:"Step 1: Antivirus Protection",status:"Exploring: Antivirus Protection - Detects and removes malicious software that could harm your computer"},{label:"Step 2: Disk Defragmentation",status:"Exploring: Disk Defragmentation - Reorganizes fragmented data on hard drives for faster access"},{label:"Step 3: Disk Cleanup",status:"Exploring: Disk Cleanup - Removes unnecessary files to free up storage space"},{label:"Step 4: System Updates",status:"Exploring: System Updates - Installs the latest security patches and feature improvements"},{label:"Step 5: System Backup",status:"Exploring: System Backup - Creates copies of system files and data for disaster recovery"},{label:"Step 6: System Monitoring",status:"Exploring: System Monitoring - Tracks system performance, temperature, and resource usage"}];
+var tour = [{title:"Antivirus Protection",description:"Detects and removes malicious software that could harm your computer",componentId:"antivirus"},{title:"Disk Defragmentation",description:"Reorganizes fragmented data on hard drives for faster access",componentId:"defrag"},{title:"Disk Cleanup",description:"Removes unnecessary files to free up storage space",componentId:"cleanup"},{title:"System Updates",description:"Installs the latest security patches and feature improvements",componentId:"update"},{title:"System Backup",description:"Creates copies of system files and data for disaster recovery",componentId:"backup"},{title:"System Monitoring",description:"Tracks system performance, temperature, and resource usage",componentId:"monitor"}];
 
-  const R = 55, CX = 100, CY = 68;
-  let isPlaying = false, isPaused = false;
-  let animId = null, scanStep = 0;
-  let scanValues = { cpu: 45, mem: 62, disk: 58, bat: 80 };
-  let warningValues = { cpu: 78, mem: 88, disk: 92, bat: 15 };
-  let useWarnings = false;
-
-  const circumference = 2 * Math.PI * 52;
-
-  const issuesDB = {
-    normal: [
-      { text: 'CPU temperature normal (45°C)', type: 'ok' },
-      { text: 'Memory usage within limits (62%)', type: 'ok' },
-      { text: 'Disk space adequate (58% used)', type: 'ok' },
-      { text: 'Battery level good (80%)', type: 'ok' },
-    ],
-    warning: [
-      { text: 'CPU running warm (78°C)', type: 'warning' },
-      { text: 'Memory usage high (88%)', type: 'warning' },
-      { text: 'Disk space low (92% used)', type: 'error' },
-      { text: 'Battery level critical (15%)', type: 'error' },
-    ]
-  };
-
-  function setStatus(text, cls) {
-    statusBadge.textContent = text;
-    statusBadge.className = 'status-badge' + (cls ? ' ' + cls : '');
-  }
-
-  function drawGauge(canvas, value, color) {
-    const ctx = canvas.getContext('2d');
-    const w = canvas.width, h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-
-    const angle = (value / 100) * Math.PI;
-    const startAngle = Math.PI;
-    const endAngle = Math.PI + angle;
-    const bgEnd = Math.PI + Math.PI;
-
-    ctx.beginPath();
-    ctx.arc(CX, CY, R, startAngle, bgEnd);
-    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-    ctx.lineWidth = 10;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-
-    const grad = ctx.createLinearGradient(60, 20, 140, 110);
-    if (color === 'safe') { grad.addColorStop(0, '#66bb6a'); grad.addColorStop(1, '#43a047'); }
-    else if (color === 'warning') { grad.addColorStop(0, '#ffa726'); grad.addColorStop(1, '#ff9800'); }
-    else if (color === 'danger') { grad.addColorStop(0, '#ef5350'); grad.addColorStop(1, '#e53935'); }
-    else { grad.addColorStop(0, '#0959C8'); grad.addColorStop(1, '#4fc3f7'); }
-
-    ctx.beginPath();
-    ctx.arc(CX, CY, R, startAngle, endAngle);
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 10;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(CX, CY, R - 3, endAngle - 0.05, endAngle + 0.05);
-    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-    ctx.lineWidth = 4;
-    ctx.stroke();
-  }
-
-  function getColor(value, type) {
-    if (type === 'cpu') {
-      if (value < 60) return 'safe';
-      if (value < 80) return 'warning';
-      return 'danger';
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Health',
+    subtitle: 'How Computers Work',
+    desc: 'Discover best practices for computer maintenance and health.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    if (value < 70) return 'safe';
-    if (value < 85) return 'warning';
-    return 'danger';
-  }
-
-  function updateGauge(type, value) {
-    let el, statusEl;
-    if (type === 'cpu') { el = cpuValue; statusEl = cpuStatus; }
-    else if (type === 'memory') { el = memValue; statusEl = memStatus; }
-    else if (type === 'disk') { el = diskValue; statusEl = diskStatus; }
-    else if (type === 'battery') { el = batValue; statusEl = batStatus; }
-    if (!el) return;
-
-    const unit = type === 'cpu' ? '°C' : '%';
-    const displayVal = type === 'cpu' ? Math.round(value) : Math.round(value);
-    el.textContent = displayVal + unit;
-
-    const color = getColor(value, type);
-    statusEl.textContent = color === 'safe' ? 'Normal' : color === 'warning' ? 'Warning' : 'Critical';
-    statusEl.className = 'gauge-status ' + color;
-
-    const idx = type === 'cpu' ? 0 : type === 'memory' ? 1 : type === 'disk' ? 2 : 3;
-    const canvas = canvases[idx];
-    if (canvas) drawGauge(canvas, value, color);
-  }
-
-  function updateAllGauges(vals) {
-    updateGauge('cpu', vals.cpu);
-    updateGauge('memory', vals.mem);
-    updateGauge('disk', vals.disk);
-    updateGauge('battery', vals.bat);
-    updateHealthScore(vals);
-  }
-
-  function updateHealthScore(vals) {
-    const cpuScore = Math.max(0, 100 - vals.cpu * 0.8);
-    const memScore = Math.max(0, 100 - vals.mem * 0.6);
-    const diskScore = Math.max(0, 100 - vals.disk * 0.5);
-    const batScore = vals.bat;
-    const score = Math.round((cpuScore + memScore + diskScore + batScore) / 4);
-    healthScoreValue.textContent = score;
-    const offset = circumference - (score / 100) * circumference;
-    healthRing.style.strokeDashoffset = offset;
-    if (score >= 70) healthRing.style.stroke = '#66bb6a';
-    else if (score >= 50) healthRing.style.stroke = '#ffa726';
-    else healthRing.style.stroke = '#ef5350';
-  }
-
-  function updateIssues(warn) {
-    issuesList.innerHTML = '';
-    const data = warn ? issuesDB.warning : issuesDB.normal;
-    data.forEach(item => {
-      const li = document.createElement('li');
-      li.className = 'issue-item' + (item.type !== 'ok' ? ' ' + item.type : '');
-      li.setAttribute('role', 'listitem');
-      li.textContent = (item.type === 'warning' ? '⚠ ' : item.type === 'error' ? '✕ ' : '✓ ') + item.text;
-      issuesList.appendChild(li);
-    });
-  }
-
-  function scanStepFn() {
-    if (!isPlaying || isPaused) return;
-    const totalSteps = 20;
-    if (scanStep > totalSteps) {
-      isPlaying = false;
-      playBtn.disabled = false;
-      pauseBtn.disabled = true;
-      scanFill.style.width = '100%';
-      scanLabel.textContent = 'Scan complete.';
-      setStatus('Complete', '');
-      statusBadge.style.color = '#66bb6a';
-      statusBadge.style.borderColor = '#66bb6a';
-      updateIssues(useWarnings);
-      return;
-    }
-    const progress = Math.min((scanStep / totalSteps) * 100, 100);
-    scanFill.style.width = progress + '%';
-    scanTrack.setAttribute('aria-valuenow', progress);
-
-    const phases = [
-      'Initializing sensors...',
-      'Checking CPU temperature...',
-      'Analyzing memory usage...',
-      'Scanning disk space...',
-      'Testing battery level...',
-      'Evaluating system health...',
-    ];
-    const phaseIdx = Math.min(Math.floor(scanStep / 4), phases.length - 1);
-    scanLabel.textContent = phases[phaseIdx];
-
-    const vals = useWarnings ? warningValues : scanValues;
-    const progressRatio = Math.min(scanStep / totalSteps, 1);
-    const interp = (target) => Math.round(target * progressRatio);
-    updateGauge('cpu', interp(vals.cpu) || 1);
-    updateGauge('memory', interp(vals.mem) || 1);
-    updateGauge('disk', interp(vals.disk) || 1);
-    updateGauge('battery', interp(vals.bat) || 1);
-    if (progressRatio > 0) updateHealthScore({
-      cpu: interp(vals.cpu) || 1,
-      mem: interp(vals.mem) || 1,
-      disk: interp(vals.disk) || 1,
-      bat: interp(vals.bat) || 1
-    });
-
-    scanStep++;
-    animId = setTimeout(scanStepFn, 150);
-  }
-
-  function startScan() {
-    if (isPlaying) {
-      if (isPaused) {
-        isPaused = false;
-        pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-        setStatus('Scanning...', 'active');
-        animId = setTimeout(scanStepFn, 100);
-        return;
-      }
-      return;
-    }
-    isPlaying = true;
-    isPaused = false;
-    scanStep = 0;
-    playBtn.disabled = true;
-    pauseBtn.disabled = false;
-    resetBtn.disabled = false;
-    statusBadge.style.color = '';
-    statusBadge.style.borderColor = '';
-    setStatus('Scanning...', 'active');
-    issuesList.innerHTML = '<li class="issue-item placeholder" role="listitem">Scanning system...</li>';
-    scanFill.style.width = '0%';
-    scanLabel.textContent = 'Starting...';
-    animId = setTimeout(scanStepFn, 200);
-  }
-
-  function pauseScan() {
-    if (!isPlaying) return;
-    if (isPaused) {
-      isPaused = false;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-      setStatus('Scanning...', 'active');
-      animId = setTimeout(scanStepFn, 100);
-    } else {
-      isPaused = true;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Resume</span>';
-      setStatus('Paused', 'warning');
-      if (animId) { clearTimeout(animId); animId = null; }
-    }
-  }
-
-  function resetAll() {
-    if (animId) { clearTimeout(animId); animId = null; }
-    isPlaying = false;
-    isPaused = false;
-    scanStep = 0;
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    resetBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-    statusBadge.style.color = '';
-    statusBadge.style.borderColor = '';
-    setStatus('Ready', '');
-    scanFill.style.width = '0%';
-    scanLabel.textContent = 'Waiting to scan...';
-    issuesList.innerHTML = '<li class="issue-item placeholder" role="listitem">No issues detected. System healthy.</li>';
-    updateAllGauges({ cpu: 0, mem: 0, disk: 0, bat: 0 });
-    healthScoreValue.textContent = '--';
-    healthRing.style.strokeDashoffset = circumference;
-    healthRing.style.stroke = 'var(--brand)';
-  }
-
-  function toggleWarnings() {
-    useWarnings = !useWarnings;
-    if (!isPlaying) {
-      updateAllGauges(useWarnings ? warningValues : scanValues);
-      updateIssues(useWarnings);
-      setStatus(useWarnings ? 'Warning mode' : 'Normal mode', useWarnings ? 'warning' : '');
-    }
-  }
-
-  playBtn.addEventListener('click', startScan);
-  pauseBtn.addEventListener('click', pauseScan);
-  resetBtn.addEventListener('click', resetAll);
-  resetBtn.disabled = true;
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') resetAll();
-    if (e.key === 'w' || e.key === 'W') toggleWarnings();
   });
-
-  canvases.forEach((c, i) => {
-    c.width = 200; c.height = 120;
-    drawGauge(c, 0, 'safe');
-  });
-  healthRing.style.strokeDasharray = circumference;
-
-  const toggleWarnBtn = document.createElement('button');
-  toggleWarnBtn.className = 'ctrl-btn';
-  toggleWarnBtn.setAttribute('aria-label', 'Toggle warning mode');
-  toggleWarnBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><span>Warnings</span>';
-  toggleWarnBtn.addEventListener('click', toggleWarnings);
-  document.querySelector('.controls').appendChild(toggleWarnBtn);
+});
 })();

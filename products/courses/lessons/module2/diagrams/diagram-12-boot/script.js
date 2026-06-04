@@ -1,212 +1,40 @@
-(function () {
-  const playBtn = document.getElementById('playBtn');
-  const pauseBtn = document.getElementById('pauseBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const statusBadge = document.getElementById('statusBadge');
-  const progressFill = document.getElementById('progressFill');
-  const progressPercent = document.getElementById('progressPercent');
-  const progressTrack = document.getElementById('progressTrack');
-  const timelineFlow = document.getElementById('timelineFlow');
-  const detailPanel = document.getElementById('detailPanel');
-  const detailClose = document.getElementById('detailClose');
-  const detailTitle = document.getElementById('detailTitle');
-  const detailBody = document.getElementById('detailBody');
+(function(){'use strict';
+var components = [    {id:"bios",name:"BIOS/UEFI Firmware",category:"Software",purpose:"Initializes hardware and starts the boot process when the computer powers on",description:"BIOS or UEFI firmware stored on the motherboard ROM performs Power-On Self-Test, initializes hardware, and loads the bootloader.",why:"The firmware is the first code that runs when you press the power button",analogy:"Like an alarm clock that wakes up and starts your morning routine",funFact:"UEFI replaced the older BIOS and supports mouse input and networking",takeaway:"The motherboard firmware initializes hardware before loading the OS",mistake:"BIOS isn\\'t stored on the hard drive—it\\'s on a chip on the motherboard",descriptionDetailed:"When power is applied, the CPU starts executing at a predefined firmware address. UEFI initializes the chipset, memory controller, and peripheral buses. It reads boot configuration from NVRAM."},    {id:"post",name:"Power-On Self-Test",category:"Software",purpose:"Verifies that essential hardware components are functioning correctly",description:"POST checks the CPU, memory, storage, and other critical components by sending test signals and reading status codes.",why:"POST catches hardware problems before the OS tries to use faulty components",analogy:"Like a pre-flight checklist that pilots go through before takeoff",funFact:"POST is so fast you usually don\\'t see it—but beep codes alert you if something fails",takeaway:"POST is the computer\\'s self-diagnostic check at every startup",mistake:"POST failures don\\'t crash the computer—they prevent it from booting",descriptionDetailed:"POST tests the CPU registers, verifies RAM with pattern writes, checks storage controllers, and initializes graphics. Errors are reported via beep codes or POST code displays."},    {id:"bootloader",name:"Bootloader",category:"Software",purpose:"Loads the operating system kernel into memory and starts it",description:"The bootloader is a small program that the firmware loads, which then finds the OS kernel on disk, loads it into RAM, and transfers control to it.",why:"The bootloader bridges the gap between firmware and OS",analogy:"Like a launchpad that prepares and initiates a rocket launch",funFact:"GRUB, the most common Linux bootloader, can boot from encrypted partitions",takeaway:"The bootloader finds and loads the OS kernel",mistake:"The bootloader isn\\'t part of the OS—it\\'s a separate program",descriptionDetailed:"The bootloader reads the Master Boot Record or GPT partition table. In UEFI systems, it\\'s an EFI application. The bootloader can present a menu of OS choices for dual-boot systems."},    {id:"kernel",name:"OS Kernel Boot",category:"Software",purpose:"Initializes system subsystems and takes full control of the hardware",description:"The kernel initializes memory management, schedules the first process, loads necessary drivers, and prepares the user environment.",why:"The kernel is the core of the OS that manages everything",analogy:"Like a ship captain who takes command and navigates after launch",funFact:"The Linux kernel boot process is called the Linux boot sequence",takeaway:"Kernel initialization sets up all core OS services",mistake:"The kernel doesn\\'t load the desktop environment—that comes later",descriptionDetailed:"The kernel decompresses itself (if compressed), sets up page tables, initializes interrupt handlers, mounts the root filesystem, and starts the init process as PID 1."},    {id:"init",name:"Init System",category:"Software",purpose:"Starts all system services and user-space components needed for operation",description:"The init system launches essential background services, network managers, display managers, and prepares the system for user login.",why:"Init transforms a running kernel into a usable operating system",analogy:"Like a facility manager who turns on all building systems before doors open",funFact:"Systemd is now the most widely used init system in Linux",takeaway:"The init system starts all services that make the computer useful",mistake:"Init doesn\\'t start everything at once—services have dependency ordering",descriptionDetailed:"Init reads configuration to determine which services to start and in what order. It manages service lifecycles, logging, and handles system shutdown."},    {id:"login",name:"Login Screen",category:"Software",purpose:"Authenticates users and creates a user session with appropriate permissions",description:"The login screen or display manager presents a login prompt, validates credentials, and starts the user\\'s desktop environment or shell.",why:"Login secures the system by ensuring only authorized users access it",analogy:"Like a reception desk that checks your ID before letting you enter",funFact:"Windows, Linux, and macOS all support automatic login as a convenience option",takeaway:"Login creates a user session with your personal settings and permissions",mistake:"Login doesn\\'t just authenticate—it also sets up your user environment",descriptionDetailed:"The display manager validates credentials against local or network user databases. On success, it creates a session with the user\\'s home directory, permissions, and preferences."}];
+var connections = [{from:"bios",to:"post"},{from:"post",to:"bootloader"},{from:"bootloader",to:"kernel"},{from:"kernel",to:"init"},{from:"init",to:"login"}];
+var steps = [{label:"Step 1: BIOS/UEFI Firmware",status:"Exploring: BIOS/UEFI Firmware - Initializes hardware and starts the boot process when the computer powers on"},{label:"Step 2: Power-On Self-Test",status:"Exploring: Power-On Self-Test - Verifies that essential hardware components are functioning correctly"},{label:"Step 3: Bootloader",status:"Exploring: Bootloader - Loads the operating system kernel into memory and starts it"},{label:"Step 4: OS Kernel Boot",status:"Exploring: OS Kernel Boot - Initializes system subsystems and takes full control of the hardware"},{label:"Step 5: Init System",status:"Exploring: Init System - Starts all system services and user-space components needed for operation"},{label:"Step 6: Login Screen",status:"Exploring: Login Screen - Authenticates users and creates a user session with appropriate permissions"}];
+var tour = [{title:"BIOS/UEFI Firmware",description:"Initializes hardware and starts the boot process when the computer powers on",componentId:"bios"},{title:"Power-On Self-Test",description:"Verifies that essential hardware components are functioning correctly",componentId:"post"},{title:"Bootloader",description:"Loads the operating system kernel into memory and starts it",componentId:"bootloader"},{title:"OS Kernel Boot",description:"Initializes system subsystems and takes full control of the hardware",componentId:"kernel"},{title:"Init System",description:"Starts all system services and user-space components needed for operation",componentId:"init"},{title:"Login Screen",description:"Authenticates users and creates a user session with appropriate permissions",componentId:"login"}];
 
-  const stages = document.querySelectorAll('.stage-card');
-  const totalStages = stages.length;
-
-  let currentStage = -1;
-  let isPlaying = false;
-  let isPaused = false;
-  let timerId = null;
-  let stageStartTime = 0;
-  let accumulatedTime = 0;
-
-  const stageDurations = [300, 800, 1200, 500, 1500, 1000, 700, 500];
-  const totalDuration = stageDurations.reduce((a, b) => a + b, 0);
-
-  function setStatus(text, active) {
-    statusBadge.textContent = text;
-    statusBadge.classList.toggle('active', !!active);
-  }
-
-  function updateProgress(stage) {
-    if (stage < 0) {
-      progressFill.style.width = '0%';
-      progressPercent.textContent = '0%';
-      progressTrack.setAttribute('aria-valuenow', '0');
-      return;
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Boot',
+    subtitle: 'How Computers Work',
+    desc: 'Trace the boot process from BIOS to login screen.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildStepFlow(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    let elapsed = 0;
-    for (let i = 0; i < Math.min(stage + 1, stageDurations.length); i++) {
-      elapsed += stageDurations[i];
-    }
-    const pct = Math.min(Math.round((elapsed / totalDuration) * 100), 100);
-    progressFill.style.width = pct + '%';
-    progressPercent.textContent = pct + '%';
-    progressTrack.setAttribute('aria-valuenow', pct);
-  }
-
-  function clearActive() {
-    stages.forEach(s => { s.classList.remove('active', 'completed'); });
-  }
-
-  function highlightStage(idx) {
-    clearActive();
-    if (idx < 0 || idx >= totalStages) return;
-    stages[idx].classList.add('active');
-    for (let i = 0; i < idx; i++) stages[i].classList.add('completed');
-
-    const card = stages[idx];
-    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }
-
-  function showDetail(idx) {
-    const card = stages[idx];
-    if (!card) return;
-    const title = card.querySelector('.stage-title')?.textContent || '';
-    const desc = card.querySelector('.stage-desc')?.textContent || '';
-    const icon = card.querySelector('.stage-icon')?.textContent || '';
-    const time = card.querySelector('.stage-time')?.textContent || '';
-    detailTitle.textContent = `${icon} ${title}`;
-    detailBody.innerHTML = `<p>${desc}</p><p style="margin-top:8px;color:var(--brand);font-weight:600;">Estimated time: ${time}</p>`;
-    detailPanel.hidden = false;
-    detailClose.focus();
-  }
-
-  function hideDetail() {
-    detailPanel.hidden = true;
-  }
-
-  stages.forEach((card, idx) => {
-    card.addEventListener('click', function () {
-      if (this.classList.contains('active') && !isPlaying) {
-        showDetail(idx);
-      } else if (!isPlaying) {
-        clearActive();
-        highlightStage(idx);
-        updateProgress(idx);
-        currentStage = idx;
-        showDetail(idx);
-      }
-    });
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.click();
-      }
-    });
   });
-
-  detailClose.addEventListener('click', hideDetail);
-  detailClose.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hideDetail(); }
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { hideDetail(); if (isPlaying) stopBoot(); }
-  });
-
-  function resetBoot() {
-    if (timerId) { clearTimeout(timerId); timerId = null; }
-    isPlaying = false;
-    isPaused = false;
-    currentStage = -1;
-    accumulatedTime = 0;
-    clearActive();
-    updateProgress(-1);
-    setStatus('Ready', false);
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    resetBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-  }
-
-  function nextStage() {
-    if (!isPlaying || isPaused) return;
-    const next = currentStage + 1;
-    if (next >= totalStages) {
-      updateProgress(totalStages - 1);
-      setStatus('Boot complete', true);
-      statusBadge.style.color = '#66bb6a';
-      statusBadge.style.borderColor = '#66bb6a';
-      isPlaying = false;
-      playBtn.disabled = false;
-      pauseBtn.disabled = true;
-      stages[totalStages - 1].classList.remove('active');
-      stages[totalStages - 1].classList.add('completed');
-      return;
-    }
-    highlightStage(next);
-    updateProgress(next);
-    currentStage = next;
-    setStatus(stages[next].querySelector('.stage-title')?.textContent || '', true);
-    stageStartTime = performance.now();
-    const dur = stageDurations[next] || 500;
-    timerId = setTimeout(nextStage, dur);
-  }
-
-  function startBoot() {
-    if (isPlaying) {
-      if (isPaused) {
-        isPaused = false;
-        pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-        setStatus(stages[currentStage]?.querySelector('.stage-title')?.textContent || 'Running...', true);
-        const remaining = stageDurations[currentStage] - accumulatedTime;
-        timerId = setTimeout(nextStage, Math.max(remaining, 50));
-        return;
-      }
-      return;
-    }
-    isPlaying = true;
-    isPaused = false;
-    accumulatedTime = 0;
-    playBtn.disabled = true;
-    pauseBtn.disabled = false;
-    resetBtn.disabled = false;
-    statusBadge.style.color = '';
-    statusBadge.style.borderColor = '';
-    hideDetail();
-    if (currentStage >= 0) {
-      clearActive();
-      updateProgress(-1);
-    }
-    currentStage = -1;
-    setStatus('Starting...', true);
-    timerId = setTimeout(nextStage, 100);
-  }
-
-  function stopBoot() {
-    if (timerId) { clearTimeout(timerId); timerId = null; }
-    isPlaying = false;
-    isPaused = false;
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-    setStatus('Stopped', false);
-  }
-
-  function pauseBoot() {
-    if (!isPlaying) return;
-    if (isPaused) {
-      isPaused = false;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span>Pause</span>';
-      setStatus(stages[currentStage]?.querySelector('.stage-title')?.textContent || 'Running...', true);
-      const remaining = stageDurations[currentStage] - accumulatedTime;
-      timerId = setTimeout(nextStage, Math.max(remaining, 50));
-    } else {
-      isPaused = true;
-      pauseBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Resume</span>';
-      setStatus('Paused', true);
-      if (timerId) {
-        clearTimeout(timerId);
-        timerId = null;
-        accumulatedTime = performance.now() - stageStartTime;
-      }
-    }
-  }
-
-  playBtn.addEventListener('click', startBoot);
-  pauseBtn.addEventListener('click', pauseBoot);
-  resetBtn.addEventListener('click', resetBoot);
-  resetBtn.disabled = true;
+});
 })();

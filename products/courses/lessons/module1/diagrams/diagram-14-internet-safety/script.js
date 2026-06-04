@@ -1,424 +1,56 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [
+  {id:"firewall",name:"Software Firewall",category:"Security",icon:"firewall",shape:"rounded-rect",x:149,y:12,w:100,h:50,purpose:"Monitors and controls incoming and outgoing network traffic based on security rules",description:"A firewall examines data packets and blocks those that don\\'t meet security rules, protecting your device from unauthorized access.",why:"Firewalls are your first shield against hackers and malicious traffic",analogy:"Like a bouncer at a club checking IDs and only letting authorized people in",funFact:"Windows includes a built-in firewall that\\'s been part of the OS since XP SP2",takeaway:"A firewall is essential for blocking unauthorized access to your computer",mistake:"A firewall can\\'t stop threats that originate from inside your network",descriptionDetailed:"Software firewalls inspect traffic at the application layer and can block programs from accessing the Internet. They use rules based on ports, protocols, and application signatures."},
+  {id:"encryption",name:"Encryption",category:"Security",icon:"lock",shape:"rounded-rect",x:268,y:56,w:100,h:50,purpose:"Scrambles data so only authorized parties can read it",description:"Encryption uses algorithms and keys to transform readable data into unreadable ciphertext that can only be decrypted with the correct key.",why:"Encryption protects your private data even if it\\'s intercepted",analogy:"Like writing a letter in a secret code that only the recipient can decode",funFact:"End-to-end encryption means even the service provider can\\'t read your messages",takeaway:"Always look for HTTPS in the URL to ensure your data is encrypted in transit",mistake:"Encrypted data can still be leaked—it\\'s just unreadable without the key",descriptionDetailed:"Symmetric encryption uses one key for encryption and decryption (AES). Asymmetric encryption uses a public-private key pair (RSA, ECC). TLS/SSL uses both: asymmetric for key exchange and symmetric for bulk data."},
+  {id:"vpn",name:"Virtual Private Network",category:"Security",icon:"shield",shape:"rounded-rect",x:251,y:164,w:100,h:50,purpose:"Creates an encrypted tunnel between your device and a remote server, hiding your traffic",description:"A VPN encrypts all your Internet traffic and routes it through a server in a location you choose, masking your real IP address.",why:"VPNs protect your privacy on public Wi-Fi and hide your online activity from your ISP",analogy:"Like a private, enclosed walkway that protects you from view as you travel",funFact:"VPNs were originally invented to connect corporate offices securely over the Internet",takeaway:"A VPN encrypts all your traffic but you must trust the VPN provider with your data",mistake:"VPNs don\\'t make you anonymous—the VPN provider can still see your traffic",descriptionDetailed:"VPNs create an encrypted tunnel using protocols like OpenVPN, WireGuard, or IPsec. All traffic is encrypted and sent through this tunnel to the VPN server, which then forwards it to the Internet."},
+  {id:"antivirus",name:"Antivirus Software",category:"Security",icon:"search",shape:"rounded-rect",x:64,y:164,w:100,h:50,purpose:"Detects, prevents, and removes malicious software from your computer",description:"Antivirus software scans files, monitors system behavior, and uses signature databases to identify and block known and unknown malware.",why:"Antivirus protects against malware that can steal data, encrypt files, or take over your system",analogy:"Like an immune system that identifies and neutralizes invading pathogens",funFact:"The first antivirus program was created in 1987 to fight the Brain virus",takeaway:"Antivirus is essential but isn\\'t 100% effective—safe browsing habits matter too",mistake:"Antivirus doesn\\'t catch everything—zero-day attacks can bypass signature-based detection",descriptionDetailed:"Antivirus uses signature-based detection, heuristic analysis, and machine learning. Real-time protection scans files when accessed. Modern suites include ransomware protection and web filtering."},
+  {id:"auth",name:"Authentication",category:"Security",icon:"key",shape:"rounded-rect",x:149,y:100,w:100,h:50,purpose:"Verifies that you are who you claim to be before granting access",description:"Authentication uses passwords, biometrics, or security keys to confirm your identity, often with multiple factors for stronger security.",why:"Authentication prevents unauthorized access to your accounts and data",analogy:"Like showing your ID card and entering a PIN to access a secure building",funFact:"The most common password is still 123456—used by millions of people",takeaway:"Multi-factor authentication is the single most effective security measure you can enable",mistake:"A strong password isn\\'t enough—MFA is essential to protect against credential theft",descriptionDetailed:"Single-factor uses something you know (password). Two-factor adds something you have (phone, security key) or something you are (fingerprint, face)."},
+  {id:"backup",name:"Data Backup",category:"Security",icon:"database",shape:"rounded-rect",x:30,y:56,w:100,h:50,purpose:"Creates copies of important files to recover from data loss or ransomware",description:"Backups save copies of your files to external drives, cloud storage, or network locations, allowing you to restore them if originals are lost.",why:"Backups are your last defense against ransomware, hardware failure, and accidental deletion",analogy:"Like making photocopies of important documents and storing them in a safe place",funFact:"Ransomware attacks increased by 300% in recent years, making backups more critical than ever",takeaway:"Follow the 3-2-1 rule: 3 copies, 2 different media, 1 off-site backup",mistake:"Backups must be tested—untested backups are just wishes",descriptionDetailed:"Backup strategies include full, incremental, and differential backups. Cloud backups provide off-site protection against physical disasters."}
+];
+var connections = [{from:"firewall",to:"encryption"},{from:"encryption",to:"vpn"},{from:"vpn",to:"antivirus"},{from:"antivirus",to:"auth"},{from:"auth",to:"backup"}];
+var steps = [{label:"Step 1: Software Firewall",status:"Exploring: Software Firewall - Monitors and controls incoming and outgoing network traffic based on security rules"},{label:"Step 2: Encryption",status:"Exploring: Encryption - Scrambles data so only authorized parties can read it"},{label:"Step 3: Virtual Private Network",status:"Exploring: Virtual Private Network - Creates an encrypted tunnel between your device and a remote server, hiding your traffic"},{label:"Step 4: Antivirus Software",status:"Exploring: Antivirus Software - Detects, prevents, and removes malicious software from your computer"},{label:"Step 5: Authentication",status:"Exploring: Authentication - Verifies that you are who you claim to be before granting access"},{label:"Step 6: Data Backup",status:"Exploring: Data Backup - Creates copies of important files to recover from data loss or ransomware"}];
+var tour = [{title:"Software Firewall",description:"Monitors and controls incoming and outgoing network traffic based on security rules",componentId:"firewall"},{title:"Encryption",description:"Scrambles data so only authorized parties can read it",componentId:"encryption"},{title:"Virtual Private Network",description:"Creates an encrypted tunnel between your device and a remote server, hiding your traffic",componentId:"vpn"},{title:"Antivirus Software",description:"Detects, prevents, and removes malicious software from your computer",componentId:"antivirus"},{title:"Authentication",description:"Verifies that you are who you claim to be before granting access",componentId:"auth"},{title:"Data Backup",description:"Creates copies of important files to recover from data loss or ransomware",componentId:"backup"}];
 
-  // ===== Score State =====
-  const scoreState = {
-    passwordScore: 0,
-    httpsScored: false,
-    sorterCorrect: 0,
-    sorterTotal: 0,
-    generatedScored: false,
-  };
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Internet Safety',
+    subtitle: 'How Internet Works',
+    desc: 'Learn about firewalls, encryption, VPNs, and security best practices.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    packetFlow: [
+      {label:'Traffic Scan',color:'#22c55e'},
+      {label:'Encrypt',color:'#60a5fa'},
+      {label:'Tunnel',color:'#c084fc'},
+      {label:'Threat Detect',color:'#f59e0b'},
+      {label:'Authenticate',color:'#22c55e'}
+    ],
 
-  function getTotalScore() {
-    const pw = Math.min(scoreState.passwordScore, 100) * 0.30;
-    const https = scoreState.httpsScored ? 15 : 0;
-    const sorter = scoreState.sorterTotal > 0
-      ? Math.round((scoreState.sorterCorrect / scoreState.sorterTotal) * 100) * 0.35
-      : 0;
-    const gen = scoreState.generatedScored ? 20 : 0;
-    return Math.min(Math.round(pw + https + sorter + gen), 100);
-  }
+    render: function(container, engine) {
+      engine.buildVisual(container);
+      engine._setStatus('Click any component to learn more');
+    },
 
-  function updateScore() {
-    const pct = getTotalScore();
-    const scoreText = document.getElementById('scoreText');
-    const scoreFill = document.getElementById('scoreFill');
-    const progress = document.querySelector('.score-track');
-    scoreText.textContent = 'Safety Score: ' + pct + '%';
-    scoreFill.style.width = pct + '%';
-    if (progress) {
-      progress.setAttribute('aria-valuenow', pct);
-    }
-  }
-
-  // ===== 1. Password Strength Meter =====
-  (function () {
-    const input = document.getElementById('passwordInput');
-    const fill = document.getElementById('strengthFill');
-    const label = document.getElementById('strengthLabel');
-    const criteriaEls = document.querySelectorAll('.criteria-item');
-    const bar = document.getElementById('strengthBar');
-
-    function evaluate(pw) {
-      const checks = {
-        length: pw.length >= 8,
-        upper: /[A-Z]/.test(pw),
-        lower: /[a-z]/.test(pw),
-        number: /[0-9]/.test(pw),
-        special: /[^A-Za-z0-9]/.test(pw),
-      };
-
-      let score = 0;
-      for (const k in checks) {
-        if (checks[k]) score++;
-      }
-
-      let level, color, pct;
-      if (pw.length === 0) {
-        level = 'No password';
-        color = 'var(--text-muted)';
-        pct = 0;
-      } else if (score <= 1) {
-        level = 'Weak';
-        color = 'var(--weak)';
-        pct = 20;
-      } else if (score <= 2) {
-        level = 'Weak';
-        color = 'var(--weak)';
-        pct = 35;
-      } else if (score <= 3) {
-        level = 'Medium';
-        color = 'var(--medium)';
-        pct = 55;
-      } else if (score <= 4) {
-        level = 'Strong';
-        color = 'var(--strong)';
-        pct = 75;
-      } else {
-        level = 'Very Strong';
-        color = 'var(--very-strong)';
-        pct = 100;
-      }
-
-      return { checks, level, color, pct, rawScore: score };
-    }
-
-    function update() {
-      const pw = input.value;
-      const result = evaluate(pw);
-      fill.style.width = result.pct + '%';
-      fill.style.background = result.color;
-      label.textContent = result.level;
-      label.style.color = result.color;
-      if (bar) bar.setAttribute('aria-valuenow', Math.round(result.pct / 25));
-
-      criteriaEls.forEach(function (el) {
-        const key = el.getAttribute('data-criteria');
-        if (result.checks[key]) {
-          el.classList.add('met');
-        } else {
-          el.classList.remove('met');
-        }
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        var shape = bg.querySelector(':scope > :first-child');
+        if(!shape)return;
+        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
       });
+    },
 
-      if (pw.length > 0) {
-        scoreState.passwordScore = Math.round((result.rawScore / 5) * 100);
-      } else {
-        scoreState.passwordScore = 0;
-      }
-      updateScore();
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    input.addEventListener('input', update);
-  })();
-
-  // ===== 2. HTTPS vs HTTP Toggle =====
-  (function () {
-    const toggle = document.getElementById('httpsToggle');
-    const thumb = document.getElementById('toggleThumb');
-    const stateLabel = document.getElementById('toggleState');
-    const padlock = document.getElementById('padlock');
-    const info = document.getElementById('httpsInfo');
-
-    function update(https) {
-      toggle.setAttribute('aria-checked', https);
-      stateLabel.textContent = https ? 'HTTPS' : 'HTTP';
-      padlock.textContent = https ? '\u{1F512}' : '\u{1F513}';
-      padlock.setAttribute('aria-label', https ? 'Connection is secure' : 'Connection is not secure');
-      info.innerHTML = https
-        ? '<strong>HTTPS</strong> encrypts data between your browser and the website, protecting your information from eavesdroppers. Always look for the padlock!'
-        : '<strong>HTTP</strong> sends data in plain text. Anyone on the same network can read your information. Avoid entering sensitive data on HTTP sites.';
-      if (!scoreState.httpsScored && https) {
-        scoreState.httpsScored = true;
-      } else if (!https) {
-        scoreState.httpsScored = false;
-      }
-      updateScore();
-    }
-
-    toggle.addEventListener('click', function () {
-      const current = toggle.getAttribute('aria-checked') === 'true';
-      update(!current);
-    });
-
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        toggle.click();
-      }
-    });
-
-    update(true);
-  })();
-
-  // ===== 3. Share / Don't Share Sorter =====
-  (function () {
-    const items = document.querySelectorAll('.sorter-item');
-    const safeList = document.getElementById('safeList');
-    const privateList = document.getElementById('privateList');
-    const feedback = document.getElementById('sorterFeedback');
-    const correctMap = {
-      name: 'safe',
-      color: 'safe',
-      password: 'private',
-      email: 'private',
-      address: 'private',
-      phone: 'private',
-    };
-
-    let activeItem = null;
-    let sortedIds = [];
-
-    function clearBuckets() {
-      safeList.innerHTML = '';
-      privateList.innerHTML = '';
-    }
-
-    function renderBuckets() {
-      clearBuckets();
-      for (const id of sortedIds) {
-        const span = document.createElement('span');
-        span.textContent = id;
-        if (correctMap[id] === 'safe') {
-          safeList.appendChild(span);
-        } else {
-          privateList.appendChild(span);
-        }
-      }
-    }
-
-    function resetSorter(keepScore) {
-      items.forEach(function (el) {
-        el.classList.remove('sorted', 'active');
-        el.disabled = false;
-      });
-      sortedIds = [];
-      clearBuckets();
-      activeItem = null;
-      feedback.textContent = '';
-      if (!keepScore) {
-        scoreState.sorterCorrect = 0;
-        scoreState.sorterTotal = 0;
-        updateScore();
-      }
-    }
-
-    function evaluateSorter() {
-      let correct = 0;
-      let total = sortedIds.length;
-      for (const id of sortedIds) {
-        const bucket = correctMap[id];
-        const inSafe = safeList.querySelector('span') && Array.from(safeList.children).some(function (s) { return s.textContent === id; });
-        const inPrivate = privateList.querySelector('span') && Array.from(privateList.children).some(function (s) { return s.textContent === id; });
-        if ((bucket === 'safe' && inSafe) || (bucket === 'private' && inPrivate)) {
-          correct++;
-        }
-      }
-      scoreState.sorterCorrect = correct;
-      scoreState.sorterTotal = total;
-      updateScore();
-
-      if (total === Object.keys(correctMap).length) {
-        if (correct === total) {
-          feedback.textContent = 'All correct! Great job!';
-          feedback.style.color = 'var(--success)';
-        } else {
-          feedback.textContent = correct + ' of ' + total + ' correct. Try again!';
-          feedback.style.color = 'var(--warning)';
-        }
-      } else {
-        feedback.textContent = '';
-      }
-    }
-
-    items.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (btn.classList.contains('sorted')) return;
-        if (activeItem) {
-          activeItem.classList.remove('active');
-        }
-        activeItem = btn;
-        btn.classList.add('active');
-      });
-
-      btn.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-
-    function placeItem(bucket) {
-      if (!activeItem) return;
-      const id = activeItem.getAttribute('data-id');
-      if (sortedIds.indexOf(id) !== -1) return;
-
-      const expected = correctMap[id];
-      const span = document.createElement('span');
-      span.textContent = id;
-
-      if (bucket === 'safe') {
-        safeList.appendChild(span);
-      } else {
-        privateList.appendChild(span);
-      }
-      sortedIds.push(id);
-      activeItem.classList.remove('active');
-      activeItem.classList.add('sorted');
-      activeItem.disabled = true;
-      activeItem = null;
-
-      evaluateSorter();
-    }
-
-    document.getElementById('bucketSafe').addEventListener('click', function () { placeItem('safe'); });
-    document.getElementById('bucketPrivate').addEventListener('click', function () { placeItem('private'); });
-
-    document.getElementById('bucketSafe').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); placeItem('safe'); }
-    });
-    document.getElementById('bucketPrivate').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); placeItem('private'); }
-    });
-
-    window.__resetSorter = function (keepScore) { resetSorter(keepScore); };
-  })();
-
-  // ===== 4. Password Generator =====
-  (function () {
-    const display = document.getElementById('genPasswordDisplay');
-    const generateBtn = document.getElementById('generateBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const feedbackEl = document.getElementById('genFeedback');
-    const lenInput = document.getElementById('genLength');
-    const upperChk = document.getElementById('genUpper');
-    const lowerChk = document.getElementById('genLower');
-    const numChk = document.getElementById('genNumbers');
-    const specialChk = document.getElementById('genSpecial');
-
-    let generatedPassword = '';
-
-    function getChars() {
-      let chars = '';
-      if (upperChk.checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      if (lowerChk.checked) chars += 'abcdefghijklmnopqrstuvwxyz';
-      if (numChk.checked) chars += '0123456789';
-      if (specialChk.checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-      return chars;
-    }
-
-    function generate() {
-      const chars = getChars();
-      if (chars.length === 0) {
-        display.textContent = 'Select at least one character type';
-        generatedPassword = '';
-        copyBtn.disabled = true;
-        return;
-      }
-      let len = parseInt(lenInput.value, 10);
-      if (isNaN(len) || len < 8) len = 12;
-      if (len > 64) len = 64;
-      lenInput.value = len;
-
-      let pw = '';
-      const array = new Uint32Array(len);
-      crypto.getRandomValues(array);
-      for (let i = 0; i < len; i++) {
-        pw += chars[array[i] % chars.length];
-      }
-
-      generatedPassword = pw;
-      display.textContent = pw;
-      copyBtn.disabled = false;
-      feedbackEl.textContent = '';
-      if (!scoreState.generatedScored) {
-        scoreState.generatedScored = true;
-        updateScore();
-      }
-    }
-
-    function copy() {
-      if (!generatedPassword) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(generatedPassword).then(function () {
-          feedbackEl.textContent = 'Copied to clipboard!';
-        }).catch(function () {
-          fallbackCopy();
-        });
-      } else {
-        fallbackCopy();
-      }
-    }
-
-    function fallbackCopy() {
-      const ta = document.createElement('textarea');
-      ta.value = generatedPassword;
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand('copy');
-        feedbackEl.textContent = 'Copied to clipboard!';
-      } catch (e) {
-        feedbackEl.textContent = 'Failed to copy.';
-      }
-      document.body.removeChild(ta);
-    }
-
-    generateBtn.addEventListener('click', generate);
-    copyBtn.addEventListener('click', copy);
-    generateBtn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); generate(); }
-    });
-    copyBtn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copy(); }
-    });
-
-    generate();
-
-    window.__resetGenerator = function () {
-      generatedPassword = '';
-      display.textContent = 'Click "Generate" to create a password';
-      copyBtn.disabled = true;
-      feedbackEl.textContent = '';
-      if (scoreState.generatedScored) {
-        scoreState.generatedScored = false;
-        updateScore();
-      }
-    };
-  })();
-
-  // ===== Reset All =====
-  document.getElementById('resetAllBtn').addEventListener('click', function () {
-    document.getElementById('passwordInput').value = '';
-    document.getElementById('passwordInput').dispatchEvent(new Event('input'));
-
-    const httpsToggle = document.getElementById('httpsToggle');
-    if (httpsToggle.getAttribute('aria-checked') !== 'true') {
-      httpsToggle.click();
-    }
-
-    if (typeof window.__resetSorter === 'function') {
-      window.__resetSorter(true);
-    }
-
-    if (typeof window.__resetGenerator === 'function') {
-      window.__resetGenerator();
-    }
-
-    scoreState.passwordScore = 0;
-    scoreState.httpsScored = true;
-    scoreState.sorterCorrect = 0;
-    scoreState.sorterTotal = 0;
-    scoreState.generatedScored = false;
-    updateScore();
-
-    document.activeElement && document.activeElement.blur();
   });
-
-  // ===== Init score =====
-  updateScore();
+});
 })();

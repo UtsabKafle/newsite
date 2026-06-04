@@ -1,266 +1,40 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"dram",name:"DRAM Chip",category:"Memory",purpose:"Stores data as electrical charges in tiny capacitors that must be constantly refreshed",description:"Dynamic RAM stores each bit in a capacitor and transistor pair, where the capacitor holds a charge representing 1 or 0 but leaks over time.",why:"DRAM provides the main working memory that all programs run in",analogy:"Like a leaky bucket that needs constant refilling to keep its contents",funFact:"DRAM capacitors are so small that a single grain of salt could cover millions of them",takeaway:"DRAM is called dynamic because it must be refreshed thousands of times per second",mistake:"DRAM loses all data when power is turned off, unlike storage drives",descriptionDetailed:"Each DRAM cell has one transistor and one capacitor. The charge on the capacitor drains over milliseconds, so the memory controller must refresh every cell every 64ms. DRAM is organized in rows and columns accessed through RAS and CAS signals."},    {id:"addressbus",name:"Memory Address Bus",category:"Memory",purpose:"Carries the memory address from the CPU to indicate which location to access",description:"The address bus is a set of wires that transmit the specific memory location the CPU wants to read from or write to.",why:"The address bus determines how much memory a CPU can address",analogy:"Like a postal address that tells the mail carrier which house to deliver to",funFact:"A 32-bit address bus can only address 4 GB of memory, which is why 64-bit CPUs were needed",takeaway:"The address bus width limits the maximum RAM the system can use",mistake:"The address bus doesn\\'t carry data—it only carries the location for data",descriptionDetailed:"Each wire in the address bus carries one bit of the address. A 64-bit address bus allows 2^64 memory locations. The memory controller decodes the address into row and column signals for the DRAM array."},    {id:"databus",name:"Data Bus",category:"Memory",purpose:"Transfers actual data between the CPU, memory, and peripherals",description:"The data bus carries the actual binary data being read from or written to memory, with its width determining how many bits transfer per cycle.",why:"The data bus width directly affects how much data can move per clock cycle",analogy:"Like the number of lanes on a highway determining how many cars can travel at once",funFact:"Modern CPUs have 64-bit data buses, transferring 8 bytes per memory access",takeaway:"A wider data bus means faster data transfer between CPU and RAM",mistake:"The data bus and address bus are separate—they carry different types of information",descriptionDetailed:"The data bus is bidirectional, allowing both reads and writes. Its width is typically equal to the CPU\\'s word size. Modern systems use dual or quad memory channels to achieve wider total memory bandwidth."},    {id:"controller",name:"Memory Controller",category:"Memory",purpose:"Manages read and write operations between the CPU and DRAM modules",description:"The memory controller interprets CPU memory requests, handles DRAM refresh cycles, and optimizes access patterns for performance.",why:"The memory controller is essential for reliable and efficient memory operation",analogy:"Like a librarian who manages book checkouts and returns, ensuring everything is organized",funFact:"Modern CPUs integrate the memory controller directly on the chip instead of on the motherboard chipset",takeaway:"The memory controller handles timing, refresh, and data routing between CPU and RAM",mistake:"The memory controller doesn\\'t just route data—it also manages DRAM-specific protocols",descriptionDetailed:"The memory controller translates CPU requests into DRAM commands: activate row, read column, precharge. It schedules commands to maximize bandwidth through bank interleaving and open-page policies."},    {id:"dimm",name:"DIMM Module",category:"Memory",purpose:"A physical circuit board that holds multiple DRAM chips and connects to the motherboard",description:"A Dual Inline Memory Module has DRAM chips soldered on both sides and an edge connector with contacts that plug into the motherboard slot.",why:"DIMMs package DRAM into standardized, replaceable modules",analogy:"Like a cartridge that holds multiple batteries together for easy installation",funFact:"The first DIMMs had 72 pins; modern DDR5 DIMMs have 288 pins",takeaway:"DIMMs are the physical form factor that makes RAM replaceable and upgradeable",mistake:"DDR3, DDR4, and DDR5 DIMMs are not interchangeable—they have different notch positions",descriptionDetailed:"A DIMM carries DRAM chips on a PCB with a 64-bit data bus (72-bit with ECC). The module has an SPD chip that tells the BIOS its timing and capacity. DDR transfers data on both rising and falling clock edges."}];
+var connections = [{from:"dram",to:"addressbus"},{from:"addressbus",to:"databus"},{from:"databus",to:"controller"},{from:"controller",to:"dimm"}];
+var steps = [{label:"Step 1: DRAM Chip",status:"Exploring: DRAM Chip - Stores data as electrical charges in tiny capacitors that must be constantly refreshed"},{label:"Step 2: Memory Address Bus",status:"Exploring: Memory Address Bus - Carries the memory address from the CPU to indicate which location to access"},{label:"Step 3: Data Bus",status:"Exploring: Data Bus - Transfers actual data between the CPU, memory, and peripherals"},{label:"Step 4: Memory Controller",status:"Exploring: Memory Controller - Manages read and write operations between the CPU and DRAM modules"},{label:"Step 5: DIMM Module",status:"Exploring: DIMM Module - A physical circuit board that holds multiple DRAM chips and connects to the motherboard"}];
+var tour = [{title:"DRAM Chip",description:"Stores data as electrical charges in tiny capacitors that must be constantly refreshed",componentId:"dram"},{title:"Memory Address Bus",description:"Carries the memory address from the CPU to indicate which location to access",componentId:"addressbus"},{title:"Data Bus",description:"Transfers actual data between the CPU, memory, and peripherals",componentId:"databus"},{title:"Memory Controller",description:"Manages read and write operations between the CPU and DRAM modules",componentId:"controller"},{title:"DIMM Module",description:"A physical circuit board that holds multiple DRAM chips and connects to the motherboard",componentId:"dimm"}];
 
-  var state = {
-    stage: 0,
-    progress: 0,
-    playing: false,
-    rafId: null,
-    lastTime: null,
-    bytesWritten: 0,
-    bytesRead: 0,
-    currentAddr: 0,
-    currentData: 0,
-    isWrite: true
-  };
-
-  var ROWS = 4;
-  var COLS = 8;
-  var ADDRS = ['0x0000', '0x0001', '0x0002', '0x0003'];
-  var DATA_VALUES = [0xA5, 0x3C, 0xF0, 0x0F, 0x55, 0xAA, 0x7E, 0x81, 0xC3, 0x66];
-
-  var memCells = [];
-  var rowBits = [];
-  var byteValue, infoOperation, infoAddress, infoData, infoWritten, infoRead, infoLed;
-  var addressArrow, dataArrow;
-  var statusText, playBtn, pauseBtn, resetBtn;
-
-  function init() {
-    statusText = document.getElementById('statusText');
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    byteValue = document.getElementById('byteValue');
-    infoOperation = document.getElementById('infoOperation');
-    infoAddress = document.getElementById('infoAddress');
-    infoData = document.getElementById('infoData');
-    infoWritten = document.getElementById('infoWritten');
-    infoRead = document.getElementById('infoRead');
-    infoLed = document.querySelector('.info-led');
-
-    addressArrow = document.querySelector('#address-bus .bus-arrow');
-    dataArrow = document.querySelector('#data-bus .data-bus-arrow');
-
-    for (var r = 0; r < ROWS; r++) {
-      memCells[r] = [];
-      var rowEl = document.querySelector('[data-row="' + r + '"]');
-      var cells = rowEl.querySelectorAll('.mem-cell');
-      for (var c = 0; c < COLS; c++) {
-        memCells[r][c] = { el: cells[c], filled: false, value: 0 };
-      }
-      rowBits[r] = rowEl.querySelector('.row-bits');
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Ram',
+    subtitle: 'How Computers Work',
+    desc: 'Learn how RAM provides fast temporary storage for active programs.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to learn more');
+    },
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    resetUI();
-  }
-
-  function getRandomAddress() {
-    return Math.floor(Math.random() * ROWS);
-  }
-
-  function getRandomData() {
-    return DATA_VALUES[Math.floor(Math.random() * DATA_VALUES.length)];
-  }
-
-  function isRowFull(row) {
-    for (var c = 0; c < COLS; c++) {
-      if (!memCells[row][c].filled) return false;
-    }
-    return true;
-  }
-
-  function writeToRow(row, data) {
-    if (data === undefined) data = getRandomData();
-    for (var c = 0; c < COLS; c++) {
-      if (!memCells[row][c].filled) {
-        memCells[row][c].filled = true;
-        memCells[row][c].value = (data >> (7 - c)) & 1;
-        memCells[row][c].el.classList.add('write');
-        setTimeout(function (el) {
-          el.classList.remove('write');
-          el.classList.add('filled');
-        }.bind(null, memCells[row][c].el), 600);
-        break;
-      }
-    }
-    updateRowBits(row);
-  }
-
-  function readFromRow(row) {
-    for (var c = 0; c < COLS; c++) {
-      if (memCells[row][c].filled) {
-        memCells[row][c].el.classList.add('read');
-        setTimeout(function (el) {
-          el.classList.remove('read');
-        }.bind(null, memCells[row][c].el), 600);
-        break;
-      }
-    }
-  }
-
-  function updateRowBits(row) {
-    var bits = '';
-    for (var c = 0; c < COLS; c++) {
-      bits += memCells[row][c].filled ? (memCells[row][c].value ? '1' : '0') : '-';
-    }
-    rowBits[row].textContent = bits;
-  }
-
-  function resetMemory() {
-    for (var r = 0; r < ROWS; r++) {
-      for (var c = 0; c < COLS; c++) {
-        memCells[r][c].filled = false;
-        memCells[r][c].value = 0;
-        memCells[r][c].el.classList.remove('write', 'read', 'filled');
-      }
-      updateRowBits(r);
-    }
-    state.bytesWritten = 0;
-    state.bytesRead = 0;
-  }
-
-  function play() {
-    if (state.playing) return;
-    state.playing = true;
-    state.stage = 0;
-    state.progress = 0;
-    state.lastTime = null;
-    state.isWrite = true;
-    if (addressArrow) addressArrow.classList.add('active');
-    if (dataArrow) dataArrow.classList.add('active');
-    updateUI();
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    if (addressArrow) addressArrow.classList.remove('active');
-    if (dataArrow) dataArrow.classList.remove('active');
-    infoLed.classList.remove('active');
-    updateUI();
-  }
-
-  function reset() {
-    if (state.rafId) { cancelAnimationFrame(state.rafId); state.rafId = null; }
-    state.playing = false;
-    state.stage = 0;
-    state.progress = 0;
-    state.bytesWritten = 0;
-    state.bytesRead = 0;
-    state.lastTime = null;
-    if (addressArrow) addressArrow.classList.remove('active');
-    if (dataArrow) dataArrow.classList.remove('active');
-    infoLed.classList.remove('active');
-    resetMemory();
-    resetUI();
-  }
-
-  function resetUI() {
-    byteValue.textContent = '0x00';
-    infoOperation.textContent = 'Idle';
-    infoAddress.textContent = '--';
-    infoData.textContent = '--';
-    infoWritten.textContent = '0';
-    infoRead.textContent = '0';
-    statusText.innerHTML = 'Press <strong>Play</strong> to simulate RAM read/write operations';
-    updateButtons();
-  }
-
-  var STAGE_DURATION = 800;
-
-  function animLoop(timestamp) {
-    if (!state.playing) return;
-    if (state.lastTime === null) { state.lastTime = timestamp; state.rafId = requestAnimationFrame(animLoop); return; }
-    var dt = timestamp - state.lastTime;
-    state.lastTime = timestamp;
-    state.progress += dt / STAGE_DURATION;
-    if (state.progress >= 1) {
-      state.progress = 0;
-      performOperation();
-    }
-    state.rafId = requestAnimationFrame(animLoop);
-  }
-
-  function performOperation() {
-    var addr = getRandomAddress();
-    state.currentAddr = addr;
-    state.currentData = getRandomData();
-
-    infoLed.classList.add('active');
-    infoAddress.textContent = ADDRS[addr];
-
-    if (state.isWrite) {
-      if (isRowFull(addr)) {
-        state.isWrite = false;
-        infoOperation.textContent = 'Read';
-        var rAddr = getRandomAddress();
-        state.currentAddr = rAddr;
-        infoAddress.textContent = ADDRS[rAddr];
-        byteValue.textContent = 'READ';
-        infoData.textContent = 'reading...';
-        infoOperation.textContent = 'Read';
-        state.bytesRead++;
-        readFromRow(rAddr);
-        infoRead.textContent = state.bytesRead;
-      } else {
-        byteValue.textContent = '0x' + state.currentData.toString(16).toUpperCase().padStart(2, '0');
-        infoData.textContent = '0x' + state.currentData.toString(16).toUpperCase().padStart(2, '0');
-        infoOperation.textContent = 'Write';
-        state.bytesWritten++;
-        writeToRow(addr, state.currentData);
-        infoWritten.textContent = state.bytesWritten;
-      }
-    } else {
-      byteValue.textContent = 'READ';
-      infoData.textContent = 'reading...';
-      infoOperation.textContent = 'Read';
-      state.bytesRead++;
-      readFromRow(addr);
-      infoRead.textContent = state.bytesRead;
-      state.isWrite = true;
-    }
-
-    updateButtons();
-    updateStatusText();
-  }
-
-  function updateStatusText() {
-    if (state.playing) {
-      var op = infoOperation.textContent;
-      var addr = infoAddress.textContent;
-      statusText.innerHTML = '<strong>' + op + '</strong> at address ' + addr;
-    }
-  }
-
-  function updateUI() {
-    updateButtons();
-    if (!state.playing) {
-      statusText.innerHTML = state.bytesWritten === 0 && state.bytesRead === 0
-        ? 'Press <strong>Play</strong> to simulate RAM read/write operations'
-        : 'Simulation paused';
-    }
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.bytesWritten === 0 && state.bytesRead === 0;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

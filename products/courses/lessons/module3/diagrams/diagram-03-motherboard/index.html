@@ -2,32 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Motherboard — Consica Academy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Motherboard — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#diagram">Skip to diagram</a>
-  <div class="diagram-wrapper" id="diagram" role="application" aria-label="Motherboard interactive diagram">
-    <div class="diagram-header">
-      <h1 class="diagram-title">The Motherboard</h1>
-      <p class="diagram-subtitle">Explore the key zones and connectors on a modern motherboard</p>
-    </div>
-    <div class="controls" role="toolbar" aria-label="Animation controls">
-      <button class="ctrl-btn" id="playBtn" aria-label="Sequentially highlight each motherboard zone">&#9654; Play</button>
-      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause highlight sequence">&#9646;&#9646; Pause</button>
-      <button class="ctrl-btn" id="resetBtn" aria-label="Reset highlight">&#8634; Reset</button>
-      <span class="step-indicator" id="stepIndicator" aria-live="polite">Ready</span>
-    </div>
-    <div class="canvas-container">
-      <canvas id="mbCanvas" width="900" height="580" role="img" aria-label="Simplified motherboard diagram with labeled zones and connectors"></canvas>
-      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
-    </div>
-    <div class="zone-list" id="zoneList" role="list" aria-label="Motherboard zones"></div>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

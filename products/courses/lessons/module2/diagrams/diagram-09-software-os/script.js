@@ -1,300 +1,40 @@
-(function() {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"kernel",name:"Operating System Kernel",category:"Software",purpose:"Manages all hardware resources and provides core services to software",description:"The kernel is the core of the OS that handles process scheduling, memory management, device communication, and system calls from applications.",why:"The kernel is the most essential part of any operating system",analogy:"Like the engine of a car—without it, nothing works",funFact:"Linux started in 1991 as a hobby project by Linus Torvalds and now runs everything from phones to supercomputers",takeaway:"The kernel manages hardware access and enforces security between programs",mistake:"The kernel isn\\'t the whole OS—a complete OS includes drivers, shell, and utilities",descriptionDetailed:"The kernel operates in privileged mode with full hardware access. It handles system calls, manages virtual memory, schedules processes, and coordinates I/O. Monolithic kernels run most services in kernel space; microkernels run minimal services with others in user space."},    {id:"filesystem",name:"Filesystem",category:"Software",purpose:"Organizes and manages how data is stored, named, and retrieved on storage devices",description:"The filesystem provides a hierarchical structure of directories and files with metadata, translating file operations into storage device commands.",why:"Filesystems make data usable by organizing it into a named, searchable structure",analogy:"Like a library catalog system that helps you find any book by its location",funFact:"There are over 50 different filesystem types, including NTFS, ext4, and APFS",takeaway:"Filesystems manage where data physically goes on disk and how to find it again",mistake:"A filesystem isn\\'t the same as a partition—a partition contains a filesystem",descriptionDetailed:"Filesystems maintain metadata structures like the MFT or inode table. They handle data fragmentation, journaling for crash recovery, and permissions. Features include encryption, compression, and snapshots."},    {id:"driver",name:"Device Driver",category:"Software",purpose:"Allows the OS to communicate with hardware devices through a standardized interface",description:"Drivers are specialized software modules that translate generic OS commands into device-specific instructions that the hardware understands.",why:"Drivers enable the OS to support thousands of different hardware devices",analogy:"Like a translator who converts between two languages",funFact:"There are over 10,000 device drivers in a typical Linux kernel distribution",takeaway:"Every hardware component needs a driver to work with the OS",mistake:"Without the right driver, hardware simply won\\'t work",descriptionDetailed:"Drivers run in kernel mode and handle interrupts, DMA transfers, and memory-mapped I/O. They implement the OS\\'s driver model and expose a standard interface. Driver bugs are a major cause of system crashes."},    {id:"shell",name:"Command Shell",category:"Software",purpose:"Provides a text-based interface for users to interact with the operating system",description:"The shell accepts typed commands, interprets them, and executes other programs or built-in functions, displaying output to the user.",why:"The shell gives users direct control over the OS through text commands",analogy:"Like a restaurant menu where you type what you want",funFact:"The first Unix shell, the Bourne shell, was created in 1977",takeaway:"The shell is a program that interprets commands and launches other programs",mistake:"The shell isn\\'t the kernel—it\\'s a user-facing application",descriptionDetailed:"Shells support scripting with variables, conditionals, loops, and functions. Popular shells include Bash, Zsh, and PowerShell. Shell features include command history, tab completion, and piping."},    {id:"app",name:"Application Software",category:"Software",purpose:"Performs specific tasks for the user, from word processing to web browsing",description:"Applications are programs designed for end users that run on top of the OS, utilizing system resources through the OS\\'s system call interface.",why:"Applications are why people use computers—they accomplish real-world tasks",analogy:"Like tools in a toolbox, each designed for a specific job",funFact:"The average smartphone user has over 80 apps installed",takeaway:"Applications depend on the OS for resource access—they can\\'t directly control hardware",mistake:"Applications can\\'t crash the whole system in a modern OS—the OS isolates them",descriptionDetailed:"Applications run in user mode with restricted hardware access. They make system calls for file access, networking, and memory allocation. Modern apps are often sandboxed in containers for security."},    {id:"process",name:"Process",category:"Software",purpose:"A running instance of a program with its own memory space and execution state",description:"A process is a program in execution, containing the code, data, stack, heap, and execution context that the kernel manages and schedules.",why:"Processes allow multiple programs to run simultaneously on a single CPU",analogy:"Like a single recipe being cooked in a kitchen with its own ingredients",funFact:"A modern OS can manage thousands of processes simultaneously",takeaway:"A program is passive (on disk), while a process is active (in memory)",mistake:"A process isn\\'t the same as a thread—a process can contain multiple threads",descriptionDetailed:"Each process has a unique PID and its own virtual address space. The kernel\\'s scheduler allocates CPU time. Processes communicate through pipes, sockets, signals, and shared memory."}];
+var connections = [{from:"kernel",to:"filesystem"},{from:"filesystem",to:"driver"},{from:"driver",to:"shell"},{from:"shell",to:"app"},{from:"app",to:"process"}];
+var steps = [{label:"Step 1: Operating System Kernel",status:"Exploring: Operating System Kernel - Manages all hardware resources and provides core services to software"},{label:"Step 2: Filesystem",status:"Exploring: Filesystem - Organizes and manages how data is stored, named, and retrieved on storage devices"},{label:"Step 3: Device Driver",status:"Exploring: Device Driver - Allows the OS to communicate with hardware devices through a standardized interface"},{label:"Step 4: Command Shell",status:"Exploring: Command Shell - Provides a text-based interface for users to interact with the operating system"},{label:"Step 5: Application Software",status:"Exploring: Application Software - Performs specific tasks for the user, from word processing to web browsing"},{label:"Step 6: Process",status:"Exploring: Process - A running instance of a program with its own memory space and execution state"}];
+var tour = [{title:"Operating System Kernel",description:"Manages all hardware resources and provides core services to software",componentId:"kernel"},{title:"Filesystem",description:"Organizes and manages how data is stored, named, and retrieved on storage devices",componentId:"filesystem"},{title:"Device Driver",description:"Allows the OS to communicate with hardware devices through a standardized interface",componentId:"driver"},{title:"Command Shell",description:"Provides a text-based interface for users to interact with the operating system",componentId:"shell"},{title:"Application Software",description:"Performs specific tasks for the user, from word processing to web browsing",componentId:"app"},{title:"Process",description:"A running instance of a program with its own memory space and execution state",componentId:"process"}];
 
-  const canvas = document.getElementById('onionCanvas');
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  const size = 500;
-  canvas.width = size * dpr;
-  canvas.height = size * dpr;
-  canvas.style.width = size + 'px';
-  canvas.style.height = size + 'px';
-  ctx.scale(dpr, dpr);
-
-  const layerInfo = {
-    kernel: {
-      title: 'Kernel',
-      desc: 'The core of the OS. Manages CPU scheduling, memory allocation, process management, and direct hardware communication. Everything passes through the kernel.'
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Software Os',
+    subtitle: 'How Computers Work',
+    desc: 'Understand the layers of software from OS to applications.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to learn more');
     },
-    drivers: {
-      title: 'Device Drivers',
-      desc: 'Software that allows the OS to communicate with hardware devices. Each hardware component (GPU, NIC, disk) has a specific driver that translates generic OS commands into device-specific instructions.'
+    
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+      });
     },
-    filesystem: {
-      title: 'File System',
-      desc: 'Organizes and manages data storage. Controls how files are named, stored, retrieved, and organized on disk. Provides a hierarchical directory structure and handles permissions.'
-    },
-    ui: {
-      title: 'User Interface',
-      desc: 'The graphical or command-line interface that users interact with. Includes the desktop environment, window manager, and input handling for keyboard, mouse, and touch.'
-    },
-    apps: {
-      title: 'Applications',
-      desc: 'User-facing programs that run on top of the OS. Applications use system calls to request services from the kernel through the various OS layers.'
-    },
-    user: {
-      title: 'User',
-      desc: 'The person interacting with the system. User input flows through the UI layer, gets processed by applications, and system requests travel down to the kernel for hardware access.'
-    }
-  };
-
-  const layers = ['kernel', 'drivers', 'filesystem', 'ui', 'apps', 'user'];
-  const layerRadii = [45, 85, 125, 165, 205, 245];
-  const layerColors = [
-    '#ff6b35', // warm orange - kernel
-    '#e85d3a',
-    '#c94c4c',
-    '#4a7fb5',
-    '#3a6f9a',
-    '#0959C8'  // cool blue - user
-  ];
-
-  let selectedLayer = 'kernel';
-  let hoveredLayer = null;
-  let animatingFlow = false;
-  let flowProgress = 0;
-  let flowDirection = 1; // 1 = inward, -1 = outward
-  let animFrame = null;
-  let isPlaying = false;
-
-  function getLayerAtPoint(x, y) {
-    const cx = size / 2, cy = size / 2;
-    const dx = x - cx, dy = y - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    for (let i = layers.length - 1; i >= 0; i--) {
-      const threshold = layerRadii[i] + 6;
-      if (dist <= threshold) return layers[i];
-    }
-    return null;
-  }
-
-  function drawOnion() {
-    ctx.clearRect(0, 0, size, size);
-    const cx = size / 2, cy = size / 2;
-
-    // Draw rings from outside in (so inner rings overlay)
-    for (let i = layers.length - 1; i >= 0; i--) {
-      const radius = layerRadii[i];
-      const isSelected = layers[i] === selectedLayer;
-      const isHovered = hoveredLayer === layers[i];
-      const isFlowLayer = animatingFlow;
-
-      // Ring fill with gradient
-      const grad = ctx.createRadialGradient(cx, cy, radius - 20, cx, cy, radius + 10);
-      const baseColor = layerColors[i];
-      grad.addColorStop(0, baseColor + '55');
-      grad.addColorStop(0.5, baseColor + '33');
-      grad.addColorStop(1, baseColor + '11');
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      // Ring stroke
-      ctx.strokeStyle = isSelected || isHovered
-        ? baseColor
-        : 'rgba(255,255,255,0.12)';
-      ctx.lineWidth = isSelected ? 3 : 1.5;
-      ctx.stroke();
-
-      // Glow for selected
-      if (isSelected) {
-        ctx.shadowColor = baseColor;
-        ctx.shadowBlur = 16;
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-      }
-
-      // Inner glow for hover
-      if (isHovered && !isSelected) {
-        ctx.shadowColor = baseColor;
-        ctx.shadowBlur = 8;
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-      }
-
-      // Label
-      const labelAngle = -Math.PI / 2 + (i - 2.5) * 0.15;
-      const labelR = radius + 14;
-      const lx = cx + labelR * Math.cos(labelAngle);
-      const ly = cy + labelR * Math.sin(labelAngle);
-
-      ctx.fillStyle = isSelected || isHovered ? '#fff' : 'rgba(255,255,255,0.7)';
-      ctx.font = i === 0 ? 'bold 11px Poppins, sans-serif' : '10px Poppins, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(layers[i].charAt(0).toUpperCase() + layers[i].slice(1), lx, ly);
-    }
-
-    // Data flow indicator dots on the selected layer ring
-    if (animatingFlow) {
-      const selIdx = layers.indexOf(selectedLayer);
-      const r = layerRadii[selIdx];
-      const angle = flowProgress * Math.PI * 2;
-      const dotX = cx + r * Math.cos(angle - Math.PI / 2);
-      const dotY = cy + r * Math.sin(angle - Math.PI / 2);
-
-      ctx.beginPath();
-      ctx.arc(dotX, dotY, 5, 0, Math.PI * 2);
-      ctx.fillStyle = layerColors[selIdx];
-      ctx.shadowColor = layerColors[selIdx];
-      ctx.shadowBlur = 16;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-
-    // Center label
-    ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    ctx.font = '7px Inter, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('⬤', cx, cy + 2);
-  }
-
-  function updateLayerInfo(layer) {
-    selectedLayer = layer;
-    const info = layerInfo[layer];
-    document.getElementById('layerTitle').textContent = info.title;
-    document.getElementById('layerDesc').textContent = info.desc;
-    drawOnion();
-  }
-
-  // Mouse events
-  canvas.addEventListener('mousemove', function(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width / dpr;
-    const scaleY = canvas.height / rect.height / dpr;
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
-    const layer = getLayerAtPoint(x, y);
-    hoveredLayer = layer;
-    canvas.style.cursor = layer ? 'pointer' : 'default';
-    drawOnion();
-  });
-
-  canvas.addEventListener('mouseleave', function() {
-    hoveredLayer = null;
-    drawOnion();
-  });
-
-  canvas.addEventListener('click', function(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width / dpr;
-    const scaleY = canvas.height / rect.height / dpr;
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
-    const layer = getLayerAtPoint(x, y);
-    if (layer) updateLayerInfo(layer);
-  });
-
-  // Keyboard: use arrow keys to cycle layers
-  canvas.addEventListener('keydown', function(e) {
-    const idx = layers.indexOf(selectedLayer);
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      const next = (idx + 1) % layers.length;
-      updateLayerInfo(layers[next]);
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prev = (idx - 1 + layers.length) % layers.length;
-      updateLayerInfo(layers[prev]);
-    } else if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      // Act as click at center
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
   });
-  canvas.setAttribute('tabindex', '0');
-  canvas.setAttribute('role', 'figure');
-  canvas.setAttribute('aria-label', 'OS layers diagram. Use arrow keys to navigate layers.');
-
-  // Data flow animation
-  function startFlow() {
-    if (isPlaying) return;
-    isPlaying = true;
-    animatingFlow = true;
-    flowProgress = 0;
-    flowDirection = 1;
-
-    const dot = document.getElementById('flowDot');
-    dot.style.left = '0%';
-
-    function animateFlow() {
-      if (!isPlaying) {
-        animatingFlow = false;
-        return;
-      }
-
-      flowProgress += 0.005 * flowDirection;
-
-      if (flowProgress >= 1) {
-        flowDirection = -1;
-      } else if (flowProgress <= 0) {
-        flowDirection = 1;
-      }
-
-      // Update flow dot position
-      const pct = flowProgress * 100;
-      dot.style.left = pct + '%';
-
-      // Update flow dot color based on position
-      const seg = flowProgress * 4;
-      const colorIdx = Math.min(4, Math.floor(seg));
-      const colors = ['#ff6b35', '#c94c4c', '#4a7fb5', '#3a6f9a', '#0959C8'];
-      dot.style.background = colors[colorIdx] || '#0959C8';
-      dot.style.boxShadow = `0 0 12px ${colors[colorIdx] || '#0959C8'}80`;
-
-      // Update onion canvas flow indicator
-      const ringIdx = Math.min(4, Math.floor(seg));
-      selectedLayer = layers[ringIdx];
-      updateLayerInfo(selectedLayer);
-
-      animFrame = requestAnimationFrame(animateFlow);
-    }
-
-    animateFlow();
-  }
-
-  function stopFlow() {
-    isPlaying = false;
-    animatingFlow = false;
-    if (animFrame) {
-      cancelAnimationFrame(animFrame);
-      animFrame = null;
-    }
-  }
-
-  function resetFlow() {
-    stopFlow();
-    flowProgress = 0;
-    flowDirection = 1;
-    const dot = document.getElementById('flowDot');
-    dot.style.left = '0%';
-    dot.style.background = '#0959C8';
-    dot.style.boxShadow = '0 0 12px rgba(9,89,200,0.6)';
-    updateLayerInfo('kernel');
-  }
-
-  // Controls
-  document.getElementById('playBtn').addEventListener('click', startFlow);
-  document.getElementById('pauseBtn').addEventListener('click', stopFlow);
-  document.getElementById('resetBtn').addEventListener('click', resetFlow);
-
-  document.querySelectorAll('.ctrl-btn').forEach(btn => {
-    btn.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
-    });
-  });
-
-  // Handle resize for canvas
-  function handleResize() {
-    const rect = canvas.getBoundingClientRect();
-    const newSize = Math.min(rect.width, 500);
-    canvas.style.width = newSize + 'px';
-    canvas.style.height = newSize + 'px';
-  }
-  window.addEventListener('resize', handleResize);
-
-  // Init
-  updateLayerInfo('kernel');
+});
 })();

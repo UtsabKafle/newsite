@@ -2,45 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAM Installation — Consica Academy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Ram — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#diagram">Skip to diagram</a>
-  <div class="diagram-wrapper" id="diagram" role="application" aria-label="RAM Installation interactive diagram">
-    <div class="diagram-header">
-      <h1 class="diagram-title">RAM Installation</h1>
-      <p class="diagram-subtitle">Learn how to install RAM modules in dual-channel configuration</p>
-    </div>
-    <div class="controls" role="toolbar" aria-label="Animation controls">
-      <button class="ctrl-btn" id="playBtn" aria-label="Animate dual-channel RAM installation">&#9654; Play</button>
-      <button class="ctrl-btn" id="pauseBtn" aria-label="Pause animation">&#9646;&#9646; Pause</button>
-      <button class="ctrl-btn" id="resetBtn" aria-label="Reset view">&#8634; Reset</button>
-      <span class="step-indicator" id="stepIndicator" aria-live="polite">Ready</span>
-    </div>
-    <div class="canvas-container">
-      <canvas id="ramCanvas" width="900" height="460" role="img" aria-label="Motherboard RAM slots with dual-channel color coding"></canvas>
-      <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true" style="display:none;"></div>
-    </div>
-    <div class="info-row">
-      <div class="channel-info">
-        <span class="ch-badge ch-a">Channel A</span> A1 + A2 (slots 1 &amp; 2)
-      </div>
-      <div class="channel-info">
-        <span class="ch-badge ch-b">Channel B</span> B1 + B2 (slots 3 &amp; 4)
-      </div>
-    </div>
-    <div class="ram-slots-list" role="list" aria-label="RAM slot selectors">
-      <button class="slot-btn" data-slot="A1" role="listitem">A1</button>
-      <button class="slot-btn" data-slot="A2" role="listitem">A2</button>
-      <button class="slot-btn" data-slot="B1" role="listitem">B1</button>
-      <button class="slot-btn" data-slot="B2" role="listitem">B2</button>
-    </div>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

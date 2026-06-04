@@ -1,322 +1,54 @@
-const cableData = [
-  {
-    id: 'transatlantic',
-    name: 'Transatlantic',
-    route: 'New York \u2192 London',
-    length: '5,500 km',
-    lengthNum: 5500,
-    capacity: '200 Tbps',
-    capacityNum: 200,
-    year: 2016,
-    color: '#00d4ff',
-    description: 'One of the busiest submarine cable routes connecting North America to Europe, carrying vast amounts of transatlantic data traffic daily.'
-  },
-  {
-    id: 'panamerican',
-    name: 'Pan-American',
-    route: 'Miami \u2192 S\u00e3o Paulo',
-    length: '8,000 km',
-    lengthNum: 8000,
-    capacity: '120 Tbps',
-    capacityNum: 120,
-    year: 2018,
-    color: '#ff6b35',
-    description: 'Connects North and South America, linking major business hubs across the Americas with high-speed fiber optic connectivity.'
-  },
-  {
-    id: 'africacoast',
-    name: 'Africa Coast',
-    route: 'Lisbon \u2192 Cape Town',
-    length: '10,500 km',
-    lengthNum: 10500,
-    capacity: '80 Tbps',
-    capacityNum: 80,
-    year: 2020,
-    color: '#7bed9f',
-    description: 'Runs along the western coast of Africa, providing critical broadband connectivity to the African continent and surrounding regions.'
-  },
-  {
-    id: 'eurasia',
-    name: 'Eurasia Express',
-    route: 'Marseille \u2192 Singapore',
-    length: '15,000 km',
-    lengthNum: 15000,
-    capacity: '250 Tbps',
-    capacityNum: 250,
-    year: 2019,
-    color: '#ffd93d',
-    description: 'The longest cable in our network, connecting Europe to Southeast Asia through the Mediterranean and Indian Ocean corridors.'
-  },
-  {
-    id: 'asiaaustralia',
-    name: 'Asia-Australia',
-    route: 'Jakarta \u2192 Sydney',
-    length: '4,200 km',
-    lengthNum: 4200,
-    capacity: '90 Tbps',
-    capacityNum: 90,
-    year: 2021,
-    color: '#ff6b9d',
-    description: 'Direct high-capacity link between Southeast Asia and Australia, supporting the rapidly growing digital economies of the region.'
-  },
-  {
-    id: 'transpacific',
-    name: 'Trans-Pacific',
-    route: 'Tokyo \u2192 San Francisco',
-    length: '12,000 km',
-    lengthNum: 12000,
-    capacity: '180 Tbps',
-    capacityNum: 180,
-    year: 2017,
-    color: '#a855f7',
-    description: 'Spans the Pacific Ocean to connect Asia with North America, forming a vital backbone link for global internet traffic.'
-  }
+(function(){'use strict';
+var components = [
+  {id:"landingstation",name:"Landing Station",category:"Network",icon:"data-center",shape:"rounded-rect",x:30,y:72,w:110,h:56,purpose:"Connects undersea cables to the terrestrial Internet backbone on shore",description:"Landing stations are facilities on the coast where undersea cables come ashore and connect to fiber optic networks that spread across the continent.",why:"Landing stations are the bridge between underwater and land-based networks",analogy:"Like a seaport where ships dock and unload cargo onto trucks",funFact:"There are over 500 active undersea cable landing stations worldwide",takeaway:"Undersea cables connect to landing stations, not directly to your home",mistake:"Landing stations are heavily secured and often disguised to prevent sabotage",descriptionDetailed:"Landing stations house the equipment that terminates the undersea cable, including power feed equipment and optical line terminals. They convert optical signals from the cable into signals compatible with terrestrial networks. Most landing stations have redundant power and cooling."},
+  {id:"cable",name:"Undersea Fiber Optic Cable",category:"Network",icon:"cable",shape:"pill",x:160,y:72,w:110,h:56,purpose:"Carries data across oceans using pulses of light through hair-thin glass fibers",description:"The cable contains multiple fiber pairs, each carrying laser light pulses encoded with data, surrounded by layers of steel and plastic armor.",why:"Undersea cables carry over 95% of all international Internet traffic",analogy:"Like a super-fast underwater highway for data traveling at the speed of light",funFact:"The first transatlantic cable laid in 1858 could transmit just 1 word per 2 minutes",takeaway:"Undersea cables are still the backbone of global connectivity",mistake:"Cables aren\\'t just laid on the seafloor\u2014they\\'re buried near shore to prevent damage",descriptionDetailed:"Modern cables use dense wavelength division multiplexing to send multiple colors of light through each fiber. Cables are about the thickness of a garden hose and can span 6,000+ miles. Repeaters every 50-80 km amplify the optical signal."},
+  {id:"repeater",name:"Optical Repeater",category:"Network",icon:"chip",shape:"hexagon",x:290,y:48,w:110,h:56,purpose:"Amplifies the optical signal to prevent data loss over long distances",description:"Repeaters are placed at regular intervals along the cable to boost the weakening light signal so data can travel thousands of kilometers.",why:"Without repeaters, light signals would fade after a few hundred kilometers",analogy:"Like rest stops along a highway where drivers refuel for the next leg",funFact:"A single cable can have over 100 repeaters spaced 50-80 km apart",takeaway:"Repeaters allow undersea cables to span entire oceans",mistake:"Repeaters don\\'t regenerate data\u2014they simply amplify the optical signal",descriptionDetailed:"Repeaters contain erbium-doped fiber amplifiers that use laser pumping to boost signal strength. Modern repeaters support multiple wavelength channels simultaneously. They are powered electrically from the landing stations through the cable\\'s copper conductor."},
+  {id:"buoy",name:"Navigation Buoy",category:"Network",icon:"satellite",shape:"circle",x:420,y:72,w:110,h:56,purpose:"Marks cable locations and warns ships away from buried cables",description:"Buoys are placed near shore to mark the path of undersea cables and alert ships to avoid anchoring or fishing in cable areas.",why:"Ship anchors and fishing trawlers are the biggest threat to undersea cables",analogy:"Like warning signs posted near underground gas lines to prevent digging",funFact:"Over 100 cable breaks happen each year, mostly from ship anchors and fishing",takeaway:"Cables need protection from human activity, especially in shallow waters",mistake:"Buoys don\\'t transmit data\u2014they\\'re purely physical markers",descriptionDetailed:"Buoys are placed along the cable route near shorelines to visually mark the cable path. They are regulated by international maritime laws and cable protection zones. Cable repair ships can locate breaks and pull the cable up for repair."},
+  {id:"data",name:"Transmitted Data",category:"Network",icon:"data-center",shape:"rounded-rect",x:550,y:72,w:110,h:56,purpose:"Represents all Internet traffic traveling between continents through cables",description:"Data in the form of light pulses travels through the fiber at nearly the speed of light, carrying everything from emails to video streams.",why:"This data is the reason the global Internet exists\u2014connecting people worldwide",analogy:"Like all the conversations happening simultaneously through a massive fiber-optic telephone line",funFact:"A single undersea cable pair can carry the equivalent of 100 million HD movies simultaneously",takeaway:"Every international website visit, email, or stream likely travels through an undersea cable",mistake:"Data doesn\\'t travel instantaneously\u2014the speed of light in fiber is about 200,000 km/s",descriptionDetailed:"Data is encoded as laser light pulses using phase-shift keying or quadrature amplitude modulation. Multiple wavelengths of light travel through the same fiber using DWDM technology."}
 ];
+var connections = [{from:"landingstation",to:"cable"},{from:"cable",to:"repeater"},{from:"repeater",to:"buoy"},{from:"buoy",to:"data"}];
+var steps = [{label:"Step 1: Landing Station",status:"Exploring: Landing Station - Connects undersea cables to the terrestrial Internet backbone on shore"},{label:"Step 2: Undersea Fiber Optic Cable",status:"Exploring: Undersea Fiber Optic Cable - Carries data across oceans using pulses of light through hair-thin glass fibers"},{label:"Step 3: Optical Repeater",status:"Exploring: Optical Repeater - Amplifies the optical signal to prevent data loss over long distances"},{label:"Step 4: Navigation Buoy",status:"Exploring: Navigation Buoy - Marks cable locations and warns ships away from buried cables"},{label:"Step 5: Transmitted Data",status:"Exploring: Transmitted Data - Represents all Internet traffic traveling between continents through cables"}];
+var tour = [{title:"Landing Station",description:"Connects undersea cables to the terrestrial Internet backbone on shore",componentId:"landingstation"},{title:"Undersea Fiber Optic Cable",description:"Carries data across oceans using pulses of light through hair-thin glass fibers",componentId:"cable"},{title:"Optical Repeater",description:"Amplifies the optical signal to prevent data loss over long distances",componentId:"repeater"},{title:"Navigation Buoy",description:"Marks cable locations and warns ships away from buried cables",componentId:"buoy"},{title:"Transmitted Data",description:"Represents all Internet traffic traveling between continents through cables",componentId:"data"}];
 
-const totalLength = cableData.reduce(function (sum, c) { return sum + c.lengthNum; }, 0);
-const totalCapacity = cableData.reduce(function (sum, c) { return sum + c.capacityNum; }, 0);
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Undersea Cables',
+    subtitle: 'How Internet Works',
+    desc: 'Explore the undersea fiber optic cables that connect continents.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    packetFlow: [
+      {label:'Signal In',color:'#22c55e'},
+      {label:'Fiber Optics',color:'#60a5fa'},
+      {label:'Amplify',color:'#c084fc'},
+      {label:'Navigation',color:'#f59e0b'}
+    ],
 
-var svg = document.querySelector('.map-svg');
-var dotsGroup = svg.querySelector('.dots');
-var infoPanel = document.getElementById('infoPanel');
-var infoClose = document.getElementById('infoClose');
-var cableGlows = svg.querySelectorAll('.cable-glow');
-var cableLabels = svg.querySelectorAll('.cable-label');
-var legendItems = document.getElementById('legendItems');
-var playBtn = document.getElementById('playBtn');
-var resetBtn = document.getElementById('resetBtn');
+    render: function(container, engine) {
+      engine.buildVisual(container);
+      engine._setStatus('Click any component to learn more');
+    },
 
-var isPlaying = true;
-var animationId = null;
-var dotProgress = [];
-
-function initDots() {
-  dotsGroup.innerHTML = '';
-  dotProgress = [];
-
-  cableData.forEach(function (cable, index) {
-    var path = document.querySelector('.cable-path[data-cable="' + cable.id + '"]');
-    if (!path) return;
-
-    var numDots = 3;
-    for (var i = 0; i < numDots; i++) {
-      var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.classList.add('dot');
-      dot.style.fill = cable.color;
-      dot.setAttribute('data-cable', cable.id);
-      dotsGroup.appendChild(dot);
-
-      dotProgress.push({
-        cableIndex: index,
-        element: dot,
-        offset: i / numDots,
-        speed: 0.002 + (index * 0.0005)
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        var shape = bg.querySelector(':scope > :first-child');
+        if(!shape)return;
+        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
       });
+    },
+
+    onReplay: function(engine) {
+      engine.t = 0;
     }
   });
-}
-
-function updateDots() {
-  var time = Date.now() / 1000;
-  dotProgress.forEach(function (dp, i) {
-    var cable = cableData[dp.cableIndex];
-    var path = document.querySelector('.cable-path[data-cable="' + cable.id + '"]');
-    if (!path) return;
-
-    if (isPlaying) {
-      dp.offset += dp.speed;
-      if (dp.offset > 1) dp.offset -= 1;
-    }
-
-    try {
-      var len = path.getTotalLength();
-      if (len === 0) return;
-      var point = path.getPointAtLength(dp.offset * len);
-      dp.element.setAttribute('cx', point.x);
-      dp.element.setAttribute('cy', point.y);
-    } catch (e) {
-      return;
-    }
-
-    var pulse = 0.55 + 0.45 * Math.sin(time * 2.5 + i * 1.2);
-    dp.element.setAttribute('opacity', pulse);
-  });
-}
-
-function animate() {
-  updateDots();
-  animationId = requestAnimationFrame(animate);
-}
-
-function buildLegend() {
-  legendItems.innerHTML = '';
-  cableData.forEach(function (cable) {
-    var item = document.createElement('div');
-    item.className = 'legend-item';
-    item.setAttribute('data-cable', cable.id);
-    item.setAttribute('tabindex', '0');
-    item.setAttribute('role', 'button');
-    item.setAttribute('aria-label', 'Show ' + cable.name + ' cable information');
-
-    var line = document.createElement('span');
-    line.className = 'legend-line';
-    line.style.background = cable.color;
-
-    var name = document.createElement('span');
-    name.textContent = cable.name + ' (' + cable.length + ')';
-
-    item.appendChild(line);
-    item.appendChild(name);
-
-    item.addEventListener('click', function () { showCableInfo(cable.id); });
-    item.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        showCableInfo(cable.id);
-      }
-    });
-
-    legendItems.appendChild(item);
-  });
-}
-
-function showCableInfo(cableId) {
-  var cable = cableData.find(function (c) { return c.id === cableId; });
-  if (!cable) return;
-
-  document.getElementById('infoName').textContent = cable.name;
-  document.getElementById('infoName').style.color = cable.color;
-  document.getElementById('infoRoute').textContent = cable.route;
-  document.getElementById('infoLength').textContent = cable.length;
-  document.getElementById('infoCapacity').textContent = cable.capacity;
-  document.getElementById('infoYear').textContent = cable.year;
-  document.getElementById('infoDesc').textContent = cable.description;
-
-  infoPanel.classList.add('visible');
-  infoPanel.setAttribute('aria-hidden', 'false');
-  setTimeout(function () { infoClose.focus(); }, 100);
-
-  svg.querySelectorAll('.cable-glow.active').forEach(function (el) { el.classList.remove('active'); });
-  svg.querySelectorAll('.cable-label.active').forEach(function (el) { el.classList.remove('active'); });
-  legendItems.querySelectorAll('.legend-item.active').forEach(function (el) { el.classList.remove('active'); });
-
-  var activeGlow = svg.querySelector('.cable-glow[data-cable="' + cableId + '"]');
-  if (activeGlow) activeGlow.classList.add('active');
-
-  var activeLabel = svg.querySelector('.cable-label[data-cable="' + cableId + '"]');
-  if (activeLabel) activeLabel.classList.add('active');
-
-  var activeLegend = legendItems.querySelector('.legend-item[data-cable="' + cableId + '"]');
-  if (activeLegend) activeLegend.classList.add('active');
-}
-
-function hideInfo() {
-  infoPanel.classList.remove('visible');
-  infoPanel.setAttribute('aria-hidden', 'true');
-
-  svg.querySelectorAll('.cable-glow.active').forEach(function (el) { el.classList.remove('active'); });
-  svg.querySelectorAll('.cable-label.active').forEach(function (el) { el.classList.remove('active'); });
-  legendItems.querySelectorAll('.legend-item.active').forEach(function (el) { el.classList.remove('active'); });
-}
-
-function animateStats() {
-  var statCables = document.getElementById('statCables');
-  var statLength = document.getElementById('statLength');
-  var statCapacity = document.getElementById('statCapacity');
-
-  var targetCables = cableData.length;
-  var targetLength = totalLength;
-  var targetCapacity = totalCapacity;
-
-  var duration = 1500;
-  var startTime = performance.now();
-
-  function update() {
-    var elapsed = performance.now() - startTime;
-    var progress = Math.min(elapsed / duration, 1);
-    var eased = 1 - Math.pow(1 - progress, 3);
-
-    var curCables = Math.round(eased * targetCables);
-    var curLength = Math.round(eased * targetLength);
-    var curCapacity = Math.round(eased * targetCapacity);
-
-    statCables.textContent = String(curCables).padStart(2, '0');
-    statLength.textContent = curLength.toLocaleString();
-    statCapacity.textContent = curCapacity;
-
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      statCables.textContent = String(targetCables).padStart(2, '0');
-      statLength.textContent = targetLength.toLocaleString();
-      statCapacity.textContent = targetCapacity;
-    }
-  }
-
-  update();
-}
-
-cableGlows.forEach(function (glow) {
-  glow.addEventListener('click', function (e) {
-    showCableInfo(glow.getAttribute('data-cable'));
-  });
-  glow.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      showCableInfo(glow.getAttribute('data-cable'));
-    }
-  });
-  glow.setAttribute('tabindex', '0');
-  glow.setAttribute('role', 'button');
-  glow.setAttribute('aria-label', 'Click to view cable details');
 });
-
-infoClose.addEventListener('click', hideInfo);
-infoClose.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    hideInfo();
-  }
-});
-
-document.addEventListener('click', function (e) {
-  if (infoPanel.classList.contains('visible') &&
-      !infoPanel.contains(e.target) &&
-      !e.target.closest('.cable-glow') &&
-      !e.target.closest('.legend-item')) {
-    hideInfo();
-  }
-});
-
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') hideInfo();
-});
-
-playBtn.addEventListener('click', function () {
-  isPlaying = !isPlaying;
-  if (isPlaying) {
-    playBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg><span>Pause</span>';
-    playBtn.classList.remove('playing');
-    playBtn.setAttribute('aria-label', 'Pause animation');
-  } else {
-    playBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>';
-    playBtn.classList.add('playing');
-    playBtn.setAttribute('aria-label', 'Play animation');
-  }
-});
-
-resetBtn.addEventListener('click', function () {
-  dotProgress.forEach(function (dp) {
-    dp.offset = dp.offset > 0.5 ? 1 : 0;
-  });
-  hideInfo();
-});
-
-function init() {
-  buildLegend();
-  initDots();
-  animate();
-  animateStats();
-}
-
-init();
+})();

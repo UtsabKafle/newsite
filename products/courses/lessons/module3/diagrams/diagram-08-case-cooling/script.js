@@ -1,130 +1,29 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"case",name:"Computer Case",category:"Hardware",purpose:"Houses all components and manages airflow for cooling",description:"The case provides mounting points for all components and channels airflow from intake fans through components to exhaust fans.",why:"The case protects components and is critical for cooling performance",analogy:"Like a building\\'s envelope that protects occupants and manages HVAC",funFact:"Cases with mesh front panels provide significantly better airflow than glass fronts",takeaway:"Choose a case with good airflow—it directly affects component temperatures",mistake:"A case with poor airflow can cause components to overheat even with good fans",descriptionDetailed:"Case design affects air pressure (positive or negative). Fan mounting positions include front (intake), top/rear (exhaust). Cable management space behind the motherboard tray improves airflow. Dust filters should be on intake fans."},    {id:"fan",name:"Case Fan",category:"Hardware",purpose:"Moves air through the case to remove heat from components",description:"Fans come in sizes (120mm, 140mm) and types (PWM, DC) that pull cool air in or push hot air out of the case.",why:"Fans are essential for active cooling—without them, heat builds up rapidly",analogy:"Like a ventilation fan in a bathroom that removes steam",funFact:"140mm fans move more air at lower noise than 120mm fans",takeaway:"Match intake and exhaust fan counts for balanced airflow",mistake:"More fans don\\'t always mean better cooling—proper placement matters more",descriptionDetailed:"PWM fans adjust speed automatically based on temperature. CFM (cubic feet per minute) measures airflow. Static pressure fans are best for radiators and restricted intakes. Airflow fans are best for unrestricted case ventilation."},    {id:"radiator",name:"Liquid Cooling Radiator",category:"Hardware",purpose:"Dissipates heat from liquid cooling loops into the air",description:"Radiators are finned metal panels that mount to the case, through which coolant flows and fans blow air to remove heat.",why:"Radiators enable liquid cooling for high-performance CPUs and GPUs",analogy:"Like a car radiator that cools engine coolant",funFact:"360mm radiators provide the best cooling for high-end CPUs",takeaway:"Radiator thickness and fan quality affect cooling performance more than size alone",mistake:"AIO liquid coolers are pre-filled and sealed—you can\\'t refill or service them",descriptionDetailed:"Radiators are measured by their fan mounting size (120, 240, 360mm). Fin density affects airflow resistance. Push-pull fan configurations improve performance on thick radiators. Copper radiators cool better than aluminum."},    {id:"airflow",name:"Airflow Direction",category:"Hardware",purpose:"Creates a directed path for air to move through the case, removing heat",description:"Airflow is managed by positioning intake fans at the front and bottom and exhaust fans at the rear and top, creating a front-to-back flow.",why:"Proper airflow direction ensures cool air reaches components and hot air exits",analogy:"Like a wind tunnel designed to move air in one direction",funFact:"Positive pressure (more intake than exhaust) reduces dust buildup",takeaway:"Front-to-back airflow is the standard configuration for most cases",mistake:"Having fans fight each other (one blowing in, the other out at the same spot) reduces cooling",descriptionDetailed:"Intake fans should have dust filters. Hot air naturally rises, so top exhaust is efficient. Negative pressure (more exhaust) can draw dust through unfiltered gaps. Cable management improves airflow by reducing obstruction."},    {id:"filter",name:"Dust Filter",category:"Hardware",purpose:"Traps dust particles before they enter the case with intake air",description:"Dust filters are fine mesh screens placed over intake fan openings that capture airborne dust while allowing air to pass through.",why:"Dust buildup on components insulates them and reduces cooling efficiency",analogy:"Like a screen on a window that keeps bugs out while letting air in",funFact:"A dusty PC can run 10-20C hotter than a clean one",takeaway:"Clean dust filters regularly—clogged filters choke airflow",mistake:"Removing dust filters for better airflow lets more dust in, eventually making things worse",descriptionDetailed:"Filters come as nylon mesh, foam, or magnetic sheets. Fine filters trap more dust but restrict airflow more. Washable filters need periodic cleaning. Some cases have removable front panels for easy filter access."},    {id:"thermal",name:"Thermal Monitoring",category:"Software",purpose:"Monitors component temperatures to ensure safe operating conditions",description:"Thermal sensors on the CPU, GPU, and motherboard report temperatures that software displays and uses to control fan speeds.",why:"Monitoring prevents overheating damage by alerting you to issues",analogy:"Like a car\\'s temperature gauge on the dashboard",funFact:"CPUs throttle performance at around 100C to prevent damage",takeaway:"Monitor temperatures during heavy use to ensure cooling is adequate",mistake:"A single temperature spike doesn\\'t mean failure—sustained high temps are the concern",descriptionDetailed:"CPU temperature is measured by internal diodes. GPU has multiple sensors across the die. Software like HWMonitor reads sensor data. Fan curves set speed based on temperature thresholds."}];
+var connections = [{from:"case",to:"fan"},{from:"fan",to:"radiator"},{from:"radiator",to:"airflow"},{from:"airflow",to:"filter"},{from:"filter",to:"thermal"}];
+var steps = [{label:"Step 1: Computer Case",status:"Exploring: Computer Case - Houses all components and manages airflow for cooling"},{label:"Step 2: Case Fan",status:"Exploring: Case Fan - Moves air through the case to remove heat from components"},{label:"Step 3: Liquid Cooling Radiator",status:"Exploring: Liquid Cooling Radiator - Dissipates heat from liquid cooling loops into the air"},{label:"Step 4: Airflow Direction",status:"Exploring: Airflow Direction - Creates a directed path for air to move through the case, removing heat"},{label:"Step 5: Dust Filter",status:"Exploring: Dust Filter - Traps dust particles before they enter the case with intake air"},{label:"Step 6: Thermal Monitoring",status:"Exploring: Thermal Monitoring - Monitors component temperatures to ensure safe operating conditions"}];
+var tour = [{title:"Computer Case",description:"Houses all components and manages airflow for cooling",componentId:"case"},{title:"Case Fan",description:"Moves air through the case to remove heat from components",componentId:"fan"},{title:"Liquid Cooling Radiator",description:"Dissipates heat from liquid cooling loops into the air",componentId:"radiator"},{title:"Airflow Direction",description:"Creates a directed path for air to move through the case, removing heat",componentId:"airflow"},{title:"Dust Filter",description:"Traps dust particles before they enter the case with intake air",componentId:"filter"},{title:"Thermal Monitoring",description:"Monitors component temperatures to ensure safe operating conditions",componentId:"thermal"}];
 
-  var state = { playing: false, particlesPaused: false };
-  var playBtn, pauseBtn, resetBtn, statusText, infoPanel, infoTitle, infoDesc;
-  var particles, arrows, fanGroups;
-
-  var COMPONENT_INFO = {
-    'cpu-cooler': 'CPU Air Cooler — A tower-style heatsink with fan that pulls cool air through the fins to dissipate heat from the CPU. Essential for keeping processor temperatures in check.',
-    'psu': 'Power Supply Unit (PSU) — Converts AC power from the wall into DC power for all components. Mounted at the bottom of the case, it draws cool air from below and exhausts out the back.',
-    'drives': 'Drive Cages — Hold storage drives like SSDs and HDDs. Proper placement ensures good airflow; empty cages should be removed or filled to avoid obstructing air paths.',
-    'front-fans': 'Front Intake Fans — Draw cool outside air into the case. These are typically 120mm or 140mm fans positioned at the front panel to create positive air pressure.',
-    'top-fans': 'Top Exhaust Fans — Remove rising hot air from the case. Working with the rear fan to create an efficient exhaust path, they help maintain cool internal temperatures.',
-    'rear-fan': 'Rear Exhaust Fan — Pulls warm air out of the case, typically positioned near the CPU cooler. Works with front intakes to create a steady front-to-back airflow path.'
-  };
-
-  function init() {
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    statusText = document.getElementById('statusText');
-    infoPanel = document.getElementById('infoPanel');
-    infoTitle = document.getElementById('infoTitle');
-    infoDesc = document.getElementById('infoDesc');
-
-    particles = document.querySelectorAll('.air-particle animateMotion');
-    arrows = document.querySelectorAll('.air-arrow');
-    fanGroups = document.querySelectorAll('.component-group');
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    // Click components for info
-    document.querySelectorAll('[data-component]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var key = el.getAttribute('data-component');
-        showInfo(key);
-      });
-      el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          var key = el.getAttribute('data-component');
-          showInfo(key);
-        }
-      });
-      if (!el.getAttribute('tabindex')) {
-        el.setAttribute('tabindex', '0');
-        el.setAttribute('role', 'button');
-        el.setAttribute('aria-label', 'Show info for ' + el.getAttribute('data-component'));
-      }
-    });
-
-    updateButtons();
-  }
-
-  function showInfo(key) {
-    var data = COMPONENT_INFO[key];
-    if (!data) return;
-    infoTitle.textContent = key.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
-    infoDesc.textContent = data;
-    infoPanel.classList.add('visible');
-    document.querySelectorAll('[data-component]').forEach(function (el) {
-      el.classList.toggle('active', el.getAttribute('data-component') === key);
-    });
-    statusText.innerHTML = '<strong>Info:</strong> ' + infoTitle.textContent;
-  }
-
-  function hideInfo() {
-    infoPanel.classList.remove('visible');
-    document.querySelectorAll('[data-component]').forEach(function (el) {
-      el.classList.remove('active');
-    });
-  }
-
-  function play() {
-    if (state.playing) return;
-    state.playing = true;
-    state.particlesPaused = false;
-    // Resume SVG animations
-    particles.forEach(function (p) {
-      p.beginElement();
-    });
-    arrows.forEach(function (a) { a.classList.add('active'); });
-    statusText.innerHTML = '<strong>Playing:</strong> Air flowing through the case';
-    hideInfo();
-    updateButtons();
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    state.particlesPaused = true;
-    // Pause SVG animations
-    particles.forEach(function (p) {
-      try { p.pauseElement(); } catch (e) { /* not supported */ }
-    });
-    statusText.innerHTML = '<strong>Paused</strong> — airflow stopped';
-    updateButtons();
-  }
-
-  function reset() {
-    state.playing = false;
-    state.particlesPaused = false;
-    particles.forEach(function (p) {
-      try { p.endElement(); } catch (e) { /* not supported */ }
-    });
-    arrows.forEach(function (a) { a.classList.remove('active'); });
-    hideInfo();
-    statusText.innerHTML = 'Press <strong>Play</strong> to see airflow through the case';
-    updateButtons();
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = !state.playing && !state.particlesPaused;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Case Cooling',
+    subtitle: 'Computer Assembly',
+    desc: 'Explore case types, cooling solutions, and airflow management.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildClickExplorer(container);
+      engine._setStatus('Click any component to explore');
+    },
+    
+    animate: function(engine) {},
+    
+    onReplay: function(engine) {
+      engine.t = 0;
+    }
+  });
+});
 })();

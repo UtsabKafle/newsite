@@ -2,109 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagram 10: Computer Communication | Consica Labs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Communication — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="app-wrapper">
-    <header role="banner" class="app-header">
-      <div class="brand">Consica Labs</div>
-      <h1>Computer Communication</h1>
-    </header>
-    <main id="main-content" role="main">
-      <div class="comm-diagram" role="figure" aria-label="Two computers communicating over a network">
-        <!-- Computer A -->
-        <div class="computer computer-a" id="compA" role="region" aria-label="Computer A - sender">
-          <div class="comp-icon">
-            <svg viewBox="0 0 60 60" aria-hidden="true">
-              <rect x="10" y="6" width="40" height="30" rx="3" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-              <rect x="16" y="11" width="28" height="18" rx="2" fill="rgba(9,89,200,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="20" y1="36" x2="40" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-              <rect x="24" y="36" width="12" height="6" rx="1" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <rect x="22" y="45" width="16" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-              <rect x="18" y="49" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.05)"/>
-            </svg>
-          </div>
-          <h3>Computer A</h3>
-          <span class="comp-ip">192.168.1.10</span>
-          <span class="comp-role">Sending</span>
-        </div>
-
-        <!-- Connection -->
-        <div class="connection" role="region" aria-label="Network connection between computers">
-          <div class="connection-line">
-            <svg viewBox="0 0 200 40" aria-hidden="true" class="cable-svg">
-              <line x1="0" y1="20" x2="200" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="6,4"/>
-            </svg>
-          </div>
-          <div class="packets-container" id="packetsContainer" aria-live="polite">
-            <div class="packet" id="activePacket" aria-hidden="true">Data</div>
-          </div>
-          <div class="protocol-labels">
-            <span class="proto-label">Application</span>
-            <span class="proto-label">Transport</span>
-            <span class="proto-label">Network</span>
-            <span class="proto-label">Physical</span>
-          </div>
-        </div>
-
-        <!-- Computer B -->
-        <div class="computer computer-b" id="compB" role="region" aria-label="Computer B - receiver">
-          <div class="comp-icon">
-            <svg viewBox="0 0 60 60" aria-hidden="true">
-              <rect x="10" y="6" width="40" height="30" rx="3" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-              <rect x="16" y="11" width="28" height="18" rx="2" fill="rgba(9,89,200,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="20" y1="36" x2="40" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-              <rect x="24" y="36" width="12" height="6" rx="1" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <rect x="22" y="45" width="16" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-              <rect x="18" y="49" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.05)"/>
-            </svg>
-          </div>
-          <h3>Computer B</h3>
-          <span class="comp-ip">192.168.1.20</span>
-          <span class="comp-role">Receiving</span>
-        </div>
-      </div>
-
-      <!-- Packet detail panel -->
-      <div class="packet-detail" id="packetDetail" role="region" aria-label="Current packet details" aria-live="polite">
-        <div class="detail-row">
-          <span class="detail-label">Source IP</span>
-          <span class="detail-value" id="sourceIp">192.168.1.10</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Dest IP</span>
-          <span class="detail-value" id="destIp">192.168.1.20</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Protocol</span>
-          <span class="detail-value" id="packetProtocol">TCP</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Payload</span>
-          <span class="detail-value" id="packetPayload">"Hello from A"</span>
-        </div>
-      </div>
-
-      <!-- Custom send -->
-      <div class="send-panel" role="region" aria-label="Send custom message">
-        <label for="messageInput" class="send-label">Message:</label>
-        <input type="text" id="messageInput" class="send-input" value="Hello from A" aria-label="Type a message to send" maxlength="50">
-        <button id="sendBtn" class="ctrl-btn send-btn" aria-label="Send custom message">Send Message</button>
-      </div>
-
-      <div class="controls" role="toolbar" aria-label="Animation controls">
-        <button id="playBtn" class="ctrl-btn" aria-label="Start continuous packet stream">Play</button>
-        <button id="pauseBtn" class="ctrl-btn" aria-label="Stop packet stream">Pause</button>
-        <button id="resetBtn" class="ctrl-btn" aria-label="Reset communication">Reset</button>
-      </div>
-    </main>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

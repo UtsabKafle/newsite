@@ -1,212 +1,38 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [    {id:"bios",name:"BIOS Firmware",category:"Software",purpose:"Legacy firmware interface that initializes hardware and boots the system",description:"BIOS (Basic Input/Output System) is the older firmware stored on a ROM chip that performs POST, initializes hardware, and loads the bootloader.",why:"BIOS is the low-level software that starts everything when you power on",analogy:"Like a starter motor that cranks an engine to life",funFact:"The BIOS has been used since 1975 and was originally stored on a ROM chip",takeaway:"BIOS is being replaced by UEFI but still exists in legacy systems",mistake:"BIOS settings don\\'t change when the OS starts—they affect hardware initialization",descriptionDetailed:"BIOS uses the Master Boot Record partition scheme and boots in 16-bit real mode. It has limited interface and mouse support. BIOS can only address up to 2TB boot drives and has slower boot times than UEFI."},    {id:"uefi",name:"UEFI Firmware",category:"Software",purpose:"Modern firmware interface with more features and faster booting than BIOS",description:"UEFI (Unified Extensible Firmware Interface) provides a graphical interface, networking support, secure boot, and compatibility with large drives.",why:"UEFI has replaced BIOS as the standard firmware for modern computers",analogy:"Like upgrading from a basic control panel to a touchscreen dashboard",funFact:"UEFI supports mouse input, networking, and booting from drives larger than 2TB",takeaway:"UEFI offers faster boot times, better security, and more features than BIOS",mistake:"UEFI isn\\'t just a nicer-looking BIOS—it uses a fundamentally different boot process",descriptionDetailed:"UEFI boots in 32 or 64-bit mode and can run EFI applications. It uses GPT partition tables. Secure Boot verifies bootloader signatures. UEFI firmware can include drivers for networking, storage, and graphics."},    {id:"cmos",name:"CMOS Battery",category:"Hardware",purpose:"Powers the BIOS/UEFI settings memory when the computer is off",description:"The CMOS battery (CR2032 coin cell) on the motherboard maintains BIOS settings, system time, and date when the system is unplugged.",why:"Without the CMOS battery, BIOS settings reset every time you unplug the PC",analogy:"Like a watch battery that keeps time when the watch is not worn",funFact:"A CMOS battery typically lasts 3-10 years before needing replacement",takeaway:"If your system loses time or BIOS settings, replace the CMOS battery",mistake:"Removing the CMOS battery resets BIOS settings to default—useful for troubleshooting",descriptionDetailed:"The battery powers the RTC (real-time clock) and CMOS memory. When the battery dies, the system resets to factory defaults. The battery is located on the motherboard and is replaceable without tools."},    {id:"settings",name:"BIOS/UEFI Settings",category:"Software",purpose:"Configures hardware parameters, boot order, and system preferences",description:"The BIOS/UEFI interface allows configuring CPU settings, RAM timings, boot device priority, fan speeds, and security options.",why:"BIOS settings control how hardware initializes and how the system boots",analogy:"Like the control panel for the building\\'s electrical system settings",funFact:"Overclocking is primarily done through BIOS/UEFI settings",takeaway:"Access BIOS by pressing Del, F2, or F12 during boot (varies by manufacturer)",mistake:"Changing settings randomly in BIOS can prevent the system from booting",descriptionDetailed:"Common settings include boot order, XMP/DOCP for RAM, fan curves, CPU voltage, and Secure Boot. Most motherboards have a reset-to-defaults option. Advanced settings can unlock CPU core control and memory timings."},    {id:"boot",name:"Boot Order",category:"Software",purpose:"Determines which device the computer tries to boot from and in what sequence",description:"Boot order defines the priority of devices (SSD, USB, DVD, network) that the firmware checks for a bootable operating system.",why:"Boot order lets you control which drive or device the system starts from",analogy:"Like telling a butler which door to greet guests at first",funFact:"UEFI systems can have boot entries for each specific OS instead of just drive priority",takeaway:"Set your OS drive as the first boot device for fastest startup",mistake:"If no device in the boot order has an OS, the system shows \\'No bootable device\\' error",descriptionDetailed:"Boot order is configured in the BIOS/UEFI settings. USB boot is used for OS installation. Network boot (PXE) is used in enterprise environments. UEFI shows each bootable partition as a separate entry."},    {id:"firmware",name:"Firmware Update",category:"Software",purpose:"Updates the motherboard firmware to add features and fix bugs",description:"A BIOS/UEFI firmware update (flashing) installs new firmware from the motherboard manufacturer, often improving compatibility and fixing issues.",why:"Firmware updates can fix bugs, add CPU support, and improve stability",analogy:"Like updating your phone\\'s operating system for better performance",funFact:"Some motherboards support BIOS flashback, allowing updates without a CPU installed",takeaway:"Only update firmware if you need the fixes—don\\'t update a working system unnecessarily",mistake:"A failed BIOS update can brick the motherboard—never interrupt the process",descriptionDetailed:"Firmware updates are downloaded as files from the manufacturer. Methods include USB drive flashing, in-OS utilities, and internet-based updates. Dual BIOS boards have a backup chip for safety."}];
+var connections = [{from:"bios",to:"uefi"},{from:"uefi",to:"cmos"},{from:"cmos",to:"settings"},{from:"settings",to:"boot"},{from:"boot",to:"firmware"}];
+var steps = [{label:"Step 1: BIOS Firmware",status:"Exploring: BIOS Firmware - Legacy firmware interface that initializes hardware and boots the system"},{label:"Step 2: UEFI Firmware",status:"Exploring: UEFI Firmware - Modern firmware interface with more features and faster booting than BIOS"},{label:"Step 3: CMOS Battery",status:"Exploring: CMOS Battery - Powers the BIOS/UEFI settings memory when the computer is off"},{label:"Step 4: BIOS/UEFI Settings",status:"Exploring: BIOS/UEFI Settings - Configures hardware parameters, boot order, and system preferences"},{label:"Step 5: Boot Order",status:"Exploring: Boot Order - Determines which device the computer tries to boot from and in what sequence"},{label:"Step 6: Firmware Update",status:"Exploring: Firmware Update - Updates the motherboard firmware to add features and fix bugs"}];
+var tour = [{title:"BIOS Firmware",description:"Legacy firmware interface that initializes hardware and boots the system",componentId:"bios"},{title:"UEFI Firmware",description:"Modern firmware interface with more features and faster booting than BIOS",componentId:"uefi"},{title:"CMOS Battery",description:"Powers the BIOS/UEFI settings memory when the computer is off",componentId:"cmos"},{title:"BIOS/UEFI Settings",description:"Configures hardware parameters, boot order, and system preferences",componentId:"settings"},{title:"Boot Order",description:"Determines which device the computer tries to boot from and in what sequence",componentId:"boot"},{title:"Firmware Update",description:"Updates the motherboard firmware to add features and fix bugs",componentId:"firmware"}];
 
-  var state = { currentMenu: 'boot', playing: false, step: -1, timer: null };
-  var playBtn, pauseBtn, resetBtn, statusText;
-  var postBarFill, postText;
-  var settingsTitle, menuItems = {};
-  var moboHighlights = {};
-
-  var MENU_DATA = {
-    boot: {
-      title: 'Boot Order',
-      settings: [
-        { label: 'Boot Option #1', value: 'NVMe SSD' },
-        { label: 'Boot Option #2', value: 'SATA HDD' },
-        { label: 'Boot Option #3', value: 'USB Drive' },
-        { label: 'Fast Boot', value: 'Enabled', cls: 'settings-enabled' },
-        { label: 'CSM (Compatibility)', value: 'Disabled', cls: 'settings-disabled' },
-        { label: 'Boot Override', value: '[Select]', highlight: '#0959C8' }
-      ],
-      moboHighlight: 'mobo-storage',
-      desc: 'Controls the order in which storage devices are checked for an operating system. Set your OS drive as #1 for fastest boot.'
-    },
-    cpu: {
-      title: 'CPU Settings',
-      settings: [
-        { label: 'Intel Turbo Boost', value: 'Auto' },
-        { label: 'Core Ratio', value: 'Auto' },
-        { label: 'AVX Offset', value: '0' },
-        { label: 'CPU Voltage', value: 'Auto' },
-        { label: 'C-States', value: 'Enabled', cls: 'settings-enabled' },
-        { label: 'Hyper-Threading', value: 'Enabled', cls: 'settings-enabled' }
-      ],
-      moboHighlight: 'mobo-cpu',
-      desc: 'Configure CPU performance features. Leave on Auto for normal use; adjust for overclocking only with adequate cooling.'
-    },
-    ram: {
-      title: 'Memory / XMP',
-      settings: [
-        { label: 'XMP Profile', value: 'Profile #1', cls: 'settings-enabled' },
-        { label: 'DRAM Frequency', value: '3600 MHz' },
-        { label: 'DRAM Voltage', value: '1.35V' },
-        { label: 'CAS Latency', value: '18' },
-        { label: 'Command Rate', value: '2T' },
-        { label: 'Memory Remap', value: 'Enabled', cls: 'settings-enabled' }
-      ],
-      moboHighlight: 'mobo-ram',
-      desc: 'Enable XMP (Extreme Memory Profile) to run RAM at its rated speed. Without XMP, RAM runs at default JEDEC speeds.'
-    },
-    fan: {
-      title: 'Fan Control',
-      settings: [
-        { label: 'CPU Fan Profile', value: 'Standard' },
-        { label: 'Chassis Fan 1', value: 'Silent' },
-        { label: 'Chassis Fan 2', value: 'Standard' },
-        { label: 'Chassis Fan 3', value: 'Standard' },
-        { label: 'Pump Control', value: 'Full Speed', cls: 'settings-enabled' },
-        { label: 'Fan Stop (Low Temp)', value: 'Disabled', cls: 'settings-disabled' }
-      ],
-      moboHighlight: 'mobo-fan',
-      desc: 'Set fan speed curves. Standard balances noise and cooling. Silent prioritizes low noise. Full Speed for liquid pumps.'
-    },
-    secure: {
-      title: 'Secure Boot',
-      settings: [
-        { label: 'Secure Boot State', value: 'Enabled', cls: 'settings-enabled' },
-        { label: 'OS Type', value: 'Windows UEFI' },
-        { label: 'Key Management', value: 'Standard' },
-        { label: 'Platform Key (PK)', value: 'Loaded' },
-        { label: 'Secure Boot Mode', value: 'Standard' },
-        { label: 'Reset to Setup Mode', value: '[Clear Keys]', highlight: '#EF4444' }
-      ],
-      moboHighlight: 'mobo-chipset',
-      desc: 'Secure Boot ensures only signed, trusted OS bootloaders can run. Required for Windows 11 and enhances boot security.'
-    }
-  };
-
-  var MENU_ORDER = ['boot', 'cpu', 'ram', 'fan', 'secure'];
-  var MENU_NAMES = { boot: 'Boot Order', cpu: 'CPU Settings', ram: 'RAM / XMP', fan: 'Fan Control', secure: 'Secure Boot' };
-
-  function init() {
-    playBtn = document.getElementById('playBtn');
-    pauseBtn = document.getElementById('pauseBtn');
-    resetBtn = document.getElementById('resetBtn');
-    statusText = document.getElementById('statusText');
-    postBarFill = document.getElementById('postBarFill');
-    postText = document.getElementById('postText');
-    settingsTitle = document.getElementById('settingsTitle');
-
-    MENU_ORDER.forEach(function (key) {
-      menuItems[key] = document.getElementById('menu-' + key);
-      moboHighlights[key] = document.getElementById(MENU_DATA[key].moboHighlight);
-      menuItems[key].addEventListener('click', function () { selectMenu(key); });
-      menuItems[key].addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectMenu(key); }
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Bios',
+    subtitle: 'Computer Assembly',
+    desc: 'Step through BIOS/UEFI configuration and settings.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    
+    render: function(container, engine) {
+      engine.buildStepFlow(container, {
+        steps: [
+          {id: 'bios', label: 'Enter BIOS', description: 'Press F2/Del during boot to enter BIOS setup', status: 'Enter BIOS'},
+          {id: 'settings', label: 'Configure Settings', description: 'Adjust boot order, clock speed, and voltages', status: 'Configure Settings'},
+          {id: 'boot', label: 'Set Boot Order', description: 'Configure which drive to boot from first', status: 'Set Boot Order'},
+          {id: 'uefi', label: 'UEFI Mode', description: 'Modern firmware interface with mouse support and GUI', status: 'UEFI Mode'},
+          {id: 'cmos', label: 'CMOS Battery', description: 'Coin cell battery that saves BIOS settings when PC is off', status: 'CMOS Battery'},
+          {id: 'firmware', label: 'Update Firmware', description: 'Flash updated BIOS version for new CPU support', status: 'Update Firmware'}
+        ]
       });
-      menuItems[key].setAttribute('tabindex', '0');
-      menuItems[key].setAttribute('role', 'button');
-      menuItems[key].setAttribute('aria-label', 'Open ' + MENU_NAMES[key] + ' settings');
-    });
-
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    resetBtn.addEventListener('click', reset);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        if (state.playing) pause(); else play();
-      }
-    });
-
-    selectMenu('boot');
-    updateButtons();
-  }
-
-  function selectMenu(key) {
-    if (state.playing) return;
-    state.currentMenu = key;
-    var data = MENU_DATA[key];
-    if (!data) return;
-
-    // Update menu highlights
-    MENU_ORDER.forEach(function (k) {
-      menuItems[k].classList.toggle('active', k === key);
-      if (moboHighlights[k]) moboHighlights[k].classList.remove('visible');
-    });
-    if (moboHighlights[key]) moboHighlights[key].classList.add('visible');
-
-    // Update settings panel
-    settingsTitle.textContent = data.title;
-    var panel = document.getElementById('settings-panel');
-    var y = 114;
-    data.settings.forEach(function (s) {
-      // Clear existing
-      // We'll just update text nodes
-    });
-
-    // Simple update by rebuilding text content
-    var labels = panel.querySelectorAll('.settings-label');
-    var values = panel.querySelectorAll('.settings-value, .settings-enabled, .settings-disabled');
-    data.settings.forEach(function (s, i) {
-      if (labels[i]) labels[i].textContent = s.label;
-      if (values[i]) {
-        values[i].textContent = s.value;
-        values[i].setAttribute('class', s.cls || 'settings-value');
-        if (s.highlight) values[i].setAttribute('fill', s.highlight);
-      }
-    });
-
-    statusText.innerHTML = '<strong>' + data.title + ':</strong> ' + data.desc;
-  }
-
-  function advanceStep() {
-    state.step++;
-    if (state.step >= MENU_ORDER.length) {
-      if (state.timer) { clearInterval(state.timer); state.timer = null; }
-      state.playing = false;
-      postBarFill.setAttribute('width', '936');
-      postText.textContent = 'POST complete — System ready';
-      statusText.innerHTML = '<strong>Setup complete!</strong> All BIOS settings configured';
-      updateButtons();
-      return;
+    },
+    
+    animate: function(engine) {
+    },
+    
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    var key = MENU_ORDER[state.step];
-    selectMenu(key);
-    var pct = ((state.step + 1) / MENU_ORDER.length) * 100;
-    postBarFill.setAttribute('width', Math.round(pct * 9.36));
-    postText.textContent = 'POST — ' + Math.round(pct) + '% complete — Configuring ' + MENU_NAMES[key];
-    updateButtons();
-  }
-
-  function play() {
-    if (state.playing) return;
-    state.playing = true;
-    state.step = -1;
-    postBarFill.setAttribute('width', '0');
-    statusText.innerHTML = '<strong>Auto-navigating BIOS setup...</strong>';
-    advanceStep();
-    state.timer = setInterval(advanceStep, 1800);
-    updateButtons();
-  }
-
-  function pause() {
-    if (!state.playing) return;
-    state.playing = false;
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    statusText.innerHTML = '<strong>Paused</strong> — ' + (MENU_DATA[state.currentMenu] ? MENU_DATA[state.currentMenu].title : '');
-    updateButtons();
-  }
-
-  function reset() {
-    if (state.timer) { clearInterval(state.timer); state.timer = null; }
-    state.playing = false;
-    state.step = -1;
-    postBarFill.setAttribute('width', '0');
-    postText.textContent = 'POST — Press DEL/F2 to enter BIOS';
-    selectMenu('boot');
-    statusText.innerHTML = 'Press <strong>Play</strong> for auto-navigate first-boot setup';
-    updateButtons();
-  }
-
-  function updateButtons() {
-    playBtn.disabled = state.playing;
-    pauseBtn.disabled = !state.playing;
-    resetBtn.disabled = state.step < 0 && !state.playing;
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  });
+});
 })();

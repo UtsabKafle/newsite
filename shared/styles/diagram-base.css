@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════
+   Consica Labs — Universal Interactive Diagram Base
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── Variables ── */
+:root{
+  --brand:#0959C8;--brand-light:#1a7cff;--brand-dark:#0747a3;
+  --brand-glow:rgba(9,89,200,.35);--brand-subtle:rgba(9,89,200,.12);
+  --surface:#0a0e17;--surface2:#111827;--surface3:#1a2235;
+  --text:#e2e8f0;--text-muted:#94a3b8;--text-faint:#64748b;
+  --radius:12px;--radius-sm:8px;--radius-xs:6px;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-display:'Poppins','Inter',system-ui,-apple-system,sans-serif;
+  --shadow:0 8px 32px rgba(0,0,0,.35);
+  --transition:200ms ease;
+  --glass:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  --border:1px solid rgba(255,255,255,.06)
+}
+
+/* ── Reduced Motion ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* ── Base ── */
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--surface);color:var(--text);line-height:1.6;min-height:100dvh;overflow-x:hidden}
+
+/* ── Skip Link ── */
+.skip-link{position:fixed;top:-100%;left:8px;z-index:9999;padding:8px 16px;background:var(--brand);color:#fff;border-radius:0 0 var(--radius-xs) var(--radius-xs);font-size:14px;font-weight:600;text-decoration:none;transition:top var(--transition)}
+.skip-link:focus{top:0}
+
+/* ── Diagram Shell ── */
+.diagram-wrapper{max-width:1600px;margin:0 auto;padding-left:20px;padding-right:20px;display:flex;flex-direction:column;gap:16px;min-height:100dvh}
+@media(min-width:768px){.diagram-wrapper{padding-left:24px;padding-right:24px;gap:20px}}
+@media(min-width:1024px){.diagram-wrapper{padding-left:32px;padding-right:32px;gap:24px}}
+
+/* ── Header ── */
+.diagram-header{text-align:center}
+.diagram-title{font-family:var(--font-display);font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--text);letter-spacing:-.01em}
+.diagram-subtitle{font-size:clamp(.75rem,2vw,.85rem);color:var(--text-muted);margin-top:4px}
+.diagram-desc{margin-top:8px;padding:10px 14px;background:var(--surface2);border-radius:var(--radius-sm);border:var(--border);font-size:clamp(.75rem,1.8vw,.82rem);color:var(--text-muted);line-height:1.5;text-align:left}
+
+/* ── Controls Bar ── */
+.controls-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:10px 16px;background:var(--surface2);border-radius:var(--radius);border:var(--border)}
+.controls-bar .ctrl-group{display:flex;align-items:center;gap:6px}
+.controls-bar .ctrl-divider{width:1px;height:28px;background:rgba(255,255,255,.08);margin:0 4px}
+@media(max-width:480px){.controls-bar .ctrl-divider{display:none}}
+
+/* ── Buttons ── */
+.ctrl-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);background:var(--glass);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all var(--transition);font-family:var(--font-body);white-space:nowrap}
+.ctrl-btn:hover{background:var(--brand-subtle);border-color:var(--brand-glow);color:#fff}
+.ctrl-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.ctrl-btn:active{transform:scale(.96)}
+.ctrl-btn svg{width:16px;height:16px;flex-shrink:0}
+.ctrl-btn.active{background:var(--brand-subtle);border-color:var(--brand-glow);color:var(--brand-light)}
+@media(max-width:480px){.ctrl-btn{padding:6px 10px;font-size:12px;gap:4px}.ctrl-btn .btn-label{display:none}}
+
+/* ── Speed Control ── */
+.speed-ctrl{display:inline-flex;align-items:center;gap:4px}
+.speed-ctrl .speed-label{font-size:11px;color:var(--text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-right:2px}
+.speed-ctrl button{width:30px;height:30px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-xs);background:var(--glass);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition);line-height:1}
+.speed-ctrl button:hover{background:var(--brand-subtle);border-color:var(--brand-glow);color:#fff}
+.speed-ctrl button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.speed-ctrl .speed-display{min-width:40px;text-align:center;font-size:13px;font-weight:600;color:var(--brand-light);font-variant-numeric:tabular-nums}
+@media(max-width:480px){.speed-ctrl .speed-label{display:none}}
+@media(max-width:360px){.speed-ctrl button{width:26px;height:26px;font-size:14px}.speed-ctrl .speed-display{min-width:32px;font-size:12px}}
+
+/* ── Tour Button ── */
+.ctrl-btn.tour-btn svg{color:var(--text)}
+
+/* ── Main Layout ── */
+.diagram-main{display:flex;flex-direction:column;gap:16px;flex:1}
+@media(min-width:1024px){.diagram-main{flex-direction:row;gap:20px}}
+@media(min-width:1024px){.diagram-main .diagram-visual{flex:1 1 60%;min-width:0}}
+@media(min-width:1024px){.diagram-main .diagram-explanation{flex:0 0 38%;max-width:420px;height:fit-content}}
+
+/* ── Diagram Visual Area ── */
+.diagram-visual{position:relative;background:var(--surface2);border-radius:var(--radius);border:var(--border);overflow:hidden;min-height:300px;display:flex;align-items:center;justify-content:center}
+.diagram-visual svg,.diagram-visual canvas{display:block;width:100%;height:auto;max-height:70vh}
+.diagram-visual:focus-within{outline:2px solid var(--brand-glow);outline-offset:-2px}
+
+/* ── Interactive Components ── */
+.component{cursor:pointer;transition:all var(--transition);outline:none}
+.component:hover{filter:brightness(1.15)}
+.component:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:8px}
+.component.selected{filter:brightness(1.25)}
+.component.selected .component-bg :is(rect,circle,polygon,path,ellipse){fill:var(--brand-subtle)!important;stroke:var(--brand)!important;stroke-width:2.5!important}
+.component .component-glow{opacity:0;transition:opacity .3s ease}
+.component.selected .component-glow,.component:focus-visible .component-glow{opacity:1}
+@media(hover:hover){.component:hover .component-bg :is(rect,circle,polygon,path){stroke:var(--brand-light);stroke-width:2}}
+
+/* ── Connection Lines ── */
+.connection{stroke:var(--text-faint);stroke-width:1.5;fill:none;transition:all var(--transition)}
+.connection.highlighted{stroke:var(--brand-light);stroke-width:2.5;filter:drop-shadow(0 0 6px var(--brand-glow))}
+.connection.active{stroke:#22c55e;stroke-width:3}
+.connection-arrow{fill:var(--text-faint);opacity:.4;transition:all var(--transition)}
+.connection.highlighted+.connection-arrow,.connection.highlighted .connection-arrow{fill:var(--brand-light);opacity:.8}
+
+/* ── Flow Data Dots ── */
+.flow-dot{fill:#22c55e;opacity:.85;pointer-events:none;transition:none}
+.flow-dot.highlighted{fill:var(--brand-light)}
+.diagram-wrapper.paused .flow-dot,.flow-dot.paused{opacity:.3}
+
+/* ── Explanation Panel ── */
+.diagram-explanation{background:var(--surface2);border-radius:var(--radius);border:var(--border);display:flex;flex-direction:column;overflow:hidden;max-height:60vh}
+@media(min-width:1024px){.diagram-explanation{max-height:70vh}}
+@media(max-width:480px){.diagram-explanation{max-height:none}}
+
+.explanation-header{padding:14px 16px;border-bottom:var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}
+.explanation-header .expl-name{font-size:14px;font-weight:600;color:var(--brand-light);word-break:break-word}
+.explanation-header .expl-mode{display:flex;gap:2px;flex-shrink:0}
+.explanation-header .expl-mode button{padding:4px 10px;font-size:11px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-xs);background:transparent;color:var(--text-faint);cursor:pointer;transition:all var(--transition);font-weight:500}
+.explanation-header .expl-mode button.active{background:var(--brand-subtle);border-color:var(--brand-glow);color:var(--brand-light)}
+.explanation-header .expl-mode button:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+.explanation-header .expl-mode button:hover{color:var(--text)}
+.explanation-header .expl-close{background:none;border:none;color:var(--text-faint);cursor:pointer;padding:4px;border-radius:4px;display:none}
+.explanation-header .expl-close:focus-visible{outline:2px solid var(--brand)}
+@media(max-width:480px){.explanation-header{flex-wrap:wrap}.explanation-header .expl-name{width:100%}}
+
+.explanation-body{padding:14px 16px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.explanation-body .expl-section{margin-bottom:12px}
+.explanation-body .expl-section:last-child{margin-bottom:0}
+.explanation-body .expl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:3px}
+.explanation-body .expl-value{font-size:clamp(.8rem,2.2vw,.875rem);color:var(--text);line-height:1.6;word-break:break-word;overflow-wrap:break-word}
+.explanation-body .expl-value.detailed-only{display:none}
+.explanation-body .expl-value.basic-only{display:block}
+
+/* Detailed mode */
+.diagram-explanation.detailed .expl-value.detailed-only{display:block}
+.diagram-explanation.detailed .expl-value.basic-only{display:none}
+
+/* ── Empty State ── */
+.explanation-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 16px;text-align:center;flex:1;gap:4px;min-height:80px}
+.explanation-empty svg{width:18px;height:18px;color:var(--text-faint);opacity:.4}
+.explanation-empty p{font-size:11px;color:var(--text-faint)}
+.explanation-empty .expl-hint{font-size:10px;color:var(--text-muted);opacity:.6}
+
+/* ── Step Controls ── */
+.step-controls{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;background:var(--surface2);border-radius:var(--radius);border:var(--border)}
+.step-controls .step-btn{padding:6px 14px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);background:var(--glass);color:var(--text);font-size:12px;font-weight:500;cursor:pointer;transition:all var(--transition);font-family:var(--font-body);display:inline-flex;align-items:center;gap:6px}
+.step-controls .step-btn:hover{background:var(--brand-subtle);border-color:var(--brand-glow);color:#fff}
+.step-controls .step-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.step-controls .step-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.step-controls .step-indicator{font-size:13px;color:var(--text-muted);font-weight:500;min-width:80px;text-align:center}
+.step-controls .step-count{color:var(--text-faint);font-size:12px}
+
+/* ── Tour Overlay ── */
+.tour-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:500;pointer-events:none}
+.tour-overlay .tour-highlight{position:absolute;border:3px solid var(--brand);border-radius:var(--radius);box-shadow:0 0 0 9999px rgba(0,0,0,.6);transition:all .4s ease;pointer-events:none}
+.tour-overlay .tour-tooltip{position:absolute;background:var(--surface2);border:var(--border);border-radius:var(--radius);padding:16px;max-width:320px;box-shadow:var(--shadow);pointer-events:auto;z-index:501}
+.tour-overlay .tour-tooltip h4{font-size:14px;font-weight:600;color:var(--brand-light);margin-bottom:6px}
+.tour-overlay .tour-tooltip p{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
+.tour-overlay .tour-tooltip .tour-nav{display:flex;gap:8px;justify-content:flex-end}
+.tour-overlay .tour-tooltip .tour-nav button{padding:5px 12px;font-size:11px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-xs);background:var(--glass);color:var(--text);cursor:pointer;transition:all var(--transition)}
+.tour-overlay .tour-tooltip .tour-nav button:hover{background:var(--brand-subtle);border-color:var(--brand-glow)}
+.tour-overlay .tour-tooltip .tour-nav button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.tour-overlay .tour-tooltip .tour-nav button.primary:hover{background:var(--brand-light)}
+
+/* ── Responsive: 768px tablet ── */
+@media(max-width:768px){
+  .diagram-wrapper{padding:12px;gap:12px}
+  .controls-bar{gap:6px;padding:8px 12px}
+  .diagram-visual{min-height:240px}
+}
+
+/* ── Responsive: 480px mobile ── */
+@media(max-width:480px){
+  .diagram-wrapper{padding:8px;gap:8px}
+  .diagram-visual{min-height:200px}
+  .step-controls{gap:8px;padding:8px 12px;flex-wrap:wrap}
+  .step-controls .step-indicator{min-width:60px;font-size:12px}
+  .explanation-body{padding:10px 12px}
+}
+
+/* ── Responsive: 360px small phone ── */
+@media(max-width:360px){
+  .diagram-wrapper{padding:4px;gap:6px}
+  .controls-bar{gap:4px;padding:6px 8px}
+  .diagram-visual{min-height:160px}
+}
+
+/* ── Dark scrollbar ── */
+.diagram-explanation::-webkit-scrollbar{width:4px}
+.diagram-explanation::-webkit-scrollbar-track{background:transparent}
+.diagram-explanation::-webkit-scrollbar-thumb{background:var(--text-faint);border-radius:4px}
+
+/* ── Packet Flow ── */
+.flow-dot.packet{pointer-events:auto}
+.flow-dot.packet:hover{filter:brightness(1.3)}
+.flow-dot.packet:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+#packet-bar{animation:packetFadeIn .3s ease}
+
+@keyframes packetFadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Utility ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

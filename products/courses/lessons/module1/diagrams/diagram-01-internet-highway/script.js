@@ -1,320 +1,56 @@
-(function () {
-  'use strict';
+(function(){'use strict';
+var components = [
+  {id:"device",name:"Your Device",category:"End Point",icon:"laptop",shape:"rounded-rect",x:30,y:70,w:110,h:56,purpose:"Sends and receives data across the network",description:"Your phone, laptop, or tablet creates data packets and sends them through the network to reach websites and services.",why:"It\\'s where every Internet journey begins",analogy:"Like your home where you send and receive mail",funFact:"Over 15 billion devices are connected to the Internet worldwide",takeaway:"Every device on a network has a unique IP address",mistake:"Wi-Fi and the Internet are not the same thing",descriptionDetailed:"Your device initiates communication by creating data packets with source and destination IP addresses. The network interface card converts digital data into electrical or radio signals for transmission. Each device is identified by its MAC address at the hardware level and its IP address at the network level."},
+  {id:"router",name:"Network Router",category:"Network",icon:"router",shape:"rounded-rect",x:160,y:70,w:110,h:56,purpose:"Directs data packets between networks to reach their destination",description:"Routers examine the destination IP of each packet and forward it along the most efficient path through the network.",why:"Routers make the Internet work by connecting millions of networks together",analogy:"Like a postal sorting office that directs mail to the correct city",funFact:"A core Internet router can process over 100 million packets per second",takeaway:"Routers use routing tables to determine where to send packets",mistake:"A router and a modem are different devices with different jobs",descriptionDetailed:"Routers operate at Layer 3 of the OSI model and use routing protocols like BGP and OSPF to build routing tables. When a packet arrives, the router looks up the destination IP in its forwarding table and determines the best next hop. Routers also perform NAT, firewall functions, and traffic prioritization."},
+  {id:"isp",name:"Internet Service Provider",category:"Network",icon:"cloud",shape:"cloud-shape",x:290,y:70,w:110,h:56,purpose:"Provides the connection between your home network and the global Internet",description:"ISPs maintain the infrastructure that carries your data from your home router to anywhere on the Internet.",why:"Without ISPs, you couldn\\'t access anything beyond your local network",analogy:"Like a highway system that connects your town to the rest of the country",funFact:"Some ISPs use fiber optic cables that can carry data at the speed of light",takeaway:"Your ISP is your gateway to everything on the Internet",mistake:"Your ISP can see all the websites you visit unless you use encryption",descriptionDetailed:"ISPs operate at multiple tiers. Tier 1 ISPs form the Internet backbone by interconnecting with each other. Tier 2 ISPs purchase transit from Tier 1 and provide service to Tier 3 ISPs. Your home ISP is typically a Tier 2 or 3 provider that manages last-mile connectivity via fiber, cable, DSL, or satellite."},
+  {id:"dns",name:"DNS Server",category:"Network",icon:"globe",shape:"rounded-rect",x:420,y:70,w:110,h:56,purpose:"Translates domain names into IP addresses that computers understand",description:"When you type a website name, DNS servers look up the matching IP address so your browser knows where to connect.",why:"DNS lets us use easy-to-remember names instead of numeric IP addresses",analogy:"Like a phone book that matches names to phone numbers",funFact:"DNS queries can travel to multiple servers around the world in milliseconds",takeaway:"Every time you visit a website, DNS is working behind the scenes",mistake:"DNS doesn\\'t load webpages—it just finds the address of the server",descriptionDetailed:"DNS resolution involves multiple steps: the recursive resolver checks its cache, queries the root server, then the TLD server (.com, .org), and finally the authoritative name server. Each level provides the address of the next server to query. DNSSEC adds cryptographic verification to prevent spoofing attacks."},
+  {id:"server",name:"Web Server",category:"Software",icon:"server",shape:"rounded-rect",x:550,y:70,w:110,h:56,purpose:"Stores website files and delivers them to requesting devices",description:"Web servers store all the files that make up a website—HTML, images, videos—and send them when a browser requests them.",why:"Without servers, websites would have no place to live",analogy:"Like a library that stores books and lends them out when you ask",funFact:"A single web server can handle millions of requests per day",takeaway:"Servers are powerful computers designed to run 24/7 without stopping",mistake:"A server isn\\'t magic—it\\'s just a computer configured to share files",descriptionDetailed:"Web servers like Nginx and Apache listen for incoming HTTP/HTTPS requests on ports 80 and 443. When a request arrives, the server maps the URL to a file path, reads the file from disk or cache, and sends it back with appropriate HTTP headers. Modern servers also support load balancing, SSL termination, compression, and reverse proxying."},
+  {id:"packet",name:"Data Packet",category:"Data",icon:"packet",shape:"diamond",x:680,y:70,w:110,h:56,purpose:"Carries small chunks of data across the Internet in a structured format",description:"Data is broken into small packets, each containing a piece of the message plus addressing info so it can be reassembled at the destination.",why:"Breaking data into packets makes the Internet faster and more reliable",analogy:"Like sending a long letter as a set of numbered postcards",funFact:"A typical web page request is split into dozens or hundreds of packets",takeaway:"Each packet can travel a different route and still arrive correctly",mistake:"Packets don\\'t always arrive in order—they get reassembled at the destination",descriptionDetailed:"Each packet has a header (source IP, destination IP, sequence number, TTL) and a payload (the data fragment). The maximum transmission unit varies by network type—Ethernet uses 1500 bytes. TCP ensures all packets arrive and are reassembled in the correct order, requesting retransmission for any lost packets."}
+];
+var connections = [{from:"device",to:"router"},{from:"router",to:"isp"},{from:"isp",to:"dns"},{from:"dns",to:"server"},{from:"server",to:"packet"}];
+var steps = [{label:"Step 1: Your Device",status:"Exploring: Your Device - Sends and receives data across the network"},{label:"Step 2: Network Router",status:"Exploring: Network Router - Directs data packets between networks to reach their destination"},{label:"Step 3: Internet Service Provider",status:"Exploring: Internet Service Provider - Provides the connection between your home network and the global Internet"},{label:"Step 4: DNS Server",status:"Exploring: DNS Server - Translates domain names into IP addresses that computers understand"},{label:"Step 5: Web Server",status:"Exploring: Web Server - Stores website files and delivers them to requesting devices"},{label:"Step 6: Data Packet",status:"Exploring: Data Packet - Carries small chunks of data across the Internet in a structured format"}];
+var tour = [{title:"Your Device",description:"Sends and receives data across the network",componentId:"device"},{title:"Network Router",description:"Directs data packets between networks to reach their destination",componentId:"router"},{title:"Internet Service Provider",description:"Provides the connection between your home network and the global Internet",componentId:"isp"},{title:"DNS Server",description:"Translates domain names into IP addresses that computers understand",componentId:"dns"},{title:"Web Server",description:"Stores website files and delivers them to requesting devices",componentId:"server"},{title:"Data Packet",description:"Carries small chunks of data across the Internet in a structured format",componentId:"packet"}];
 
-  var nodes = [
-    { id: 'home',      label: 'Home',       x: 80,   y: 60 },
-    { id: 'school',    label: 'School',     x: 420,  y: 36 },
-    { id: 'business',  label: 'Business',   x: 780,  y: 60 },
-    { id: 'datacenter',label: 'Data Center',x: 420,  y: 264 },
-    { id: 'phone',     label: 'Phone',      x: 120,  y: 468 },
-    { id: 'tablet',    label: 'Tablet',     x: 720,  y: 468 },
-  ];
+deferInit(function(){
+  new DiagramEngine({
+    title: 'Internet Highway',
+    subtitle: 'How Internet Works',
+    desc: 'Follow a data packet\'s journey from your device across routers, ISPs, and DNS servers to its destination.',
+    components: components,
+    connections: connections,
+    steps: steps,
+    tour: tour,
+    packetFlow: [
+      {label:'Data Request',color:'#22c55e'},
+      {label:'Forward',color:'#60a5fa'},
+      {label:'DNS Query',color:'#c084fc'},
+      {label:'IP Response',color:'#f59e0b'},
+      {label:'Web Data',color:'#22c55e'}
+    ],
 
-  var nodeMap = {};
-  nodes.forEach(function (n) { nodeMap[n.id] = n; });
+    render: function(container, engine) {
+      engine.buildVisual(container);
+      engine._setStatus('Click any component to learn more');
+    },
 
-  var edgeDefs = [
-    { from: 'home',      to: 'school',     d: 'M80,60 Q250,36 420,36' },
-    { from: 'school',    to: 'business',   d: 'M420,36 Q600,36 780,60' },
-    { from: 'home',      to: 'datacenter', d: 'M80,60 Q80,162 420,264' },
-    { from: 'school',    to: 'datacenter', d: 'M420,36 L420,264' },
-    { from: 'business',  to: 'datacenter', d: 'M780,60 Q780,162 420,264' },
-    { from: 'home',      to: 'phone',      d: 'M80,60 Q40,264 120,468' },
-    { from: 'school',    to: 'phone',      d: 'M420,36 Q270,252 120,468' },
-    { from: 'datacenter',to: 'phone',      d: 'M420,264 Q270,366 120,468' },
-    { from: 'datacenter',to: 'tablet',     d: 'M420,264 Q570,366 720,468' },
-    { from: 'business',  to: 'tablet',     d: 'M780,60 Q820,264 720,468' },
-    { from: 'phone',     to: 'tablet',     d: 'M120,468 Q420,504 720,468' },
-    { from: 'home',      to: 'business',   d: 'M80,60 Q430,130 780,60' },
-    { from: 'school',    to: 'tablet',     d: 'M420,36 Q570,252 720,468' },
-    { from: 'business',  to: 'phone',      d: 'M780,60 Q700,252 120,468' },
-  ];
-
-  var edges = [];
-  var packets = [];
-  var packetIdCounter = 0;
-  var playing = false;
-  var paused = false;
-  var animId = null;
-  var lastSpawn = 0;
-  var spawnInterval = 1200;
-  var speedMultiplier = 1;
-  var totalPacketsSent = 0;
-  var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  var mapSvg = document.getElementById('mapSvg');
-  var roadsLayer = document.getElementById('roadsLayer');
-  var packetsLayer = document.getElementById('packetsLayer');
-  var playBtn = document.getElementById('playBtn');
-  var pauseBtn = document.getElementById('pauseBtn');
-  var resetBtn = document.getElementById('resetBtn');
-  var statusText = document.getElementById('statusText');
-  var statusDot = document.getElementById('statusDot');
-  var packetCountEl = document.getElementById('packetCount');
-  var activeCountEl = document.getElementById('activeCount');
-  var speedSlider = document.getElementById('speedSlider');
-  var speedValue = document.getElementById('speedValue');
-
-  function buildRoads() {
-    edgeDefs.forEach(function (ed, i) {
-      var id = 'edge-' + i;
-      var glow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      glow.setAttribute('d', ed.d);
-      glow.setAttribute('class', 'road-path-glow');
-      glow.setAttribute('id', id + '-glow');
-      roadsLayer.appendChild(glow);
-
-      var road = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      road.setAttribute('d', ed.d);
-      road.setAttribute('class', 'road-path');
-      road.setAttribute('id', id);
-      roadsLayer.appendChild(road);
-
-      var dash = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      dash.setAttribute('d', ed.d);
-      dash.setAttribute('class', 'road-dash');
-      dash.setAttribute('id', id + '-dash');
-      roadsLayer.appendChild(dash);
-
-      edges.push({
-        id: id,
-        from: ed.from,
-        to: ed.to,
-        d: ed.d,
-        path: road,
-        length: road.getTotalLength(),
+    animate: function(engine) {
+      var svg = engine.el.visual.querySelector('svg');
+      if (!svg || engine.selectedId || !engine.playing) return;
+      var comps = svg.querySelectorAll('.component');
+      var idx = Math.floor(engine.t * 0.5) % comps.length;
+      comps.forEach(function(el, i) {
+        var bg = el.querySelector('.component-bg');
+        if (!bg) return;
+        var shape = bg.querySelector(':scope > :first-child');
+        if(!shape)return;
+        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
+        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
       });
-    });
-  }
+    },
 
-  function getRandomEdge() {
-    return edges[Math.floor(Math.random() * edges.length)];
-  }
-
-  function getNodeEl(id) {
-    return document.getElementById('node-' + id);
-  }
-
-  function glowNode(id, type) {
-    var el = getNodeEl(id);
-    if (!el) return;
-    el.classList.remove('send', 'receive');
-    void el.offsetWidth;
-    el.classList.add(type || 'receive');
-    setTimeout(function () {
-      el.classList.remove('send', 'receive');
-    }, type === 'send' ? 600 : 400);
-  }
-
-  function spawnPacket() {
-    if (!playing || paused || isReducedMotion) return;
-    var edge = getRandomEdge();
-    var fromNode = nodeMap[edge.from];
-    var toNode = nodeMap[edge.to];
-    var color = getNodeColor(edge.from);
-    var id = 'pkt-' + (packetIdCounter++);
-
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('id', id);
-    g.setAttribute('class', 'packet');
-
-    var trail = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    trail.setAttribute('class', 'packet-trail');
-    trail.setAttribute('stroke', color);
-    g.appendChild(trail);
-
-    var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    dot.setAttribute('class', 'packet-dot');
-    dot.setAttribute('fill', color);
-    g.appendChild(dot);
-
-    packetsLayer.appendChild(g);
-
-    glowNode(edge.from, 'send');
-
-    packets.push({
-      id: id,
-      edge: edge,
-      progress: 0,
-      speed: 0.002 + Math.random() * 0.003,
-      g: g,
-      dot: dot,
-      trail: trail,
-      from: edge.from,
-      to: edge.to,
-      color: color,
-      fromLabel: fromNode.label,
-      toLabel: toNode.label,
-    });
-
-    totalPacketsSent++;
-    updateStats();
-    updateStatus('Packet traveling from <strong>' + fromNode.label + '</strong> to <strong>' + toNode.label + '</strong>');
-  }
-
-  function getNodeColor(id) {
-    var map = {
-      home: '#FF6B6B',
-      school: '#FFD93D',
-      business: '#6BCB77',
-      datacenter: '#4D96FF',
-      phone: '#C084FC',
-      tablet: '#F472B6',
-    };
-    return map[id] || '#4FC3F7';
-  }
-
-  function removePacket(pkt) {
-    if (pkt.g && pkt.g.parentNode) {
-      pkt.g.parentNode.removeChild(pkt.g);
+    onReplay: function(engine) {
+      engine.t = 0;
     }
-    glowNode(pkt.to, 'receive');
-    var idx = packets.indexOf(pkt);
-    if (idx !== -1) packets.splice(idx, 1);
-    updateStats();
-  }
-
-  function clearAllPackets() {
-    packets.forEach(function (pkt) {
-      if (pkt.g && pkt.g.parentNode) {
-        pkt.g.parentNode.removeChild(pkt.g);
-      }
-    });
-    packets = [];
-    totalPacketsSent = 0;
-    updateStats();
-    updateStatus('Press <strong>Play</strong> to see data packets travel across the Internet Highway');
-  }
-
-  function animate(timestamp) {
-    if (!playing) return;
-
-    if (!paused) {
-      if (!lastSpawn) lastSpawn = timestamp;
-      var effectiveInterval = spawnInterval / speedMultiplier;
-      if (timestamp - lastSpawn >= effectiveInterval) {
-        spawnPacket();
-        lastSpawn = timestamp;
-      }
-
-      var done = [];
-      for (var i = 0; i < packets.length; i++) {
-        var pkt = packets[i];
-        pkt.progress += pkt.speed * speedMultiplier;
-        if (pkt.progress >= 1) {
-          pkt.progress = 1;
-          done.push(pkt);
-        }
-        var len = pkt.edge.length;
-        var pt = pkt.edge.path.getPointAtLength(pkt.progress * len);
-        pkt.dot.setAttribute('cx', pt.x);
-        pkt.dot.setAttribute('cy', pt.y);
-
-        var trailLen = Math.min(40, pkt.progress * len);
-        var trailStart = Math.max(0, pkt.progress * len - trailLen);
-        var trailD = '';
-        if (pkt.progress > 0.01) {
-          try {
-            var pt2 = pkt.edge.path.getPointAtLength(trailStart);
-            trailD = 'M' + pt2.x + ',' + pt2.y + ' L' + pt.x + ',' + pt.y;
-          } catch (e) {
-            trailD = 'M' + pt.x + ',' + pt.y + ' L' + pt.x + ',' + pt.y;
-          }
-        } else {
-          trailD = 'M' + pt.x + ',' + pt.y + ' L' + pt.x + ',' + pt.y;
-        }
-        pkt.trail.setAttribute('d', trailD);
-      }
-
-      done.forEach(function (pkt) {
-        removePacket(pkt);
-      });
-
-      if (packets.length === 0 && done.length > 0) {
-        updateStatus('All packets delivered. Sending more...');
-      }
-
-      updateStats();
-    }
-
-    animId = requestAnimationFrame(animate);
-  }
-
-  function start() {
-    if (playing) return;
-    playing = true;
-    paused = false;
-    lastSpawn = 0;
-    playBtn.disabled = true;
-    pauseBtn.disabled = false;
-    statusDot.className = 'status-dot active';
-    if (packets.length === 0) {
-      spawnPacket();
-    }
-    animId = requestAnimationFrame(animate);
-  }
-
-  function pause() {
-    if (!playing) return;
-    paused = !paused;
-    if (paused) {
-      pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Resume</span>';
-      statusDot.className = 'status-dot paused';
-      updateStatus('Paused — <strong>' + packets.length + '</strong> packet(s) in transit');
-    } else {
-      pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pause</span>';
-      statusDot.className = 'status-dot active';
-      lastSpawn = 0;
-      updateStatus('Resumed');
-    }
-  }
-
-  function reset() {
-    playing = false;
-    paused = false;
-    if (animId) {
-      cancelAnimationFrame(animId);
-      animId = null;
-    }
-    playBtn.disabled = false;
-    pauseBtn.disabled = true;
-    pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pause</span>';
-    statusDot.className = 'status-dot';
-    clearAllPackets();
-    lastSpawn = 0;
-  }
-
-  function updateStatus(msg) {
-    statusText.innerHTML = msg;
-  }
-
-  function updateStats() {
-    packetCountEl.textContent = totalPacketsSent;
-    activeCountEl.textContent = packets.length;
-  }
-
-  function handleSpeedChange() {
-    speedMultiplier = parseFloat(speedSlider.value);
-    speedValue.textContent = speedMultiplier.toFixed(speedMultiplier % 1 === 0 ? 0 : 2).replace('.00', '') + 'x';
-  }
-
-  function reduceMotionChange(e) {
-    isReducedMotion = e.matches;
-    if (isReducedMotion) reset();
-  }
-
-  playBtn.addEventListener('click', start);
-  pauseBtn.addEventListener('click', pause);
-  resetBtn.addEventListener('click', reset);
-  speedSlider.addEventListener('input', handleSpeedChange);
-
-  var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  motionQuery.addEventListener('change', reduceMotionChange);
-  isReducedMotion = motionQuery.matches;
-
-  buildRoads();
-  handleSpeedChange();
-  updateStats();
-  pauseBtn.disabled = true;
-
+  });
+});
 })();

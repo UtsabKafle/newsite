@@ -2,159 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Output Devices Diagram | Consica Academy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Output Devices — Interactive Diagram | Consica Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div class="page-wrapper" id="main-content" role="main">
-    <header class="top-header">
-      <div class="section-label">Module 2 &middot; How Computers Work</div>
-      <h1 class="diagram-title">Output Devices</h1>
-      <p class="diagram-subtitle">See how the computer sends information to the world &mdash; click a device to see the signal</p>
-    </header>
-    <figure class="diagram-area" aria-label="Interactive output devices diagram showing monitor, speakers, printer, and projector with animated signal from computer">
-      <div class="canvas-container" id="canvasContainer">
-        <svg class="diagram-svg" viewBox="0 0 1000 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="4" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="glowStrong">
-              <feGaussianBlur stdDeviation="6" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="pulseGrad">
-              <stop offset="0%" stop-color="#0959C8" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#0959C8" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="1000" height="480" fill="#0A0E17" rx="12"/>
-
-          <g id="source-computer" class="source-group" transform="translate(60, 140)">
-            <rect class="source-box" x="0" y="0" width="160" height="200" rx="14"/>
-            <rect class="source-box-inner" x="10" y="10" width="140" height="180" rx="10"/>
-            <rect class="source-screen" x="20" y="20" width="120" height="80" rx="4"/>
-            <rect class="source-screen-inner" x="25" y="25" width="110" height="70" rx="2"/>
-            <rect class="source-base" x="50" y="100" width="60" height="6" rx="3"/>
-            <rect class="source-stand" x="75" y="95" width="10" height="6" rx="2"/>
-            <text class="source-label" x="80" y="140">Computer</text>
-            <text class="source-sub" x="80" y="158">Sends output signal</text>
-            <g class="source-led" transform="translate(140, 30)">
-              <circle r="4" fill="#10B981" filter="url(#glow)"/>
-            </g>
-          </g>
-
-          <g id="device-monitor" class="output-device" data-device="monitor" tabindex="0" role="button" aria-label="Monitor output device">
-            <rect class="device-bg" x="250" y="40" width="160" height="200" rx="14"/>
-            <rect class="monitor-body" x="270" y="60" width="120" height="90" rx="6"/>
-            <rect class="monitor-screen" x="276" y="66" width="108" height="78" rx="3"/>
-            <rect class="monitor-stand" x="315" y="150" width="30" height="12" rx="3"/>
-            <rect class="monitor-base" x="300" y="160" width="60" height="6" rx="3"/>
-            <text class="device-label" x="330" y="195">Monitor</text>
-            <circle class="device-indicator" cx="330" cy="215" r="4" fill="transparent" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-          </g>
-
-          <g id="device-speakers" class="output-device" data-device="speakers" tabindex="0" role="button" aria-label="Speakers output device">
-            <rect class="device-bg" x="440" y="40" width="160" height="200" rx="14"/>
-            <rect class="speaker-cabinet" x="460" y="60" width="50" height="100" rx="6"/>
-            <rect class="speaker-cabinet" x="530" y="60" width="50" height="100" rx="6"/>
-            <ellipse class="speaker-cone" cx="485" cy="110" rx="18" ry="30" fill="none" stroke-width="2"/>
-            <ellipse class="speaker-cone" cx="555" cy="110" rx="18" ry="30" fill="none" stroke-width="2"/>
-            <ellipse class="speaker-cone-inner" cx="485" cy="110" rx="8" ry="14" fill="none" stroke-width="1.5"/>
-            <ellipse class="speaker-cone-inner" cx="555" cy="110" rx="8" ry="14" fill="none" stroke-width="1.5"/>
-            <rect class="speaker-base" x="475" y="160" width="100" height="6" rx="3"/>
-            <g class="sound-waves" transform="translate(500, 175)">
-              <line class="sw" x1="-8" y1="0" x2="-4" y2="0"/>
-              <line class="sw" x1="0" y1="0" x2="4" y2="0"/>
-              <line class="sw" x1="8" y1="0" x2="12" y2="0"/>
-            </g>
-            <text class="device-label" x="520" y="195">Speakers</text>
-            <circle class="device-indicator" cx="520" cy="215" r="4" fill="transparent" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-          </g>
-
-          <g id="device-printer" class="output-device" data-device="printer" tabindex="0" role="button" aria-label="Printer output device">
-            <rect class="device-bg" x="630" y="40" width="160" height="200" rx="14"/>
-            <rect class="printer-body" x="650" y="80" width="120" height="70" rx="6"/>
-            <rect class="printer-top" x="655" y="75" width="110" height="10" rx="3" fill="rgba(9,89,200,0.08)"/>
-            <rect class="printer-slot" x="690" y="85" width="40" height="8" rx="2"/>
-            <rect class="printer-paper" x="680" y="100" width="60" height="40" rx="2"/>
-            <line class="paper-line" x1="690" y1="108" x2="730" y2="108"/>
-            <line class="paper-line" x1="690" y1="116" x2="730" y2="116"/>
-            <line class="paper-line" x1="690" y1="124" x2="730" y2="124"/>
-            <text class="device-label" x="710" y="195">Printer</text>
-            <circle class="device-indicator" cx="710" cy="215" r="4" fill="transparent" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-          </g>
-
-          <g id="device-projector" class="output-device" data-device="projector" tabindex="0" role="button" aria-label="Projector output device">
-            <rect class="device-bg" x="820" y="40" width="160" height="200" rx="14"/>
-            <rect class="projector-body" x="840" y="70" width="120" height="60" rx="8"/>
-            <ellipse class="projector-lens" cx="920" cy="100" rx="12" ry="16" fill="none" stroke-width="2"/>
-            <circle class="projector-lens-inner" cx="920" cy="100" r="6" fill="rgba(9,89,200,0.15)"/>
-            <rect class="projector-beam" x="920" y="92" width="50" height="16" rx="2" opacity="0.15"/>
-            <rect class="projector-base" x="870" y="130" width="60" height="8" rx="4"/>
-            <rect class="projector-stand" x="895" y="138" width="10" height="24" rx="2"/>
-            <rect class="projector-floor" x="870" y="160" width="60" height="6" rx="3"/>
-            <text class="device-label" x="900" y="195">Projector</text>
-            <circle class="device-indicator" cx="900" cy="215" r="4" fill="transparent" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-          </g>
-
-          <g id="signal-paths">
-            <line class="signal-path monitor-path" x1="220" y1="240" x2="330" y2="240"/>
-            <line class="signal-path speakers-path" x1="220" y1="240" x2="520" y2="240"/>
-            <line class="signal-path printer-path" x1="220" y1="240" x2="710" y2="240"/>
-            <line class="signal-path projector-path" x1="220" y1="240" x2="900" y2="240"/>
-          </g>
-
-          <g id="signal-particles">
-            <circle class="signal-particle" r="6" fill="#0959C8" filter="url(#glowStrong)"/>
-          </g>
-
-          <g id="info-callout" transform="translate(250, 280)">
-            <rect class="callout-bg" x="0" y="0" width="500" height="110" rx="10"/>
-            <text class="callout-title" id="calloutTitle" x="250" y="28">Click an Output Device</text>
-            <text class="callout-desc" id="calloutDesc" x="250" y="50">Click on any device to see how the computer sends it a signal.</text>
-            <g class="callout-detail" id="calloutDetail">
-              <rect class="detail-tag" x="150" y="68" width="200" height="28" rx="4"/>
-              <text class="detail-text" id="calloutType" x="250" y="86">Output Device</text>
-            </g>
-          </g>
-
-          <g transform="translate(40, 420)">
-            <circle cx="0" cy="0" r="4" fill="#0959C8" filter="url(#glow)"/>
-            <text x="12" y="4" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">Active signal path</text>
-            <circle cx="160" cy="0" r="4" fill="rgba(9,89,200,0.3)"/>
-            <text x="172" y="4" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">Inactive device</text>
-          </g>
-        </svg>
-      </div>
-      <figcaption class="visually-hidden">Interactive diagram: click on the monitor, speakers, printer, or projector to see the signal travel from the computer.</figcaption>
-    </figure>
-    <div class="status-bar" role="status" aria-live="polite">
-      <span class="status-text" id="statusText">Press <strong>Play</strong> to tour all output devices</span>
-    </div>
-    <section class="controls-section" aria-label="Animation controls">
-      <div class="controls-row">
-        <button class="ctrl-btn primary" id="playBtn" aria-label="Play auto-tour of output devices">
-          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
-          <span class="btn-label">Play Tour</span>
-        </button>
-        <button class="ctrl-btn" id="pauseBtn" aria-label="Pause tour" disabled>
-          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1"/><rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1"/></svg>
-          <span class="btn-label">Pause</span>
-        </button>
-        <button class="ctrl-btn" id="resetBtn" aria-label="Reset tour" disabled>
-          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,4,12,4z" fill="currentColor"/></svg>
-          <span class="btn-label">Reset</span>
-        </button>
-      </div>
-    </section>
-  </div>
+  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
