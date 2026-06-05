@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks blocks</span> control a sprite's appearance, enabling costume changes, speech bubbles, scale modifications, and color filter effects.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks blocks</span> control a sprite's appearance, enabling costume changes, speech bubbles, scale modifications, and color filter effects. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In the real world, things look different depending on their color, size, and visibility. In Scratch, Looks blocks give you the power to control exactly how your sprites and stage appear. Want a character to fade away? Use a Looks block. Need to change the background for a new level? Looks blocks have you covered. These blocks are the visual toolkit for your digital creations.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Looks blocks are organized into three categories: those that control a sprite's appearance (costume changes, size, visibility, graphic effects), those that show text (the 'say' and 'think' speech bubbles), and those that control the stage (backdrop changes). Together, they give you complete control over the visual experience of your project.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use Looks blocks to change costumes, adjust size, show and hide sprites, apply graphic effects like color and ghost (transparency), and use speech bubbles to make your characters communicate. By the end, you will be able to create visually dynamic projects that change and react as they run.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In the real world, things look different depending on their color, size, and visibility. In Scratch, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> give you the power to control exactly how your sprites and stage appear. Want a character to fade away? Use a Looks block. Need to change the background for a new level? <span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> have you covered. These blocks are the visual toolkit for your digital creations.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> are organized into three categories: those that control a sprite's appearance (costume changes, size, visibility, graphic effects), those that show text (the 'say' and 'think' speech bubbles), and those that control the stage (backdrop changes). Together, they give you complete control over the visual experience of your project.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> to change costumes, adjust size, show and hide sprites, apply graphic effects like color and ghost (transparency), and use speech bubbles to make your characters communicate. By the end, you will be able to create visually dynamic projects that change and react as they run.</p>
           </div>
         </section>
 
@@ -226,7 +226,7 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of Looks blocks like a movie director's toolkit. 'Switch costume' is like changing an actor's outfit. 'Say' is like giving the actor a line of dialogue. 'Set size' is like zooming the camera in or out. 'Show/Hide' is like telling an actor to enter or leave the stage. 'Graphic effects' are like camera filters and special effects. The director uses all these tools to create the visual story.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('looks-blocks')">Looks Blocks</span> like a movie director's toolkit. 'Switch costume' is like changing an actor's outfit. 'Say' is like giving the actor a line of dialogue. 'Set size' is like zooming the camera in or out. 'Show/Hide' is like telling an actor to enter or leave the stage. 'Graphic effects' are like camera filters and special effects. The director uses all these tools to create the visual story.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
@@ -241,7 +241,7 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'set layer to [front/back]' and 'go [forward/backward] (1) layers' blocks control the z-order (depth) of sprites. When sprites overlap, the one with the highest layer number appears on top. The stage is layer 0, and sprites occupy layers 1 and above. The 'go to front' block moves a sprite to the highest layer, ensuring it appears on top of all other sprites. This is critical for UI elements, score displays, and the player character.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'size' property is relative to the sprite's original costume size. A size of 100% is the original size as drawn in the costume editor. A sprite can be scaled up to 1000% (10x) and down to 1% (very tiny). Size changes do not affect collision detection in some sensing blocks — the 'touching' block uses the actual costume shape, not just the bounding box, but size changes may not perfectly scale the collision area.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'size' property is relative to the sprite's original costume size. A size of 100% is the original size as drawn in the costume editor. A sprite can be scaled up to 1000% (10x) and down to 1% (very tiny). Size changes do not affect collision detection in some <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> — the 'touching' block uses the actual costume shape, not just the bounding box, but size changes may not perfectly scale the collision area.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Costume centering is an important detail. Each costume has a center point (shown as a crosshair in the costume editor) that determines where the sprite's position coordinates refer to. By default, the center is at the middle of the costume. If you draw a character and the center point is at its feet, then setting the sprite's position to y=0 will put the feet at y=0 instead of the middle. Adjusting the center point makes positioning much more intuitive.</p>
           </div>
         </section>

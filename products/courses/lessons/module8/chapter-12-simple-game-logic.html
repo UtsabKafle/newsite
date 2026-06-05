@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Game logic combines events, motion, loops, variable updates, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">sensing</span> checks to build playable interactive mechanics.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Game logic combines events, motion, loops, variable updates, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">sensing</span> checks to build playable interactive mechanics. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('simple-game-logic')">Simple Game Logic</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -242,7 +242,7 @@
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">State machines are a powerful way to organize game logic. A state machine defines distinct states (like 'menu', 'playing', 'paused', 'game over') and rules for transitioning between them. Use a 'gameState' variable that stores the current state. Each frame, an 'if-else' chain checks the state and runs the appropriate logic. For example: if gameState = 'playing', check input and update positions. If gameState = 'paused', show pause menu and skip updates.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Difficulty scaling adjusts game parameters based on player performance. If the player is doing well (high score, many lives remaining), increase difficulty by making enemies faster or more numerous. If the player is struggling, reduce difficulty. This keeps the game challenging but not frustrating. Implement difficulty scaling with formulas: enemySpeed = baseSpeed + (level * speedIncrease).</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Timers add time pressure to games. Use a 'timer' variable that counts down from a starting value. Each frame, decrease timer by the time since the last frame (use the 'timer' sensing block). When timer reaches 0, the game ends. Alternatively, use a count-up timer for speedrun-style games where the goal is to complete the level as fast as possible. Display the timer prominently on the stage.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Timers add time pressure to games. Use a 'timer' variable that counts down from a starting value. Each frame, decrease timer by the time since the last frame (use the 'timer' <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>). When timer reaches 0, the game ends. Alternatively, use a count-up timer for speedrun-style games where the goal is to complete the level as fast as possible. Display the timer prominently on the stage.</p>
           </div>
         </section>
 

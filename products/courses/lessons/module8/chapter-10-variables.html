@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are labeled memory boxes that store variable values (like scores, coordinates, or timers) that can change during execution.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are labeled memory boxes that store variable values (like scores, coordinates, or timers) that can change during execution. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,27 +212,27 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine playing a game that never told you your score. You would have no idea if you were winning or losing. Imagine an animation that could not count how many times a character jumped. Variables are how programs remember and change information. They are like labeled storage boxes where you can keep numbers, text, or true/false values and update them as your program runs.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variables are one of the most important concepts in all of programming. They allow your program to have memory — to remember past events, track progress, and make decisions based on accumulated information. In Scratch, variables can store numbers (like a score), text (like a player name), or Boolean values (like whether the game is over).</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn what variables are, how to create and use them in Scratch, and common variable patterns like scoring, timing, counting, and toggling. By the end, you will understand how variables give your projects memory and the ability to respond to changing conditions.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine playing a game that never told you your score. You would have no idea if you were winning or losing. Imagine an animation that could not count how many times a character jumped. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are how programs remember and change information. They are like labeled storage boxes where you can keep numbers, text, or true/false values and update them as your program runs.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are one of the most important concepts in all of programming. They allow your program to have memory — to remember past events, track progress, and make decisions based on accumulated information. In Scratch, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can store numbers (like a score), text (like a player name), or Boolean values (like whether the game is over).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are, how to create and use them in Scratch, and common variable patterns like scoring, timing, counting, and toggling. By the end, you will understand how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> give your projects memory and the ability to respond to changing conditions.</p>
           </div>
         </section>
 
 <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">To create a variable in Scratch, click the Variables category and then 'Make a Variable'. You give it a name (like 'score' or 'lives') and choose whether it applies to all sprites (global) or just the current sprite (local). Once created, you get several blocks: 'set [variable] to ()' (assign a value), 'change [variable] by ()' (add or subtract), and 'show variable' / 'hide variable' (display or hide the variable's monitor on stage).</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variables can store different types of data. Number variables store numeric values and can be used in arithmetic. String variables store text. Boolean variables store true/false. In Scratch, a variable automatically adapts to whatever type of value you assign to it. You can also use variables in operators: add them, compare them, and combine them with text.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">To create a variable in Scratch, click the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> category and then 'Make a Variable'. You give it a name (like 'score' or 'lives') and choose whether it applies to all sprites (global) or just the current sprite (local). Once created, you get several blocks: 'set [variable] to ()' (assign a value), 'change [variable] by ()' (add or subtract), and 'show variable' / 'hide variable' (display or hide the variable's monitor on stage).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can store different types of data. Number <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> store numeric values and can be used in arithmetic. String <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> store text. Boolean <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> store true/false. In Scratch, a variable automatically adapts to whatever type of value you assign to it. You can also use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> in operators: add them, compare them, and combine them with text.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of variables like labeled jars on a shelf. Each jar has a name (like 'Score' or 'Player Name'). You can put something in the jar (assign a value), take something out (read the value), or change what is inside (update the value). You can also look at the jar from across the room if the stage monitor is showing. Just as jars hold physical items, variables hold data.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> like labeled jars on a shelf. Each jar has a name (like 'Score' or 'Player Name'). You can put something in the jar (assign a value), take something out (read the value), or change what is inside (update the value). You can also look at the jar from across the room if the stage monitor is showing. Just as jars hold physical items, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> hold data.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variable scope determines which sprites can access a variable. 'For all sprites' (global) variables can be read and changed by any sprite and the stage. 'For this sprite only' (local) variables can only be accessed by the sprite that created them. Use global variables for things like score, level, and game state that affect the whole project. Use local variables for sprite-specific data like individual enemy health or position offsets.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variable scope determines which sprites can access a variable. 'For all sprites' (global) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can be read and changed by any sprite and the stage. 'For this sprite only' (local) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can only be accessed by the sprite that created them. Use global <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> for things like score, level, and game state that affect the whole project. Use local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> for sprite-specific data like individual enemy health or position offsets.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variable monitors can be displayed on the stage in three modes: normal (shows the variable name and value), large (bigger text for readability), and slider (a slider that lets you change the variable by dragging). Slider mode is extremely useful for testing — you can adjust values like speed, gravity, or difficulty in real-time without editing code. Right-click a variable monitor to change its display mode and range.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cloud variables are a special type of variable in Scratch that are stored on the Scratch server and shared across all users of a project. They enable multi-player games and persistent data. Cloud variables have restrictions: they can only store numbers, they have a maximum value, and they update relatively slowly. They are identified by a cloud icon next to their name in the blocks palette.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cloud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are a special type of variable in Scratch that are stored on the Scratch server and shared across all users of a project. They enable multi-player games and persistent data. Cloud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> have restrictions: they can only store numbers, they have a maximum value, and they update relatively slowly. They are identified by a cloud icon next to their name in the blocks palette.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
@@ -240,9 +240,9 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Variables in Scratch are dynamically typed — they can hold any type of value and change type as needed. This is different from languages like Java or C++ where you must declare a variable's type (integer, string, boolean) and cannot change it later. Dynamic typing makes Scratch easier for beginners but can lead to unexpected behavior if you accidentally store a text value where you expected a number.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> in Scratch are dynamically typed — they can hold any type of value and change type as needed. This is different from languages like Java or C++ where you must declare a variable's type (integer, string, boolean) and cannot change it later. Dynamic typing makes Scratch easier for beginners but can lead to unexpected behavior if you accidentally store a text value where you expected a number.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'set [variable] to (join [hello] [world])' block, combined with 'set [variable] to ()', allows for string manipulation. You can build messages, create dynamic text displays, and format output. For example, you might set a 'message' variable to (join [Score: ] (score)) to display 'Score: 100'.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists are variables that can hold multiple values. Think of a list as a row of numbered boxes, each containing a value. Scratch lists support add, delete, insert, and replace operations. Lists are essential for managing collections of data — inventory items, high scores, enemy positions, or dialogue sequences. Lists are created and managed in the same Variables category.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> that can hold multiple values. Think of a list as a row of numbered boxes, each containing a value. Scratch lists support add, delete, insert, and replace operations. Lists are essential for managing collections of data — inventory items, high scores, enemy positions, or dialogue sequences. Lists are created and managed in the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> category.</p>
           </div>
         </section>
 
@@ -273,19 +273,19 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The name 'variable' comes from mathematics, where a variable is a symbol that can represent different values. In programming, variables serve the same purpose but are stored in computer memory.</p>
+              <p class="text-sm text-theme-muted">The name 'variable' comes from mathematics, where a variable is a symbol that can represent different values. In programming, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> serve the same purpose but are stored in computer memory.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Scratch supports up to 200 variables per sprite and 200 global variables per project. This is far more than you will ever need for most projects.</p>
+              <p class="text-sm text-theme-muted">Scratch supports up to 200 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> per sprite and 200 global <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> per project. This is far more than you will ever need for most projects.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Cloud variables were introduced in Scratch 2.0 and are only available to Scratchers (signed-in users) with verified email addresses.</p>
+              <p class="text-sm text-theme-muted">Cloud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> were introduced in Scratch 2.0 and are only available to Scratchers (signed-in users) with verified email addresses.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -308,20 +308,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Variables can only store numbers.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Variables in Scratch can store numbers, text (strings), or true/false values. They automatically adapt to whatever value you assign.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can only store numbers.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> in Scratch can store numbers, text (strings), or true/false values. They automatically adapt to whatever value you assign.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Creating more variables makes your project run slower.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Variables have minimal impact on performance. Creating dozens or even hundreds of variables will not noticeably affect speed.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Creating more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> makes your project run slower.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> have minimal impact on performance. Creating dozens or even hundreds of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> will not noticeably affect speed.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Local variables and global variables work the same way.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Local variables are only accessible by the sprite that created them. Global variables can be accessed and modified by any sprite. Use local variables to prevent unintended interference between sprites.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> and global <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> work the same way.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> are only accessible by the sprite that created them. Global <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> can be accessed and modified by any sprite. Use local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> to prevent unintended interference between sprites.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Cloud variables work exactly like regular variables.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cloud variables have limitations: they only store numbers (not text), have a maximum value of 2.7 billion, update every few seconds, and require a Scratcher account to use.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Cloud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> work exactly like regular <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span>.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cloud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('variables')">Variables</span> have limitations: they only store numbers (not text), have a maximum value of 2.7 billion, update every few seconds, and require a Scratcher account to use.</p>
             </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}.vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}.vocab-table tr:hover td{background:rgba(9,89,200,.04)}.kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}.kb-check p{margin-bottom:.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}.vocab{color:#3b82f6;font-weight:500}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}.vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}.vocab-table tr:hover td{background:rgba(9,89,200,.04)}.kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}.kb-check p{margin-bottom:.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}#introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}</style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -94,9 +94,9 @@
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists and tables help organize information in a structured, readable format. HTML provides three types of lists: unordered (ul with bullet points), ordered (ol with numbers), and description lists (dl with terms and definitions). Tables organize data into rows and columns.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists are perfect for step-by-step instructions, navigation menus, feature highlights, and any content that benefits from enumeration. Tables are ideal for comparing data, schedules, pricing, and statistical information.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to create ordered and unordered lists, build tables with headers and captions, and nest lists for complex hierarchies.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> help organize information in a structured, readable format. HTML provides three types of lists: unordered (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> with bullet points), ordered (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> with numbers), and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('description-list')">Description List</span> (dl with terms and definitions). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> organize data into rows and columns.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lists are perfect for step-by-step instructions, navigation menus, feature highlights, and any content that benefits from enumeration. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> are ideal for comparing data, schedules, pricing, and statistical information.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to create ordered and unordered lists, build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> with headers and captions, and nest lists for complex hierarchies.</p>
           </div>
         </section>
 
@@ -104,18 +104,18 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The ul element creates a bulleted list, ol creates a numbered list, and each item within is wrapped in li (list item) tags. Tables are built with table, tr (table row), th (table header), and td (table data) elements. Lists can be nested by placing a new ul or ol inside an li.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> element creates a bulleted list, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> creates a numbered list, and each item within is wrapped in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('li')">li</span> (list item) tags. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> are built with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tr')">tr</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> row), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('th')">th</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> header), and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('td')">td</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> data) elements. Lists can be nested by placing a new <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> inside an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('li')">li</span>.</p>
             </div>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of an unordered list as a shopping list &mdash; each item is a bullet point. An ordered list is like a recipe with numbered steps. A table is like a spreadsheet with rows and columns, where th marks the column headers and td holds the actual data in each cell.</p>
+              <p class="text-sm text-theme-muted">Think of an unordered list as a shopping list &mdash; each item is a bullet point. An ordered list is like a recipe with numbered steps. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> is like a spreadsheet with rows and columns, where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('th')">th</span> marks the column headers and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('td')">td</span> holds the actual data in each cell.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">List Types</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Unordered (ul)</h4>
-                <p class="mt-2 text-sm text-theme-muted">Bulleted lists for items without a specific order. Each item uses the li tag. Customize bullet styles with CSS.</p>
+                <p class="mt-2 text-sm text-theme-muted">Bulleted lists for items without a specific order. Each item uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('li')">li</span> tag. Customize bullet styles with CSS.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg></div>
@@ -131,24 +131,24 @@
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Table Structure</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Table Elements</p>
-                <p class="text-sm text-theme-muted">table wraps the entire structure, tr defines each row, th marks header cells, and td contains data cells. caption adds a title.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> Elements</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> wraps the entire structure, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tr')">tr</span> defines each row, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('th')">th</span> marks header cells, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('td')">td</span> contains data cells. caption adds a title.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Column Spanning</p>
-                <p class="text-sm text-theme-muted">The colspan attribute makes a cell span multiple columns, and rowspan spans multiple rows. Useful for complex layouts.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colspan')">colspan</span> attribute makes a cell span multiple columns, and rowspan spans multiple rows. Useful for complex layouts.</p>
               </div>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Accessibility is important for lists and tables. Screen readers announce the number of items in a list and allow users to navigate between them. For tables, the th element with scope=&quot;col&quot; or scope=&quot;row&quot; helps assistive technology associate headers with data cells correctly.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested lists allow you to create multi-level outlines (like a table of contents with sub-sections). Simply place a new ul or ol inside an li element, and the browser will indent and style it appropriately.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Accessibility is important for lists and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span>. Screen readers announce the number of items in a list and allow users to navigate between them. For <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span>, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('th')">th</span> element with scope=&quot;col&quot; or scope=&quot;row&quot; helps assistive technology associate headers with data cells correctly.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nested-list')">Nested List</span> allow you to create multi-level outlines (like a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> of contents with sub-sections). Simply place a new <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> inside an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('li')">li</span> element, and the browser will indent and style it appropriately.</p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Use ul for navigation menus and feature lists where order does not matter. Use ol for instructions, rankings, and recipes. Tables should only be used for tabular data &mdash; never for page layout.</p>
+              <p class="text-sm text-theme-muted">Use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> for navigation menus and feature lists where order does not matter. Use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> for instructions, rankings, and recipes. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> should only be used for tabular data &mdash; never for page layout.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">HTML table features include thead, tbody, and tfoot for grouping rows logically. The colgroup and col elements allow styling entire columns at once. For responsive tables, CSS techniques like horizontal scrolling on small screens or converting rows to cards are commonly used.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The ol element supports the type attribute (1, A, a, I, i for different numbering styles) and start attribute for custom starting numbers. CSS list-style-type property provides even more control over bullet and numbering appearance.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> features include thead, tbody, and tfoot for grouping rows logically. The colgroup and col elements allow styling entire columns at once. For responsive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span>, CSS techniques like horizontal scrolling on small screens or converting rows to cards are commonly used.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> element supports the type attribute (1, A, a, I, i for different numbering styles) and start attribute for custom starting numbers. CSS list-style-type property provides even more control over bullet and numbering appearance.</p>
           </div>
         </section>
 
@@ -181,7 +181,7 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The ul and ol tags have existed since the very first version of HTML in 1991.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ul')">ul</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ol')">ol</span> tags have existed since the very first version of HTML in 1991.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
@@ -189,11 +189,11 @@
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">Tables were originally used for webpage layout before CSS became widespread, a practice now strongly discouraged.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> were originally used for webpage layout before CSS became widespread, a practice now strongly discouraged.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The caption element on tables is read aloud by screen readers, making it a valuable accessibility feature.</p>
+                <p class="text-sm text-theme-muted">The caption element on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">table</span> is read aloud by screen readers, making it a valuable accessibility feature.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>

@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sprites are the programmable objects on screen, while the Stage is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">coordinate grid</span> (-240 to 240 X, -180 to 180 Y) where they act.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sprites are the programmable objects on screen, while the Stage is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">coordinate grid</span> (-240 to 240 X, -180 to 180 Y) where they act. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sprites-and-stage')">Sprites and Stage</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">

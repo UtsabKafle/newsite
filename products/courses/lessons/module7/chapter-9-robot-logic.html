@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot logic</span> is the set of conditional statements (if-then-else) that guide a robot's decisions based on sensor values.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot logic</span> is the set of conditional statements (if-then-else) that guide a robot's decisions based on sensor values. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,21 +212,21 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot's controller runs its program, but what makes that program intelligent? The answer is logic — the decision-making rules that transform sensor data into meaningful actions. Robot logic is the art of telling the robot what to do in every possible situation it might encounter.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot's controller runs its program, but what makes that program intelligent? The answer is logic — the decision-making rules that transform sensor data into meaningful actions. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> is the art of telling the robot what to do in every possible situation it might encounter.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Robot programs use conditional statements (if-then-else), loops (repeat actions), and logical operators (AND, OR, NOT) to create complex behaviors from simple rules. For example: IF the touch sensor is pressed AND the front distance sensor shows less than 10 cm, THEN stop the motors. These logical building blocks combine to create robots that can navigate mazes, follow paths, and respond to their environment.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how programmers design robot logic, from simple state machines to complex decision trees. You will see how Boolean logic, comparison operators, and control flow statements give robots the ability to make choices and adapt to changing conditions.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how programmers design <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span>, from simple state machines to complex decision trees. You will see how Boolean logic, comparison operators, and control flow statements give robots the ability to make choices and adapt to changing conditions.</p>
           </div>
         </section>
 
 <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The foundation of robot logic is the Boolean expression — a statement that is either true or false. Examples include distance < 20 cm, button_pressed == true, or light_level > 500. The controller evaluates these expressions using sensor readings and compares them to programmed thresholds. Based on whether the expression is true or false, the robot chooses different actions.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The foundation of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> is the Boolean expression — a statement that is either true or false. Examples include distance < 20 cm, button_pressed == true, or light_level > 500. The controller evaluates these expressions using sensor readings and compares them to programmed thresholds. Based on whether the expression is true or false, the robot chooses different actions.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditional statements (if-then-else) allow the robot to execute different code depending on sensor readings. The basic structure is: if (condition) { do something } else { do something else }. For example: if (battery_voltage < 7.0) { go_to_charger(); } else { continue_exploring(); }. The robot constantly evaluates conditions and responds accordingly.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of robot logic like a choose-your-own-adventure book. At each step, you read a situation and make a choice. If you open the door (condition), turn to page 42. If you walk away, turn to page 18. The robot does the same thing, using sensor data as the situation and program logic as the choices.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> like a choose-your-own-adventure book. At each step, you read a situation and make a choice. If you open the door (condition), turn to page 42. If you walk away, turn to page 18. The robot does the same thing, using sensor data as the situation and program logic as the choices.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
@@ -236,7 +236,7 @@
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Robot logic can be surprisingly simple. The famous Braitenberg vehicles from the 1980s showed that robots with just two sensors and two motors, connected by a few simple logical rules, could exhibit life-like behaviors like approaching light sources, avoiding obstacles, and even appearing to have emotions.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> can be surprisingly simple. The famous Braitenberg vehicles from the 1980s showed that robots with just two sensors and two motors, connected by a few simple logical rules, could exhibit life-like behaviors like approaching light sources, avoiding obstacles, and even appearing to have emotions.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
@@ -285,13 +285,13 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The simplest robot logic can be implemented with just a few transistors and resistors — no programmable chip needed. These are called BEAM robots (Biology, Electronics, Aesthetics, Mechanics).</p>
+              <p class="text-sm text-theme-muted">The simplest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> can be implemented with just a few transistors and resistors — no programmable chip needed. These are called BEAM robots (Biology, Electronics, Aesthetics, Mechanics).</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Some robot logic is implemented entirely in hardware using logic gates, making it extremely fast and reliable. These are called finite state machines implemented in hardware.</p>
+              <p class="text-sm text-theme-muted">Some <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> is implemented entirely in hardware using logic gates, making it extremely fast and reliable. These are called finite state machines implemented in hardware.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -308,8 +308,8 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robot logic means the robot is intelligent.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Robot logic is just a set of programmed rules. The robot does not understand what it is doing — it simply follows instructions. True artificial intelligence that can learn and reason is far more complex.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> means the robot is intelligent.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> is just a set of programmed rules. The robot does not understand what it is doing — it simply follows instructions. True artificial intelligence that can learn and reason is far more complex.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: More logic always makes a better robot.</p>
@@ -320,8 +320,8 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Humans use intuition, emotion, experience, and context to make decisions. Robots use rigid logical rules based on sensor numbers. A robot cannot decide to be helpful or creative — it only does what its program tells it.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robot logic never makes mistakes.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Robot logic is only as good as the programmer who wrote it and the sensors that provide data. Faulty sensors, edge cases the programmer did not consider, and hardware failures can all cause robots to behave incorrectly.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> never makes mistakes.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-logic')">Robot Logic</span> is only as good as the programmer who wrote it and the sensors that provide data. Faulty sensors, edge cases the programmer did not consider, and hardware failures can all cause robots to behave incorrectly.</p>
             </div>
             </div>
           </div>

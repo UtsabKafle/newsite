@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,8 @@
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
   
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -173,7 +174,7 @@
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Web layout determines how elements are positioned on the page using the CSS Box Model (margin, border, padding, content) and flexbox rules.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Web layout determines how elements are positioned on the page using the CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span>, content) and flexbox rules.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -204,13 +205,80 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
-            
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every element on a webpage is rendered as a rectangular <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> consisting of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> (outer space), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span> (visible edge), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span> (inner spacing), and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span>. The CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> property (block, inline, flex, grid) determines how these boxes flow on the page, and values like <code>position: relative</code> or <code>position: absolute</code> move them from their normal position.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> like arranging furniture in a room. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> is the gap between pieces of furniture, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span> is the visible edge of each piece, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span> is the empty space inside a drawer, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span> is what you actually store inside. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> property decides whether a piece sits on its own line (block) or can share wall space with others (inline).</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
-            
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> involves several nuanced behaviours:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5v14a1 1 0 001 1h14a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200">Margin Collapse</h4>
+                <p class="mt-1 text-xs text-theme-muted">When two block elements sit on top of each other, their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> values collapse &mdash; the larger margin wins instead of adding together. This prevents excessive gaps between paragraphs and headings.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200">Box Sizing</h4>
+                <p class="mt-1 text-xs text-theme-muted">The <code>box-sizing</code> property changes how total width is calculated. <code>border-box</code> includes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span> inside the element&rsquo;s declared width, preventing layout shifts when adding spacing.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> Types</h4>
+                <p class="mt-1 text-xs text-theme-muted">Block elements take full width and start on a new line. Inline elements sit next to each other. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span> behaviour changes based on the display type you choose.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key Layout Properties</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">These CSS properties give you precise control over how elements are positioned and arranged:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span></p>
+                <p class="text-sm text-theme-muted">Controls the rendering behaviour of an element. Common values: <code>block</code>, <code>inline</code>, <code>inline-block</code>, <code>flex</code>, <code>grid</code>, and <code>none</code> (hides the element entirely).</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Position</p>
+                <p class="text-sm text-theme-muted">Changes how an element is placed in the document flow. <code>relative</code> offsets from its normal position, <code>absolute</code> positions relative to the nearest positioned ancestor, and <code>fixed</code> stays in place during scrolling.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Overflow</p>
+                <p class="text-sm text-theme-muted">Determines what happens when content exceeds its container. <code>hidden</code> clips the excess, <code>scroll</code> adds scrollbars, and <code>auto</code> adds scrollbars only when needed.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Z-Index</p>
+                <p class="text-sm text-theme-muted">Controls stacking order along the Z-axis (depth). Elements with a higher <code>z-index</code> appear above those with a lower value. Only works on positioned elements (relative, absolute, fixed, sticky).</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Float</p>
+                <p class="text-sm text-theme-muted">Pushes an element to the left or right, allowing text to wrap around it. Historically used for layout, now largely replaced by Flexbox and Grid, but still useful for wrapping text around images.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Clear</p>
+                <p class="text-sm text-theme-muted">Prevents an element from wrapping around a floated sibling. <code>clear: both</code> forces the element below any floated elements on either side, restoring normal document flow.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Building a Layout</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Start every layout by setting <code>box-sizing: border-box</code> on all elements to avoid surprise sizing issues. Then use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> to choose a layout mode &mdash; Flexbox for rows or columns, Grid for two-dimensional arrangements. Apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> to space elements apart, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span> to add internal breathing room, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span> for visual separation. Test your layout at different screen sizes to ensure the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span> doesn't overflow or get squished.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Use browser DevTools to inspect the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> of any element. The Computed tab shows you the exact pixel values for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span>, making it easy to debug layout problems visually.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Flexbox is ideal for one-dimensional layouts &mdash; aligning items in a row or column. Key properties like <code>justify-content: center</code> and <code>align-items: stretch</code> handle distribution along the main and cross axes, making centering content both horizontally and vertically trivially simple.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">CSS Grid handles two-dimensional layouts with named grid areas. Define a grid with <code>grid-template-columns: repeat(3, 1fr)</code> to create three equal columns, then place items using <code>grid-column: span 2</code> to make an item span multiple tracks. Unlike Flexbox, Grid controls rows and columns simultaneously.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern CSS layout patterns combine both: use Grid for the overall page structure (header, sidebar, main, footer) and Flexbox for component-level layouts inside each grid cell. This avoids relying on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> hacks, old float-based layouts, or table-based designs &mdash; producing cleaner, more maintainable code.</p>
           </div>
         </section>
 
@@ -250,23 +318,23 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span> is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> consists of four layers: content, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('margin')">Margin</span> � each one can be styled independently with CSS.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-and-positioning')">Layout and Positioning</span> to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">The CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> property values like <code>flex</code> and <code>grid</code> have made complex layouts much easier compared to the old float-based methods.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('content-area')">Content Area</span> is the innermost part of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> � its size can be controlled with the <code>width</code> and <code>height</code> properties before any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('padding')">Padding</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('border')">Border</span> is added.</p>
               </div>
               
             
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The CSS box model was introduced in 1996 and is still the foundation of every webpage layout today.</p>
+                <p class="text-sm text-theme-muted">The CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('box-model')">Box Model</span> was introduced in 1996 and is still the foundation of every webpage layout today.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">There are over 50 different display property values in modern CSS, from block to ruby to contents.</p>
+                <p class="text-sm text-theme-muted">There are over 50 different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('display')">Display</span> property values in modern CSS, from block to ruby to contents.</p>
               </div>
 </div>
           </div>

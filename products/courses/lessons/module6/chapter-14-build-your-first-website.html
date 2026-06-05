@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,8 @@
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
   
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -204,13 +205,80 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
-            
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Building a website starts with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span> &mdash; sketching a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> to map out the layout and defining the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> (an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> as your homepage, plus CSS and image folders). Then you write HTML for content, CSS for styling, and finally upload everything to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span>.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Building a website is like constructing a house. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span> is the architect&rsquo;s blueprint, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> is the floor plan that shows where each room goes, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> is the organized set of construction documents, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> is the front door that everyone enters through, and a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span> is the land your house sits on, making it accessible to visitors.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
-            
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every successful website project depends on these three foundational steps:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span></h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span> defines your site&rsquo;s goal, target audience, and content hierarchy. Ask: Who is this for? What action should they take? What pages do I need?</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> Sketching</h4>
+                <p class="mt-1 text-xs text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> is a low-fidelity sketch showing where the header, navigation, main content, sidebar, and footer go. Use paper, a whiteboard, or a digital tool like Figma.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> Organization</h4>
+                <p class="mt-1 text-xs text-theme-muted">A clean <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> keeps your project maintainable: <code>index.html</code> at root, plus <code>styles/</code>, <code>images/</code>, and <code>scripts/</code> subfolders.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key Building Blocks</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">These are the essential components you will work with when building your first website:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span></p>
+                <p class="text-sm text-theme-muted">The process of defining your website&rsquo;s purpose, audience, and content before writing any code. Good planning prevents wasted effort and ensures your site meets its goals.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span></p>
+                <p class="text-sm text-theme-muted">A simple visual blueprint that maps out where each element appears on the page. Wireframes ignore colours, fonts, and images &mdash; they focus purely on layout and structure.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span></p>
+                <p class="text-sm text-theme-muted">The organized arrangement of folders and files in your website project. A consistent structure makes it easy to find, update, and add new pages as your site grows.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span></p>
+                <p class="text-sm text-theme-muted">The default homepage file that web servers automatically serve when a directory is visited. Every website needs an <code>index.html</code> at the root of its file structure.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span></p>
+                <p class="text-sm text-theme-muted">A company that stores your website files on its servers and makes them accessible on the internet. Popular beginner options include Netlify, GitHub Pages, and Vercel.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-check')">Responsive Check</span></p>
+                <p class="text-sm text-theme-muted">The process of testing your website across different screen sizes and devices. Use browser DevTools responsive mode to simulate phones, tablets, and desktops before launch.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Building Your First Site</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Start with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span>: decide your site topic (e.g., a personal portfolio) and sketch a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> on paper. Create your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> with an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> at the root. Write your HTML for structure and CSS for styling, testing each change in the browser. After development, sign up for a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span> and upload your files. Finally, run a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-check')">Responsive Check</span> on multiple devices before sharing your site with the world.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Your first website doesn&rsquo;t need to be perfect &mdash; it needs to exist. Start with a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> page that loads correctly, then iterate. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> habits you build now will serve you for every future project.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern development uses static site generators (like Eleventy or Hugo) that convert markdown files into a complete <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> with a generated <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> and all subpages. This approach separates content (written in markdown) from design (templates), making large sites easier to maintain and update.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span> like Netlify or Vercel can deploy your site automatically with one Git push. They generate preview URLs for every branch, roll back changes instantly, and handle <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-check')">Responsive Check</span> testing across device labs. This eliminates the need for manual FTP uploads and makes collaboration with team members seamless.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Version control (Git) is the professional standard for managing your project. Initialize a repository in your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span>, commit changes after each working feature, and push to GitHub. This gives you a backup, a historical record of every change, and the ability to experiment with new features on separate branches without affecting your live site.</p>
           </div>
         </section>
 
@@ -250,15 +318,15 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span> file is the default page every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">web server</span> looks for � if you don't have one, visitors may see a directory listing or a 404 error.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span> can be as simple as a hand-drawn sketch on paper � many professional designers still start with pen and paper before opening any software.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
+                <p class="text-sm text-theme-muted">A well-organized <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span> makes it easy to add new pages later � just create a new HTML file and link it from your navigation.</p>
               </div>
               
             

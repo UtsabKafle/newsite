@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,8 @@
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
   
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -204,13 +205,80 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
-            
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive web design</span> uses CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> rules like <code>@media (max-width: 768px)</code> to apply different styles at different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> widths. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span> meta tag tells the browser to scale the page to the device width, and a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fluid-layout')">Fluid Layout</span> uses percentage-based widths that stretch or shrink as the screen changes size.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">responsive web design</span> like a water balloon. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fluid-layout')">Fluid Layout</span> is the rubber &mdash; it stretches to fit whatever container it&rsquo;s in. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> rules are like knots you tie at specific sizes to change the balloon&rsquo;s shape. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span> meta tag is like the nozzle that tells the balloon how big it&rsquo;s allowed to get, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> widths are the points where the shape changes.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
-            
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Three core concepts power every responsive design:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> Conditions</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> can check screen width, device orientation (landscape or portrait), and user preferences like <code>prefers-color-scheme</code> for automatic dark mode support.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span> Configuration</h4>
+                <p class="mt-1 text-xs text-theme-muted">The <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> tag tells mobile browsers to render at the actual device width, not a zoomed-out desktop view.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> Strategy</h4>
+                <p class="mt-1 text-xs text-theme-muted">Choose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> values based on your content, not specific devices. Common ranges: mobile (up to 640px), tablet (641-1024px), and desktop (1025px+).</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key Responsive Techniques</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">These techniques work together to create layouts that adapt to any screen size:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span></p>
+                <p class="text-sm text-theme-muted">A CSS rule that applies styles conditionally based on device characteristics like width, height, orientation, or resolution. Use <code>@media (min-width: 768px) { ... }</code> to target larger screens.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span></p>
+                <p class="text-sm text-theme-muted">The visible area of a webpage on a device screen, measured in CSS pixels. Mobile viewports are typically 360-414px wide, while desktop viewports range from 1024-1920px.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span></p>
+                <p class="text-sm text-theme-muted">A specific screen width where the layout changes. Rather than targeting all devices, pick breakpoints that match when your content starts to look cramped or stretched.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fluid-layout')">Fluid Layout</span></p>
+                <p class="text-sm text-theme-muted">Uses percentage-based widths (<code>width: 100%</code>, <code>max-width: 1200px</code>) instead of fixed pixel sizes. Elements stretch or shrink proportionally as the viewport changes size.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-first')">Mobile First</span></p>
+                <p class="text-sm text-theme-muted">A design strategy that starts with the narrowest layout as the default CSS, then uses <code>min-width</code> media queries to add complexity for larger screens. This loads faster on mobile and scales up gracefully.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flexible-image')">Flexible Image</span></p>
+                <p class="text-sm text-theme-muted">Images that scale within their containers using CSS rules like <code>max-width: 100%</code> and <code>height: auto</code>. This prevents images from overflowing their parent on small screens.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Building Responsively</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Start every responsive project by adding the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span> meta tag to your HTML <code>&lt;head&gt;</code>. Write your base CSS for the narrowest screen (mobile first), using a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fluid-layout')">Fluid Layout</span> with percentage-based widths and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flexible-image')">Flexible Image</span> sizing. Then add <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> rules at your chosen <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> widths to enhance the layout for larger screens. Test on real devices or use browser DevTools&rsquo; responsive mode to verify every breakpoint.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Don&rsquo;t target specific devices with your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> values. Instead, resize your browser window slowly and add a breakpoint whenever the layout starts to look broken. This creates a design that works on any screen, not just the most popular phones and tablets.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern responsive patterns use container queries (<code>@container</code>) instead of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span>-based <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> rules. Container queries allow a component to respond to its parent element&rsquo;s size rather than the screen width, making truly reusable responsive components possible &mdash; the same card component can appear in a narrow sidebar or a wide main column and adapt independently.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-first')">Mobile First</span> approach combined with a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fluid-layout')">Fluid Layout</span> and appropriately sized <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flexible-image')">Flexible Image</span> assets dramatically reduces the number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> rules needed. Instead of writing many specific rules, you write a resilient base and only override what needs to change at each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span>.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Performance in responsive design matters: use <code>&lt;picture&gt;</code> elements with <code>srcset</code> attributes to serve different image resolutions based on screen width and pixel density. Pair this with lazy loading (<code>loading="lazy"</code>) so offscreen images don&rsquo;t consume bandwidth, ensuring fast initial page loads on mobile networks.</p>
           </div>
         </section>
 
@@ -250,15 +318,15 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span> is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('media-query')">Media Query</span> can check screen width, device orientation, and even user preferences like reduced motion or dark mode.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span> to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('viewport')">Viewport</span> meta tag (<code>&lt;meta name="viewport"&gt;</code>) was introduced by Apple in 2007 for the iPhone and is now used by every responsive website.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
+                <p class="text-sm text-theme-muted">A common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('breakpoint')">Breakpoint</span> for tablets is 768px, while desktops start at 1024px � but the best breakpoints depend on your actual content, not device sizes.</p>
               </div>
               
             
@@ -266,7 +334,7 @@
                 <p class="text-sm text-theme-muted">Over 60% of web traffic now comes from mobile devices, which is why responsive design is essential.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The term responsive web design was coined by Ethan Marcotte in 2010 and revolutionized how we build websites.</p>
+                <p class="text-sm text-theme-muted">The term <span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-web-design')">Responsive Web Design</span> was coined by Ethan Marcotte in 2010 and revolutionized how we build websites.</p>
               </div>
 </div>
           </div>

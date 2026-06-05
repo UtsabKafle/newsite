@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Robots are grouped into various classes based on their locomotion, size, and environment, including mobile wheel-bots, aerial drones, and industrial arm manipulators.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Robots are grouped into various classes based on their locomotion, size, and environment, including mobile wheel-bots, aerial drones, and industrial arm manipulators. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('types-of-robots')">Types of Robots</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,7 +212,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">When you picture a robot, what comes to mind? Maybe a metal humanoid walking on two legs, or a giant mechanical arm welding a car chassis. The truth is, robots come in an astonishing variety of shapes and sizes, each designed for a specific purpose. From the rovers exploring Mars to the tiny surgical tools inside an operating room, the types of robots are as diverse as the tasks they perform.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">When you picture a robot, what comes to mind? Maybe a metal humanoid walking on two legs, or a giant mechanical arm welding a car chassis. The truth is, robots come in an astonishing variety of shapes and sizes, each designed for a specific purpose. From the rovers exploring Mars to the tiny surgical tools inside an operating room, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('types-of-robots')">Types of Robots</span> are as diverse as the tasks they perform.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Roboticists classify robots by several characteristics: how they move (locomotion), what they do (application), where they operate (environment), and how they are controlled (autonomy). Understanding these categories helps engineers choose the right robot for the right job. A robot that works well in a factory would be useless on a bumpy Martian surface, and vice versa.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore the major categories of robots — industrial, mobile, aerial, underwater, medical, and consumer — and learn how each type is uniquely suited to its environment and mission.</p>
           </div>

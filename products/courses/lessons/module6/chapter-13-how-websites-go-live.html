@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,8 @@
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
   
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -204,13 +205,80 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('how-websites-go-live')">How Websites Go Live</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
-            
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">To make a website live, you register a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> through a registrar and configure the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> to point to your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span>. Files are uploaded via an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ftp-client')">FTP Client</span> or a web-based control panel. The server then delivers your HTML, CSS, and JavaScript files to browsers around the world.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of launching a website like moving into a new house. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> is your street address, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is the postal service that directs mail to your house, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span> is the house itself where your belongings (files) live, an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ftp-client')">FTP Client</span> is the moving truck that brings your furniture in, and an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> is the lock on your front door that keeps data secure.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('how-websites-go-live')">How Websites Go Live</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
-            
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">When a website goes live, several systems work together behind the scenes:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> Registration</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> is rented annually through a registrar. Choose a name that matches your brand, and pick the right extension (.com, .org, .net) based on your site&rsquo;s purpose.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> Resolution</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> acts like a global phonebook. When someone types your domain, DNS servers look up the matching IP address and route the browser to your server in milliseconds.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> Encryption</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> encrypts data between the browser and server, shown by the padlock icon. It&rsquo;s required for HTTPS and improves search engine rankings.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key Deployment Components</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every website launch requires coordinating these essential pieces:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span></p>
+                <p class="text-sm text-theme-muted">The human-readable address users type in their browser (e.g., <code>consica.academy</code>). Domains are hierarchical &mdash; <code>.com</code> is a top-level domain, <code>consica</code> is the second-level name you register.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></p>
+                <p class="text-sm text-theme-muted">The Domain Name System translates human-readable names into machine IP addresses. When you update DNS records (A records, CNAME records), changes can take up to 48 hours to propagate worldwide.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ftp-client')">FTP Client</span></p>
+                <p class="text-sm text-theme-muted">File Transfer Protocol software like FileZilla or Cyberduck used to upload and manage website files on the server. Modern alternatives include Git-based deployment and web-based file managers in hosting control panels.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span></p>
+                <p class="text-sm text-theme-muted">A digital certificate that enables HTTPS encryption. Let&rsquo;s Encrypt provides free automated certificates that renew every 90 days, making SSL accessible to everyone.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span></p>
+                <p class="text-sm text-theme-muted">A computer running 24/7 that stores website files and delivers them via HTTP/HTTPS. Popular web server software includes Apache, Nginx, and cloud platforms like AWS or Netlify.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cdn')">CDN</span></p>
+                <p class="text-sm text-theme-muted">A Content Delivery Network distributes cached copies of your site across multiple geographic locations. Visitors download from the nearest server, reducing load times and server strain.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Going Live Step by Step</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">First, purchase a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> from a registrar and sign up for a hosting plan that provides a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span>. Upload your HTML, CSS, and image files using an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ftp-client')">FTP Client</span> or your hosting provider&rsquo;s file manager. Configure the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> records to point your domain to the server&rsquo;s IP address, then install an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> to enable HTTPS. Finally, enable a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cdn')">CDN</span> for faster global delivery and test your site from multiple devices.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">For beginners, use an all-in-one platform like Netlify or Vercel that handles <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span> setup, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> provisioning, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cdn')">CDN</span> distribution automatically. You can connect your domain and upload files with a Git push &mdash; no manual server configuration or FTP needed.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('how-websites-go-live')">How Websites Go Live</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern deployment workflows use Git-based CI/CD pipelines that automatically sync files to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-server')">Web Server</span> on every commit. Tools like GitHub Actions or GitLab CI build your site, run tests, and deploy seamlessly &mdash; eliminating manual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ftp-client')">FTP Client</span> uploads and reducing human error.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cdn')">CDN</span> like Cloudflare or Fastly serves cached content from edge nodes located worldwide. This reduces latency significantly &mdash; a visitor in Tokyo downloads your site from a Tokyo edge server rather than a server in New York. CDNs also provide DDoS protection and traffic analytics.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> management is now fully automated with Let&rsquo;s Encrypt and the ACME protocol. The certificate auto-renews before expiry, and services like Netlify or Vercel handle the entire process &mdash; including <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> verification, certificate installation, and HTTP-to-HTTPS redirects &mdash; out of the box with zero configuration.</p>
           </div>
         </section>
 
@@ -250,15 +318,15 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('how-websites-go-live')">How Websites Go Live</span> is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">Over 370 million <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> registrations exist worldwide, and new ones are added every second.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('how-websites-go-live')">How Websites Go Live</span> to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> system processes billions of queries per day and is often called the "phonebook of the internet."</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
+                <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssl-certificate')">SSL Certificate</span> not only encrypts data but also improves SEO � Google ranks HTTPS sites higher than HTTP-only ones.</p>
               </div>
               
             

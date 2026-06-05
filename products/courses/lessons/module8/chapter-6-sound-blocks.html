@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound blocks</span> are instructions that play audio files, adjust volume percentages, or change pitch rate metrics.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound blocks</span> are instructions that play audio files, adjust volume percentages, or change pitch rate metrics. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound Blocks</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,8 +212,8 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sound is a powerful tool for creating engaging Scratch projects. A game without sound feels flat and lifeless. Add a jump sound, a coin-collect jingle, or background music, and suddenly your project comes alive. Sound blocks in Scratch let you play, control, and manipulate audio to enhance your games, animations, and stories.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sound blocks are in the pink Sound category. They include blocks to play sounds, control volume, change tempo, and use the text-to-speech and music extensions. You can record your own sounds, import audio files, or choose from Scratch's built-in sound library. Sound adds emotional impact, provides feedback to the player, and creates atmosphere.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sound is a powerful tool for creating engaging Scratch projects. A game without sound feels flat and lifeless. Add a jump sound, a coin-collect jingle, or background music, and suddenly your project comes alive. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound Blocks</span> in Scratch let you play, control, and manipulate audio to enhance your games, animations, and stories.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound Blocks</span> are in the pink Sound category. They include blocks to play sounds, control volume, change tempo, and use the text-to-speech and music extensions. You can record your own sounds, import audio files, or choose from Scratch's built-in sound library. Sound adds emotional impact, provides feedback to the player, and creates atmosphere.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to play sounds, control volume and tempo, use the sound editor, and incorporate music into your projects. By the end, you will know how to make your projects sound as good as they look.</p>
           </div>
         </section>
@@ -226,7 +226,7 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of sound blocks like a DJ's mixing board. 'Play sound' is like pressing play on a track. 'Stop all sounds' is like hitting the mute button. Volume control is like the fader slider. The tempo control is like the BPM adjuster. And just as a DJ can layer multiple tracks, you can start multiple sounds simultaneously to create rich audio experiences.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sound-blocks')">Sound Blocks</span> like a DJ's mixing board. 'Play sound' is like pressing play on a track. 'Stop all sounds' is like hitting the mute button. Volume control is like the fader slider. The tempo control is like the BPM adjuster. And just as a DJ can layer multiple tracks, you can start multiple sounds simultaneously to create rich audio experiences.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
@@ -241,7 +241,7 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Text-to-Speech extension allows sprites to speak any text aloud using synthesized speech. It offers a 'speak ()' block and voice selection (male, female, or alto). This is incredibly powerful for creating talking characters, read-aloud stories, and accessibility features. The speech synthesis happens in real-time using browser or system TTS capabilities.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Loudness sensor (in the Sensing category) measures the volume of sound detected by your computer's microphone. It returns a value from 0 to 100. You can use this to create sound-controlled projects — for example, a game where you blow into the microphone to move a character (like a flute or whistle game). This sensing block makes Scratch responsive to the physical world.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Loudness sensor (in the Sensing category) measures the volume of sound detected by your computer's microphone. It returns a value from 0 to 100. You can use this to create sound-controlled projects — for example, a game where you blow into the microphone to move a character (like a flute or whistle game). This <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> makes Scratch responsive to the physical world.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sound can be combined with motion for interesting effects. For example, you can use the 'loudness' sensor to control sprite size: as the sound gets louder, the sprite grows. Or you can synchronize sprite movements with music beats using tempo and timing. These combinations create projects that respond dynamically to audio input or that create audiovisual performances.</p>
           </div>
         </section>
@@ -321,7 +321,7 @@
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The microphone cannot be used in Scratch.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Scratch has a 'loudness' sensing block that measures microphone input. It can be used to create projects controlled by sound, though it measures volume level, not specific words.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Scratch has a 'loudness' <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> that measures microphone input. It can be used to create projects controlled by sound, though it measures volume level, not specific words.</p>
             </div>
             </div>
           </div>

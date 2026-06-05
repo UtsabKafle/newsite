@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Building a game involves designing layouts, mapping score variables, programming loops, and debugging collision scripts.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Building a game involves designing layouts, mapping score variables, programming loops, and debugging collision scripts. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-own-game')">Build Your Own Game</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,7 +212,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">You have learned about sprites, motion, looks, sounds, events, loops, conditions, variables, broadcasts, game logic, and animation. Now it is time to put it all together and build your own game. Building a complete game from start to finish is the most rewarding experience in Scratch programming. It challenges you to apply everything you have learned, solve new problems, and express your creativity.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">You have learned about sprites, motion, looks, sounds, events, loops, conditions, variables, broadcasts, game logic, and animation. Now it is time to put it all together and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-own-game')">Build Your Own Game</span>. Building a complete game from start to finish is the most rewarding experience in Scratch programming. It challenges you to apply everything you have learned, solve new problems, and express your creativity.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Building a game is not just about writing code. It involves planning, designing, testing, and refining. Professional game developers follow a process: concept (what is the game idea?), design (how will it work?), prototyping (build a simple version), playtesting (try it and get feedback), iteration (fix problems and improve), and polish (add final touches). You will follow this same process, scaled to your level.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will design and build a complete game from scratch. You will start with an idea, plan the game mechanics, build it step by step, test it, and add polish. By the end, you will have a finished game that you can share, play, and remix. More importantly, you will have the confidence to build any game you can imagine.</p>
           </div>

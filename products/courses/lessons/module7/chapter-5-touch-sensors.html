@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch sensors</span> are micro-switches or bumpers that close an electrical circuit when physical pressure is applied, signaling a collision.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch sensors</span> are micro-switches or bumpers that close an electrical circuit when physical pressure is applied, signaling a collision. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine navigating a room with your eyes closed. You would stretch out your arms, feeling for walls and furniture to avoid bumping into them. This is exactly how a robot with touch sensors operates. Touch sensors, also called tactile sensors, allow robots to detect physical contact with objects. They are among the simplest and most reliable sensors in robotics.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Touch sensors come in many forms, from simple mechanical button switches that detect a single press to advanced pressure-sensitive arrays that can measure exactly where and how hard something is touching. Despite their simplicity, touch sensors are essential for tasks like gripping objects, detecting collisions, and navigating tight spaces where other sensors might fail.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore how touch sensors work, the different types available, and how robots use them to interact with the physical world. You will also learn why touch is often the sensor of last resort — used when all other sensors have failed to detect an obstacle.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine navigating a room with your eyes closed. You would stretch out your arms, feeling for walls and furniture to avoid bumping into them. This is exactly how a robot with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> operates. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span>, also called tactile sensors, allow robots to detect physical contact with objects. They are among the simplest and most reliable sensors in robotics.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> come in many forms, from simple mechanical button switches that detect a single press to advanced pressure-sensitive arrays that can measure exactly where and how hard something is touching. Despite their simplicity, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> are essential for tasks like gripping objects, detecting collisions, and navigating tight spaces where other sensors might fail.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> work, the different types available, and how robots use them to interact with the physical world. You will also learn why touch is often the sensor of last resort — used when all other sensors have failed to detect an obstacle.</p>
           </div>
         </section>
 
@@ -222,15 +222,15 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The simplest touch sensor is a mechanical switch, like the buttons on a keyboard or game controller. When pressed, two metal contacts touch each other, completing an electrical circuit. The controller detects the voltage change and knows the switch has been activated. This is a digital signal — it is either on or off with no information about how hard the button is pressed.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">More advanced touch sensors use pressure-sensitive materials. One common material is force-sensitive resistor (FSR) — a special polymer that changes its electrical resistance when squeezed. When no force is applied, the resistance is very high (millions of ohms). As pressure increases, the resistance drops. The controller measures this resistance to determine how hard the robot is being touched.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">More advanced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> use pressure-sensitive materials. One common material is force-sensitive resistor (FSR) — a special polymer that changes its electrical resistance when squeezed. When no force is applied, the resistance is very high (millions of ohms). As pressure increases, the resistance drops. The controller measures this resistance to determine how hard the robot is being touched.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of touch sensors like the whiskers of a cat. A cat uses its whiskers to detect whether it can fit through an opening. The whiskers brush against the sides, and the cat feels the contact. Robot whiskers — long flexible wires attached to a switch — work exactly the same way. When the whisker bends, the switch activates, telling the robot it has touched something.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> like the whiskers of a cat. A cat uses its whiskers to detect whether it can fit through an opening. The whiskers brush against the sides, and the cat feels the contact. Robot whiskers — long flexible wires attached to a switch — work exactly the same way. When the whisker bends, the switch activates, telling the robot it has touched something.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Capacitive touch sensors work by detecting changes in electrical capacitance (the ability to store electrical charge). When a human finger approaches a capacitive sensor, it changes the electric field around the sensor. This is how smartphone touchscreens work — they detect the presence of your finger without any physical pressure. Robots use capacitive sensors for applications where even a light touch must be detected.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Capacitive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> work by detecting changes in electrical capacitance (the ability to store electrical charge). When a human finger approaches a capacitive sensor, it changes the electric field around the sensor. This is how smartphone touchscreens work — they detect the presence of your finger without any physical pressure. Robots use capacitive sensors for applications where even a light touch must be detected.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">A bumper switch is a large mechanical switch mounted on the front of a mobile robot. When the robot rolls into an obstacle, the bumper is pushed in, activating the switch. This is a common safety feature — when the bumper is triggered, the robot immediately stops and reverses direction. Bumper switches are simple, cheap, and very reliable, making them popular in beginner robotics.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Tactile sensor arrays consist of many tiny pressure sensors arranged in a grid, like the pixels on a screen. Each sensor in the array reports the pressure at that location. The robot can then determine not just that it is touching something, but the exact shape and orientation of the object. Robotic hands use tactile arrays to grip objects without dropping or crushing them.</p>
 
@@ -240,7 +240,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Piezoelectric touch sensors generate a small electric voltage when they are deformed by pressure. This means they can detect not just touch, but also vibration and rapid changes in force. Piezoelectric sensors are used in microphones, musical instrument pickups, and knock sensors that detect impacts. They require no external power to generate a signal, making them useful for energy-efficient designs.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Piezoelectric <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> generate a small electric voltage when they are deformed by pressure. This means they can detect not just touch, but also vibration and rapid changes in force. Piezoelectric sensors are used in microphones, musical instrument pickups, and knock sensors that detect impacts. They require no external power to generate a signal, making them useful for energy-efficient designs.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Strain gauges are thin foil patterns that change electrical resistance when stretched or compressed. By attaching a strain gauge to a robot's gripper, the robot can measure exactly how much force it is applying to an object. This allows delicate operations like picking up an egg without cracking it. Strain gauges are also used in robot joints to measure the torque being applied.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Skin-like electronic sensors, sometimes called e-skin, are flexible sheets embedded with multiple sensor types. They can detect pressure, temperature, and even texture simultaneously. Researchers are developing e-skin that can sense the difference between silk and sandpaper. Future robots with e-skin will be able to handle objects with near-human dexterity and sensitivity.</p>
           </div>
@@ -273,31 +273,31 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The first robot touch sensors were actual whiskers made from piano wire. They were used on early experimental robots in the 1950s.</p>
+              <p class="text-sm text-theme-muted">The first robot <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> were actual whiskers made from piano wire. They were used on early experimental robots in the 1950s.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Some touch sensors can detect forces as small as a few millinewtons — lighter than a single grain of rice resting on the sensor.</p>
+              <p class="text-sm text-theme-muted">Some <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> can detect forces as small as a few millinewtons — lighter than a single grain of rice resting on the sensor.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Robotic surgical systems use force feedback touch sensors so surgeons can feel how much pressure they are applying during remote operations.</p>
+              <p class="text-sm text-theme-muted">Robotic surgical systems use force feedback <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> so surgeons can feel how much pressure they are applying during remote operations.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The touch sensors in a smartphone screen can detect your finger even when you are wearing thin gloves, thanks to capacitive sensing technology.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> in a smartphone screen can detect your finger even when you are wearing thin gloves, thanks to capacitive sensing technology.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Some industrial robot grippers have touch sensors that can detect a sheet of paper — just 0.1 mm thick — between their fingers.</p>
+              <p class="text-sm text-theme-muted">Some industrial robot grippers have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> that can detect a sheet of paper — just 0.1 mm thick — between their fingers.</p>
             </div>
             </div>
           </div>
@@ -308,20 +308,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Touch sensors only detect hard pressure.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Modern touch sensors can detect incredibly light touches, including the weight of a feather. Capacitive sensors can even detect a finger approaching before physical contact occurs.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> only detect hard pressure.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> can detect incredibly light touches, including the weight of a feather. Capacitive sensors can even detect a finger approaching before physical contact occurs.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A button switch is always a touch sensor.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> While a button does detect touch, it only provides on/off information. True touch sensors measure continuous values like pressure, location, and sometimes temperature.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> While a button does detect touch, it only provides on/off information. True <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> measure continuous values like pressure, location, and sometimes temperature.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Touch sensors are obsolete because we have cameras.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cameras cannot work in darkness, through smoke, or in dusty environments. Touch sensors remain essential for robots operating in challenging conditions where vision fails.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> are obsolete because we have cameras.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cameras cannot work in darkness, through smoke, or in dusty environments. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> remain essential for robots operating in challenging conditions where vision fails.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All touch sensors work the same way.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> There are at least six different physical principles used in touch sensors: resistive, capacitive, piezoelectric, inductive, optical, and magnetic. Each has unique advantages.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span> work the same way.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> There are at least six different physical principles used in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('touch-sensors')">Touch Sensors</span>: resistive, capacitive, piezoelectric, inductive, optical, and magnetic. Each has unique advantages.</p>
             </div>
             </div>
           </div>

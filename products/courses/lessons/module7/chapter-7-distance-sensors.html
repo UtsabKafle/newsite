@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance sensors</span> use ultrasonic sound waves or infrared light beams to calculate the distance to a physical obstacle.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance sensors</span> use ultrasonic sound waves or infrared light beams to calculate the distance to a physical obstacle. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">How does a robot know when it is about to bump into a wall? How does a self-driving car keep a safe distance from the car ahead? The answer is distance sensors — devices that measure how far away objects are without physical contact. Distance sensors are the robot's way of seeing the shape of the world around it, even in total darkness.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Distance sensors use various physical principles to measure range. Some bounce sound waves off objects and measure the time it takes for the echo to return. Others use laser light to measure distance with incredible precision. Some use simple trigonometry, projecting a spot of light and measuring where it appears from a different angle. Each method has its strengths and weaknesses.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn about the three most common distance sensors used in robotics: ultrasonic (using sound), infrared (using light), and lidar (using lasers). You will understand how each one works, where it excels, and where it falls short.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">How does a robot know when it is about to bump into a wall? How does a self-driving car keep a safe distance from the car ahead? The answer is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> — devices that measure how far away objects are without physical contact. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> are the robot's way of seeing the shape of the world around it, even in total darkness.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> use various physical principles to measure range. Some bounce sound waves off objects and measure the time it takes for the echo to return. Others use laser light to measure distance with incredible precision. Some use simple trigonometry, projecting a spot of light and measuring where it appears from a different angle. Each method has its strengths and weaknesses.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn about the three most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> used in robotics: ultrasonic (using sound), infrared (using light), and lidar (using lasers). You will understand how each one works, where it excels, and where it falls short.</p>
           </div>
         </section>
 
@@ -231,7 +231,7 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Ultrasonic sensors have a cone-shaped detection area, typically 15 to 30 degrees wide. This means they cannot detect objects outside this cone. It also means they cannot tell exactly where within the cone an object is located — just that something is there at a certain distance. The cone widens with distance, so a small object near the edge of the cone might be missed far away.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">IR distance sensors use triangulation rather than echo timing. An IR LED emits a beam of infrared light, and a position-sensitive detector (PSD) measures where the reflected beam lands. As the object moves closer or farther, the reflected beam hits a different spot on the detector. By measuring the spot's position, the sensor calculates the distance. This method works well for short ranges (10 cm to 2 meters).</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">IR <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> use triangulation rather than echo timing. An IR LED emits a beam of infrared light, and a position-sensitive detector (PSD) measures where the reflected beam lands. As the object moves closer or farther, the reflected beam hits a different spot on the detector. By measuring the spot's position, the sensor calculates the distance. This method works well for short ranges (10 cm to 2 meters).</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Lidar (Light Detection and Ranging) uses laser pulses and measures their return time, like ultrasonic but with light instead of sound. Because light travels incredibly fast (300 million meters per second), lidar can measure very long distances and create detailed 3D maps. A rotating lidar can scan 360 degrees around the robot, generating a point cloud of thousands of distance measurements every second.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -308,20 +308,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Distance sensors can detect any object.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Very thin objects, soft objects (like fabric), and transparent objects (like glass) are difficult for distance sensors to detect reliably. A glass window might be invisible to an ultrasonic sensor.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> can detect any object.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Very thin objects, soft objects (like fabric), and transparent objects (like glass) are difficult for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> to detect reliably. A glass window might be invisible to an ultrasonic sensor.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Lidar works in all weather conditions.</p>
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Heavy rain, fog, and snow can scatter laser light, reducing lidar's effective range and accuracy. This is a major challenge for self-driving cars operating in bad weather.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All distance sensors measure the same way.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> measure the same way.</p>
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Ultrasonic uses sound, IR uses triangulation, lidar uses laser time-of-flight. Each has different range, accuracy, speed, and cost. No single sensor type works best in all situations.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A distance sensor gives the exact shape of an object.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most distance sensors only report the distance to the nearest object in their detection cone. They cannot determine whether the object is a wall, a person, or a box — only how far away it is.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('distance-sensors')">Distance Sensors</span> only report the distance to the nearest object in their detection cone. They cannot determine whether the object is a wall, a person, or a box — only how far away it is.</p>
             </div>
             </div>
           </div>

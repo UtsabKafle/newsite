@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are control structures (If-Then, If-Then-Else) that execute code paths only when specified criteria (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">sensing</span> touch, comparisons) are true.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are control structures (If-Then, If-Then-Else) that execute code paths only when specified criteria (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">sensing</span> touch, comparisons) are true. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Life is full of decisions. If it is raining, you take an umbrella. If you are hungry, you eat. If a traffic light is red, you stop. Computers make decisions too, using a programming concept called conditions. Conditions let your program choose different paths based on different situations. Without conditions, your program would do the same thing every time, regardless of what is happening.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions use true/false questions called Boolean expressions. Is the score greater than 10? Is this sprite touching that sprite? Is the space bar pressed? Each question evaluates to either true or false. Depending on the answer, the program can run different blocks. Conditions are what make games interactive — they determine when you score, when you lose, when an enemy chases you, and when you level up.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use 'if' and 'if-else' blocks, understand Boolean expressions, combine conditions with 'and', 'or', and 'not', and use conditions to create intelligent behaviors in your projects. By the end, you will be able to make sprites that react differently in different situations.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Life is full of decisions. If it is raining, you take an umbrella. If you are hungry, you eat. If a traffic light is red, you stop. Computers make decisions too, using a programming concept called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> let your program choose different paths based on different situations. Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span>, your program would do the same thing every time, regardless of what is happening.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> use true/false questions called Boolean expressions. Is the score greater than 10? Is this sprite touching that sprite? Is the space bar pressed? Each question evaluates to either true or false. Depending on the answer, the program can run different blocks. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are what make games interactive — they determine when you score, when you lose, when an enemy chases you, and when you level up.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use 'if' and 'if-else' blocks, understand Boolean expressions, combine <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> with 'and', 'or', and 'not', and use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> to create intelligent behaviors in your projects. By the end, you will be able to make sprites that react differently in different situations.</p>
           </div>
         </section>
 
@@ -226,23 +226,23 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of conditions like a fork in the road. When you reach a fork, you check a condition: 'Do I need to go to school today?' If yes, you take the left path (to school). If no, you take the right path (to the park). The 'if' block is like a simple fork with one path (go to school or stay home). The 'if-else' block is a fork where both paths lead somewhere different.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> like a fork in the road. When you reach a fork, you check a condition: 'Do I need to go to school today?' If yes, you take the left path (to school). If no, you take the right path (to the park). The 'if' block is like a simple fork with one path (go to school or stay home). The 'if-else' block is a fork where both paths lead somewhere different.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Boolean expressions can be combined using 'and', 'or', and 'not' operators (in the Operators category). 'And' requires all conditions to be true. 'Or' requires at least one condition to be true. 'Not' reverses the result (true becomes false, false becomes true). For example: 'if <<touching [edge]?> and <(score) > [100]>> then [show win message]' — the player wins only if they are touching the edge AND have a score over 100.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Comparison operators — greater than (>), less than (<), and equals (=) — are used to compare values. These are also in the Operators category. You can compare numbers (score > 10), variables (lives = 0), or sensor values (loudness > 50). These comparisons produce Boolean values (true/false) that can be used as conditions in 'if' blocks.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions are most powerful when combined with loops. A common pattern is the game loop: a 'forever' loop containing multiple 'if' blocks that check for different conditions each frame. One 'if' checks for key presses, another checks for collisions, another checks for score thresholds. This pattern — read inputs, update state, check rules — is the foundation of almost every game.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Boolean expressions can be combined using 'and', 'or', and 'not' operators (in the Operators category). 'And' requires all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> to be true. 'Or' requires at least one condition to be true. 'Not' reverses the result (true becomes false, false becomes true). For example: 'if <<touching [edge]?> and <(score) > [100]>> then [show win message]' — the player wins only if they are touching the edge AND have a score over 100.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Comparison operators — greater than (>), less than (<), and equals (=) — are used to compare values. These are also in the Operators category. You can compare numbers (score > 10), variables (lives = 0), or sensor values (loudness > 50). These comparisons produce Boolean values (true/false) that can be used as <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> in 'if' blocks.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are most powerful when combined with loops. A common pattern is the game loop: a 'forever' loop containing multiple 'if' blocks that check for different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> each frame. One 'if' checks for key presses, another checks for collisions, another checks for score thresholds. This pattern — read inputs, update state, check rules — is the foundation of almost every game.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The condition in an 'if' block is checked only at the moment the block is reached. If the condition changes later, the 'if' block does not re-check — it already made its decision. This is why conditions are typically placed inside loops, so they are checked repeatedly and can respond to changing situations.</p>
+              <p class="text-sm text-theme-muted">The condition in an 'if' block is checked only at the moment the block is reached. If the condition changes later, the 'if' block does not re-check — it already made its decision. This is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are typically placed inside loops, so they are checked repeatedly and can respond to changing situations.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested conditions — an 'if' block inside another 'if' block — allow for multi-level decision making. For example, 'if <key pressed?> then [if <(score) > [10]> then [super jump] else [normal jump] else [wait]'. Nested conditions can model complex decision trees, but they can become hard to read. Use 'and'/'or' to combine conditions where possible for cleaner code.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> — an 'if' block inside another 'if' block — allow for multi-level decision making. For example, 'if <key pressed?> then [if <(score) > [10]> then [super jump] else [normal jump] else [wait]'. Nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> can model complex decision trees, but they can become hard to read. Use 'and'/'or' to combine <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> where possible for cleaner code.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The '<touching [sprite]?>' block uses pixel-perfect collision detection. It checks whether any non-transparent pixel of the current sprite overlaps with any non-transparent pixel of the target sprite or color. This is more accurate than bounding-box collision but also more computationally expensive. For projects with many sprites, bounding box approximations using position comparisons can improve performance.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions are related to Boolean logic created by George Boole in the 19th century. Boolean algebra is the foundation of digital circuit design and all computer decision-making. Every 'if' block you use in Scratch ultimately relies on the same logical principles that govern computer processors, search engines, and artificial intelligence systems.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are related to Boolean logic created by George Boole in the 19th century. Boolean algebra is the foundation of digital circuit design and all computer decision-making. Every 'if' block you use in Scratch ultimately relies on the same logical principles that govern computer processors, search engines, and artificial intelligence systems.</p>
           </div>
         </section>
 
@@ -291,13 +291,13 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Conditions can be chained: 'if (condition1) then [if (condition2) then [action]]' creates a logical AND without using the 'and' operator.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> can be chained: 'if (condition1) then [if (condition2) then [action]]' creates a logical AND without using the 'and' operator.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The '<mouse down?>' sensing block provides a Boolean value that can be used as a condition, allowing click-and-drag interactions and mouse-based controls.</p>
+              <p class="text-sm text-theme-muted">The '<mouse down?>' <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> provides a Boolean value that can be used as a condition, allowing click-and-drag interactions and mouse-based controls.</p>
             </div>
             </div>
           </div>
@@ -309,15 +309,15 @@
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: An 'if' block can only check one condition.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> An 'if' block can check complex conditions using 'and', 'or', and 'not' operators. You can combine multiple conditions into a single check.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> An 'if' block can check complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> using 'and', 'or', and 'not' operators. You can combine multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> into a single check.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The 'else' part of an 'if-else' block is required.</p>
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The 'else' branch is optional. Use 'if' alone when you only need to do something when the condition is true, and nothing when it is false.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Conditions can only check user input.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Conditions can check anything: sprite positions, variable values, timers, sensor readings, colors, touch detection, and more.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> can only check user input.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> can check anything: sprite positions, variable values, timers, sensor readings, colors, touch detection, and more.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: If you use 'if-else', exactly one branch always runs.</p>

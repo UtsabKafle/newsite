@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -50,7 +50,8 @@
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
   
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -204,13 +205,80 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colors-fonts-and-styling')">Colors, Fonts and Styling</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
-            
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">CSS applies styling through selectors and declarations. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span> changes text color, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span> property selects the typeface, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('background-color')">Background Color</span> fills the space behind an element. Values can be specified as named colors, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span> values like #FF5733, or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span> tuples like rgb(255, 87, 51).</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of CSS styling like decorating a room. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span> is the paint colour you choose for the walls, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span> is the furniture style, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('background-color')">Background Color</span> is the carpet colour. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span> is like a precise paint swatch number, while an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span> is like mixing red, green, and blue paint in specific amounts.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colors-fonts-and-styling')">Colors, Fonts and Styling</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
-            
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Color systems on the web go beyond simple names. Each format has its own strengths:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200">Named Colors &amp; Hex Codes</h4>
+                <p class="mt-1 text-xs text-theme-muted">CSS supports 140+ named colors like "tomato" or "rebeccapurple". <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span> uses six hex digits for precise control, ideal for matching brand colours exactly.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200">RGB &amp; HSL Models</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span> defines each channel 0-255. HSL (hue, saturation, lightness) is more intuitive, letting you adjust lightness to create tints and shades without changing the hue.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-brand-200">Font Families &amp; Fallback Stacks</h4>
+                <p class="mt-1 text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span> accepts a priority list like <code>font-family: Arial, Helvetica, sans-serif</code>. The browser tries each font in order, ensuring text always displays even if a custom typeface fails to load.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key CSS Properties</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every webpage relies on these core CSS properties to control its appearance:</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span></p>
+                <p class="text-sm text-theme-muted">Changes the text colour of an element. Accepts named colors, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span>, or HSL. Use it for headings, paragraphs, links, and all inline text.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span></p>
+                <p class="text-sm text-theme-muted">Defines the typeface for text. Always include a fallback stack ending with a generic family (serif, sans-serif, monospace) so the page remains readable on any system.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('background-color')">Background Color</span></p>
+                <p class="text-sm text-theme-muted">Fills the rectangular area behind an element with a solid colour. Works on both block and inline elements, often paired with padding to create visually distinct sections.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('text-align')">Text Align</span></p>
+                <p class="text-sm text-theme-muted">Controls horizontal text positioning &mdash; <code>left</code>, <code>center</code>, <code>right</code>, or <code>justify</code>. This property is inherited, so setting it once on a container applies to all children.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Font Size</p>
+                <p class="text-sm text-theme-muted">Sets text size using <code>px</code> (fixed), <code>em</code> (relative to parent), or <code>rem</code> (relative to the root element). <code>rem</code> is recommended for accessibility as it respects user font-size settings.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">Line Height</p>
+                <p class="text-sm text-theme-muted">Controls vertical spacing between lines of text. A value of <code>1.5</code> to <code>1.8</code> improves readability. Unitless values are relative to the font size and are the preferred approach.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Applying Styles in Practice</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">To style a webpage, write CSS rules that target HTML elements. For example, <code>h1 { color: #1a365d; font-family: Georgia, serif; }</code> makes all top-level headings dark navy in a serif typeface. Group related properties together and use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span> for precision. Always test your colours against the background to ensure sufficient contrast for readability.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Use your browser DevTools (right-click &rarr; Inspect) to experiment with CSS properties live. Change <span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('background-color')">Background Color</span> values in the Styles panel and see results instantly before committing them to your code.</p>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colors-fonts-and-styling')">Colors, Fonts and Styling</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern CSS supports custom properties (CSS variables) declared with <code>--primary-color: #0959C8;</code> and used via <code>var(--primary-color)</code>. This lets you change a colour once and have it update everywhere on the site &mdash; a powerful pattern for theming and maintenance.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Font loading strategies like <code>@font-face</code> let you host custom typefaces on your own server. Pair this with <code>font-display: swap</code> so text remains visible while the font loads (avoiding invisible text during loading). Variable fonts go further &mdash; a single font file can contain multiple weights and widths, reducing HTTP requests and improving performance.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Tools like Tailwind CSS generate utility classes for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('background-color')">Background Color</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('text-align')">Text Align</span>, and hundreds more, all compiled into optimized CSS at build time. This shifts the developer&rsquo;s focus from naming CSS classes to composing designs directly in the HTML.</p>
           </div>
         </section>
 
@@ -250,15 +318,15 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colors-fonts-and-styling')">Colors, Fonts and Styling</span> is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('color-property')">Color Property</span> in CSS accepts over 140 named colors (like "tomato" or "rebeccapurple") in addition to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hex-code')">Hex Code</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rgb-value')">RGB Value</span> formats.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('colors-fonts-and-styling')">Colors, Fonts and Styling</span> to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">CSS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('font-family')">Font Family</span> stacks let you specify fallback typefaces � if the first font fails to load, the browser tries the next one in the list.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
+                <p class="text-sm text-theme-muted">The first CSS specification was proposed in 1994 by H�kon Wium Lie, and today CSS can animate gradients, apply filters, and even run 3D transforms.</p>
               </div>
               
             

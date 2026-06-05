@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}.vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}.vocab-table tr:hover td{background:rgba(9,89,200,.04)}.kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}.kb-check p{margin-bottom:.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}.vocab{color:#3b82f6;font-weight:500}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}.vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}.vocab-table tr:hover td{background:rgba(9,89,200,.04)}.kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}.kb-check p{margin-bottom:.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}#introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}</style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -94,7 +94,7 @@
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Images and links are what make the web visual and interconnected. The img tag embeds pictures, while the a tag creates hyperlinks that connect pages together, forming the web's structure.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Images and links are what make the web visual and interconnected. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('img')">img</span> tag embeds pictures, while the a tag creates hyperlinks that connect pages together, forming the web's structure.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Adding images makes content more engaging and helps communicate ideas visually. Links allow users to navigate between pages, download files, and interact with web applications.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to add images with proper attributes, create hyperlinks, open links in new tabs, and use images as clickable links.</p>
           </div>
@@ -104,18 +104,18 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The img tag is a void element that uses the src attribute to specify the image file path and the alt attribute to provide alternative text. The a tag wraps content and uses the href attribute to specify the destination URL. When clicked, the browser navigates to the linked address.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('img')">img</span> tag is a void element that uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('src')">src</span> attribute to specify the image file path and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute to provide alternative text. The a tag wraps content and uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('href')">href</span> attribute to specify the destination URL. When clicked, the browser navigates to the linked address.</p>
             </div>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of images as photographs pinned to a bulletin board. The src attribute tells you which photo to pin, and alt text is the caption written below it for people who cannot see. Links are like doors between rooms &mdash; each anchor tag is a door handle that opens the path to another page.</p>
+              <p class="text-sm text-theme-muted">Think of images as photographs pinned to a bulletin board. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('src')">src</span> attribute tells you which photo to pin, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text is the caption written below it for people who cannot see. Links are like doors between rooms &mdash; each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anchor')">Anchor</span> tag is a door handle that opens the path to another page.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Image Attributes</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
                 <h4 class="font-display font-semibold text-base text-brand-200">src (Source)</h4>
-                <p class="mt-2 text-sm text-theme-muted">Specifies the path or URL to the image file. This can be a relative path to a local file or an absolute URL to an external image.</p>
+                <p class="mt-2 text-sm text-theme-muted">Specifies the path or URL to the image file. This can be a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('relative-path')">Relative Path</span> to a local file or an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('absolute-url')">Absolute URL</span> to an external image.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg></div>
@@ -132,23 +132,23 @@
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Internal Links</p>
-                <p class="text-sm text-theme-muted">Point to other pages on the same website using relative paths. Example: a href=&quot;about.html&quot; links to about page within the same site.</p>
+                <p class="text-sm text-theme-muted">Point to other pages on the same website using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('relative-path')">Relative Path</span>. Example: a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('href')">href</span>=&quot;about.html&quot; links to about page within the same site.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">External Links</p>
-                <p class="text-sm text-theme-muted">Point to pages on other websites using full URLs. Use target=&quot;_blank&quot; to open in a new tab for external links.</p>
+                <p class="text-sm text-theme-muted">Point to pages on other websites using full URLs. Use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('target')">target</span>=&quot;_blank&quot; to open in a new tab for external links.</p>
               </div>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The alt attribute is not optional &mdash; it is required for valid HTML and critical for accessibility. Screen readers announce alt text so blind users understand the image content. If an image is purely decorative, use alt=&quot;&quot; (empty) so the screen reader skips it.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute is not optional &mdash; it is required for valid HTML and critical for accessibility. Screen readers announce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text so blind users understand the image content. If an image is purely decorative, use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span>=&quot;&quot; (empty) so the screen reader skips it.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Image file formats matter: JPEG for photographs (small file size, lossy compression), PNG for graphics with transparency (lossless), GIF for simple animations, SVG for scalable vector graphics, and WebP for modern high-compression web images.</p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Always provide meaningful alt text for informative images. Decorative images should have alt=&quot;&quot; to be ignored by screen readers. Never leave the alt attribute out.</p>
+              <p class="text-sm text-theme-muted">Always provide meaningful <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text for informative images. Decorative images should have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span>=&quot;&quot; to be ignored by screen readers. Never leave the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute out.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Image optimization is crucial for performance. Large images slow down page loading. Techniques include responsive images with the srcset attribute (serving different sizes for different screen widths), lazy loading with loading=&quot;lazy&quot;, and using next-gen formats like WebP with fallback via picture elements.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Links can point to email addresses (mailto:), phone numbers (tel:), and specific sections on a page using anchor fragments (#id). The rel attribute controls relationship metadata &mdash; rel=&quot;noopener noreferrer&quot; is recommended for external links opened in new tabs for security reasons.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Image optimization is crucial for performance. Large images slow down page loading. Techniques include responsive images with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('srcset')">srcset</span> attribute (serving different sizes for different screen widths), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lazy-loading')">Lazy Loading</span> with loading=&quot;lazy&quot;, and using next-gen formats like WebP with fallback via picture elements.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Links can point to email addresses (mailto:), phone numbers (tel:), and specific sections on a page using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anchor')">Anchor</span> fragments (#id). The rel attribute controls relationship metadata &mdash; rel=&quot;noopener noreferrer&quot; is recommended for external links opened in new tabs for security reasons.</p>
           </div>
         </section>
 

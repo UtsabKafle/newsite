@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light sensors</span> are resistors that change their electrical resistance based on the intensity of light falling on them.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light sensors</span> are resistors that change their electrical resistance based on the intensity of light falling on them. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Close your eyes and imagine a robot navigating a dark room. It cannot see, but it can still detect the difference between light and shadow. Light sensors give robots the ability to detect brightness, measure ambient light levels, and even distinguish colors. They are one of the most versatile and widely used sensors in robotics.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Light sensors work by converting light energy into electrical energy. Different types of light sensors use different physical effects. Photoresistors change resistance based on light intensity. Photodiodes generate a small current when exposed to light. Phototransistors amplify this current for easier measurement. Each type has strengths and weaknesses depending on the application.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will discover how light sensors work at the component level, how robots use them for tasks like line following and color detection, and how engineers choose the right light sensor for different environments and lighting conditions.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Close your eyes and imagine a robot navigating a dark room. It cannot see, but it can still detect the difference between light and shadow. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> give robots the ability to detect brightness, measure ambient light levels, and even distinguish colors. They are one of the most versatile and widely used sensors in robotics.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> work by converting light energy into electrical energy. Different types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> use different physical effects. Photoresistors change resistance based on light intensity. Photodiodes generate a small current when exposed to light. Phototransistors amplify this current for easier measurement. Each type has strengths and weaknesses depending on the application.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will discover how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> work at the component level, how robots use them for tasks like line following and color detection, and how engineers choose the right light sensor for different environments and lighting conditions.</p>
           </div>
         </section>
 
@@ -230,18 +230,18 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Photodiodes are more advanced light sensors that generate their own electrical current when exposed to light. Unlike LDRs, which are resistors that change value, photodiodes are like tiny solar cells. They produce a voltage proportional to light intensity. Photodiodes respond much faster than LDRs — they can detect changes in microseconds rather than milliseconds, making them suitable for high-speed applications like fiber optic communication.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Ambient light sensors are designed to measure the overall brightness of the environment, similar to the light sensor in a smartphone that automatically adjusts screen brightness. Robots use ambient light sensors to determine whether they are in a bright or dark room and adjust their behavior accordingly. A robot might move more cautiously in darkness or turn on its own headlights.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Photodiodes are more advanced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> that generate their own electrical current when exposed to light. Unlike LDRs, which are resistors that change value, photodiodes are like tiny solar cells. They produce a voltage proportional to light intensity. Photodiodes respond much faster than LDRs — they can detect changes in microseconds rather than milliseconds, making them suitable for high-speed applications like fiber optic communication.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Ambient <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> are designed to measure the overall brightness of the environment, similar to the light sensor in a smartphone that automatically adjusts screen brightness. Robots use ambient <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> to determine whether they are in a bright or dark room and adjust their behavior accordingly. A robot might move more cautiously in darkness or turn on its own headlights.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Color sensors use multiple photodiodes with different color filters. A typical color sensor has red, green, and blue filters, plus a clear (unfiltered) channel. By comparing the intensity of light in each color channel, the sensor can determine the color of a surface. This is how robots sort objects by color, follow colored lines, or identify colored markers.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The human eye can detect light levels over a range of 10 orders of magnitude — from starlight to direct sunlight. Most artificial light sensors cannot match this range. Engineers must choose sensors optimized for the specific lighting conditions their robot will encounter.</p>
+              <p class="text-sm text-theme-muted">The human eye can detect light levels over a range of 10 orders of magnitude — from starlight to direct sunlight. Most artificial <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> cannot match this range. Engineers must choose sensors optimized for the specific lighting conditions their robot will encounter.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Infrared (IR) sensors detect light wavelengths longer than visible red light. Humans cannot see IR light, but many robots use IR sensors as active distance detectors. An IR distance sensor emits a pulse of IR light and measures how much is reflected back. The amount of reflected light tells the robot how far away an object is. These sensors are commonly used for obstacle avoidance in mobile robots.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Ambient light rejection is an important consideration when using light sensors outdoors. Sunlight contains all colors and is extremely bright, which can overwhelm sensors. Engineers use optical filters, modulated light sources, and differential measurements to help sensors distinguish between the signal they care about and background illumination. A modulated IR sensor sends pulses at a specific frequency and only looks for reflections at that frequency.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Ambient light rejection is an important consideration when using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> outdoors. Sunlight contains all colors and is extremely bright, which can overwhelm sensors. Engineers use optical filters, modulated light sources, and differential measurements to help sensors distinguish between the signal they care about and background illumination. A modulated IR sensor sends pulses at a specific frequency and only looks for reflections at that frequency.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Quantum efficiency is the percentage of photons hitting a light sensor that actually produce a measurable electrical signal. High-quality photodiodes have quantum efficiencies exceeding 90%, meaning 9 out of every 10 photons are detected. Cheaper sensors might have efficiencies below 10%. This efficiency affects the sensor's sensitivity and minimum detectable light level.</p>
           </div>
         </section>
@@ -273,25 +273,25 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The first photoresistor was discovered in 1873 by Willoughby Smith, who noticed that selenium's electrical resistance changed when exposed to light. This led to the development of the first light sensors.</p>
+              <p class="text-sm text-theme-muted">The first photoresistor was discovered in 1873 by Willoughby Smith, who noticed that selenium's electrical resistance changed when exposed to light. This led to the development of the first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span>.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Some light sensors can detect a single photon — the smallest possible unit of light. These are used in scientific research to study quantum physics.</p>
+              <p class="text-sm text-theme-muted">Some <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> can detect a single photon — the smallest possible unit of light. These are used in scientific research to study quantum physics.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The Sun is about 100,000 lux (a unit of brightness) at the Earth's surface. A typical indoor room is about 500 lux. A moonlit night is less than 1 lux. Robot light sensors must handle this enormous range.</p>
+              <p class="text-sm text-theme-muted">The Sun is about 100,000 lux (a unit of brightness) at the Earth's surface. A typical indoor room is about 500 lux. A moonlit night is less than 1 lux. Robot <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> must handle this enormous range.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Light sensors in smartphone cameras can have millions of individual light-detecting pixels, each one acting as a tiny photodiode.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> in smartphone cameras can have millions of individual light-detecting pixels, each one acting as a tiny photodiode.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -308,8 +308,8 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Light sensors can see like human eyes.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Light sensors only measure brightness, not shapes, objects, or scenes. They cannot recognize faces or read text. They simply report how much light is hitting them.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> can see like human eyes.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> only measure brightness, not shapes, objects, or scenes. They cannot recognize faces or read text. They simply report how much light is hitting them.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A light sensor works the same in all lighting.</p>
@@ -320,8 +320,8 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> IR reflection depends on both distance AND the color and texture of the surface. A bright white surface reflects more IR than a dark black surface, which can confuse distance measurements.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All light sensors measure visible light.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Many light sensors detect infrared or ultraviolet light that humans cannot see. IR sensors are actually more common in robotics than visible-light sensors.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> measure visible light.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('light-sensors')">Light Sensors</span> detect infrared or ultraviolet light that humans cannot see. IR sensors are actually more common in robotics than visible-light sensors.</p>
             </div>
             </div>
           </div>

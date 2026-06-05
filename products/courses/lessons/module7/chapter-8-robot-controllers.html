@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot controller is a small computer on a single integrated circuit containing a processor core, memory, and programmable inputs/outputs.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot controller is a small computer on a single integrated circuit containing a processor core, memory, and programmable inputs/outputs. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-controllers')">Robot Controllers</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -213,36 +213,36 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">If sensors are the robot's senses and motors are its muscles, then the controller is its brain. The controller is the electronic component that processes sensor data, makes decisions, and sends commands to motors and other output devices. Without a controller, a robot is just a collection of parts — a controller brings it to life.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Controllers come in many forms, from simple circuit boards with basic chips to powerful single-board computers running full operating systems. The choice of controller depends on the robot's complexity, speed requirements, power constraints, and budget. A simple line-following robot might use a basic microcontroller, while a self-driving car needs multiple powerful computers working together.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore the different types of robot controllers, how they work at the hardware level, and how programmers write code that tells robots what to do. You will learn about microcontrollers, single-board computers, and the input/output systems that connect controllers to the rest of the robot.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Controllers come in many forms, from simple circuit boards with basic chips to powerful single-board computers running full operating systems. The choice of controller depends on the robot's complexity, speed requirements, power constraints, and budget. A simple line-following robot might use a basic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, while a self-driving car needs multiple powerful computers working together.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore the different types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-controllers')">Robot Controllers</span>, how they work at the hardware level, and how programmers write code that tells robots what to do. You will learn about <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, single-board computers, and the input/output systems that connect controllers to the rest of the robot.</p>
           </div>
         </section>
 
 <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A microcontroller is a complete computer system on a single chip. It contains a processor (the CPU that executes instructions), memory (RAM for temporary data and flash for permanent program storage), and input/output pins (for connecting sensors and actuators). Popular microcontrollers for robotics include the Arduino Uno (ATmega328P), ESP32, and STM32 series.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The processor inside a microcontroller runs a program — a sequence of instructions stored in flash memory. The program reads sensor values from input pins, processes the data according to programmed logic, and writes output values to pins connected to motors or other devices. This read-process-write cycle repeats continuously, often thousands of times per second.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> is a complete computer system on a single chip. It contains a processor (the CPU that executes instructions), memory (RAM for temporary data and flash for permanent program storage), and input/output pins (for connecting sensors and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>). Popular <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> for robotics include the Arduino Uno (ATmega328P), ESP32, and STM32 series.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The processor inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> runs a program — a sequence of instructions stored in flash memory. The program reads sensor values from input pins, processes the data according to programmed logic, and writes output values to pins connected to motors or other devices. This read-process-write cycle repeats continuously, often thousands of times per second.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a microcontroller like a chef following a recipe. The recipe (program) lists steps in order. The chef (processor) reads each step, gathers ingredients (sensor data), mixes and processes them (computation), and produces a dish (motor commands). The chef follows the recipe exactly every time, just as the microcontroller follows its program.</p>
+              <p class="text-sm text-theme-muted">Think of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> like a chef following a recipe. The recipe (program) lists steps in order. The chef (processor) reads each step, gathers ingredients (sensor data), mixes and processes them (computation), and produces a dish (motor commands). The chef follows the recipe exactly every time, just as the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> follows its program.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Digital input/output pins can read or write binary signals — either 0 volts (logic low) or 5 or 3.3 volts (logic high). A digital input pin might read whether a button is pressed (high) or not (low). A digital output pin might turn an LED on (high) or off (low). Most microcontrollers have between 8 and 40 digital pins.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Digital input/output pins can read or write binary signals — either 0 volts (logic low) or 5 or 3.3 volts (logic high). A digital input pin might read whether a button is pressed (high) or not (low). A digital output pin might turn an LED on (high) or off (low). Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> have between 8 and 40 digital pins.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Analog input pins can read a range of voltages, typically from 0 to 5 volts. They use an analog-to-digital converter (ADC) to convert the voltage into a number. A 10-bit ADC divides the 0-5V range into 1024 steps, so a reading of 512 corresponds to about 2.5 volts. This allows the controller to read sensors that produce varying voltages, like temperature sensors or light sensors.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Pulse-width modulation (PWM) is a technique for simulating analog output using digital pins. By rapidly switching a pin on and off, and varying the percentage of time it is on (the duty cycle), the controller can control the speed of a motor or the brightness of an LED. A 50% duty cycle (half the time on, half off) makes a motor run at half speed. PWM signals typically switch at hundreds or thousands of times per second.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The first microcontroller was the Intel 4004, released in 1971. It had 2,300 transistors and ran at 740 kHz. Modern microcontrollers like the ESP32 have millions of transistors and run at 240 MHz — over 300 times faster — yet cost less than a cup of coffee.</p>
+              <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> was the Intel 4004, released in 1971. It had 2,300 transistors and ran at 740 kHz. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> like the ESP32 have millions of transistors and run at 240 MHz — over 300 times faster — yet cost less than a cup of coffee.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Interrupts are a powerful feature of microcontrollers that allow the processor to respond immediately to important events. Instead of constantly checking whether a button has been pressed (polling), the programmer can configure an interrupt that fires automatically when the button changes state. The processor pauses its current task, handles the button press, and then resumes what it was doing. Interrupts enable real-time responsiveness.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Interrupts are a powerful feature of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> that allow the processor to respond immediately to important events. Instead of constantly checking whether a button has been pressed (polling), the programmer can configure an interrupt that fires automatically when the button changes state. The processor pauses its current task, handles the button press, and then resumes what it was doing. Interrupts enable real-time responsiveness.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The clock speed of a controller determines how many instructions it can execute per second. A 16 MHz Arduino can execute about 16 million instructions per second. However, not all instructions are equal — some take multiple clock cycles. A complex floating-point division might take 100 cycles, while a simple addition might take just 1 cycle. Programmers optimize critical code paths to minimize cycle count.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Watchdog timers are safety features that protect against program crashes. A watchdog is a countdown timer that the program must periodically reset. If the program crashes or gets stuck in an infinite loop, it stops resetting the watchdog. When the watchdog reaches zero, it automatically resets the microcontroller, restarting the program. This ensures the robot never stays frozen if something goes wrong.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Watchdog timers are safety features that protect against program crashes. A watchdog is a countdown timer that the program must periodically reset. If the program crashes or gets stuck in an infinite loop, it stops resetting the watchdog. When the watchdog reaches zero, it automatically resets the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, restarting the program. This ensures the robot never stays frozen if something goes wrong.</p>
           </div>
         </section>
 
@@ -279,13 +279,13 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Modern microcontrollers consume so little power that a small coin cell battery can run one for months. Some can operate on just a few microwatts in sleep mode.</p>
+              <p class="text-sm text-theme-muted">Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> consume so little power that a small coin cell battery can run one for months. Some can operate on just a few microwatts in sleep mode.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">The most popular microcontroller family in the world is the 8051, originally designed by Intel in 1980. Over 2 billion 8051-compatible chips are manufactured every year.</p>
+              <p class="text-sm text-theme-muted">The most popular <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> family in the world is the 8051, originally designed by Intel in 1980. Over 2 billion 8051-compatible chips are manufactured every year.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -297,7 +297,7 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Some robot controllers use FPGAs (Field-Programmable Gate Arrays) that can be reconfigured at the hardware level. Unlike processors that run software, FPGAs let you design custom circuits that execute in nanoseconds.</p>
+              <p class="text-sm text-theme-muted">Some <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-controllers')">Robot Controllers</span> use FPGAs (Field-Programmable Gate Arrays) that can be reconfigured at the hardware level. Unlike processors that run software, FPGAs let you design custom circuits that execute in nanoseconds.</p>
             </div>
             </div>
           </div>
@@ -312,12 +312,12 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Faster controllers consume more power and generate more heat. A fast controller is wasted if the robot's sensors and motors are slow. The best controller is the one that meets requirements with minimal cost and power.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All microcontrollers are the same.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Microcontrollers vary in speed, memory, pin count, power consumption, peripheral set (ADC, PWM, WiFi, Bluetooth), and price. Choosing the right one for a project is an important engineering decision.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> are the same.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> vary in speed, memory, pin count, power consumption, peripheral set (ADC, PWM, WiFi, Bluetooth), and price. Choosing the right one for a project is an important engineering decision.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A robot controller can run any programming language.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most microcontrollers run C or C++ code. Some support Python (like MicroPython on ESP32), but interpreted languages are slower and use more memory than compiled languages.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> run C or C++ code. Some support Python (like MicroPython on ESP32), but interpreted languages are slower and use more memory than compiled languages.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: If the program compiles, it will work on the robot.</p>

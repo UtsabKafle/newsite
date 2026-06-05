@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion blocks</span> are code instructions that change a sprite's position (steps, slide to coordinates) or orientation (turn degrees).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion blocks</span> are code instructions that change a sprite's position (steps, slide to coordinates) or orientation (turn degrees). Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Movement brings your Scratch projects to life. Without motion, your characters would be frozen in place, unable to explore, chase, dodge, or dance. Motion blocks are the tools that let you control where sprites are and how they move around the stage. They are among the most commonly used blocks in Scratch programming.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Motion category contains about 18 blocks that control sprite positioning, movement, rotation, and direction. Some blocks set absolute positions (go to specific coordinates), others change positions relative to the current location (move 10 steps), and still others control rotation and direction. Many motion blocks use the coordinate system (x and y values) that defines the stage.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each type of motion block, understand the coordinate system deeply, and combine motion blocks to create smooth, interesting movement patterns. By the end, you will be able to make sprites walk, glide, spin, and bounce across the stage.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Movement brings your Scratch projects to life. Without motion, your characters would be frozen in place, unable to explore, chase, dodge, or dance. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> are the tools that let you control where sprites are and how they move around the stage. They are among the most commonly used blocks in Scratch programming.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Motion category contains about 18 blocks that control sprite positioning, movement, rotation, and direction. Some blocks set absolute positions (go to specific coordinates), others change positions relative to the current location (move 10 steps), and still others control rotation and direction. Many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> use the coordinate system (x and y values) that defines the stage.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each type of motion block, understand the coordinate system deeply, and combine <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> to create smooth, interesting movement patterns. By the end, you will be able to make sprites walk, glide, spin, and bounce across the stage.</p>
           </div>
         </section>
 
@@ -226,7 +226,7 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of motion blocks like giving directions to a friend. 'Move 10 steps' is like saying 'walk forward 10 paces.' 'Turn 15 degrees' is like saying 'turn slightly to the right.' 'Go to x: 0 y: 0' is like saying 'meet me at the town center.' 'Glide to x: 100 y: 50' is like saying 'walk to the coffee shop on the corner, taking your time to get there.'</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> like giving directions to a friend. 'Move 10 steps' is like saying 'walk forward 10 paces.' 'Turn 15 degrees' is like saying 'turn slightly to the right.' 'Go to x: 0 y: 0' is like saying 'meet me at the town center.' 'Glide to x: 100 y: 50' is like saying 'walk to the coffee shop on the corner, taking your time to get there.'</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
@@ -240,9 +240,9 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Scratch motion blocks can use negative values to reverse direction. 'Move (-10) steps' moves backward. 'Turn clockwise (-15) degrees' turns counterclockwise. 'Change x by (-5)' moves left. This is useful for creating back-and-forth motion patterns and for enemy behaviors that reverse direction when reaching a boundary.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Scratch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> can use negative values to reverse direction. 'Move (-10) steps' moves backward. 'Turn clockwise (-15) degrees' turns counterclockwise. 'Change x by (-5)' moves left. This is useful for creating back-and-forth motion patterns and for enemy behaviors that reverse direction when reaching a boundary.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'set rotation style' block changes how a sprite visually rotates. The default 'all around' style rotates the costume to any angle. 'Left-right' style flips the costume horizontally when the sprite changes direction — useful for side-scrolling games where a character should face left or right but not rotate fully. 'Don't rotate' keeps the costume at its original angle regardless of direction.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Motion blocks can use mathematical expressions in their input fields. For example, 'move ((item 1 of [list]) * (speed)) steps' or 'go to x: (mouse x) y: (mouse y)'. This allows dynamic movement that responds to variables, sensor input, or calculated values, enabling sophisticated behaviors like smooth acceleration, deceleration, and trajectory following.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> can use mathematical expressions in their input fields. For example, 'move ((item 1 of [list]) * (speed)) steps' or 'go to x: (mouse x) y: (mouse y)'. This allows dynamic movement that responds to variables, sensor input, or calculated values, enabling sophisticated behaviors like smooth acceleration, deceleration, and trajectory following.</p>
           </div>
         </section>
 
@@ -320,8 +320,8 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Changing x and y separately in two blocks creates a diagonal movement where the sprite moves first horizontally then vertically, not a straight diagonal. 'Go to' moves in a straight line.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Motion blocks only work for sprites, not the stage.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Correct — the stage cannot move. Motion blocks are not available when programming the stage. Only sprites have position and direction properties.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> only work for sprites, not the stage.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Correct — the stage cannot move. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motion-blocks')">Motion Blocks</span> are not available when programming the stage. Only sprites have position and direction properties.</p>
             </div>
             </div>
           </div>

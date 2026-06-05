@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are control structures (Repeat, Forever) that rerun a stack of attached instructions multiple times.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are control structures (Repeat, Forever) that rerun a stack of attached instructions multiple times. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Computers are very good at doing things over and over again without getting bored or making mistakes. In programming, we use loops to repeat actions. Loops are one of the most powerful concepts in computer science because they let a small amount of code do a large amount of work. Scratch provides several types of loops to handle different repetition needs.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Loops in Scratch are found in the Control category (orange blocks). There are three main loop blocks: 'repeat ()' (run a fixed number of times), 'forever' (run endlessly), and 'repeat until ()' (run until a condition becomes true). Each type serves a different purpose, but they all follow the same basic idea — run a set of blocks multiple times without writing them twice.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each type of loop, understand when to use one kind over another, and practice common loop patterns used in games and animations. By the end, you will be able to make your code shorter, cleaner, and more powerful with loops.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Computers are very good at doing things over and over again without getting bored or making mistakes. In programming, we use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> to repeat actions. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are one of the most powerful concepts in computer science because they let a small amount of code do a large amount of work. Scratch provides several types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> to handle different repetition needs.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> in Scratch are found in the Control category (orange blocks). There are three main loop blocks: 'repeat ()' (run a fixed number of times), 'forever' (run endlessly), and 'repeat until ()' (run until a condition becomes true). Each type serves a different purpose, but they all follow the same basic idea — run a set of blocks multiple times without writing them twice.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each type of loop, understand when to use one kind over another, and practice common loop patterns used in games and animations. By the end, you will be able to make your code shorter, cleaner, and more powerful with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span>.</p>
           </div>
         </section>
 
@@ -226,13 +226,13 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of loops like a playlist on repeat. A 'repeat (5)' loop is like telling your music player to play a particular song 5 times and then stop. A 'forever' loop is like putting your playlist on infinite shuffle — it keeps going until you press the stop button. A 'repeat until' loop is like listening to a podcast until you reach the end — you keep listening until a specific condition is met.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> like a playlist on repeat. A 'repeat (5)' loop is like telling your music player to play a particular song 5 times and then stop. A 'forever' loop is like putting your playlist on infinite shuffle — it keeps going until you press the stop button. A 'repeat until' loop is like listening to a podcast until you reach the end — you keep listening until a specific condition is met.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'repeat until ()' block combines a loop with a condition. It checks the condition (a true/false expression) before each repetition. If the condition is false, it runs the loop body once, then checks again. When the condition becomes true, it exits the loop and continues with the blocks after the loop. This is useful for 'keep doing something until something happens' patterns, like moving a sprite until it reaches a target position.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested loops — a loop inside another loop — can create complex patterns from simple code. For example, a 'repeat (4)' loop containing another 'repeat (4)' loop with 'move' and 'turn' blocks can draw a grid of squares. The outer loop runs 4 times, and each iteration the inner loop draws one square by running 4 times. Combined: 4 × 4 = 16 line segments drawn with just a few blocks.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Loop efficiency matters in Scratch. A 'forever' loop that contains heavy operations (like graphic effects or complex calculations) can slow down your project. Scratch runs at 30 frames per second, so each loop iteration should complete quickly. If your project becomes laggy, look for loops doing too much work per iteration. Moving non-repeating code outside the loop is a common optimization.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> — a loop inside another loop — can create complex patterns from simple code. For example, a 'repeat (4)' loop containing another 'repeat (4)' loop with 'move' and 'turn' blocks can draw a grid of squares. The outer loop runs 4 times, and each iteration the inner loop draws one square by running 4 times. Combined: 4 × 4 = 16 line segments drawn with just a few blocks.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Loop efficiency matters in Scratch. A 'forever' loop that contains heavy operations (like graphic effects or complex calculations) can slow down your project. Scratch runs at 30 frames per second, so each loop iteration should complete quickly. If your project becomes laggy, look for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> doing too much work per iteration. Moving non-repeating code outside the loop is a common optimization.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
@@ -240,9 +240,9 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Scratch loops run on the same 30 FPS frame rate as the rest of the project. A single iteration of a 'forever' loop happens every frame (about 33 milliseconds). This means that in 1 second, a 'forever' loop runs approximately 30 times. The actual speed can vary if there are many sprites or complex calculations, but 30 FPS is the target that Scratch tries to maintain.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Scratch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> run on the same 30 FPS frame rate as the rest of the project. A single iteration of a 'forever' loop happens every frame (about 33 milliseconds). This means that in 1 second, a 'forever' loop runs approximately 30 times. The actual speed can vary if there are many sprites or complex calculations, but 30 FPS is the target that Scratch tries to maintain.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'repeat until' loop is equivalent to a 'while not' loop in text-based programming languages like Python or Java. In Python, the same logic would be 'while not condition:' with the loop body indented below. Understanding this connection helps when you transition from Scratch to text-based languages.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Infinite loops without any control block inside can freeze your project. For example, a 'forever' loop without any wait, movement, or sensing block will still work, but it may prevent other scripts from running smoothly. Always include at least one block inside your loops that changes something — a variable update, a motion block, or a 'wait () seconds' block — to give Scratch's scheduler a chance to interleave other scripts.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Infinite <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> without any control block inside can freeze your project. For example, a 'forever' loop without any wait, movement, or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> will still work, but it may prevent other scripts from running smoothly. Always include at least one block inside your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> that changes something — a variable update, a motion block, or a 'wait () seconds' block — to give Scratch's scheduler a chance to interleave other scripts.</p>
           </div>
         </section>
 
@@ -291,7 +291,7 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Scratch's loop blocks can contain any other blocks, including other loops. There is no limit to how deeply loops can be nested, though performance may degrade with very deep nesting.</p>
+              <p class="text-sm text-theme-muted">Scratch's loop blocks can contain any other blocks, including other <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span>. There is no limit to how deeply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> can be nested, though performance may degrade with very deep nesting.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -312,16 +312,16 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The 'forever' loop runs approximately 30 times per second (once per frame), matching Scratch's 30 FPS frame rate.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All loops are interchangeable.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Different loops serve different purposes. Use 'repeat' when you know the count, 'forever' for continuous operation, and 'repeat until' when the end condition depends on something that changes during the loop.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are interchangeable.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> serve different purposes. Use 'repeat' when you know the count, 'forever' for continuous operation, and 'repeat until' when the end condition depends on something that changes during the loop.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Loops are only for animation and movement.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Loops are used for many purposes beyond animation: repeating checks (waiting for input), processing list items, creating patterns, and automating repetitive calculations.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are only for animation and movement.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> are used for many purposes beyond animation: repeating checks (waiting for input), processing list items, creating patterns, and automating repetitive calculations.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Nested loops multiply the time proportionally.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> If the inner loop runs 10 times and the outer loop runs 10 times, the innermost code runs 100 times. Nested loops multiply, not add, which is why deeply nested loops can become slow.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> multiply the time proportionally.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> If the inner loop runs 10 times and the outer loop runs 10 times, the innermost code runs 100 times. Nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> multiply, not add, which is why deeply nested <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loops')">Loops</span> can become slow.</p>
             </div>
             </div>
           </div>

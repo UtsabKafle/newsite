@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Event blocks are hat-shaped triggers that start execution threads when inputs (clicks, key presses) occur.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Event blocks are hat-shaped triggers that start execution threads when inputs (clicks, key presses) occur. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,9 +212,9 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In Scratch, nothing happens until you tell it to start. This is where Events come in. Event blocks are like triggers — they wait for something to happen and then run a script in response. Clicking the green flag, pressing a key, clicking a sprite, or receiving a broadcast message are all events that can start scripts. Without events, your sprites would just sit there, waiting for instructions.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Events are fundamental to programming because they handle the 'when' of your program. They control the flow of execution, deciding which code runs and when. Scratch provides several types of events: user-initiated (green flag, key press, sprite click), time-based (broadcast and wait), and system events (when backdrop switches to, when loudness > 10). Each type responds to a different trigger.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each event block, understand the difference between events and other control structures, and design event-driven programs that respond to user input and system changes. By the end, you will be able to create interactive projects that react to the user and to other sprites.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In Scratch, nothing happens until you tell it to start. This is where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> come in. Event blocks are like triggers — they wait for something to happen and then run a script in response. Clicking the green flag, pressing a key, clicking a sprite, or receiving a broadcast message are all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> that can start scripts. Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span>, your sprites would just sit there, waiting for instructions.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> are fundamental to programming because they handle the 'when' of your program. They control the flow of execution, deciding which code runs and when. Scratch provides several types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span>: user-initiated (green flag, key press, sprite click), time-based (broadcast and wait), and system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> (when backdrop switches to, when loudness > 10). Each type responds to a different trigger.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use each event block, understand the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> and other control structures, and design event-driven programs that respond to user input and system changes. By the end, you will be able to create interactive projects that react to the user and to other sprites.</p>
           </div>
         </section>
 
@@ -240,9 +240,9 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'when () key pressed' event can capture physical keyboard input. But Scratch also supports sensing blocks like 'key () pressed?' that you can use inside loops to continuously check if a key is held down. The difference: 'when key pressed' fires once when the key is first pressed, while a loop with 'key pressed?' can detect held keys for continuous movement. Most games use the loop approach for smooth, responsive controls.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'when () key pressed' event can capture physical keyboard input. But Scratch also supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span> like 'key () pressed?' that you can use inside loops to continuously check if a key is held down. The difference: 'when key pressed' fires once when the key is first pressed, while a loop with 'key pressed?' can detect held keys for continuous movement. Most games use the loop approach for smooth, responsive controls.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Event-driven programming is a major paradigm in software development. Scratch's event model mirrors event-driven architectures used in professional frameworks like JavaScript's addEventListener, Python's asyncio, and GUI toolkits like Tkinter and Qt. Learning event-driven thinking in Scratch prepares you for event-based programming in any language.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The order of event handling matters. If two events trigger at nearly the same time (for example, pressing a key while a broadcast is being received), Scratch processes events in the order they occurred. However, scripts triggered by the same event run in parallel through rapid interleaving. Understanding this concurrency model helps you design projects that behave predictably.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The order of event handling matters. If two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> trigger at nearly the same time (for example, pressing a key while a broadcast is being received), Scratch processes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> in the order they occurred. However, scripts triggered by the same event run in parallel through rapid interleaving. Understanding this concurrency model helps you design projects that behave predictably.</p>
           </div>
         </section>
 
@@ -279,7 +279,7 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Scratch supports up to 26 different key press events (A-Z), plus arrow keys, space, and number keys.</p>
+              <p class="text-sm text-theme-muted">Scratch supports up to 26 different key press <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> (A-Z), plus arrow keys, space, and number keys.</p>
             </div>
             <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -312,16 +312,16 @@
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Any number of scripts can start from the green flag. They all run simultaneously in parallel, which is how Scratch implements multitasking.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Key press events detect keys being held down.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The 'when key pressed' block fires once when the key is first pressed. To detect held keys, use a loop with the 'key pressed?' sensing block.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Key press <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> detect keys being held down.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The 'when key pressed' block fires once when the key is first pressed. To detect held keys, use a loop with the 'key pressed?' <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span>.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Broadcasts only work between sprites on the same project.</p>
               <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Broadcasts are local to each project. A broadcast from one project cannot trigger scripts in another project.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Events and Control blocks are the same thing.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Events start scripts (they are triggers), while Control blocks manage the flow within scripts (loops, conditions, waits). They work together but serve different purposes.</p>
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> and Control blocks are the same thing.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('events')">Events</span> start scripts (they are triggers), while Control blocks manage the flow within scripts (loops, conditions, waits). They work together but serve different purposes.</p>
             </div>
             </div>
           </div>

@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-components')">Robot components</span> are the physical structures, links, buses, gears, batteries, and chips that make up a complete operational machine.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-components')">Robot components</span> are the physical structures, links, buses, gears, batteries, and chips that make up a complete operational machine. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-components')">Robot Components</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -213,7 +213,7 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every robot, no matter how simple or complex, is built from the same fundamental building blocks. Like a human body that has a skeleton, muscles, nerves, and a brain, every robot has components that provide structure, movement, sensing, and control. Understanding these components is the first step toward designing your own robot.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The four essential subsystems of any robot are: the mechanical structure (the body and frame), actuators (the muscles that create movement), sensors (the nerves that gather information), and the controller (the brain that makes decisions). Each subsystem must work together seamlessly. If any one fails, the entire robot stops functioning.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The four essential subsystems of any robot are: the mechanical structure (the body and frame), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> (the muscles that create movement), sensors (the nerves that gather information), and the controller (the brain that makes decisions). Each subsystem must work together seamlessly. If any one fails, the entire robot stops functioning.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will take a tour through each of these subsystems. You will learn how gears transfer power, how motors spin wheels, how sensors detect the world, and how the controller ties everything together. By the end, you will be able to look at any robot and identify its key components.</p>
           </div>
         </section>
@@ -222,11 +222,11 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The mechanical structure, or chassis, is the robot's skeleton. It provides the physical framework that holds all other components together. Chassis are made from materials like aluminum, steel, plastic, or carbon fiber depending on the robot's weight, strength, and cost requirements. A good chassis is strong enough to protect the internal components but light enough to allow efficient movement.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Actuators are the muscles of the robot. They convert electrical energy into physical motion. The most common actuator is the DC motor, which spins when voltage is applied. Servo motors can rotate to a specific angle and hold that position. Linear actuators push or pull in a straight line. Pneumatic actuators use compressed air, and hydraulic actuators use pressurized fluid for extreme strength.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> are the muscles of the robot. They convert electrical energy into physical motion. The most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> is the DC motor, which spins when voltage is applied. Servo motors can rotate to a specific angle and hold that position. Linear <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> push or pull in a straight line. Pneumatic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> use compressed air, and hydraulic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> use pressurized fluid for extreme strength.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a robot like a human body. The skeleton (chassis) gives structure. Muscles (actuators) create movement. Nerves (sensors) detect touch, light, and temperature. The brain (controller) processes information and sends commands. Just as your body needs all these systems to work together, a robot needs all its components to be properly integrated.</p>
+              <p class="text-sm text-theme-muted">Think of a robot like a human body. The skeleton (chassis) gives structure. Muscles (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>) create movement. Nerves (sensors) detect touch, light, and temperature. The brain (controller) processes information and sends commands. Just as your body needs all these systems to work together, a robot needs all its components to be properly integrated.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
@@ -242,7 +242,7 @@
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">End effectors are the tools attached to a robot's arm that actually perform the work. A robotic hand (gripper) can pick up objects, a welding torch joins metal pieces, a spray painter coats surfaces, and a camera inspects products for defects. Many modern robots use quick-change end effectors that allow the same arm to switch between different tools automatically.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Compliance is the ability of a robot component to bend or deflect under force. In rigid robots, even a small misalignment can cause crashes or damage. Compliant components, like flexible grippers or spring-loaded joints, allow the robot to adapt to small errors in positioning. This is especially important when robots work alongside humans, where safety is critical.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Thermal management is essential for robot components. Motors generate heat when they run, and electronic chips generate heat when they process data. If components overheat, they can fail or catch fire. Robots use heat sinks (metal fins that radiate heat), fans, liquid cooling, or thermal paste to keep temperatures within safe operating ranges.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Thermal management is essential for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('robot-components')">Robot Components</span>. Motors generate heat when they run, and electronic chips generate heat when they process data. If components overheat, they can fail or catch fire. Robots use heat sinks (metal fins that radiate heat), fans, liquid cooling, or thermal paste to keep temperatures within safe operating ranges.</p>
           </div>
         </section>
 

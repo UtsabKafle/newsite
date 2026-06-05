@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,15 +122,15 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Blockchain security refers to the cryptographic, consensus, and operational mechanisms that protect blockchain networks from attacks, fraud, and unauthorized modifications. Security operates at multiple layers: cryptographic security (mathematical guarantees of hash functions and digital signatures), consensus security (economic incentives that make attacks expensive), smart contract security (code correctness and vulnerability prevention), and user security (key management and safe practices).</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Each layer addresses different threats. Cryptographic security prevents forgery of transactions and ensures data integrity. Consensus security prevents double-spending and chain reorganization. Smart contract security prevents bugs and exploits that drain funds. User security prevents loss of private keys and phishing attacks. A blockchain is only as secure as its weakest layer — sophisticated cryptography is useless if a user accidentally gives their private key to a scammer.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Blockchain security refers to the cryptographic, consensus, and operational mechanisms that protect blockchain networks from attacks, fraud, and unauthorized modifications. Security operates at multiple layers: cryptographic security (mathematical guarantees of hash functions and digital signatures), consensus security (economic incentives that make attacks expensive), smart contract security (code correctness and vulnerability prevention), and user security (key management and safe practices). Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('double-spend')">Double Spend</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('replay-attack')">Replay Attack</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cold-wallet')">Cold Wallet</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hot-wallet')">Hot Wallet</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('audit')">Audit</span>.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Each layer addresses different threats. Cryptographic security prevents forgery of transactions and ensures data integrity. Consensus security prevents double-spending and chain reorganization. Smart contract security prevents bugs and exploits that drain funds. User security prevents loss of private keys and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> attacks. A blockchain is only as secure as its weakest layer — sophisticated cryptography is useless if a user accidentally gives their private key to a scammer.</p>
           </div>
         </section>
 
 <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of blockchain security like a bank vault with multiple layers. The outer wall (cryptography) is strong enough to stop any direct attack. The vault door (consensus) requires multiple keys held by different people. The safe deposit boxes inside (smart contracts) each have their own locks. And the customer's key (user security) is kept by the customer. A robber could try to break through the wall (cryptographic attack), bribe the key holders (51% attack), pick the box lock (smart contract exploit), or trick the customer into handing over their key (phishing). The strongest attack is usually the one that targets the weakest layer.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of blockchain security like a bank vault with multiple layers. The outer wall (cryptography) is strong enough to stop any direct attack. The vault door (consensus) requires multiple keys held by different people. The safe deposit boxes inside (smart contracts) each have their own locks. And the customer's key (user security) is kept by the customer. A robber could try to break through the wall (cryptographic attack), bribe the key holders (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('51-attack')">51% Attack</span>), pick the box lock (smart contract exploit), or trick the customer into handing over their key (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span>). The strongest attack is usually the one that targets the weakest layer.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A real-world lesson: In 2022, the Ronin Network bridge (used by the game Axie Infinity) was hacked for $625 million. The attacker compromised 5 of 9 validator keys to approve fraudulent transactions. This was not a cryptographic or consensus attack — the attacker exploited a governance vulnerability in how keys were stored and managed. The lesson: even strong blockchain security can be undermined by operational security failures in the systems built on top of the blockchain.</p>
           </div>
         </section>
@@ -149,7 +149,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Blockchain is often described as 'unhackable' or 'perfectly secure'. The reality is more nuanced. Blockchain technology provides strong security guarantees — immutability, decentralization, and cryptographic verification — but it is not immune to attacks, bugs, and human error. Understanding blockchain security is essential for anyone using or building on blockchain technology.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Blockchain is often described as 'unhackable' or 'perfectly secure'. The reality is more nuanced. Blockchain technology provides strong security guarantees — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('immutability')">Immutability</span>, decentralization, and cryptographic verification — but it is not immune to attacks, bugs, and human error. Understanding blockchain security is essential for anyone using or building on blockchain technology.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Blockchain security operates at multiple levels: cryptographic security (the mathematical foundations), consensus security (the network's agreement mechanism), smart contract security (the code's correctness), and user security (how people manage keys and interact with the system). A failure at any level can lead to loss of funds or data.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn about the security properties of blockchain, common types of attacks, and best practices for staying safe. By the end, you will understand both the strengths and limitations of blockchain security.</p>
           </div>
@@ -159,7 +159,7 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">At the cryptographic level, blockchain security relies on the computational infeasibility of reversing hash functions or deriving private keys from public keys. As discussed, the security of SHA-256 and ECDSA means that with current technology, the only way to break blockchain cryptography is to try every possible key — a process that would take longer than the age of the universe with classical computers.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">At the consensus level, the 51% attack is the primary threat. If a single entity controls more than 50% of the network's mining power (PoW) or staked assets (PoS), they could theoretically reorganize the blockchain, double-spend coins, or censor transactions. However, such an attack is extremely expensive and practically impossible for large blockchains like Bitcoin and Ethereum.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">At the consensus level, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('51-attack')">51% Attack</span> is the primary threat. If a single entity controls more than 50% of the network's mining power (PoW) or staked assets (PoS), they could theoretically reorganize the blockchain, double-spend coins, or censor transactions. However, such an attack is extremely expensive and practically impossible for large blockchains like Bitcoin and Ethereum.</p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
@@ -168,12 +168,12 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Smart contract vulnerabilities have caused the largest losses in blockchain history. Common vulnerabilities include: reentrancy (where an external contract calls back into the vulnerable contract before the first call completes, like the 2016 DAO hack), integer overflow/underflow (where arithmetic exceeds the maximum or minimum value), flash loan attacks (where uncollateralized loans are used to manipulate prices and drain funds), and oracle manipulation (where attackers manipulate external data feeds that smart contracts rely on).</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Phishing and social engineering are the most common threats to individual users. Scammers create fake websites that look like legitimate DApps or wallets, tricking users into entering their seed phrases or signing malicious transactions. 'Ice phishing' tricks users into signing a transaction that gives the attacker approval to spend their tokens. These attacks exploit human psychology, not blockchain technology, and account for the majority of cryptocurrency theft.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> and social engineering are the most common threats to individual users. Scammers create fake websites that look like legitimate DApps or wallets, tricking users into entering their seed phrases or signing malicious transactions. 'Ice <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span>' tricks users into signing a transaction that gives the attacker approval to spend their tokens. These attacks exploit human psychology, not blockchain technology, and account for the majority of cryptocurrency theft.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The biggest risk for individual users is losing access to their private keys. Unlike a bank, there is no 'forgot my password' option. If you lose your seed phrase (the 12 or 24 words that generate your private keys), your funds are gone forever. An estimated 20% of all Bitcoin — worth hundreds of billions of dollars — is lost in inaccessible wallets due to forgotten passwords, lost hardware wallets, or deceased owners who did not share their keys.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The strongest security in the world cannot protect against human error. The most common ways people lose cryptocurrency are: losing their seed phrase, sending funds to the wrong address, falling for phishing scams, and using weak passwords. Technology provides the foundation, but user education is the most important security measure.</p>
+              <p class="text-sm text-theme-muted">The strongest security in the world cannot protect against human error. The most common ways people lose cryptocurrency are: losing their seed phrase, sending funds to the wrong address, falling for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> scams, and using weak passwords. Technology provides the foundation, but user education is the most important security measure.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
@@ -260,7 +260,7 @@
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Private keys stored online are secure with a strong password.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Any private key stored on an internet-connected device (computer, phone, cloud storage) is vulnerable to malware, phishing, and hacking. Hardware wallets or paper backups stored offline are significantly safer.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Any private key stored on an internet-connected device (computer, phone, cloud storage) is vulnerable to malware, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span>, and hacking. Hardware wallets or paper backups stored offline are significantly safer.</p>
             </div>
             </div>
           </div>
@@ -326,7 +326,7 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
             <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
             <a href="chapter-12-dapps.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 12</a>
-            <a href="blockchain-basics.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="blockchain-technology.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
             <a href="chapter-14-future-of-blockchain.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 14 &mdash; Future of Blockchain</a>
             </div>
           </div>

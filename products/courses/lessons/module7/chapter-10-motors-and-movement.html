@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Motors convert electrical energy from the battery into rotational force, while gears reduce speed and increase torque for control.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Motors convert electrical energy from the battery into rotational force, while gears reduce speed and increase torque for control. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motors-and-movement')">Motors and Movement</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,8 +212,8 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot that can sense and think but cannot move is just a statue. Motors and movement systems are what transform a robot from a thinking machine into an acting one. Whether it is rolling on wheels, walking on legs, or flying through the air, every robot needs some form of actuation to interact with the physical world.</p>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Electric motors are the most common actuators in robotics. They convert electrical energy into rotational motion, which can then drive wheels, arms, propellers, or tracks. Different types of motors — DC motors, servo motors, stepper motors — offer different trade-offs between speed, torque, precision, and control complexity.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A robot that can sense and think but cannot move is just a statue. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motors-and-movement')">Motors and Movement</span> systems are what transform a robot from a thinking machine into an acting one. Whether it is rolling on wheels, walking on legs, or flying through the air, every robot needs some form of actuation to interact with the physical world.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Electric motors are the most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> in robotics. They convert electrical energy into rotational motion, which can then drive wheels, arms, propellers, or tracks. Different types of motors — DC motors, servo motors, stepper motors — offer different trade-offs between speed, torque, precision, and control complexity.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore how motors work, how they are controlled, and how different movement mechanisms (wheels, tracks, legs, rotors) enable robots to navigate diverse environments. You will also learn about motor drivers, gearboxes, and the physics of robot locomotion.</p>
           </div>
         </section>
@@ -231,7 +231,7 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Stepper motors are a third type that move in precise increments called steps. A typical stepper motor has 200 steps per revolution, meaning it can turn exactly 1.8 degrees per step. By counting the number of steps sent, the controller knows the exact shaft position without needing a feedback sensor. This makes stepper motors ideal for 3D printers, CNC machines, and precision robotics.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Motor drivers are electronic circuits that control how much power flows to the motor. A microcontroller's output pins cannot supply enough current to run a motor directly — they would be damaged. A motor driver uses the microcontroller's low-power signal to control high-power transistors that deliver battery voltage to the motor. Popular motor driver chips include the L298N, L293D, and TB6612.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Motor drivers are electronic circuits that control how much power flows to the motor. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>'s output pins cannot supply enough current to run a motor directly — they would be damaged. A motor driver uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>'s low-power signal to control high-power transistors that deliver battery voltage to the motor. Popular motor driver chips include the L298N, L293D, and TB6612.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">A gearbox is a set of gears attached to a motor that changes its speed and torque characteristics. A high-ratio gearbox (like 50:1) makes the output shaft spin 50 times slower but with 50 times more torque. This allows a small, lightweight motor to move a heavy robot. The trade-off is speed — a robot with high gear reduction moves slowly but can push through obstacles.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -297,7 +297,7 @@
               <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                 <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-sm text-theme-muted">Shape-memory alloy actuators change shape when heated and return when cooled. They are used in soft robots because they are lightweight, silent, and can mimic muscle movement.</p>
+              <p class="text-sm text-theme-muted">Shape-memory alloy <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> change shape when heated and return when cooled. They are used in soft robots because they are lightweight, silent, and can mimic muscle movement.</p>
             </div>
             </div>
           </div>
@@ -317,7 +317,7 @@
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All motors use electricity.</p>
-              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Some robots use pneumatic (compressed air) or hydraulic (pressurized fluid) actuators for high-force applications. These are common in industrial robots that need to lift heavy loads.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Some robots use pneumatic (compressed air) or hydraulic (pressurized fluid) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span> for high-force applications. These are common in industrial robots that need to lift heavy loads.</p>
             </div>
             <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
               <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A motor turns at the same speed regardless of load.</p>

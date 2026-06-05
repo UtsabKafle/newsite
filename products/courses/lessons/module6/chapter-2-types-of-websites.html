@@ -65,7 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -180,10 +181,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Websites are categorized into different types based on their function, structure, and how they interact with users, ranging from static informational blogs to complex dynamic online stores.
+              Websites are categorized into different types based on their function, structure, and how they interact with users, ranging from static informational <span class="vocab cursor-pointer" onclick="scrollToVocabulary('blog')">Blog</span> to complex dynamic online stores.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Just as buildings are designed differently based on whether they are shops, libraries, or homes, websites are structured based on their main task. A news site like BBC is a constantly updating newspaper stand, while a search engine like Google is an information desk directing you where to go.
+              Just as buildings are designed differently based on whether they are shops, libraries, or homes, websites are structured based on their main task. A news site like BBC is a constantly updating newspaper stand, while a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('search-engine')">Search Engine</span> like Google is an information desk directing you where to go.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               In this chapter, you will learn about the different categories of websites, how they function, and what makes them unique.
@@ -196,12 +197,12 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Different websites use different backend systems. A blog loads articles from a simple database. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">e-commerce</span> site uses shopping cart databases and payment gateway APIs. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('search-engine')">search engine</span> uses web crawlers to scan the entire internet and index billions of pages in a massive database.</p>
+              <p class="text-sm text-theme-muted">Different websites use different backend systems. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('blog')">Blog</span> loads articles from a simple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span>. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">e-commerce</span> site uses shopping cart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payment-gateway')">Payment Gateway</span> APIs. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('search-engine')">search engine</span> uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-crawler')">Web Crawler</span> to scan the entire internet and index billions of pages in a massive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span>.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of website types as different kinds of buildings in a city. An online store (Amazon) is a commercial building for shopping. A news site (BBC) is a newspaper stand constantly updating articles. A search engine (Google) is an information desk directing you where to go. A social network (Facebook) is a town square where people gather and share stories.</p>
+              <p class="text-sm text-theme-muted">Think of website types as different kinds of buildings in a city. An online store (Amazon) is a commercial building for shopping. A news site (BBC) is a newspaper stand constantly updating articles. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('search-engine')">Search Engine</span> (Google) is an information desk directing you where to go. A social network (Facebook) is a town square where people gather and share stories.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Common Website Categories</h3>
@@ -218,7 +219,7 @@
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Blogs & News</h4>
-                <p class="mt-2 text-sm text-theme-muted">Content-driven sites like BBC that publish articles, blog posts, and multimedia stories.</p>
+                <p class="mt-2 text-sm text-theme-muted">Content-driven sites like BBC that publish articles, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('blog')">Blog</span> posts, and multimedia stories.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
@@ -232,31 +233,31 @@
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Static vs Dynamic Websites</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Static Websites</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('static-website')">Static Website</span></p>
                 <p class="text-sm text-theme-muted">Serve pre-saved HTML files that look identical for every visitor. Simple, fast, and easy to host. Ideal for portfolio pages, brochures, and documentation.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Dynamic Websites</p>
-                <p class="text-sm text-theme-muted">Generate custom content on the fly using server-side code and databases. Social media feeds, personalized dashboards, and e-commerce stores are dynamic.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dynamic-website')">Dynamic Website</span></p>
+                <p class="text-sm text-theme-muted">Generate custom content on the fly using server-side code and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('social-media')">Social Media</span> feeds, personalized dashboards, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">E-Commerce</span> stores are dynamic.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Dynamic websites generate content on the fly. When you log into a social media site, the server checks your user ID and loads your specific friend list, posts, and notifications from a database. This is different from static websites, which look identical for every single visitor because they serve pre-saved files.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dynamic-website')">Dynamic Website</span> generate content on the fly. When you log into a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('social-media')">Social Media</span> site, the server checks your user ID and loads your specific friend list, posts, and notifications from a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span>. This is different from <span class="vocab cursor-pointer" onclick="scrollToVocabulary('static-website')">Static Website</span>, which look identical for every single visitor because they serve pre-saved files.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">E-commerce sites rely on secure protocols (HTTPS) and encryption (SSL/TLS) to protect user credit card details. They interface with relational databases (SQL) or NoSQL databases to store product inventory, user accounts, and purchase history.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">E-Commerce</span> sites rely on secure protocols (HTTPS) and encryption (SSL/TLS) to protect user credit card details. They interface with relational <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span> (SQL) or NoSQL <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span> to store product inventory, user accounts, and purchase history.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Search engines use complex search ranking algorithms (like PageRank) to index, filter, and score websites. Social media platforms use real-time data streaming and recommendation engines to curate personalized feeds. E-commerce platforms integrate with payment gateways (like Stripe or PayPal) and use inventory management systems to track stock levels across warehouses.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('search-engine')">Search Engine</span> use complex search ranking algorithms (like PageRank) to index, filter, and score websites. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('social-media')">Social Media</span> platforms use real-time data streaming and recommendation engines to curate personalized feeds. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">E-Commerce</span> platforms integrate with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payment-gateway')">Payment Gateway</span> (like Stripe or PayPal) and use inventory management systems to track stock levels across warehouses.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Content Management Systems (CMS) like WordPress allow users to build blogs and shops without writing code manually. These platforms provide pre-built themes, plugins, and visual editors that abstract away the underlying HTML and CSS.
+              Content Management Systems (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cms')">CMS</span>) like WordPress allow users to build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('blog')">Blog</span> and shops without writing code manually. These platforms provide pre-built themes, plugins, and visual editors that abstract away the underlying HTML and CSS.
             </p>
           </div>
         </section>
@@ -303,7 +304,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first e-commerce transaction took place in 1994 when someone sold a CD of Sting's album 'Ten Summoner's Tales' online.</p>
+                <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('e-commerce')">E-Commerce</span> transaction took place in 1994 when someone sold a CD of Sting's album 'Ten Summoner's Tales' online.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">

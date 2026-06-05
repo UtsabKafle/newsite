@@ -65,7 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -180,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website</span> is a collection of connected <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">webpages</span> containing text, images, and videos, stored on a computer called a server that anyone in the world can access through the Internet.
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website</span> is a collection of connected <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">webpages</span> containing text, images, and videos, stored on a computer called a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> that anyone in the world can access through the Internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every website you visit - from Google to your school portal - is a set of files living on a remote computer. Your browser downloads those files and assembles them into the pages you see.
+              Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> you visit - from Google to your school portal - is a set of files living on a remote computer. Your browser downloads those files and assembles them into the pages you see.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn what a website is, the difference between the Internet and the Web, and how your browser brings content to your screen.
+              In this chapter, you will learn what a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> is, the difference between the Internet and the Web, and how your browser brings content to your screen.
             </p>
           </div>
         </section>
@@ -196,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Websites</span> are built using code that <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-browser')">web browsers</span> (like Chrome or Safari) translate into visual pages. The code describes where text goes, what color buttons are, and how images load. When you visit a website, your computer downloads these code files from a server and displays them on your screen.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Websites</span> are built using code that <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-browser')">web browsers</span> (like Chrome or Safari) translate into visual pages. The code describes where text goes, what color buttons are, and how images load. When you visit a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span>, your computer downloads these code files from a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> and displays them on your screen.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a website as a digital book. The domain name is the book title, each webpage is a page in the book, and hyperlinks are the table of contents that connects everything. Just as a book binds pages of text and pictures under one title, a website binds webpages under one domain name.</p>
+              <p class="text-sm text-theme-muted">Think of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> as a digital book. The domain name is the book title, each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">Webpage</span> is a page in the book, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyperlink')">Hyperlink</span> are the table of contents that connects everything. Just as a book binds pages of text and pictures under one title, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> binds <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">Webpage</span> under one domain name.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">How Users Access Websites</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every time you visit a website, a chain of events happens in seconds:
+              Every time you visit a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span>, a chain of events happens in seconds:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
@@ -214,14 +215,14 @@
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">1. Request</h4>
-                <p class="mt-2 text-sm text-theme-muted">You type a URL or click a link. Your browser sends a request across the internet to the server hosting the website.</p>
+                <p class="mt-2 text-sm text-theme-muted">You type a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> or click a link. Your browser sends a request across the internet to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> hosting the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">2. Response</h4>
-                <p class="mt-2 text-sm text-theme-muted">The server sends back HTML, CSS, JavaScript, and image files. These are the raw building blocks of the page.</p>
+                <p class="mt-2 text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> sends back <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, JavaScript, and image files. These are the raw building blocks of the page.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
@@ -235,11 +236,11 @@
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">What Makes Up a Website</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">HTML - Structure</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> - Structure</p>
                 <p class="text-sm text-theme-muted">HyperText Markup Language defines the content hierarchy — headings, paragraphs, images, and links.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">CSS - Design</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> - Design</p>
                 <p class="text-sm text-theme-muted">Cascading Style Sheets control colors, fonts, spacing, and the overall visual presentation of the page.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
@@ -250,22 +251,22 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              At the core of every website are three languages: HTML for structure, CSS for design, and JavaScript for behavior. Together, these files define the content, look, and interactive features of a webpage. Browsers read these text files and compile them into a layout in milliseconds.
+              At the core of every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> are three languages: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> for structure, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> for design, and JavaScript for behavior. Together, these files define the content, look, and interactive features of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">Webpage</span>. Browsers read these text files and compile them into a layout in milliseconds.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The Internet is the physical network of connected computers. The World Wide Web is the system of webpages and websites that run on top of that network. A website is not the same as the Internet — it is one of many services that use it.
+              The Internet is the physical network of connected computers. The World Wide Web is the system of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('webpage')">Webpage</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> that run on top of that network. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> is not the same as the Internet — it is one of many services that use it.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Browsers do not "contain" websites. Websites live on remote servers. Your browser only downloads and displays a temporary copy each time you visit.</p>
+              <p class="text-sm text-theme-muted">Browsers do not "contain" <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> live on remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span>. Your browser only downloads and displays a temporary copy each time you visit.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Websites are delivered over HTTP/HTTPS protocols. Modern web development utilizes frontend frameworks (like React, Vue, or Angular) to build dynamic interfaces, while backend servers process database transactions. Static websites serve pre-built files directly, whereas dynamic sites generate pages on-demand using server-side languages like Node.js or Python.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> are delivered over <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP/HTTPS</span> protocols. Modern web development utilizes frontend frameworks (like React, Vue, or Angular) to build dynamic interfaces, while backend <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> process database transactions. Static <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">Website</span> serve pre-built files directly, whereas dynamic sites generate pages on-demand using server-side languages like Node.js or Python.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website's</span> address is officially called a URL (Uniform Resource Locator), which acts like a postal address for finding resources on the web. DNS servers translate human-readable domain names into IP addresses that computers use to locate servers.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website's</span> address is officially called a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> (Uniform Resource Locator), which acts like a postal address for finding resources on the web. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> translate human-readable domain names into IP addresses that computers use to locate <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span>.
             </p></div>
         </section>
 
@@ -317,7 +318,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website's</span> address is officially called a URL, which stands for Uniform Resource Locator.</p>
+                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('website')">website's</span> address is officially called a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span>, which stands for Uniform Resource Locator.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">

@@ -35,7 +35,7 @@
     .kb-check p{margin-bottom:.25rem}
     .kb-answer{display:none}
     .revealed{display:block}
-    .vocab{color:#3b82f6;font-weight:500}
+    #introduction .vocab, #how-it-works .vocab{color:#3b82f6!important;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -122,7 +122,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Designing a robot involves specifying a chassis size, picking sensors, defining motor power requirements, and coding the controller loop.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Designing a robot involves specifying a chassis size, picking sensors, defining motor power requirements, and coding the controller loop. Key concepts include <span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span>.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('design-your-own-robot')">Design Your Own Robot</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -212,7 +212,7 @@
 <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">You have learned how robots sense, think, and act. You have explored sensors, controllers, motors, and logic. Now it is time to put it all together and design your own robot. Designing a robot is an exciting challenge that combines creativity with engineering. Every great robot started as an idea on a notebook page.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">You have learned how robots sense, think, and act. You have explored sensors, controllers, motors, and logic. Now it is time to put it all together and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('design-your-own-robot')">Design Your Own Robot</span>. Designing a robot is an exciting challenge that combines creativity with engineering. Every great robot started as an idea on a notebook page.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The robot design process follows the engineering design cycle: define the problem, research solutions, brainstorm ideas, build a prototype, test it, evaluate the results, and improve the design. This cycle repeats until you have a robot that meets your requirements. Even professional robotics companies go through dozens of design iterations before releasing a product.</p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn a step-by-step approach to robot design, from defining your robot's mission to selecting components, writing the program, and testing your creation. You will also explore design considerations like power management, weight distribution, and cost optimization.</p>
           </div>
@@ -231,12 +231,12 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Chassis selection depends on your robot's environment. For smooth indoor floors, a simple acrylic or plastic chassis with wheels works well. For outdoor or rough terrain, consider a metal chassis with large wheels or tracks. You can design your own chassis using 3D printing or laser cutting, or buy a pre-made robot kit. Many beginners start with kits and later design custom chassis.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Power budget is a critical design consideration. Calculate the total current draw of all components: the microcontroller (~50 mA), sensors (5-20 mA each), motors (100-500 mA each under load), and any additional modules like WiFi or Bluetooth. Choose a battery with sufficient capacity (measured in mAh) to run the robot for your target duration. A 2000 mAh battery pack could run a small robot for about 1-2 hours.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Power budget is a critical design consideration. Calculate the total current draw of all components: the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span> (~50 mA), sensors (5-20 mA each), motors (100-500 mA each under load), and any additional modules like WiFi or Bluetooth. Choose a battery with sufficient capacity (measured in mAh) to run the robot for your target duration. A 2000 mAh battery pack could run a small robot for about 1-2 hours.</p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Weight distribution affects robot stability. Place heavy components like batteries and motors low and centered. An unbalanced robot may tip over during turns or when climbing slopes. Use the chassis layout to distribute weight evenly. For wheeled robots, ensure the center of gravity is between the wheels to prevent tipping forward or backward.</p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The best way to learn robot design is to start with a simple project and gradually increase complexity. A great first robot is a line follower — a robot that follows a black line on a white surface. It requires just two sensors, two motors, a microcontroller, and a chassis. You can build one in an afternoon and learn all the fundamentals of robot design.</p>
+              <p class="text-sm text-theme-muted">The best way to learn robot design is to start with a simple project and gradually increase complexity. A great first robot is a line follower — a robot that follows a black line on a white surface. It requires just two sensors, two motors, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span>, and a chassis. You can build one in an afternoon and learn all the fundamentals of robot design.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>

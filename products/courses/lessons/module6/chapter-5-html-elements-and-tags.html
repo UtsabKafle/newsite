@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -60,7 +60,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
-    .vocab { color: #3b82f6; font-weight: 500; }
+    #introduction .vocab, #how-it-works .vocab { color: #3b82f6 !important; font-weight: 500; }
+    
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -158,13 +159,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An HTML element is the fundamental building block of a webpage. Every element is defined by tags that tell the browser how to display the content inside them. Most elements have an opening tag, content, and a closing tag.
+              An HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> is the fundamental building block of a webpage. Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> is defined by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> that tell the browser how to display the content inside them. Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> have an opening <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span>, content, and a closing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Elements can be nested inside each other like Russian dolls, creating the hierarchical structure of an HTML document. Inline elements sit within lines of text, while block elements create sections that stack vertically.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> can be nested inside each other like Russian dolls, creating the hierarchical structure of an HTML document. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('inline-element')">Inline <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span> sit within lines of text, while <span class="vocab cursor-pointer" onclick="scrollToVocabulary('block-element')">Block <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span> create sections that stack vertically.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn the most common HTML elements, how to structure them, and how attributes add extra meaning.
+              In this chapter, you will learn the most common HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>, how to structure them, and how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span> add extra meaning.
             </p>
           </div>
         </section>
@@ -174,12 +175,12 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">HTML tags surround content to give it meaning. A &lt;strong&gt; tag makes text bold and signals importance. An &lt;em&gt; tag adds emphasis (italics). A &lt;div&gt; tag groups content into a block container. Tags can be self-closing (like &lt;br&gt; for a line break) or container tags (like &lt;p&gt;...&lt;/p&gt;).</p>
+              <p class="text-sm text-theme-muted">HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> surround content to give it meaning. A &lt;strong&gt; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> makes text bold and signals importance. An &lt;em&gt; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> adds emphasis (italics). A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> groups content into a block container. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> can be self-closing (like &lt;br&gt; for a line break) or container <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> (like &lt;p&gt;...&lt;/p&gt;).</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of HTML elements as LEGO bricks. A &lt;div&gt; is a large base plate, &lt;h1&gt; is a tall brick for a title, &lt;p&gt; is a standard brick for text, and &lt;img&gt; is a sticker piece. You stack and arrange bricks to build a complete structure.</p>
+              <p class="text-sm text-theme-muted">Think of HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> as LEGO bricks. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span> is a large base plate, &lt;h1&gt; is a tall brick for a title, &lt;p&gt; is a standard brick for text, and &lt;img&gt; is a sticker piece. You stack and arrange bricks to build a complete structure.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Common HTML Tags</h3>
@@ -192,43 +193,43 @@
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg></div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Text Tags</h4>
-                <p class="mt-2 text-sm text-theme-muted">&lt;p&gt; for paragraphs, &lt;span&gt; for inline text, &lt;strong&gt; for bold, and &lt;em&gt; for italics.</p>
+                <p class="mt-2 text-sm text-theme-muted">&lt;p&gt; for paragraphs, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('span')">&lt;span&gt;</span> for inline text, &lt;strong&gt; for bold, and &lt;em&gt; for italics.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg></div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Container Tags</h4>
-                <p class="mt-2 text-sm text-theme-muted">&lt;div&gt; for block sections and &lt;span&gt; for inline grouping. These are generic container elements.</p>
+                <p class="mt-2 text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span> for block sections and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('span')">&lt;span&gt;</span> for inline grouping. These are generic container <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Block vs Inline Elements</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Block Elements</p>
-                <p class="text-sm text-theme-muted">Start on a new line and take up the full width available. Examples: &lt;div&gt;, &lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;table&gt;. They create the main structure of a page.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('block-element')">Block <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span></p>
+                <p class="text-sm text-theme-muted">Start on a new line and take up the full width available. Examples: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span>, &lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;table&gt;. They create the main structure of a page.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Inline Elements</p>
-                <p class="text-sm text-theme-muted">Sit within block elements and only take up as much width as their content. Examples: &lt;span&gt;, &lt;a&gt;, &lt;strong&gt;, &lt;img&gt;. They style or mark up parts of text.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('inline-element')">Inline <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span></p>
+                <p class="text-sm text-theme-muted">Sit within <span class="vocab cursor-pointer" onclick="scrollToVocabulary('block-element')">Block <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span> and only take up as much width as their content. Examples: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('span')">&lt;span&gt;</span>, &lt;a&gt;, &lt;strong&gt;, &lt;img&gt;. They style or mark up parts of text.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Attributes provide additional information about elements. The class attribute assigns a CSS class for styling, id gives a unique identifier, src specifies the source of an image, and href defines the destination of a link. Attributes are always placed inside the opening tag.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span> provide additional information about <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>. The class <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span> assigns a CSS class for styling, id gives a unique identifier, src specifies the source of an image, and href defines the destination of a link. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span> are always placed inside the opening <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span>.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Void elements (also called self-closing tags) have no content and no closing tag. Common void elements include &lt;img&gt;, &lt;br&gt;, &lt;hr&gt;, and &lt;input&gt;. They carry all their information in attributes.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('void-element')">Void <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span> (also called self-closing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span>) have no content and no closing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span>. Common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('void-element')">Void <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span></span> include &lt;img&gt;, &lt;br&gt;, &lt;hr&gt;, and &lt;input&gt;. They carry all their information in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span>.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              HTML elements can be categorized by their content model: flow content (most elements that go in the body), phrasing content (inline text-level elements), sectioning content (headers, footers, navs), and embedded content (images, videos, iframes). Understanding these categories helps you write valid, semantic HTML.
+              HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> can be categorized by their content model: flow content (most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span> that go in the body), phrasing content (inline text-level <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>), sectioning content (headers, footers, navs), and embedded content (images, videos, iframes). Understanding these categories helps you write valid, semantic HTML.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Custom data attributes (prefixed with data-) allow developers to store extra information directly in HTML that JavaScript can access. For example, &lt;button data-user-id="123"&gt; stores the user ID for a click handler without using hidden elements.
+              Custom <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-attribute')">Data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('attribute')">Attribute</span></span> (prefixed with data-) allow developers to store extra information directly in HTML that JavaScript can access. For example, &lt;button data-user-id="123"&gt; stores the user ID for a click handler without using hidden <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>.
             </p>
           </div>
         </section>
@@ -264,23 +265,23 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The &lt;div&gt; tag is the most used HTML tag in the world. Almost every modern webpage has dozens or hundreds of &lt;div&gt; elements.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> is the most used HTML <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> in the world. Almost every modern webpage has dozens or hundreds of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('div')">&lt;div&gt;</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The &lt;a&gt; tag (anchor) is what makes the web a "web" â€” it creates hyperlinks that connect pages together.</p>
+                <p class="text-sm text-theme-muted">The &lt;a&gt; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> (anchor) is what makes the web a "web" — it creates hyperlinks that connect pages together.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The &lt;hr&gt; tag creates a horizontal line and originally stood for "horizontal rule" in early web design.</p>
+                <p class="text-sm text-theme-muted">The &lt;hr&gt; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> creates a horizontal line and originally stood for "horizontal rule" in early web design.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">A single HTML file can have multiple &lt;h1&gt; elements, but using only one per page is recommended for accessibility and SEO.</p>
+                <p class="text-sm text-theme-muted">A single HTML file can have multiple &lt;h1&gt; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('element')">Element</span>, but using only one per page is recommended for accessibility and SEO.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <p class="text-sm text-theme-muted">The comment tag &lt;!-- comment --&gt; allows developers to leave notes in code that are invisible to users but helpful for future edits.</p>
+                <p class="text-sm text-theme-muted">The comment <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tag')">Tag</span> &lt;!-- comment --&gt; allows developers to leave notes in code that are invisible to users but helpful for future edits.</p>
               </div>
             </div>
           </div>
