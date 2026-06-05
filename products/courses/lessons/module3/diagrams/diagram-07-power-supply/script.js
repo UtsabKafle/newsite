@@ -9,10 +9,15 @@ deferInit(function(){
     title: 'Power Supply',
     subtitle: 'Computer Assembly',
     desc: 'Understand power supply ratings, cables, and installation.',
+    module: 3,
+    difficulty: 'Intermediate',
+    time: '10',
+    objectives: 'Understand power supply ratings, cables, and installation.',
     components: components,
     connections: connections,
     steps: steps,
     tour: tour,
+    suppressDetail: true,
     
     render: function(container, engine) {
       engine.buildClickExplorer(container);

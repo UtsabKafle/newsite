@@ -9,10 +9,15 @@ deferInit(function(){
     title: 'Storage',
     subtitle: 'Computer Assembly',
     desc: 'Compare storage drives and installation methods.',
+    module: 3,
+    difficulty: 'Intermediate',
+    time: '10',
+    objectives: 'Compare storage drives and their installation methods.',
     components: components,
     connections: connections,
     steps: steps,
     tour: tour,
+    suppressDetail: true,
     
     render: function(container, engine) {
       engine.buildClickExplorer(container);

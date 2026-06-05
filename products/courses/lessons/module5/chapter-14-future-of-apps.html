@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Chapter 14: Future of Apps | Consica Academy</title>
+  <meta name="description" content="Chapter 14: Future of Apps. Explore AI, AR/VR, voice interfaces, and the next generation of apps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4',
+              400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A',
+              800: '#032652', 900: '#021629',
+            },
+            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' },
+          },
+          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' },
+        },
+      },
+    };
+  </script>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('consica-theme');
+      var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main { padding-top: var(--nav-height); }
+    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) {
+      .static-main { padding-top: 3.5rem; }
+      .static-main section { scroll-margin-top: 4rem; }
+      .static-main .glass-panel { border-radius: 1rem; }
+    }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
+    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
+    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-check p { margin-bottom: 0.25rem; }
+    .kb-answer { display: none; }
+    .kb-answer.revealed { display: block; }
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
+          <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+          <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span class="text-[10px] font-medium">Services</span>
+        </a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
+          <span class="text-[10px] font-medium">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 14</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Future of Apps</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">AI, AR/VR, voice interfaces, and the next generation</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The apps we use today would seem like science fiction to someone from the 1990s. We carry powerful computers in our pockets, ask voice assistants to set reminders, and navigate unfamiliar cities with turn-by-turn directions. But the pace of change is accelerating.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The next generation of apps will be shaped by <span class="text-brand-200 font-semibold">artificial intelligence</span> that anticipates your needs, <span class="text-brand-200 font-semibold">augmented reality</span> that blends digital information with the real world, and <span class="text-brand-200 font-semibold">voice interfaces</span> that let you interact without touching a screen.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this final chapter, we will explore the technologies that will define the future of software — from AI-powered apps and AR shopping to quantum computing and the Internet of Things.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm text-theme-muted"><strong>AI-powered apps</strong> use machine learning models to make predictions and decisions. These models are trained on vast amounts of data and can recognise images, understand speech, translate languages, and recommend content. <strong>AR apps</strong> use your phone's camera to overlay digital objects onto the real world. <strong>Voice apps</strong> use natural language processing (NLP) to understand what you say and respond intelligently.</p>
+            </div>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Time Machine Analogy</p>
+              <p class="text-sm text-theme-muted">Today's apps are like 1990s flip phones compared to what is coming. Imagine showing someone from 1995 a smartphone — GPS maps, streaming video, facial recognition, instant translation. They would think it was magic. In the same way, the apps of 2040 will make today's technology feel primitive. We can only begin to imagine the possibilities — apps that read your emotions, interfaces controlled by thought, and digital worlds indistinguishable from reality.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Future Trends</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Here are the key trends shaping the next decade of software:
+            </p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">AI Assistants</h4>
+                <p class="mt-2 text-sm text-theme-muted">AI is becoming built into every app — not just chatbots. Expect apps that write emails for you, generate art, compose music, and debug your code automatically.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">AR Shopping &amp; Maps</h4>
+                <p class="mt-2 text-sm text-theme-muted">Augmented reality lets you try on clothes virtually, see furniture in your home before buying, and get directions overlaid on the real world through your phone or glasses.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">Voice-Controlled Everything</h4>
+                <p class="mt-2 text-sm text-theme-muted">Voice interfaces are moving beyond simple commands. Future apps will hold natural conversations, understand context, and act on your behalf across multiple services.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">Quantum Computing</h4>
+                <p class="mt-2 text-sm text-theme-muted">Quantum computers use qubits that can be 0 and 1 simultaneously. They will solve problems in seconds that would take today's computers thousands of years — revolutionising drug discovery, cryptography, and AI.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">What This Means for Developers</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The best way to predict the future is to build it. As a developer, you have the power to create the apps that will define the next decade. The fundamentals you have learned in this module — how apps are built, how they communicate, how they are secured and deployed — will remain relevant no matter how technology evolves.
+            </p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The future of apps is not about any single technology — it is about combining them. Imagine an AI assistant that lives in your AR glasses, controlled by your voice, running on cloud servers, secured by quantum encryption, and accessible from any device. That future is closer than you think.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr><td>AI</td><td>Artificial Intelligence — machines that can perform tasks that normally require human intelligence</td></tr>
+                  <tr><td>Machine Learning</td><td>A subset of AI where systems learn and improve from data without being explicitly programmed</td></tr>
+                  <tr><td>AR</td><td>Augmented Reality — overlaying digital information onto the real world</td></tr>
+                  <tr><td>VR</td><td>Virtual Reality — a fully immersive digital environment</td></tr>
+                  <tr><td>Voice Interface</td><td>A user interface that uses speech recognition and natural language processing</td></tr>
+                  <tr><td>IoT</td><td>Internet of Things — a network of physical devices connected to the internet</td></tr>
+                  <tr><td>Quantum Computing</td><td>Computing using quantum-mechanical phenomena like superposition and entanglement</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Google's quantum computer, Sycamore, performed a calculation in 200 seconds in 2019 that would take the world's fastest supercomputer 10,000 years.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">OpenAI's ChatGPT reached 100 million users in just two months after launch in 2022 — the fastest-growing app in history. It took TikTok 9 months to reach that milestone.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Pokemon GO (2016) was the first AR app to achieve mainstream success. At its peak, it had 45 million daily active users walking around their neighbourhoods catching virtual creatures.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The Internet of Things (IoT) now connects over 15 billion devices — from smart fridges to industrial sensors. By 2030, that number is expected to exceed 30 billion.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The term "metaverse" refers to a persistent, shared virtual world. While still in its early stages, companies like Meta, Microsoft, and Epic Games are investing billions into making it a reality.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore the future of apps.</p>
+            <a href="diagrams/diagram-14-future-apps/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
+            <div class="mt-6 space-y-6">
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What does AR stand for?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Artificial Reality</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Augmented Reality</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Automated Recognition</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Advanced Rendering</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Augmented Reality</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. Which technology uses qubits that can be 0 and 1 at the same time?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Classical Computing</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Quantum Computing</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Cloud Computing</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Edge Computing</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Quantum Computing</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What does IoT stand for?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Internet of Things</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Integration of Technology</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Input-Output Transfer</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Internal Operating Table</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Internet of Things</p>
+              </div>
+
+            </div>
+
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) {
+                      if (!a.classList.contains('revealed')) hidden = true;
+                    });
+                    answers.forEach(function(a) {
+                      a.classList.toggle('revealed', hidden);
+                    });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="how-apps-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 5 &middot; Chapter 14</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+
+</html>

@@ -9,10 +9,15 @@ deferInit(function(){
     title: 'Ram',
     subtitle: 'Computer Assembly',
     desc: 'Learn about RAM types, installation, and configuration.',
+    module: 3,
+    difficulty: 'Intermediate',
+    time: '10',
+    objectives: 'Learn about RAM types, installation, and configuration.',
     components: components,
     connections: connections,
     steps: steps,
     tour: tour,
+    suppressDetail: true,
     
     render: function(container, engine) {
       engine.buildClickExplorer(container);

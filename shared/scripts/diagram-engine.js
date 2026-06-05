@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Consica Labs — Universal Interactive Diagram Engine v2
+   Consica Labs — Universal Interactive Diagram Engine v3
    ═══════════════════════════════════════════════════════ */
 (function(){'use strict';
 
@@ -54,1030 +54,1378 @@ const ICONS={
   settings:'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z'
 };
 
-class DiagramEngine{
-  constructor(cfg){
-    this.cfg=cfg;
-    this.speed=1;this.playing=false;this.t=0;this.dt=0;
-    this.selectedId=null;this.currentStep=-1;this.tourActive=false;this.tourStep=0;
-    this.detailMode='basic';
-    this.lastFrame=0;this.rafId=null;
-    this._connPaths=[];this._flowDots=[];
+class DiagramEngine {
+  constructor(cfg) {
+    this.cfg = cfg;
+    this.speed = 1;
+    this.playing = false;
+    this.t = 0;
+    this.dt = 0;
+    this.selectedId = null;
+    this.currentStep = -1;
+    this.detailMode = 'basic';
+    this.mode = 'learn'; // 'learn', 'explore', 'challenge'
+    this.lastFrame = 0;
+    this.rafId = null;
+    this._connPaths = [];
+    this._flowDots = [];
 
-    this.el={};
+    // LocalStorage key for Completion
+    this.storageKey = `consica-diagram-${cfg.module || 0}-${cfg.title.replace(/\s+/g, '-').toLowerCase()}-completed`;
+
+    this.el = {};
     this._build();
     this._bind();
-    if(this.cfg.render)this.cfg.render(this.el.visual,this);
+    this._initCompletion();
+
+    if (this.cfg.render) this.cfg.render(this.el.visual, this);
     this._showEmptyState();
     this._updateStepControls();
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-      this.speed=0;this._updateSpeedDisplay();
+
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      this.speed = 0;
+      this._updateSpeedDisplay();
     }
   }
 
-  _build(){
-    const title=_formatTitle(this.cfg.title||'Interactive Diagram');
-    const w=this.el.wrapper=$('#diagram-wrapper',document.body)||(()=>{
-      const d=document.createElement('div');d.id='diagram-wrapper';d.className='diagram-wrapper';
-      document.body.prepend(d);return d;
+  _build() {
+    const title = _formatTitle(this.cfg.title || 'Interactive Diagram');
+    const mod = this.cfg.module || '';
+    const crumb = this.cfg.breadcrumb || {
+      course: 'Consica Academy',
+      module: mod ? 'Module ' + mod : 'Module',
+      lesson: title
+    };
+    const w = this.el.wrapper = $('#lab-wrapper', document.body) || (() => {
+      const d = document.createElement('div'); d.id = 'lab-wrapper'; d.className = 'lab-wrapper';
+      document.body.prepend(d); return d;
     })();
-    w.innerHTML=`
+
+    w.innerHTML = `
       <a class="skip-link" href="#diagram-visual">Skip to diagram</a>
-      <header class="diagram-header">
-        <h1 class="diagram-title">${this._esc(title)}</h1>
-        ${this.cfg.subtitle?`<p class="diagram-subtitle">${this._esc(this.cfg.subtitle)}</p>`:''}
-        ${this.cfg.desc?`<p class="diagram-desc">${this._esc(this.cfg.desc)}</p>`:''}
-      </header>
-      <div class="controls-bar" role="toolbar" aria-label="Diagram controls">
-        <div class="ctrl-group">
-          <button class="ctrl-btn" id="ctrl-play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span class="btn-label">Play</span></button>
-          <button class="ctrl-btn" id="ctrl-replay" aria-label="Replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg><span class="btn-label">Replay</span></button>
+
+      <!-- Breadcrumb -->
+      <nav class="lab-breadcrumb" aria-label="Breadcrumb">
+        <a href="#">${this._esc(crumb.course)}</a>
+        <span class="crumb-sep">/</span>
+        <a href="#">${this._esc(crumb.module)}</a>
+        <span class="crumb-sep">/</span>
+        <span>${this._esc(crumb.lesson)}</span>
+      </nav>
+
+      <!-- Simulation Header -->
+      <header class="lab-header">
+        <div class="lab-header-main">
+          <div class="lab-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="lab-title">${this._esc(title)}</h1>
+            <p class="lab-purpose">${this.cfg.desc ? this._esc(this.cfg.desc) : ''}</p>
+          </div>
         </div>
-        <div class="ctrl-divider"></div>
-        <div class="ctrl-group speed-ctrl" role="group" aria-label="Animation speed">
+        <div class="lab-header-meta">
+          <span class="lab-badge badge-completed" id="completion-status-btn" role="checkbox" aria-checked="false" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12" style="margin-right: 4px;">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <span id="completion-text">In Progress</span>
+          </span>
+          <span class="lab-badge badge-diff">${this._esc(this.cfg.difficulty || 'Intermediate')}</span>
+          <span class="lab-badge badge-time">${this._esc(this.cfg.time || '~10')} min</span>
+        </div>
+      </header>
+
+      <!-- Action Bar -->
+      <div class="lab-actions" role="toolbar" aria-label="Simulation controls">
+        <div class="action-group" id="playback-controls">
+          <button class="act-btn" id="ctrl-play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg><span class="act-label">Play</span></button>
+          <button class="act-btn" id="ctrl-replay" aria-label="Replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg><span class="act-label">Replay</span></button>
+        </div>
+        
+        <div class="action-divider" id="divider-play"></div>
+        
+        <!-- Mode Selector Group -->
+        <div class="action-group">
+          <div class="mode-selector-group" role="radiogroup" aria-label="Exploration Mode">
+            <button class="mode-btn active" id="mode-learn" role="radio" aria-checked="true">Learn Mode</button>
+            <button class="mode-btn" id="mode-explore" role="radio" aria-checked="false">Explore Mode</button>
+            <button class="mode-btn" id="mode-challenge" role="radio" aria-checked="false">Challenge Mode</button>
+          </div>
+        </div>
+
+        <div class="action-divider"></div>
+        
+        <div class="action-group speed-ctrl" role="group" aria-label="Animation speed">
           <span class="speed-label">Speed</span>
           <button class="speed-down" aria-label="Decrease speed">−</button>
           <span class="speed-display" aria-live="polite">1×</span>
           <button class="speed-up" aria-label="Increase speed">+</button>
         </div>
-        <div class="ctrl-divider"></div>
-        <div class="ctrl-group">
-          <button class="ctrl-btn tour-btn" id="ctrl-tour" aria-label="Start guided tour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span class="btn-label">Tour</span></button>
+        
+        <div class="action-spacer"></div>
+        
+        <div class="action-group">
+          <button class="act-btn" id="ctrl-fullscreen" aria-label="Enter fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg><span class="act-label">Lab</span></button>
         </div>
       </div>
-      <div class="diagram-main">
-        <div class="diagram-visual" id="diagram-visual" role="img" aria-label="${this._esc(title)}"></div>
-        <aside class="diagram-explanation" id="explanation-panel" role="complementary" aria-label="Component explanation">
-          <div class="explanation-empty" id="expl-empty">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <p>Click a component to explore</p>
-            <span class="expl-hint">Or start the guided tour</span>
+
+      <!-- Main Workspace -->
+      <div class="lab-workspace">
+        <div class="lab-diagram" id="diagram-visual" role="img" aria-label="${this._esc(title)}">
+          <!-- Step Controls inside diagram -->
+          <div class="lab-steps" id="step-controls" role="group" aria-label="Step navigation" hidden>
+            <button class="step-btn" id="step-prev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Prev</button>
+            <span class="step-indicator" id="step-indicator" aria-live="polite"></span>
+            <button class="step-btn" id="step-next" aria-label="Next step">Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
-          <div class="explanation-header" id="expl-header" hidden>
-            <span class="expl-name" id="expl-name"></span>
-            <div class="expl-mode" role="group" aria-label="Explanation detail level">
-              <button class="active" data-mode="basic" aria-pressed="true">Basic</button>
-              <button data-mode="detailed" aria-pressed="false">Detailed</button>
+        </div>
+        
+        <aside class="lab-explorer" id="explorer-panel" role="complementary" aria-label="Component explorer">
+          <div class="explorer-empty" id="explorer-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Select a component to inspect</p>
+            <span class="explorer-hint">Click any element in the diagram</span>
+          </div>
+          <div class="explorer-content" id="explorer-content" hidden>
+            <div class="explorer-header">
+              <h2 class="explorer-name" id="explorer-name"></h2>
+              <div class="explorer-mode" role="group" aria-label="Detail level">
+                <button class="expl-mode-btn active" data-mode="basic" aria-pressed="true">Overview</button>
+                <button class="expl-mode-btn" data-mode="detailed" aria-pressed="false">Details</button>
+              </div>
             </div>
-            <button class="expl-close" id="expl-close" aria-label="Close explanation">&times;</button>
+            <div class="explorer-scroll" id="explorer-scroll"></div>
           </div>
-          <div class="explanation-body" id="expl-body" hidden></div>
         </aside>
       </div>
-      <div class="step-controls" id="step-controls" role="group" aria-label="Step navigation">
-        <button class="step-btn" id="step-prev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Prev</button>
-        <span class="step-indicator" id="step-indicator" aria-live="polite"></span>
-        <button class="step-btn" id="step-next" aria-label="Next step">Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-      </div>
-      <div class="tour-overlay" id="tour-overlay" hidden></div>
-    `;
-    document.title=title+' — Interactive Diagram | Consica Labs';
-    this.el.visual=$('#diagram-visual',w);
-    this.el.playBtn=$('#ctrl-play',w);
-    this.el.replayBtn=$('#ctrl-replay',w);
-    this.el.speedDown=$('.speed-down',w);
-    this.el.speedUp=$('.speed-up',w);
-    this.el.speedDisplay=$('.speed-display',w);
-    this.el.tourBtn=$('#ctrl-tour',w);
-    this.el.explPanel=$('#explanation-panel',w);
-    this.el.explHeader=$('#expl-header',w);
-    this.el.explBody=$('#expl-body',w);
-    this.el.explName=$('#expl-name',w);
-    this.el.explEmpty=$('#expl-empty',w);
-    this.el.explClose=$('#expl-close',w);
-    this.el.stepPrev=$('#step-prev',w);
-    this.el.stepNext=$('#step-next',w);
-    this.el.stepIndicator=$('#step-indicator',w);
-    this.el.stepControls=$('#step-controls',w);
-    this.el.tourOverlay=$('#tour-overlay',w);
-    this.el.modeBtns=$$('[data-mode]',this.el.explHeader);
-    this.el.skipLink=$('.skip-link',w);
 
-    if(!this.cfg.steps||!this.cfg.steps.length)this.el.stepControls.hidden=true;
+      <!-- Learning Insights -->
+      <div class="lab-insights" id="lab-insights">
+        <div class="insight-card" id="insight-takeaway">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div>
+            <div class="insight-label">Key Takeaway</div>
+            <div class="insight-value" id="insight-takeaway-text">Click any component to see its key takeaway</div>
+          </div>
+        </div>
+        <div class="insight-card" id="insight-analogy">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.78 7.78 5.5 5.5 0 017.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
+          <div>
+            <div class="insight-label">Analogy</div>
+            <div class="insight-value" id="insight-analogy-text">Select a component for a real-world comparison</div>
+          </div>
+        </div>
+        <div class="insight-card" id="insight-funfact">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"/></svg></div>
+          <div>
+            <div class="insight-label">Fun Fact</div>
+            <div class="insight-value" id="insight-funfact-text">Discover interesting facts about components</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.title = title + ' — Interactive Diagram | Consica Labs';
+    this.el.visual = $('#diagram-visual', w);
+    this.el.playBtn = $('#ctrl-play', w);
+    this.el.replayBtn = $('#ctrl-replay', w);
+    this.el.speedDown = $('.speed-down', w);
+    this.el.speedUp = $('.speed-up', w);
+    this.el.speedDisplay = $('.speed-display', w);
+    this.el.fullscreenBtn = $('#ctrl-fullscreen', w);
+    this.el.skipLink = $('.skip-link', w);
+    this.el.explorer = $('#explorer-panel', w);
+    this.el.explorerEmpty = $('#explorer-empty', w);
+    this.el.explorerContent = $('#explorer-content', w);
+    this.el.explorerName = $('#explorer-name', w);
+    this.el.explorerScroll = $('#explorer-scroll', w);
+    this.el.explorerModeBtns = $$('.expl-mode-btn', this.el.explorer);
+    // Insights
+    this.el.insights = $('#lab-insights', w);
+    this.el.insightTakeaway = $('#insight-takeaway-text', w);
+    this.el.insightAnalogy = $('#insight-analogy-text', w);
+    this.el.insightFunfact = $('#insight-funfact-text', w);
+    // Steps
+    this.el.stepPrev = $('#step-prev', w);
+    this.el.stepNext = $('#step-next', w);
+    this.el.stepIndicator = $('#step-indicator', w);
+    this.el.stepControls = $('#step-controls', w);
+
+    // Modes
+    this.el.modeLearnBtn = $('#mode-learn', w);
+    this.el.modeExploreBtn = $('#mode-explore', w);
+    this.el.modeChallengeBtn = $('#mode-challenge', w);
+
+    // Completion Status Button
+    this.el.completionBtn = $('#completion-status-btn', w);
+    this.el.completionText = $('#completion-text', w);
   }
 
-  _bind(){
-    this.el.playBtn.addEventListener('click',()=>this.togglePlay());
-    this.el.replayBtn.addEventListener('click',()=>this.replay());
-    this.el.speedDown.addEventListener('click',()=>this._adjustSpeed(-.5));
-    this.el.speedUp.addEventListener('click',()=>this._adjustSpeed(.5));
-    this.el.tourBtn.addEventListener('click',()=>this.toggleTour());
-    this.el.explClose.addEventListener('click',()=>this._clearSelection());
-    this.el.stepPrev.addEventListener('click',()=>this.prevStep());
-    this.el.stepNext.addEventListener('click',()=>this.nextStep());
-    this.el.modeBtns.forEach(b=>b.addEventListener('click',()=>this._setDetailMode(b.dataset.mode)));
+  _bind() {
+    this.el.playBtn.addEventListener('click', () => this.togglePlay());
+    this.el.replayBtn.addEventListener('click', () => this.replay());
+    this.el.speedDown.addEventListener('click', () => this._adjustSpeed(-0.5));
+    this.el.speedUp.addEventListener('click', () => this._adjustSpeed(0.5));
+    this.el.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+    this.el.stepPrev.addEventListener('click', () => this.prevStep());
+    this.el.stepNext.addEventListener('click', () => this.nextStep());
+    this.el.explorerModeBtns.forEach(b => b.addEventListener('click', () => this._setDetailMode(b.dataset.mode)));
 
-    document.addEventListener('keydown',e=>{
-      if(e.target.closest('input,textarea,select'))return;
-      if(e.key===' '||e.key==='Space'){e.preventDefault();this.togglePlay()}
-      if(e.key==='ArrowRight'&&e.altKey){e.preventDefault();this.nextStep()}
-      if(e.key==='ArrowLeft'&&e.altKey){e.preventDefault();this.prevStep()}
-      if(e.key==='Escape')this._clearSelection();
+    // Mode listeners
+    this.el.modeLearnBtn.addEventListener('click', () => this.setMode('learn'));
+    this.el.modeExploreBtn.addEventListener('click', () => this.setMode('explore'));
+    this.el.modeChallengeBtn.addEventListener('click', () => this.setMode('challenge'));
+
+    // Completion Status Toggle
+    this.el.completionBtn.addEventListener('click', () => this.toggleCompletion());
+    this.el.completionBtn.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this.toggleCompletion(); }
     });
 
-    this.el.visual.addEventListener('click',e=>{
-      const el=e.target.closest('[data-component-id]');
-      if(el)this.selectComponent(el.dataset.componentId);
+    document.addEventListener('keydown', e => {
+      if (e.target.closest('input,textarea,select')) return;
+      if (e.key === 'ArrowRight' && e.altKey) { e.preventDefault(); this.nextStep(); }
+      if (e.key === 'ArrowLeft' && e.altKey) { e.preventDefault(); this.prevStep(); }
+      if (e.key === 'Escape') this._clearSelection();
     });
-    this.el.visual.addEventListener('keydown',e=>{
-      if(e.key==='Enter'||e.key===' '){
-        const el=e.target.closest('[data-component-id]');
-        if(el){e.preventDefault();this.selectComponent(el.dataset.componentId)}
+
+    this.el.visual.addEventListener('click', e => {
+      const el = e.target.closest('[data-component-id]');
+      if (el) this.selectComponent(el.dataset.componentId);
+    });
+    this.el.visual.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const el = e.target.closest('[data-component-id]');
+        if (el) { e.preventDefault(); this.selectComponent(el.dataset.componentId); }
       }
     });
   }
 
-  togglePlay(){
-    if(this.playing)this.pause();else this.play();
+  _initCompletion() {
+    const state = localStorage.getItem(this.storageKey);
+    if (state === 'completed') {
+      this.el.completionBtn.classList.add('active');
+      this.el.completionBtn.setAttribute('aria-checked', 'true');
+      this.el.completionText.textContent = 'Completed';
+    } else {
+      this.el.completionBtn.classList.remove('active');
+      this.el.completionBtn.setAttribute('aria-checked', 'false');
+      this.el.completionText.textContent = 'In Progress';
+    }
   }
-  play(){
-    if(this.playing)return;
-    this.playing=true;
-    this.lastFrame=performance.now();
+
+  toggleCompletion() {
+    const isCompleted = this.el.completionBtn.classList.contains('active');
+    if (isCompleted) {
+      localStorage.setItem(this.storageKey, 'in-progress');
+    } else {
+      localStorage.setItem(this.storageKey, 'completed');
+    }
+    this._initCompletion();
+  }
+
+  markCompleted() {
+    localStorage.setItem(this.storageKey, 'completed');
+    this._initCompletion();
+  }
+
+  setMode(mode) {
+    this.mode = mode;
+    this.el.modeLearnBtn.classList.toggle('active', mode === 'learn');
+    this.el.modeExploreBtn.classList.toggle('active', mode === 'explore');
+    this.el.modeChallengeBtn.classList.toggle('active', mode === 'challenge');
+    this.el.modeLearnBtn.setAttribute('aria-checked', mode === 'learn' ? 'true' : 'false');
+    this.el.modeExploreBtn.setAttribute('aria-checked', mode === 'explore' ? 'true' : 'false');
+    this.el.modeChallengeBtn.setAttribute('aria-checked', mode === 'challenge' ? 'true' : 'false');
+
+    this.pause();
+    this._clearSelection();
+
+    // Reset visual container and playback panel based on mode
+    if (mode === 'learn') {
+      $('#playback-controls').style.display = 'flex';
+      $('#divider-play').style.display = 'block';
+      this.el.stepControls.hidden = false;
+      this.t = 0;
+      this.currentStep = 0;
+      if (this.cfg.render) this.cfg.render(this.el.visual, this);
+      this._applyStep();
+    } else if (mode === 'explore') {
+      $('#playback-controls').style.display = 'flex';
+      $('#divider-play').style.display = 'block';
+      this.el.stepControls.hidden = true;
+      if (this.cfg.render) this.cfg.render(this.el.visual, this);
+      this._setStatus('Explore mode: click components directly');
+    } else if (mode === 'challenge') {
+      $('#playback-controls').style.display = 'none';
+      $('#divider-play').style.display = 'none';
+      this.el.stepControls.hidden = true;
+      if (this.cfg.customChallenge) {
+        this.cfg.customChallenge(this.el.visual, this);
+      } else {
+        this.buildFallbackChallenge();
+      }
+    }
+  }
+
+  buildFallbackChallenge() {
+    const comps = this.cfg.components || [];
+    if (!comps.length) {
+      this.el.visual.innerHTML = '<div style="padding:40px;text-align:center;color:#64748b">No components available for Challenge.</div>';
+      return;
+    }
+    // Dynamic matching puzzle fallback
+    const items = comps.map(c => ({ id: c.id, label: c.name, slot: c.id }));
+    const slots = comps.map(c => ({ id: c.id, label: c.purpose }));
+    // Shuffle items
+    const shuffledItems = [...items].sort(() => Math.random() - 0.5);
+
+    this.buildDragMatching(this.el.visual, {
+      items: shuffledItems,
+      slots: slots
+    });
+  }
+
+  togglePlay() {
+    if (this.playing) this.pause(); else this.play();
+  }
+  play() {
+    if (this.playing) return;
+    this.playing = true;
+    this.lastFrame = performance.now();
     this._tick();
     this._updatePlayBtn();
     this._setStatus('Playing');
   }
-  pause(){
-    if(!this.playing)return;
-    this.playing=false;
-    if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null}
+  pause() {
+    if (!this.playing) return;
+    this.playing = false;
+    if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
     this._updatePlayBtn();
     this._setStatus('Paused');
   }
-  replay(){
-    this.t=0;this.currentStep=-1;
-    if(!this.playing)this.play();else this._setStatus('Replaying');
-    if(this.cfg.onReplay)this.cfg.onReplay(this);
+  replay() {
+    this.t = 0;
+    this.currentStep = -1;
+    if (!this.playing) this.play(); else this._setStatus('Replaying');
+    if (this.cfg.onReplay) this.cfg.onReplay(this);
   }
-  _tick(){
-    if(!this.playing)return;
-    const now=performance.now();
-    this.dt=(now-this.lastFrame)/1000*this.speed;
-    this.lastFrame=now;
-    if(this.speed>0){this.t+=this.dt;
-      if(this.cfg.animate)this.cfg.animate(this);
+  _tick() {
+    if (!this.playing) return;
+    const now = performance.now();
+    this.dt = (now - this.lastFrame) / 1000 * this.speed;
+    this.lastFrame = now;
+    if (this.speed > 0) {
+      this.t += this.dt;
+      if (this.cfg.animate) this.cfg.animate(this);
       this._updateFlowDots();
     }
-    this.rafId=requestAnimationFrame(()=>this._tick());
+    this.rafId = requestAnimationFrame(() => this._tick());
   }
-  _updatePlayBtn(){
-    const b=this.el.playBtn;
-    if(this.playing){
-      b.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span class="btn-label">Pause</span>';
-      b.setAttribute('aria-label','Pause');
-    }else{
-      b.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span class="btn-label">Play</span>';
-      b.setAttribute('aria-label','Play');
+  _updatePlayBtn() {
+    const b = this.el.playBtn;
+    if (this.playing) {
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span class="act-label">Pause</span>';
+      b.setAttribute('aria-label', 'Pause');
+    } else {
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg><span class="act-label">Play</span>';
+      b.setAttribute('aria-label', 'Play');
     }
   }
 
-  _adjustSpeed(delta){
-    const speeds=[.5,1,1.5,2,3];
-    let i=speeds.indexOf(this.speed);
-    if(i<0)i=1;
-    i=Math.max(0,Math.min(speeds.length-1,i+(delta>0?1:-1)));
-    this.speed=speeds[i];
+  _adjustSpeed(delta) {
+    const speeds = [0.5, 1, 1.5, 2, 3];
+    let i = speeds.indexOf(this.speed);
+    if (i < 0) i = 1;
+    i = Math.max(0, Math.min(speeds.length - 1, i + (delta > 0 ? 1 : -1)));
+    this.speed = speeds[i];
     this._updateSpeedDisplay();
   }
-  _updateSpeedDisplay(){
-    this.el.speedDisplay.textContent=this.speed+'×';
+  _updateSpeedDisplay() {
+    this.el.speedDisplay.textContent = this.speed + '×';
   }
 
-  selectComponent(id){
-    if(!id)return;
-    if(this.tourActive)this._endTour();
+  selectComponent(id) {
+    if (!id) return;
     this._clearHighlights();
-    this.selectedId=id;
-    $$('[data-component-id]',this.el.visual).forEach(el=>{
-      if(el.dataset.componentId===id)el.classList.add('selected');
+    this.selectedId = id;
+    $$('[data-component-id]', this.el.visual).forEach(el => {
+      if (el.dataset.componentId === id) el.classList.add('selected');
     });
-    if(this.cfg.connections){
-      $$('.connection',this.el.visual).forEach(el=>{
-        const f=el.dataset.from,t=el.dataset.to;
-        if(f===id||t===id)el.classList.add('highlighted');
+    if (this.cfg.connections) {
+      $$('.connection', this.el.visual).forEach(el => {
+        const f = el.dataset.from, t = el.dataset.to;
+        if (f === id || t === id) el.classList.add('highlighted');
       });
     }
     this._showExplanation(id);
-    this._setStatus(`Selected: ${id}`);
   }
-  _clearSelection(){
-    this.selectedId=null;
+  _clearSelection() {
+    this.selectedId = null;
     this._clearHighlights();
     this._showEmptyState();
-    this._setStatus('Ready');
   }
-  _clearHighlights(){
-    $$('.selected',this.el.visual).forEach(el=>el.classList.remove('selected'));
-    $$('.connection.highlighted',this.el.visual).forEach(el=>el.classList.remove('highlighted'));
+  _clearHighlights() {
+    $$('.selected', this.el.visual).forEach(el => el.classList.remove('selected'));
+    $$('.connection.highlighted', this.el.visual).forEach(el => el.classList.remove('highlighted'));
   }
 
-  _showExplanation(id){
-    const comp=this._findComp(id);
-    if(!comp)return;
-    this.el.explEmpty.hidden=true;
-    this.el.explHeader.hidden=false;
-    this.el.explBody.hidden=false;
-    this.el.explName.textContent=comp.name||id;
+  _showExplanation(id) {
+    const comp = this._findComp(id);
+    if (!comp) return;
+    this.el.explorerEmpty.hidden = true;
+    this.el.explorerContent.hidden = false;
+    this.el.explorerName.textContent = comp.name || id;
 
-    const d=this.detailMode==='detailed';
-    this.el.explPanel.classList.toggle('detailed',d);
+    const d = this.detailMode === 'detailed';
+    const desc = d && comp.descriptionDetailed ? comp.descriptionDetailed : comp.description;
 
-    this.el.explBody.innerHTML=html`
-      ${comp.category?`<div class="expl-section"><div class="expl-label">Category</div><div class="expl-value">${this._esc(comp.category)}</div></div>`:''}
-      ${comp.purpose?`<div class="expl-section"><div class="expl-label">Purpose</div><div class="expl-value">${this._esc(comp.purpose)}</div></div>`:''}
-      ${comp.description?`<div class="expl-section"><div class="expl-label">What It Does</div><div class="expl-value${comp.descriptionDetailed?' basic-only':''}">${this._esc(comp.description)}</div>${comp.descriptionDetailed?`<div class="expl-value detailed-only">${this._esc(comp.descriptionDetailed)}</div>`:''}</div>`:''}
-      ${comp.why?`<div class="expl-section"><div class="expl-label">Why It Matters</div><div class="expl-value">${this._esc(comp.why)}</div></div>`:''}
-      ${comp.analogy?`<div class="expl-section"><div class="expl-label">Real-World Analogy</div><div class="expl-value">${this._esc(comp.analogy)}</div></div>`:''}
-      ${comp.funFact?`<div class="expl-section"><div class="expl-label">Fun Fact</div><div class="expl-value">${this._esc(comp.funFact)}</div></div>`:''}
-      ${comp.takeaway?`<div class="expl-section"><div class="expl-label">Key Takeaway</div><div class="expl-value">${this._esc(comp.takeaway)}</div></div>`:''}
-      ${comp.mistake?`<div class="expl-section"><div class="expl-label">Common Mistake</div><div class="expl-value">${this._esc(comp.mistake)}</div></div>`:''}
+    // Render detailed texts
+    let body = html`
+      ${comp.purpose ? `<section class="ex-section"><div class="ex-label">Purpose</div><div class="ex-value">${this._esc(comp.purpose)}</div></section>` : ''}
+      ${desc ? `<section class="ex-section"><div class="ex-label">${d ? 'Detailed Explanation' : 'How It Works'}</div><div class="ex-value">${this._esc(desc)}</div></section>` : ''}
+      ${comp.why ? `<section class="ex-section"><div class="ex-label">Why It Matters</div><div class="ex-value">${this._esc(comp.why)}</div></section>` : ''}
+      ${comp.analogy ? `<section class="ex-section"><div class="ex-label">Real-World Analogy</div><div class="ex-value">${this._esc(comp.analogy)}</div></section>` : ''}
     `;
-  }
-  _showEmptyState(){
-    this.el.explEmpty.hidden=false;
-    this.el.explHeader.hidden=true;
-    this.el.explBody.hidden=true;
-  }
-  _findComp(id){
-    if(!this.cfg.components)return null;
-    return this.cfg.components.find(c=>c.id===id)||null;
-  }
-  _setDetailMode(mode){
-    this.detailMode=mode;
-    this.el.modeBtns.forEach(b=>{
-      const a=b.dataset.mode===mode;
-      b.classList.toggle('active',a);
-      b.setAttribute('aria-pressed',a);
+
+    // Append Related Concepts
+    const related = (this.cfg.components || [])
+      .filter(c => c.id !== id && (c.category === comp.category || (this.cfg.connections || []).some(conn => (conn.from === id && conn.to === c.id) || (conn.from === c.id && conn.to === id))))
+      .slice(0, 3);
+    if (related.length) {
+      body += `<section class="ex-section"><div class="ex-label">Related Concepts</div><div style="margin-top: 4px;">`;
+      related.forEach(r => {
+        body += `<span class="concept-tag" data-link-id="${r.id}">${this._esc(r.name)}</span>`;
+      });
+      body += `</div></section>`;
+    }
+
+    // Append Component Challenge Question
+    const qText = comp.challengeQuestion || `Which is a common mistake related to ${comp.name}?`;
+    const opts = comp.challengeOptions || [
+      comp.mistake || "Assuming it has no limitations.",
+      "Thinking it's identical to the hardware layer.",
+      "Confusing its logical flow with physical layout."
+    ];
+    // Dynamic correct index
+    const correctIdx = comp.challengeAnswer !== undefined ? comp.challengeAnswer : 0;
+    body += `
+      <section class="ex-section">
+        <div class="challenge-box">
+          <div class="challenge-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            Challenge Question
+          </div>
+          <div class="challenge-question">${this._esc(qText)}</div>
+          <div class="challenge-options">
+    `;
+    opts.forEach((opt, idx) => {
+      body += `<button class="challenge-opt-btn" data-opt-idx="${idx}">${this._esc(opt)}</button>`;
     });
-    if(this.selectedId)this._showExplanation(this.selectedId);
+    body += `
+          </div>
+        </div>
+      </section>
+    `;
+
+    this.el.explorerScroll.innerHTML = body;
+
+    // Attach click events to dynamic tags
+    $$('.concept-tag', this.el.explorerScroll).forEach(tag => {
+      tag.addEventListener('click', e => {
+        e.stopPropagation();
+        this.selectComponent(tag.dataset.linkId);
+      });
+    });
+
+    // Attach click events to challenge options
+    const optBtns = $$('.challenge-opt-btn', this.el.explorerScroll);
+    optBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedIdx = parseInt(btn.dataset.optIdx);
+        optBtns.forEach((b, idx) => {
+          b.disabled = true;
+          if (idx === correctIdx) b.classList.add('correct');
+          else if (idx === selectedIdx) b.classList.add('incorrect');
+        });
+        if (selectedIdx === correctIdx) {
+          this.markCompleted();
+        }
+      });
+    });
+
+    // Update bottom insights panel
+    if (this.el.insightTakeaway) this.el.insightTakeaway.textContent = comp.takeaway || comp.purpose || '';
+    if (this.el.insightAnalogy) this.el.insightAnalogy.textContent = comp.analogy || 'Select a component for a real-world comparison';
+    if (this.el.insightFunfact) this.el.insightFunfact.textContent = comp.funFact || 'Discover interesting facts about components';
+
+    // Append dynamic Quick Quiz block in the Insights bar
+    this.appendQuickQuiz();
   }
 
-  nextStep(){
-    if(!this.cfg.steps||!this.cfg.steps.length)return;
-    this.pause();
-    this.currentStep=Math.min(this.currentStep+1,this.cfg.steps.length-1);
-    this._applyStep();
-  }
-  prevStep(){
-    if(!this.cfg.steps||!this.cfg.steps.length)return;
-    this.pause();
-    this.currentStep=Math.max(this.currentStep-1,0);
-    this._applyStep();
-  }
-  _applyStep(){
-    const steps=this.cfg.steps;
-    if(!steps||!steps.length)return;
-    const s=steps[this.currentStep];
-    if(!s){this._setStatus('No more steps');return}
-    if(s.onEnter)s.onEnter(this);
-    this._setStatus(s.status||`Step ${this.currentStep+1} of ${steps.length}`);
-    this._updateStepControls();
-  }
-  _updateStepControls(){
-    const steps=this.cfg.steps;
-    if(!steps||!steps.length){this.el.stepControls.hidden=true;return}
-    this.el.stepControls.hidden=false;
-    this.el.stepPrev.disabled=this.currentStep<=0;
-    this.el.stepNext.disabled=this.currentStep>=steps.length-1;
-    this.el.stepIndicator.textContent=this.currentStep>=0
-      ? `Step ${this.currentStep+1} of ${steps.length}`
-      : 'Click Next to begin';
-    if(this.currentStep>=0&&steps[this.currentStep]&&steps[this.currentStep].label){
-      this.el.stepIndicator.textContent+=` — ${steps[this.currentStep].label}`;
-    }
-  }
+  appendQuickQuiz() {
+    // If quiz is already shown, do not replicate
+    if ($('#quick-quiz-block', this.el.insights)) return;
+    const comps = this.cfg.components || [];
+    if (comps.length < 2) return;
+    
+    // Pick a random component and build quiz
+    const randomIdx = Math.floor(Math.random() * comps.length);
+    const comp = comps[randomIdx];
+    const qText = `What is the real-world analogy for the "${comp.name}"?`;
+    const opts = [
+      comp.analogy || "A standardized utility distribution system.",
+      comps[(randomIdx + 1) % comps.length].analogy || "A post-box system.",
+      comps[(randomIdx + 2) % comps.length].analogy || "A network hub."
+    ];
+    // Option 0 is correct
+    const shuffled = opts.map((opt, i) => ({ opt, correct: i === 0 })).sort(() => Math.random() - 0.5);
+    const correctIndex = shuffled.findIndex(o => o.correct);
 
-  toggleTour(){
-    if(this.tourActive)this._endTour();else this._startTour();
-  }
-  _startTour(){
-    if(!this.cfg.tour||!this.cfg.tour.length)return;
-    this.pause();
-    this.tourActive=true;this.tourStep=0;
-    this.el.tourBtn.classList.add('active');
-    this.el.tourBtn.querySelector('.btn-label').textContent='End Tour';
-    this.el.tourOverlay.hidden=false;
-    this._applyTourStep();
-  }
-  _endTour(){
-    this.tourActive=false;
-    this.el.tourBtn.classList.remove('active');
-    this.el.tourBtn.querySelector('.btn-label').textContent='Tour';
-    this.el.tourOverlay.hidden=true;
-    this._clearSelection();
-  }
-  _applyTourStep(){
-    if(!this.tourActive)return;
-    const tour=this.cfg.tour;
-    if(!tour||this.tourStep>=tour.length||this.tourStep<0){this._endTour();return}
-    const step=tour[this.tourStep];
-    if(step.componentId)this.selectComponent(step.componentId);
-    if(step.selectEl){
-      const el=this.el.visual.querySelector(step.selectEl);
-      if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    this.el.tourOverlay.innerHTML=`
-      <div class="tour-tooltip" style="${step.style||'bottom:20px;right:20px;left:auto;top:auto'}">
-        <h4>${this._esc(step.title||'')}</h4>
-        <p>${this._esc(step.description||'')}</p>
-        <div class="tour-nav">
-          ${this.tourStep>0?'<button class="tour-prev">Previous</button>':''}
-          ${this.tourStep<tour.length-1
-            ?'<button class="tour-next primary">Next</button>'
-            :'<button class="tour-finish primary">Finish</button>'}
+    const quizCard = document.createElement('div');
+    quizCard.className = 'insight-card insight-quiz-card';
+    quizCard.id = 'quick-quiz-block';
+    quizCard.innerHTML = html`
+      <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+      <div style="flex: 1;">
+        <div class="insight-label">Lesson Quick Quiz</div>
+        <div class="insight-value">${qText}</div>
+        <div class="quiz-options-grid">
+          ${shuffled.map((item, idx) => `<button class="challenge-opt-btn quiz-opt" data-correct="${item.correct}">${item.opt}</button>`).join('')}
         </div>
       </div>
     `;
-    const overlay=this.el.tourOverlay;
-    const prev=overlay.querySelector('.tour-prev');
-    const next=overlay.querySelector('.tour-next');
-    const finish=overlay.querySelector('.tour-finish');
-    if(prev)prev.addEventListener('click',()=>{this.tourStep--;this._applyTourStep()});
-    if(next)next.addEventListener('click',()=>{this.tourStep++;this._applyTourStep()});
-    if(finish)finish.addEventListener('click',()=>this._endTour());
+    this.el.insights.appendChild(quizCard);
+
+    const quizBtns = $$('.quiz-opt', quizCard);
+    quizBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isCorrect = btn.dataset.correct === 'true';
+        quizBtns.forEach(b => {
+          b.disabled = true;
+          if (b.dataset.correct === 'true') b.classList.add('correct');
+          else if (b === btn) b.classList.add('incorrect');
+        });
+        if (isCorrect) {
+          this.markCompleted();
+        }
+      });
+    });
   }
 
-  // ── New: buildVisual with shapes, icons, custom layouts ──
-  buildVisual(container){
-    const comps=this.cfg.components||[];
-    const conns=this.cfg.connections||[];
-    if(!comps.length){container.innerHTML='<div style="padding:40px;text-align:center;color:#94a3b8"><p>No components defined</p></div>';return}
+  _showEmptyState() {
+    this.el.explorerEmpty.hidden = false;
+    this.el.explorerContent.hidden = true;
+    if (this.el.insightTakeaway) this.el.insightTakeaway.textContent = 'Click any component to see its key takeaway';
+    if (this.el.insightAnalogy) this.el.insightAnalogy.textContent = 'Select a component for a real-world comparison';
+    if (this.el.insightFunfact) this.el.insightFunfact.textContent = 'Discover interesting facts about components';
+    const quiz = $('#quick-quiz-block', this.el.insights);
+    if (quiz) quiz.remove();
+  }
 
-    const hasPos=comps.some(c=>c.x!==undefined);
-    const compColors=['#1a2235','#1d2638','#16233a','#1a2538','#1c2838','#18243a'];
-    let w,h,autoCols,autoRows,autoCw=120,autoCh=56,autoGx=18,autoGy=22,autoPx=20,autoPy=18;
-    let compsPos=[];
+  _findComp(id) {
+    if (!this.cfg.components) return null;
+    return this.cfg.components.find(c => c.id === id) || null;
+  }
+  _setDetailMode(mode) {
+    this.detailMode = mode;
+    this.el.explorerModeBtns.forEach(b => {
+      const a = b.dataset.mode === mode;
+      b.classList.toggle('active', a);
+      b.setAttribute('aria-pressed', a);
+    });
+    if (this.selectedId) this._showExplanation(this.selectedId);
+  }
 
-    if(hasPos){
-      let maxX=0,maxY=0;
-      comps.forEach(c=>{
-        const cw=c.width||110,ch=c.height||50;
-        const cx=c.x||0,cy=c.y||0;
-        maxX=Math.max(maxX,cx+cw+30);
-        maxY=Math.max(maxY,cy+ch+30);
+  toggleFullscreen() {
+    const w = this.el.wrapper;
+    w.classList.toggle('lab-fullscreen');
+    const btn = this.el.fullscreenBtn;
+    const isFs = w.classList.contains('lab-fullscreen');
+    btn.innerHTML = isFs
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg><span class="act-label">Exit Lab</span>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg><span class="act-label">Lab</span>';
+    btn.setAttribute('aria-label', isFs ? 'Exit fullscreen' : 'Enter fullscreen');
+  }
+
+  nextStep() {
+    if (!this.cfg.steps || !this.cfg.steps.length) return;
+    this.pause();
+    this.currentStep = Math.min(this.currentStep + 1, this.cfg.steps.length - 1);
+    this._applyStep();
+  }
+  prevStep() {
+    if (!this.cfg.steps || !this.cfg.steps.length) return;
+    this.pause();
+    this.currentStep = Math.max(this.currentStep - 1, 0);
+    this._applyStep();
+  }
+  _applyStep() {
+    const steps = this.cfg.steps;
+    if (!steps || !steps.length) return;
+    const s = steps[this.currentStep];
+    if (!s) { this._setStatus('No more steps'); return; }
+    if (s.onEnter) s.onEnter(this);
+    this._setStatus(s.status || `Step ${this.currentStep + 1} of ${steps.length}`);
+    this._updateStepControls();
+    if (this._onStepChange) this._onStepChange(this.currentStep);
+    
+    // Auto-select component in step
+    if (s.id) {
+      this.selectComponent(s.id);
+    }
+  }
+  _updateStepControls() {
+    const steps = this.cfg.steps;
+    if (!steps || !steps.length) { this.el.stepControls.hidden = true; return; }
+    this.el.stepPrev.disabled = this.currentStep <= 0;
+    this.el.stepNext.disabled = this.currentStep >= steps.length - 1;
+    this.el.stepIndicator.textContent = this.currentStep >= 0
+      ? `Step ${this.currentStep + 1} of ${steps.length}`
+      : 'Click Next to begin';
+    if (this.currentStep >= 0 && steps[this.currentStep] && steps[this.currentStep].label) {
+      this.el.stepIndicator.textContent += ` — ${steps[this.currentStep].label}`;
+    }
+  }
+
+  buildVisual(container) {
+    const comps = this.cfg.components || [];
+    const conns = this.cfg.connections || [];
+    if (!comps.length) {
+      container.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8"><p>No components defined</p></div>';
+      return;
+    }
+
+    const hasPos = comps.some(c => c.x !== undefined);
+    const compColors = ['#1a2235', '#1d2638', '#16233a', '#1a2538', '#1c2838', '#18243a'];
+    let w, h, autoCols, autoRows, autoCw = 120, autoCh = 56, autoGx = 18, autoGy = 22, autoPx = 20, autoPy = 18;
+    let compsPos = [];
+
+    if (hasPos) {
+      let maxX = 0, maxY = 0, minX = Infinity, minY = Infinity;
+      comps.forEach(c => {
+        const cw = c.width || c.w || 110, ch = c.height || c.h || 50;
+        const cx = c.x || 0, cy = c.y || 0;
+        maxX = Math.max(maxX, cx + cw);
+        maxY = Math.max(maxY, cy + ch);
+        minX = Math.min(minX, cx);
+        minY = Math.min(minY, cy);
       });
-      w=Math.max(maxX,320);h=Math.max(maxY,240);
-      comps.forEach(c=>{
-        compsPos.push({x:c.x||0,y:c.y||0,w:c.width||110,h:c.height||50});
+      const cw = maxX - minX, ch = maxY - minY;
+      const mx = Math.round(cw * 0.18) + 40, my = Math.round(ch * 0.18) + 30;
+      w = Math.max(maxX + mx, 400); h = Math.max(maxY + my, 280);
+      comps.forEach(c => {
+        compsPos.push({ x: c.x || 0, y: c.y || 0, w: c.width || c.w || 110, h: c.height || c.h || 50 });
       });
-    }else{
-      const n=comps.length;
-      autoCols=Math.min(n,4);
-      autoRows=Math.ceil(n/autoCols);
-      w=autoCols*autoCw+(autoCols-1)*autoGx+autoPx*2;
-      h=autoRows*autoCh+(autoRows-1)*autoGy+autoPy*2;
-      comps.forEach((c,j)=>{
+    } else {
+      const n = comps.length;
+      autoCols = Math.min(n, 4);
+      autoRows = Math.ceil(n / autoCols);
+      const origW = autoCols * autoCw + (autoCols - 1) * autoGx + autoPx * 2;
+      const origH = autoRows * autoCh + (autoRows - 1) * autoGy + autoPy * 2;
+      w = Math.round(origW * 1.2); h = Math.round(origH * 1.2);
+      const ox = Math.round((w - origW) / 2), oy = Math.round((h - origH) / 2);
+      comps.forEach((c, j) => {
         compsPos.push({
-          x:autoPx+(j%autoCols)*(autoCw+autoGx),
-          y:autoPy+Math.floor(j/autoCols)*(autoCh+autoGy),
-          w:autoCw,h:autoCh
+          x: autoPx + (j % autoCols) * (autoCw + autoGx) + ox,
+          y: autoPy + Math.floor(j / autoCols) * (autoCh + autoGy) + oy,
+          w: autoCw, h: autoCh
         });
       });
     }
 
-    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
-    svg.setAttribute('style','width:100%;height:auto;max-height:65vh');
-    const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
-    const filter=document.createElementNS('http://www.w3.org/2000/svg','filter');
-    filter.setAttribute('id','g');
-    const shadow=document.createElementNS('http://www.w3.org/2000/svg','feDropShadow');
-    shadow.setAttribute('dx','0');shadow.setAttribute('dy','2');
-    shadow.setAttribute('stdDeviation','4');
-    shadow.setAttribute('flood-color','#0959C8');shadow.setAttribute('flood-opacity','.25');
-    filter.appendChild(shadow);defs.appendChild(filter);
-    const gfilter=document.createElementNS('http://www.w3.org/2000/svg','filter');
-    gfilter.setAttribute('id','glow');
-    const gshadow=document.createElementNS('http://www.w3.org/2000/svg','feGaussianBlur');
-    gshadow.setAttribute('stdDeviation','2');gshadow.setAttribute('result','blur');
-    const gmerge=document.createElementNS('http://www.w3.org/2000/svg','feMerge');
-    const gn1=document.createElementNS('http://www.w3.org/2000/svg','feMergeNode');
-    gn1.setAttribute('in','blur');
-    const gn2=document.createElementNS('http://www.w3.org/2000/svg','feMergeNode');
-    gn2.setAttribute('in','SourceGraphic');
-    gmerge.appendChild(gn1);gmerge.appendChild(gn2);
-    gfilter.appendChild(gshadow);gfilter.appendChild(gmerge);defs.appendChild(gfilter);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.setAttribute('style', 'width:100%;height:auto;max-width:1100px;margin:0 auto');
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    
+    // Core drop shadow filter
+    const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+    filter.setAttribute('id', 'g');
+    const shadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow');
+    shadow.setAttribute('dx', '0'); shadow.setAttribute('dy', '2');
+    shadow.setAttribute('stdDeviation', '4');
+    shadow.setAttribute('flood-color', '#0959C8'); shadow.setAttribute('flood-opacity', '.25');
+    filter.appendChild(shadow); defs.appendChild(filter);
+
+    // Glow filter
+    const gfilter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+    gfilter.setAttribute('id', 'glow');
+    const gshadow = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+    gshadow.setAttribute('stdDeviation', '2'); gshadow.setAttribute('result', 'blur');
+    const gmerge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+    const gn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    gn1.setAttribute('in', 'blur');
+    const gn2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    gn2.setAttribute('in', 'SourceGraphic');
+    gmerge.appendChild(gn1); gmerge.appendChild(gn2);
+    gfilter.appendChild(gshadow); gfilter.appendChild(gmerge); defs.appendChild(gfilter);
     svg.appendChild(defs);
 
-    const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    bg.setAttribute('width',w);bg.setAttribute('height',h);
-    bg.setAttribute('fill','transparent');
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bg.setAttribute('width', w); bg.setAttribute('height', h);
+    bg.setAttribute('fill', 'transparent');
     svg.appendChild(bg);
 
-    // connections (smart edge-to-edge routing)
-    this._connPaths=[];
-    const colors=['#475569','#64748b','#475569'];
-    conns.forEach((c,i)=>{
-      const fi=comps.findIndex(x=>x.id===c.from);
-      const ti=comps.findIndex(x=>x.id===c.to);
-      if(fi<0||ti<0)return;
-      const fp=compsPos[fi],tp=compsPos[ti];
-      // compute best edge pair
-      const edges=(p)=>({
-        r:{x:p.x+p.w,y:p.y+p.h/2},l:{x:p.x,y:p.y+p.h/2},
-        t:{x:p.x+p.w/2,y:p.y},b:{x:p.x+p.w/2,y:p.y+p.h}
+    // Render connections
+    this._connPaths = [];
+    const colors = ['#475569', '#64748b', '#475569'];
+    conns.forEach((c, i) => {
+      const fi = comps.findIndex(x => x.id === c.from);
+      const ti = comps.findIndex(x => x.id === c.to);
+      if (fi < 0 || ti < 0) return;
+      const fp = compsPos[fi], tp = compsPos[ti];
+      const edges = (p) => ({
+        r: { x: p.x + p.w, y: p.y + p.h / 2 },
+        l: { x: p.x, y: p.y + p.h / 2 },
+        t: { x: p.x + p.w / 2, y: p.y },
+        b: { x: p.x + p.w / 2, y: p.y + p.h }
       });
-      const fe=edges(fp),te=edges(tp);
-      let bd=Infinity,bx,by,tx,ty;
-      for(const fk of['r','l','t','b']){
-        const f=fe[fk];
-        for(const tk of['l','r','b','t']){
-          const t=te[tk],dx=f.x-t.x,dy=f.y-t.y,dd=dx*dx+dy*dy;
-          if(dd<bd){bd=dd;bx=f.x;by=f.y;tx=t.x;ty=t.y}
+      const fe = edges(fp), te = edges(tp);
+      let bd = Infinity, bx, by, tx, ty;
+      for (const fk of ['r', 'l', 't', 'b']) {
+        const f = fe[fk];
+        for (const tk of ['l', 'r', 'b', 't']) {
+          const t = te[tk], dx = f.x - t.x, dy = f.y - t.y, dd = dx * dx + dy * dy;
+          if (dd < bd) { bd = dd; bx = f.x; by = f.y; tx = t.x; ty = t.y; }
         }
       }
-      const mx=(bx+tx)/2,my=(by+ty)/2;
-      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
-      p.setAttribute('class','connection');
-      p.setAttribute('data-from',c.from);p.setAttribute('data-to',c.to);
-      p.setAttribute('d',`M${bx} ${by}C${mx} ${by},${mx} ${ty},${tx} ${ty}`);
-      p.setAttribute('stroke',c.color||colors[i%3]);
+      const mx = (bx + tx) / 2, my = (by + ty) / 2;
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('class', 'connection');
+      p.setAttribute('data-from', c.from); p.setAttribute('data-to', c.to);
+      p.setAttribute('d', `M${bx} ${by}C${mx} ${by},${mx} ${ty},${tx} ${ty}`);
+      p.setAttribute('stroke', c.color || colors[i % 3]);
       svg.appendChild(p);
-      const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-      poly.setAttribute('class','connection-arrow');
-      const ang=Math.atan2(ty-by,tx-bx);
-      const al=10,aw=5;
+
+      const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      poly.setAttribute('class', 'connection-arrow');
+      const ang = Math.atan2(ty - by, tx - bx);
+      const al = 10, aw = 5;
       poly.setAttribute('points',
-        `${tx-al*Math.cos(ang-0.4)},${ty-al*Math.sin(ang-0.4)} `+
-        `${tx},${ty} `+
-        `${tx-al*Math.cos(ang+0.4)},${ty-al*Math.sin(ang+0.4)}`
+        `${tx - al * Math.cos(ang - 0.4)},${ty - al * Math.sin(ang - 0.4)} ` +
+        `${tx},${ty} ` +
+        `${tx - al * Math.cos(ang + 0.4)},${ty - al * Math.sin(ang + 0.4)}`
       );
       svg.appendChild(poly);
-      if(c.label){
-        const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-        t.setAttribute('x',mx);t.setAttribute('y',my-8);
-        t.setAttribute('text-anchor','middle');t.setAttribute('fill','#94a3b8');
-        t.setAttribute('font-size','11');t.setAttribute('font-weight','500');
-        t.textContent=c.label;
+
+      if (c.label) {
+        const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        t.setAttribute('x', mx); t.setAttribute('y', my - 8);
+        t.setAttribute('text-anchor', 'middle'); t.setAttribute('fill', '#94a3b8');
+        t.setAttribute('font-size', '11'); t.setAttribute('font-weight', '500');
+        t.textContent = c.label;
         svg.appendChild(t);
       }
-      this._connPaths.push({from:c.from,to:c.to,x1:bx,y1:by,x2:tx,y2:ty,mx,my});
+      this._connPaths.push({ from: c.from, to: c.to, x1: bx, y1: by, x2: tx, y2: ty, mx, my });
     });
 
-    // components
-    comps.forEach((c,j)=>{
-      const pos=compsPos[j];
-      const cx=pos.x,cy=pos.y,cw=pos.w,ch=pos.h;
-      const bgc=compColors[j%compColors.length];
-      const shape=c.shape||'rounded-rect';
-      const icon=c.icon||this._defaultIcon(c.id);
-      const g=document.createElementNS('http://www.w3.org/2000/svg','g');
-      g.setAttribute('data-component-id',c.id);
-      g.setAttribute('class','component');
-      g.setAttribute('tabindex','0');
-      g.setAttribute('role','button');
-      g.setAttribute('aria-label',`Select ${c.name||c.id}`);
+    // Render components
+    comps.forEach((c, j) => {
+      const pos = compsPos[j];
+      const cx = pos.x, cy = pos.y, cw = pos.w, ch = pos.h;
+      const bgc = compColors[j % compColors.length];
+      const shape = c.shape || 'rounded-rect';
+      const icon = c.icon || this._defaultIcon(c.id);
 
-      this._renderShapeBg(g,shape,cx,cy,cw,ch,bgc);
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('data-component-id', c.id);
+      g.setAttribute('class', 'component');
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-label', `Select ${c.name || c.id}`);
 
-      if(icon&&ICONS[icon]){
-        this._renderIcon(g,icon,cx,cy,cw,ch);
-      }else{
-        this._renderDefaultMarker(g,cx,cy,cw,ch,c.id);
+      this._renderShapeBg(g, shape, cx, cy, cw, ch, bgc);
+
+      if (icon && ICONS[icon]) {
+        this._renderIcon(g, icon, cx, cy, cw, ch);
+      } else {
+        this._renderDefaultMarker(g, cx, cy, cw, ch, c.id);
       }
 
-      const nameStr=c.name||c.id;
-      const nameLen=nameStr.length;
-      const availW=cw-14;
-      const approxW=nameLen*6.5;
-      const fs=approxW>availW?Math.max(7,Math.floor(availW/nameLen*1.2)):11;
-      const name=document.createElementNS('http://www.w3.org/2000/svg','text');
-      const textX=cx+(icon?cw/2:cw/2);
-      name.setAttribute('x',textX);
-      name.setAttribute('y',cy+ch-10);
-      name.setAttribute('text-anchor','middle');
-      name.setAttribute('fill','#e2e8f0');
-      name.setAttribute('font-size',String(fs));
-      name.setAttribute('font-weight','600');
-      name.setAttribute('font-family',"'Inter',sans-serif");
-      name.setAttribute('pointer-events','none');
-      name.textContent=nameStr;
+      const nameStr = c.name || c.id;
+      const nameLen = nameStr.length;
+      const availW = cw - 14;
+      const approxW = nameLen * 6.5;
+      const fs = approxW > availW ? Math.max(7, Math.floor(availW / nameLen * 1.2)) : 11;
+      
+      const name = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      const textX = cx + cw / 2;
+      name.setAttribute('x', textX);
+      name.setAttribute('y', cy + ch - 10);
+      name.setAttribute('text-anchor', 'middle');
+      name.setAttribute('fill', '#e2e8f0');
+      name.setAttribute('font-size', String(fs));
+      name.setAttribute('font-weight', '600');
+      name.setAttribute('font-family', "'Inter',sans-serif");
+      name.setAttribute('pointer-events', 'none');
+      name.textContent = nameStr;
       g.appendChild(name);
-
-      if(c.category&&!icon){
-        const cat=document.createElementNS('http://www.w3.org/2000/svg','text');
-        cat.setAttribute('x',cw/2);cat.setAttribute('y',ch-4);
-        cat.setAttribute('text-anchor','middle');cat.setAttribute('fill','#94a3b8');
-        cat.setAttribute('font-size','9');
-        cat.setAttribute('font-family',"'Inter',sans-serif");
-        cat.setAttribute('pointer-events','none');
-        cat.textContent=c.category;
-        // cat is placed relative to g which inherits transform
-      }
 
       svg.appendChild(g);
     });
 
-    // flow dots (or labeled packets if packetFlow config)
-    this._flowDots=[];
-    const pf=this.cfg.packetFlow;
-    this._connPaths.forEach((cp,i)=>{
-      if(i>=this.cfg.connections.length)return;
-      const pkt=pf&&pf[i];
+    // Render flow packets/dots
+    this._flowDots = [];
+    const pf = this.cfg.packetFlow;
+    const self = this;
+
+    this._connPaths.forEach((cp, i) => {
+      if (i >= this.cfg.connections.length) return;
+      const pkt = pf && pf[i];
       let dot;
-      if(pkt){
-        dot=document.createElementNS('http://www.w3.org/2000/svg','g');
-        dot.setAttribute('class','flow-dot packet');
-        dot.setAttribute('data-conn-idx',i);
-        dot.setAttribute('data-label',pkt.label||'');
-        dot.setAttribute('role','button');
-        dot.setAttribute('tabindex','0');
-        dot.setAttribute('aria-label','Packet: '+(pkt.label||''));
-        dot.style.cursor='pointer';
-        const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
-        bg.setAttribute('x','-24');bg.setAttribute('y','-8');
-        bg.setAttribute('width','48');bg.setAttribute('height','16');
-        bg.setAttribute('rx','4');bg.setAttribute('ry','4');
-        bg.setAttribute('fill',pkt.color||'#22c55e');bg.setAttribute('opacity','0.9');
-        bg.setAttribute('filter','url(#glow)');
-        dot.appendChild(bg);
-        const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
-        txt.setAttribute('text-anchor','middle');txt.setAttribute('fill','#fff');
-        txt.setAttribute('font-size','8');txt.setAttribute('font-weight','700');
-        txt.setAttribute('font-family',"'Inter',sans-serif");
-        txt.setAttribute('y','3');txt.setAttribute('pointer-events','none');
-        txt.textContent=pkt.label||'';
+      if (pkt) {
+        dot = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        dot.setAttribute('class', 'flow-dot packet');
+        dot.setAttribute('data-conn-idx', i);
+        dot.setAttribute('data-label', pkt.label || '');
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('tabindex', '0');
+        dot.setAttribute('aria-label', 'Packet: ' + (pkt.label || ''));
+        dot.style.cursor = 'pointer';
+
+        const pbg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        pbg.setAttribute('x', '-24'); pbg.setAttribute('y', '-8');
+        pbg.setAttribute('width', '48'); pbg.setAttribute('height', '16');
+        pbg.setAttribute('rx', '4'); pbg.setAttribute('ry', '4');
+        pbg.setAttribute('fill', pkt.color || '#22c55e'); pbg.setAttribute('opacity', '0.9');
+        pbg.setAttribute('filter', 'url(#glow)');
+        dot.appendChild(pbg);
+
+        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('fill', '#fff');
+        txt.setAttribute('font-size', '8'); txt.setAttribute('font-weight', '700');
+        txt.setAttribute('font-family', "'Inter',sans-serif");
+        txt.setAttribute('y', '3'); txt.setAttribute('pointer-events', 'none');
+        txt.textContent = pkt.label || '';
         dot.appendChild(txt);
-        // Click handler
-        dot.addEventListener('click',(function(idx,label,color){
-          return function(e){
-            e.stopPropagation();
-            self._showPacketInfo(label,color,idx);
-          };
-        })(i,pkt.label,pkt.color));
-        dot.addEventListener('keydown',(function(idx,label,color){
-          return function(e){
-            if(e.key==='Enter'||e.key===' '){e.preventDefault();self._showPacketInfo(label,color,idx)}
-          };
-        })(i,pkt.label,pkt.color));
-      }else{
-        dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        dot.setAttribute('r','4');
-        dot.setAttribute('class','flow-dot');
-        dot.setAttribute('data-conn-idx',i);
-        dot.setAttribute('opacity','0.8');
-        dot.setAttribute('filter','url(#glow)');
+
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          self._showPacketInfo(pkt.label, pkt.color, i);
+        });
+        dot.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); self._showPacketInfo(pkt.label, pkt.color, i); }
+        });
+      } else {
+        dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('r', '4');
+        dot.setAttribute('class', 'flow-dot');
+        dot.setAttribute('data-conn-idx', i);
+        dot.setAttribute('opacity', '0.8');
+        dot.setAttribute('filter', 'url(#glow)');
       }
       svg.appendChild(dot);
-      this._flowDots.push({el:dot,idx:i,isPacket:!!pkt});
+      this._flowDots.push({ el: dot, idx: i, isPacket: !!pkt });
     });
 
-    container.innerHTML='';
+    container.innerHTML = '';
     container.appendChild(svg);
   }
 
-  _renderShapeBg(g,shape,x,y,w,h,bgc){
-    const el=document.createElementNS('http://www.w3.org/2000/svg','g');
-    // Offset the shape group so text/kids can use relative coords
+  _renderShapeBg(g, shape, x, y, w, h, bgc) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     let bg;
-    switch(shape){
+    switch (shape) {
       case 'circle':
-        const r=Math.min(w,h)/2;
-        const cx=x+w/2,cy=y+h/2;
-        bg=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        bg.setAttribute('cx',cx);bg.setAttribute('cy',cy);
-        bg.setAttribute('r',r);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        const r = Math.min(w, h) / 2;
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        bg.setAttribute('cx', x + w / 2); bg.setAttribute('cy', y + h / 2);
+        bg.setAttribute('r', r);
         break;
       case 'pill':
-        bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
-        bg.setAttribute('x',x);bg.setAttribute('y',y);
-        bg.setAttribute('width',w);bg.setAttribute('height',h);
-        bg.setAttribute('rx',h/2);bg.setAttribute('ry',h/2);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        bg.setAttribute('x', x); bg.setAttribute('y', y);
+        bg.setAttribute('width', w); bg.setAttribute('height', h);
+        bg.setAttribute('rx', h / 2); bg.setAttribute('ry', h / 2);
         break;
       case 'diamond':
-        bg=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-        const dx=x+w/2,dy=y+h/2;
-        bg.setAttribute('points',`${dx},${y} ${x+w},${dy} ${dx},${y+h} ${x},${dy}`);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        bg.setAttribute('points', `${x + w / 2},${y} ${x + w},${y + h / 2} ${x + w / 2},${y + h} ${x},${y + h / 2}`);
         break;
       case 'hexagon':
-        bg=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-        const hw=w/2,hh=h/2,hs=w*0.25;
-        bg.setAttribute('points',`${x+hs},${y} ${x+w-hs},${y} ${x+w},${y+hh} ${x+w-hs},${y+h} ${x+hs},${y+h} ${x},${y+hh}`);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        const hh = h / 2, hs = w * 0.22;
+        bg.setAttribute('points', `${x + hs},${y} ${x + w - hs},${y} ${x + w},${y + hh} ${x + w - hs},${y + h} ${x + hs},${y + h} ${x},${y + hh}`);
         break;
       case 'cylinder':
-        bg=document.createElementNS('http://www.w3.org/2000/svg','path');
-        bg.setAttribute('d',`M${x},${y+10} L${x},${y+h-10} A${w/2},10 0 0,0 ${x+w},${y+h-10} L${x+w},${y+10} A${w/2},10 0 0,1 ${x},${y+10} Z`);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        bg.setAttribute('d', `M${x},${y + 10} L${x},${y + h - 10} A${w / 2},10 0 0,0 ${x + w},${y + h - 10} L${x + w},${y + 10} A${w / 2},10 0 0,1 ${x},${y + 10} Z`);
         el.appendChild(bg);
-        // top ellipse
-        const top=document.createElementNS('http://www.w3.org/2000/svg','ellipse');
-        top.setAttribute('cx',x+w/2);top.setAttribute('cy',y+10);
-        top.setAttribute('rx',w/2);top.setAttribute('ry',10);
-        top.setAttribute('fill',bgc);
-        top.setAttribute('stroke','#2a3a55');top.setAttribute('stroke-width','1.5');
+        const top = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+        top.setAttribute('cx', x + w / 2); top.setAttribute('cy', y + 10);
+        top.setAttribute('rx', w / 2); top.setAttribute('ry', 10);
+        top.setAttribute('fill', bgc); top.setAttribute('stroke', '#2a3a55'); top.setAttribute('stroke-width', '1.5');
         el.appendChild(top);
         break;
       case 'cloud-shape':
-        bg=document.createElementNS('http://www.w3.org/2000/svg','path');
-        const cw2=w*0.3,ch2=h*0.4;
-        bg.setAttribute('d',`M${x+cw2},${y+h} C${x},${y+h} ${x},${y+ch2} ${x+cw2},${y+ch2} C${x+cw2},${y} ${x+w-cw2},${y} ${x+w-cw2},${y+ch2} C${x+w},${y+ch2} ${x+w},${y+h} ${x+w-cw2},${y+h} Z`);
-        bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const cw2 = w * 0.3, ch2 = h * 0.4;
+        bg.setAttribute('d', `M${x + cw2},${y + h} C${x},${y + h} ${x},${y + ch2} ${x + cw2},${y + ch2} C${x + cw2},${y} ${x + w - cw2},${y} ${x + w - cw2},${y + ch2} C${x+w},${y + ch2} ${x + w},${y + h} ${x + w - cw2},${y + h} Z`);
         break;
       default:
-        bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
-        bg.setAttribute('x',x);bg.setAttribute('y',y);
-        bg.setAttribute('width',w);bg.setAttribute('height',h);
-        bg.setAttribute('rx','8');bg.setAttribute('fill',bgc);
-        bg.setAttribute('stroke','#2a3a55');bg.setAttribute('stroke-width','1.5');
-        bg.setAttribute('filter','url(#g)');
-        el.appendChild(bg);
+        bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        bg.setAttribute('x', x); bg.setAttribute('y', y);
+        bg.setAttribute('width', w); bg.setAttribute('height', h);
+        bg.setAttribute('rx', '8');
     }
-    el.setAttribute('class','component-bg');
+    if (shape !== 'cylinder') {
+      bg.setAttribute('fill', bgc);
+      bg.setAttribute('stroke', '#2a3a55'); bg.setAttribute('stroke-width', '1.5');
+      bg.setAttribute('filter', 'url(#g)');
+      el.appendChild(bg);
+    }
+    el.setAttribute('class', 'component-bg');
     g.appendChild(el);
   }
 
-  _renderIcon(g,key,cx,cy,cw,ch){
-    const pathData=ICONS[key];
-    if(!pathData)return;
-    const iconSize=18;
-    const ix=cx+cw/2-iconSize/2;
-    const iy=cy+ch/2-iconSize/2-5;
-    const svgNs='http://www.w3.org/2000/svg';
-    const iconGroup=document.createElementNS(svgNs,'g');
-    iconGroup.setAttribute('pointer-events','none');
-    // icon background circle
-    const bg=document.createElementNS(svgNs,'circle');
-    bg.setAttribute('cx',cx+cw/2);
-    bg.setAttribute('cy',cy+ch/2-5);
-    bg.setAttribute('r','12');
-    bg.setAttribute('fill','#0959C8');
-    bg.setAttribute('opacity','0.15');
+  _renderIcon(g, key, cx, cy, cw, ch) {
+    const pathData = ICONS[key];
+    if (!pathData) return;
+    const iconSize = 18;
+    const ix = cx + cw / 2 - iconSize / 2;
+    const iy = cy + ch / 2 - iconSize / 2 - 5;
+    const svgNs = 'http://www.w3.org/2000/svg';
+    const iconGroup = document.createElementNS(svgNs, 'g');
+    iconGroup.setAttribute('pointer-events', 'none');
+
+    const bg = document.createElementNS(svgNs, 'circle');
+    bg.setAttribute('cx', cx + cw / 2); bg.setAttribute('cy', cy + ch / 2 - 5);
+    bg.setAttribute('r', '12'); bg.setAttribute('fill', '#0959C8'); bg.setAttribute('opacity', '0.15');
     iconGroup.appendChild(bg);
-    // icon path
-    const path=document.createElementNS(svgNs,'path');
-    path.setAttribute('d',pathData);
-    path.setAttribute('fill','#60a5fa');
-    path.setAttribute('opacity','0.9');
-    path.setAttribute('transform',`translate(${ix},${iy}) scale(${iconSize/24})`);
+
+    const path = document.createElementNS(svgNs, 'path');
+    path.setAttribute('d', pathData); path.setAttribute('fill', '#60a5fa'); path.setAttribute('opacity', '0.9');
+    path.setAttribute('transform', `translate(${ix},${iy}) scale(${iconSize / 24})`);
     iconGroup.appendChild(path);
     g.appendChild(iconGroup);
   }
 
-  _renderDefaultMarker(g,cx,cy,cw,ch,id){
-    const svgNs='http://www.w3.org/2000/svg';
-    const circle=document.createElementNS(svgNs,'circle');
-    circle.setAttribute('cx',cx+22);circle.setAttribute('cy',cy+ch/2);
-    circle.setAttribute('r','16');circle.setAttribute('fill','#0959C8');
-    circle.setAttribute('opacity','0.2');
+  _renderDefaultMarker(g, cx, cy, cw, ch, id) {
+    const svgNs = 'http://www.w3.org/2000/svg';
+    const circle = document.createElementNS(svgNs, 'circle');
+    circle.setAttribute('cx', cx + 22); circle.setAttribute('cy', cy + ch / 2);
+    circle.setAttribute('r', '16'); circle.setAttribute('fill', '#0959C8'); circle.setAttribute('opacity', '0.2');
     g.appendChild(circle);
-    const letter=document.createElementNS(svgNs,'text');
-    letter.setAttribute('x',cx+22);letter.setAttribute('y',cy+ch/2+5);
-    letter.setAttribute('text-anchor','middle');letter.setAttribute('fill','#60a5fa');
-    letter.setAttribute('font-size','14');letter.setAttribute('font-weight','700');
-    letter.setAttribute('font-family',"'Inter',sans-serif");
-    letter.setAttribute('pointer-events','none');
-    letter.textContent=(id||'?')[0].toUpperCase();
+
+    const letter = document.createElementNS(svgNs, 'text');
+    letter.setAttribute('x', cx + 22); letter.setAttribute('y', cy + ch / 2 + 5);
+    letter.setAttribute('text-anchor', 'middle'); letter.setAttribute('fill', '#60a5fa');
+    letter.setAttribute('font-size', '14'); letter.setAttribute('font-weight', '700');
+    letter.setAttribute('font-family', "'Inter',sans-serif"); letter.setAttribute('pointer-events', 'none');
+    letter.textContent = (id || '?')[0].toUpperCase();
     g.appendChild(letter);
   }
 
-  _defaultIcon(id){
-    const map={
-      device:'laptop',router:'router',isp:'cloud',server:'server',
-      dns:'server',packet:'packet',wifi:'wifi',modem:'modem',
-      browser:'browser',website:'globe',client:'monitor',loadbalancer:'load-balancer',
-      database:'database',cache:'database',source:'laptop',destination:'monitor',
-      ipv4:'globe',ipv6:'globe',subnet:'filter',gateway:'router',
-      dhcp:'server',network:'network',switch:'router',firewall:'shield',
-      landing:'data-center',cable:'cable',repeater:'chip',buoy:'satellite',
-      rack:'server',cooling:'fan',power:'power',cdn:'cdn',origin:'server',
-      tcp:'cable',satellite:'satellite',cellular:'cell-tower',
-      saas:'cloud',paas:'cloud',iaas:'cloud',public:'globe',private:'lock',
-      hybrid:'network',encryption:'lock',vpn:'shield',antivirus:'shield',
-      auth:'key',backup:'database',waf:'firewall',loadbalancer:'load-balancer',
-      dns:'globe',tld:'server',root:'server',authoritative:'server',
-      recursive:'server',modem:'modem',ap:'wifi'
+  _defaultIcon(id) {
+    const map = {
+      device: 'laptop', router: 'router', isp: 'cloud', server: 'server',
+      dns: 'server', packet: 'packet', wifi: 'wifi', modem: 'modem',
+      browser: 'browser', website: 'globe', client: 'monitor', loadbalancer: 'load-balancer',
+      database: 'database', cache: 'database', source: 'laptop', destination: 'monitor',
+      ipv4: 'globe', ipv6: 'globe', subnet: 'filter', gateway: 'router',
+      dhcp: 'server', network: 'network', switch: 'router', firewall: 'shield',
+      landing: 'data-center', cable: 'cable', repeater: 'chip', buoy: 'satellite',
+      rack: 'server', cooling: 'fan', power: 'power', cdn: 'cdn', origin: 'server',
+      tcp: 'cable', satellite: 'satellite', cellular: 'cell-tower',
+      saas: 'cloud', paas: 'cloud', iaas: 'cloud', public: 'globe', private: 'lock',
+      hybrid: 'network', encryption: 'lock', vpn: 'shield', antivirus: 'shield',
+      auth: 'key', backup: 'database', waf: 'firewall', dns: 'globe',
+      tld: 'server', root: 'server', authoritative: 'server', recursive: 'server', ap: 'wifi'
     };
-    return map[id]||null;
+    return map[id] || null;
   }
 
-  _updateFlowDots(){
-    if(!this._flowDots||!this._flowDots.length)return;
-    const base=this.t*0.3;
-    this._flowDots.forEach((fd,j)=>{
-      const cp=this._connPaths[fd.idx];
-      if(!cp)return;
-      let t=(base+j*0.15)%1;
-      const u=1-t;
-      const x=u*u*u*cp.x1+3*u*u*t*cp.mx+3*u*t*t*cp.mx+t*t*t*cp.x2;
-      const y=u*u*u*cp.y1+3*u*u*t*cp.y1+3*u*t*t*cp.y2+t*t*t*cp.y2;
-      if(fd.isPacket){
-        fd.el.setAttribute('transform','translate('+x+','+y+')');
-      }else{
-        fd.el.setAttribute('cx',x);
-        fd.el.setAttribute('cy',y);
+  _updateFlowDots() {
+    if (!this._flowDots || !this._flowDots.length) return;
+    const base = this.t * 0.3;
+    this._flowDots.forEach((fd, j) => {
+      const cp = this._connPaths[fd.idx];
+      if (!cp) return;
+      let t = (base + j * 0.15) % 1;
+      const u = 1 - t;
+      const x = u * u * u * cp.x1 + 3 * u * u * t * cp.mx + 3 * u * t * t * cp.mx + t * t * t * cp.x2;
+      const y = u * u * u * cp.y1 + 3 * u * u * t * cp.y1 + 3 * u * t * t * cp.y2 + t * t * t * cp.y2;
+      if (fd.isPacket) {
+        fd.el.setAttribute('transform', 'translate(' + x + ',' + y + ')');
+      } else {
+        fd.el.setAttribute('cx', x);
+        fd.el.setAttribute('cy', y);
       }
     });
   }
 
-  _showPacketInfo(label,color,connIdx){
-    const eng=this;
-    if(!eng.el.packetBar){
-      const bar=document.createElement('div');
-      bar.id='packet-bar';
-      bar.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-top:8px;animation:fadeIn .3s ease';
-      const barInner=document.createElement('div');barInner.id='packet-bar-inner';barInner.style.cssText='flex:1';
+  _showPacketInfo(label, color, connIdx) {
+    const eng = this;
+    if (!eng.el.packetBar) {
+      const bar = document.createElement('div');
+      bar.id = 'packet-bar';
+      bar.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-top:8px;animation:packetFadeIn .3s ease';
+      const barInner = document.createElement('div'); barInner.id = 'packet-bar-inner'; barInner.style.cssText = 'flex:1';
       bar.appendChild(barInner);
-      const closeBtn=document.createElement('button');
-      closeBtn.innerHTML='&times;';
-      closeBtn.style.cssText='background:none;border:none;color:#64748b;font-size:18px;cursor:pointer;padding:0 4px';
-      closeBtn.addEventListener('click',function(){bar.remove();eng.el.packetBar=null});
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '&times;';
+      closeBtn.style.cssText = 'background:none;border:none;color:#64748b;font-size:18px;cursor:pointer;padding:0 4px';
+      closeBtn.addEventListener('click', function () { bar.remove(); eng.el.packetBar = null; });
       bar.appendChild(closeBtn);
-      this.el.packetBar=bar;
-      // Find where to insert (after diagram-visual)
-      const visual=this.el.visual;
-      if(visual&&visual.parentNode){
-        visual.parentNode.insertBefore(bar,visual.nextSibling);
+      this.el.packetBar = bar;
+      const visual = this.el.visual;
+      if (visual && visual.parentNode) {
+        visual.parentNode.insertBefore(bar, visual.nextSibling);
       }
     }
-    const inner=document.getElementById('packet-bar-inner');
-    if(inner){
-      const conn=this.cfg.connections&&this.cfg.connections[connIdx];
-      const fromComp=conn?this._findComp(conn.from):null;
-      const toComp=conn?this._findComp(conn.to):null;
-      inner.innerHTML='<div style="font-size:12px;font-weight:600;color:'+(color||'#22c55e')+'">'+(label||'Packet')+'</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Traveling from <strong style="color:#e2e8f0">'+(fromComp?fromComp.name:conn.from)+'</strong> to <strong style="color:#e2e8f0">'+(toComp?toComp.name:conn.to)+'</strong></div>';
-      this._setStatus('Tracing: '+label+' packet');
+    const inner = document.getElementById('packet-bar-inner');
+    if (inner) {
+      const conn = this.cfg.connections && this.cfg.connections[connIdx];
+      const fromComp = conn ? this._findComp(conn.from) : null;
+      const toComp = conn ? this._findComp(conn.to) : null;
+      inner.innerHTML = '<div style="font-size:12px;font-weight:600;color:' + (color || '#22c55e') + '">' + (label || 'Packet') + '</div><div style="font-size:11px;color:#94a3b8;margin-top:2px">Traveling from <strong style="color:#e2e8f0">' + (fromComp ? fromComp.name : conn.from) + '</strong> to <strong style="color:#e2e8f0">' + (toComp ? toComp.name : conn.to) + '</strong></div>';
+      this._setStatus('Tracing: ' + label + ' packet');
     }
   }
 
   // ── Drag & Drop Matching Builder ──
-  buildDragMatching(container,cfg){
-    const self=this;
-    const items=cfg.items||[];
-    const slots=cfg.slots||[];
-    if(!items.length){container.innerHTML='<div style="padding:40px;text-align:center;color:#94a3b8"><p>No items</p></div>';return}
-    container.innerHTML='';
-    container.style.cssText='display:flex;gap:16px;padding:16px;flex-wrap:wrap;min-height:300px';
-    const matched={};
-    const total=items.length;
+  buildDragMatching(container, cfg) {
+    const self = this;
+    const items = cfg.items || [];
+    const slots = cfg.slots || [];
+    if (!items.length) { container.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8"><p>No items</p></div>'; return; }
+    container.innerHTML = '';
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'display:flex;flex-direction:row;gap:20px;padding:24px;width:100%;height:100%;flex-wrap:wrap;overflow-y:auto';
+    container.appendChild(wrapper);
+
+    const matched = {};
+    const total = items.length;
 
     // Palette (left/top)
-    const pal=document.createElement('div');
-    pal.style.cssText='flex:1;min-width:200px;display:flex;flex-direction:column;gap:8px;padding:12px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.06)';
-    const palTitle=document.createElement('div');
-    palTitle.textContent='Drag item to matching slot';
-    palTitle.style.cssText='font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#64748b;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06)';
+    const pal = document.createElement('div');
+    pal.style.cssText = 'flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px;padding:16px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06)';
+    const palTitle = document.createElement('div');
+    palTitle.textContent = 'Drag items to correct definitions';
+    palTitle.style.cssText = 'font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06)';
     pal.appendChild(palTitle);
-    container.appendChild(pal);
+    wrapper.appendChild(pal);
 
     // Slots area (right/bottom)
-    const slArea=document.createElement('div');
-    slArea.style.cssText='flex:1;min-width:200px;display:flex;flex-direction:column;gap:8px;padding:12px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.06)';
-    const slTitle=document.createElement('div');
-    slTitle.textContent='Drop zones';
-    slTitle.style.cssText='font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#64748b;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06)';
+    const slArea = document.createElement('div');
+    slArea.style.cssText = 'flex:1.2;min-width:280px;display:flex;flex-direction:column;gap:10px;padding:16px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06)';
+    const slTitle = document.createElement('div');
+    slTitle.textContent = 'Definitions / Purposes';
+    slTitle.style.cssText = 'font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06)';
     slArea.appendChild(slTitle);
-    container.appendChild(slArea);
+    wrapper.appendChild(slArea);
 
-    function buildPalette(){
-      while(pal.children.length>1)pal.removeChild(pal.lastChild);
-      items.forEach(function(it){
-        if(matched[it.id])return;
-        const card=document.createElement('div');
-        card.draggable=true;
-        card.dataset.itemId=it.id;
-        card.style.cssText='padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;cursor:grab;transition:all .2s;user-select:none;font-size:13px;font-weight:500;color:#e2e8f0';
-        card.textContent=it.label||it.id;
-        card.addEventListener('dragstart',function(e){e.dataTransfer.setData('text/plain',it.id);this.style.opacity='0.4'});
-        card.addEventListener('dragend',function(){this.style.opacity='1'});
-        // Touch
-        card.addEventListener('touchstart',function(e){
-          this.dataset.touchId=it.id;
-          const g=document.createElement('div');g.id='mg-ghost';g.textContent=it.label||it.id;
-          g.style.cssText='position:fixed;pointer-events:none;z-index:9999;padding:8px 14px;background:rgba(9,89,200,0.9);color:#fff;border-radius:6px;font-size:12px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
-          document.body.appendChild(g);
-        },{passive:true});
-        card.addEventListener('touchmove',function(e){
-          e.preventDefault();const t=e.touches[0];const g=document.getElementById('mg-ghost');
-          if(g){g.style.left=(t.clientX-40)+'px';g.style.top=(t.clientY-20)+'px'}
-        },{passive:false});
-        card.addEventListener('touchend',function(e){
-          const g=document.getElementById('mg-ghost');if(g)g.remove();
-          const t=e.changedTouches[0];const el=document.elementFromPoint(t.clientX,t.clientY);
-          if(el&&el.dataset.slotId)handleMatch(this.dataset.touchId,el.dataset.slotId);
+    function buildPalette() {
+      // Clear old cards
+      while (pal.children.length > 1) pal.removeChild(pal.lastChild);
+      items.forEach(function (it) {
+        if (matched[it.id]) return;
+        const card = document.createElement('div');
+        card.draggable = true;
+        card.dataset.itemId = it.id;
+        card.className = 'sim-card';
+        card.style.cssText = 'padding:12px 16px;background:rgba(9,89,200,0.1);border:1px solid rgba(9,89,200,0.3);border-radius:8px;cursor:grab;transition:all .2s;font-size:13px;font-weight:600;color:#fff;user-select:none';
+        card.textContent = it.label || it.id;
+        
+        card.addEventListener('dragstart', function (e) {
+          e.dataTransfer.setData('text/plain', it.id);
+          this.style.opacity = '0.4';
+        });
+        card.addEventListener('dragend', function () {
+          this.style.opacity = '1';
+        });
+
+        // Touch handlers for mobile/tablet drag matching
+        card.addEventListener('touchstart', function (e) {
+          this.dataset.touchId = it.id;
+          const ghost = document.createElement('div');
+          ghost.id = 'mg-ghost';
+          ghost.textContent = it.label || it.id;
+          ghost.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;padding:10px 16px;background:#0959C8;color:#fff;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid #3b82f6';
+          document.body.appendChild(ghost);
+        }, { passive: true });
+        
+        card.addEventListener('touchmove', function (e) {
+          const t = e.touches[0];
+          const ghost = document.getElementById('mg-ghost');
+          if (ghost) {
+            ghost.style.left = (t.clientX - 50) + 'px';
+            ghost.style.top = (t.clientY - 20) + 'px';
+          }
+        }, { passive: true });
+        
+        card.addEventListener('touchend', function (e) {
+          const ghost = document.getElementById('mg-ghost');
+          if (ghost) ghost.remove();
+          const t = e.changedTouches[0];
+          const dropEl = document.elementFromPoint(t.clientX, t.clientY);
+          const zone = dropEl ? dropEl.closest('[data-slot-id]') : null;
+          if (zone) handleMatch(this.dataset.touchId, zone.dataset.slotId);
           delete this.dataset.touchId;
         });
+
         pal.appendChild(card);
       });
-      const prog=document.createElement('div');
-      prog.style.cssText='font-size:10px;color:#64748b;padding:4px 0;text-align:center;margin-top:auto';
-      prog.textContent=Object.keys(matched).length+'/'+total+' matched';
+
+      const prog = document.createElement('div');
+      prog.style.cssText = 'font-size:11px;font-weight:600;color:#64748b;padding:8px 0;text-align:center;margin-top:auto';
+      prog.textContent = Object.keys(matched).length + '/' + total + ' Completed';
       pal.appendChild(prog);
     }
 
-    function buildSlots(){
-      while(slArea.children.length>1)slArea.removeChild(slArea.lastChild);
-      slots.forEach(function(sl){
-        const zone=document.createElement('div');
-        zone.dataset.slotId=sl.id;
-        zone.style.cssText='padding:10px 14px;border:2px dashed rgba(96,165,250,0.3);border-radius:6px;transition:all .3s;font-size:12px;color:#94a3b8;min-height:44px;display:flex;align-items:center;gap:8px';
-        const lbl=document.createElement('span');
-        lbl.textContent=sl.label+': ';
-        lbl.style.cssText='color:#64748b;font-weight:500;flex-shrink:0';
-        zone.appendChild(lbl);
-        const val=document.createElement('span');
-        val.id='slot-val-'+sl.id;
-        val.textContent='—';
-        val.style.cssText='color:#94a3b8;font-style:italic';
+    function buildSlots() {
+      while (slArea.children.length > 1) slArea.removeChild(slArea.lastChild);
+      slots.forEach(function (sl) {
+        const zone = document.createElement('div');
+        zone.dataset.slotId = sl.id;
+        zone.style.cssText = 'padding:14px 18px;border:2px dashed rgba(255,255,255,0.08);border-radius:10px;transition:all .3s;font-size:12px;color:#cbd5e1;min-height:50px;display:flex;flex-direction:column;gap:6px;justify-content:center';
+        
+        const desc = document.createElement('div');
+        desc.textContent = sl.label;
+        desc.style.cssText = 'color:#94a3b8;font-weight:500';
+        zone.appendChild(desc);
+
+        const val = document.createElement('div');
+        val.id = 'slot-val-' + sl.id;
+        val.textContent = 'Drop component here...';
+        val.style.cssText = 'font-size:11px;font-weight:700;color:#64748b;font-style:italic';
         zone.appendChild(val);
-        zone.addEventListener('dragover',function(e){e.preventDefault();this.style.borderColor='rgba(96,165,250,0.8)';this.style.backgroundColor='rgba(9,89,200,0.08)'});
-        zone.addEventListener('dragleave',function(){this.style.borderColor='rgba(96,165,250,0.3)';this.style.backgroundColor='transparent'});
-        zone.addEventListener('drop',function(e){
-          e.preventDefault();this.style.borderColor='rgba(96,165,250,0.3)';this.style.backgroundColor='transparent';
-          const id=e.dataTransfer.getData('text/plain');
-          handleMatch(id,sl.id);
+
+        zone.addEventListener('dragover', function (e) {
+          e.preventDefault();
+          this.style.borderColor = '#3b82f6';
+          this.style.background = 'rgba(9,89,200,0.05)';
         });
+        zone.addEventListener('dragleave', function () {
+          this.style.borderColor = 'rgba(255,255,255,0.08)';
+          this.style.background = 'transparent';
+        });
+        zone.addEventListener('drop', function (e) {
+          e.preventDefault();
+          this.style.borderColor = 'rgba(255,255,255,0.08)';
+          this.style.background = 'transparent';
+          const id = e.dataTransfer.getData('text/plain');
+          handleMatch(id, sl.id);
+        });
+
         slArea.appendChild(zone);
       });
     }
 
-    function handleMatch(itemId,slotId){
-      if(matched[itemId]){self._setStatus('Already matched');return}
-      const item=items.find(function(x){return x.id===itemId});
-      const slot=slots.find(function(x){return x.id===slotId});
-      if(!item||!slot){self._setStatus('Invalid match');return}
-      const zone=slArea.querySelector('[data-slot-id="'+slotId+'"]');
-      if(item.slot===slotId){
-        matched[itemId]=true;
-        if(zone){
-          zone.style.borderColor='rgba(34,197,94,0.6)';zone.style.background='rgba(34,197,94,0.1)';
-          const val=document.getElementById('slot-val-'+slotId);
-          if(val){val.textContent=item.label||itemId;val.style.color='#22c55e';val.style.fontStyle='normal'}
+    function handleMatch(itemId, slotId) {
+      if (matched[itemId]) return;
+      const item = items.find(x => x.id === itemId);
+      const slot = slots.find(x => x.id === slotId);
+      if (!item || !slot) return;
+      
+      const zone = slArea.querySelector('[data-slot-id="' + slotId + '"]');
+      if (item.slot === slotId) {
+        matched[itemId] = true;
+        if (zone) {
+          zone.style.borderColor = '#10b981';
+          zone.style.background = 'rgba(16, 185, 129, 0.08)';
+          const val = document.getElementById('slot-val-' + slotId);
+          if (val) {
+            val.textContent = '✓ ' + item.label;
+            val.style.color = '#10b981';
+            val.style.fontStyle = 'normal';
+          }
         }
-        self._setStatus('Correct! '+slot.label);
-        if(self.cfg.components){
-          const comp=self.cfg.components.find(function(c){return c.id===itemId});
-          if(comp)self.selectComponent(itemId);
-        }
+        self._setStatus('Correct Match!');
         buildPalette();
-        if(Object.keys(matched).length===total){
-          self._setStatus('All matched!');
-          const done=document.createElement('div');
-          done.textContent='\u2705 All items matched correctly!';
-          done.style.cssText='text-align:center;padding:16px;color:#22c55e;font-size:16px;font-weight:600;animation:popIn .3s ease';
+        if (Object.keys(matched).length === total) {
+          self._setStatus('Challenge Completed!');
+          self.markCompleted();
+          const done = document.createElement('div');
+          done.textContent = '🎉 Congratulations! You resolved all concepts correctly.';
+          done.style.cssText = 'text-align:center;padding:16px;color:#10b981;font-size:14px;font-weight:700;animation:packetFadeIn .4s ease';
           slArea.appendChild(done);
         }
-      }else{
-        if(zone){zone.style.borderColor='rgba(239,68,68,0.8)';zone.style.background='rgba(239,68,68,0.1)';
-          setTimeout(function(){zone.style.borderColor='rgba(96,165,250,0.3)';zone.style.background='transparent'},1200)}
-        self._setStatus('Not quite. '+slot.label+' doesn\'t match '+(item.label||itemId));
+      } else {
+        if (zone) {
+          zone.style.borderColor = '#ef4444';
+          zone.style.background = 'rgba(239, 68, 68, 0.08)';
+          setTimeout(() => {
+            zone.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+            zone.style.background = 'transparent';
+          }, 1200);
+        }
+        self._setStatus('Try again! Match does not fit.');
       }
     }
 
     buildPalette();
     buildSlots();
-    if(!document.getElementById('ib-keyframes')){
-      const s=document.createElement('style');s.id='ib-keyframes';
-      s.textContent='@keyframes popIn{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}';
-      document.head.appendChild(s);
-    }
   }
 
   // ── Step Flow Builder ──
-  buildStepFlow(container){
-    const self=this;
-    const steps=self.cfg.steps||[];
+  buildStepFlow(container) {
+    const self = this;
+    const steps = self.cfg.steps || [];
 
-    container.innerHTML='';
-    container.style.cssText='display:flex;flex-direction:column;gap:12px;padding:16px;min-height:300px';
+    container.innerHTML = '';
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'display:flex;flex-direction:column;gap:16px;padding:24px;width:100%;height:100%;overflow-y:auto';
+    container.appendChild(wrapper);
 
     // Flow visualization
-    const flowArea=document.createElement('div');
-    flowArea.style.cssText='display:flex;gap:8px;align-items:flex-start;overflow-x:auto;padding:12px 8px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.06);min-height:120px;flex-wrap:wrap';
-    container.appendChild(flowArea);
+    const flowArea = document.createElement('div');
+    flowArea.style.cssText = 'display:flex;gap:12px;align-items:flex-start;overflow-x:auto;padding:16px 12px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);min-height:130px;flex-wrap:nowrap';
+    wrapper.appendChild(flowArea);
 
     // Detail panel
-    const detail=document.createElement('div');
-    detail.id='stepflow-detail';
-    detail.style.cssText='padding:14px 16px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.06);min-height:80px;display:none';
-    container.appendChild(detail);
+    const detail = document.createElement('div');
+    detail.id = 'stepflow-detail';
+    detail.style.cssText = 'padding:16px 20px;background:rgba(9,89,200,0.03);border-radius:12px;border:1px solid rgba(9,89,200,0.1);min-height:90px;display:none';
+    wrapper.appendChild(detail);
 
-    let currentStep=-1;
-
-    function buildFlow(){
-      flowArea.innerHTML='';
-      steps.forEach(function(s,i){
-        const node=document.createElement('div');
-        node.dataset.sidx=i;
-        node.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);transition:all .3s;min-width:90px;flex-shrink:0';
-        node.innerHTML='<div style="width:28px;height:28px;border-radius:50%;background:rgba(9,89,200,0.2);color:#60a5fa;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">'+(i+1)+'</div><div style="font-size:11px;font-weight:500;color:#e2e8f0;text-align:center;line-height:1.2">'+self._esc(s.label)+'</div>';
-        if(i<steps.length-1){
-          const arrow=document.createElement('div');
-          arrow.textContent='\u2192';
-          arrow.style.cssText='font-size:18px;color:#475569;flex-shrink:0;margin-top:10px';
+    function buildFlow() {
+      flowArea.innerHTML = '';
+      steps.forEach(function (s, i) {
+        const node = document.createElement('div');
+        node.dataset.sidx = i;
+        node.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);transition:all .3s;min-width:110px;flex-shrink:0';
+        node.innerHTML = '<div style="width:32px;height:32px;border-radius:50%;background:rgba(9,89,200,0.2);color:#60a5fa;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">' + (i + 1) + '</div><div style="font-size:12px;font-weight:600;color:#e2e8f0;text-align:center;line-height:1.3">' + self._esc(s.label) + '</div>';
+        
+        if (i < steps.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.textContent = '→';
+          arrow.style.cssText = 'font-size:20px;color:#475569;flex-shrink:0;margin-top:14px;font-weight:700';
           flowArea.appendChild(node);
           flowArea.appendChild(arrow);
-        }else{
+        } else {
           flowArea.appendChild(node);
         }
-        node.addEventListener('click',function(){showStep(i)});
-        // Auto-advance play
-        if(self.cfg.animate){
-          // Visual highlight when playing
-        }
+        node.addEventListener('click', function () {
+          self.currentStep = i;
+          self._applyStep();
+        });
       });
     }
 
-    function showStep(i){
-      currentStep=i;
-      const nodes=flowArea.querySelectorAll('[data-sidx]');
-      nodes.forEach(function(n){
-        var idx=parseInt(n.dataset.sidx);
-        n.style.borderColor=idx===i?'rgba(9,89,200,0.6)':'rgba(255,255,255,0.06)';
-        n.style.background=idx===i?'rgba(9,89,200,0.1)':'rgba(255,255,255,0.02)';
-        n.style.boxShadow=idx===i?'0 0 20px rgba(9,89,200,0.2)':'none';
+    function showStep(i) {
+      const nodes = flowArea.querySelectorAll('[data-sidx]');
+      nodes.forEach(function (n) {
+        var idx = parseInt(n.dataset.sidx);
+        n.style.borderColor = idx === i ? '#3b82f6' : 'rgba(255,255,255,0.06)';
+        n.style.background = idx === i ? 'rgba(9,89,200,0.1)' : 'rgba(255,255,255,0.02)';
+        n.style.boxShadow = idx === i ? '0 0 20px rgba(9,89,200,0.3)' : 'none';
       });
-      const s=steps[i];
-      detail.style.display='block';
-      detail.innerHTML='<div style="font-size:14px;font-weight:600;color:#60a5fa;margin-bottom:4px">'+self._esc(s.label)+'</div><div style="font-size:12px;color:#94a3b8;line-height:1.6">'+self._esc(s.description||'')+'</div>';
-      if(self.cfg.components){
-        const comp=self.cfg.components.find(function(c){return c.id===s.id});
-        if(comp)self.selectComponent(s.id);
+      const s = steps[i];
+      detail.style.display = 'block';
+      detail.innerHTML = '<div style="font-size:15px;font-weight:700;color:#3b82f6;margin-bottom:6px">' + self._esc(s.label) + '</div><div style="font-size:13px;color:#cbd5e1;line-height:1.6">' + self._esc(s.description || s.status || '') + '</div>';
+      
+      if (self.cfg.components) {
+        const comp = self.cfg.components.find(function (c) { return c.id === s.id; });
+        if (comp) self.selectComponent(s.id);
       }
-      self._setStatus(s.status||'Step '+(i+1)+' of '+steps.length);
+      self._setStatus(s.status || 'Step ' + (i + 1) + ' of ' + steps.length);
     }
 
+    self._onStepChange = showStep;
     buildFlow();
-    if(steps.length){showStep(0)}
+    if (steps.length) {
+      self.currentStep = 0;
+      self._applyStep();
+    }
   }
 
   // ── Click Explorer Builder ──
-  buildClickExplorer(container){
-    const self=this;
-    const comps=this.cfg.components||[];
-    if(!comps.length){container.innerHTML='<div style="padding:40px;text-align:center;color:#94a3b8"><p>No components</p></div>';return}
-    container.innerHTML='';
-    container.style.cssText='display:flex;flex-direction:column;gap:12px;padding:16px;min-height:300px';
+  buildClickExplorer(container) {
+    const self = this;
+    const comps = this.cfg.components || [];
+    if (!comps.length) { container.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8"><p>No components</p></div>'; return; }
+    
+    container.innerHTML = '';
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'display:flex;flex-direction:column;gap:16px;padding:24px;width:100%;height:100%;overflow-y:auto';
+    container.appendChild(wrapper);
 
     // Visual grid of clickable components
-    const grid=document.createElement('div');
-    grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:8px';
-    container.appendChild(grid);
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:4px';
+    wrapper.appendChild(grid);
 
-    const detail=document.createElement('div');
-    detail.id='ce-detail';
-    detail.style.cssText='padding:14px 16px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.06);min-height:60px;display:none';
-    container.appendChild(detail);
+    let detail;
+    if (!self.cfg.suppressDetail) {
+      detail = document.createElement('div');
+      detail.id = 'ce-detail';
+      detail.style.cssText = 'padding:16px 20px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);min-height:60px;display:none';
+      wrapper.appendChild(detail);
+    }
 
-    comps.forEach(function(c){
-      const card=document.createElement('div');
-      card.dataset.componentId=c.id;
-      card.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;cursor:pointer;transition:all .2s;text-align:center';
-      const iconEl=document.createElement('div');
-      iconEl.textContent=self._getIconChar(c.id);
-      iconEl.style.cssText='font-size:24px;line-height:1';
+    comps.forEach(function (c) {
+      const card = document.createElement('div');
+      card.dataset.componentId = c.id;
+      card.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;cursor:pointer;transition:all .2s;text-align:center';
+      
+      const iconEl = document.createElement('div');
+      iconEl.textContent = self._getIconChar(c.id);
+      iconEl.style.cssText = 'font-size:26px;line-height:1;margin-bottom:4px';
       card.appendChild(iconEl);
-      const nameEl=document.createElement('div');
-      nameEl.textContent=c.name||c.id;
-      nameEl.style.cssText='font-size:11px;font-weight:600;color:#e2e8f0;line-height:1.2';
+      
+      const nameEl = document.createElement('div');
+      nameEl.textContent = c.name || c.id;
+      nameEl.style.cssText = 'font-size:12px;font-weight:700;color:#e2e8f0;line-height:1.3';
       card.appendChild(nameEl);
-      const catEl=document.createElement('div');
-      catEl.textContent=c.category||'';
-      catEl.style.cssText='font-size:9px;color:#64748b';
+      
+      const catEl = document.createElement('div');
+      catEl.textContent = c.category || '';
+      catEl.style.cssText = 'font-size:10px;color:#64748b';
       card.appendChild(catEl);
-      card.addEventListener('click',function(){
-        grid.querySelectorAll('[data-component-id]').forEach(function(el){el.style.borderColor='rgba(255,255,255,0.06)';el.style.background='rgba(255,255,255,0.03)'});
-        card.style.borderColor='rgba(9,89,200,0.6)';card.style.background='rgba(9,89,200,0.1)';
+      
+      card.addEventListener('click', function () {
+        grid.querySelectorAll('[data-component-id]').forEach(el => {
+          el.style.borderColor = 'rgba(255,255,255,0.06)';
+          el.style.background = 'rgba(255,255,255,0.03)';
+        });
+        card.style.borderColor = '#3b82f6';
+        card.style.background = 'rgba(9,89,200,0.1)';
         self.selectComponent(c.id);
-        detail.style.display='block';
-        detail.innerHTML='<div style="font-size:14px;font-weight:600;color:#60a5fa;margin-bottom:4px">'+self._esc(c.name||c.id)+'</div><div style="font-size:12px;color:#cbd5e1;line-height:1.6">'+self._esc(c.purpose||'')+'</div><div style="font-size:11px;color:#94a3b8;margin-top:6px;line-height:1.5">'+self._esc(c.description||'')+'</div>';
+        if (detail) {
+          detail.style.display = 'block';
+          detail.innerHTML = '<div style="font-size:15px;font-weight:700;color:#3b82f6;margin-bottom:6px">' + self._esc(c.name || c.id) + '</div><div style="font-size:13px;color:#cbd5e1;line-height:1.6">' + self._esc(c.purpose || '') + '</div><div style="font-size:12px;color:#94a3b8;margin-top:8px;line-height:1.5">' + self._esc(c.description || '') + '</div>';
+        }
       });
       grid.appendChild(card);
     });
   }
 
-  _getIconChar(id){
-    const map={socket:'\u26A1',chipset:'\u2699',slots:'\u25A1',headers:'\u2194',ports:'\u2197',vrms:'\u26A1',cpu:'\u2699',dimm:'\u2B1B',slot:'\u25A1',channel:'\u2194',latch:'\u2714',dualrank:'\u25A3',capacity:'\u23F3',ssd:'\u26A1',hdd:'\u23F0',bracket:'\u2699',cable:'\u2194',m2:'\u2B1B',tray:'\u25A1',psu:'\u26A1',connector:'\u26A1',rail:'\u2194',modular:'\u21C4',rating:'\u2605',case:'\u25A3',fan:'\u2744',radiator:'\u27A1',airflow:'\u27A1',filter:'\u25A0',thermal:'\u2668',gpu:'\u2699',pcie:'\u2B1A',power:'\u26A1',bracket:'\u2699',riser:'\u2195',bios:'\u2699',uefi:'\u2699',cmos:'\u23F1',settings:'\u2699',boot:'\u27A1',firmware:'\u2699',media:'\uD83D\uDCBF',partition:'\u25A3',format:'\u267B',install:'\u2B07',driver:'\u2699',activation:'\u2714',utility:'\u2699',codec:'\u266A',runtime:'\u2699',update:'\u21BB',config:'\u2699',postcode:'\u2316',beep:'\u266A',multimeter:'\u2699',reseat:'\u21BA'};
-    return map[id]||'\u25A0';
+  _getIconChar(id) {
+    const map = {
+      socket: '⚡', chipset: '⚙', slots: '☐', headers: '↔', ports: '↗', vrms: '⚡',
+      cpu: '⚙', dimm: '⬛', slot: '☐', channel: '↔', latch: '✔', dualrank: '▤',
+      capacity: '⏳', ssd: '⚡', hdd: '⏰', bracket: '⚙', cable: '↔', m2: '⬛',
+      tray: '☐', psu: '⚡', connector: '⚡', rail: '↔', modular: '⇄', rating: '★',
+      case: '▥', fan: '❄', radiator: '➡', airflow: '➡', filter: '■', thermal: '♨',
+      gpu: '⚙', pcie: '▚', power: '⚡', riser: '↕', bios: '⚙', uefi: '⚙', cmos: '⏰',
+      settings: '⚙', boot: '➡', firmware: '⚙', media: '💿', partition: '▤', format: '♻',
+      install: '⬇', driver: '⚙', activation: '✔', utility: '⚙', codec: '♪', runtime: '⚙',
+      update: '↻', config: '⚙', postcode: '⎶', beep: '♪', multimeter: '⚙', reseat: '↺'
+    };
+    return map[id] || '■';
   }
 
-  _setStatus(msg){}
-  _esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+  _setStatus(msg) {
+    // Left-aligned status trace for feedback
+    console.log(`[Consica Status]: ${msg}`);
+  }
+  _esc(s) {
+    if (!s) return '';
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
 }
 
-window.DiagramEngine=DiagramEngine;
-window.deferInit=function(fn){
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn);else fn();
+window.DiagramEngine = DiagramEngine;
+window.deferInit = function (fn) {
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn();
 };
 
 })();

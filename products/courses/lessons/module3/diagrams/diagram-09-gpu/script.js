@@ -9,10 +9,15 @@ deferInit(function(){
     title: 'Gpu',
     subtitle: 'Computer Assembly',
     desc: 'Learn about graphics cards, installation, and specifications.',
+    module: 3,
+    difficulty: 'Intermediate',
+    time: '10',
+    objectives: 'Learn about graphics cards, installation, and specs.',
     components: components,
     connections: connections,
     steps: steps,
     tour: tour,
+    suppressDetail: true,
     
     render: function(container, engine) {
       engine.buildClickExplorer(container);

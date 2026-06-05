@@ -9,10 +9,15 @@ deferInit(function(){
     title: 'Case Cooling',
     subtitle: 'Computer Assembly',
     desc: 'Explore case types, cooling solutions, and airflow management.',
+    module: 3,
+    difficulty: 'Intermediate',
+    time: '10',
+    objectives: 'Explore case types, cooling, and airflow management.',
     components: components,
     connections: connections,
     steps: steps,
     tour: tour,
+    suppressDetail: true,
     
     render: function(container, engine) {
       engine.buildClickExplorer(container);
