@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -200,53 +202,62 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of ESD like rubbing a balloon on your hair and then touching a friend's arm — you both feel a small shock. Now imagine that your computer components are as sensitive as a soap bubble. The same invisible spark that stings your skin can permanently destroy a CPU. Using an anti-static wrist strap is like wearing a grounding chain on a fuel truck — it safely drains the charge before it can cause damage.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('esd')">ESD</span> like rubbing a balloon on your hair and then touching a friend's arm — you both feel a small shock. Now imagine that your computer components are as sensitive as a soap bubble. The same invisible spark that stings your skin can permanently destroy a CPU. Using an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">anti-static wrist strap</span> is like wearing a grounding chain on a fuel truck — it safely drains the charge before it can cause damage.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Essential Safety Tools</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               You do not need many tools to build a computer, but the ones you do need matter:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Anti-static Wrist Strap</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">Anti-static Wrist Strap</span></p>
                 <p class="text-sm text-theme-muted">Wraps around your wrist and clips to a grounded metal object. Keeps you at the same voltage as the components, preventing static discharge.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Magnetic Tip Screwdriver</p>
-                <p class="text-sm text-theme-muted">A Phillips-head screwdriver with a magnetised tip. Essential for reaching screws in tight spots without dropping them onto the motherboard.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Magnetic Tip <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">Screwdriver</span></p>
+                <p class="text-sm text-theme-muted">A Phillips-head <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">screwdriver</span> with a magnetised tip. Essential for reaching screws in tight spots without dropping them onto the motherboard.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Anti-static Mat</p>
                 <p class="text-sm text-theme-muted">A mat that sits on your workbench and drains static charge. Place your components and tools on it during assembly for extra protection.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">PSU Tester</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-tester')">PSU Tester</span></p>
                 <p class="text-sm text-theme-muted">A small device that checks if your power supply outputs the correct voltages on each pin. Useful for diagnosing PSU issues before installing it.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Cable Ties</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-tie')">Cable Ties</span></p>
                 <p class="text-sm text-theme-muted">Small plastic straps used to bundle cables neatly. Good cable management improves airflow and makes future upgrades easier.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Thermal Compound</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">Thermal Compound</span></p>
                 <p class="text-sm text-theme-muted">Also called thermal paste. Applied between the CPU and cooler to fill microscopic gaps and improve heat transfer efficiency.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Workspace Preparation</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Your workspace matters as much as your tools. Choose a clean, flat, non-carpeted surface. A wooden desk is ideal — avoid metal tables that can conduct electricity. Ensure good lighting so you can see small pins, ports, and labels. Keep magnets away from your build (except for the screwdriver tip, which is safe for most components).
+              Your workspace matters as much as your tools. Choose a clean, flat, non-carpeted surface. A wooden desk is ideal — avoid metal tables that can conduct electricity. Ensure good lighting so you can see small pins, ports, and labels. Keep magnets away from your build (except for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">screwdriver</span> tip, which is safe for most components).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Before starting, ground yourself by touching an unpainted metal part of your case (when the PSU is plugged in but switched off) or by wearing your anti-static wrist strap clipped to the case. Work on hard floors rather than carpet, and avoid wearing wool or synthetic clothing that creates static.
+              Before starting, ground yourself by touching an unpainted metal part of your case (when the PSU is plugged in but switched off) or by wearing your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">anti-static wrist strap</span> clipped to the case. Work on hard floors rather than carpet, and avoid wearing wool or synthetic clothing that creates static.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">Most damaged components are not faulty from the factory — they are damaged by improper handling. Static electricity, bent pins, and overtightened screws are the top three causes. Treat every component like it is made of glass, and you will never break anything.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, safety &amp; tools involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('esd')">ESD</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">Anti-static Wrist Strap</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">Screwdriver</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -261,13 +272,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>ESD</td><td>Electrostatic Discharge — the sudden flow of static electricity between two objects that can damage sensitive electronics</td></tr>
-                  <tr><td>Anti-static Wrist Strap</td><td>A wearable device that grounds your body to prevent static discharge when handling computer components</td></tr>
-                  <tr><td>Screwdriver</td><td>A hand tool used to tighten and loosen screws. A Phillips-head (#2) is the standard for computer assembly</td></tr>
-                  <tr><td>PSU Tester</td><td>A diagnostic tool that verifies power supply voltages and confirms each rail is functioning correctly</td></tr>
-                  <tr><td>Cable Tie</td><td>A small nylon strap used to bundle and secure cables inside the computer case for organisation and airflow</td></tr>
-                  <tr><td>Thermal Compound</td><td>A heat-conductive paste applied between the CPU and heatsink to eliminate air gaps and improve cooling</td></tr>
-                  <tr><td>Magnetized Tip</td><td>A screwdriver tip that has been magnetised to hold screws in place during installation in tight spaces</td></tr>
+                  <tr id="vocab-esd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('esd')">ESD</span></td><td>Electrostatic Discharge — the sudden flow of static electricity between two objects that can damage sensitive electronics</td></tr>
+                  <tr id="vocab-anti-static-wrist-strap"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">Anti-static Wrist Strap</span></td><td>A wearable device that grounds your body to prevent static discharge when handling computer components</td></tr>
+                  <tr id="vocab-screwdriver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">Screwdriver</span></td><td>A hand tool used to tighten and loosen screws. A Phillips-head (#2) is the standard for computer assembly</td></tr>
+                  <tr id="vocab-psu-tester"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-tester')">PSU Tester</span></td><td>A diagnostic tool that verifies power supply voltages and confirms each rail is functioning correctly</td></tr>
+                  <tr id="vocab-cable-tie"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-tie')">Cable Tie</span></td><td>A small nylon strap used to bundle and secure cables inside the computer case for organisation and airflow</td></tr>
+                  <tr id="vocab-thermal-compound"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">Thermal Compound</span></td><td>A heat-conductive paste applied between the CPU and heatsink to eliminate air gaps and improve cooling</td></tr>
+                  <tr id="vocab-magnetized-tip"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('magnetized-tip')">Magnetized Tip</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">screwdriver</span> tip that has been magnetised to hold screws in place during installation in tight spaces</td></tr>
                 </tbody>
               </table>
             </div>
@@ -288,13 +299,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Dry climates and winter months increase static electricity. Running a humidifier in your workspace can reduce ESD risk significantly.</p>
+                <p class="text-sm text-theme-muted">Dry climates and winter months increase static electricity. Running a humidifier in your workspace can reduce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('esd')">ESD</span> risk significantly.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The #2 Phillips-head screwdriver is so standard in PC building that almost every case, motherboard, and PSU uses this single screw size.</p>
+                <p class="text-sm text-theme-muted">The #2 Phillips-head <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">screwdriver</span> is so standard in PC building that almost every case, motherboard, and PSU uses this single screw size.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -325,7 +336,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does ESD stand for, and why is it dangerous for computers?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('esd')">ESD</span> stand for, and why is it dangerous for computers?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Electrical System Drain — it drains the battery</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Electrostatic Discharge — it can destroy sensitive components</label>
@@ -338,16 +349,16 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which tool is most important for preventing static damage during assembly?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> PSU Tester</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Cable Ties</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Anti-static Wrist Strap</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Screwdriver</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-tester')">PSU Tester</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-tie')">Cable Ties</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">Anti-static Wrist Strap</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">Screwdriver</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Anti-static Wrist Strap</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anti-static-wrist-strap')">Anti-static Wrist Strap</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What type of screwdriver is standard for PC assembly?</p>
+                <p class="text-sm font-semibold text-theme">3. What type of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('screwdriver')">screwdriver</span> is standard for PC assembly?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Flat-head #1</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Phillips-head #2</label>
@@ -421,7 +432,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

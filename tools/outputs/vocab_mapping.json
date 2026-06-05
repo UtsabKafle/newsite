@@ -1,0 +1,5917 @@
+{
+  "modules": {
+    "module1": {
+      "vocab_ids": [
+        "bandwidth",
+        "browser",
+        "dhcp",
+        "dns",
+        "ethernet",
+        "internet",
+        "ip-address",
+        "isp",
+        "ixp",
+        "modem",
+        "nat",
+        "packet",
+        "protocol",
+        "router",
+        "server",
+        "wi-fi",
+        "world-wide-web-www-"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-01-internet-highway\\script.js": [
+          {
+            "raw": "device",
+            "normalized": "device",
+            "matched": false,
+            "title": "Your Device",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dns",
+            "normalized": "dns",
+            "matched": true,
+            "title": "DNS Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "isp",
+            "normalized": "isp",
+            "matched": true,
+            "title": "Internet Service Provider",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "packet",
+            "normalized": "packet",
+            "matched": true,
+            "title": "Data Packet",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "router",
+            "normalized": "router",
+            "matched": true,
+            "title": "Network Router",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": true,
+            "title": "Web Server",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-02-device-connection\\script.js": [
+          {
+            "raw": "device",
+            "normalized": "device",
+            "matched": false,
+            "title": "Your Device",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "isp",
+            "normalized": "isp",
+            "matched": true,
+            "title": "Internet Service Provider",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "modem",
+            "normalized": "modem",
+            "matched": true,
+            "title": "Cable Modem",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "router",
+            "normalized": "router",
+            "matched": true,
+            "title": "Network Router",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "wifi",
+            "normalized": "wifi",
+            "matched": false,
+            "title": "Wi-Fi Signal",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-03-website-request\\script.js": [
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Web Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dns",
+            "normalized": "dns",
+            "matched": true,
+            "title": "DNS Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "isp",
+            "normalized": "isp",
+            "matched": true,
+            "title": "Internet Service Provider",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "packet",
+            "normalized": "packet",
+            "matched": true,
+            "title": "Data Packet",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": true,
+            "title": "Web Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "website",
+            "normalized": "website",
+            "matched": false,
+            "title": "Website Content",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-04-client-server\\script.js": [
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": false,
+            "title": "Cache Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "client",
+            "normalized": "client",
+            "matched": false,
+            "title": "Client Application",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dbserver",
+            "normalized": "dbserver",
+            "matched": false,
+            "title": "Database Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "loadbalancer",
+            "normalized": "loadbalancer",
+            "matched": false,
+            "title": "Load Balancer",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "webserver",
+            "normalized": "webserver",
+            "matched": false,
+            "title": "Web Server",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-05-packets\\script.js": [
+          {
+            "raw": "destination",
+            "normalized": "destination",
+            "matched": false,
+            "title": "Destination Device",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "router1",
+            "normalized": "router1",
+            "matched": false,
+            "title": "Router One",
+            "suggestion": "router",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "router2",
+            "normalized": "router2",
+            "matched": false,
+            "title": "Router Two",
+            "suggestion": "router",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "router3",
+            "normalized": "router3",
+            "matched": false,
+            "title": "Router Three",
+            "suggestion": "router",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "source",
+            "normalized": "source",
+            "matched": false,
+            "title": "Source Device",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-06-ip-address\\script.js": [
+          {
+            "raw": "dhcp",
+            "normalized": "dhcp",
+            "matched": true,
+            "title": "DHCP Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "gateway",
+            "normalized": "gateway",
+            "matched": false,
+            "title": "Default Gateway",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ipv4",
+            "normalized": "ipv4",
+            "matched": false,
+            "title": "IPv4 Address",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ipv6",
+            "normalized": "ipv6",
+            "matched": false,
+            "title": "IPv6 Address",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "nat",
+            "normalized": "nat",
+            "matched": true,
+            "title": "Network Address Translation",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "subnet",
+            "normalized": "subnet",
+            "matched": false,
+            "title": "Subnet Mask",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-07-dns-lookup\\script.js": [
+          {
+            "raw": "authoritative",
+            "normalized": "authoritative",
+            "matched": false,
+            "title": "Authoritative Name Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Web Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": false,
+            "title": "DNS Cache",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "resolver",
+            "normalized": "resolver",
+            "matched": false,
+            "title": "DNS Recursive Resolver",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "root",
+            "normalized": "root",
+            "matched": false,
+            "title": "Root Name Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "tld",
+            "normalized": "tld",
+            "matched": false,
+            "title": "TLD Name Server",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-08-routers\\script.js": [
+          {
+            "raw": "destination",
+            "normalized": "destination",
+            "matched": false,
+            "title": "Destination Network",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "firewall",
+            "normalized": "firewall",
+            "matched": false,
+            "title": "Network Firewall",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "router",
+            "normalized": "router",
+            "matched": true,
+            "title": "Network Router",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "source",
+            "normalized": "source",
+            "matched": false,
+            "title": "Source Network",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "switch",
+            "normalized": "switch",
+            "matched": false,
+            "title": "Network Switch",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-09-undersea-cables\\script.js": [
+          {
+            "raw": "buoy",
+            "normalized": "buoy",
+            "matched": false,
+            "title": "Navigation Buoy",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cable",
+            "normalized": "cable",
+            "matched": false,
+            "title": "Undersea Fiber Optic Cable",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "data",
+            "normalized": "data",
+            "matched": false,
+            "title": "Transmitted Data",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "landingstation",
+            "normalized": "landingstation",
+            "matched": false,
+            "title": "Landing Station",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "repeater",
+            "normalized": "repeater",
+            "matched": false,
+            "title": "Optical Repeater",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-10-data-center\\script.js": [
+          {
+            "raw": "backup",
+            "normalized": "backup",
+            "matched": false,
+            "title": "Backup Systems",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cooling",
+            "normalized": "cooling",
+            "matched": false,
+            "title": "Cooling System",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "firewall",
+            "normalized": "firewall",
+            "matched": false,
+            "title": "Data Center Firewall",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "power",
+            "normalized": "power",
+            "matched": false,
+            "title": "Power Infrastructure",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "rack",
+            "normalized": "rack",
+            "matched": false,
+            "title": "Server Rack",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": true,
+            "title": "Data Center Server",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-11-webpage-journey\\script.js": [
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Web Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cdn",
+            "normalized": "cdn",
+            "matched": false,
+            "title": "Content Delivery Network",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dnsserver",
+            "normalized": "dnsserver",
+            "matched": false,
+            "title": "DNS Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "origin",
+            "normalized": "origin",
+            "matched": false,
+            "title": "Origin Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "render",
+            "normalized": "render",
+            "matched": false,
+            "title": "Page Rendering",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "tcp",
+            "normalized": "tcp",
+            "matched": false,
+            "title": "TCP Connection",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-12-route-redundancy\\script.js": [
+          {
+            "raw": "backup",
+            "normalized": "backup",
+            "matched": false,
+            "title": "Backup Connection",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cellular",
+            "normalized": "cellular",
+            "matched": false,
+            "title": "Cellular Network",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "fiber",
+            "normalized": "fiber",
+            "matched": false,
+            "title": "Fiber Optic Connection",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mesh",
+            "normalized": "mesh",
+            "matched": false,
+            "title": "Mesh Network",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "satellite",
+            "normalized": "satellite",
+            "matched": false,
+            "title": "Satellite Internet",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-13-cloud-computing\\script.js": [
+          {
+            "raw": "hybrid",
+            "normalized": "hybrid",
+            "matched": false,
+            "title": "Hybrid Cloud",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "iaas",
+            "normalized": "iaas",
+            "matched": false,
+            "title": "Infrastructure as a Service",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "paas",
+            "normalized": "paas",
+            "matched": false,
+            "title": "Platform as a Service",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "private",
+            "normalized": "private",
+            "matched": false,
+            "title": "Private Cloud",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "public",
+            "normalized": "public",
+            "matched": false,
+            "title": "Public Cloud",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "saas",
+            "normalized": "saas",
+            "matched": false,
+            "title": "Software as a Service",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module1\\diagrams\\diagram-14-internet-safety\\script.js": [
+          {
+            "raw": "antivirus",
+            "normalized": "antivirus",
+            "matched": false,
+            "title": "Antivirus Software",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "auth",
+            "normalized": "auth",
+            "matched": false,
+            "title": "Authentication",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "backup",
+            "normalized": "backup",
+            "matched": false,
+            "title": "Data Backup",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "encryption",
+            "normalized": "encryption",
+            "matched": false,
+            "title": "Encryption",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "firewall",
+            "normalized": "firewall",
+            "matched": false,
+            "title": "Software Firewall",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "vpn",
+            "normalized": "vpn",
+            "matched": false,
+            "title": "Virtual Private Network",
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module10": {
+      "vocab_ids": [
+        "blockchain-project",
+        "computer-hardware-project",
+        "cpu-learning-project",
+        "debugging",
+        "grand-capstone-project",
+        "innovation-workshop",
+        "integration",
+        "internet-explorer-project",
+        "operating-system-project",
+        "problem-solving-challenge",
+        "project-planning",
+        "project-specs",
+        "robot-design-project",
+        "scratch-animation-project",
+        "scratch-game-project",
+        "sdlc",
+        "specification",
+        "technology-showcase",
+        "website-design-project",
+        "wireframe"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-01-technology-project-p\\script.js": [
+          {
+            "raw": "idea",
+            "normalized": "idea",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "spec",
+            "normalized": "spec",
+            "matched": false,
+            "title": null,
+            "suggestion": "project-specs",
+            "reason": "token"
+          },
+          {
+            "raw": "wireframe",
+            "normalized": "wireframe",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-02-internet-explorer-pr\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-03-computer-hardware-pr\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-04-cpu-learning-project\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-05-operating-system-pro\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-06-website-design-proje\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-07-robot-design-project\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-08-scratch-animation-pr\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-09-scratch-game-project\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-10-blockchain-project\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-11-problem-solving-chal\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-12-innovation-workshop\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-13-technology-showcase\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module10\\diagrams\\diagram-14-grand-capstone-proje\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module2": {
+      "vocab_ids": [
+        "0",
+        "1",
+        "2",
+        "255",
+        "3",
+        "4",
+        "8",
+        "and",
+        "application-software",
+        "arithmetic-logic-unit-alu-",
+        "best-for",
+        "binary",
+        "bluetooth",
+        "cache",
+        "capacitive-touchscreen",
+        "cas-latency-cl-",
+        "clock-speed",
+        "computer",
+        "control-unit-cu-",
+        "core",
+        "cost-per-gb",
+        "cpu",
+        "device-driver",
+        "digitise",
+        "dimm",
+        "dns",
+        "dpi",
+        "dram",
+        "driver",
+        "durability",
+        "encapsulation",
+        "fetch-decode-execute-cycle",
+        "http-https",
+        "input-device",
+        "ip-address",
+        "ipo-cycle",
+        "kernel",
+        "latency",
+        "max-capacity",
+        "monitor",
+        "motherboard",
+        "moving-parts",
+        "nand",
+        "noise",
+        "non-volatile-memory",
+        "nor",
+        "not",
+        "operating-system",
+        "operating-system-os-",
+        "or",
+        "osi-model",
+        "output-device",
+        "packet",
+        "pipeline",
+        "pixel",
+        "port",
+        "power-usage",
+        "printer",
+        "process",
+        "program",
+        "projector",
+        "protocol",
+        "ram",
+        "refresh-rate",
+        "register",
+        "resistive-touchscreen",
+        "resolution",
+        "scan-code",
+        "shell-cli",
+        "sodimm",
+        "software",
+        "speaker",
+        "speed",
+        "sram",
+        "storage",
+        "system-call",
+        "system-software",
+        "tcp-ip",
+        "transduction",
+        "transistor",
+        "udp",
+        "usb",
+        "virtual-memory",
+        "volatile-memory",
+        "xnor",
+        "xor"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-01-computer-ipo\\script.js": [
+          {
+            "raw": "feedback",
+            "normalized": "feedback",
+            "matched": false,
+            "title": "Feedback Loop",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "input",
+            "normalized": "input",
+            "matched": false,
+            "title": "Input",
+            "suggestion": "input-device",
+            "reason": "token"
+          },
+          {
+            "raw": "output",
+            "normalized": "output",
+            "matched": false,
+            "title": "Output",
+            "suggestion": "output-device",
+            "reason": "token"
+          },
+          {
+            "raw": "process",
+            "normalized": "process",
+            "matched": true,
+            "title": "Processing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "storage",
+            "normalized": "storage",
+            "matched": true,
+            "title": "Storage",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-02-input-devices\\script.js": [
+          {
+            "raw": "camera",
+            "normalized": "camera",
+            "matched": false,
+            "title": "Camera",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "keyboard",
+            "normalized": "keyboard",
+            "matched": false,
+            "title": "Keyboard",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "microphone",
+            "normalized": "microphone",
+            "matched": false,
+            "title": "Microphone",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mouse",
+            "normalized": "mouse",
+            "matched": false,
+            "title": "Mouse",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "scanner",
+            "normalized": "scanner",
+            "matched": false,
+            "title": "Scanner",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "touchscreen",
+            "normalized": "touchscreen",
+            "matched": false,
+            "title": "Touchscreen",
+            "suggestion": "capacitive-touchscreen",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-03-cpu\\script.js": [
+          {
+            "raw": "alu",
+            "normalized": "alu",
+            "matched": false,
+            "title": "Arithmetic Logic Unit",
+            "suggestion": "arithmetic-logic-unit-alu-",
+            "reason": "token"
+          },
+          {
+            "raw": "bus",
+            "normalized": "bus",
+            "matched": false,
+            "title": "System Bus",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": true,
+            "title": "CPU Cache",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "controlunit",
+            "normalized": "controlunit",
+            "matched": false,
+            "title": "Control Unit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "registers",
+            "normalized": "registers",
+            "matched": false,
+            "title": "CPU Registers",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-04-output-devices\\script.js": [
+          {
+            "raw": "headphone",
+            "normalized": "headphone",
+            "matched": false,
+            "title": "Headphone",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "monitor",
+            "normalized": "monitor",
+            "matched": true,
+            "title": "Monitor",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "printer",
+            "normalized": "printer",
+            "matched": true,
+            "title": "Printer",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "projector",
+            "normalized": "projector",
+            "matched": true,
+            "title": "Projector",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "speaker",
+            "normalized": "speaker",
+            "matched": true,
+            "title": "Speaker",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-05-ram\\script.js": [
+          {
+            "raw": "addressbus",
+            "normalized": "addressbus",
+            "matched": false,
+            "title": "Memory Address Bus",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "controller",
+            "normalized": "controller",
+            "matched": false,
+            "title": "Memory Controller",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "databus",
+            "normalized": "databus",
+            "matched": false,
+            "title": "Data Bus",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dimm",
+            "normalized": "dimm",
+            "matched": true,
+            "title": "DIMM Module",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dram",
+            "normalized": "dram",
+            "matched": true,
+            "title": "DRAM Chip",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-06-storage\\script.js": [
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": true,
+            "title": "Storage Cache",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "controller",
+            "normalized": "controller",
+            "matched": false,
+            "title": "Storage Controller",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "firmware",
+            "normalized": "firmware",
+            "matched": false,
+            "title": "Storage Firmware",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "hdd",
+            "normalized": "hdd",
+            "matched": false,
+            "title": "Hard Disk Drive",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "nvme",
+            "normalized": "nvme",
+            "matched": false,
+            "title": "NVMe Drive",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ssd",
+            "normalized": "ssd",
+            "matched": false,
+            "title": "Solid State Drive",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-07-binary\\script.js": [
+          {
+            "raw": "ascii",
+            "normalized": "ascii",
+            "matched": false,
+            "title": "ASCII Encoding",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "binary",
+            "normalized": "binary",
+            "matched": true,
+            "title": "Binary Number System",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "bit",
+            "normalized": "bit",
+            "matched": false,
+            "title": "Bit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "byte",
+            "normalized": "byte",
+            "matched": false,
+            "title": "Byte",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "hex",
+            "normalized": "hex",
+            "matched": false,
+            "title": "Hexadecimal",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "integer",
+            "normalized": "integer",
+            "matched": false,
+            "title": "Integer Representation",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-08-logic-gates\\script.js": [
+          {
+            "raw": "and",
+            "normalized": "and",
+            "matched": true,
+            "title": "AND Gate",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "nand",
+            "normalized": "nand",
+            "matched": true,
+            "title": "NAND Gate",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "nor",
+            "normalized": "nor",
+            "matched": true,
+            "title": "NOR Gate",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "not",
+            "normalized": "not",
+            "matched": true,
+            "title": "NOT Gate",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "or",
+            "normalized": "or",
+            "matched": true,
+            "title": "OR Gate",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "xor",
+            "normalized": "xor",
+            "matched": true,
+            "title": "XOR Gate",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-09-software-os\\script.js": [
+          {
+            "raw": "app",
+            "normalized": "app",
+            "matched": false,
+            "title": "Application Software",
+            "suggestion": "application-software",
+            "reason": "token"
+          },
+          {
+            "raw": "driver",
+            "normalized": "driver",
+            "matched": true,
+            "title": "Device Driver",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "filesystem",
+            "normalized": "filesystem",
+            "matched": false,
+            "title": "Filesystem",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "kernel",
+            "normalized": "kernel",
+            "matched": true,
+            "title": "Operating System Kernel",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "process",
+            "normalized": "process",
+            "matched": true,
+            "title": "Process",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "shell",
+            "normalized": "shell",
+            "matched": false,
+            "title": "Command Shell",
+            "suggestion": "shell-cli",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-10-communication\\script.js": [
+          {
+            "raw": "destination",
+            "normalized": "destination",
+            "matched": false,
+            "title": "Communication Destination",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "interface",
+            "normalized": "interface",
+            "matched": false,
+            "title": "Communication Interface",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "medium",
+            "normalized": "medium",
+            "matched": false,
+            "title": "Transmission Medium",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "protocol",
+            "normalized": "protocol",
+            "matched": true,
+            "title": "Communication Protocol",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "source",
+            "normalized": "source",
+            "matched": false,
+            "title": "Communication Source",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-11-files\\script.js": [
+          {
+            "raw": "file",
+            "normalized": "file",
+            "matched": false,
+            "title": "File",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "folder",
+            "normalized": "folder",
+            "matched": false,
+            "title": "Folder (Directory)",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "metadata",
+            "normalized": "metadata",
+            "matched": false,
+            "title": "Metadata",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "path",
+            "normalized": "path",
+            "matched": false,
+            "title": "File Path",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "permission",
+            "normalized": "permission",
+            "matched": false,
+            "title": "File Permissions",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "type",
+            "normalized": "type",
+            "matched": false,
+            "title": "File Type",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-12-boot\\script.js": [
+          {
+            "raw": "bios",
+            "normalized": "bios",
+            "matched": false,
+            "title": "BIOS/UEFI Firmware",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "bootloader",
+            "normalized": "bootloader",
+            "matched": false,
+            "title": "Bootloader",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "init",
+            "normalized": "init",
+            "matched": false,
+            "title": "Init System",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "kernel",
+            "normalized": "kernel",
+            "matched": true,
+            "title": "OS Kernel Boot",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "login",
+            "normalized": "login",
+            "matched": false,
+            "title": "Login Screen",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "post",
+            "normalized": "post",
+            "matched": false,
+            "title": "Power-On Self-Test",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-13-health\\script.js": [
+          {
+            "raw": "antivirus",
+            "normalized": "antivirus",
+            "matched": false,
+            "title": "Antivirus Protection",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "backup",
+            "normalized": "backup",
+            "matched": false,
+            "title": "System Backup",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cleanup",
+            "normalized": "cleanup",
+            "matched": false,
+            "title": "Disk Cleanup",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "defrag",
+            "normalized": "defrag",
+            "matched": false,
+            "title": "Disk Defragmentation",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "monitor",
+            "normalized": "monitor",
+            "matched": true,
+            "title": "System Monitoring",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "update",
+            "normalized": "update",
+            "matched": false,
+            "title": "System Updates",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module2\\diagrams\\diagram-14-future-computing\\script.js": [
+          {
+            "raw": "ai",
+            "normalized": "ai",
+            "matched": false,
+            "title": "AI Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dna",
+            "normalized": "dna",
+            "matched": false,
+            "title": "DNA Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "edge",
+            "normalized": "edge",
+            "matched": false,
+            "title": "Edge Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "neuromorphic",
+            "normalized": "neuromorphic",
+            "matched": false,
+            "title": "Neuromorphic Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "optical",
+            "normalized": "optical",
+            "matched": false,
+            "title": "Optical Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "quantum",
+            "normalized": "quantum",
+            "matched": false,
+            "title": "Quantum Computing",
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module3": {
+      "vocab_ids": [
+        "24-pin-atx",
+        "80-plus",
+        "aio-cooler",
+        "airflow",
+        "anti-static-wrist-strap",
+        "assembly",
+        "bandwidth",
+        "beep-code",
+        "benchmark",
+        "bios",
+        "bios-key",
+        "bios-update",
+        "boot-manager",
+        "boot-order",
+        "bootable-usb",
+        "bricked",
+        "bsod",
+        "cable-management",
+        "cable-tie",
+        "case-form-factor",
+        "chipset",
+        "chipset-driver",
+        "cleaning",
+        "cmos-battery",
+        "cmos-reset",
+        "component",
+        "core",
+        "cpu",
+        "csm",
+        "cuda-core",
+        "ddr",
+        "device-manager",
+        "diagnostic",
+        "dimm",
+        "dp",
+        "drive-bay",
+        "driver",
+        "dual-channel",
+        "ecc",
+        "eps-connector",
+        "esd",
+        "exhaust",
+        "expansion-slot",
+        "ext4",
+        "fan-header",
+        "file-system",
+        "firmware",
+        "form-factor",
+        "format",
+        "frequency",
+        "front-panel-header",
+        "gpt",
+        "gpu",
+        "gpu-driver",
+        "graphics-card",
+        "hdd",
+        "hdmi",
+        "i-o-shield",
+        "ihs",
+        "intake",
+        "iso",
+        "keyed-connector",
+        "latency",
+        "lga",
+        "m",
+        "m-2-slot",
+        "magnetized-tip",
+        "modular",
+        "motherboard",
+        "ntfs",
+        "nvme",
+        "oobe",
+        "os",
+        "partition",
+        "pcie-slot",
+        "pcie-x16",
+        "peripheral",
+        "pga",
+        "positive-pressure",
+        "post",
+        "post-code",
+        "power-cable",
+        "process-of-elimination",
+        "psu",
+        "psu-shroud",
+        "psu-tester",
+        "pwm",
+        "radiator",
+        "rail",
+        "ram",
+        "routing",
+        "sata",
+        "sata-cable",
+        "sata-port",
+        "sata-power",
+        "screwdriver",
+        "secure-boot",
+        "signed-driver",
+        "slot-bracket",
+        "smart",
+        "socket",
+        "socket-lever",
+        "ssd",
+        "standoff",
+        "stop-code",
+        "thermal-compound",
+        "thermal-paste",
+        "thermal-throttling",
+        "thread",
+        "uefi",
+        "uefi-shell",
+        "utility",
+        "vram",
+        "vrm",
+        "wattage",
+        "whql",
+        "xmp",
+        "zip-tie"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-01-computer-assembly\\script.js": [
+          {
+            "raw": "case",
+            "normalized": "case",
+            "matched": false,
+            "title": "Computer Case",
+            "suggestion": "case-form-factor",
+            "reason": "token"
+          },
+          {
+            "raw": "cpu",
+            "normalized": "cpu",
+            "matched": true,
+            "title": "CPU Processor",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "motherboard",
+            "normalized": "motherboard",
+            "matched": true,
+            "title": "Motherboard",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "psu",
+            "normalized": "psu",
+            "matched": true,
+            "title": "Power Supply",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ram",
+            "normalized": "ram",
+            "matched": true,
+            "title": "RAM Memory",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "storage",
+            "normalized": "storage",
+            "matched": false,
+            "title": "Storage Drive",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-02-safety-tools\\script.js": [
+          {
+            "raw": "cablemgmt",
+            "normalized": "cablemgmt",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cool",
+            "normalized": "cool",
+            "matched": false,
+            "title": null,
+            "suggestion": "aio-cooler",
+            "reason": "token"
+          },
+          {
+            "raw": "esd",
+            "normalized": "esd",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "fasten",
+            "normalized": "fasten",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "jumpers",
+            "normalized": "jumpers",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mat",
+            "normalized": "mat",
+            "matched": false,
+            "title": "Anti-Static Mat",
+            "suggestion": "format",
+            "reason": "token"
+          },
+          {
+            "raw": "paste",
+            "normalized": "paste",
+            "matched": false,
+            "title": "Thermal Paste",
+            "suggestion": "thermal-paste",
+            "reason": "token"
+          },
+          {
+            "raw": "screwdriver",
+            "normalized": "screwdriver",
+            "matched": true,
+            "title": "Phillips Head Screwdriver",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "surface",
+            "normalized": "surface",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ties",
+            "normalized": "ties",
+            "matched": false,
+            "title": "Cable Ties",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "tweezers",
+            "normalized": "tweezers",
+            "matched": false,
+            "title": "Tweezers",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "wriststrap",
+            "normalized": "wriststrap",
+            "matched": false,
+            "title": "Anti-Static Wrist Strap",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-03-motherboard\\script.js": [
+          {
+            "raw": "chipset",
+            "normalized": "chipset",
+            "matched": true,
+            "title": "Chipset",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "headers",
+            "normalized": "headers",
+            "matched": false,
+            "title": "Front Panel Headers",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ports",
+            "normalized": "ports",
+            "matched": false,
+            "title": "Rear I/O Ports",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "slots",
+            "normalized": "slots",
+            "matched": false,
+            "title": "Expansion Slots",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "socket",
+            "normalized": "socket",
+            "matched": true,
+            "title": "CPU Socket",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "vrms",
+            "normalized": "vrms",
+            "matched": false,
+            "title": "Voltage Regulator Module (VRM)",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-04-cpu\\script.js": [
+          {
+            "raw": "bracket",
+            "normalized": "bracket",
+            "matched": false,
+            "title": "Mounting Bracket",
+            "suggestion": "slot-bracket",
+            "reason": "token"
+          },
+          {
+            "raw": "cooler",
+            "normalized": "cooler",
+            "matched": false,
+            "title": "CPU Cooler",
+            "suggestion": "aio-cooler",
+            "reason": "token"
+          },
+          {
+            "raw": "cpu",
+            "normalized": "cpu",
+            "matched": true,
+            "title": "CPU Processor",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "lever",
+            "normalized": "lever",
+            "matched": false,
+            "title": "Socket Retention Lever",
+            "suggestion": "socket-lever",
+            "reason": "token"
+          },
+          {
+            "raw": "paste",
+            "normalized": "paste",
+            "matched": false,
+            "title": "Thermal Paste Application",
+            "suggestion": "thermal-paste",
+            "reason": "token"
+          },
+          {
+            "raw": "socket",
+            "normalized": "socket",
+            "matched": true,
+            "title": "CPU Socket",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-05-ram\\script.js": [
+          {
+            "raw": "capacity",
+            "normalized": "capacity",
+            "matched": false,
+            "title": "Memory Capacity",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "channel",
+            "normalized": "channel",
+            "matched": false,
+            "title": "Memory Channel",
+            "suggestion": "dual-channel",
+            "reason": "token"
+          },
+          {
+            "raw": "dimm",
+            "normalized": "dimm",
+            "matched": true,
+            "title": "DIMM Module",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dualrank",
+            "normalized": "dualrank",
+            "matched": false,
+            "title": "Dual Rank Memory",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "latch",
+            "normalized": "latch",
+            "matched": false,
+            "title": "Retention Latch",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "slot",
+            "normalized": "slot",
+            "matched": false,
+            "title": "Memory Slot",
+            "suggestion": "m-2-slot",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-06-storage\\script.js": [
+          {
+            "raw": "bracket",
+            "normalized": "bracket",
+            "matched": false,
+            "title": "Mounting Bracket",
+            "suggestion": "slot-bracket",
+            "reason": "token"
+          },
+          {
+            "raw": "cable",
+            "normalized": "cable",
+            "matched": false,
+            "title": "SATA Data Cable",
+            "suggestion": "cable-management",
+            "reason": "token"
+          },
+          {
+            "raw": "hdd",
+            "normalized": "hdd",
+            "matched": true,
+            "title": "Hard Disk Drive",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "m2",
+            "normalized": "m2",
+            "matched": false,
+            "title": "M.2 Slot",
+            "suggestion": "m",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "ssd",
+            "normalized": "ssd",
+            "matched": true,
+            "title": "Solid State Drive",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "tray",
+            "normalized": "tray",
+            "matched": false,
+            "title": "Drive Tray",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-07-power-supply\\script.js": [
+          {
+            "raw": "cable",
+            "normalized": "cable",
+            "matched": false,
+            "title": "Power Cable",
+            "suggestion": "cable-management",
+            "reason": "token"
+          },
+          {
+            "raw": "connector",
+            "normalized": "connector",
+            "matched": false,
+            "title": "Power Connector",
+            "suggestion": "eps-connector",
+            "reason": "token"
+          },
+          {
+            "raw": "modular",
+            "normalized": "modular",
+            "matched": true,
+            "title": "Modular Cable System",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "psu",
+            "normalized": "psu",
+            "matched": true,
+            "title": "Power Supply Unit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "rail",
+            "normalized": "rail",
+            "matched": true,
+            "title": "Power Rail",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "rating",
+            "normalized": "rating",
+            "matched": false,
+            "title": "80 Plus Rating",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-08-case-cooling\\script.js": [
+          {
+            "raw": "airflow",
+            "normalized": "airflow",
+            "matched": true,
+            "title": "Airflow Direction",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "case",
+            "normalized": "case",
+            "matched": false,
+            "title": "Computer Case",
+            "suggestion": "case-form-factor",
+            "reason": "token"
+          },
+          {
+            "raw": "fan",
+            "normalized": "fan",
+            "matched": false,
+            "title": "Case Fan",
+            "suggestion": "fan-header",
+            "reason": "token"
+          },
+          {
+            "raw": "filter",
+            "normalized": "filter",
+            "matched": false,
+            "title": "Dust Filter",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "radiator",
+            "normalized": "radiator",
+            "matched": true,
+            "title": "Liquid Cooling Radiator",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "thermal",
+            "normalized": "thermal",
+            "matched": false,
+            "title": "Thermal Monitoring",
+            "suggestion": "thermal-throttling",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-09-gpu\\script.js": [
+          {
+            "raw": "bracket",
+            "normalized": "bracket",
+            "matched": false,
+            "title": "GPU Support Bracket",
+            "suggestion": "slot-bracket",
+            "reason": "token"
+          },
+          {
+            "raw": "gpu",
+            "normalized": "gpu",
+            "matched": true,
+            "title": "Graphics Card",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "pcie",
+            "normalized": "pcie",
+            "matched": false,
+            "title": "PCIe Power Cable",
+            "suggestion": "pcie-x16",
+            "reason": "token"
+          },
+          {
+            "raw": "power",
+            "normalized": "power",
+            "matched": false,
+            "title": "GPU Power Delivery",
+            "suggestion": "power-cable",
+            "reason": "token"
+          },
+          {
+            "raw": "riser",
+            "normalized": "riser",
+            "matched": false,
+            "title": "Riser Cable",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "slot",
+            "normalized": "slot",
+            "matched": false,
+            "title": "PCIe Slot",
+            "suggestion": "m-2-slot",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-10-cables\\script.js": [
+          {
+            "raw": "data",
+            "normalized": "data",
+            "matched": false,
+            "title": "Data Cables",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "fanheader",
+            "normalized": "fanheader",
+            "matched": false,
+            "title": "Fan Headers",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "frontpanel",
+            "normalized": "frontpanel",
+            "matched": false,
+            "title": "Front Panel Connectors",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "management",
+            "normalized": "management",
+            "matched": false,
+            "title": "Cable Management",
+            "suggestion": "cable-management",
+            "reason": "token"
+          },
+          {
+            "raw": "powercable",
+            "normalized": "powercable",
+            "matched": false,
+            "title": "Power Cables",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "sata",
+            "normalized": "sata",
+            "matched": true,
+            "title": "SATA Connections",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-11-bios\\script.js": [
+          {
+            "raw": "bios",
+            "normalized": "bios",
+            "matched": true,
+            "title": "BIOS Firmware",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "boot",
+            "normalized": "boot",
+            "matched": false,
+            "title": "Boot Order",
+            "suggestion": "secure-boot",
+            "reason": "token"
+          },
+          {
+            "raw": "cmos",
+            "normalized": "cmos",
+            "matched": false,
+            "title": "CMOS Battery",
+            "suggestion": "cmos-reset",
+            "reason": "token"
+          },
+          {
+            "raw": "firmware",
+            "normalized": "firmware",
+            "matched": true,
+            "title": "Firmware Update",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "settings",
+            "normalized": "settings",
+            "matched": false,
+            "title": "BIOS/UEFI Settings",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "uefi",
+            "normalized": "uefi",
+            "matched": true,
+            "title": "UEFI Firmware",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-12-os\\script.js": [
+          {
+            "raw": "activation",
+            "normalized": "activation",
+            "matched": false,
+            "title": "OS Activation",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "driver",
+            "normalized": "driver",
+            "matched": true,
+            "title": "Driver Installation",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "format",
+            "normalized": "format",
+            "matched": true,
+            "title": "Drive Formatting",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "install",
+            "normalized": "install",
+            "matched": false,
+            "title": "OS Installation Process",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "media",
+            "normalized": "media",
+            "matched": false,
+            "title": "Installation Media",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "partition",
+            "normalized": "partition",
+            "matched": true,
+            "title": "Disk Partitioning",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-13-drivers\\script.js": [
+          {
+            "raw": "appexec",
+            "normalized": "appexec",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "codec",
+            "normalized": "codec",
+            "matched": false,
+            "title": "Audio/Video Codec",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "config",
+            "normalized": "config",
+            "matched": false,
+            "title": "Software Configuration",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "driver",
+            "normalized": "driver",
+            "matched": true,
+            "title": "Hardware Driver",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "hwcomm",
+            "normalized": "hwcomm",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mediaplay",
+            "normalized": "mediaplay",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "patch",
+            "normalized": "patch",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "runtime",
+            "normalized": "runtime",
+            "matched": false,
+            "title": "Runtime Library",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "settings",
+            "normalized": "settings",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "sysopt",
+            "normalized": "sysopt",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "update",
+            "normalized": "update",
+            "matched": false,
+            "title": "Software Update",
+            "suggestion": "bios-update",
+            "reason": "token"
+          },
+          {
+            "raw": "utility",
+            "normalized": "utility",
+            "matched": true,
+            "title": "System Utility",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module3\\diagrams\\diagram-14-troubleshooting\\script.js": [
+          {
+            "raw": "beep",
+            "normalized": "beep",
+            "matched": false,
+            "title": "System Beep Codes",
+            "suggestion": "beep-code",
+            "reason": "token"
+          },
+          {
+            "raw": "cmos",
+            "normalized": "cmos",
+            "matched": false,
+            "title": "CMOS Reset",
+            "suggestion": "cmos-reset",
+            "reason": "token"
+          },
+          {
+            "raw": "multimeter",
+            "normalized": "multimeter",
+            "matched": false,
+            "title": "Multimeter",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "postcode",
+            "normalized": "postcode",
+            "matched": false,
+            "title": "POST Code Display",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "psu",
+            "normalized": "psu",
+            "matched": true,
+            "title": "PSU Tester",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "reseat",
+            "normalized": "reseat",
+            "matched": false,
+            "title": "Component Reseating",
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module4": {
+      "vocab_ids": [
+        "3d-stacking",
+        "accumulator",
+        "adder",
+        "ai-accelerator",
+        "air-cooler",
+        "alu",
+        "architecture",
+        "arm",
+        "base-clock",
+        "benchmark",
+        "bottleneck",
+        "branch-prediction",
+        "cache",
+        "cache-coherence",
+        "cache-coherency",
+        "cache-hit",
+        "cache-line",
+        "cache-miss",
+        "carry",
+        "chiplet",
+        "chipset",
+        "cisc",
+        "clock",
+        "clock-cycle",
+        "clock-speed",
+        "clock-tick",
+        "comparator",
+        "compatibility",
+        "control-bus",
+        "control-unit",
+        "core",
+        "cpu",
+        "cryogenic-computing",
+        "decode",
+        "decoder",
+        "die",
+        "dvfs",
+        "dynamic-frequency-scaling",
+        "execute",
+        "fan-curve",
+        "fetch",
+        "flag-register",
+        "flags",
+        "flops",
+        "forwarding",
+        "fpu",
+        "ghz",
+        "hardwired-control",
+        "hazard",
+        "heatsink",
+        "hertz-hz-",
+        "heterogeneous",
+        "hybrid-architecture",
+        "hyper-threading",
+        "instruction",
+        "instruction-cycle",
+        "instruction-register",
+        "instruction-register-ir-",
+        "instructions-per-cycle",
+        "interrupt-handler",
+        "ipc",
+        "isa",
+        "l1-cache",
+        "l2-cache",
+        "l3-cache",
+        "latency",
+        "liquid-cooling",
+        "locality",
+        "logic-unit",
+        "machine-cycle",
+        "mar",
+        "mdr",
+        "memristor",
+        "microarchitecture",
+        "microcode",
+        "microprocessor",
+        "microprogrammed-control",
+        "mips",
+        "moore-s-law",
+        "multi-core",
+        "multiplier",
+        "neuromorphic",
+        "opcode",
+        "operand",
+        "optical-interconnect",
+        "out-of-order-execution",
+        "overclocking",
+        "overflow",
+        "parallelism",
+        "photonic",
+        "pipeline",
+        "power-efficiency",
+        "process",
+        "program-counter",
+        "program-counter-pc-",
+        "quantum-computing",
+        "register",
+        "register-file",
+        "register-renaming",
+        "risc",
+        "risc-v",
+        "scheduler",
+        "sequencer",
+        "simd",
+        "single-core",
+        "smt",
+        "socket",
+        "sram",
+        "stack-pointer-sp-",
+        "stage",
+        "stall",
+        "superscalar",
+        "tdp",
+        "thermal-paste",
+        "thermal-throttling",
+        "thread",
+        "throughput",
+        "timing-signal",
+        "transistor",
+        "turbo-boost",
+        "two-s-complement",
+        "undervolting",
+        "x86"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-01-cpu-intro\\script.js": [
+          {
+            "raw": "bus",
+            "normalized": "bus",
+            "matched": false,
+            "title": "CPU Bus Interface",
+            "suggestion": "control-bus",
+            "reason": "token"
+          },
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": true,
+            "title": "CPU Cache",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "core",
+            "normalized": "core",
+            "matched": true,
+            "title": "CPU Core",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "frequency",
+            "normalized": "frequency",
+            "matched": false,
+            "title": "Clock Frequency",
+            "suggestion": "dynamic-frequency-scaling",
+            "reason": "token"
+          },
+          {
+            "raw": "io",
+            "normalized": "io",
+            "matched": false,
+            "title": "I/O Controller",
+            "suggestion": "instruction-register-ir-",
+            "reason": "token"
+          },
+          {
+            "raw": "memory",
+            "normalized": "memory",
+            "matched": false,
+            "title": "Memory Controller",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-02-architecture\\script.js": [
+          {
+            "raw": "alu",
+            "normalized": "alu",
+            "matched": true,
+            "title": "Arithmetic Logic Unit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "businterface",
+            "normalized": "businterface",
+            "matched": false,
+            "title": "Bus Interface Unit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": true,
+            "title": "On-Chip Cache",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "controlunit",
+            "normalized": "controlunit",
+            "matched": false,
+            "title": "Control Unit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "memorycontroller",
+            "normalized": "memorycontroller",
+            "matched": false,
+            "title": "Integrated Memory Controller",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "registers",
+            "normalized": "registers",
+            "matched": false,
+            "title": "Internal Registers",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-03-control-unit\\script.js": [
+          {
+            "raw": "decoder",
+            "normalized": "decoder",
+            "matched": true,
+            "title": "Instruction Decoder",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "fetcher",
+            "normalized": "fetcher",
+            "matched": false,
+            "title": "Instruction Fetcher",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "instructions",
+            "normalized": "instructions",
+            "matched": false,
+            "title": "Instruction Queue",
+            "suggestion": "instructions-per-cycle",
+            "reason": "token"
+          },
+          {
+            "raw": "microcode",
+            "normalized": "microcode",
+            "matched": true,
+            "title": "Microcode",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "sequencer",
+            "normalized": "sequencer",
+            "matched": true,
+            "title": "Execution Sequencer",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-04-alu\\script.js": [
+          {
+            "raw": "adder",
+            "normalized": "adder",
+            "matched": true,
+            "title": "Adder Circuit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "comparator",
+            "normalized": "comparator",
+            "matched": true,
+            "title": "Comparator Circuit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "flags",
+            "normalized": "flags",
+            "matched": true,
+            "title": "Status Flags Register",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "multiplier",
+            "normalized": "multiplier",
+            "matched": true,
+            "title": "Multiplier Circuit",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "shifter",
+            "normalized": "shifter",
+            "matched": false,
+            "title": "Barrel Shifter",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "subtractor",
+            "normalized": "subtractor",
+            "matched": false,
+            "title": "Subtractor Circuit",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-05-registers\\script.js": [
+          {
+            "raw": "accumulator",
+            "normalized": "accumulator",
+            "matched": true,
+            "title": "Accumulator (EAX/RAX)",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ir",
+            "normalized": "ir",
+            "matched": false,
+            "title": "Instruction Register",
+            "suggestion": "hardwired-control",
+            "reason": "token"
+          },
+          {
+            "raw": "mar",
+            "normalized": "mar",
+            "matched": true,
+            "title": "Memory Address Register",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mdr",
+            "normalized": "mdr",
+            "matched": true,
+            "title": "Memory Data Register",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "pc",
+            "normalized": "pc",
+            "matched": false,
+            "title": "Program Counter (RIP)",
+            "suggestion": "ipc",
+            "reason": "token"
+          },
+          {
+            "raw": "sr",
+            "normalized": "sr",
+            "matched": false,
+            "title": "Status Register",
+            "suggestion": "sram",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-06-cache\\script.js": [
+          {
+            "raw": "controller",
+            "normalized": "controller",
+            "matched": false,
+            "title": "Cache Controller",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "l1",
+            "normalized": "l1",
+            "matched": false,
+            "title": "L1 Cache",
+            "suggestion": "l1-cache",
+            "reason": "token"
+          },
+          {
+            "raw": "l2",
+            "normalized": "l2",
+            "matched": false,
+            "title": "L2 Cache",
+            "suggestion": "l2-cache",
+            "reason": "token"
+          },
+          {
+            "raw": "l3",
+            "normalized": "l3",
+            "matched": false,
+            "title": "L3 Cache",
+            "suggestion": "l3-cache",
+            "reason": "token"
+          },
+          {
+            "raw": "line",
+            "normalized": "line",
+            "matched": false,
+            "title": "Cache Line",
+            "suggestion": "cache-line",
+            "reason": "token"
+          },
+          {
+            "raw": "policy",
+            "normalized": "policy",
+            "matched": false,
+            "title": "Cache Replacement Policy",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-07-clock\\script.js": [
+          {
+            "raw": "cycle",
+            "normalized": "cycle",
+            "matched": false,
+            "title": "Clock Cycle",
+            "suggestion": "instructions-per-cycle",
+            "reason": "token"
+          },
+          {
+            "raw": "divider",
+            "normalized": "divider",
+            "matched": false,
+            "title": "Clock Divider",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ghz",
+            "normalized": "ghz",
+            "matched": true,
+            "title": "Gigahertz Rating",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "multiplier",
+            "normalized": "multiplier",
+            "matched": true,
+            "title": "CPU Multiplier",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "oscillator",
+            "normalized": "oscillator",
+            "matched": false,
+            "title": "Crystal Oscillator",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "pll",
+            "normalized": "pll",
+            "matched": false,
+            "title": "Phase-Locked Loop",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-08-instruction-cycle\\script.js": [
+          {
+            "raw": "decode",
+            "normalized": "decode",
+            "matched": true,
+            "title": "Decode Stage",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "execute",
+            "normalized": "execute",
+            "matched": true,
+            "title": "Execute Stage",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "fetch",
+            "normalized": "fetch",
+            "matched": true,
+            "title": "Fetch Stage",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "memorywrite",
+            "normalized": "memorywrite",
+            "matched": false,
+            "title": "Memory Access Stage",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "registerwrite",
+            "normalized": "registerwrite",
+            "matched": false,
+            "title": "Write-Back Stage",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-09-pipelining\\script.js": [
+          {
+            "raw": "ex",
+            "normalized": "ex",
+            "matched": false,
+            "title": "Execute",
+            "suggestion": "execute",
+            "reason": "token"
+          },
+          {
+            "raw": "hazard",
+            "normalized": "hazard",
+            "matched": true,
+            "title": "Pipeline Hazard",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "id",
+            "normalized": "id",
+            "matched": false,
+            "title": "Instruction Decode",
+            "suggestion": "hybrid-architecture",
+            "reason": "token"
+          },
+          {
+            "raw": "if",
+            "normalized": "if",
+            "matched": false,
+            "title": "Instruction Fetch",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mem",
+            "normalized": "mem",
+            "matched": false,
+            "title": "Memory Access",
+            "suggestion": "memristor",
+            "reason": "token"
+          },
+          {
+            "raw": "wb",
+            "normalized": "wb",
+            "matched": false,
+            "title": "Write Back",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-10-cores-threads\\script.js": [
+          {
+            "raw": "core1",
+            "normalized": "core1",
+            "matched": false,
+            "title": "Core 1",
+            "suggestion": "core",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "core2",
+            "normalized": "core2",
+            "matched": false,
+            "title": "Core 2",
+            "suggestion": "core",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "core3",
+            "normalized": "core3",
+            "matched": false,
+            "title": "Core 3",
+            "suggestion": "core",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "core4",
+            "normalized": "core4",
+            "matched": false,
+            "title": "Core 4",
+            "suggestion": "core",
+            "reason": "strip-digits"
+          },
+          {
+            "raw": "scheduler",
+            "normalized": "scheduler",
+            "matched": true,
+            "title": "Thread Scheduler",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "smt",
+            "normalized": "smt",
+            "matched": true,
+            "title": "Simultaneous Multithreading",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-11-instruction-sets\\script.js": [
+          {
+            "raw": "arm",
+            "normalized": "arm",
+            "matched": true,
+            "title": "ARM Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cisc",
+            "normalized": "cisc",
+            "matched": true,
+            "title": "CISC Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "mips",
+            "normalized": "mips",
+            "matched": true,
+            "title": "MIPS Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "risc",
+            "normalized": "risc",
+            "matched": true,
+            "title": "RISC Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "simd",
+            "normalized": "simd",
+            "matched": true,
+            "title": "SIMD Instructions",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "x86",
+            "normalized": "x86",
+            "matched": true,
+            "title": "x86 Architecture",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-12-performance\\script.js": [
+          {
+            "raw": "architecture",
+            "normalized": "architecture",
+            "matched": true,
+            "title": "CPU Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "benchmark",
+            "normalized": "benchmark",
+            "matched": true,
+            "title": "CPU Benchmark",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "frequency",
+            "normalized": "frequency",
+            "matched": false,
+            "title": "Clock Frequency",
+            "suggestion": "dynamic-frequency-scaling",
+            "reason": "token"
+          },
+          {
+            "raw": "ipc",
+            "normalized": "ipc",
+            "matched": true,
+            "title": "Instructions Per Cycle",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "power",
+            "normalized": "power",
+            "matched": false,
+            "title": "Power Consumption",
+            "suggestion": "power-efficiency",
+            "reason": "token"
+          },
+          {
+            "raw": "thermal",
+            "normalized": "thermal",
+            "matched": false,
+            "title": "Thermal Performance",
+            "suggestion": "thermal-throttling",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-13-heat-power\\script.js": [
+          {
+            "raw": "fan",
+            "normalized": "fan",
+            "matched": false,
+            "title": "Cooling Fan",
+            "suggestion": "fan-curve",
+            "reason": "token"
+          },
+          {
+            "raw": "heatsink",
+            "normalized": "heatsink",
+            "matched": true,
+            "title": "Heatsink",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "paste",
+            "normalized": "paste",
+            "matched": false,
+            "title": "Thermal Paste",
+            "suggestion": "thermal-paste",
+            "reason": "token"
+          },
+          {
+            "raw": "tdp",
+            "normalized": "tdp",
+            "matched": true,
+            "title": "Thermal Design Power",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "throttle",
+            "normalized": "throttle",
+            "matched": false,
+            "title": "Thermal Throttling",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "undervolt",
+            "normalized": "undervolt",
+            "matched": false,
+            "title": "Undervolting",
+            "suggestion": "undervolting",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module4\\diagrams\\diagram-14-future-cpus\\script.js": [
+          {
+            "raw": "3dstacking",
+            "normalized": "3dstacking",
+            "matched": false,
+            "title": "3D Die Stacking",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "chiplets",
+            "normalized": "chiplets",
+            "matched": false,
+            "title": "Chiplet Architecture",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "graphene",
+            "normalized": "graphene",
+            "matched": false,
+            "title": "Graphene Transistors",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "memristor",
+            "normalized": "memristor",
+            "matched": true,
+            "title": "Memristor Technology",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "photonic",
+            "normalized": "photonic",
+            "matched": true,
+            "title": "Photonic Computing",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "quantum",
+            "normalized": "quantum",
+            "matched": false,
+            "title": "Quantum CPU",
+            "suggestion": "quantum-computing",
+            "reason": "token"
+          }
+        ]
+      }
+    },
+    "module5": {
+      "vocab_ids": [
+        "2fa",
+        "ai",
+        "api",
+        "app-application-",
+        "app-store",
+        "application-logic",
+        "ar",
+        "architecture",
+        "authentication",
+        "authorization",
+        "backend",
+        "browser",
+        "ci-cd",
+        "client",
+        "cloud",
+        "controller",
+        "cookie",
+        "cross-platform",
+        "crud",
+        "css",
+        "data-storage",
+        "database",
+        "ddos",
+        "delete",
+        "deployment",
+        "dns",
+        "dom",
+        "encryption",
+        "endpoint",
+        "firewall",
+        "framework",
+        "frontend",
+        "get",
+        "hosting",
+        "html",
+        "http",
+        "https",
+        "hybrid",
+        "integration",
+        "iot",
+        "javascript",
+        "json",
+        "latency",
+        "machine-learning",
+        "microservices",
+        "middleware",
+        "mobile-app",
+        "model",
+        "monolith",
+        "mvc",
+        "native",
+        "nosql",
+        "oauth",
+        "password",
+        "patch",
+        "post",
+        "process",
+        "program",
+        "put",
+        "pwa",
+        "quantum-computing",
+        "query",
+        "rate-limit",
+        "request",
+        "response",
+        "responsive-design",
+        "rest",
+        "runtime",
+        "scalability",
+        "schema",
+        "server",
+        "server-side",
+        "session",
+        "sql",
+        "sql-injection",
+        "status-code",
+        "table",
+        "tcp-ip",
+        "third-party-api",
+        "token",
+        "url",
+        "user-interface-ui-",
+        "view",
+        "voice-interface",
+        "vr",
+        "vulnerability",
+        "web-app",
+        "xss"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-01-what-is-an-app\\script.js": [
+          {
+            "raw": "data",
+            "normalized": "data",
+            "matched": false,
+            "title": "Data Storage",
+            "suggestion": "data-storage",
+            "reason": "token"
+          },
+          {
+            "raw": "logic",
+            "normalized": "logic",
+            "matched": false,
+            "title": "Application Logic",
+            "suggestion": "application-logic",
+            "reason": "token"
+          },
+          {
+            "raw": "network",
+            "normalized": "network",
+            "matched": false,
+            "title": "Network Layer",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ui",
+            "normalized": "ui",
+            "matched": false,
+            "title": "User Interface",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          },
+          {
+            "raw": "user",
+            "normalized": "user",
+            "matched": false,
+            "title": "User",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-02-frontend-backend\\script.js": [
+          {
+            "raw": "backend",
+            "normalized": "backend",
+            "matched": true,
+            "title": "Backend Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "client",
+            "normalized": "client",
+            "matched": true,
+            "title": "Client/Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "database",
+            "normalized": "database",
+            "matched": true,
+            "title": "Database",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "frontend",
+            "normalized": "frontend",
+            "matched": true,
+            "title": "Frontend Code",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "network",
+            "normalized": "network",
+            "matched": false,
+            "title": "Network/Internet",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-03-frontend-tech\\script.js": [
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "css",
+            "normalized": "css",
+            "matched": true,
+            "title": "CSS \u2014 Style",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dom",
+            "normalized": "dom",
+            "matched": true,
+            "title": "DOM \u2014 Document",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "html",
+            "normalized": "html",
+            "matched": true,
+            "title": "HTML \u2014 Structure",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "js",
+            "normalized": "js",
+            "matched": false,
+            "title": "JavaScript \u2014 Behavior",
+            "suggestion": "json",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-04-backend-tech\\script.js": [
+          {
+            "raw": "api",
+            "normalized": "api",
+            "matched": true,
+            "title": "API Gateway",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "database",
+            "normalized": "database",
+            "matched": true,
+            "title": "Database",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "java",
+            "normalized": "java",
+            "matched": false,
+            "title": "Java",
+            "suggestion": "javascript",
+            "reason": "token"
+          },
+          {
+            "raw": "nodejs",
+            "normalized": "nodejs",
+            "matched": false,
+            "title": "Node.js",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "python",
+            "normalized": "python",
+            "matched": false,
+            "title": "Python",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": true,
+            "title": "Web Server",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-05-databases\\script.js": [
+          {
+            "raw": "app",
+            "normalized": "app",
+            "matched": false,
+            "title": "Application",
+            "suggestion": "web-app",
+            "reason": "token"
+          },
+          {
+            "raw": "backup",
+            "normalized": "backup",
+            "matched": false,
+            "title": "Backup",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "cache",
+            "normalized": "cache",
+            "matched": false,
+            "title": "Cache Layer",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "nosql",
+            "normalized": "nosql",
+            "matched": true,
+            "title": "NoSQL Database",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "query",
+            "normalized": "query",
+            "matched": true,
+            "title": "Query",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "sql",
+            "normalized": "sql",
+            "matched": true,
+            "title": "SQL Database",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-06-client-server\\script.js": [
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dns",
+            "normalized": "dns",
+            "matched": true,
+            "title": "DNS Lookup",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "internet",
+            "normalized": "internet",
+            "matched": false,
+            "title": "Internet",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "response",
+            "normalized": "response",
+            "matched": true,
+            "title": "Response",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": true,
+            "title": "Web Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "user",
+            "normalized": "user",
+            "matched": false,
+            "title": "User Action",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-07-apis\\script.js": [
+          {
+            "raw": "api",
+            "normalized": "api",
+            "matched": true,
+            "title": "API Gateway",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "app",
+            "normalized": "app",
+            "matched": false,
+            "title": "Your App",
+            "suggestion": "web-app",
+            "reason": "token"
+          },
+          {
+            "raw": "auth",
+            "normalized": "auth",
+            "matched": false,
+            "title": "Auth Service",
+            "suggestion": "authorization",
+            "reason": "token"
+          },
+          {
+            "raw": "client",
+            "normalized": "client",
+            "matched": true,
+            "title": "Client",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "data",
+            "normalized": "data",
+            "matched": false,
+            "title": "Data Service",
+            "suggestion": "data-storage",
+            "reason": "token"
+          },
+          {
+            "raw": "external",
+            "normalized": "external",
+            "matched": false,
+            "title": "External API",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-08-http-rest\\script.js": [
+          {
+            "raw": "client",
+            "normalized": "client",
+            "matched": true,
+            "title": "Client",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "delete",
+            "normalized": "delete",
+            "matched": true,
+            "title": "DELETE \u2014 Remove",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "get",
+            "normalized": "get",
+            "matched": true,
+            "title": "GET \u2014 Read",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "post",
+            "normalized": "post",
+            "matched": true,
+            "title": "POST \u2014 Create",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "put",
+            "normalized": "put",
+            "matched": true,
+            "title": "PUT \u2014 Update",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "status",
+            "normalized": "status",
+            "matched": false,
+            "title": "Status Codes",
+            "suggestion": "status-code",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-09-authentication\\script.js": [
+          {
+            "raw": "admin",
+            "normalized": "admin",
+            "matched": false,
+            "title": "Admin Panel",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "app",
+            "normalized": "app",
+            "matched": false,
+            "title": "App Access",
+            "suggestion": "web-app",
+            "reason": "token"
+          },
+          {
+            "raw": "auth",
+            "normalized": "auth",
+            "matched": false,
+            "title": "Auth Server",
+            "suggestion": "authorization",
+            "reason": "token"
+          },
+          {
+            "raw": "login",
+            "normalized": "login",
+            "matched": false,
+            "title": "Login Form",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "token",
+            "normalized": "token",
+            "matched": true,
+            "title": "Token/Session",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "user",
+            "normalized": "user",
+            "matched": false,
+            "title": "User",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-10-mobile-vs-web\\script.js": [
+          {
+            "raw": "browser",
+            "normalized": "browser",
+            "matched": true,
+            "title": "Browser",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "device",
+            "normalized": "device",
+            "matched": false,
+            "title": "Device",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "hybrid",
+            "normalized": "hybrid",
+            "matched": true,
+            "title": "Hybrid App",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "native",
+            "normalized": "native",
+            "matched": true,
+            "title": "Native Mobile",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "store",
+            "normalized": "store",
+            "matched": false,
+            "title": "App Store",
+            "suggestion": "app-store",
+            "reason": "token"
+          },
+          {
+            "raw": "web",
+            "normalized": "web",
+            "matched": false,
+            "title": "Web App",
+            "suggestion": "web-app",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-11-app-architecture\\script.js": [
+          {
+            "raw": "controller",
+            "normalized": "controller",
+            "matched": true,
+            "title": "Controller \u2014 Logic",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "database",
+            "normalized": "database",
+            "matched": true,
+            "title": "Database",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "model",
+            "normalized": "model",
+            "matched": true,
+            "title": "Model \u2014 Data",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "router",
+            "normalized": "router",
+            "matched": false,
+            "title": "Router",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "user",
+            "normalized": "user",
+            "matched": false,
+            "title": "User",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          },
+          {
+            "raw": "view",
+            "normalized": "view",
+            "matched": true,
+            "title": "View \u2014 UI",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-12-cloud-deployment\\script.js": [
+          {
+            "raw": "ci",
+            "normalized": "ci",
+            "matched": false,
+            "title": "CI/CD Pipeline",
+            "suggestion": "ci-cd",
+            "reason": "token"
+          },
+          {
+            "raw": "cloud",
+            "normalized": "cloud",
+            "matched": true,
+            "title": "Cloud Server",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "code",
+            "normalized": "code",
+            "matched": false,
+            "title": "Source Code",
+            "suggestion": "status-code",
+            "reason": "token"
+          },
+          {
+            "raw": "dev",
+            "normalized": "dev",
+            "matched": false,
+            "title": "Developer",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "github",
+            "normalized": "github",
+            "matched": false,
+            "title": "GitHub/Repo",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "users",
+            "normalized": "users",
+            "matched": false,
+            "title": "Users",
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-13-app-security\\script.js": [
+          {
+            "raw": "auth",
+            "normalized": "auth",
+            "matched": false,
+            "title": "Auth Gateway",
+            "suggestion": "authorization",
+            "reason": "token"
+          },
+          {
+            "raw": "encrypt",
+            "normalized": "encrypt",
+            "matched": false,
+            "title": "Encryption",
+            "suggestion": "encryption",
+            "reason": "token"
+          },
+          {
+            "raw": "firewall",
+            "normalized": "firewall",
+            "matched": true,
+            "title": "Firewall",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "https",
+            "normalized": "https",
+            "matched": true,
+            "title": "HTTPS",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "threats",
+            "normalized": "threats",
+            "matched": false,
+            "title": "Threat Detection",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "user",
+            "normalized": "user",
+            "matched": false,
+            "title": "User",
+            "suggestion": "user-interface-ui-",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module5\\diagrams\\diagram-14-future-apps\\script.js": [
+          {
+            "raw": "ai",
+            "normalized": "ai",
+            "matched": true,
+            "title": "AI/ML",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ar",
+            "normalized": "ar",
+            "matched": true,
+            "title": "AR/VR",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "human",
+            "normalized": "human",
+            "matched": false,
+            "title": "Human",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "iot",
+            "normalized": "iot",
+            "matched": true,
+            "title": "IoT Devices",
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "quantum",
+            "normalized": "quantum",
+            "matched": false,
+            "title": "Quantum Computing",
+            "suggestion": "quantum-computing",
+            "reason": "token"
+          },
+          {
+            "raw": "voice",
+            "normalized": "voice",
+            "matched": false,
+            "title": "Voice Interface",
+            "suggestion": "voice-interface",
+            "reason": "token"
+          }
+        ]
+      }
+    },
+    "module6": {
+      "vocab_ids": [
+        "adding-images-and-links",
+        "build-your-first-website",
+        "colors-fonts-and-styling",
+        "creating-headings-and-paragraphs",
+        "cssom",
+        "dom",
+        "dynamic-website",
+        "e-commerce",
+        "element",
+        "hosting-server",
+        "how-websites-go-live",
+        "html",
+        "html-elements-and-tags",
+        "html-tag",
+        "hyperlink",
+        "introduction-to-css",
+        "layout-and-positioning",
+        "layout-box",
+        "lists-and-tables",
+        "reflow",
+        "render-tree",
+        "responsive-web-design",
+        "search-engine",
+        "semantic-html",
+        "static-website",
+        "styling-rule",
+        "web-browser",
+        "webpage",
+        "website"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-01-introduction-website\\script.js": [
+          {
+            "raw": "assets",
+            "normalized": "assets",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "device",
+            "normalized": "device",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "network",
+            "normalized": "network",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "server",
+            "normalized": "server",
+            "matched": false,
+            "title": null,
+            "suggestion": "hosting-server",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-02-types-of-websites\\script.js": [
+          {
+            "raw": "db",
+            "normalized": "db",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "renderer",
+            "normalized": "renderer",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "request",
+            "normalized": "request",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-03-how-browsers-display\\script.js": [
+          {
+            "raw": "cssom",
+            "normalized": "cssom",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "dom",
+            "normalized": "dom",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "html",
+            "normalized": "html",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "paint",
+            "normalized": "paint",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "rendertree",
+            "normalized": "rendertree",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-04-introduction-html\\script.js": [
+          {
+            "raw": "body",
+            "normalized": "body",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "head",
+            "normalized": "head",
+            "matched": false,
+            "title": null,
+            "suggestion": "creating-headings-and-paragraphs",
+            "reason": "token"
+          },
+          {
+            "raw": "root",
+            "normalized": "root",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-05-html-elements-and-ta\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-06-creating-headings-an\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-07-adding-images-and-li\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-08-lists-and-tables\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-09-introduction-css\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-10-colors-fonts-and-sty\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-11-layout-and-positioni\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-12-responsive-web-desig\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-13-how-websites-go-live\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module6\\diagrams\\diagram-14-build-your-first-web\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module7": {
+      "vocab_ids": [
+        "actuator",
+        "automation-basics",
+        "chassis",
+        "controller",
+        "design-your-own-robot",
+        "distance-sensors",
+        "feedback-loop",
+        "introduction-to-sensors",
+        "light-sensors",
+        "microcontroller",
+        "motors-and-movement",
+        "real-world-robotics",
+        "robot",
+        "robot-components",
+        "robot-controllers",
+        "robot-decision-making",
+        "robot-logic",
+        "touch-sensors",
+        "types-of-robots",
+        "voltage-signal"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-01-what-is-a-robot\\script.js": [
+          {
+            "raw": "brain",
+            "normalized": "brain",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "motors",
+            "normalized": "motors",
+            "matched": false,
+            "title": null,
+            "suggestion": "motors-and-movement",
+            "reason": "token"
+          },
+          {
+            "raw": "sensor",
+            "normalized": "sensor",
+            "matched": false,
+            "title": null,
+            "suggestion": "light-sensors",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-02-types-of-robots\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-03-robot-components\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-04-introduction-sensors\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-05-touch-sensors\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-06-light-sensors\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-07-distance-sensors\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-08-robot-controllers\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-09-robot-logic\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-10-motors-and-movement\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-11-automation-basics\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-12-robot-decision-makin\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-13-real-world-robotics\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module7\\diagrams\\diagram-14-design-your-own-robo\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module8": {
+      "vocab_ids": [
+        "animation-projects",
+        "block",
+        "broadcast-messages",
+        "build-your-own-game",
+        "conditions",
+        "coordinate-grid",
+        "events",
+        "hat-block",
+        "looks-blocks",
+        "loops",
+        "motion-blocks",
+        "scratch",
+        "script",
+        "sensing-block",
+        "simple-game-logic",
+        "sound-blocks",
+        "sprite",
+        "sprites-and-stage",
+        "the-scratch-interface",
+        "variables"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-01-introduction-scratch\\script.js": [
+          {
+            "raw": "blocks",
+            "normalized": "blocks",
+            "matched": false,
+            "title": null,
+            "suggestion": "sound-blocks",
+            "reason": "token"
+          },
+          {
+            "raw": "canvas",
+            "normalized": "canvas",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "stage",
+            "normalized": "stage",
+            "matched": false,
+            "title": null,
+            "suggestion": "sprites-and-stage",
+            "reason": "token"
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-02-the-scratch-interfac\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-03-sprites-and-stage\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-04-motion-blocks\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-05-looks-blocks\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-06-sound-blocks\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-07-events\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-08-loops\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-09-conditions\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-10-variables\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-11-broadcast-messages\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-12-simple-game-logic\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-13-animation-projects\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module8\\diagrams\\diagram-14-build-your-own-game\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    "module9": {
+      "vocab_ids": [
+        "blocks-and-chains",
+        "build-a-paper-blockchain",
+        "consensus",
+        "cryptographic-hash",
+        "digital-signatures",
+        "distributed-ledgers",
+        "future-of-blockchain",
+        "hashes",
+        "how-records-are-stored",
+        "immutable",
+        "introduction-to-blockchain",
+        "ledger",
+        "network-verification",
+        "problems-with-traditional-records",
+        "proof-of-work",
+        "real-world-blockchain-uses",
+        "record",
+        "timestamp",
+        "transactions",
+        "why-blockchain-is-secure"
+      ],
+      "diagrams": {
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-01-what-is-a-record\\script.js": [
+          {
+            "raw": "audit",
+            "normalized": "audit",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "input",
+            "normalized": "input",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "ledger",
+            "normalized": "ledger",
+            "matched": true,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-02-how-records-are-stor\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-03-problems-with-tradit\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-04-introduction-blockch\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-05-blocks-and-chains\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-06-transactions\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-07-digital-signatures\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-08-hashes\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-09-distributed-ledgers\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-10-network-verification\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-11-why-blockchain-is-se\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-12-real-world-blockchai\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-13-future-of-blockchain\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ],
+        "products\\courses\\lessons\\module9\\diagrams\\diagram-14-build-a-paper-blockc\\script.js": [
+          {
+            "raw": "node1",
+            "normalized": "node1",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node2",
+            "normalized": "node2",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          },
+          {
+            "raw": "node3",
+            "normalized": "node3",
+            "matched": false,
+            "title": null,
+            "suggestion": null,
+            "reason": null
+          }
+        ]
+      }
+    }
+  }
+}

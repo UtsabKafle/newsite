@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -72,10 +87,10 @@
               Press the power button. Your screen lights up. A logo appears. Seconds later, you see your desktop. It feels simple — but in those few seconds, your computer performs a carefully choreographed sequence of hundreds of tiny operations.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              This sequence is called the <strong class="text-brand-200">boot process</strong> (short for "bootstrap," from the old phrase "pulling yourself up by your bootstraps"). When a computer is off, its memory is empty — it has no instructions to run. The boot process is how the computer wakes up, checks itself, finds the operating system, and hands over control so you can start working.
+              This sequence is called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span></strong> (short for "bootstrap," from the old phrase "pulling yourself up by your bootstraps"). When a computer is off, its memory is empty — it has no instructions to run. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> is how the computer wakes up, checks itself, finds the operating system, and hands over control so you can start working.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, we will walk through every stage of the boot process: from power-on, through the BIOS/UEFI firmware, the Power-On Self Test (POST), the bootloader, kernel loading, and finally the operating system initialization. Understanding the boot process helps you troubleshoot startup problems and appreciate the engineering behind every modern computer.
+              In this chapter, we will walk through every stage of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span>: from power-on, through the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware, the Power-On Self Test (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span>), the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> loading, and finally the operating system initialization. Understanding the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> helps you troubleshoot startup problems and appreciate the engineering behind every modern computer.
             </p>
           </div>
         </section>
@@ -86,15 +101,15 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">The Boot Process Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Imagine you wake up in the morning. First, you open your eyes (power on). Then you check that your arms and legs work (self-test). Next, you remember who you are and where you are (find the operating system). Finally, you get out of bed and start your day (the OS is ready for you to use).
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Your computer does the same thing. When you press the power button, electricity flows to the motherboard. A tiny chip called the <strong class="text-brand-200">BIOS</strong> (or UEFI) wakes up first. It checks that all the basic parts are working — the CPU, the memory, the keyboard, the display. If something is broken, the computer beeps to tell you there is a problem.
+                Your computer does the same thing. When you press the power button, electricity flows to the motherboard. A tiny chip called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></strong> (or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>) wakes up first. It checks that all the basic parts are working — the CPU, the memory, the keyboard, the display. If something is broken, the computer beeps to tell you there is a problem.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                If everything looks good, the BIOS looks for the operating system on your hard drive or SSD. It finds a small program called the <strong class="text-brand-200">bootloader</strong>, which then loads the operating system into memory. Once the OS is running, you see your login screen — your computer is ready to go!
+                If everything looks good, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> looks for the operating system on your hard drive or SSD. It finds a small program called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span></strong>, which then loads the operating system into memory. Once the OS is running, you see your login screen — your computer is ready to go!
               </p>
             </div>
 
@@ -102,12 +117,12 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
               <h3 class="text-xl font-display font-bold mt-3">The Stages of Booting a Computer</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The boot process can be broken down into five major stages:
+                The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> can be broken down into five major stages:
               </p>
               <div class="mt-4 space-y-4 text-sm text-theme-muted">
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200">1. Power-On</h4>
-                  <p class="mt-1">The power supply sends a signal to the motherboard. The CPU resets and begins executing the first instruction stored in the firmware (BIOS or UEFI) at a fixed memory address.</p>
+                  <p class="mt-1">The power supply sends a signal to the motherboard. The CPU resets and begins executing the first instruction stored in the firmware (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>) at a fixed memory address.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200">2. POST (Power-On Self Test)</h4>
@@ -115,15 +130,15 @@
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200">3. Boot Device Selection</h4>
-                  <p class="mt-1">The firmware reads the configured boot order (e.g., USB first, then SSD, then network). It scans each device's master boot record (MBR) or GPT partition table for a valid bootloader.</p>
+                  <p class="mt-1">The firmware reads the configured boot order (e.g., USB first, then SSD, then network). It scans each device's master boot record (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mbr')">MBR</span>) or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> partition table for a valid <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span>.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200">4. Bootloader Execution</h4>
-                  <p class="mt-1">The bootloader (e.g., GRUB for Linux, Windows Boot Manager) loads into memory. It presents a menu if multiple OSes are installed, then loads the OS kernel and initial RAM disk into memory.</p>
+                  <p class="mt-1">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> (e.g., GRUB for Linux, Windows Boot Manager) loads into memory. It presents a menu if multiple OSes are installed, then loads the OS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> and initial RAM disk into memory.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200">5. Kernel and OS Initialization</h4>
-                  <p class="mt-1">The kernel decompresses itself, initializes core subsystems (memory management, process scheduler, drivers), mounts the root file system, and starts the <code class="text-brand-300 font-mono text-xs">init</code> or <code class="text-brand-300 font-mono text-xs">systemd</code> process, which launches all system services and the graphical user interface.</p>
+                  <p class="mt-1">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> decompresses itself, initializes core subsystems (memory management, process scheduler, drivers), mounts the root file system, and starts the <code class="text-brand-300 font-mono text-xs">init</code> or <code class="text-brand-300 font-mono text-xs">systemd</code> process, which launches all system services and the graphical user interface.</p>
                 </div>
               </div>
             </div>
@@ -132,46 +147,55 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">Firmware Deep Dive: BIOS vs. UEFI</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">BIOS (Basic Input/Output System)</strong> is the traditional firmware interface dating back to the IBM PC in 1981. It runs in 16-bit real mode, limits boot disks to 2.2 TB, and uses the Master Boot Record (MBR) partitioning scheme. BIOS interacts with hardware through software interrupts (INT 13h for disk I/O) and stores configuration in CMOS memory backed by a small battery.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> (Basic Input/Output System)</strong> is the traditional firmware interface dating back to the IBM PC in 1981. It runs in 16-bit real mode, limits boot disks to 2.2 TB, and uses the Master Boot Record (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mbr')">MBR</span>) partitioning scheme. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> interacts with hardware through software interrupts (INT 13h for disk I/O) and stores configuration in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos')">CMOS</span> memory backed by a small battery.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">UEFI (Unified Extensible Firmware Interface)</strong> is the modern replacement. It runs in 32-bit or 64-bit protected mode, supports GPT partition tables (disks up to 9.4 zettabytes), has a graphical interface, and supports mouse input. UEFI can load drivers from the firmware itself, and it supports Secure Boot — a feature that cryptographically verifies the bootloader's signature to prevent rootkits and boot-level malware.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> (Unified Extensible Firmware Interface)</strong> is the modern replacement. It runs in 32-bit or 64-bit protected mode, supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> partition tables (disks up to 9.4 zettabytes), has a graphical interface, and supports mouse input. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> can load drivers from the firmware itself, and it supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span> — a feature that cryptographically verifies the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader's</span> signature to prevent rootkits and boot-level malware.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">UEFI Boot Process:</strong> On power-on, the UEFI firmware initializes the platform, then scans the EFI System Partition (ESP) for <code class="text-brand-300 font-mono text-xs">.efi</code> bootloader files. It executes the one specified in the boot manager configuration (stored in NVRAM). The bootloader then loads the kernel. UEFI can even boot directly into an OS without a traditional bootloader by using the <strong class="text-brand-200">EFI stub</strong> built into the kernel itself.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">Boot Process</span>:</strong> On power-on, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware initializes the platform, then scans the EFI System Partition (ESP) for <code class="text-brand-300 font-mono text-xs">.efi</code> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> files. It executes the one specified in the boot manager configuration (stored in NVRAM). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> then loads the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> can even boot directly into an OS without a traditional <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> by using the <strong class="text-brand-200">EFI stub</strong> built into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> itself.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Fast Boot and Hybrid Sleep:</strong> Modern systems use "Fast Startup" (Windows) or "warm boot" techniques that save the kernel and driver state to a hibernation file on shutdown. On the next power-on, the system restores that state instead of performing a full reinitialization, reducing boot time from 30+ seconds to just a few seconds — at the cost of not fully clearing kernel memory.
+                <strong class="text-brand-200">Fast Boot and Hybrid Sleep:</strong> Modern systems use "Fast Startup" (Windows) or "warm boot" techniques that save the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> and driver state to a hibernation file on shutdown. On the next power-on, the system restores that state instead of performing a full reinitialization, reducing boot time from 30+ seconds to just a few seconds — at the cost of not fully clearing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> memory.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Troubleshooting Boot Failures:</strong> Common failure points include: a dead CMOS battery (loses firmware settings), corrupted bootloader (requires recovery media), failed hard drive (clicking sounds or SMART errors), incompatible UEFI settings (Secure Boot, CSM/Legacy mode), or bad RAM that causes POST to halt. Beep codes from the motherboard speaker are the firmware's way of communicating the fault — a pattern like one long, three short beeps often indicates a graphics card issue.
+                <strong class="text-brand-200">Troubleshooting Boot Failures:</strong> Common failure points include: a dead <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos')">CMOS</span> battery (loses firmware settings), corrupted <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> (requires recovery media), failed hard drive (clicking sounds or SMART errors), incompatible <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> settings (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span>, CSM/Legacy mode), or bad RAM that causes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> to halt. Beep codes from the motherboard speaker are the firmware's way of communicating the fault — a pattern like one long, three short beeps often indicates a graphics card issue.
               </p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">Boot Process</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Boot Process</td><td class="py-3 px-4">The sequence of events that starts when a computer is powered on and ends when the OS is ready.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">BIOS</td><td class="py-3 px-4">Basic Input/Output System — the legacy firmware that initializes hardware and boots the OS.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">UEFI</td><td class="py-3 px-4">Unified Extensible Firmware Interface — the modern replacement for BIOS with more features.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">POST</td><td class="py-3 px-4">Power-On Self Test — a diagnostic check of essential hardware during boot.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Bootloader</td><td class="py-3 px-4">A small program that loads the operating system kernel into memory.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Kernel</td><td class="py-3 px-4">The core component of an OS that manages hardware, processes, and system resources.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">MBR</td><td class="py-3 px-4">Master Boot Record — the first 512 bytes of a disk containing the bootloader and partition table (legacy).</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">GPT</td><td class="py-3 px-4">GUID Partition Table — a modern partitioning scheme that supports large disks and redundant headers.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Secure Boot</td><td class="py-3 px-4">A UEFI feature that verifies the cryptographic signature of the bootloader before execution.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">CMOS</td><td class="py-3 px-4">Complementary Metal-Oxide-Semiconductor — a small memory chip that stores BIOS/UEFI settings.</td></tr>
+                  <tr id="vocab-boot-process"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">Boot Process</span></td><td>The sequence of events that starts when a computer is powered on and ends when the OS is ready.</td></tr>
+                  <tr id="vocab-bios"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></td><td>Basic Input/Output System — the legacy firmware that initializes hardware and boots the OS.</td></tr>
+                  <tr id="vocab-uefi"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span></td><td>Unified Extensible Firmware Interface — the modern replacement for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> with more features.</td></tr>
+                  <tr id="vocab-post"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span></td><td>Power-On Self Test — a diagnostic check of essential hardware during boot.</td></tr>
+                  <tr id="vocab-bootloader"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">Bootloader</span></td><td>A small program that loads the operating system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> into memory.</td></tr>
+                  <tr id="vocab-kernel"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">Kernel</span></td><td>The core component of an OS that manages hardware, processes, and system resources.</td></tr>
+                  <tr id="vocab-mbr"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mbr')">MBR</span></td><td>Master Boot Record — the first 512 bytes of a disk containing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> and partition table (legacy).</td></tr>
+                  <tr id="vocab-gpt"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span></td><td>GUID Partition Table — a modern partitioning scheme that supports large disks and redundant headers.</td></tr>
+                  <tr id="vocab-secure-boot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> feature that verifies the cryptographic signature of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> before execution.</td></tr>
+                  <tr id="vocab-cmos"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos')">CMOS</span></td><td>Complementary Metal-Oxide-Semiconductor — a small memory chip that stores <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> settings.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -195,12 +219,12 @@
                 <p class="text-sm text-theme-muted mt-1">Motherboard speakers use beep patterns to diagnose hardware problems. One short beep usually means "all OK." Continuous beeping often means a RAM or power supply issue.</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="text-lg font-display font-bold text-brand-200">Secure Boot stops rootkits</p>
-                <p class="text-sm text-theme-muted mt-1">Secure Boot, introduced with UEFI, prevents malware from loading before the OS by checking that every boot component has a valid digital signature.</p>
+                <p class="text-lg font-display font-bold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span> stops rootkits</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span>, introduced with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>, prevents malware from loading before the OS by checking that every boot component has a valid digital signature.</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="text-lg font-display font-bold text-brand-200">Dual-boot is a bootloader trick</p>
-                <p class="text-sm text-theme-muted mt-1">When you dual-boot Windows and Linux, the bootloader (like GRUB) presents a menu. It can chain-load one OS or load another directly depending on your choice.</p>
+                <p class="text-lg font-display font-bold text-brand-200">Dual-boot is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> trick</p>
+                <p class="text-sm text-theme-muted mt-1">When you dual-boot Windows and Linux, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> (like GRUB) presents a menu. It can chain-load one OS or load another directly depending on your choice.</p>
               </div>
             </div>
           </div>
@@ -221,11 +245,11 @@
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
-            <p class="mt-2 text-sm text-theme-muted">Test your understanding of the boot process.</p>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span>.</p>
 
             <div class="mt-6 space-y-6">
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">1. What does POST stand for?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Pre-Operating System Test</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Power-On Self Test</span></label>
@@ -236,25 +260,25 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">2. Which is a key advantage of UEFI over legacy BIOS?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which is a key advantage of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> over legacy <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It runs in 16-bit mode</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It supports disks larger than 2.2 TB</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It uses MBR partitioning</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It cannot use Secure Boot</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mbr')">MBR</span> partitioning</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>It cannot use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It supports disks larger than 2.2 TB (and GPT partitions).</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It supports disks larger than 2.2 TB (and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> partitions).</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the main purpose of the bootloader?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the main purpose of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To run the Power-On Self Test</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To load the operating system kernel into memory</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To load the operating system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> into memory</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To manage user accounts and passwords</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To provide the graphical user interface</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To load the operating system kernel into memory.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To load the operating system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> into memory.</p></details>
               </div>
             </div>
           </div>

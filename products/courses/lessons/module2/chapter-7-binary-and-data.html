@@ -62,6 +62,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -173,13 +175,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine trying to write a letter using only two symbols &mdash; a dot and a dash. That sounds impossible, right? Yet every photo, video, song, game, and document on your computer is built from just two numbers: <span class="text-brand-200">0 and 1</span>.
+              Imagine trying to write a letter using only two symbols &mdash; a dot and a dash. That sounds impossible, right? Yet every photo, video, song, game, and document on your computer is built from just two numbers: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('0')">0</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('1')">1</span></span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              This is the secret language of computers: <span class="text-brand-200">binary</span>. Inside every computer, billions of tiny switches flip between on (1) and off (0) at incredible speeds, combining these simple signals into complex information. When you type a letter, send a message, or watch a video, you are witnessing binary in action.
+              This is the secret language of computers: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span></span>. Inside every computer, billions of tiny switches flip between on (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('1')">1</span>) and off (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('0')">0</span>) at incredible speeds, combining these simple signals into complex information. When you type a letter, send a message, or watch a video, you are witnessing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> in action.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will discover how computers use binary to represent numbers, text, images, and sound &mdash; and why this simple system is the foundation of all modern computing.
+              In this chapter, you will discover how computers use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> to represent numbers, text, images, and sound &mdash; and why this simple system is the foundation of all modern computing.
             </p>
           </div>
         </section>
@@ -189,16 +191,16 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine a light switch. It can only be in one of two positions: up (on) or down (off). Now imagine having billions of these switches inside your computer. By flipping different combinations of switches, your computer can create numbers, letters, pictures, and sounds. One switch = one <span class="text-brand-200">bit</span>, the smallest piece of information a computer can use.
+              Imagine a light switch. It can only be in one of two positions: up (on) or down (off). Now imagine having billions of these switches inside your computer. By flipping different combinations of switches, your computer can create numbers, letters, pictures, and sounds. One switch = one <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bit</span></span>, the smallest piece of information a computer can use.
             </p>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of binary like a row of light switches on a wall. Each switch can be on or off. If you have 8 switches, you can create 256 different patterns &mdash; enough to represent every letter on a keyboard. Computers use this exact idea but with electronic switches called <span class="text-brand-200">transistors</span>.</p>
+              <p class="text-sm text-theme-muted">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> like a row of light switches on a wall. Each switch can be on or off. If you have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> switches, you can create 256 different patterns &mdash; enough to represent every letter on a keyboard. Computers use this exact idea but with electronic switches called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span></span>.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">bit</span> (short for binary digit) is the fundamental unit of data in computing. A group of 8 bits is called a <span class="text-brand-200">byte</span>. One byte can store a single character, like the letter 'A' or the number '5'. The table below shows how binary counting works compared to our everyday decimal system.
+              A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bit</span></span> (short for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> digit) is the fundamental unit of data in computing. A group of 8 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> is called a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">byte</span></span>. One <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">byte</span> can store a single character, like the letter 'A' or the number '5'. The table below shows how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> counting works compared to our everyday <span class="vocab cursor-pointer" onclick="scrollToVocabulary('decimal')">decimal</span> system.
             </p>
 
             <div class="mt-6 overflow-x-auto">
@@ -211,35 +213,35 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>0</td><td>0</td><td>All switches off</td></tr>
-                  <tr><td>1</td><td>1</td><td>One switch on</td></tr>
-                  <tr><td>2</td><td>10</td><td>Flip the next switch, turn first off</td></tr>
-                  <tr><td>3</td><td>11</td><td>Two switches on</td></tr>
-                  <tr><td>4</td><td>100</td><td>Flip the third switch</td></tr>
-                  <tr><td>8</td><td>1000</td><td>Each position doubles in value</td></tr>
-                  <tr><td>255</td><td>11111111</td><td>All 8 switches on &mdash; the maximum value in one byte</td></tr>
+                  <tr id="vocab-0"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('0')">0</span></td><td>0</td><td>All switches off</td></tr>
+                  <tr id="vocab-1"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('1')">1</span></td><td>1</td><td>One switch on</td></tr>
+                  <tr id="vocab-2"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('2')">2</span></td><td>10</td><td>Flip the next switch, turn first off</td></tr>
+                  <tr id="vocab-3"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('3')">3</span></td><td>11</td><td>Two switches on</td></tr>
+                  <tr id="vocab-4"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('4')">4</span></td><td>100</td><td>Flip the third switch</td></tr>
+                  <tr id="vocab-8"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span></td><td>1000</td><td>Each position doubles in value</td></tr>
+                  <tr id="vocab-255"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('255')">255</span></td><td>11111111</td><td>All 8 switches on &mdash; the maximum value in one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">byte</span></td></tr>
                 </tbody>
               </table>
             </div>
 
             <p class="mt-5 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To represent text, computers use standards like <span class="text-brand-200">ASCII</span> (American Standard Code for Information Interchange) or <span class="text-brand-200">Unicode</span>. Each character is assigned a unique binary pattern. For example, the letter 'A' is 01000001 in binary (decimal 65).
+              To represent text, computers use standards like <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ascii')">ASCII</span></span> (American Standard Code for Information Interchange) or <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('unicode')">Unicode</span></span>. Each character is assigned a unique <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> pattern. For example, the letter 'A' is 01000001 in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('decimal')">decimal</span> 65).
             </p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">How Images Work in Binary</p>
-              <p class="text-sm text-theme-muted">Images are made of tiny dots called <span class="text-brand-200">pixels</span>. Each pixel stores its color as a binary number. A typical image uses 24 bits per pixel &mdash; 8 bits for red, 8 for green, and 8 for blue. With 8 bits per channel, you get 256 shades of each color, creating over 16 million possible colors.</p>
+              <p class="text-sm font-semibold text-brand-200 mb-2">How Images Work in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">Binary</span></p>
+              <p class="text-sm text-theme-muted">Images are made of tiny dots called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span></span>. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixel</span> stores its color as a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> number. A typical image uses 24 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> per <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixel</span> &mdash; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> for red, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> for green, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> for blue. With <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> per channel, you get 256 shades of each color, creating over 16 million possible colors.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Binary arithmetic forms the foundation of all computer operations. The CPU uses the <span class="text-brand-200">two's complement</span> system to represent negative numbers, allowing subtraction to be performed using addition circuits. Floating-point numbers follow the <span class="text-brand-200">IEEE 754</span> standard, which splits bits between a sign, exponent, and mantissa to represent a vast range of values with varying precision.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">Binary</span> arithmetic forms the foundation of all computer operations. The CPU uses the <span class="text-brand-200">two's complement</span> system to represent negative numbers, allowing subtraction to be performed using addition circuits. Floating-point numbers follow the <span class="text-brand-200">IEEE 754</span> standard, which splits <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> between a sign, exponent, and mantissa to represent a vast range of values with varying precision.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Data compression algorithms like <span class="text-brand-200">Huffman coding</span> and <span class="text-brand-200">LZW</span> (Lempel-Ziv-Welch) exploit patterns in binary data to reduce file sizes without losing information. Encoding schemes such as <span class="text-brand-200">Base64</span> convert binary data into text characters for safe transmission over protocols that only support text.
+              Data compression algorithms like <span class="text-brand-200">Huffman coding</span> and <span class="text-brand-200">LZW</span> (Lempel-Ziv-Welch) exploit patterns in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> data to reduce file sizes without losing information. Encoding schemes such as <span class="text-brand-200">Base64</span> convert <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> data into text characters for safe transmission over protocols that only support text.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Data sizes</span> scale up quickly: a kilobyte (KB) is roughly 1,024 bytes, a megabyte (MB) about 1 million bytes, a gigabyte (GB) about 1 billion bytes, and a terabyte (TB) about 1 trillion bytes. Modern hard drives hold terabytes of data &mdash; trillions of bits all stored as magnetic or electronic on/off states.
+              <span class="text-brand-200">Data sizes</span> scale up quickly: a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kilobyte-kb')">kilobyte (KB)</span> is roughly 1,024 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('megabyte-mb')">megabyte (MB)</span> about 1 million <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>, a gigabyte (GB) about 1 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>, and a terabyte (TB) about 1 trillion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>. Modern hard drives hold terabytes of data &mdash; trillions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> all stored as magnetic or electronic on/off states.
             </p>
           </div>
         </section>
@@ -257,16 +259,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Bit</td><td>The smallest unit of data in computing, either a 0 or 1</td></tr>
-                  <tr><td>Byte</td><td>A group of 8 bits, enough to store one character</td></tr>
-                  <tr><td>Binary</td><td>A number system that uses only two digits: 0 and 1</td></tr>
-                  <tr><td>Decimal</td><td>The base-10 number system humans use, with digits 0&ndash;9</td></tr>
-                  <tr><td>Transistor</td><td>A tiny electronic switch that can be on or off, used to store bits</td></tr>
-                  <tr><td>ASCII</td><td>A standard that maps characters to binary numbers (7 or 8 bits each)</td></tr>
-                  <tr><td>Unicode</td><td>An expanded standard supporting characters from all world languages</td></tr>
-                  <tr><td>Pixel</td><td>The smallest unit of a digital image, storing color as binary</td></tr>
-                  <tr><td>Kilobyte (KB)</td><td>Approximately 1,024 bytes (2<sup>10</sup> bytes)</td></tr>
-                  <tr><td>Megabyte (MB)</td><td>Approximately 1,048,576 bytes (2<sup>20</sup> bytes)</td></tr>
+                  <tr id="vocab-bit"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">Bit</span></td><td>The smallest unit of data in computing, either a 0 or 1</td></tr>
+                  <tr id="vocab-byte"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">Byte</span></td><td>A group of 8 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span>, enough to store one character</td></tr>
+                  <tr id="vocab-binary"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">Binary</span></td><td>A number system that uses only two digits: 0 and 1</td></tr>
+                  <tr id="vocab-decimal"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('decimal')">Decimal</span></td><td>The base-10 number system humans use, with digits 0&ndash;9</td></tr>
+                  <tr id="vocab-transistor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">Transistor</span></td><td>A tiny electronic switch that can be on or off, used to store <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span></td></tr>
+                  <tr id="vocab-ascii"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ascii')">ASCII</span></td><td>A standard that maps characters to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> numbers (7 or 8 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> each)</td></tr>
+                  <tr id="vocab-unicode"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('unicode')">Unicode</span></td><td>An expanded standard supporting characters from all world languages</td></tr>
+                  <tr id="vocab-pixel"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">Pixel</span></td><td>The smallest unit of a digital image, storing color as <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span></td></tr>
+                  <tr id="vocab-kilobyte-kb"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('kilobyte-kb')">Kilobyte (KB)</span></td><td>Approximately 1,024 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span> (2<sup>10</sup> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>)</td></tr>
+                  <tr id="vocab-megabyte-mb"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('megabyte-mb')">Megabyte (MB)</span></td><td>Approximately 1,048,576 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span> (2<sup>20</sup> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">bytes</span>)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -282,19 +284,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The word "bit" is a combination of "binary" and "digit". It was coined by statistician John Tukey in 1946.</p>
+                <p class="text-sm text-theme-muted">The word "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bit</span>" is a combination of "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span>" and "digit". It was coined by statistician John Tukey in 1946.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A typical modern CPU contains billions of transistors. Apple's M3 Ultra chip has over 184 billion transistors.</p>
+                <p class="text-sm text-theme-muted">A typical modern CPU contains billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span>. Apple's M3 Ultra chip has over 184 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">If you wrote out the number 255 in binary (11111111) using one light bulb per bit, you would need exactly 8 bulbs.</p>
+                <p class="text-sm text-theme-muted">If you wrote out the number <span class="vocab cursor-pointer" onclick="scrollToVocabulary('255')">255</span> in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> (11111111) using one light bulb per <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bit</span>, you would need exactly <span class="vocab cursor-pointer" onclick="scrollToVocabulary('8')">8</span> bulbs.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -333,9 +335,9 @@
 
               <!-- MCQ 1 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is a bit?</p>
+                <p class="text-sm font-semibold text-theme">1. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bit</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A group of 8 binary digits</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A group of 8 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> digits</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The smallest unit of data, either a 0 or 1</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A single character of text</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A type of computer cable</label>
@@ -345,7 +347,7 @@
 
               <!-- MCQ 2 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. How many bits are in a byte?</p>
+                <p class="text-sm font-semibold text-theme">2. How many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bit')">bits</span> are in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byte')">byte</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 2</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 4</label>
@@ -357,14 +359,14 @@
 
               <!-- MCQ 3 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What standard is commonly used to represent characters as binary numbers?</p>
+                <p class="text-sm font-semibold text-theme">3. What standard is commonly used to represent characters as <span class="vocab cursor-pointer" onclick="scrollToVocabulary('binary')">binary</span> numbers?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> JPEG</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> TCP/IP</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> ASCII</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ascii')">ASCII</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> HTML</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> ASCII</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ascii')">ASCII</span></p>
               </div>
 
             </div>

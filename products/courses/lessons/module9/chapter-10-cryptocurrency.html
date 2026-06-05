@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+
+  <title>Chapter 10: Cryptocurrency | Consica Academy</title>
+  <meta name="description" content="Chapter 10: Cryptocurrency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 10</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Cryptocurrency</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Digital money on the blockchain</p>
+
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cryptocurrency is a digital or virtual currency that uses cryptography for security and operates on a decentralized blockchain network. Unlike traditional currencies issued by governments (fiat money), cryptocurrencies have no central authority — no bank, government, or company controls them. Transactions are peer-to-peer, verified by network participants, and permanently recorded on a public ledger.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Each cryptocurrency has specific properties defined by its protocol. Bitcoin, the first cryptocurrency, has a capped supply of 21 million coins, making it deflationary. New coins are created through mining (Proof of Work) as block rewards. Ownership is tracked on the blockchain — your wallet does not actually hold coins; it holds private keys that let you transfer ownership of coins recorded on the blockchain. The cryptocurrency market now includes thousands of coins and tokens with different features and purposes.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of cryptocurrency like digital cash that works anywhere in the world. If you want to send money to someone in another country, traditional methods (bank wire, Western Union) take days and charge high fees. With cryptocurrency, you can send value to anyone with an internet connection in minutes, 24/7, 365 days a year, for a small fee regardless of the amount or distance. This is why cryptocurrency adoption is highest in countries with unstable currencies or expensive remittance services.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A human impact story: In Venezuela, where hyperinflation rendered the national currency (bolivar) nearly worthless, many citizens turned to cryptocurrency. A teacher earning bolivars might find their salary loses 50% of its value in a month. By converting to stablecoins (cryptocurrencies pegged to the US dollar like USDC or DAI), they can preserve their earnings. They can receive payments from freelance work abroad in cryptocurrency, bypassing currency controls and bank restrictions. For millions of people, cryptocurrency is not speculation — it is financial survival.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-10-network-verification/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cryptocurrency is digital money that uses cryptography for security and blockchain for record-keeping. Unlike traditional money issued by governments (like dollars, euros, or yen), cryptocurrencies are decentralized — no bank or government controls them. Bitcoin, the first cryptocurrency, introduced the world to the idea of money that exists purely digitally and can be sent between anyone, anywhere, without intermediaries.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cryptocurrency works because of the blockchain technologies you have learned about: cryptographic hashes secure the transaction history, digital signatures prove ownership, consensus mechanisms prevent double-spending, and the distributed network ensures no single point of failure. Together, these technologies create a digital currency that is secure, transparent, and censorship-resistant.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn what cryptocurrency is, how it differs from traditional money, how it is created and transferred, and the debates surrounding its use. By the end, you will understand why cryptocurrency is considered one of the most important innovations in finance.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cryptocurrency units are created through a process called mining (in Proof of Work) or validation (in Proof of Stake). In Bitcoin, miners who successfully add a block are rewarded with newly created Bitcoin — this is the only way new Bitcoin enters circulation. This reward started at 50 BTC per block and halves approximately every 4 years (the 'halving'). As of 2025, the reward is 3.125 BTC per block. The total supply is capped at 21 million BTC, which makes Bitcoin deflationary.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">When you own cryptocurrency, you do not actually 'have' coins in your wallet. Instead, your wallet contains your private keys, and the blockchain records that a certain amount of cryptocurrency is associated with your public key (address). Sending cryptocurrency means creating a transaction that reassigns ownership from your address to someone else's address. The transaction is signed with your private key and broadcast to the network.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of cryptocurrency like digital cash in a transparent wallet. Everyone can see how much money is in the wallet (the blockchain is public). You can give money to anyone by writing a signed note (digital signature) saying 'I give 5 coins to Alice.' Everyone in the network sees the note and updates their copy of the ledger. Because everyone has the same ledger, Alice cannot pretend she got 10 coins, and you cannot pretend you still have the 5 coins you gave away.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Fiat currency (government-issued money like the US dollar) derives its value from government decree — it is 'legal tender' that must be accepted for debts. Central banks can print more fiat money at will, which can lead to inflation. Cryptocurrency derives its value from supply and demand, with a fixed or predictable supply schedule. Bitcoin's 21 million cap makes it the first example of digital scarcity — digital assets that cannot be duplicated, unlike music files, images, or documents.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Cryptocurrency exchanges are platforms where you can buy, sell, and trade cryptocurrencies using traditional money. Centralized exchanges (like Coinbase, Binance) act as intermediaries — they hold your funds and match buyers with sellers. Decentralized exchanges (DEXs like Uniswap) use smart contracts to enable peer-to-peer trading without an intermediary. DEXs are non-custodial — you retain control of your private keys and funds at all times.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Volatility is a defining characteristic of cryptocurrency markets. Prices can fluctuate 10-50% in a single day due to news, regulation announcements, market sentiment, and large trades. This volatility makes cryptocurrency attractive to traders but risky as a store of value or medium of exchange. Stablecoins (like USDC, USDT, DAI) are cryptocurrencies designed to maintain a stable value, typically pegged to a fiat currency like the US dollar, through various mechanisms.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The first commercial Bitcoin transaction was on May 22, 2010, when programmer Laszlo Hanyecz paid 10,000 BTC for two pizzas. At Bitcoin's peak price of over $68,000 in 2021, those two pizzas would have been worth $680 million. This day is celebrated annually as 'Bitcoin Pizza Day'.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Monetary policy in cryptocurrency is governed by code, not central banks. Bitcoin's supply schedule is fixed: 50 BTC per block initially, halving every 210,000 blocks (approximately 4 years). The last Bitcoin will be mined around the year 2140. After that, miners will be compensated solely through transaction fees. Ethereum's monetary policy is more flexible, with the protocol adjusting issuance based on network activity and the amount staked.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Layer 2 solutions address cryptocurrency's scalability challenges. The Bitcoin Lightning Network enables instant, low-cost transactions by creating payment channels off the main blockchain. Ethereum's layer 2 solutions include Optimistic Rollups and ZK-Rollups, which process transactions off-chain and submit batch summaries to the main chain. These technologies aim to make cryptocurrency practical for everyday transactions like buying coffee or sending micro-payments.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Regulation of cryptocurrency varies widely by country. El Salvador made Bitcoin legal tender in 2021. China has banned cryptocurrency trading and mining. The United States and European Union are developing regulatory frameworks. Key regulatory issues include: whether cryptocurrencies are securities or commodities, taxation of cryptocurrency gains, anti-money laundering (AML) requirements for exchanges, and consumer protection in the event of hacks or fraud.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead><tr><th class="text-theme">Term</th><th class="text-theme">Definition</th></tr></thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-cryptocurrency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">Cryptocurrency</span></td><td>Digital money secured by cryptography and running on a blockchain.</td></tr>
+                  <tr id="vocab-bitcoin"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bitcoin')">Bitcoin</span></td><td>The first and most valuable cryptocurrency, created in 2009.</td></tr>
+                  <tr id="vocab-ether"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ether')">Ether</span></td><td>The native cryptocurrency of the Ethereum network, used for gas fees.</td></tr>
+                  <tr id="vocab-stablecoin"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('stablecoin')">Stablecoin</span></td><td>A cryptocurrency designed to maintain a stable value relative to another asset.</td></tr>
+                  <tr id="vocab-halving"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('halving')">Halving</span></td><td>An event that reduces the mining reward by 50%, controlling inflation.</td></tr>
+                  <tr id="vocab-market-cap"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('market-cap')">Market Cap</span></td><td>The total value of a cryptocurrency, calculated as price times circulating supply.</td></tr>
+                  <tr id="vocab-wallet"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wallet')">Wallet</span></td><td>Software or hardware that stores private keys and manages cryptocurrency.</td></tr>
+                  <tr id="vocab-exchange"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('exchange')">Exchange</span></td><td>A platform where users can buy, sell, and trade cryptocurrencies.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The total market capitalization of all cryptocurrencies exceeded $3 trillion in November 2021, though it fluctuates significantly.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Bitcoin's total supply of 21 million is enforced by code. Over 19.5 million BTC have already been mined as of 2025, leaving less than 1.5 million to be mined over the next 115 years.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The smallest unit of Bitcoin is 0.00000001 BTC, called a 'Satoshi' or 'sat'. One Bitcoin equals 100 million sats.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Cryptocurrency ATMs exist in over 80 countries, allowing users to buy Bitcoin with cash. There are over 30,000 crypto ATMs worldwide.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">More than 300 million people worldwide have used cryptocurrency, with adoption highest in emerging economies like Nigeria, Vietnam, and India.</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="mt-4 space-y-4">
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Cryptocurrency is anonymous.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cryptocurrency is pseudonymous, not anonymous. Transactions are publicly visible on the blockchain. While addresses are not directly linked to real-world identities, transaction analysis and exchange KYC requirements can often identify users.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Cryptocurrency has no real-world value.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cryptocurrency has value because people are willing to trade real goods, services, and fiat currency for it. Its value derives from utility (sending money globally), scarcity (limited supply), and network effects (millions of users).</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You can print or create cryptocurrency for free.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Creating cryptocurrency requires mining (expensive hardware and electricity) or buying it on exchanges using real money. The cost of production gives cryptocurrency its baseline value, similar to gold mining costs.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All cryptocurrencies are the same.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Different cryptocurrencies serve different purposes. Bitcoin is digital gold (store of value). Ethereum is a smart contract platform. Litecoin is faster payments. Monero is private transactions. Each has unique features and trade-offs.</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What makes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">cryptocurrency</span> different from traditional money?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It is printed by governments</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It is decentralized and secured by cryptography, not a central bank</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It can only be used on the internet</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It has no value</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It is decentralized and secured by cryptography, not a central bank</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. What is the maximum supply of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bitcoin')">Bitcoin</span>?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Unlimited</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 21 million</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 100 million</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 1 billion</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> 21 million</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stablecoin')">stablecoin</span>?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">cryptocurrency</span> with a fixed price that never changes</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">cryptocurrency</span> designed to maintain a stable value, typically pegged to a fiat currency</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A coin that is stored in a physical safe</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">cryptocurrency</span> that cannot be traded</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cryptocurrency')">cryptocurrency</span> designed to maintain a stable value, typically pegged to a fiat currency</p>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-9-smart-contracts.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 9</a>
+            <a href="blockchain-basics.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-11-nfts-and-tokens.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 11 &mdash; NFTs and Tokens</a>
+            </div>
+          </div>
+        </section>
+
+</article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

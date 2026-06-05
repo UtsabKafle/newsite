@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -141,36 +156,61 @@
         <section class="mt-6 lg:mt-10 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine being able to access all your files, photos, and apps from any device anywhere in the world — without carrying a USB drive or external hard disk. That's the power of cloud computing. The cloud has changed how we work, learn, and play. In this chapter, you'll discover what the cloud really is, how it works, and why it matters in everyday life.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine being able to access all your files, photos, and apps from any device anywhere in the world — without carrying a USB drive or external hard disk. That's the power of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> has changed how we work, learn, and play. In this chapter, you'll discover what the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> really is, how it works, and why it matters in everyday life.</p>
           </div>
         </section>
 
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of the cloud like a giant digital backpack that lives on the internet. Instead of carrying your drawings, games, and songs on a single computer, you can store them in this backpack and grab them from any computer, tablet, or phone. The cloud keeps your stuff safe so even if your tablet breaks, your things are still there.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cloud computing means using remote servers hosted on the internet to store, manage, and process data instead of using your local computer. Services like Google Drive, iCloud, and Dropbox are examples of cloud storage. Platforms like Netflix, Spotify, and Google Stadia use cloud processing to stream content or run apps. The cloud lets you collaborate in real time — think Google Docs where multiple people edit the same document at once.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cloud computing delivers on-demand computing resources — servers, storage, databases, networking, software, and analytics — over the internet (the cloud). Providers like AWS, Microsoft Azure, and Google Cloud offer Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). Businesses use the cloud to scale infrastructure without capital expenditure, deploy globally in minutes, and leverage serverless architectures, containerization (Docker, Kubernetes), and edge computing for modern applications.</p>
-          </div>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> like a giant digital backpack that lives on the internet. Instead of carrying your drawings, games, and songs on a single computer, you can store them in this backpack and grab them from any computer, tablet, or phone. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> keeps your stuff safe so even if your tablet breaks, your things are still there.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> computing means using remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> hosted on the internet to store, manage, and process data instead of using your local computer. Services like Google Drive, iCloud, and Dropbox are examples of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> storage. Platforms like Netflix, Spotify, and Google Stadia use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> processing to stream content or run apps. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> lets you collaborate in real time — think Google Docs where multiple people edit the same document at once.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> computing delivers on-demand computing resources — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>, storage, databases, networking, software, and analytics — over the internet (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>). Providers like AWS, Microsoft Azure, and Google <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> offer Infrastructure as a Service (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('iaas')">IaaS</span>), Platform as a Service (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('paas')">PaaS</span>), and Software as a Service (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('saas')">SaaS</span>). Businesses use the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> to scale infrastructure without capital expenditure, deploy globally in minutes, and leverage serverless architectures, containerization (Docker, Kubernetes), and edge computing for modern applications.</p>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Now that you understand the basics of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing, let's connect the pieces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> is one of the most important ideas in this chapter. It works together with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data Center</span> to make the whole system run smoothly.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> like a team where every member has a specific job. When one part sends information, another part receives it, checks it, and passes it along. This step-by-step teamwork is what makes technology reliable, even when many devices are involved.
+            </p>
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Understanding how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data Center</span> connect helps you explain <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing to a friend using your own words — not just memorizing definitions.</p>
+            </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data Center</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data centers</span>, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Cloud Computing Vocabulary</h2>
             <div class="mt-6 overflow-x-auto">
-              <table class="w-full text-sm lg:text-base">
-                <thead><tr class="border-b border-brand-500/20"><th class="text-left py-2 pr-4 text-theme font-semibold">Term</th><th class="text-left py-2 text-theme font-semibold">Definition</th></tr></thead>
-                <tbody class="text-theme-muted divide-y divide-brand-500/10">
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Cloud</td><td class="py-3 text-theme-muted">Remote servers accessed over the internet for storage and processing</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Data Center</td><td class="py-3 text-theme-muted">A facility that houses computer systems and associated components</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Server</td><td class="py-3 text-theme-muted">A powerful computer that provides data or services to other computers</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">SaaS</td><td class="py-3 text-theme-muted">Software as a Service — apps you use over the internet without installing</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">IaaS</td><td class="py-3 text-theme-muted">Infrastructure as a Service — virtual servers and storage you rent</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">PaaS</td><td class="py-3 text-theme-muted">Platform as a Service — a platform to build and deploy apps</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Scalability</td><td class="py-3 text-theme-muted">The ability to grow or shrink resources on demand</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Virtualization</td><td class="py-3 text-theme-muted">Running multiple virtual machines on a single physical server</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Bandwidth</td><td class="py-3 text-theme-muted">The maximum data transfer rate of a network</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Latency</td><td class="py-3 text-theme-muted">The delay before data begins to transfer after a request</td></tr>
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-cloud"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span></td><td>Remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> accessed over the internet for storage and processing</td></tr>
+                  <tr id="vocab-data-center"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data Center</span></td><td>A facility that houses computer systems and associated components</td></tr>
+                  <tr id="vocab-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span></td><td>A powerful computer that provides data or services to other computers</td></tr>
+                  <tr id="vocab-saas"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('saas')">SaaS</span></td><td>Software as a Service — apps you use over the internet without installing</td></tr>
+                  <tr id="vocab-iaas"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('iaas')">IaaS</span></td><td>Infrastructure as a Service — virtual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> and storage you rent</td></tr>
+                  <tr id="vocab-paas"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('paas')">PaaS</span></td><td>Platform as a Service — a platform to build and deploy apps</td></tr>
+                  <tr id="vocab-scalability"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('scalability')">Scalability</span></td><td>The ability to grow or shrink resources on demand</td></tr>
+                  <tr id="vocab-virtualization"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">Virtualization</span></td><td>Running multiple virtual machines on a single physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span></td></tr>
+                  <tr id="vocab-bandwidth"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">Bandwidth</span></td><td>The maximum data transfer rate of a network</td></tr>
+                  <tr id="vocab-latency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></td><td>The delay before data begins to transfer after a request</td></tr>
                 </tbody>
               </table>
             </div>
@@ -181,11 +221,11 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <ul class="mt-6 space-y-3 text-sm lg:text-base text-theme-muted list-disc pl-5">
-              <li>More than 60% of all corporate data is stored in the cloud.</li>
-              <li>The term "cloud" came from early network diagrams that used a cloud symbol to represent the internet.</li>
-              <li>A single data center can use as much electricity as a small town.</li>
+              <li>More than 60% of all corporate data is stored in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>.</li>
+              <li>The term "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>" came from early network diagrams that used a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> symbol to represent the internet.</li>
+              <li>A single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data center</span> can use as much electricity as a small town.</li>
               <li>Netflix uses AWS to stream videos to over 200 million subscribers worldwide.</li>
-              <li>You can rent supercomputers in the cloud for just a few dollars per hour.</li>
+              <li>You can rent supercomputers in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> for just a few dollars per hour.</li>
             </ul>
           </div>
         </section>
@@ -195,20 +235,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-6 space-y-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">"The cloud is a single place."</p>
-                <p class="text-xs text-theme-faint mt-1">The cloud is a network of millions of servers distributed worldwide.</p>
+                <p class="text-sm font-semibold text-brand-200">"The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> is a single place."</p>
+                <p class="text-xs text-theme-faint mt-1">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> is a network of millions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> distributed worldwide.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">"Cloud storage is not secure."</p>
-                <p class="text-xs text-theme-faint mt-1">Cloud providers use encryption, multi-factor auth, and strict security protocols — often more secure than personal devices.</p>
+                <p class="text-sm font-semibold text-brand-200">"<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> storage is not secure."</p>
+                <p class="text-xs text-theme-faint mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> providers use encryption, multi-factor auth, and strict security protocols — often more secure than personal devices.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">"The cloud is free."</p>
+                <p class="text-sm font-semibold text-brand-200">"The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> is free."</p>
                 <p class="text-xs text-theme-faint mt-1">Basic tiers may be free, but storage and computing power are paid services at scale.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">"The cloud uses real clouds in the sky."</p>
-                <p class="text-xs text-theme-faint mt-1">It's just a metaphor — the cloud is a network of physical servers in data centers.</p>
+                <p class="text-sm font-semibold text-brand-200">"The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> uses real <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">clouds</span> in the sky."</p>
+                <p class="text-xs text-theme-faint mt-1">It's just a metaphor — the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> is a network of physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data centers</span>.</p>
               </div>
             </div>
           </div>
@@ -217,9 +257,9 @@
         <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine a simple diagram: You (your device) connect to the internet, which connects to a data center. Inside the data center are rows of servers. Your files are stored across multiple servers so if one fails, another takes over. This is called <strong class="text-brand-200">redundancy</strong>. The cloud isn't one computer — it's thousands working together.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine a simple diagram: You (your device) connect to the internet, which connects to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data center</span>. Inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data center</span> are rows of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>. Your files are stored across multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> so if one fails, another takes over. This is called <strong class="text-brand-200">redundancy</strong>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> isn't one computer — it's thousands working together.</p>
             <div class="mt-4 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
-              <p class="text-sm text-brand-200 font-medium">[Device] → [Internet] → [Data Center] → [Servers] → [Your Data]</p>
+              <p class="text-sm text-brand-200 font-medium">[Device] → [Internet] → [<span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data Center</span>] → [<span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Servers</span>] → [Your Data]</p>
             </div>
           </div>
         </section>
@@ -229,36 +269,36 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">1. (MCQ) What does "the cloud" refer to?</p>
-                <p class="text-xs text-theme-muted">a) Weather satellites  b) Remote servers accessed over the internet  c) A type of antivirus  d) Your computer's hard drive</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">1. (MCQ) What does "the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>" refer to?</p>
+                <p class="text-xs text-theme-muted">a) Weather satellites  b) Remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> accessed over the internet  c) A type of antivirus  d) Your computer's hard drive</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">2. (MCQ) Which is an example of cloud storage?</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">2. (MCQ) Which is an example of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> storage?</p>
                 <p class="text-xs text-theme-muted">a) A USB flash drive  b) Google Drive  c) A DVD  d) A printer</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">3. (MCQ) What does SaaS stand for?</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">3. (MCQ) What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('saas')">SaaS</span> stand for?</p>
                 <p class="text-xs text-theme-muted">a) Safe as a Service  b) Storage as a Software  c) Software as a Service  d) System as a Solution</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">4. (T/F) Data centers consume very little electricity.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">4. (T/F) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">Data centers</span> consume very little electricity.</p>
                 <p class="text-xs text-theme-muted">True / False</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">5. (T/F) Cloud services are always free to use.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">5. (T/F) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> services are always free to use.</p>
                 <p class="text-xs text-theme-muted">True / False</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">6. (Match) Connect each term to its description:</p>
-                <p class="text-xs text-theme-muted">IaaS → (Virtual servers and storage you rent)<br>SaaS → (Software you use over the internet)<br>PaaS → (Platform to build and deploy apps)</p>
+                <p class="text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('iaas')">IaaS</span> → (Virtual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> and storage you rent)<br><span class="vocab cursor-pointer" onclick="scrollToVocabulary('saas')">SaaS</span> → (Software you use over the internet)<br><span class="vocab cursor-pointer" onclick="scrollToVocabulary('paas')">PaaS</span> → (Platform to build and deploy apps)</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">7. (Fill-in) The cloud is a network of ________ that store and process data.</p>
-                <p class="text-xs text-theme-muted">Answer: remote servers</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">7. (Fill-in) The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> is a network of ________ that store and process data.</p>
+                <p class="text-xs text-theme-muted">Answer: remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span></p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">8. (Fill-in) ________ allows the cloud to run multiple virtual systems on one physical machine.</p>
-                <p class="text-xs text-theme-muted">Answer: Virtualization</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">8. (Fill-in) ________ allows the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> to run multiple virtual systems on one physical machine.</p>
+                <p class="text-xs text-theme-muted">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">Virtualization</span></p>
               </div>
             </div>
           </div>
@@ -270,15 +310,15 @@
             <div class="mt-6 space-y-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">Question 1</p>
-                <p class="text-xs text-theme-faint mt-1">Why might a company choose cloud servers instead of buying its own physical servers? What are the trade-offs?</p>
+                <p class="text-xs text-theme-faint mt-1">Why might a company choose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> instead of buying its own physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>? What are the trade-offs?</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">Question 2</p>
-                <p class="text-xs text-theme-faint mt-1">If the cloud stores data in another country, which country's laws apply? Should it matter?</p>
+                <p class="text-xs text-theme-faint mt-1">If the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> stores data in another country, which country's laws apply? Should it matter?</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">Question 3</p>
-                <p class="text-xs text-theme-faint mt-1">How would your school change if all its files and software moved entirely to the cloud?</p>
+                <p class="text-xs text-theme-faint mt-1">How would your school change if all its files and software moved entirely to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>?</p>
               </div>
             </div>
           </div>
@@ -289,12 +329,12 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
             <div class="mt-6 space-y-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">Project 1: Cloud Service Comparison</p>
-                <p class="text-xs text-theme-faint mt-1">Research three cloud storage providers (Google Drive, iCloud, Dropbox). Compare their free storage limits, features, and security. Create a chart and share your recommendation.</p>
+                <p class="text-sm font-semibold text-brand-200">Project 1: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> Service Comparison</p>
+                <p class="text-xs text-theme-faint mt-1">Research three <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> storage providers (Google Drive, iCloud, Dropbox). Compare their free storage limits, features, and security. Create a chart and share your recommendation.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">Project 2: My Cloud Diagram</p>
-                <p class="text-xs text-theme-faint mt-1">Draw a diagram showing how data moves from your device to the cloud and back. Label each step: device, internet, data center, server, storage. Add arrows and color-code each stage.</p>
+                <p class="text-sm font-semibold text-brand-200">Project 2: My <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> Diagram</p>
+                <p class="text-xs text-theme-faint mt-1">Draw a diagram showing how data moves from your device to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> and back. Label each step: device, internet, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data center</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, storage. Add arrows and color-code each stage.</p>
               </div>
             </div>
           </div>
@@ -304,10 +344,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <div class="mt-6 space-y-3 text-sm lg:text-base text-theme-muted">
-              <p><strong class="text-brand-200">Learning Objectives:</strong> Understand the concept of cloud computing, identify real-world cloud services, and explain the benefits and risks of using the cloud.</p>
-              <p><strong class="text-brand-200">Discussion Prompts:</strong> Ask students: "What cloud services do you use daily?" and "What happens if a cloud provider goes offline?"</p>
-              <p><strong class="text-brand-200">Extensions:</strong> Invite a guest speaker from IT or cloud operations. Use Google Classroom or a shared doc to demonstrate real-time collaboration.</p>
-              <p><strong class="text-brand-200">Assessment:</strong> Use the knowledge check as a quiz. Review mini projects for understanding. Look for accurate use of terms like server, data center, and virtualization.</p>
+              <p><strong class="text-brand-200">Learning Objectives:</strong> Understand the concept of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing, identify real-world <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> services, and explain the benefits and risks of using the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>.</p>
+              <p><strong class="text-brand-200">Discussion Prompts:</strong> Ask students: "What <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> services do you use daily?" and "What happens if a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> provider goes offline?"</p>
+              <p><strong class="text-brand-200">Extensions:</strong> Invite a guest speaker from IT or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> operations. Use Google Classroom or a shared doc to demonstrate real-time collaboration.</p>
+              <p><strong class="text-brand-200">Assessment:</strong> Use the knowledge check as a quiz. Review mini projects for understanding. Look for accurate use of terms like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-center')">data center</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">virtualization</span>.</p>
             </div>
           </div>
         </section>

@@ -4,70 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
+
   <title>Chapter 9: Conditions | Consica Academy</title>
-  <meta name="description" content="Chapter 9: Conditions. Checking sprite attributes using if-then nodes">
+  <meta name="description" content="Chapter 9: Conditions.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
-          },
-          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('consica-theme');
-      var theme = stored || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css">
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>
-    .static-main { padding-top: var(--nav-height); }
-    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
-    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
-    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
-    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
-    .kb-answer { display: none; }
-    .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-ring" role="status" aria-label="Loading"></div>
-      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
-    </div>
-  </div>
-
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
-
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
@@ -91,34 +65,21 @@
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
-
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
-
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,32 +91,18 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
-
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
       <div class="flex justify-around items-center h-16 px-2">
-        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
-          <span class="text-[10px] font-medium">Home</span>
-        </a>
-        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
-          <span class="text-[10px] font-medium">Products</span>
-        </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
-          <span class="text-[10px] font-medium">Services</span>
-        </a>
-        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
-          <span class="text-[10px] font-medium">Contact</span>
-        </a>
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
       </div>
     </nav>
+
 
     <main id="main-content" class="static-main">
       <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
@@ -163,17 +110,21 @@
           <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 9</span>
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
-
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Conditions</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Checking sprite attributes using if-then nodes</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions are control structures (If-Then, If-Then-Else) that execute code paths only when specified criteria (sensing touch, comparisons) are true.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> are control structures (If-Then, If-Then-Else) that execute code paths only when specified criteria (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">sensing</span> touch, comparisons) are true.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Conditions as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 <div class="glass-panel p-3 text-center">
@@ -193,18 +144,17 @@
                 </div>
                 
               </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as an actor changes costume or walks across the theater grid on cue, Conditions dictates sprite behavior.</p>
+              <p class="mt-4 text-sm text-theme-muted italic">Just as an actor changes costume or walks across the theater grid on cue, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> dictates sprite behavior.</p>
             </div>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
             <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
               <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as you coordinate actions in real life, Conditions works by structuring logic commands in sequence:</p>
+                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as you <span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">coordinate</span> actions in real life, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span> works by structuring logic commands in sequence:</p>
                 <ol class="mt-4 space-y-3 text-sm text-theme-muted">
                   
                   <li class="flex gap-3">
@@ -249,33 +199,54 @@
           </div>
         </section>
 
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-09-conditions/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </section>
 
-        <!-- Core Explanation -->
-        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch engine interprets Conditions by compiling the visual blocks into executable runtime threads. For each cycle, it updates coordinates, evaluates conditions, and repaint sprites.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Managing Conditions requires understanding thread execution. In Scratch, multiple scripts can run in parallel, meaning a 'forever' loop checks sensing parameters while a separate event handler moves the sprite.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">At the code level, Conditions blocks are processed as asynchronous functions inside the browser page. The interpreter handles variables using scope mappings and coordinates using float coordinates mapped to WebGL pixel coordinates.</p>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Life is full of decisions. If it is raining, you take an umbrella. If you are hungry, you eat. If a traffic light is red, you stop. Computers make decisions too, using a programming concept called conditions. Conditions let your program choose different paths based on different situations. Without conditions, your program would do the same thing every time, regardless of what is happening.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions use true/false questions called Boolean expressions. Is the score greater than 10? Is this sprite touching that sprite? Is the space bar pressed? Each question evaluates to either true or false. Depending on the answer, the program can run different blocks. Conditions are what make games interactive — they determine when you score, when you lose, when an enemy chases you, and when you level up.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to use 'if' and 'if-else' blocks, understand Boolean expressions, combine conditions with 'and', 'or', and 'not', and use conditions to create intelligent behaviors in your projects. By the end, you will be able to make sprites that react differently in different situations.</p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
-        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'if () then' block checks a condition. If the condition is true, it runs the blocks inside its C-shaped body. If the condition is false, it skips them. For example: 'if <touching [edge]?> then [bounce]'. If the sprite is touching the edge, it bounces. If not, the bounce block is skipped. The condition must be a Boolean reporter block — a hexagonal block that reports true or false.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'if () then [else]' block extends the basic 'if' with an alternative. If the condition is true, the first set of blocks runs. If false, the blocks in the 'else' section run. For example: 'if <key [space] pressed?> then [jump] else [wait]'. If space is pressed, the sprite jumps. If not, it waits. This two-way decision is the basis for many game mechanics.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of conditions like a fork in the road. When you reach a fork, you check a condition: 'Do I need to go to school today?' If yes, you take the left path (to school). If no, you take the right path (to the park). The 'if' block is like a simple fork with one path (go to school or stay home). The 'if-else' block is a fork where both paths lead somewhere different.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Boolean expressions can be combined using 'and', 'or', and 'not' operators (in the Operators category). 'And' requires all conditions to be true. 'Or' requires at least one condition to be true. 'Not' reverses the result (true becomes false, false becomes true). For example: 'if <<touching [edge]?> and <(score) > [100]>> then [show win message]' — the player wins only if they are touching the edge AND have a score over 100.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Comparison operators — greater than (>), less than (<), and equals (=) — are used to compare values. These are also in the Operators category. You can compare numbers (score > 10), variables (lives = 0), or sensor values (loudness > 50). These comparisons produce Boolean values (true/false) that can be used as conditions in 'if' blocks.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions are most powerful when combined with loops. A common pattern is the game loop: a 'forever' loop containing multiple 'if' blocks that check for different conditions each frame. One 'if' checks for key presses, another checks for collisions, another checks for score thresholds. This pattern — read inputs, update state, check rules — is the foundation of almost every game.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The condition in an 'if' block is checked only at the moment the block is reached. If the condition changes later, the 'if' block does not re-check — it already made its decision. This is why conditions are typically placed inside loops, so they are checked repeatedly and can respond to changing situations.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Nested conditions — an 'if' block inside another 'if' block — allow for multi-level decision making. For example, 'if <key pressed?> then [if <(score) > [10]> then [super jump] else [normal jump] else [wait]'. Nested conditions can model complex decision trees, but they can become hard to read. Use 'and'/'or' to combine conditions where possible for cleaner code.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The '<touching [sprite]?>' block uses pixel-perfect collision detection. It checks whether any non-transparent pixel of the current sprite overlaps with any non-transparent pixel of the target sprite or color. This is more accurate than bounding-box collision but also more computationally expensive. For projects with many sprites, bounding box approximations using position comparisons can improve performance.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Conditions are related to Boolean logic created by George Boole in the 19th century. Boolean algebra is the foundation of digital circuit design and all computer decision-making. Every 'if' block you use in Scratch ultimately relies on the same logical principles that govern computer processors, search engines, and artificial intelligence systems.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
@@ -287,200 +258,133 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Conditions</td><td>The primary technological concept explaining how components interact within the context of Scratch Programming.</td></tr><tr><td>Coordinate Grid</td><td>The X and Y plane representing the Stage layout coordinates.</td></tr><tr><td>Hat Block</td><td>A block with a rounded top that registers events to launch scripts.</td></tr><tr><td>Sensing Block</td><td>A block that checks for collisions, touch parameters, or mouse pointer coordinates.</td></tr>
+                  <tr id="vocab-conditions"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span></td><td>The primary technological concept explaining how components interact within the context of Scratch Programming.</td></tr><tr id="vocab-coordinate-grid"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">Coordinate Grid</span></td><td>The X and Y plane representing the Stage layout coordinates.</td></tr><tr id="vocab-hat-block"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span></td><td>A block with a rounded top that registers events to launch scripts.</td></tr><tr id="vocab-sensing-block"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sensing-block')">Sensing Block</span></td><td>A block that checks for collisions, touch parameters, or mouse pointer coordinates.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
-        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Using Conditions blocks prevents syntax compiler issues entirely.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 100 million Scratch projects have been shared on the public educational repository.</p>
+              <p class="text-sm text-theme-muted">The 'if/else' block was added in Scratch 1.3. Before that, programmers had to use two separate 'if' blocks (one for true, one for false) to achieve the same effect.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The coding ideas behind Scratch are used by university students to learn fundamental syntax concepts.</p>
+              <p class="text-sm text-theme-muted">Boolean values are named after George Boole, a 19th-century mathematician who developed Boolean algebra. His work is fundamental to all modern computing.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
+              <p class="text-sm text-theme-muted">The '<touching color ()?>' block can detect any specific color on the stage, even if it is part of a larger image. This is often used for detecting coins, hazards, and goal zones.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Conditions can be chained: 'if (condition1) then [if (condition2) then [action]]' creates a logical AND without using the 'and' operator.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The '<mouse down?>' sensing block provides a Boolean value that can be used as a condition, allowing click-and-drag interactions and mouse-based controls.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+<section class="mt-8 lg:mt-12 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Sprites can only execute one script stack at a time.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A single sprite can have multiple scripts running simultaneously, starting from different events or the same event.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Variables are shared across all sprites by default.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> You can create variables that belong 'For this sprite only', isolating data from other elements.</p>
-              </div>
-              
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: An 'if' block can only check one condition.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> An 'if' block can check complex conditions using 'and', 'or', and 'not' operators. You can combine multiple conditions into a single check.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The 'else' part of an 'if-else' block is required.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The 'else' branch is optional. Use 'if' alone when you only need to do something when the condition is true, and nothing when it is false.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Conditions can only check user input.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Conditions can check anything: sprite positions, variable values, timers, sensor readings, colors, touch detection, and more.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: If you use 'if-else', exactly one branch always runs.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Correct — 'if-else' is an either-or structure. Exactly one of the two branches executes, never both, never neither.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive components of Conditions and how they link inside the Scratch compilation chain.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Check how block inputs map to variables and control paths.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on components to see details about coordinate alignment.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the main role of Conditions?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the main role of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('conditions')">Conditions</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To save system data on disks</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To orchestrate behaviors and controls visually</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To connect internet cables</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To generate HTML web tags</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To save system data on disks</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To orchestrate behaviors and controls visually</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To connect internet cables</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To generate HTML web tags</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> To orchestrate behaviors and controls visually</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To orchestrate behaviors and controls visually</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which block shape starts a script stack in Scratch?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Flat block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Hat block (curved top)</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Diamond block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Oval block</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Flat block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat block</span> (curved top)</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Diamond block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Oval block</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Hat block (curved top)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat block</span> (curved top)</p>
               </div>
-              
-              <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What is the maximum X coordinate limit on the stage?</p>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is the maximum X <span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">coordinate</span> limit on the stage?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 180</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 240</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 360</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 480</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> 240</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> 240</p>
               </div>
-              
             </div>
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">How does changing X coordinates differ from changing Y coordinates when positioning sprites?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">Why do you think games need variables to track scores instead of displaying raw text?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Block Stacker</p>
-                <p class="text-sm text-theme-muted">Open the Scratch editor and write a script to move a character back and forth across the stage forever.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Grid Navigator</p>
-                <p class="text-sm text-theme-muted">Write down the X and Y coordinates of the center, top-right, and bottom-left points of the stage.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Explain the purpose of Conditions.</li><li>Construct control stacks to steer coordinates.</li><li>Manage variables and event loops.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Prepare basic project templates with pre-loaded sprites.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How do coordinates help us animate characters?</li><li>What games can you create using variables and collision sensing?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="chapter-10-variables.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Variables
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-8-loops.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 8</a>
+            <a href="scratch-programming.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-10-variables.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 10 &mdash; Variables</a>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
-            <a href="scratch-programming.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 8 &middot; Chapter 9</p>
-          </div>
         </section>
-      </article>
+
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -521,26 +425,11 @@
       </div>
     </footer>
   </div>
-
   <script src="../../../../shared/data/brand.js" defer></script>
   <script src="../../../../shared/data/products.js" defer></script>
   <script src="../../../../shared/utils/dom.js" defer></script>
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

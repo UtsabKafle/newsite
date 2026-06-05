@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -72,7 +87,7 @@
               Over the past thirteen chapters, you have journeyed from the very basics of what a computer is all the way through the boot process, operating systems, memory, storage, binary, logic gates, and even how to keep a computer healthy. You now have a solid foundation in how computers work today.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              But computing never stands still. Every year, new technologies push the boundaries of what is possible. In this final chapter of Module 2, we will look ahead at the future of computing &mdash; from quantum computers that shatter conventional limits to artificial intelligence that learns and creates, and a world where billions of devices are connected in the Internet of Things.
+              But computing never stands still. Every year, new technologies push the boundaries of what is possible. In this final chapter of Module 2, we will look ahead at the future of computing &mdash; from quantum computers that shatter conventional limits to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('artificial-intelligence')">artificial intelligence</span> that learns and creates, and a world where billions of devices are connected in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('internet-of-things')">Internet of Things</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Understanding where computing is headed will prepare you for the exciting innovations that lie ahead. Let us explore the technologies that will shape tomorrow.
@@ -86,7 +101,7 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">The Future Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Imagine if your toy robot could learn new tricks just by watching you. Or if your school bag could tell you when you forgot your homework. And what if there was a magical computer that could solve a puzzle in seconds that would take today's best computers thousands of years?
               </p>
@@ -108,7 +123,7 @@
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Quantum Computing</h4>
-                  <p class="text-xs text-theme-muted mt-1">Instead of bits (0 or 1), quantum computers use qubits that can be both 0 and 1 at the same time. This allows them to solve certain problems exponentially faster than classical computers.</p>
+                  <p class="text-xs text-theme-muted mt-1">Instead of bits (0 or 1), quantum computers use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> that can be both 0 and 1 at the same time. This allows them to solve certain problems exponentially faster than classical computers.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Internet of Things (IoT)</h4>
@@ -116,7 +131,7 @@
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Edge Computing</h4>
-                  <p class="text-xs text-theme-muted mt-1">Instead of sending all data to the cloud, edge computing processes data closer to where it is generated (on the device itself), reducing latency and bandwidth use.</p>
+                  <p class="text-xs text-theme-muted mt-1">Instead of sending all data to the cloud, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('edge-computing')">edge computing</span> processes data closer to where it is generated (on the device itself), reducing latency and bandwidth use.</p>
                 </div>
               </div>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
@@ -128,46 +143,55 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">Deep Dive: The Next Frontier</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Quantum Computing — Beyond Classical Limits:</strong> Classical computers process information as bits — either a 0 or a 1. Quantum computers use <strong class="text-brand-200">qubits</strong>, which leverage superposition (existing in multiple states simultaneously) and entanglement (correlating qubits so the state of one instantly affects another, regardless of distance). This allows quantum computers to explore many possible solutions at once. Companies like Google, IBM, and IonQ have demonstrated quantum supremacy — solving a problem in minutes that would take a classical supercomputer thousands of years. However, quantum computers are extremely sensitive to environmental noise and require near-absolute-zero temperatures to operate.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span> — Beyond Classical Limits:</strong> Classical computers process information as bits — either a 0 or a 1. Quantum computers use <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span></strong>, which leverage <span class="vocab cursor-pointer" onclick="scrollToVocabulary('superposition')">superposition</span> (existing in multiple states simultaneously) and entanglement (correlating <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> so the state of one instantly affects another, regardless of distance). This allows quantum computers to explore many possible solutions at once. Companies like Google, IBM, and IonQ have demonstrated quantum supremacy — solving a problem in minutes that would take a classical supercomputer thousands of years. However, quantum computers are extremely sensitive to environmental noise and require near-absolute-zero temperatures to operate.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Neuromorphic Computing:</strong> Inspired by the human brain, neuromorphic chips use artificial neurons and synapses to process information in a massively parallel, energy-efficient way. Unlike traditional CPUs that follow the von Neumann architecture (fetch-decode-execute), neuromorphic systems integrate memory and computation. IBM's TrueNorth and Intel's Loihi are early examples. These chips could power the next generation of AI, enabling real-time learning on edge devices with minimal power consumption.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('neuromorphic')">Neuromorphic</span> Computing:</strong> Inspired by the human brain, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('neuromorphic')">neuromorphic</span> chips use artificial neurons and synapses to process information in a massively parallel, energy-efficient way. Unlike traditional CPUs that follow the von Neumann architecture (fetch-decode-execute), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('neuromorphic')">neuromorphic</span> systems integrate memory and computation. IBM's TrueNorth and Intel's Loihi are early examples. These chips could power the next generation of AI, enabling real-time learning on edge devices with minimal power consumption.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Optical Computing:</strong> Instead of electrons moving through wires, optical computers use photons (light particles) to transmit and process data. Light-based communication is already used in fiber optics, but fully optical computing — where logic gates operate using light — could achieve speeds far beyond electronic circuits while generating far less heat. Challenges include miniaturizing optical components and integrating them with existing silicon technology.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('optical-computing')">Optical Computing</span>:</strong> Instead of electrons moving through wires, optical computers use photons (light particles) to transmit and process data. Light-based communication is already used in fiber optics, but fully <span class="vocab cursor-pointer" onclick="scrollToVocabulary('optical-computing')">optical computing</span> — where logic gates operate using light — could achieve speeds far beyond electronic circuits while generating far less heat. Challenges include miniaturizing optical components and integrating them with existing silicon technology.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Brain-Computer Interfaces (BCI):</strong> BCI systems create a direct communication pathway between the brain and an external device. Companies like Neuralink are developing implantable chips that could allow people to control computers with their thoughts. Applications range from restoring mobility for paralyzed patients to enabling new forms of human-computer interaction that bypass keyboards, mice, and touchscreens entirely.
+                <strong class="text-brand-200">Brain-Computer Interfaces (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bci')">BCI</span>):</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bci')">BCI</span> systems create a direct communication pathway between the brain and an external device. Companies like Neuralink are developing implantable chips that could allow people to control computers with their thoughts. Applications range from restoring mobility for paralyzed patients to enabling new forms of human-computer interaction that bypass keyboards, mice, and touchscreens entirely.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Ethical and Societal Implications:</strong> With great power comes great responsibility. Advanced AI raises questions about job displacement, privacy, bias in algorithms, and the potential for autonomous systems to make life-or-death decisions. Quantum computing could break current encryption standards, threatening global cybersecurity. As these technologies mature, society must grapple with how to regulate them, ensure equitable access, and prevent misuse.
+                <strong class="text-brand-200">Ethical and Societal Implications:</strong> With great power comes great responsibility. Advanced AI raises questions about job displacement, privacy, bias in algorithms, and the potential for autonomous systems to make life-or-death decisions. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum computing</span> could break current encryption standards, threatening global cybersecurity. As these technologies mature, society must grapple with how to regulate them, ensure equitable access, and prevent misuse.
               </p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, future of computing involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('artificial-intelligence')">Artificial Intelligence</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">Qubit</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Artificial Intelligence</td><td class="py-3 px-4">The simulation of human intelligence by machines, including learning, reasoning, and problem-solving.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Quantum Computing</td><td class="py-3 px-4">A type of computing that uses qubits and quantum mechanics to solve problems far beyond classical capability.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Qubit</td><td class="py-3 px-4">The fundamental unit of quantum information, capable of existing in multiple states at once (superposition).</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Internet of Things</td><td class="py-3 px-4">The network of physical objects embedded with sensors and software that connect and exchange data.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Edge Computing</td><td class="py-3 px-4">Processing data near the source (on local devices) rather than in a centralized cloud data center.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Neuromorphic</td><td class="py-3 px-4">A computing architecture inspired by the brain, using artificial neurons and synapses for efficient processing.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Machine Learning</td><td class="py-3 px-4">A subset of AI where systems learn and improve from experience without being explicitly programmed.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">BCI</td><td class="py-3 px-4">Brain-Computer Interface — a direct communication link between the brain and an external device.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Optical Computing</td><td class="py-3 px-4">Computing that uses photons (light) instead of electrons for faster, cooler data processing.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Superposition</td><td class="py-3 px-4">A quantum property where a qubit exists in multiple states simultaneously until measured.</td></tr>
+                  <tr id="vocab-artificial-intelligence"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('artificial-intelligence')">Artificial Intelligence</span></td><td>The simulation of human intelligence by machines, including learning, reasoning, and problem-solving.</td></tr>
+                  <tr id="vocab-quantum-computing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span></td><td>A type of computing that uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> and quantum mechanics to solve problems far beyond classical capability.</td></tr>
+                  <tr id="vocab-qubit"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">Qubit</span></td><td>The fundamental unit of quantum information, capable of existing in multiple states at once (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('superposition')">superposition</span>).</td></tr>
+                  <tr id="vocab-internet-of-things"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('internet-of-things')">Internet of Things</span></td><td>The network of physical objects embedded with sensors and software that connect and exchange data.</td></tr>
+                  <tr id="vocab-edge-computing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('edge-computing')">Edge Computing</span></td><td>Processing data near the source (on local devices) rather than in a centralized cloud data center.</td></tr>
+                  <tr id="vocab-neuromorphic"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('neuromorphic')">Neuromorphic</span></td><td>A computing architecture inspired by the brain, using artificial neurons and synapses for efficient processing.</td></tr>
+                  <tr id="vocab-machine-learning"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-learning')">Machine Learning</span></td><td>A subset of AI where systems learn and improve from experience without being explicitly programmed.</td></tr>
+                  <tr id="vocab-bci"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bci')">BCI</span></td><td>Brain-Computer Interface — a direct communication link between the brain and an external device.</td></tr>
+                  <tr id="vocab-optical-computing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('optical-computing')">Optical Computing</span></td><td>Computing that uses photons (light) instead of electrons for faster, cooler data processing.</td></tr>
+                  <tr id="vocab-superposition"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('superposition')">Superposition</span></td><td>A quantum property where a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubit</span> exists in multiple states simultaneously until measured.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -180,7 +204,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Cold as space</p>
-                <p class="text-sm text-theme-muted mt-1">Quantum computers must be cooled to near absolute zero (-273&deg;C), colder than outer space, to keep qubits stable.</p>
+                <p class="text-sm text-theme-muted mt-1">Quantum computers must be cooled to near absolute zero (-273&deg;C), colder than outer space, to keep <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> stable.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Trillions of devices</p>
@@ -220,26 +244,26 @@
                 <p class="font-display font-semibold text-brand-200 text-sm">1. What makes a quantum computer different from a classical computer?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses more electricity</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses qubits that can be 0 and 1 at the same time</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> that can be 0 and 1 at the same time</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It has a faster CPU</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>It uses more RAM</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It uses qubits that can be 0 and 1 at the same time (superposition).</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">It uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('qubit')">qubits</span> that can be 0 and 1 at the same time (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('superposition')">superposition</span>).</p></details>
               </div>
 
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">2. Which technology processes data closer to where it is generated rather than sending it to the cloud?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Cloud Computing</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Edge Computing</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('edge-computing')">Edge Computing</span></span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Distributed Computing</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Cluster Computing</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Edge Computing.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('edge-computing')">Edge Computing</span>.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the Internet of Things (IoT)?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('internet-of-things')">Internet of Things</span> (IoT)?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A faster version of the Internet</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>A network of everyday objects connected to the Internet</span></label>

@@ -39,6 +39,21 @@
     .safe-top { padding-top: env(safe-area-inset-top, 0); }
     @media (hover: none) { .card-3d:hover { transform: none !important; } }
     .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+  
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -232,38 +247,40 @@
             <div class="mt-6 grid gap-4 sm:grid-cols-2">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">1. You write the address</p>
-                <p class="text-xs text-theme-faint mt-1">Typing the URL is like writing your friend's address on an envelope.</p>
+                <p class="text-xs text-theme-faint mt-1">Typing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> is like writing your friend's address on an envelope.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">2. The post office looks up the address</p>
-                <p class="text-xs text-theme-faint mt-1">DNS works like a postal directory that finds exactly where your friend lives.</p>
+                <p class="text-xs text-theme-faint mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> works like a postal directory that finds exactly where your friend lives.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">3. Trucks carry the letter</p>
-                <p class="text-xs text-theme-faint mt-1">Routers and cables carry your request across the internet.</p>
+                <p class="text-xs text-theme-faint mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> and cables carry your request across the internet.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">4. Your friend sends a reply</p>
-                <p class="text-xs text-theme-faint mt-1">The server receives your request and sends the website back to you.</p>
+                <p class="text-xs text-theme-faint mt-1">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> receives your request and sends the website back to you.</p>
               </div>
             </div>
 
             <hr class="my-6 border-brand-500/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
 
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you press Enter, your browser does not magically know where the website lives. It has to look it up using a system called the <span class="text-brand-200 font-medium">Domain Name System (DNS)</span>.
+              When you press Enter, your browser does not magically know where the website lives. It has to look it up using a system called the <span class="text-brand-200 font-medium">Domain Name System (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span>)</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              DNS translates human-friendly names like <code class="text-brand-200 font-mono text-xs">consicaacademy.com</code> into a numeric IP address like <code class="text-brand-200 font-mono text-xs">192.0.2.1</code>. Think of it as the phonebook of the internet.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> translates human-friendly names like <code class="text-brand-200 font-mono text-xs">consicaacademy.com</code> into a numeric <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> like <code class="text-brand-200 font-mono text-xs">192.0.2.1</code>. Think of it as the phonebook of the internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Once the browser has the IP address, it opens a connection to the server using something called <span class="text-brand-200 font-medium">TCP/IP</span>. Your request is broken into small packets, each with a destination label, and sent through routers across the globe. The server then assembles the response and sends it back the same way.
+              Once the browser has the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>, it opens a connection to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> using something called <span class="text-brand-200 font-medium"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp-ip')">TCP/IP</span></span>. Your request is broken into small <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, each with a destination label, and sent through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> across the globe. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> then assembles the response and sends it back the same way.
             </p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20">
-              <p class="text-sm text-brand-200 font-medium">Key takeaway: Every website visit is a conversation between your browser and a remote server, using DNS as the address book and TCP/IP as the delivery service.</p>
+              <p class="text-sm text-brand-200 font-medium">Key takeaway: Every website visit is a conversation between your browser and a remote <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> as the address book and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp-ip')">TCP/IP</span> as the delivery service.</p>
             </div>
 
             <hr class="my-6 border-brand-500/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
 
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               The full sequence from keystroke to rendered page involves several protocols working in concert:
@@ -272,15 +289,15 @@
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                 <div>
-                  <p class="text-sm font-semibold text-brand-200">DNS Resolution</p>
-                  <p class="text-sm text-theme-faint mt-0.5">The browser checks its cache, then queries recursive resolvers, root servers, TLD servers, and authoritative nameservers to resolve the domain to an IP.</p>
+                  <p class="text-sm font-semibold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> Resolution</p>
+                  <p class="text-sm text-theme-faint mt-0.5">The browser checks its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span>, then queries recursive resolvers, root <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>, TLD <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>, and authoritative nameservers to resolve the domain to an IP.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                 <div>
                   <p class="text-sm font-semibold text-brand-200">TCP Handshake</p>
-                  <p class="text-sm text-theme-faint mt-0.5">A three-way handshake (SYN, SYN-ACK, ACK) establishes a reliable connection between client and server.</p>
+                  <p class="text-sm text-theme-faint mt-0.5">A three-way handshake (SYN, SYN-ACK, ACK) establishes a reliable connection between client and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
@@ -294,7 +311,7 @@
                 <svg class="w-5 h-5 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                 <div>
                   <p class="text-sm font-semibold text-brand-200">HTTP Request &amp; Response</p>
-                  <p class="text-sm text-theme-faint mt-0.5">The browser sends an HTTP GET request. The server responds with status codes (200 OK, 404 Not Found, etc.) and the requested resources.</p>
+                  <p class="text-sm text-theme-faint mt-0.5">The browser sends an HTTP GET request. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> responds with status codes (200 OK, 404 Not Found, etc.) and the requested resources.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
@@ -312,24 +329,24 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-6 overflow-x-auto">
-              <table class="w-full text-sm">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="text-left py-3 px-2 text-theme font-semibold">Term</th>
-                    <th class="text-left py-3 px-2 text-theme font-semibold">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
-                <tbody class="text-theme-muted divide-y divide-brand-500/10">
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">URL</td><td class="py-3 px-2 text-theme-muted">Uniform Resource Locator; the web address you type into the browser.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">DNS</td><td class="py-3 px-2 text-theme-muted">Domain Name System; translates domain names into IP addresses.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">IP Address</td><td class="py-3 px-2 text-theme-muted">A unique numeric label assigned to every device on a network.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">TCP/IP</td><td class="py-3 px-2 text-theme-muted">Transmission Control Protocol / Internet Protocol; the rules for data transmission.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">Packet</td><td class="py-3 px-2 text-theme-muted">A small chunk of data sent over a network.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">Router</td><td class="py-3 px-2 text-theme-muted">A device that directs data packets between networks.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">HTTP / HTTPS</td><td class="py-3 px-2 text-theme-muted">HyperText Transfer Protocol (Secure); the protocol for transferring web pages.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">Server</td><td class="py-3 px-2 text-theme-muted">A computer that stores and delivers website files.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">Cache</td><td class="py-3 px-2 text-theme-muted">A temporary storage location that speeds up repeated requests.</td></tr>
-                  <tr><td class="py-3 px-2 text-brand-200 font-mono text-xs">TLS / SSL</td><td class="py-3 px-2 text-theme-muted">Encryption protocols that secure data in transit.</td></tr>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-url"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span></td><td>Uniform Resource Locator; the web address you type into the browser.</td></tr>
+                  <tr id="vocab-dns"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></td><td>Domain Name System; translates domain names into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>.</td></tr>
+                  <tr id="vocab-ip-address"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span></td><td>A unique numeric label assigned to every device on a network.</td></tr>
+                  <tr id="vocab-tcp-ip"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp-ip')">TCP/IP</span></td><td>Transmission Control Protocol / Internet Protocol; the rules for data transmission.</td></tr>
+                  <tr id="vocab-packet"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span></td><td>A small chunk of data sent over a network.</td></tr>
+                  <tr id="vocab-router"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></td><td>A device that directs data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> between networks.</td></tr>
+                  <tr id="vocab-http-https"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('http-https')">HTTP / HTTPS</span></td><td>HyperText Transfer Protocol (Secure); the protocol for transferring web pages.</td></tr>
+                  <tr id="vocab-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span></td><td>A computer that stores and delivers website files.</td></tr>
+                  <tr id="vocab-cache"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span></td><td>A temporary storage location that speeds up repeated requests.</td></tr>
+                  <tr id="vocab-tls-ssl"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tls-ssl')">TLS / SSL</span></td><td>Encryption protocols that secure data in transit.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -345,21 +362,21 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                   <p class="text-sm font-semibold text-brand-200">Lightning Speed</p>
                 </div>
-                <p class="text-sm text-theme-muted">A DNS query can complete in as little as 10&ndash;20 milliseconds, faster than you can blink.</p>
+                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> query can complete in as little as 10&ndash;20 milliseconds, faster than you can blink.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <div class="flex items-center gap-2 mb-2">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                  <p class="text-sm font-semibold text-brand-200">Global DNS System</p>
+                  <p class="text-sm font-semibold text-brand-200">Global <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> System</p>
                 </div>
-                <p class="text-sm text-theme-muted">There are over 1,000 root DNS servers distributed worldwide, handling billions of queries daily.</p>
+                <p class="text-sm text-theme-muted">There are over 1,000 root <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> distributed worldwide, handling billions of queries daily.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <div class="flex items-center gap-2 mb-2">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                  <p class="text-sm font-semibold text-brand-200">Packet Pizza</p>
+                  <p class="text-sm font-semibold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> Pizza</p>
                 </div>
-                <p class="text-sm text-theme-muted">A single web page may be delivered as hundreds of separate packets, each taking a different route.</p>
+                <p class="text-sm text-theme-muted">A single web page may be delivered as hundreds of separate <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, each taking a different route.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <div class="flex items-center gap-2 mb-2">
@@ -412,26 +429,26 @@
             <ul class="mt-4 space-y-2 text-sm text-theme-muted">
               <li class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>A browser icon sending a request arrow to a DNS server icon</span>
+                <span>A browser icon sending a request arrow to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> icon</span>
               </li>
               <li class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>The DNS server returning an IP address</span>
+                <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> returning an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></span>
               </li>
               <li class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Packets traveling through routers across a network map</span>
+                <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> traveling through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> across a network map</span>
               </li>
               <li class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>The server receiving the request and sending back HTML, CSS, and images</span>
+                <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> receiving the request and sending back HTML, CSS, and images</span>
               </li>
               <li class="flex items-start gap-3">
                 <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>The browser piecing everything together to display the final page</span>
               </li>
             </ul>
-            <p class="mt-4 text-sm text-theme-faint italic">Tip: Watch the animation a few times. Notice how packets can take different paths to reach the same destination.</p>
+            <p class="mt-4 text-sm text-theme-faint italic">Tip: Watch the animation a few times. Notice how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> can take different paths to reach the same destination.</p>
           </div>
         </section>
 
@@ -441,21 +458,21 @@
 
             <div class="mt-6 space-y-6">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">1. What does DNS stand for?</p>
+                <p class="text-sm font-semibold text-brand-200">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> stand for?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <p>A) Direct Network Service</p>
                   <p>B) Domain Name System</p>
                   <p>C) Digital Network Standard</p>
-                  <p>D) Data Name Server</p>
+                  <p>D) Data Name <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span></p>
                 </div>
                 <p class="mt-2 text-xs text-brand-300">Answer: B</p>
               </div>
 
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">2. What is the first step when you type a URL and press Enter?</p>
+                <p class="text-sm font-semibold text-brand-200">2. What is the first step when you type a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> and press Enter?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
-                  <p>A) Server sends website files</p>
-                  <p>B) DNS finds the IP address</p>
+                  <p>A) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> sends website files</p>
+                  <p>B) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> finds the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></p>
                   <p>C) The browser displays the page</p>
                   <p>D) The request travels through the Internet</p>
                 </div>
@@ -463,11 +480,11 @@
               </div>
 
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">3. What protocol ensures data is encrypted between browser and server?</p>
+                <p class="text-sm font-semibold text-brand-200">3. What protocol ensures data is encrypted between browser and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <p>A) HTTP</p>
                   <p>B) FTP</p>
-                  <p>C) TLS / SSL</p>
+                  <p>C) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tls-ssl')">TLS / SSL</span></p>
                   <p>D) SMTP</p>
                 </div>
                 <p class="mt-2 text-xs text-brand-300">Answer: C</p>
@@ -479,17 +496,17 @@
               </div>
 
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">5. True or False: Once your browser gets the IP address, it can directly connect to the server.</p>
+                <p class="text-sm font-semibold text-brand-200">5. True or False: Once your browser gets the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>, it can directly connect to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>.</p>
                 <p class="mt-2 text-xs text-brand-300">Answer: True (after establishing a TCP connection and TLS handshake for HTTPS)</p>
               </div>
 
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">6. Matching: Connect each term to its description.</p>
                 <div class="mt-2 grid gap-2 text-sm text-theme-muted">
-                  <p>DNS &rarr; Translates domain names to IP addresses</p>
+                  <p><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> &rarr; Translates domain names to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span></p>
                   <p>HTTP &rarr; Protocol for transferring web pages</p>
-                  <p>Router &rarr; Directs data packets between networks</p>
-                  <p>Packet &rarr; A small chunk of data sent over a network</p>
+                  <p><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> &rarr; Directs data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> between networks</p>
+                  <p><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> &rarr; A small chunk of data sent over a network</p>
                 </div>
               </div>
 
@@ -499,8 +516,8 @@
               </div>
 
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">8. Fill in the blank: The ____ translates domain names into IP addresses.</p>
-                <p class="mt-2 text-xs text-brand-300">Answer: DNS (Domain Name System)</p>
+                <p class="text-sm font-semibold text-brand-200">8. Fill in the blank: The ____ translates domain names into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>.</p>
+                <p class="mt-2 text-xs text-brand-300">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> (Domain Name System)</p>
               </div>
             </div>
           </div>
@@ -511,12 +528,12 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
             <div class="mt-6 space-y-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">1. What would happen if all DNS servers stopped working?</p>
-                <p class="text-sm text-theme-muted mt-1">Think about how you would reach websites without knowing their IP addresses. Could you still access any sites? Which ones?</p>
+                <p class="text-sm font-semibold text-brand-200">1. What would happen if all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> stopped working?</p>
+                <p class="text-sm text-theme-muted mt-1">Think about how you would reach websites without knowing their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>. Could you still access any sites? Which ones?</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">2. Why do you think data is broken into packets instead of being sent as one large file?</p>
-                <p class="text-sm text-theme-muted mt-1">Consider what happens if a connection drops mid-transfer. How do packets make the internet more reliable?</p>
+                <p class="text-sm font-semibold text-brand-200">2. Why do you think data is broken into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> instead of being sent as one large file?</p>
+                <p class="text-sm text-theme-muted mt-1">Consider what happens if a connection drops mid-transfer. How do <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> make the internet more reliable?</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">3. How would the web be different if there was no encryption (HTTPS)?</p>
@@ -535,14 +552,14 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                   <p class="text-sm font-semibold text-brand-200">Project 1: Trace the Route</p>
                 </div>
-                <p class="text-sm text-theme-muted">Open a terminal / command prompt on your computer. Type <code class="text-brand-200 font-mono text-xs">tracert consicaacademy.com</code> (Windows) or <code class="text-brand-200 font-mono text-xs">traceroute consicaacademy.com</code> (Mac/Linux). Observe how many hops it takes to reach the server. Write down the IP addresses you see along the way.</p>
+                <p class="text-sm text-theme-muted">Open a terminal / command prompt on your computer. Type <code class="text-brand-200 font-mono text-xs">tracert consicaacademy.com</code> (Windows) or <code class="text-brand-200 font-mono text-xs">traceroute consicaacademy.com</code> (Mac/Linux). Observe how many hops it takes to reach the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>. Write down the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> you see along the way.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <div class="flex items-center gap-2 mb-2">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                  <p class="text-sm font-semibold text-brand-200">Project 2: Packet Detective</p>
+                  <p class="text-sm font-semibold text-brand-200">Project 2: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> Detective</p>
                 </div>
-                <p class="text-sm text-theme-muted">Open your browser's developer tools (F12) and go to the Network tab. Visit any website. Watch the list of requests appear. How many individual files (HTML, CSS, JS, images) are loaded for a single page? Identify which ones came from the same server.</p>
+                <p class="text-sm text-theme-muted">Open your browser's developer tools (F12) and go to the Network tab. Visit any website. Watch the list of requests appear. How many individual files (HTML, CSS, JS, images) are loaded for a single page? Identify which ones came from the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>.</p>
               </div>
             </div>
           </div>
@@ -555,9 +572,9 @@
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">Learning Objectives</p>
                 <ul class="mt-2 space-y-1 text-sm text-theme-muted">
-                  <li>&bull; Understand the sequence of events when a URL is requested</li>
-                  <li>&bull; Explain the role of DNS in translating domain names to IP addresses</li>
-                  <li>&bull; Describe how data travels across networks in packets</li>
+                  <li>&bull; Understand the sequence of events when a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> is requested</li>
+                  <li>&bull; Explain the role of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> in translating domain names to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span></li>
+                  <li>&bull; Describe how data travels across networks in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></li>
                   <li>&bull; Distinguish between HTTP and HTTPS</li>
                 </ul>
               </div>
@@ -565,18 +582,18 @@
                 <p class="text-sm font-semibold text-brand-200">Preparation Needed</p>
                 <ul class="mt-2 space-y-1 text-sm text-theme-muted">
                   <li>&bull; Ensure traceroute/tracert is available on student computers</li>
-                  <li>&bull; Prepare a slide showing the DNS hierarchy (root, TLD, authoritative)</li>
-                  <li>&bull; Have a simple network diagram ready for the packet routing discussion</li>
+                  <li>&bull; Prepare a slide showing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> hierarchy (root, TLD, authoritative)</li>
+                  <li>&bull; Have a simple network diagram ready for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> routing discussion</li>
                   <li>&bull; Test browser developer tools on a few common sites in advance</li>
                 </ul>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200">Discussion Prompts</p>
                 <ul class="mt-2 space-y-1 text-sm text-theme-muted">
-                  <li>&bull; "What would the internet be like without DNS?"</li>
-                  <li>&bull; "Why does your browser cache DNS results? What are the tradeoffs?"</li>
+                  <li>&bull; "What would the internet be like without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span>?"</li>
+                  <li>&bull; "Why does your browser <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> results? What are the tradeoffs?"</li>
                   <li>&bull; "How do you think loading a webpage today compares to loading one in 1995?"</li>
-                  <li>&bull; "What could cause a packet to be lost, and how does TCP handle that?"</li>
+                  <li>&bull; "What could cause a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> to be lost, and how does TCP handle that?"</li>
                 </ul>
               </div>
             </div>

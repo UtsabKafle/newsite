@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
               The apps we use today would seem like science fiction to someone from the 1990s. We carry powerful computers in our pockets, ask voice assistants to set reminders, and navigate unfamiliar cities with turn-by-turn directions. But the pace of change is accelerating.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The next generation of apps will be shaped by <span class="text-brand-200 font-semibold">artificial intelligence</span> that anticipates your needs, <span class="text-brand-200 font-semibold">augmented reality</span> that blends digital information with the real world, and <span class="text-brand-200 font-semibold">voice interfaces</span> that let you interact without touching a screen.
+              The next generation of apps will be shaped by <span class="text-brand-200 font-semibold">artificial intelligence</span> that anticipates your needs, <span class="text-brand-200 font-semibold">augmented reality</span> that blends digital information with the real world, and <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voice-interface')">voice interfaces</span></span> that let you interact without touching a screen.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this final chapter, we will explore the technologies that will define the future of software — from AI-powered apps and AR shopping to quantum computing and the Internet of Things.
+              In this final chapter, we will explore the technologies that will define the future of software — from <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span>-powered apps and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> shopping to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">quantum computing</span> and the Internet of Things.
             </p>
           </div>
         </section>
@@ -195,7 +197,7 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted"><strong>AI-powered apps</strong> use machine learning models to make predictions and decisions. These models are trained on vast amounts of data and can recognise images, understand speech, translate languages, and recommend content. <strong>AR apps</strong> use your phone's camera to overlay digital objects onto the real world. <strong>Voice apps</strong> use natural language processing (NLP) to understand what you say and respond intelligently.</p>
+              <p class="text-sm text-theme-muted"><strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span>-powered apps</strong> use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-learning')">machine learning</span> models to make predictions and decisions. These models are trained on vast amounts of data and can recognise images, understand speech, translate languages, and recommend content. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> apps</strong> use your phone's camera to overlay digital objects onto the real world. <strong>Voice apps</strong> use natural language processing (NLP) to understand what you say and respond intelligently.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -203,7 +205,7 @@
               <p class="text-sm text-theme-muted">Today's apps are like 1990s flip phones compared to what is coming. Imagine showing someone from 1995 a smartphone — GPS maps, streaming video, facial recognition, instant translation. They would think it was magic. In the same way, the apps of 2040 will make today's technology feel primitive. We can only begin to imagine the possibilities — apps that read your emotions, interfaces controlled by thought, and digital worlds indistinguishable from reality.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Future Trends</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Here are the key trends shaping the next decade of software:
             </p>
@@ -213,7 +215,7 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">AI Assistants</h4>
-                <p class="mt-2 text-sm text-theme-muted">AI is becoming built into every app — not just chatbots. Expect apps that write emails for you, generate art, compose music, and debug your code automatically.</p>
+                <p class="mt-2 text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span> is becoming built into every app — not just chatbots. Expect apps that write emails for you, generate art, compose music, and debug your code automatically.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -227,14 +229,14 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Voice-Controlled Everything</h4>
-                <p class="mt-2 text-sm text-theme-muted">Voice interfaces are moving beyond simple commands. Future apps will hold natural conversations, understand context, and act on your behalf across multiple services.</p>
+                <p class="mt-2 text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voice-interface')">Voice interfaces</span> are moving beyond simple commands. Future apps will hold natural conversations, understand context, and act on your behalf across multiple services.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Quantum Computing</h4>
-                <p class="mt-2 text-sm text-theme-muted">Quantum computers use qubits that can be 0 and 1 simultaneously. They will solve problems in seconds that would take today's computers thousands of years — revolutionising drug discovery, cryptography, and AI.</p>
+                <p class="mt-2 text-sm text-theme-muted">Quantum computers use qubits that can be 0 and 1 simultaneously. They will solve problems in seconds that would take today's computers thousands of years — revolutionising drug discovery, cryptography, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span>.</p>
               </div>
             </div>
 
@@ -245,9 +247,18 @@
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The future of apps is not about any single technology — it is about combining them. Imagine an AI assistant that lives in your AR glasses, controlled by your voice, running on cloud servers, secured by quantum encryption, and accessible from any device. That future is closer than you think.</p>
+              <p class="text-sm text-theme-muted">The future of apps is not about any single technology — it is about combining them. Imagine an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span> assistant that lives in your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> glasses, controlled by your voice, running on cloud servers, secured by quantum encryption, and accessible from any device. That future is closer than you think.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, future of apps involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-learning')">Machine Learning</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -262,13 +273,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>AI</td><td>Artificial Intelligence — machines that can perform tasks that normally require human intelligence</td></tr>
-                  <tr><td>Machine Learning</td><td>A subset of AI where systems learn and improve from data without being explicitly programmed</td></tr>
-                  <tr><td>AR</td><td>Augmented Reality — overlaying digital information onto the real world</td></tr>
-                  <tr><td>VR</td><td>Virtual Reality — a fully immersive digital environment</td></tr>
-                  <tr><td>Voice Interface</td><td>A user interface that uses speech recognition and natural language processing</td></tr>
-                  <tr><td>IoT</td><td>Internet of Things — a network of physical devices connected to the internet</td></tr>
-                  <tr><td>Quantum Computing</td><td>Computing using quantum-mechanical phenomena like superposition and entanglement</td></tr>
+                  <tr id="vocab-ai"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span></td><td>Artificial Intelligence — machines that can perform tasks that normally require human intelligence</td></tr>
+                  <tr id="vocab-machine-learning"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-learning')">Machine Learning</span></td><td>A subset of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ai')">AI</span> where systems learn and improve from data without being explicitly programmed</td></tr>
+                  <tr id="vocab-ar"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span></td><td>Augmented Reality — overlaying digital information onto the real world</td></tr>
+                  <tr id="vocab-vr"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vr')">VR</span></td><td>Virtual Reality — a fully immersive digital environment</td></tr>
+                  <tr id="vocab-voice-interface"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voice-interface')">Voice Interface</span></td><td>A user interface that uses speech recognition and natural language processing</td></tr>
+                  <tr id="vocab-iot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('iot')">IoT</span></td><td>Internet of Things — a network of physical devices connected to the internet</td></tr>
+                  <tr id="vocab-quantum-computing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span></td><td>Computing using quantum-mechanical phenomena like superposition and entanglement</td></tr>
                 </tbody>
               </table>
             </div>
@@ -295,13 +306,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Pokemon GO (2016) was the first AR app to achieve mainstream success. At its peak, it had 45 million daily active users walking around their neighbourhoods catching virtual creatures.</p>
+                <p class="text-sm text-theme-muted">Pokemon GO (2016) was the first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> app to achieve mainstream success. At its peak, it had 45 million daily active users walking around their neighbourhoods catching virtual creatures.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The Internet of Things (IoT) now connects over 15 billion devices — from smart fridges to industrial sensors. By 2030, that number is expected to exceed 30 billion.</p>
+                <p class="text-sm text-theme-muted">The Internet of Things (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('iot')">IoT</span>) now connects over 15 billion devices — from smart fridges to industrial sensors. By 2030, that number is expected to exceed 30 billion.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -332,7 +343,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does AR stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ar')">AR</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Artificial Reality</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Augmented Reality</label>
@@ -346,15 +357,15 @@
                 <p class="text-sm font-semibold text-theme">2. Which technology uses qubits that can be 0 and 1 at the same time?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Classical Computing</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Quantum Computing</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Cloud Computing</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Edge Computing</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Quantum Computing</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('quantum-computing')">Quantum Computing</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What does IoT stand for?</p>
+                <p class="text-sm font-semibold text-theme">3. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iot')">IoT</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Internet of Things</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Integration of Technology</label>

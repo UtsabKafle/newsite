@@ -69,6 +69,8 @@
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
     .comparison-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
     @media (min-width: 768px) { .comparison-grid { grid-template-columns: 1fr 1fr; } }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -187,7 +189,7 @@
               Imagine a library. RAM is the book you have open on your desk right now. Storage is the entire library — every book on every shelf, waiting to be picked up. When you close a book and put it back, it stays there until you need it again, even after the library closes for the night.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Your computer's storage drive holds everything: the operating system, your applications, photos, music, documents, and saved games. Unlike RAM, storage is <span class="text-brand-200">non-volatile</span> — it remembers everything even after you shut down the computer. There are two main types of storage drives: Hard Disk Drives (HDD) and Solid-State Drives (SSD).
+              Your computer's storage drive holds everything: the operating system, your applications, photos, music, documents, and saved games. Unlike RAM, storage is <span class="text-brand-200">non-volatile</span> — it remembers everything even after you shut down the computer. There are two main types of storage drives: Hard Disk Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>) and Solid-State Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span>).
             </p>
           </div>
         </section>
@@ -197,40 +199,39 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An HDD is like a record player with multiple vinyl records stacked on top of each other. A tiny arm moves back and forth to read or write music (data) on the spinning discs. An SSD is like a giant notebook with no moving parts — pages can be written or erased instantly using electricity.
+              An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> is like a record player with multiple vinyl records stacked on top of each other. A tiny arm moves back and forth to read or write music (data) on the spinning discs. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> is like a giant notebook with no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('moving-parts')">moving parts</span> — pages can be written or erased instantly using electricity.
             </p>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of an HDD as a filing cabinet where you have to spin the drawer open and flip through folders to find a document. An SSD is like having all your documents spread on a table — you can grab any one instantly. The filing cabinet holds much more but is slow; the table is fast but costs more per sheet.</p>
+              <p class="text-sm text-theme-muted">Think of an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> as a filing cabinet where you have to spin the drawer open and flip through folders to find a document. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> is like having all your documents spread on a table — you can grab any one instantly. The filing cabinet holds much more but is slow; the table is fast but costs more per sheet.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Hard Disk Drives (HDD)</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An HDD stores data on one or more rigid <span class="text-brand-200">platters</span> coated with magnetic material. The platters spin at high speed — typically 5400 or 7200 RPM (revolutions per minute). A <span class="text-brand-200">read/write head</span> on a moving arm floats nanometers above the surface, magnetizing tiny regions to write data or detecting magnetic fields to read it.
+              An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> stores data on one or more rigid <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span></span> coated with magnetic material. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span> spin at high speed — typically 5400 or 7200 RPM (revolutions per minute). A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('read-write-head')">read/write head</span></span> on a moving arm floats nanometers above the surface, magnetizing tiny regions to write data or detecting magnetic fields to read it.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To read a file, the arm moves the head to the correct track (seeking), waits for the platter to spin the right sector under the head (rotational latency), and then reads the data. This mechanical process is why HDDs are slower than SSDs — moving physical parts takes time measured in milliseconds.
+              To read a file, the arm moves the head to the correct track (seeking), waits for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platter</span> to spin the right sector under the head (rotational latency), and then reads the data. This mechanical process is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> are slower than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> — moving physical parts takes time measured in milliseconds.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Solid-State Drives (SSD)</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An SSD has no moving parts. It uses <span class="text-brand-200">NAND flash memory</span> — billions of floating-gate transistors organized into pages and blocks. Each transistor traps electrons to represent a 0 or 1. Data is written in pages (typically 4 KB or 16 KB) but must be erased in larger blocks (several MB). This is called the <span class="text-brand-200">write amplification</span> problem.
+              An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> has no moving parts. It uses <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nand-flash')">NAND flash</span> memory</span> — billions of floating-gate transistors organized into pages and blocks. Each transistor traps electrons to represent a 0 or 1. Data is written in pages (typically 4 KB or 16 KB) but must be erased in larger blocks (several MB). This is called the <span class="text-brand-200">write amplification</span> problem.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Because SSDs access data electronically rather than mechanically, they are dramatically faster. A typical SATA SSD reads at about 500 MB/s, while a modern NVMe SSD using PCIe Gen 4 can read at over 7000 MB/s — that is 20 times faster than a fast HDD.
+              Because <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> access data electronically rather than mechanically, they are dramatically faster. A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> reads at about 500 MB/s, while a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> using PCIe Gen 4 can read at over 7000 MB/s — that is 20 times faster than a fast <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              HDDs use technologies like <span class="text-brand-200">PMR</span> (Perpendicular Magnetic Recording) or <span class="text-brand-200">SMR</span> (Shingled Magnetic Recording) to increase density. The fastest enterprise HDDs reach speeds around 260 MB/s with capacities up to 30 TB. The performance bottleneck is always mechanical: seek time (typically 4-15 ms) and rotational latency (half a rotation at 7200 RPM = 4.17 ms).
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> use technologies like <span class="text-brand-200">PMR</span> (Perpendicular Magnetic Recording) or <span class="text-brand-200">SMR</span> (Shingled Magnetic Recording) to increase density. The fastest enterprise <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> reach speeds around 260 MB/s with capacities up to 30 TB. The performance bottleneck is always mechanical: seek time (typically 4-15 ms) and rotational latency (half a rotation at 7200 RPM = 4.17 ms).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              SSDs use a <span class="text-brand-200">flash translation layer</span> (FTL) that maps logical addresses from the OS to physical NAND locations. The FTL handles wear leveling (distributing writes evenly), garbage collection (consolidating valid data from partially-filled blocks), and bad block management. Modern SSDs use <span class="text-brand-200">3D NAND</span> with layers stacked vertically — up to 238 layers in 2025 products — to increase density without shrinking individual cells.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> use a <span class="text-brand-200">flash translation layer</span> (FTL) that maps logical addresses from the OS to physical NAND locations. The FTL handles <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wear-leveling')">wear leveling</span> (distributing writes evenly), garbage collection (consolidating valid data from partially-filled blocks), and bad block management. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> use <span class="text-brand-200">3D NAND</span> with layers stacked vertically — up to 238 layers in 2025 products — to increase density without shrinking individual cells.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              SSDs connect via <span class="text-brand-200">SATA</span> (6 Gbps, ~550 MB/s real-world) or <span class="text-brand-200">NVMe</span> over PCIe (up to 32 Gbps per Gen 5 lane). The NVMe protocol was designed specifically for SSDs, supporting deep command queues and parallel I/O, while the older AHCI protocol (used with SATA) was designed for spinning disks and adds unnecessary overhead.
-            </p>
-          </div>
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> connect via <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></span> (6 Gbps, ~550 MB/s real-world) or <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span></span> over PCIe (up to 32 Gbps per Gen 5 lane). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> protocol was designed specifically for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>, supporting deep command queues and parallel I/O, while the older AHCI protocol (used with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span>) was designed for spinning disks and adds unnecessary overhead.
+            </p></div>
         </section>
 
         <!-- HDD vs SSD Comparison -->
@@ -247,14 +248,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Speed</td><td>Slow (80-260 MB/s)</td><td>Fast (500-7000+ MB/s)</td></tr>
-                  <tr><td>Moving Parts</td><td>Yes (spinning platters, moving arm)</td><td>No (all electronic)</td></tr>
-                  <tr><td>Durability</td><td>Fragile — damaged by drops and bumps</td><td>Tough — no moving parts to break</td></tr>
-                  <tr><td>Noise</td><td>Audible (spinning and clicking)</td><td>Silent</td></tr>
-                  <tr><td>Power Usage</td><td>Higher (6-10 W)</td><td>Lower (2-5 W)</td></tr>
-                  <tr><td>Cost per GB</td><td>Cheap (~$0.02/GB)</td><td>More expensive (~$0.08/GB)</td></tr>
-                  <tr><td>Max Capacity</td><td>Up to 30 TB</td><td>Up to 8 TB (consumer) / 30 TB (enterprise)</td></tr>
-                  <tr><td>Best For</td><td>Large media archives, backups</td><td>OS, apps, games, active projects</td></tr>
+                  <tr id="vocab-speed"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('speed')">Speed</span></td><td>Slow (80-260 MB/s)</td><td>Fast (500-7000+ MB/s)</td></tr>
+                  <tr id="vocab-moving-parts"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('moving-parts')">Moving Parts</span></td><td>Yes (spinning platters, moving arm)</td><td>No (all electronic)</td></tr>
+                  <tr id="vocab-durability"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('durability')">Durability</span></td><td>Fragile — damaged by drops and bumps</td><td>Tough — no moving parts to break</td></tr>
+                  <tr id="vocab-noise"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('noise')">Noise</span></td><td>Audible (spinning and clicking)</td><td>Silent</td></tr>
+                  <tr id="vocab-power-usage"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-usage')">Power Usage</span></td><td>Higher (6-10 W)</td><td>Lower (2-5 W)</td></tr>
+                  <tr id="vocab-cost-per-gb"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cost-per-gb')">Cost per GB</span></td><td>Cheap (~$0.02/GB)</td><td>More expensive (~$0.08/GB)</td></tr>
+                  <tr id="vocab-max-capacity"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('max-capacity')">Max Capacity</span></td><td>Up to 30 TB</td><td>Up to 8 TB (consumer) / 30 TB (enterprise)</td></tr>
+                  <tr id="vocab-best-for"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('best-for')">Best For</span></td><td>Large media archives, backups</td><td>OS, apps, games, active projects</td></tr>
                 </tbody>
               </table>
             </div>
@@ -274,16 +275,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>HDD</td><td>Hard Disk Drive; mechanical storage using spinning magnetic platters</td></tr>
-                  <tr><td>SSD</td><td>Solid-State Drive; electronic storage using NAND flash memory</td></tr>
-                  <tr><td>NAND Flash</td><td>A type of non-volatile memory that stores data in floating-gate transistors</td></tr>
-                  <tr><td>Platter</td><td>A spinning magnetic disc inside an HDD where data is stored</td></tr>
-                  <tr><td>Read/Write Head</td><td>A tiny electromagnetic component that reads and writes data on HDD platters</td></tr>
-                  <tr><td>SATA</td><td>Serial ATA; a standard interface for connecting drives (up to 6 Gbps)</td></tr>
-                  <tr><td>NVMe</td><td>Non-Volatile Memory Express; a fast protocol for SSDs over PCIe</td></tr>
-                  <tr><td>Fragmentation</td><td>Files split into pieces scattered across an HDD, slowing read speed</td></tr>
-                  <tr><td>TRIM</td><td>An SSD command that tells the drive which data blocks are no longer in use</td></tr>
-                  <tr><td>Wear Leveling</td><td>An SSD technique that distributes writes evenly to extend drive life</td></tr>
+                  <tr id="vocab-hdd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></td><td>Hard Disk Drive; mechanical storage using spinning magnetic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span></td></tr>
+                  <tr id="vocab-ssd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></td><td>Solid-State Drive; electronic storage using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nand-flash')">NAND flash</span> memory</td></tr>
+                  <tr id="vocab-nand-flash"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nand-flash')">NAND Flash</span></td><td>A type of non-volatile memory that stores data in floating-gate transistors</td></tr>
+                  <tr id="vocab-platter"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">Platter</span></td><td>A spinning magnetic disc inside an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> where data is stored</td></tr>
+                  <tr id="vocab-read-write-head"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('read-write-head')">Read/Write Head</span></td><td>A tiny electromagnetic component that reads and writes data on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span></td></tr>
+                  <tr id="vocab-sata"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></td><td>Serial ATA; a standard interface for connecting drives (up to 6 Gbps)</td></tr>
+                  <tr id="vocab-nvme"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span></td><td>Non-Volatile Memory Express; a fast protocol for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> over PCIe</td></tr>
+                  <tr id="vocab-fragmentation"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span></td><td>Files split into pieces scattered across an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>, slowing read speed</td></tr>
+                  <tr id="vocab-trim"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('trim')">TRIM</span></td><td>An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> command that tells the drive which data blocks are no longer in use</td></tr>
+                  <tr id="vocab-wear-leveling"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wear-leveling')">Wear Leveling</span></td><td>An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> technique that distributes writes evenly to extend drive life</td></tr>
                 </tbody>
               </table>
             </div>
@@ -299,31 +300,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first HDD, IBM's 305 RAMAC (1956), weighed over a ton and stored just 5 MB of data — about the size of one MP3 song.</p>
+                <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>, IBM's 305 RAMAC (1956), weighed over a ton and stored just 5 MB of data — about the size of one MP3 song.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">An HDD read/write head flies at just 3 nanometers above the platter — that is 1/10,000th the width of a human hair. If a dust particle gets in, it can cause a "head crash."</p>
+                <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('read-write-head')">read/write head</span> flies at just 3 nanometers above the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platter</span> — that is 1/10,000th the width of a human hair. If a dust particle gets in, it can cause a "head crash."</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A typical SSD has no moving parts and can survive a drop from 5 feet while operating. An HDD dropped just 6 inches while running can suffer permanent damage.</p>
+                <p class="text-sm text-theme-muted">A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> has no moving parts and can survive a drop from 5 feet while operating. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> dropped just 6 inches while running can suffer permanent damage.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The fastest consumer NVMe SSDs in 2025 can transfer an entire 100 GB game in under 15 seconds. A typical HDD would take over 6 minutes.</p>
+                <p class="text-sm text-theme-muted">The fastest consumer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> in 2025 can transfer an entire 100 GB game in under 15 seconds. A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> would take over 6 minutes.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Solid-state drive technology dates back to the 1950s with core memory, but the first modern SSD for consumers was released by Intel in 2008 with just 80 GB of capacity.</p>
+                <p class="text-sm text-theme-muted">Solid-state drive technology dates back to the 1950s with core memory, but the first modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> for consumers was released by Intel in 2008 with just 80 GB of capacity.</p>
               </div>
             </div>
           </div>
@@ -349,36 +350,36 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the main difference between an HDD and an SSD?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the main difference between an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> and an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> HDD uses flash memory, SSD uses magnetic platters</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> HDD uses moving parts, SSD uses electronic memory</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> HDD is faster than SSD</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> SSD uses more power than HDD</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> uses flash memory, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> uses magnetic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> uses moving parts, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> uses electronic memory</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> is faster than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> uses more power than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> HDD uses moving parts, SSD uses electronic memory</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> uses moving parts, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> uses electronic memory</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which interface is the fastest for SSDs?</p>
+                <p class="text-sm font-semibold text-theme">2. Which interface is the fastest for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> SATA</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> NVMe over PCIe</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> over PCIe</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> USB 3.0</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Ethernet</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> NVMe over PCIe</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> over PCIe</p>
               </div>
 
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which type of storage is more resistant to physical damage from drops?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> HDD</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> SSD</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Both are equally durable</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Neither is durable</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> SSD (no moving parts to break)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> (no moving parts to break)</p>
               </div>
 
               <div class="kb-check">
@@ -391,35 +392,35 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">5. True or False: HDDs are generally cheaper per gigabyte than SSDs.</p>
+                <p class="text-sm font-semibold text-theme">5. True or False: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> are generally cheaper per gigabyte than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>.</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> False</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> True. HDDs offer more storage for the same price, making them better for bulk storage.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> True. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> offer more storage for the same price, making them better for bulk storage.</p>
               </div>
 
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">6. Matching: Connect each term to its description.</p>
                 <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-theme-muted">
-                  <div class="glass-panel p-3">1. NVMe</div>
-                  <div class="glass-panel p-3">A. Magnetic discs that spin inside an HDD</div>
-                  <div class="glass-panel p-3">2. Platter</div>
-                  <div class="glass-panel p-3">B. Fast protocol designed for SSDs</div>
-                  <div class="glass-panel p-3">3. TRIM</div>
-                  <div class="glass-panel p-3">C. Command that tells SSD which blocks are free</div>
+                  <div class="glass-panel p-3">1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span></div>
+                  <div class="glass-panel p-3">A. Magnetic discs that spin inside an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></div>
+                  <div class="glass-panel p-3">2. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">Platter</span></div>
+                  <div class="glass-panel p-3">B. Fast protocol designed for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span></div>
+                  <div class="glass-panel p-3">3. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('trim')">TRIM</span></div>
+                  <div class="glass-panel p-3">C. Command that tells <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> which blocks are free</div>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> 1-B, 2-A, 3-C</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">7. Fill in the blank: The technology that distributes writes evenly across an SSD to extend its life is called <span class="text-brand-200">____</span>.</p>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> wear leveling</p>
+                <p class="text-sm font-semibold text-theme">7. Fill in the blank: The technology that distributes writes evenly across an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> to extend its life is called <span class="text-brand-200">____</span>.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wear-leveling')">wear leveling</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">8. Fill in the blank: When an HDD file is split into pieces stored in different locations, this is called <span class="text-brand-200">____</span>.</p>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> fragmentation</p>
+                <p class="text-sm font-semibold text-theme">8. Fill in the blank: When an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> file is split into pieces stored in different locations, this is called <span class="text-brand-200">____</span>.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">fragmentation</span></p>
               </div>
 
             </div>

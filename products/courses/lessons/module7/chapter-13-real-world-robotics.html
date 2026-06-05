@@ -4,70 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
+
   <title>Chapter 13: Real World Robotics | Consica Academy</title>
-  <meta name="description" content="Chapter 13: Real World Robotics. Discovering industrial arms in factory workflows">
+  <meta name="description" content="Chapter 13: Real World Robotics.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
-          },
-          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('consica-theme');
-      var theme = stored || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css">
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>
-    .static-main { padding-top: var(--nav-height); }
-    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
-    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
-    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
-    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
-    .kb-answer { display: none; }
-    .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-ring" role="status" aria-label="Loading"></div>
-      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
-    </div>
-  </div>
-
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
-
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
@@ -91,34 +65,21 @@
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
-
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
-
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,32 +91,18 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
-
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
       <div class="flex justify-around items-center h-16 px-2">
-        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
-          <span class="text-[10px] font-medium">Home</span>
-        </a>
-        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
-          <span class="text-[10px] font-medium">Products</span>
-        </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
-          <span class="text-[10px] font-medium">Services</span>
-        </a>
-        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
-          <span class="text-[10px] font-medium">Contact</span>
-        </a>
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
       </div>
     </nav>
+
 
     <main id="main-content" class="static-main">
       <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
@@ -163,17 +110,21 @@
           <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 13</span>
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
-
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Real World Robotics</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Discovering industrial arms in factory workflows</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Real-world robotics covers advanced industrial arms, surgical assistance bots, warehouse delivery nodes, and space exploration probes.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Real World Robotics as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('real-world-robotics')">Real World Robotics</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 <div class="glass-panel p-3 text-center">
@@ -193,18 +144,17 @@
                 </div>
                 
               </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, Real World Robotics manages feedback loops.</p>
+              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('real-world-robotics')">Real World Robotics</span> manages feedback loops.</p>
             </div>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
             <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
               <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, Real World Robotics operates through specific electrical and mechanical rules:</p>
+                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('real-world-robotics')">Real World Robotics</span> operates through specific electrical and mechanical rules:</p>
                 <ol class="mt-4 space-y-3 text-sm text-theme-muted">
                   
                   <li class="flex gap-3">
@@ -249,33 +199,54 @@
           </div>
         </section>
 
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-13-real-world-robotics/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </section>
 
-        <!-- Core Explanation -->
-        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Controllers read the voltage values from the Real World Robotics subsystem. By comparing these values to set thresholds in the code, the robot decides whether to drive straight, reverse, turn, or activate arm grabbers.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Proper integration of Real World Robotics requires managing noise. Electrical signals can fluctuate, requiring calibration algorithms, averaging, or debouncing to ensure the robot doesn't misinterpret environment hazards.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">For advanced robotics, Real World Robotics data is fed into filtering algorithms (like Kalman filters) to estimate real-time coordinates. Controllers utilize Pulse Width Modulation (PWM) to regulate motor speed and PID loops to lock wheel alignment.</p>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Robots are not just laboratory experiments or factory machines — they are actively transforming the real world. From exploring distant planets to performing delicate surgery, from fighting wildfires to delivering packages, robots are solving problems that were impossible or dangerous for humans just a generation ago.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Real-world robotics faces challenges that laboratory robots never encounter: extreme temperatures, dust and moisture, unpredictable humans, communication delays, and the absolute requirement for reliability. A robot that works perfectly in a clean lab might fail immediately in a dusty construction site or a rainy forest.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will explore how robots are used in various real-world domains — space exploration, medicine, agriculture, search and rescue, and military applications. You will learn about the unique challenges each environment presents and how engineers adapt robot designs to overcome them.</p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
-        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Space robotics faces some of the most extreme conditions imaginable. The Mars rover must operate at temperatures below -100°C at night, with radiation levels that would damage ordinary electronics, and a communication delay of up to 20 minutes each way. This means the rover must make its own decisions — engineers cannot joystick it from Earth. The rover's computer is radiation-hardened and runs specialized software for autonomous navigation.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Medical robots assist surgeons with superhuman precision. The da Vinci Surgical System, used in over 10 million procedures, translates the surgeon's hand movements into precise motions of tiny instruments inside the patient's body. It filters out hand tremors, scales movements (a 1 cm hand movement becomes a 1 mm instrument movement), and provides 3D high-definition views of the surgical site.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of real-world robots like specialized tools in a toolbox. You would not use a sledgehammer to hang a picture frame, and you would not use a surgical scalpel to chop wood. Similarly, space robots are built for space, medical robots are built for operating rooms, and agricultural robots are built for farms. Each is optimized for its unique environment.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Agricultural robots are transforming farming. Autonomous tractors can plow, plant, and harvest with GPS guidance accurate to 2 cm. Drones monitor crop health using multispectral cameras that detect plant stress before it is visible to the human eye. Robotic fruit pickers use computer vision to identify ripe fruit and gently harvest it without bruising. These robots help address labor shortages and reduce the environmental impact of farming.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Search and rescue robots operate in disaster zones where humans cannot safely go. After earthquakes, snake-like robots crawl through rubble looking for survivors. Aerial drones provide overhead views to coordinate rescue efforts. Underwater robots search for downed aircraft and missing boats. These robots must be rugged, waterproof or dustproof, and able to operate on battery power for extended periods.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Military robots perform dangerous missions that would risk human lives. Bomb disposal robots allow operators to inspect and neutralize explosives from a safe distance. Reconnaissance drones gather intelligence behind enemy lines. Unmanned ground vehicles transport supplies and evacuate wounded soldiers. The use of armed autonomous drones raises serious ethical questions that society is still debating.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The most remote robot in existence is Voyager 1, launched in 1977. It is now over 24 billion kilometers from Earth, traveling through interstellar space. Its radio signal takes over 22 hours to reach Earth. Voyager's computer has only 68 kilobytes of memory — less than a 1980s home computer.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Underwater robotics faces unique challenges. Radio waves (including WiFi and GPS) do not travel through water, so underwater robots must navigate using acoustics, inertial sensors, and pre-programmed missions. Pressure at depth is immense — at 4,000 meters (a typical deep-sea depth), the pressure is 400 times atmospheric pressure, requiring specialized pressure housings and oil-compensated electronics.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Robotic exoskeletons are wearable robots that enhance human strength and endurance. They are used in rehabilitation to help stroke patients relearn walking, in industry to reduce worker fatigue when lifting heavy objects, and in military applications to allow soldiers to carry heavy loads over long distances. Exoskeletons must be lightweight, comfortable, and perfectly synchronized with the user's natural movements.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The ethical implications of real-world robots are profound. As robots become more capable, questions arise about privacy (drones with cameras), accountability (who is responsible when a self-driving car crashes?), employment (which jobs should be automated?), and even robot rights. Engineers and policymakers are working together to develop guidelines for responsible robotics.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
@@ -287,200 +258,133 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Real World Robotics</td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr><td>Voltage Signal</td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr><td>Microcontroller</td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr><td>Actuator</td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
+                  <tr id="vocab-real-world-robotics"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('real-world-robotics')">Real World Robotics</span></td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr id="vocab-voltage-signal"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span></td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr id="vocab-microcontroller"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span></td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr id="vocab-actuator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span></td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
-        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Robotic components in Real World Robotics are designed to operate under extreme vibration.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 80% of automated factories use similar sensors to align precision arms.</p>
+              <p class="text-sm text-theme-muted">The Mars rover Curiosity has traveled over 25 kilometers on the Martian surface since landing in 2012, all while being controlled from Earth over 200 million kilometers away.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The technology has shrunk in size so much that micro-sensors can fit inside consumer watches.</p>
+              <p class="text-sm text-theme-muted">The da Vinci surgical robot can filter out hand tremors as small as 0.1 mm, allowing surgeons to perform incredibly delicate procedures.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
+              <p class="text-sm text-theme-muted">Agricultural drones can scan an entire 100-hectare farm in under 30 minutes, collecting data that would take a human worker days to gather on foot.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The deepest-diving underwater robot reached the bottom of the Mariana Trench — nearly 11,000 meters below the ocean surface — in 2019.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Some bomb disposal robots have been in continuous service for over 20 years, proving that well-designed robots can have exceptional longevity.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+<section class="mt-6 lg:mt-10 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robots see the world exactly as humans do.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Robots only read numeric values from sensors (like 'distance = 15cm'). They have no visual context unless running advanced AI computer vision.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Motors always run at the same speed.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Voltage levels decay as batteries drain, requiring controllers to continuously monitor and adjust pulse widths to maintain speed.</p>
-              </div>
-              
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Space robots are controlled in real-time from Earth.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Communication delays of minutes to hours mean space robots must operate autonomously. Engineers upload commands for the day and the robot executes them independently, adapting to unexpected situations on its own.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Medical robots perform surgery automatically.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Medical robots are tools controlled by human surgeons. They do not make decisions or operate independently. The surgeon remains fully in control at all times.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Military robots are autonomous killing machines.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most military robots are remotely operated by humans who make the final decision to use force. Autonomous weapons are controversial and subject to international debate and regulation.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robot farmers replace human farmers entirely.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Agricultural robots assist human farmers by automating specific tasks. Farming still requires human judgment for crop planning, equipment maintenance, and handling unusual conditions.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive elements of Real World Robotics and how they communicate inside the robot controller pipeline.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Observe the loop steps and check how input variables affect speed.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on each component to inspect its purpose and internal wiring.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the primary role of Real World Robotics?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To print papers</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To print papers</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> To capture or process physical feedback</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To capture or process physical feedback</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. What does PWM stand for in motor speed control?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Pulse Width Modulation</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Power Wire Mapping</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Process Wave Meter</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Processor Work Manager</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Pulse Width Modulation</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Pulse Width Modulation</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which unit converts physical attributes into electrical values?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A sensor</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A chassis</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A gear</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A wheel</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> A sensor</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A sensor</p>
               </div>
-              
             </div>
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">Why is it critical for robots to run sensor checking loops multiple times every second?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">What would happen if the feedback link between a sensor and motor was disconnected?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Sensor Mapping</p>
-                <p class="text-sm text-theme-muted">List three scenarios where a robot needs to measure distance. Explain what sensor it should use.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Logic Tree Design</p>
-                <p class="text-sm text-theme-muted">Draw a simple decision flowchart for a robot vacuum that encounters a drop (cliff) in front of it.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Define the role of Real World Robotics.</li><li>Write logical conditions to resolve obstacles.</li><li>Trace data flows from sensor to actuator.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Set up simple logic templates for class reviews.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How does the robot feel its surrounding environment?</li><li>What mistakes might a robot make if its sensor is calibrated poorly?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="chapter-14-design-your-own-robot.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Design Your Own Robot
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-12-robot-decision-making.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 12</a>
+            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-14-design-your-own-robot.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 14 &mdash; Design Your Own Robot</a>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
-            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 7 &middot; Chapter 13</p>
-          </div>
         </section>
-      </article>
+
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -521,26 +425,11 @@
       </div>
     </footer>
   </div>
-
   <script src="../../../../shared/data/brand.js" defer></script>
   <script src="../../../../shared/data/products.js" defer></script>
   <script src="../../../../shared/utils/dom.js" defer></script>
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

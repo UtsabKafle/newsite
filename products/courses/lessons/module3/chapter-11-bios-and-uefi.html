@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
               You have assembled all the hardware, connected every cable, and double-checked your work. Now comes the moment of truth — pressing the power button for the very first time. But before your computer can load Windows, Linux, or any operating system, it needs to run a built-in startup program that checks the hardware and prepares the system to boot.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              This startup program is called the <span class="text-brand-200">BIOS</span> (Basic Input/Output System) or its modern successor, <span class="text-brand-200">UEFI</span> (Unified Extensible Firmware Interface). Think of it as the computer's own internal startup checklist and configuration panel — it runs before anything else and makes sure everything is working.
+              This startup program is called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></span> (Basic Input/Output System) or its modern successor, <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span></span> (Unified Extensible Firmware Interface). Think of it as the computer's own internal startup checklist and configuration panel — it runs before anything else and makes sure everything is working.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn what happens when you press the power button, how to enter the BIOS/UEFI setup, what settings to configure for a new build, and how to troubleshoot common first-boot issues.
+              In this chapter, you will learn what happens when you press the power button, how to enter the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> setup, what settings to configure for a new build, and how to troubleshoot common first-boot issues.
             </p>
           </div>
         </section>
@@ -195,23 +197,23 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The BIOS/UEFI is like the building manager of a hotel. Before guests (the operating system) can check in, the manager does a walkthrough — checking every room (hardware), making sure the lights work (power), and unlocking the front door (boot drive). Only after the manager confirms everything is ready can guests enter.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> is like the building manager of a hotel. Before guests (the operating system) can check in, the manager does a walkthrough — checking every room (hardware), making sure the lights work (power), and unlocking the front door (boot drive). Only after the manager confirms everything is ready can guests enter.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of turning on your PC like starting a car. The BIOS is the car's ECU (engine control unit). When you turn the key, the ECU runs a self-check — oil pressure, fuel level, battery voltage — before allowing the engine to start. If something is wrong, a warning light appears. Your PC does the same thing with POST codes and beep sequences.</p>
+              <p class="text-sm text-theme-muted">Think of turning on your PC like starting a car. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> is the car's ECU (engine control unit). When you turn the key, the ECU runs a self-check — oil pressure, fuel level, battery voltage — before allowing the engine to start. If something is wrong, a warning light appears. Your PC does the same thing with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> codes and beep sequences.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">What Happens at First Boot (POST)</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               When you press the power button, the following sequence occurs:
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">1.</span> The PSU receives the power-on signal and provides power to all components.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> The motherboard's chipset releases the CPU from reset, and the CPU begins executing the BIOS/UEFI firmware from a special flash memory chip on the motherboard.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> The firmware runs the <span class="text-brand-200">Power-On Self-Test (POST)</span> — it checks that the CPU, RAM, storage, and essential peripherals are present and functioning.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> If POST passes, the firmware looks for a bootable device (hard drive, SSD, USB drive) according to the configured <span class="text-brand-200">boot order</span>.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> The motherboard's chipset releases the CPU from reset, and the CPU begins executing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware from a special flash memory chip on the motherboard.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> The firmware runs the <span class="text-brand-200">Power-On Self-Test (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span>)</span> — it checks that the CPU, RAM, storage, and essential peripherals are present and functioning.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> If <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> passes, the firmware looks for a bootable device (hard drive, SSD, USB drive) according to the configured <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-order')">boot order</span></span>.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">5.</span> It loads the bootloader from the first bootable device, which then hands control to the operating system.</p>
             </div>
 
@@ -224,7 +226,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Legacy BIOS</h4>
                 </div>
-                <p class="text-sm text-theme-muted">The original firmware standard, developed in the 1980s. Uses 16-bit mode, runs in real mode, and can only boot from MBR (Master Boot Record) disks up to 2 TB. Text-based interface, navigated with keyboard arrows. Being phased out in favour of UEFI.</p>
+                <p class="text-sm text-theme-muted">The original firmware standard, developed in the 1980s. Uses 16-bit mode, runs in real mode, and can only boot from MBR (Master Boot Record) disks up to 2 TB. Text-based interface, navigated with keyboard arrows. Being phased out in favour of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -233,32 +235,32 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">UEFI</h4>
                 </div>
-                <p class="text-sm text-theme-muted">The modern replacement for BIOS. Runs in 32-bit or 64-bit mode, supports GPT partition tables (disks over 2 TB), has a graphical interface usable with mouse, and supports <span class="text-brand-200">Secure Boot</span> to prevent malicious software from loading during startup. Almost all motherboards sold today use UEFI.</p>
+                <p class="text-sm text-theme-muted">The modern replacement for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>. Runs in 32-bit or 64-bit mode, supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> partition tables (disks over 2 TB), has a graphical interface usable with mouse, and supports <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></span> to prevent malicious software from loading during startup. Almost all motherboards sold today use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Entering the BIOS/UEFI</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To access the BIOS/UEFI setup, you need to press a specific key during the POST process, usually before the operating system starts loading. The exact key varies by manufacturer but is typically displayed on screen during boot:
+              To access the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> setup, you need to press a specific key during the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> process, usually before the operating system starts loading. The exact key varies by manufacturer but is typically displayed on screen during boot:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Common BIOS Keys</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> Keys</p>
                 <p class="text-sm text-theme-muted"><span class="text-brand-200">Del (Delete)</span> — Most common for desktop motherboards (ASUS, MSI, Gigabyte, ASRock). <span class="text-brand-200">F2</span> — Common on laptops and some desktop boards. <span class="text-brand-200">F10, F12, Esc</span> — Used by some HP, Dell, and Lenovo systems.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Windows UEFI Access</p>
-                <p class="text-sm text-theme-muted">If an OS is already installed, you can access UEFI from Windows: Settings &rarr; Update &amp; Security &rarr; Recovery &rarr; Advanced Startup &rarr; Restart Now &rarr; Troubleshoot &rarr; Advanced Options &rarr; UEFI Firmware Settings.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Windows <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> Access</p>
+                <p class="text-sm text-theme-muted">If an OS is already installed, you can access <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> from Windows: Settings &rarr; Update &amp; Security &rarr; Recovery &rarr; Advanced Startup &rarr; Restart Now &rarr; Troubleshoot &rarr; Advanced Options &rarr; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> Firmware Settings.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key BIOS/UEFI Settings for a New Build</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you first enter the BIOS on a new build, here are the settings you should check:
+              When you first enter the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> on a new build, here are the settings you should check:
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Boot Order</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-order')">Boot Order</span></p>
                 <p class="text-sm text-theme-muted">Set your installation media (USB drive) as the first boot device if you are installing an OS. After installation, move your primary SSD/HDD to the top so the system boots from it directly.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
@@ -266,28 +268,37 @@
                 <p class="text-sm text-theme-muted">By default, RAM runs at a standard JEDEC speed (e.g., 2133 or 2400 MHz). Enable XMP (Intel) or DOCP (AMD) to run your RAM at its rated speed (e.g., 3200 or 3600 MHz). Without this, you leave performance on the table.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Secure Boot</p>
-                <p class="text-sm text-theme-muted">A UEFI security feature that verifies the digital signature of the bootloader and operating system to prevent rootkits and malware from loading before the OS. Required for Windows 11. Usually enabled by default on modern boards.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></p>
+                <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> security feature that verifies the digital signature of the bootloader and operating system to prevent rootkits and malware from loading before the OS. Required for Windows 11. Usually enabled by default on modern boards.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Boot Mode: UEFI vs. Legacy/CSM</p>
-                <p class="text-sm text-theme-muted">Set to UEFI (not Legacy/CSM) for modern operating systems. CSM (Compatibility Support Module) emulates legacy BIOS for older hardware or OSes. Always use UEFI + GPT for new builds with Windows 10/11 or modern Linux distros.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Boot Mode: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> vs. Legacy/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('csm')">CSM</span></p>
+                <p class="text-sm text-theme-muted">Set to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> (not Legacy/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('csm')">CSM</span>) for modern operating systems. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('csm')">CSM</span> (Compatibility Support Module) emulates legacy <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> for older hardware or OSes. Always use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> + <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> for new builds with Windows 10/11 or modern Linux distros.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Topics</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              For advanced users, the UEFI offers many additional settings. <span class="text-brand-200">CPU overclocking</span> allows you to increase the CPU clock speed and voltage for higher performance, at the cost of more heat and power. <span class="text-brand-200">Fan curves</span> let you customise how fast fans spin at different temperatures. <span class="text-brand-200">Resizable BAR (Above 4G Decoding)</span> allows the CPU to access the full GPU memory, improving gaming performance on modern GPUs.
+              For advanced users, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> offers many additional settings. <span class="text-brand-200">CPU overclocking</span> allows you to increase the CPU clock speed and voltage for higher performance, at the cost of more heat and power. <span class="text-brand-200">Fan curves</span> let you customise how fast fans spin at different temperatures. <span class="text-brand-200">Resizable BAR (Above 4G Decoding)</span> allows the CPU to access the full GPU memory, improving gaming performance on modern GPUs.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              If you make a mistake and the system becomes unstable, you can perform a <span class="text-brand-200">CMOS reset</span>. This clears the BIOS settings back to factory defaults. Methods include: shorting the CMOS jumper with a screwdriver, removing the coin-cell battery (CR2032) on the motherboard for 30 seconds, or pressing a Clear CMOS button on high-end boards.
+              If you make a mistake and the system becomes unstable, you can perform a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-reset')">CMOS reset</span></span>. This clears the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> settings back to factory defaults. Methods include: shorting the CMOS jumper with a screwdriver, removing the coin-cell battery (CR2032) on the motherboard for 30 seconds, or pressing a Clear CMOS button on high-end boards.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">If your new build does not display anything on screen, do not panic. Check that the monitor is plugged into the GPU (not the motherboard), all power cables are seated, and the RAM is fully inserted. A single beep from the speaker often means POST passed. Repeated beeps indicate a specific hardware fault.</p>
+              <p class="text-sm text-theme-muted">If your new build does not display anything on screen, do not panic. Check that the monitor is plugged into the GPU (not the motherboard), all power cables are seated, and the RAM is fully inserted. A single beep from the speaker often means <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> passed. Repeated beeps indicate a specific hardware fault.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">bios</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">uefi</span> setup involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -302,16 +313,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>BIOS</td><td>Basic Input/Output System — the legacy firmware that initialises hardware and boots the OS</td></tr>
-                  <tr><td>UEFI</td><td>Unified Extensible Firmware Interface — the modern replacement for BIOS, with GUI and Secure Boot</td></tr>
-                  <tr><td>POST</td><td>Power-On Self-Test — the diagnostic process the firmware runs to verify hardware is functioning</td></tr>
-                  <tr><td>Boot Order</td><td>The priority list of devices the firmware checks to find a bootable operating system</td></tr>
-                  <tr><td>Secure Boot</td><td>A UEFI security feature that verifies bootloader and OS signatures before allowing them to run</td></tr>
-                  <tr><td>BIOS Key</td><td>The keyboard key pressed during startup (e.g., Del, F2) to enter the firmware setup menu</td></tr>
-                  <tr><td>CMOS Reset</td><td>Clearing the motherboard' s BIOS settings back to factory defaults by removing battery or shorting a jumper</td></tr>
-                  <tr><td>UEFI Shell</td><td>A command-line environment within UEFI for running diagnostic and configuration scripts</td></tr>
-                  <tr><td>GPT</td><td>GUID Partition Table — a modern disk partitioning scheme supporting drives over 2 TB, required for UEFI boot</td></tr>
-                  <tr><td>CSM</td><td>Compatibility Support Module — a UEFI component that emulates legacy BIOS for older OS compatibility</td></tr>
+                  <tr id="vocab-bios"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></td><td>Basic Input/Output System — the legacy firmware that initialises hardware and boots the OS</td></tr>
+                  <tr id="vocab-uefi"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span></td><td>Unified Extensible Firmware Interface — the modern replacement for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>, with GUI and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></td></tr>
+                  <tr id="vocab-post"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span></td><td>Power-On Self-Test — the diagnostic process the firmware runs to verify hardware is functioning</td></tr>
+                  <tr id="vocab-boot-order"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-order')">Boot Order</span></td><td>The priority list of devices the firmware checks to find a bootable operating system</td></tr>
+                  <tr id="vocab-secure-boot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> security feature that verifies bootloader and OS signatures before allowing them to run</td></tr>
+                  <tr id="vocab-bios-key"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios-key')">BIOS Key</span></td><td>The keyboard key pressed during startup (e.g., Del, F2) to enter the firmware setup menu</td></tr>
+                  <tr id="vocab-cmos-reset"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-reset')">CMOS Reset</span></td><td>Clearing the motherboard' s <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> settings back to factory defaults by removing battery or shorting a jumper</td></tr>
+                  <tr id="vocab-uefi-shell"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi-shell')">UEFI Shell</span></td><td>A command-line environment within <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> for running diagnostic and configuration scripts</td></tr>
+                  <tr id="vocab-gpt"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span></td><td>GUID Partition Table — a modern disk partitioning scheme supporting drives over 2 TB, required for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> boot</td></tr>
+                  <tr id="vocab-csm"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('csm')">CSM</span></td><td>Compatibility Support Module — a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> component that emulates legacy <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> for older OS compatibility</td></tr>
                 </tbody>
               </table>
             </div>
@@ -326,31 +337,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The BIOS has been around since 1981 with the IBM PC. The original IBM PC BIOS was written by a team of 12 engineers and fit in just 8 KB of ROM. A modern UEFI firmware can be over 16 MB — 2,000 times larger.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> has been around since 1981 with the IBM PC. The original IBM PC <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> was written by a team of 12 engineers and fit in just 8 KB of ROM. A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware can be over 16 MB — 2,000 times larger.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Many motherboards include dual BIOS chips. If one becomes corrupted during a failed update, the backup BIOS can restore it automatically. This "BIOS flashback" feature has saved countless builds from being bricked.</p>
+                <p class="text-sm text-theme-muted">Many motherboards include dual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> chips. If one becomes corrupted during a failed update, the backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> can restore it automatically. This "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> flashback" feature has saved countless builds from being bricked.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">POST beep codes vary by manufacturer. One short beep means success. One long, two short beeps usually indicates a GPU issue. Continuous short beeps often point to a RAM problem. A speaker header (usually labelled SPEAKER) must be connected to hear them.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> beep codes vary by manufacturer. One short beep means success. One long, two short beeps usually indicates a GPU issue. Continuous short beeps often point to a RAM problem. A speaker header (usually labelled SPEAKER) must be connected to hear them.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first UEFI specification was developed by Intel in 2005 as the "Extensible Firmware Interface" (EFI). It became the UEFI standard in 2007 when the Unified EFI Forum was formed. Apple was one of the first to adopt EFI with Intel-based Macs in 2006.</p>
+                <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> specification was developed by Intel in 2005 as the "Extensible Firmware Interface" (EFI). It became the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> standard in 2007 when the Unified EFI Forum was formed. Apple was one of the first to adopt EFI with Intel-based Macs in 2006.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some motherboard manufacturers now include a "BIOS Flashback" feature that lets you update the firmware without a CPU, RAM, or GPU installed — using only a USB drive and power supply. This is a lifesaver when building with a newer CPU that requires a BIOS update to be recognised.</p>
+                <p class="text-sm text-theme-muted">Some motherboard manufacturers now include a "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> Flashback" feature that lets you update the firmware without a CPU, RAM, or GPU installed — using only a USB drive and power supply. This is a lifesaver when building with a newer CPU that requires a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> update to be recognised.</p>
               </div>
             </div>
           </div>
@@ -374,36 +385,36 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does POST stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Pre-Operating System Test</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Power-On Self-Test</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Primary Operating System Test</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Post-Operational System Test</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">Post</span>-Operational System Test</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Power-On Self-Test</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What is the main advantage of UEFI over legacy BIOS?</p>
+                <p class="text-sm font-semibold text-theme">2. What is the main advantage of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> over legacy <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It is smaller and simpler</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It supports drives over 2 TB, has a graphical interface, and supports Secure Boot</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It supports drives over 2 TB, has a graphical interface, and supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It uses less power</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It runs faster</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It supports drives over 2 TB, has a graphical interface, and supports Secure Boot</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It supports drives over 2 TB, has a graphical interface, and supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What is the purpose of a CMOS reset?</p>
+                <p class="text-sm font-semibold text-theme">3. What is the purpose of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-reset')">CMOS reset</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To install a new operating system</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To clear the BIOS settings back to factory defaults</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To clear the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> settings back to factory defaults</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To format the hard drive</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To update the CPU driver</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To clear the BIOS settings back to factory defaults</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To clear the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> settings back to factory defaults</p>
               </div>
 
             </div>
@@ -470,12 +481,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

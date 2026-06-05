@@ -142,6 +142,8 @@
     .misconception-card.corrected {
       border-left-color: rgba(34, 197, 94, 0.4);
     }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -507,7 +509,7 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Have you ever wondered what happens the moment you press "Connect" on your Wi-Fi settings? In less than a second, your device sends a signal, a router picks it up, an ISP verifies your access, and you are part of the global Internet.
+              Have you ever wondered what happens the moment you press "Connect" on your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> settings? In less than a second, your device sends a signal, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> picks it up, an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> verifies your access, and you are part of the global Internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Every device you own&mdash;phone, laptop, game console, smart TV&mdash;follows the same journey to reach the Internet. Understanding this path helps you troubleshoot connection problems and appreciate the invisible infrastructure that powers modern life.
@@ -520,33 +522,33 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine your device is you at your house, and the Internet is your friend's house across town. To send a message, you walk to your mailbox (the router), a postal truck picks it up (the ISP), and it travels on highways (undersea cables) to your friend's house.
+              Imagine your device is you at your house, and the Internet is your friend's house across town. To send a message, you walk to your mailbox (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>), a postal truck picks it up (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span>), and it travels on highways (undersea cables) to your friend's house.
             </p>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a garden hose connected to a water pipe. Your device is the nozzle, the router is the tap, the ISP is the underground pipe from the street, and the Internet is the whole city water network. Turn the tap and water flows from anywhere in the city to your nozzle.</p>
+              <p class="text-sm text-theme-muted">Think of a garden hose connected to a water pipe. Your device is the nozzle, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> is the tap, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> is the underground pipe from the street, and the Internet is the whole city water network. Turn the tap and water flows from anywhere in the city to your nozzle.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When your device connects to the Internet, it goes through several steps. First, your device sends a signal to a <span class="text-brand-200">router</span> using either Wi-Fi (wireless) or an Ethernet cable (wired). The router is the gateway between your local network and the wider Internet.
+              When your device connects to the Internet, it goes through several steps. First, your device sends a signal to a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span></span> using either <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> (wireless) or an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span> cable (wired). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> is the gateway between your local network and the wider Internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The router forwards your data to an <span class="text-brand-200">ISP</span> through a physical connection like a fiber optic cable, DSL line, or coaxial cable. The ISP then routes your data through its own network and connects to larger networks called <span class="text-brand-200">Internet Exchange Points</span> (IXPs) where different ISPs exchange traffic.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> forwards your data to an <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span></span> through a physical connection like a fiber optic cable, DSL line, or coaxial cable. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> then routes your data through its own network and connects to larger networks called <span class="text-brand-200">Internet Exchange Points</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ixp')">IXPs</span>) where different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> exchange traffic.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Your device gets a local IP address from the router using <span class="text-brand-200">DHCP</span> (Dynamic Host Configuration Protocol). The router then uses <span class="text-brand-200">NAT</span> (Network Address Translation) to share one public IP address among all your home devices.
+              Your device gets a local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> using <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span></span> (Dynamic Host Configuration Protocol). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> then uses <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></span> (Network Address Translation) to share one public <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> among all your home devices.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Connection to the Internet involves multiple layers of the OSI model. At Layer 1 (Physical), your device uses Wi-Fi (IEEE 802.11 standards) or Ethernet (IEEE 802.3) to communicate with the access point. Wi-Fi uses CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) to manage airtime.
+              Connection to the Internet involves multiple layers of the OSI model. At Layer 1 (Physical), your device uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> (IEEE 802.11 standards) or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span> (IEEE 802.3) to communicate with the access point. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> uses CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) to manage airtime.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The router performs <span class="text-brand-200">Layer 3 routing</span>, examining the destination IP address of each packet and consulting its routing table to determine the next hop. Home routers typically use NAT (RFC 3022) to map multiple private IPs (like 192.168.x.x) to a single public IP, enabling many devices to share one connection.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> performs <span class="text-brand-200">Layer 3 routing</span>, examining the destination <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> of each packet and consulting its routing table to determine the next hop. Home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> typically use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> (RFC 3022) to map multiple private IPs (like 192.168.x.x) to a single public IP, enabling many devices to share one connection.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              ISPs use technologies like <span class="text-brand-200">GPON</span> (Gigabit Passive Optical Network) for fiber, <span class="text-brand-200">DOCSIS</span> for cable, or <span class="text-brand-200">VDSL2</span> for DSL. At the backbone level, ISPs peer at <span class="text-brand-200">Internet Exchange Points</span> using BGP (Border Gateway Protocol) to exchange routes, often settling traffic through settlement-free peering or paid transit agreements.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> use technologies like <span class="text-brand-200">GPON</span> (Gigabit Passive Optical Network) for fiber, <span class="text-brand-200">DOCSIS</span> for cable, or <span class="text-brand-200">VDSL2</span> for DSL. At the backbone level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> peer at <span class="text-brand-200">Internet Exchange Points</span> using BGP (Border Gateway Protocol) to exchange routes, often settling traffic through settlement-free peering or paid transit agreements.
             </p>
           </div>
         </section>
@@ -564,16 +566,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Router</td><td>A device that forwards data between your home network and the Internet</td></tr>
-                  <tr><td>ISP</td><td>Internet Service Provider, the company that gives you Internet access</td></tr>
-                  <tr><td>Wi-Fi</td><td>A wireless technology that lets devices connect to a router without cables</td></tr>
-                  <tr><td>Ethernet</td><td>A wired connection using cables to connect devices to a network</td></tr>
-                  <tr><td>IP Address</td><td>A unique number that identifies a device on a network</td></tr>
-                  <tr><td>DHCP</td><td>Dynamic Host Configuration Protocol, automatically assigns IP addresses</td></tr>
-                  <tr><td>NAT</td><td>Network Address Translation, allows many devices to share one public IP</td></tr>
-                  <tr><td>Modem</td><td>A device that converts signals between your home network and the ISP</td></tr>
-                  <tr><td>IXP</td><td>Internet Exchange Point, a physical location where ISPs connect networks</td></tr>
-                  <tr><td>Bandwidth</td><td>The maximum amount of data that can travel over a connection per second</td></tr>
+                  <tr id="vocab-router"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></td><td>A device that forwards data between your home network and the Internet</td></tr>
+                  <tr id="vocab-isp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span></td><td>Internet Service Provider, the company that gives you Internet access</td></tr>
+                  <tr id="vocab-wi-fi"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span></td><td>A wireless technology that lets devices connect to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> without cables</td></tr>
+                  <tr id="vocab-ethernet"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span></td><td>A wired connection using cables to connect devices to a network</td></tr>
+                  <tr id="vocab-ip-address"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span></td><td>A unique number that identifies a device on a network</td></tr>
+                  <tr id="vocab-dhcp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span></td><td>Dynamic Host Configuration Protocol, automatically assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span></td></tr>
+                  <tr id="vocab-nat"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></td><td>Network Address Translation, allows many devices to share one public IP</td></tr>
+                  <tr id="vocab-modem"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">Modem</span></td><td>A device that converts signals between your home network and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span></td></tr>
+                  <tr id="vocab-ixp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ixp')">IXP</span></td><td>Internet Exchange Point, a physical location where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> connect networks</td></tr>
+                  <tr id="vocab-bandwidth"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">Bandwidth</span></td><td>The maximum amount of data that can travel over a connection per second</td></tr>
                 </tbody>
               </table>
             </div>
@@ -589,13 +591,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first home router was released in 1999 by Linksys. Before that, you needed a dedicated computer to share Internet access.</p>
+                <p class="text-sm text-theme-muted">The first home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> was released in 1999 by Linksys. Before that, you needed a dedicated computer to share Internet access.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Fiber optic cables used by ISPs can carry data at the speed of light in glass. A single fiber can carry millions of phone calls at once.</p>
+                <p class="text-sm text-theme-muted">Fiber optic cables used by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> can carry data at the speed of light in glass. A single fiber can carry millions of phone calls at once.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -607,7 +609,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A typical Wi-Fi router can handle up to 250 connected devices, though performance slows down as more devices join.</p>
+                <p class="text-sm text-theme-muted">A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> can handle up to 250 connected devices, though performance slows down as more devices join.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -625,20 +627,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
               <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: "My Wi-Fi is slow" means the Internet is slow.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Slow Wi-Fi can be caused by interference, distance from the router, or too many devices. The Internet connection itself may be fine. Try connecting with an Ethernet cable to test your actual Internet speed.</p>
+                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: "My <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> is slow" means the Internet is slow.</p>
+                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Slow <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> can be caused by interference, distance from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>, or too many devices. The Internet connection itself may be fine. Try connecting with an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span> cable to test your actual Internet speed.</p>
               </div>
               <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You need a new router to get faster Internet.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Your Internet speed depends mostly on your ISP plan. A new router only helps if your old one cannot handle your plan's speed. Check your plan first before buying new hardware.</p>
+                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You need a new <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> to get faster Internet.</p>
+                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Your Internet speed depends mostly on your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> plan. A new <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> only helps if your old one cannot handle your plan's speed. Check your plan first before buying new hardware.</p>
               </div>
               <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Modem and router are the same device.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A modem connects your home to the ISP's network. A router distributes the connection to your devices. Many homes have a combined modem/router unit, but they are separate functions.</p>
+                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">Modem</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> are the same device.</p>
+                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span> connects your home to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP's</span> network. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> distributes the connection to your devices. Many homes have a combined <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> unit, but they are separate functions.</p>
               </div>
               <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Using Wi-Fi uses up mobile data.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Wi-Fi and mobile data are separate. When you are connected to Wi-Fi, your phone uses that connection, not your mobile data plan. You can turn off mobile data while keeping Wi-Fi on to avoid using your plan.</p>
+                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> uses up mobile data.</p>
+                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> and mobile data are separate. When you are connected to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span>, your phone uses that connection, not your mobile data plan. You can turn off mobile data while keeping <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> on to avoid using your plan.</p>
               </div>
             </div>
           </div>
@@ -656,11 +658,11 @@
               <ul class="space-y-2 text-sm text-theme-muted">
                 <li class="flex items-start gap-2">
                   <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  An animated packet moving from a smartphone through a Wi-Fi router
+                  An animated packet moving from a smartphone through a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>
                 </li>
                 <li class="flex items-start gap-2">
                   <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  The packet traveling through the ISP's fiber network to an Internet Exchange Point
+                  The packet traveling through the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP's</span> fiber network to an Internet Exchange Point
                 </li>
                 <li class="flex items-start gap-2">
                   <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -677,7 +679,7 @@
                 </li>
                 <li class="flex items-start gap-2">
                   <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  The router assigns a local IP while the ISP provides the public IP
+                  The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> assigns a local IP while the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> provides the public IP
                 </li>
                 <li class="flex items-start gap-2">
                   <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -697,7 +699,7 @@
 
               <!-- MCQ 1 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the main job of a router?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the main job of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To store website files</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To direct data traffic between your network and the Internet</label>
@@ -709,7 +711,7 @@
 
               <!-- MCQ 2 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does ISP stand for?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Internal Security Protocol</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Internet Service Provider</label>
@@ -721,60 +723,60 @@
 
               <!-- MCQ 3 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which technology allows a router to share one public IP address among many devices?</p>
+                <p class="text-sm font-semibold text-theme">3. Which technology allows a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> to share one public <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> among many devices?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> DNS</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> HTTP</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> NAT</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> FTP</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> NAT (Network Address Translation)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> (Network Address Translation)</p>
               </div>
 
               <!-- T/F 1 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">4. True or False: A modem and a router do the same job.</p>
+                <p class="text-sm font-semibold text-theme">4. True or False: A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span> and a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> do the same job.</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> False</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> False. A modem connects your home to the ISP; a router distributes the connection to your devices.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> False. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span> connects your home to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span>; a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> distributes the connection to your devices.</p>
               </div>
 
               <!-- T/F 2 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">5. True or False: Using Wi-Fi uses your mobile data plan.</p>
+                <p class="text-sm font-semibold text-theme">5. True or False: Using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> uses your mobile data plan.</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> False</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> False. Wi-Fi uses your home Internet connection, not your mobile data plan.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> False. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> uses your home Internet connection, not your mobile data plan.</p>
               </div>
 
               <!-- Matching -->
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">6. Matching: Connect each term to its description.</p>
                 <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-theme-muted">
-                  <div class="glass-panel p-3">1. Router</div>
-                  <div class="glass-panel p-3">A. Assigns IP addresses automatically</div>
-                  <div class="glass-panel p-3">2. DHCP</div>
+                  <div class="glass-panel p-3">1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></div>
+                  <div class="glass-panel p-3">A. Assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> automatically</div>
+                  <div class="glass-panel p-3">2. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span></div>
                   <div class="glass-panel p-3">B. Forwards data between networks</div>
-                  <div class="glass-panel p-3">3. IXP</div>
-                  <div class="glass-panel p-3">C. Where ISPs exchange traffic</div>
+                  <div class="glass-panel p-3">3. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ixp')">IXP</span></div>
+                  <div class="glass-panel p-3">C. Where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span> exchange traffic</div>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> 1-B, 2-A, 3-C</p>
               </div>
 
               <!-- Fill-in 1 -->
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">7. Fill in the blank: A device that converts signals between your home network and the ISP is called a <span class="text-brand-200">____</span>.</p>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> modem</p>
+                <p class="text-sm font-semibold text-theme">7. Fill in the blank: A device that converts signals between your home network and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span> is called a <span class="text-brand-200">____</span>.</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span></p>
               </div>
 
               <!-- Fill-in 2 -->
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">8. Fill in the blank: The maximum amount of data that can travel over a connection per second is called <span class="text-brand-200">____</span>.</p>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> bandwidth</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span></p>
               </div>
 
             </div>
@@ -811,7 +813,7 @@
             <div class="mt-4 space-y-5">
               <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">If your Internet is slow at home, what steps would you take to figure out whether the problem is your Wi-Fi, your router, or your ISP? Create a troubleshooting plan.</p>
+                <p class="text-sm text-theme-muted">If your Internet is slow at home, what steps would you take to figure out whether the problem is your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span>, your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>, or your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span>? Create a troubleshooting plan.</p>
               </div>
               <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
@@ -819,7 +821,7 @@
               </div>
               <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">Question 3</p>
-                <p class="text-sm text-theme-muted">Imagine you are the CEO of an ISP. You can choose to invest in fiber optic cables to the home or improve mobile 5G coverage. Which would you choose and why? Consider cost, speed, reliability, and number of users served.</p>
+                <p class="text-sm text-theme-muted">Imagine you are the CEO of an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISP</span>. You can choose to invest in fiber optic cables to the home or improve mobile 5G coverage. Which would you choose and why? Consider cost, speed, reliability, and number of users served.</p>
               </div>
             </div>
           </div>
@@ -835,14 +837,14 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 </div>
                 <p class="text-sm font-semibold text-brand-200 mb-2">Project 1: Trace the Route</p>
-                <p class="text-sm text-theme-muted">Open a command prompt (CMD) on your computer and type <code class="text-brand-200">tracert google.com</code> (Windows) or <code class="text-brand-200">traceroute google.com</code> (Mac/Linux). Watch the list of hops your data takes. Write down the first 5 hop IP addresses and look up their locations. How many different networks did your data pass through?</p>
+                <p class="text-sm text-theme-muted">Open a command prompt (CMD) on your computer and type <code class="text-brand-200">tracert google.com</code> (Windows) or <code class="text-brand-200">traceroute google.com</code> (Mac/Linux). Watch the list of hops your data takes. Write down the first 5 hop <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> and look up their locations. How many different networks did your data pass through?</p>
               </div>
               <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 </div>
                 <p class="text-sm font-semibold text-brand-200 mb-2">Project 2: Home Network Map</p>
-                <p class="text-sm text-theme-muted">Draw a map of all the devices in your home that connect to the Internet. Include phones, laptops, TVs, gaming consoles, smart speakers, and any other connected devices. Show how each connects (Wi-Fi or Ethernet) and estimate how much bandwidth each device might use. Where is your router located? Could you improve its placement?</p>
+                <p class="text-sm text-theme-muted">Draw a map of all the devices in your home that connect to the Internet. Include phones, laptops, TVs, gaming consoles, smart speakers, and any other connected devices. Show how each connects (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span>) and estimate how much <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span> each device might use. Where is your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> located? Could you improve its placement?</p>
               </div>
             </div>
           </div>
@@ -857,9 +859,9 @@
                 <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
                 <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
                   <li>Describe the path data takes from a device to the Internet</li>
-                  <li>Explain the roles of routers, modems, and ISPs</li>
-                  <li>Differentiate between Wi-Fi, Ethernet, and mobile data</li>
-                  <li>Understand basic concepts: IP addressing, DHCP, NAT, bandwidth</li>
+                  <li>Explain the roles of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modems</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isp')">ISPs</span></li>
+                  <li>Differentiate between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span>, and mobile data</li>
+                  <li>Understand basic concepts: IP addressing, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span></li>
                   <li>Troubleshoot simple connectivity issues using the path model</li>
                 </ul>
               </div>
@@ -867,9 +869,9 @@
                 <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
                 <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
                   <li>Test the interactive diagram link before class</li>
-                  <li>Bring a physical router and modem to class for demonstration</li>
+                  <li>Bring a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modem')">modem</span> to class for demonstration</li>
                   <li>Prepare a traceroute demonstration on a projector</li>
-                  <li>Have a network cable (Ethernet) and a Wi-Fi router to show the difference</li>
+                  <li>Have a network cable (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ethernet')">Ethernet</span>) and a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wi-fi')">Wi-Fi</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> to show the difference</li>
                   <li>Check that the knowledge check reveal button works correctly</li>
                 </ul>
               </div>

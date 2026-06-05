@@ -1,0 +1,630 @@
+module,diagram,rawId,normalized,matched,suggestion,reason,title
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,device,device,False,,,Your Device
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,dns,dns,True,,,DNS Server
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,isp,isp,True,,,Internet Service Provider
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,packet,packet,True,,,Data Packet
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,router,router,True,,,Network Router
+module1,products\courses\lessons\module1\diagrams\diagram-01-internet-highway\script.js,server,server,True,,,Web Server
+module1,products\courses\lessons\module1\diagrams\diagram-02-device-connection\script.js,device,device,False,,,Your Device
+module1,products\courses\lessons\module1\diagrams\diagram-02-device-connection\script.js,isp,isp,True,,,Internet Service Provider
+module1,products\courses\lessons\module1\diagrams\diagram-02-device-connection\script.js,modem,modem,True,,,Cable Modem
+module1,products\courses\lessons\module1\diagrams\diagram-02-device-connection\script.js,router,router,True,,,Network Router
+module1,products\courses\lessons\module1\diagrams\diagram-02-device-connection\script.js,wifi,wifi,False,,,Wi-Fi Signal
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,browser,browser,True,,,Web Browser
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,dns,dns,True,,,DNS Server
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,isp,isp,True,,,Internet Service Provider
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,packet,packet,True,,,Data Packet
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,server,server,True,,,Web Server
+module1,products\courses\lessons\module1\diagrams\diagram-03-website-request\script.js,website,website,False,,,Website Content
+module1,products\courses\lessons\module1\diagrams\diagram-04-client-server\script.js,cache,cache,False,,,Cache Server
+module1,products\courses\lessons\module1\diagrams\diagram-04-client-server\script.js,client,client,False,,,Client Application
+module1,products\courses\lessons\module1\diagrams\diagram-04-client-server\script.js,dbserver,dbserver,False,,,Database Server
+module1,products\courses\lessons\module1\diagrams\diagram-04-client-server\script.js,loadbalancer,loadbalancer,False,,,Load Balancer
+module1,products\courses\lessons\module1\diagrams\diagram-04-client-server\script.js,webserver,webserver,False,,,Web Server
+module1,products\courses\lessons\module1\diagrams\diagram-05-packets\script.js,destination,destination,False,,,Destination Device
+module1,products\courses\lessons\module1\diagrams\diagram-05-packets\script.js,router1,router1,False,router,strip-digits,Router One
+module1,products\courses\lessons\module1\diagrams\diagram-05-packets\script.js,router2,router2,False,router,strip-digits,Router Two
+module1,products\courses\lessons\module1\diagrams\diagram-05-packets\script.js,router3,router3,False,router,strip-digits,Router Three
+module1,products\courses\lessons\module1\diagrams\diagram-05-packets\script.js,source,source,False,,,Source Device
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,dhcp,dhcp,True,,,DHCP Server
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,gateway,gateway,False,,,Default Gateway
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,ipv4,ipv4,False,,,IPv4 Address
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,ipv6,ipv6,False,,,IPv6 Address
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,nat,nat,True,,,Network Address Translation
+module1,products\courses\lessons\module1\diagrams\diagram-06-ip-address\script.js,subnet,subnet,False,,,Subnet Mask
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,authoritative,authoritative,False,,,Authoritative Name Server
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,browser,browser,True,,,Web Browser
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,cache,cache,False,,,DNS Cache
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,resolver,resolver,False,,,DNS Recursive Resolver
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,root,root,False,,,Root Name Server
+module1,products\courses\lessons\module1\diagrams\diagram-07-dns-lookup\script.js,tld,tld,False,,,TLD Name Server
+module1,products\courses\lessons\module1\diagrams\diagram-08-routers\script.js,destination,destination,False,,,Destination Network
+module1,products\courses\lessons\module1\diagrams\diagram-08-routers\script.js,firewall,firewall,False,,,Network Firewall
+module1,products\courses\lessons\module1\diagrams\diagram-08-routers\script.js,router,router,True,,,Network Router
+module1,products\courses\lessons\module1\diagrams\diagram-08-routers\script.js,source,source,False,,,Source Network
+module1,products\courses\lessons\module1\diagrams\diagram-08-routers\script.js,switch,switch,False,,,Network Switch
+module1,products\courses\lessons\module1\diagrams\diagram-09-undersea-cables\script.js,buoy,buoy,False,,,Navigation Buoy
+module1,products\courses\lessons\module1\diagrams\diagram-09-undersea-cables\script.js,cable,cable,False,,,Undersea Fiber Optic Cable
+module1,products\courses\lessons\module1\diagrams\diagram-09-undersea-cables\script.js,data,data,False,,,Transmitted Data
+module1,products\courses\lessons\module1\diagrams\diagram-09-undersea-cables\script.js,landingstation,landingstation,False,,,Landing Station
+module1,products\courses\lessons\module1\diagrams\diagram-09-undersea-cables\script.js,repeater,repeater,False,,,Optical Repeater
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,backup,backup,False,,,Backup Systems
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,cooling,cooling,False,,,Cooling System
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,firewall,firewall,False,,,Data Center Firewall
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,power,power,False,,,Power Infrastructure
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,rack,rack,False,,,Server Rack
+module1,products\courses\lessons\module1\diagrams\diagram-10-data-center\script.js,server,server,True,,,Data Center Server
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,browser,browser,True,,,Web Browser
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,cdn,cdn,False,,,Content Delivery Network
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,dnsserver,dnsserver,False,,,DNS Server
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,origin,origin,False,,,Origin Server
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,render,render,False,,,Page Rendering
+module1,products\courses\lessons\module1\diagrams\diagram-11-webpage-journey\script.js,tcp,tcp,False,,,TCP Connection
+module1,products\courses\lessons\module1\diagrams\diagram-12-route-redundancy\script.js,backup,backup,False,,,Backup Connection
+module1,products\courses\lessons\module1\diagrams\diagram-12-route-redundancy\script.js,cellular,cellular,False,,,Cellular Network
+module1,products\courses\lessons\module1\diagrams\diagram-12-route-redundancy\script.js,fiber,fiber,False,,,Fiber Optic Connection
+module1,products\courses\lessons\module1\diagrams\diagram-12-route-redundancy\script.js,mesh,mesh,False,,,Mesh Network
+module1,products\courses\lessons\module1\diagrams\diagram-12-route-redundancy\script.js,satellite,satellite,False,,,Satellite Internet
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,hybrid,hybrid,False,,,Hybrid Cloud
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,iaas,iaas,False,,,Infrastructure as a Service
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,paas,paas,False,,,Platform as a Service
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,private,private,False,,,Private Cloud
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,public,public,False,,,Public Cloud
+module1,products\courses\lessons\module1\diagrams\diagram-13-cloud-computing\script.js,saas,saas,False,,,Software as a Service
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,antivirus,antivirus,False,,,Antivirus Software
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,auth,auth,False,,,Authentication
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,backup,backup,False,,,Data Backup
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,encryption,encryption,False,,,Encryption
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,firewall,firewall,False,,,Software Firewall
+module1,products\courses\lessons\module1\diagrams\diagram-14-internet-safety\script.js,vpn,vpn,False,,,Virtual Private Network
+module10,products\courses\lessons\module10\diagrams\diagram-01-technology-project-p\script.js,idea,idea,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-01-technology-project-p\script.js,spec,spec,False,project-specs,token,
+module10,products\courses\lessons\module10\diagrams\diagram-01-technology-project-p\script.js,wireframe,wireframe,True,,,
+module10,products\courses\lessons\module10\diagrams\diagram-02-internet-explorer-pr\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-02-internet-explorer-pr\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-02-internet-explorer-pr\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-03-computer-hardware-pr\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-03-computer-hardware-pr\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-03-computer-hardware-pr\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-04-cpu-learning-project\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-04-cpu-learning-project\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-04-cpu-learning-project\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-05-operating-system-pro\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-05-operating-system-pro\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-05-operating-system-pro\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-06-website-design-proje\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-06-website-design-proje\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-06-website-design-proje\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-07-robot-design-project\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-07-robot-design-project\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-07-robot-design-project\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-08-scratch-animation-pr\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-08-scratch-animation-pr\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-08-scratch-animation-pr\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-09-scratch-game-project\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-09-scratch-game-project\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-09-scratch-game-project\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-10-blockchain-project\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-10-blockchain-project\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-10-blockchain-project\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-11-problem-solving-chal\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-11-problem-solving-chal\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-11-problem-solving-chal\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-12-innovation-workshop\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-12-innovation-workshop\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-12-innovation-workshop\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-13-technology-showcase\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-13-technology-showcase\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-13-technology-showcase\script.js,node3,node3,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-14-grand-capstone-proje\script.js,node1,node1,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-14-grand-capstone-proje\script.js,node2,node2,False,,,
+module10,products\courses\lessons\module10\diagrams\diagram-14-grand-capstone-proje\script.js,node3,node3,False,,,
+module2,products\courses\lessons\module2\diagrams\diagram-01-computer-ipo\script.js,feedback,feedback,False,,,Feedback Loop
+module2,products\courses\lessons\module2\diagrams\diagram-01-computer-ipo\script.js,input,input,False,input-device,token,Input
+module2,products\courses\lessons\module2\diagrams\diagram-01-computer-ipo\script.js,output,output,False,output-device,token,Output
+module2,products\courses\lessons\module2\diagrams\diagram-01-computer-ipo\script.js,process,process,True,,,Processing
+module2,products\courses\lessons\module2\diagrams\diagram-01-computer-ipo\script.js,storage,storage,True,,,Storage
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,camera,camera,False,,,Camera
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,keyboard,keyboard,False,,,Keyboard
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,microphone,microphone,False,,,Microphone
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,mouse,mouse,False,,,Mouse
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,scanner,scanner,False,,,Scanner
+module2,products\courses\lessons\module2\diagrams\diagram-02-input-devices\script.js,touchscreen,touchscreen,False,capacitive-touchscreen,token,Touchscreen
+module2,products\courses\lessons\module2\diagrams\diagram-03-cpu\script.js,alu,alu,False,arithmetic-logic-unit-alu-,token,Arithmetic Logic Unit
+module2,products\courses\lessons\module2\diagrams\diagram-03-cpu\script.js,bus,bus,False,,,System Bus
+module2,products\courses\lessons\module2\diagrams\diagram-03-cpu\script.js,cache,cache,True,,,CPU Cache
+module2,products\courses\lessons\module2\diagrams\diagram-03-cpu\script.js,controlunit,controlunit,False,,,Control Unit
+module2,products\courses\lessons\module2\diagrams\diagram-03-cpu\script.js,registers,registers,False,,,CPU Registers
+module2,products\courses\lessons\module2\diagrams\diagram-04-output-devices\script.js,headphone,headphone,False,,,Headphone
+module2,products\courses\lessons\module2\diagrams\diagram-04-output-devices\script.js,monitor,monitor,True,,,Monitor
+module2,products\courses\lessons\module2\diagrams\diagram-04-output-devices\script.js,printer,printer,True,,,Printer
+module2,products\courses\lessons\module2\diagrams\diagram-04-output-devices\script.js,projector,projector,True,,,Projector
+module2,products\courses\lessons\module2\diagrams\diagram-04-output-devices\script.js,speaker,speaker,True,,,Speaker
+module2,products\courses\lessons\module2\diagrams\diagram-05-ram\script.js,addressbus,addressbus,False,,,Memory Address Bus
+module2,products\courses\lessons\module2\diagrams\diagram-05-ram\script.js,controller,controller,False,,,Memory Controller
+module2,products\courses\lessons\module2\diagrams\diagram-05-ram\script.js,databus,databus,False,,,Data Bus
+module2,products\courses\lessons\module2\diagrams\diagram-05-ram\script.js,dimm,dimm,True,,,DIMM Module
+module2,products\courses\lessons\module2\diagrams\diagram-05-ram\script.js,dram,dram,True,,,DRAM Chip
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,cache,cache,True,,,Storage Cache
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,controller,controller,False,,,Storage Controller
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,firmware,firmware,False,,,Storage Firmware
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,hdd,hdd,False,,,Hard Disk Drive
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,nvme,nvme,False,,,NVMe Drive
+module2,products\courses\lessons\module2\diagrams\diagram-06-storage\script.js,ssd,ssd,False,,,Solid State Drive
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,ascii,ascii,False,,,ASCII Encoding
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,binary,binary,True,,,Binary Number System
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,bit,bit,False,,,Bit
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,byte,byte,False,,,Byte
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,hex,hex,False,,,Hexadecimal
+module2,products\courses\lessons\module2\diagrams\diagram-07-binary\script.js,integer,integer,False,,,Integer Representation
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,and,and,True,,,AND Gate
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,nand,nand,True,,,NAND Gate
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,nor,nor,True,,,NOR Gate
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,not,not,True,,,NOT Gate
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,or,or,True,,,OR Gate
+module2,products\courses\lessons\module2\diagrams\diagram-08-logic-gates\script.js,xor,xor,True,,,XOR Gate
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,app,app,False,application-software,token,Application Software
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,driver,driver,True,,,Device Driver
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,filesystem,filesystem,False,,,Filesystem
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,kernel,kernel,True,,,Operating System Kernel
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,process,process,True,,,Process
+module2,products\courses\lessons\module2\diagrams\diagram-09-software-os\script.js,shell,shell,False,shell-cli,token,Command Shell
+module2,products\courses\lessons\module2\diagrams\diagram-10-communication\script.js,destination,destination,False,,,Communication Destination
+module2,products\courses\lessons\module2\diagrams\diagram-10-communication\script.js,interface,interface,False,,,Communication Interface
+module2,products\courses\lessons\module2\diagrams\diagram-10-communication\script.js,medium,medium,False,,,Transmission Medium
+module2,products\courses\lessons\module2\diagrams\diagram-10-communication\script.js,protocol,protocol,True,,,Communication Protocol
+module2,products\courses\lessons\module2\diagrams\diagram-10-communication\script.js,source,source,False,,,Communication Source
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,file,file,False,,,File
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,folder,folder,False,,,Folder (Directory)
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,metadata,metadata,False,,,Metadata
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,path,path,False,,,File Path
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,permission,permission,False,,,File Permissions
+module2,products\courses\lessons\module2\diagrams\diagram-11-files\script.js,type,type,False,,,File Type
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,bios,bios,False,,,BIOS/UEFI Firmware
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,bootloader,bootloader,False,,,Bootloader
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,init,init,False,,,Init System
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,kernel,kernel,True,,,OS Kernel Boot
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,login,login,False,,,Login Screen
+module2,products\courses\lessons\module2\diagrams\diagram-12-boot\script.js,post,post,False,,,Power-On Self-Test
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,antivirus,antivirus,False,,,Antivirus Protection
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,backup,backup,False,,,System Backup
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,cleanup,cleanup,False,,,Disk Cleanup
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,defrag,defrag,False,,,Disk Defragmentation
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,monitor,monitor,True,,,System Monitoring
+module2,products\courses\lessons\module2\diagrams\diagram-13-health\script.js,update,update,False,,,System Updates
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,ai,ai,False,,,AI Computing
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,dna,dna,False,,,DNA Computing
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,edge,edge,False,,,Edge Computing
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,neuromorphic,neuromorphic,False,,,Neuromorphic Computing
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,optical,optical,False,,,Optical Computing
+module2,products\courses\lessons\module2\diagrams\diagram-14-future-computing\script.js,quantum,quantum,False,,,Quantum Computing
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,case,case,False,case-form-factor,token,Computer Case
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,cpu,cpu,True,,,CPU Processor
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,motherboard,motherboard,True,,,Motherboard
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,psu,psu,True,,,Power Supply
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,ram,ram,True,,,RAM Memory
+module3,products\courses\lessons\module3\diagrams\diagram-01-computer-assembly\script.js,storage,storage,False,,,Storage Drive
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,cablemgmt,cablemgmt,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,cool,cool,False,aio-cooler,token,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,esd,esd,True,,,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,fasten,fasten,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,jumpers,jumpers,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,mat,mat,False,format,token,Anti-Static Mat
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,paste,paste,False,thermal-paste,token,Thermal Paste
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,screwdriver,screwdriver,True,,,Phillips Head Screwdriver
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,surface,surface,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,ties,ties,False,,,Cable Ties
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,tweezers,tweezers,False,,,Tweezers
+module3,products\courses\lessons\module3\diagrams\diagram-02-safety-tools\script.js,wriststrap,wriststrap,False,,,Anti-Static Wrist Strap
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,chipset,chipset,True,,,Chipset
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,headers,headers,False,,,Front Panel Headers
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,ports,ports,False,,,Rear I/O Ports
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,slots,slots,False,,,Expansion Slots
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,socket,socket,True,,,CPU Socket
+module3,products\courses\lessons\module3\diagrams\diagram-03-motherboard\script.js,vrms,vrms,False,,,Voltage Regulator Module (VRM)
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,bracket,bracket,False,slot-bracket,token,Mounting Bracket
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,cooler,cooler,False,aio-cooler,token,CPU Cooler
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,cpu,cpu,True,,,CPU Processor
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,lever,lever,False,socket-lever,token,Socket Retention Lever
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,paste,paste,False,thermal-paste,token,Thermal Paste Application
+module3,products\courses\lessons\module3\diagrams\diagram-04-cpu\script.js,socket,socket,True,,,CPU Socket
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,capacity,capacity,False,,,Memory Capacity
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,channel,channel,False,dual-channel,token,Memory Channel
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,dimm,dimm,True,,,DIMM Module
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,dualrank,dualrank,False,,,Dual Rank Memory
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,latch,latch,False,,,Retention Latch
+module3,products\courses\lessons\module3\diagrams\diagram-05-ram\script.js,slot,slot,False,m-2-slot,token,Memory Slot
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,bracket,bracket,False,slot-bracket,token,Mounting Bracket
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,cable,cable,False,cable-management,token,SATA Data Cable
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,hdd,hdd,True,,,Hard Disk Drive
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,m2,m2,False,m,strip-digits,M.2 Slot
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,ssd,ssd,True,,,Solid State Drive
+module3,products\courses\lessons\module3\diagrams\diagram-06-storage\script.js,tray,tray,False,,,Drive Tray
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,cable,cable,False,cable-management,token,Power Cable
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,connector,connector,False,eps-connector,token,Power Connector
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,modular,modular,True,,,Modular Cable System
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,psu,psu,True,,,Power Supply Unit
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,rail,rail,True,,,Power Rail
+module3,products\courses\lessons\module3\diagrams\diagram-07-power-supply\script.js,rating,rating,False,,,80 Plus Rating
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,airflow,airflow,True,,,Airflow Direction
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,case,case,False,case-form-factor,token,Computer Case
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,fan,fan,False,fan-header,token,Case Fan
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,filter,filter,False,,,Dust Filter
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,radiator,radiator,True,,,Liquid Cooling Radiator
+module3,products\courses\lessons\module3\diagrams\diagram-08-case-cooling\script.js,thermal,thermal,False,thermal-throttling,token,Thermal Monitoring
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,bracket,bracket,False,slot-bracket,token,GPU Support Bracket
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,gpu,gpu,True,,,Graphics Card
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,pcie,pcie,False,pcie-x16,token,PCIe Power Cable
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,power,power,False,power-cable,token,GPU Power Delivery
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,riser,riser,False,,,Riser Cable
+module3,products\courses\lessons\module3\diagrams\diagram-09-gpu\script.js,slot,slot,False,m-2-slot,token,PCIe Slot
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,data,data,False,,,Data Cables
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,fanheader,fanheader,False,,,Fan Headers
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,frontpanel,frontpanel,False,,,Front Panel Connectors
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,management,management,False,cable-management,token,Cable Management
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,powercable,powercable,False,,,Power Cables
+module3,products\courses\lessons\module3\diagrams\diagram-10-cables\script.js,sata,sata,True,,,SATA Connections
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,bios,bios,True,,,BIOS Firmware
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,boot,boot,False,secure-boot,token,Boot Order
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,cmos,cmos,False,cmos-reset,token,CMOS Battery
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,firmware,firmware,True,,,Firmware Update
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,settings,settings,False,,,BIOS/UEFI Settings
+module3,products\courses\lessons\module3\diagrams\diagram-11-bios\script.js,uefi,uefi,True,,,UEFI Firmware
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,activation,activation,False,,,OS Activation
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,driver,driver,True,,,Driver Installation
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,format,format,True,,,Drive Formatting
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,install,install,False,,,OS Installation Process
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,media,media,False,,,Installation Media
+module3,products\courses\lessons\module3\diagrams\diagram-12-os\script.js,partition,partition,True,,,Disk Partitioning
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,appexec,appexec,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,codec,codec,False,,,Audio/Video Codec
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,config,config,False,,,Software Configuration
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,driver,driver,True,,,Hardware Driver
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,hwcomm,hwcomm,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,mediaplay,mediaplay,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,patch,patch,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,runtime,runtime,False,,,Runtime Library
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,settings,settings,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,sysopt,sysopt,False,,,
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,update,update,False,bios-update,token,Software Update
+module3,products\courses\lessons\module3\diagrams\diagram-13-drivers\script.js,utility,utility,True,,,System Utility
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,beep,beep,False,beep-code,token,System Beep Codes
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,cmos,cmos,False,cmos-reset,token,CMOS Reset
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,multimeter,multimeter,False,,,Multimeter
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,postcode,postcode,False,,,POST Code Display
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,psu,psu,True,,,PSU Tester
+module3,products\courses\lessons\module3\diagrams\diagram-14-troubleshooting\script.js,reseat,reseat,False,,,Component Reseating
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,bus,bus,False,control-bus,token,CPU Bus Interface
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,cache,cache,True,,,CPU Cache
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,core,core,True,,,CPU Core
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,frequency,frequency,False,dynamic-frequency-scaling,token,Clock Frequency
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,io,io,False,instruction-register-ir-,token,I/O Controller
+module4,products\courses\lessons\module4\diagrams\diagram-01-cpu-intro\script.js,memory,memory,False,,,Memory Controller
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,alu,alu,True,,,Arithmetic Logic Unit
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,businterface,businterface,False,,,Bus Interface Unit
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,cache,cache,True,,,On-Chip Cache
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,controlunit,controlunit,False,,,Control Unit
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,memorycontroller,memorycontroller,False,,,Integrated Memory Controller
+module4,products\courses\lessons\module4\diagrams\diagram-02-architecture\script.js,registers,registers,False,,,Internal Registers
+module4,products\courses\lessons\module4\diagrams\diagram-03-control-unit\script.js,decoder,decoder,True,,,Instruction Decoder
+module4,products\courses\lessons\module4\diagrams\diagram-03-control-unit\script.js,fetcher,fetcher,False,,,Instruction Fetcher
+module4,products\courses\lessons\module4\diagrams\diagram-03-control-unit\script.js,instructions,instructions,False,instructions-per-cycle,token,Instruction Queue
+module4,products\courses\lessons\module4\diagrams\diagram-03-control-unit\script.js,microcode,microcode,True,,,Microcode
+module4,products\courses\lessons\module4\diagrams\diagram-03-control-unit\script.js,sequencer,sequencer,True,,,Execution Sequencer
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,adder,adder,True,,,Adder Circuit
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,comparator,comparator,True,,,Comparator Circuit
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,flags,flags,True,,,Status Flags Register
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,multiplier,multiplier,True,,,Multiplier Circuit
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,shifter,shifter,False,,,Barrel Shifter
+module4,products\courses\lessons\module4\diagrams\diagram-04-alu\script.js,subtractor,subtractor,False,,,Subtractor Circuit
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,accumulator,accumulator,True,,,Accumulator (EAX/RAX)
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,ir,ir,False,hardwired-control,token,Instruction Register
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,mar,mar,True,,,Memory Address Register
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,mdr,mdr,True,,,Memory Data Register
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,pc,pc,False,ipc,token,Program Counter (RIP)
+module4,products\courses\lessons\module4\diagrams\diagram-05-registers\script.js,sr,sr,False,sram,token,Status Register
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,controller,controller,False,,,Cache Controller
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,l1,l1,False,l1-cache,token,L1 Cache
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,l2,l2,False,l2-cache,token,L2 Cache
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,l3,l3,False,l3-cache,token,L3 Cache
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,line,line,False,cache-line,token,Cache Line
+module4,products\courses\lessons\module4\diagrams\diagram-06-cache\script.js,policy,policy,False,,,Cache Replacement Policy
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,cycle,cycle,False,instructions-per-cycle,token,Clock Cycle
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,divider,divider,False,,,Clock Divider
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,ghz,ghz,True,,,Gigahertz Rating
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,multiplier,multiplier,True,,,CPU Multiplier
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,oscillator,oscillator,False,,,Crystal Oscillator
+module4,products\courses\lessons\module4\diagrams\diagram-07-clock\script.js,pll,pll,False,,,Phase-Locked Loop
+module4,products\courses\lessons\module4\diagrams\diagram-08-instruction-cycle\script.js,decode,decode,True,,,Decode Stage
+module4,products\courses\lessons\module4\diagrams\diagram-08-instruction-cycle\script.js,execute,execute,True,,,Execute Stage
+module4,products\courses\lessons\module4\diagrams\diagram-08-instruction-cycle\script.js,fetch,fetch,True,,,Fetch Stage
+module4,products\courses\lessons\module4\diagrams\diagram-08-instruction-cycle\script.js,memorywrite,memorywrite,False,,,Memory Access Stage
+module4,products\courses\lessons\module4\diagrams\diagram-08-instruction-cycle\script.js,registerwrite,registerwrite,False,,,Write-Back Stage
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,ex,ex,False,execute,token,Execute
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,hazard,hazard,True,,,Pipeline Hazard
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,id,id,False,hybrid-architecture,token,Instruction Decode
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,if,if,False,,,Instruction Fetch
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,mem,mem,False,memristor,token,Memory Access
+module4,products\courses\lessons\module4\diagrams\diagram-09-pipelining\script.js,wb,wb,False,,,Write Back
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,core1,core1,False,core,strip-digits,Core 1
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,core2,core2,False,core,strip-digits,Core 2
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,core3,core3,False,core,strip-digits,Core 3
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,core4,core4,False,core,strip-digits,Core 4
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,scheduler,scheduler,True,,,Thread Scheduler
+module4,products\courses\lessons\module4\diagrams\diagram-10-cores-threads\script.js,smt,smt,True,,,Simultaneous Multithreading
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,arm,arm,True,,,ARM Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,cisc,cisc,True,,,CISC Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,mips,mips,True,,,MIPS Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,risc,risc,True,,,RISC Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,simd,simd,True,,,SIMD Instructions
+module4,products\courses\lessons\module4\diagrams\diagram-11-instruction-sets\script.js,x86,x86,True,,,x86 Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,architecture,architecture,True,,,CPU Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,benchmark,benchmark,True,,,CPU Benchmark
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,frequency,frequency,False,dynamic-frequency-scaling,token,Clock Frequency
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,ipc,ipc,True,,,Instructions Per Cycle
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,power,power,False,power-efficiency,token,Power Consumption
+module4,products\courses\lessons\module4\diagrams\diagram-12-performance\script.js,thermal,thermal,False,thermal-throttling,token,Thermal Performance
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,fan,fan,False,fan-curve,token,Cooling Fan
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,heatsink,heatsink,True,,,Heatsink
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,paste,paste,False,thermal-paste,token,Thermal Paste
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,tdp,tdp,True,,,Thermal Design Power
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,throttle,throttle,False,,,Thermal Throttling
+module4,products\courses\lessons\module4\diagrams\diagram-13-heat-power\script.js,undervolt,undervolt,False,undervolting,token,Undervolting
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,3dstacking,3dstacking,False,,,3D Die Stacking
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,chiplets,chiplets,False,,,Chiplet Architecture
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,graphene,graphene,False,,,Graphene Transistors
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,memristor,memristor,True,,,Memristor Technology
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,photonic,photonic,True,,,Photonic Computing
+module4,products\courses\lessons\module4\diagrams\diagram-14-future-cpus\script.js,quantum,quantum,False,quantum-computing,token,Quantum CPU
+module5,products\courses\lessons\module5\diagrams\diagram-01-what-is-an-app\script.js,data,data,False,data-storage,token,Data Storage
+module5,products\courses\lessons\module5\diagrams\diagram-01-what-is-an-app\script.js,logic,logic,False,application-logic,token,Application Logic
+module5,products\courses\lessons\module5\diagrams\diagram-01-what-is-an-app\script.js,network,network,False,,,Network Layer
+module5,products\courses\lessons\module5\diagrams\diagram-01-what-is-an-app\script.js,ui,ui,False,user-interface-ui-,token,User Interface
+module5,products\courses\lessons\module5\diagrams\diagram-01-what-is-an-app\script.js,user,user,False,user-interface-ui-,token,User
+module5,products\courses\lessons\module5\diagrams\diagram-02-frontend-backend\script.js,backend,backend,True,,,Backend Server
+module5,products\courses\lessons\module5\diagrams\diagram-02-frontend-backend\script.js,client,client,True,,,Client/Browser
+module5,products\courses\lessons\module5\diagrams\diagram-02-frontend-backend\script.js,database,database,True,,,Database
+module5,products\courses\lessons\module5\diagrams\diagram-02-frontend-backend\script.js,frontend,frontend,True,,,Frontend Code
+module5,products\courses\lessons\module5\diagrams\diagram-02-frontend-backend\script.js,network,network,False,,,Network/Internet
+module5,products\courses\lessons\module5\diagrams\diagram-03-frontend-tech\script.js,browser,browser,True,,,Browser
+module5,products\courses\lessons\module5\diagrams\diagram-03-frontend-tech\script.js,css,css,True,,,CSS — Style
+module5,products\courses\lessons\module5\diagrams\diagram-03-frontend-tech\script.js,dom,dom,True,,,DOM — Document
+module5,products\courses\lessons\module5\diagrams\diagram-03-frontend-tech\script.js,html,html,True,,,HTML — Structure
+module5,products\courses\lessons\module5\diagrams\diagram-03-frontend-tech\script.js,js,js,False,json,token,JavaScript — Behavior
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,api,api,True,,,API Gateway
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,database,database,True,,,Database
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,java,java,False,javascript,token,Java
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,nodejs,nodejs,False,,,Node.js
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,python,python,False,,,Python
+module5,products\courses\lessons\module5\diagrams\diagram-04-backend-tech\script.js,server,server,True,,,Web Server
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,app,app,False,web-app,token,Application
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,backup,backup,False,,,Backup
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,cache,cache,False,,,Cache Layer
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,nosql,nosql,True,,,NoSQL Database
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,query,query,True,,,Query
+module5,products\courses\lessons\module5\diagrams\diagram-05-databases\script.js,sql,sql,True,,,SQL Database
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,browser,browser,True,,,Browser
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,dns,dns,True,,,DNS Lookup
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,internet,internet,False,,,Internet
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,response,response,True,,,Response
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,server,server,True,,,Web Server
+module5,products\courses\lessons\module5\diagrams\diagram-06-client-server\script.js,user,user,False,user-interface-ui-,token,User Action
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,api,api,True,,,API Gateway
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,app,app,False,web-app,token,Your App
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,auth,auth,False,authorization,token,Auth Service
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,client,client,True,,,Client
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,data,data,False,data-storage,token,Data Service
+module5,products\courses\lessons\module5\diagrams\diagram-07-apis\script.js,external,external,False,,,External API
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,client,client,True,,,Client
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,delete,delete,True,,,DELETE — Remove
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,get,get,True,,,GET — Read
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,post,post,True,,,POST — Create
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,put,put,True,,,PUT — Update
+module5,products\courses\lessons\module5\diagrams\diagram-08-http-rest\script.js,status,status,False,status-code,token,Status Codes
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,admin,admin,False,,,Admin Panel
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,app,app,False,web-app,token,App Access
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,auth,auth,False,authorization,token,Auth Server
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,login,login,False,,,Login Form
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,token,token,True,,,Token/Session
+module5,products\courses\lessons\module5\diagrams\diagram-09-authentication\script.js,user,user,False,user-interface-ui-,token,User
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,browser,browser,True,,,Browser
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,device,device,False,,,Device
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,hybrid,hybrid,True,,,Hybrid App
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,native,native,True,,,Native Mobile
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,store,store,False,app-store,token,App Store
+module5,products\courses\lessons\module5\diagrams\diagram-10-mobile-vs-web\script.js,web,web,False,web-app,token,Web App
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,controller,controller,True,,,Controller — Logic
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,database,database,True,,,Database
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,model,model,True,,,Model — Data
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,router,router,False,,,Router
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,user,user,False,user-interface-ui-,token,User
+module5,products\courses\lessons\module5\diagrams\diagram-11-app-architecture\script.js,view,view,True,,,View — UI
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,ci,ci,False,ci-cd,token,CI/CD Pipeline
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,cloud,cloud,True,,,Cloud Server
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,code,code,False,status-code,token,Source Code
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,dev,dev,False,,,Developer
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,github,github,False,,,GitHub/Repo
+module5,products\courses\lessons\module5\diagrams\diagram-12-cloud-deployment\script.js,users,users,False,,,Users
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,auth,auth,False,authorization,token,Auth Gateway
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,encrypt,encrypt,False,encryption,token,Encryption
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,firewall,firewall,True,,,Firewall
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,https,https,True,,,HTTPS
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,threats,threats,False,,,Threat Detection
+module5,products\courses\lessons\module5\diagrams\diagram-13-app-security\script.js,user,user,False,user-interface-ui-,token,User
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,ai,ai,True,,,AI/ML
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,ar,ar,True,,,AR/VR
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,human,human,False,,,Human
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,iot,iot,True,,,IoT Devices
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,quantum,quantum,False,quantum-computing,token,Quantum Computing
+module5,products\courses\lessons\module5\diagrams\diagram-14-future-apps\script.js,voice,voice,False,voice-interface,token,Voice Interface
+module6,products\courses\lessons\module6\diagrams\diagram-01-introduction-website\script.js,assets,assets,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-01-introduction-website\script.js,device,device,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-01-introduction-website\script.js,network,network,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-01-introduction-website\script.js,server,server,False,hosting-server,token,
+module6,products\courses\lessons\module6\diagrams\diagram-02-types-of-websites\script.js,db,db,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-02-types-of-websites\script.js,renderer,renderer,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-02-types-of-websites\script.js,request,request,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-03-how-browsers-display\script.js,cssom,cssom,True,,,
+module6,products\courses\lessons\module6\diagrams\diagram-03-how-browsers-display\script.js,dom,dom,True,,,
+module6,products\courses\lessons\module6\diagrams\diagram-03-how-browsers-display\script.js,html,html,True,,,
+module6,products\courses\lessons\module6\diagrams\diagram-03-how-browsers-display\script.js,paint,paint,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-03-how-browsers-display\script.js,rendertree,rendertree,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-04-introduction-html\script.js,body,body,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-04-introduction-html\script.js,head,head,False,creating-headings-and-paragraphs,token,
+module6,products\courses\lessons\module6\diagrams\diagram-04-introduction-html\script.js,root,root,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-05-html-elements-and-ta\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-05-html-elements-and-ta\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-05-html-elements-and-ta\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-06-creating-headings-an\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-06-creating-headings-an\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-06-creating-headings-an\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-07-adding-images-and-li\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-07-adding-images-and-li\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-07-adding-images-and-li\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-08-lists-and-tables\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-08-lists-and-tables\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-08-lists-and-tables\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-09-introduction-css\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-09-introduction-css\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-09-introduction-css\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-10-colors-fonts-and-sty\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-10-colors-fonts-and-sty\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-10-colors-fonts-and-sty\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-11-layout-and-positioni\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-11-layout-and-positioni\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-11-layout-and-positioni\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-12-responsive-web-desig\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-12-responsive-web-desig\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-12-responsive-web-desig\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-13-how-websites-go-live\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-13-how-websites-go-live\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-13-how-websites-go-live\script.js,node3,node3,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-14-build-your-first-web\script.js,node1,node1,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-14-build-your-first-web\script.js,node2,node2,False,,,
+module6,products\courses\lessons\module6\diagrams\diagram-14-build-your-first-web\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-01-what-is-a-robot\script.js,brain,brain,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-01-what-is-a-robot\script.js,motors,motors,False,motors-and-movement,token,
+module7,products\courses\lessons\module7\diagrams\diagram-01-what-is-a-robot\script.js,sensor,sensor,False,light-sensors,token,
+module7,products\courses\lessons\module7\diagrams\diagram-02-types-of-robots\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-02-types-of-robots\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-02-types-of-robots\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-03-robot-components\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-03-robot-components\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-03-robot-components\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-04-introduction-sensors\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-04-introduction-sensors\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-04-introduction-sensors\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-05-touch-sensors\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-05-touch-sensors\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-05-touch-sensors\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-06-light-sensors\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-06-light-sensors\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-06-light-sensors\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-07-distance-sensors\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-07-distance-sensors\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-07-distance-sensors\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-08-robot-controllers\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-08-robot-controllers\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-08-robot-controllers\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-09-robot-logic\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-09-robot-logic\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-09-robot-logic\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-10-motors-and-movement\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-10-motors-and-movement\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-10-motors-and-movement\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-11-automation-basics\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-11-automation-basics\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-11-automation-basics\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-12-robot-decision-makin\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-12-robot-decision-makin\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-12-robot-decision-makin\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-13-real-world-robotics\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-13-real-world-robotics\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-13-real-world-robotics\script.js,node3,node3,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-14-design-your-own-robo\script.js,node1,node1,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-14-design-your-own-robo\script.js,node2,node2,False,,,
+module7,products\courses\lessons\module7\diagrams\diagram-14-design-your-own-robo\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-01-introduction-scratch\script.js,blocks,blocks,False,sound-blocks,token,
+module8,products\courses\lessons\module8\diagrams\diagram-01-introduction-scratch\script.js,canvas,canvas,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-01-introduction-scratch\script.js,stage,stage,False,sprites-and-stage,token,
+module8,products\courses\lessons\module8\diagrams\diagram-02-the-scratch-interfac\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-02-the-scratch-interfac\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-02-the-scratch-interfac\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-03-sprites-and-stage\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-03-sprites-and-stage\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-03-sprites-and-stage\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-04-motion-blocks\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-04-motion-blocks\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-04-motion-blocks\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-05-looks-blocks\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-05-looks-blocks\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-05-looks-blocks\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-06-sound-blocks\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-06-sound-blocks\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-06-sound-blocks\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-07-events\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-07-events\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-07-events\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-08-loops\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-08-loops\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-08-loops\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-09-conditions\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-09-conditions\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-09-conditions\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-10-variables\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-10-variables\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-10-variables\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-11-broadcast-messages\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-11-broadcast-messages\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-11-broadcast-messages\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-12-simple-game-logic\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-12-simple-game-logic\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-12-simple-game-logic\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-13-animation-projects\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-13-animation-projects\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-13-animation-projects\script.js,node3,node3,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-14-build-your-own-game\script.js,node1,node1,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-14-build-your-own-game\script.js,node2,node2,False,,,
+module8,products\courses\lessons\module8\diagrams\diagram-14-build-your-own-game\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-01-what-is-a-record\script.js,audit,audit,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-01-what-is-a-record\script.js,input,input,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-01-what-is-a-record\script.js,ledger,ledger,True,,,
+module9,products\courses\lessons\module9\diagrams\diagram-02-how-records-are-stor\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-02-how-records-are-stor\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-02-how-records-are-stor\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-03-problems-with-tradit\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-03-problems-with-tradit\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-03-problems-with-tradit\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-04-introduction-blockch\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-04-introduction-blockch\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-04-introduction-blockch\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-05-blocks-and-chains\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-05-blocks-and-chains\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-05-blocks-and-chains\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-06-transactions\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-06-transactions\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-06-transactions\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-07-digital-signatures\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-07-digital-signatures\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-07-digital-signatures\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-08-hashes\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-08-hashes\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-08-hashes\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-09-distributed-ledgers\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-09-distributed-ledgers\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-09-distributed-ledgers\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-10-network-verification\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-10-network-verification\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-10-network-verification\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-11-why-blockchain-is-se\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-11-why-blockchain-is-se\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-11-why-blockchain-is-se\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-12-real-world-blockchai\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-12-real-world-blockchai\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-12-real-world-blockchai\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-13-future-of-blockchain\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-13-future-of-blockchain\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-13-future-of-blockchain\script.js,node3,node3,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-14-build-a-paper-blockc\script.js,node1,node1,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-14-build-a-paper-blockc\script.js,node2,node2,False,,,
+module9,products\courses\lessons\module9\diagrams\diagram-14-build-a-paper-blockc\script.js,node3,node3,False,,,

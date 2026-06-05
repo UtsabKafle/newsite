@@ -462,6 +462,24 @@ class DiagramEngine {
       });
     }
     this._showExplanation(id);
+    // Broadcast selection to parent page and as a CustomEvent for in-page listeners
+    try {
+      const comp = this._findComp(id) || {};
+      const payload = {
+        type: 'diagram-select',
+        id: id,
+        name: comp.name || '',
+        howItWorks: comp.howItWorks || comp.description || '',
+        deeperDive: comp.deeperDive || comp.descriptionDetailed || '',
+        advanced: comp.advancedConcept || comp.funFact || comp.takeaway || ''
+      };
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage(payload, '*');
+      }
+      window.dispatchEvent(new CustomEvent('diagram-select', { detail: payload }));
+    } catch (e) {
+      console.warn('diagram select broadcast failed', e);
+    }
   }
   _clearSelection() {
     this.selectedId = null;
@@ -481,12 +499,18 @@ class DiagramEngine {
     this.el.explorerName.textContent = comp.name || id;
 
     const d = this.detailMode === 'detailed';
-    const desc = d && comp.descriptionDetailed ? comp.descriptionDetailed : comp.description;
+    const howItWorks = comp.howItWorks || comp.description;
+    const deeperDive = comp.deeperDive || comp.descriptionDetailed;
+    const advancedConcept = comp.advancedConcept || comp.funFact || comp.takeaway;
+    const vocabDefinition = comp.vocabDefinition || comp.vocab;
 
     // Render detailed texts
     let body = html`
       ${comp.purpose ? `<section class="ex-section"><div class="ex-label">Purpose</div><div class="ex-value">${this._esc(comp.purpose)}</div></section>` : ''}
-      ${desc ? `<section class="ex-section"><div class="ex-label">${d ? 'Detailed Explanation' : 'How It Works'}</div><div class="ex-value">${this._esc(desc)}</div></section>` : ''}
+      ${howItWorks ? `<section class="ex-section"><div class="ex-label">How It Works</div><div class="ex-value">${this._esc(howItWorks)}</div></section>` : ''}
+      ${deeperDive ? `<section class="ex-section"><div class="ex-label">Deeper Dive</div><div class="ex-value">${this._esc(deeperDive)}</div></section>` : ''}
+      ${advancedConcept ? `<section class="ex-section"><div class="ex-label">Advanced Concept</div><div class="ex-value">${this._esc(advancedConcept)}</div></section>` : ''}
+      ${vocabDefinition ? `<section class="ex-section"><div class="ex-label">Vocabulary Definition</div><div class="ex-value">${this._esc(vocabDefinition)}</div></section>` : ''}
       ${comp.why ? `<section class="ex-section"><div class="ex-label">Why It Matters</div><div class="ex-value">${this._esc(comp.why)}</div></section>` : ''}
       ${comp.analogy ? `<section class="ex-section"><div class="ex-label">Real-World Analogy</div><div class="ex-value">${this._esc(comp.analogy)}</div></section>` : ''}
     `;

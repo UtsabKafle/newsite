@@ -67,6 +67,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine you just clicked to open a game on your computer. In the instant between your click and the game appearing, your computer's CPU has already performed billions of operations. It fetched instructions, decoded them, executed calculations, and sent results to your screen — all before you could blink.
+              Imagine you just clicked to open a game on your computer. In the instant between your click and the game appearing, your computer's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has already performed billions of operations. It fetched instructions, decoded them, executed calculations, and sent results to your screen — all before you could blink.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The Central Processing Unit (CPU) is the brain of the computer. Every click, keystroke, tap, and command passes through it. Without the CPU, a computer is just a collection of lifeless parts. This chapter will show you what the CPU does and how it works at the speed of light.
+              The Central Processing Unit (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>) is the brain of the computer. Every click, keystroke, tap, and command passes through it. Without the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, a computer is just a collection of lifeless parts. This chapter will show you what the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> does and how it works at the speed of light.
             </p>
           </div>
         </section>
@@ -196,15 +198,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of the CPU as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> as:</p>
               <p class="text-sm text-theme-muted">
                 A master chef in a kitchen. The recipe (program) tells the chef what to do. Ingredients (data) come from the pantry (memory). The chef chops, mixes, and cooks (processes) using tools (ALU and control unit). When each dish is ready, it is served (output) to the customer.
               </p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Fetch-Decode-Execute Cycle</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The CPU runs in an endless loop called the <span class="text-brand-200">fetch-decode-execute cycle</span>. First, it <strong>fetches</strong> an instruction from memory (RAM). Then it <strong>decodes</strong> that instruction to figure out what to do. Finally, it <strong>executes</strong> the instruction using its internal circuits. This cycle repeats billions of times per second.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> runs in an endless loop called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch-decode-execute-cycle')">fetch-decode-execute cycle</span></span>. First, it <strong>fetches</strong> an instruction from memory (RAM). Then it <strong>decodes</strong> that instruction to figure out what to do. Finally, it <strong>executes</strong> the instruction using its internal circuits. This cycle repeats billions of times per second.
             </p>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="glass-panel p-4 text-center">
@@ -232,41 +234,50 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Inside the CPU</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A CPU contains billions of tiny transistors — microscopic switches that turn on and off to represent 1s and 0s. These transistors are arranged into two main parts:
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> contains billions of tiny <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> — microscopic switches that turn on and off to represent 1s and 0s. These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> are arranged into two main parts:
             </p>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Control Unit (CU)</p>
-                <p class="text-sm text-theme-muted">Directs the flow of data. It tells the other parts of the CPU what to do. Think of it as a traffic controller managing the flow of instructions.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit-cu')">Control Unit (CU)</span></p>
+                <p class="text-sm text-theme-muted">Directs the flow of data. It tells the other parts of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> what to do. Think of it as a traffic controller managing the flow of instructions.</p>
               </div>
               <div class="glass-panel p-5 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Arithmetic Logic Unit (ALU)</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('arithmetic-logic-unit-alu')">Arithmetic Logic Unit (ALU)</span></p>
                 <p class="text-sm text-theme-muted">Performs all math (addition, subtraction) and logic (AND, OR, compare) operations. This is where calculations actually happen.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Clock Speed &amp; Cores</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every CPU has a <span class="text-brand-200">clock</span> that ticks at a steady rate, measured in gigahertz (GHz). One GHz equals one billion ticks per second. With each tick, the CPU can execute one or more instructions.
+              Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has a <span class="text-brand-200">clock</span> that ticks at a steady rate, measured in gigahertz (GHz). One GHz equals one billion ticks per second. With each tick, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can execute one or more instructions.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs have multiple <span class="text-brand-200">cores</span>, each acting like a separate brain. A dual-core CPU has two cores, a quad-core has four, and some high-end chips have 16 or more. Cores allow the CPU to handle multiple tasks at once, which is called <span class="text-brand-200">parallel processing</span>.
+              Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> have multiple <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></span>, each acting like a separate brain. A dual-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>, a quad-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> has four, and some high-end chips have 16 or more. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Cores</span> allow the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> to handle multiple tasks at once, which is called <span class="text-brand-200">parallel processing</span>.
             </p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">A CPU's performance depends on both its clock speed and the number of cores. A 4 GHz quad-core CPU can theoretically do 16 billion operations per second — but real-world performance also depends on cache size, architecture, and cooling.</p>
+              <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU's</span> performance depends on both its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">clock speed</span> and the number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>. A 4 GHz quad-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can theoretically do 16 billion operations per second — but real-world performance also depends on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> size, architecture, and cooling.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cache Memory</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The CPU has its own tiny, ultra-fast memory called <span class="text-brand-200">cache</span>. Cache stores frequently used data so the CPU does not have to wait for the slower RAM. Most CPUs have three levels: L1 (fastest, smallest), L2 (medium), and L3 (larger, shared between cores).
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has its own tiny, ultra-fast memory called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> stores frequently used data so the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> does not have to wait for the slower RAM. Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> have three levels: L1 (fastest, smallest), L2 (medium), and L3 (larger, shared between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>).
             </p>
 
             <div class="mt-6 p-5 rounded-xl bg-brand-500/5 border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">The CPU is like a chef working at a counter. The cookbook (RAM) is on a shelf — the chef has to walk over and grab each recipe. Cache is like keeping the most-used recipes right on the counter. The chef's hands (registers) are where ingredients are actively being used. The more recipes on the counter (bigger cache), the faster the chef can cook.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is like a chef working at a counter. The cookbook (RAM) is on a shelf — the chef has to walk over and grab each recipe. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> is like keeping the most-used recipes right on the counter. The chef's hands (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span>) are where ingredients are actively being used. The more recipes on the counter (bigger <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span>), the faster the chef can cook.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, processing &amp; the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">cpu</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch-decode-execute-cycle')">Fetch-Decode-Execute Cycle</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit-cu')">Control Unit (CU)</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <!-- Vocabulary Table -->
@@ -282,16 +293,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>CPU</td><td>Central Processing Unit — the brain of the computer that executes instructions</td></tr>
-                  <tr><td>Fetch-Decode-Execute Cycle</td><td>The endless loop the CPU uses to process instructions one by one</td></tr>
-                  <tr><td>Control Unit (CU)</td><td>The part of the CPU that directs data flow and coordinates operations</td></tr>
-                  <tr><td>Arithmetic Logic Unit (ALU)</td><td>Performs all mathematical calculations and logical comparisons</td></tr>
-                  <tr><td>Clock Speed</td><td>The speed at which a CPU operates, measured in gigahertz (GHz)</td></tr>
-                  <tr><td>Core</td><td>An individual processing unit within a CPU; multiple cores enable parallel processing</td></tr>
-                  <tr><td>Cache</td><td>Ultra-fast memory inside the CPU that stores frequently accessed data</td></tr>
-                  <tr><td>Transistor</td><td>A tiny electronic switch that forms the building block of all CPU circuits</td></tr>
-                  <tr><td>Register</td><td>The smallest, fastest storage location inside the CPU for immediate data</td></tr>
-                  <tr><td>Pipeline</td><td>A technique where the CPU works on multiple instructions at different stages simultaneously</td></tr>
+                  <tr id="vocab-cpu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td><td>Central Processing Unit — the brain of the computer that executes instructions</td></tr>
+                  <tr id="vocab-fetch-decode-execute-cycle"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch-decode-execute-cycle')">Fetch-Decode-Execute Cycle</span></td><td>The endless loop the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> uses to process instructions one by one</td></tr>
+                  <tr id="vocab-control-unit-cu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit-cu')">Control Unit (CU)</span></td><td>The part of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> that directs data flow and coordinates operations</td></tr>
+                  <tr id="vocab-arithmetic-logic-unit-alu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('arithmetic-logic-unit-alu')">Arithmetic Logic Unit (ALU)</span></td><td>Performs all mathematical calculations and logical comparisons</td></tr>
+                  <tr id="vocab-clock-speed"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">Clock Speed</span></td><td>The speed at which a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> operates, measured in gigahertz (GHz)</td></tr>
+                  <tr id="vocab-core"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span></td><td>An individual processing unit within a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>; multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> enable parallel processing</td></tr>
+                  <tr id="vocab-cache"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span></td><td>Ultra-fast memory inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> that stores frequently accessed data</td></tr>
+                  <tr id="vocab-transistor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">Transistor</span></td><td>A tiny electronic switch that forms the building block of all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> circuits</td></tr>
+                  <tr id="vocab-register"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span></td><td>The smallest, fastest storage location inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> for immediate data</td></tr>
+                  <tr id="vocab-pipeline"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">Pipeline</span></td><td>A technique where the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> works on multiple instructions at different stages simultaneously</td></tr>
                 </tbody>
               </table>
             </div>
@@ -307,31 +318,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first microprocessor, the Intel 4004 (1971), had only 2,300 transistors. A modern CPU like the Apple M3 Ultra has over 180 billion transistors — that is 78 million times more.</p>
+                <p class="text-sm text-theme-muted">The first microprocessor, the Intel 4004 (1971), had only 2,300 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span>. A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> like the Apple M3 Ultra has over 180 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> — that is 78 million times more.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">If a CPU's clock tick were one second long, a single addition would take 32 years. At 5 GHz, it adds two numbers in 0.2 nanoseconds — faster than light can travel the length of a pencil.</p>
+                <p class="text-sm text-theme-muted">If a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU's</span> clock tick were one second long, a single addition would take 32 years. At 5 GHz, it adds two numbers in 0.2 nanoseconds — faster than light can travel the length of a pencil.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">CPUs generate intense heat. A high-end gaming CPU can reach 90&deg;C under load. That is why every desktop computer needs a fan or liquid cooler — without it, the CPU would melt in seconds.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> generate intense heat. A high-end gaming <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can reach 90&deg;C under load. That is why every desktop computer needs a fan or liquid cooler — without it, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> would melt in seconds.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Moore's Law, named after Intel co-founder Gordon Moore, predicted that the number of transistors on a chip would double every two years. It held true for decades, though progress is now slowing.</p>
+                <p class="text-sm text-theme-muted">Moore's Law, named after Intel co-founder Gordon Moore, predicted that the number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> on a chip would double every two years. It held true for decades, though progress is now slowing.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Your smartphone's CPU is more powerful than the supercomputers that guided Apollo 11 to the Moon. The Apollo Guidance Computer ran at 0.043 MHz — modern phones run thousands of times faster.</p>
+                <p class="text-sm text-theme-muted">Your smartphone's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is more powerful than the supercomputers that guided Apollo 11 to the Moon. The Apollo Guidance Computer ran at 0.043 MHz — modern phones run thousands of times faster.</p>
               </div>
             </div>
           </div>
@@ -357,18 +368,18 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does CPU stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Central Processing Unit</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Computer Personal Unit</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Core Processing Utility</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> Processing Utility</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Control Program Unit</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Central Processing Unit</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What are the three steps of the CPU's main cycle?</p>
+                <p class="text-sm font-semibold text-theme">2. What are the three steps of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU's</span> main cycle?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Read, Write, Save</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Input, Process, Output</label>
@@ -379,12 +390,12 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which part of the CPU performs mathematical calculations?</p>
+                <p class="text-sm font-semibold text-theme">3. Which part of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> performs mathematical calculations?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Control Unit</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Cache</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> ALU (Arithmetic Logic Unit)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Register</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> ALU (Arithmetic Logic Unit)</p>
               </div>

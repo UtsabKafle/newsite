@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -141,10 +156,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every time you visit a website, your device performs a silent lookup. DNS works behind the scenes to connect names to numbers — making the internet usable for everyone.
+              Every time you visit a website, your device performs a silent lookup. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> works behind the scenes to connect names to numbers — making the internet usable for everyone.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Without DNS, you would need to memorize long strings of numbers just to check your email.
+              Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span>, you would need to memorize long strings of numbers just to check your email.
             </p>
           </div>
         </section>
@@ -154,33 +169,35 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine you have a phonebook. You look up "Grandma" and find her number. DNS is like the internet's phonebook.
+              Imagine you have a phonebook. You look up "Grandma" and find her number. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is like the internet's phonebook.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you type a website name, DNS finds the number (IP address) so your computer can connect.
+              When you type a website name, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> finds the number (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>) so your computer can connect.
             </p>
             <div class="mt-4 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20">
-              <p class="text-sm text-brand-200 font-medium">Key Idea: DNS translates names to numbers.</p>
+              <p class="text-sm text-brand-200 font-medium">Key Idea: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> translates names to numbers.</p>
             </div>
             <hr class="my-6 border-theme/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you type a URL, your computer first checks its local cache. If no record exists, it asks a DNS resolver — usually provided by your ISP or a public service like Google DNS (8.8.8.8).
+              When you type a URL, your computer first checks its local <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span>. If no record exists, it asks a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns-resolver')">DNS resolver</span> — usually provided by your ISP or a public service like Google <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> (8.8.8.8).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The resolver queries root servers, then TLD servers (.com, .org), then authoritative name servers to get the exact IP.
+              The resolver queries <span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">root servers</span>, then <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tld')">TLD</span> servers (.com, .org), then authoritative name servers to get the exact IP.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               This cascade of lookups happens in milliseconds.
             </p>
             <hr class="my-6 border-theme/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The DNS hierarchy consists of four layers: Recursive Resolver, Root Server, TLD Name Server, and Authoritative Name Server. Each layer reduces the search space until the exact record is found.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> hierarchy consists of four layers: Recursive Resolver, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">Root Server</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tld')">TLD</span> Name Server, and Authoritative Name Server. Each layer reduces the search space until the exact record is found.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Record types include A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail exchange), and TXT (verification). DNS caching at every level reduces latency and global traffic load.
+              Record types include A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail exchange), and TXT (verification). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> caching at every level reduces latency and global traffic load.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Security considerations: DNS spoofing, DNSSEC, and encrypted DNS (DoH / DoT) are critical for modern internet safety.
+              Security considerations: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> spoofing, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dnssec')">DNSSEC</span>, and encrypted <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('doh-dot')">DoH / DoT</span>) are critical for modern internet safety.
             </p>
           </div>
         </section>
@@ -189,24 +206,24 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-theme">
-                    <th class="py-2 pr-4 font-semibold text-theme">Term</th>
-                    <th class="py-2 pr-4 font-semibold text-theme">Meaning</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">DNS</td><td class="py-2 pr-4">Domain Name System — translates names to IPs</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Domain Name</td><td class="py-2 pr-4">Human-readable website address (e.g. google.com)</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">IP Address</td><td class="py-2 pr-4">Unique numeric identifier for a device on a network</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">DNS Resolver</td><td class="py-2 pr-4">Server that performs DNS lookups on your behalf</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Root Server</td><td class="py-2 pr-4">Top-level server that directs queries to TLD servers</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">TLD</td><td class="py-2 pr-4">Top-Level Domain — .com, .org, .net, etc.</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Authoritative Server</td><td class="py-2 pr-4">Server holding the actual DNS records for a domain</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Cache</td><td class="py-2 pr-4">Temporary storage of DNS results to speed up lookups</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">DNSSEC</td><td class="py-2 pr-4">DNS Security Extensions — prevents spoofing</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">DoH / DoT</td><td class="py-2 pr-4">DNS over HTTPS / TLS — encrypted DNS queries</td></tr>
+                  <tr id="vocab-dns"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> System — translates names to IPs</td></tr>
+                  <tr id="vocab-domain-name"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span></td><td>Human-readable website address (e.g. google.com)</td></tr>
+                  <tr id="vocab-ip-address"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span></td><td>Unique numeric identifier for a device on a network</td></tr>
+                  <tr id="vocab-dns-resolver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns-resolver')">DNS Resolver</span></td><td>Server that performs <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> lookups on your behalf</td></tr>
+                  <tr id="vocab-root-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">Root Server</span></td><td>Top-level server that directs queries to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tld')">TLD</span> servers</td></tr>
+                  <tr id="vocab-tld"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tld')">TLD</span></td><td>Top-Level Domain — .com, .org, .net, etc.</td></tr>
+                  <tr id="vocab-authoritative-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authoritative-server')">Authoritative Server</span></td><td>Server holding the actual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> records for a domain</td></tr>
+                  <tr id="vocab-cache"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span></td><td>Temporary storage of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> results to speed up lookups</td></tr>
+                  <tr id="vocab-dnssec"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dnssec')">DNSSEC</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> Security Extensions — prevents spoofing</td></tr>
+                  <tr id="vocab-doh-dot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('doh-dot')">DoH / DoT</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> over HTTPS / TLS — encrypted <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> queries</td></tr>
                 </tbody>
               </table>
             </div>
@@ -217,11 +234,11 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <ul class="mt-4 space-y-3 text-sm text-theme-muted">
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>DNS was invented in 1983 by Paul Mockapetris.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>There are only 13 root server authority clusters worldwide.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> was invented in 1983 by Paul Mockapetris.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>There are only 13 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">root server</span> authority clusters worldwide.</span></li>
               <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Over 350 million domains are registered globally.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>A DNS query can travel over 10,000 km in under 100 milliseconds.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Google's 8.8.8.8 handles billions of DNS queries every day.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> query can travel over 10,000 km in under 100 milliseconds.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Google's 8.8.8.8 handles billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> queries every day.</span></li>
             </ul>
           </div>
         </section>
@@ -231,20 +248,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
             <div class="mt-4 space-y-4">
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">DNS is a single server</p>
-                <p class="text-sm text-theme-muted mt-1">DNS is a distributed system involving thousands of servers worldwide.</p>
+                <p class="text-sm font-semibold text-red-300"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is a single server</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is a distributed system involving thousands of servers worldwide.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">DNS is the same as a web host</p>
-                <p class="text-sm text-theme-muted mt-1">DNS only translates names to IPs — it does not host websites.</p>
+                <p class="text-sm font-semibold text-red-300"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is the same as a web host</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> only translates names to IPs — it does not host websites.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">Changing DNS makes the internet faster</p>
+                <p class="text-sm font-semibold text-red-300">Changing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> makes the internet faster</p>
                 <p class="text-sm text-theme-muted mt-1">A faster resolver may improve lookup speed, but actual connection speed depends on bandwidth and routing.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">DNS is always secure</p>
-                <p class="text-sm text-theme-muted mt-1">Standard DNS has no encryption. DNSSEC, DoH, and DoT add security layers.</p>
+                <p class="text-sm font-semibold text-red-300"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is always secure</p>
+                <p class="text-sm text-theme-muted mt-1">Standard <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> has no encryption. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dnssec')">DNSSEC</span>, DoH, and DoT add security layers.</p>
               </div>
             </div>
           </div>
@@ -258,16 +275,16 @@
                 <div class="flex flex-col items-center gap-3 text-sm">
                   <div class="glass-panel px-4 py-2 text-brand-200 font-medium">You type: google.com</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <div class="glass-panel px-4 py-2 text-theme-muted">DNS Resolver checks cache</div>
+                  <div class="glass-panel px-4 py-2 text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns-resolver')">DNS Resolver</span> checks <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <div class="glass-panel px-4 py-2 text-theme-muted">Root Server → TLD Server</div>
+                  <div class="glass-panel px-4 py-2 text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">Root Server</span> → <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tld')">TLD</span> Server</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   <div class="glass-panel px-4 py-2 text-theme-muted">Authoritative Name Server</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   <div class="glass-panel px-4 py-2 text-brand-200 font-medium bg-brand-500/10">Returns IP: 142.250.193.14</div>
                 </div>
               </div>
-              <p class="mt-4 text-xs text-theme-faint text-center">The DNS lookup chain — typically completed in milliseconds.</p>
+              <p class="mt-4 text-xs text-theme-faint text-center">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> lookup chain — typically completed in milliseconds.</p>
             </div>
           </div>
         </section>
@@ -277,38 +294,38 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
               <div>
-                <p class="text-sm font-semibold text-theme">1. What does DNS stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> stand for?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> Domain Network System</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> Domain Name System</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> System</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> Data Network Service</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">2. What does DNS convert a domain name into?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> convert a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">domain name</span> into?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> A MAC address</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> An IP address</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></label>
                   <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> A URL</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">3. Which server is queried first in the DNS hierarchy?</p>
+                <p class="text-sm font-semibold text-theme">3. Which server is queried first in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> hierarchy?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Authoritative Name Server</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> DNS Resolver</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Root Server</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns-resolver')">DNS Resolver</span></label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-server')">Root Server</span></label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">4. True or False: DNS caches results to speed up lookups.</p>
+                <p class="text-sm font-semibold text-theme">4. True or False: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span> results to speed up lookups.</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> False</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">5. True or False: DNS queries are encrypted by default.</p>
+                <p class="text-sm font-semibold text-theme">5. True or False: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> queries are encrypted by default.</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> False</label>
@@ -323,13 +340,13 @@
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">7. Fill in the blank: The ___ server holds the actual DNS records for a domain.</p>
+                <p class="text-sm font-semibold text-theme">7. Fill in the blank: The ___ server holds the actual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> records for a domain.</p>
                 <div class="mt-2 text-sm text-theme-muted">
                   <input type="text" placeholder="Type your answer" class="w-full max-w-xs px-3 py-2 rounded-lg bg-surface-dark border border-theme text-theme text-sm" disabled>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">8. Fill in the blank: DNS over HTTPS is abbreviated as ___ .</p>
+                <p class="text-sm font-semibold text-theme">8. Fill in the blank: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> over HTTPS is abbreviated as ___ .</p>
                 <div class="mt-2 text-sm text-theme-muted">
                   <input type="text" placeholder="Type your answer" class="w-full max-w-xs px-3 py-2 rounded-lg bg-surface-dark border border-theme text-theme text-sm" disabled>
                 </div>
@@ -338,9 +355,9 @@
             <details class="mt-6">
               <summary class="text-sm text-brand-300 cursor-pointer hover:text-theme transition-colors">Show Answers</summary>
               <div class="mt-3 p-4 rounded-xl bg-brand-500/10 text-sm text-theme-muted space-y-1">
-                <p>1. Domain Name System</p>
-                <p>2. An IP address</p>
-                <p>3. DNS Resolver</p>
+                <p>1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('domain-name')">Domain Name</span> System</p>
+                <p>2. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></p>
+                <p>3. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns-resolver')">DNS Resolver</span></p>
                 <p>4. True</p>
                 <p>5. False</p>
                 <p>6. Domain aliases</p>
@@ -356,15 +373,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
             <div class="mt-4 space-y-4 text-sm text-theme-muted">
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">1. What would happen if all DNS servers went offline?</p>
+                <p class="font-semibold text-theme">1. What would happen if all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> servers went offline?</p>
                 <p class="mt-1">Consider how users access websites without numeric addresses.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">2. Why might a company want to run its own DNS server instead of using a public one?</p>
+                <p class="font-semibold text-theme">2. Why might a company want to run its own <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> server instead of using a public one?</p>
                 <p class="mt-1">Think about speed, control, and security.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">3. How does DNS caching affect a website after its IP address changes?</p>
+                <p class="font-semibold text-theme">3. How does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> caching affect a website after its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> changes?</p>
                 <p class="mt-1">Explore the trade-off between speed and freshness.</p>
               </div>
             </div>
@@ -377,11 +394,11 @@
             <div class="mt-4 grid gap-4 sm:grid-cols-2">
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="text-sm font-semibold text-brand-200">Project 1: Trace a Domain</h3>
-                <p class="mt-2 text-sm text-theme-muted">Use <code class="text-brand-300 font-mono text-xs">nslookup</code> or <code class="text-brand-300 font-mono text-xs">dig</code> to find the IP address of three websites. Compare the results.</p>
+                <p class="mt-2 text-sm text-theme-muted">Use <code class="text-brand-300 font-mono text-xs">nslookup</code> or <code class="text-brand-300 font-mono text-xs">dig</code> to find the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> of three websites. Compare the results.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="text-sm font-semibold text-brand-200">Project 2: Change Your DNS</h3>
-                <p class="mt-2 text-sm text-theme-muted">Switch your device's DNS to Google (8.8.8.8) or Cloudflare (1.1.1.1). Note any difference in browsing speed.</p>
+                <p class="mt-2 text-sm text-theme-muted">Switch your device's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> to Google (8.8.8.8) or Cloudflare (1.1.1.1). Note any difference in browsing speed.</p>
               </div>
             </div>
           </div>
@@ -391,10 +408,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
-              <p><strong class="text-brand-200">Learning Objectives:</strong> Students should understand DNS as a name-to-IP translation system, the lookup hierarchy, and the importance of DNS security.</p>
+              <p><strong class="text-brand-200">Learning Objectives:</strong> Students should understand <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> as a name-to-IP translation system, the lookup hierarchy, and the importance of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> security.</p>
               <p><strong class="text-brand-200">Discussion Prompts:</strong> Ask students what happens when they type a URL. Use the phonebook analogy for younger learners.</p>
-              <p><strong class="text-brand-200">Assessment Ideas:</strong> Have students diagram the DNS lookup flow. Use the knowledge check as a quick quiz.</p>
-              <p><strong class="text-brand-200">Extensions:</strong> Introduce DNSSEC, DNS over HTTPS, and how DNS blocking is used for content filtering.</p>
+              <p><strong class="text-brand-200">Assessment Ideas:</strong> Have students diagram the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> lookup flow. Use the knowledge check as a quick quiz.</p>
+              <p><strong class="text-brand-200">Extensions:</strong> Introduce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dnssec')">DNSSEC</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> over HTTPS, and how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> blocking is used for content filtering.</p>
             </div>
           </div>
         </section>

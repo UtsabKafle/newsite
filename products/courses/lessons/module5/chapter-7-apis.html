@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When a weather app shows you today's forecast, it does not have its own weather station. When you log into a website using Google, the website does not store your Google password. In both cases, apps are talking to each other through <span class="text-brand-200 font-semibold">APIs</span> — Application Programming Interfaces.
+              When a weather app shows you today's forecast, it does not have its own weather station. When you log into a website using Google, the website does not store your Google password. In both cases, apps are talking to each other through <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span></span> — Application Programming Interfaces.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An API is a messenger. It allows one piece of software to request data or services from another piece of software in a structured, predictable way. APIs are the glue that connects the modern internet — every app you use relies on dozens of APIs working behind the scenes.
+              An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> is a messenger. It allows one piece of software to request data or services from another piece of software in a structured, predictable way. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are the glue that connects the modern internet — every app you use relies on dozens of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> working behind the scenes.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn what APIs are, how they work, real-world examples, and why they are essential to modern software.
+              In this chapter, you will learn what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are, how they work, real-world examples, and why they are essential to modern software.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">An API defines a set of rules that allow two applications to communicate. One app sends a request to the API endpoint (a specific URL), usually including authentication and parameters. The API processes the request, queries its own backend or database, and returns structured data — most commonly in JSON format.</p>
+              <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> defines a set of rules that allow two applications to communicate. One app sends a request to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">endpoint</span> (a specific URL), usually including authentication and parameters. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> processes the request, queries its own backend or database, and returns structured data — most commonly in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> format.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Restaurant Waiter Analogy</p>
-              <p class="text-sm text-theme-muted">You (your app) tell the waiter (the API) what you want from the menu (the available endpoints). The waiter goes to the kitchen (the backend), gives the order to the chefs (server code), and brings your food (the data) back to you. You never enter the kitchen — you only talk to the waiter. The menu tells you what is possible.</p>
+              <p class="text-sm text-theme-muted">You (your app) tell the waiter (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>) what you want from the menu (the available <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">endpoints</span>). The waiter goes to the kitchen (the backend), gives the order to the chefs (server code), and brings your food (the data) back to you. You never enter the kitchen — you only talk to the waiter. The menu tells you what is possible.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Real-World Examples</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              APIs are everywhere. Here are some common examples:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are everywhere. Here are some common examples:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
@@ -213,40 +215,49 @@
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Weather App</h4>
-                <p class="mt-2 text-sm text-theme-muted">Calls a weather service API (like OpenWeatherMap) to get current conditions and forecasts for your location.</p>
+                <p class="mt-2 text-sm text-theme-muted">Calls a weather service <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> (like OpenWeatherMap) to get current conditions and forecasts for your location.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Maps App</h4>
-                <p class="mt-2 text-sm text-theme-muted">Calls the Google Maps API or Mapbox API to display maps, get directions, and search for places.</p>
+                <p class="mt-2 text-sm text-theme-muted">Calls the Google Maps <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> or Mapbox <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> to display maps, get directions, and search for places.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Login with Google</h4>
-                <p class="mt-2 text-sm text-theme-muted">A website uses Google's OAuth API to verify your identity without ever seeing your password.</p>
+                <p class="mt-2 text-sm text-theme-muted">A website uses Google's OAuth <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> to verify your identity without ever seeing your password.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              APIs typically return data in <span class="text-brand-200">JSON</span> (JavaScript Object Notation) — a lightweight, human-readable format that is easy for computers to parse. A JSON response from a weather API might look like: <code class="text-brand-200">{"temp": 22, "condition": "sunny"}</code>.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> typically return data in <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span></span> (JavaScript Object Notation) — a lightweight, human-readable format that is easy for computers to parse. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> response from a weather <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> might look like: <code class="text-brand-200">{"temp": 22, "condition": "sunny"}</code>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Many APIs are <span class="text-brand-200">third-party APIs</span> — services built by one company that other developers can use. Twitter has an API, Stripe has a payment API, Twilio has a messaging API. This is called <span class="text-brand-200">integration</span> — combining different services through their APIs.
+              Many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('third-party-api')">third-party APIs</span></span> — services built by one company that other developers can use. Twitter has an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>, Stripe has a payment <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>, Twilio has a messaging <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>. This is called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('integration')">integration</span></span> — combining different services through their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Most APIs enforce <span class="text-brand-200">rate limits</span> — they restrict how many requests you can make in a given time period. This prevents abuse and ensures fair usage for all developers. A free weather API might allow 1,000 requests per day, while a paid plan allows millions.
+              Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> enforce <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rate-limit')">rate limits</span></span> — they restrict how many requests you can make in a given time period. This prevents abuse and ensures fair usage for all developers. A free weather <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> might allow 1,000 requests per day, while a paid plan allows millions.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">APIs are the reason modern apps can be built so quickly. Instead of building everything from scratch, developers integrate existing APIs for payments, maps, messaging, AI, and more.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are the reason modern apps can be built so quickly. Instead of building everything from scratch, developers integrate existing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> for payments, maps, messaging, AI, and more.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">apis</span> &mdash; how apps talk involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">Endpoint</span> helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -261,12 +272,12 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>API</td><td>Application Programming Interface — a set of rules that lets software applications communicate</td></tr>
-                  <tr><td>JSON</td><td>JavaScript Object Notation — a lightweight data format used in API responses</td></tr>
-                  <tr><td>Endpoint</td><td>A specific URL where an API can be accessed (e.g. /api/weather)</td></tr>
-                  <tr><td>Third-party API</td><td>An API built by an external company or service for other developers to use</td></tr>
-                  <tr><td>Integration</td><td>Connecting different software systems together, often through APIs</td></tr>
-                  <tr><td>Rate Limit</td><td>A restriction on how many API requests a client can make in a given time period</td></tr>
+                  <tr id="vocab-api"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span></td><td>Application Programming Interface — a set of rules that lets software applications communicate</td></tr>
+                  <tr id="vocab-json"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span></td><td>JavaScript Object Notation — a lightweight data format used in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> responses</td></tr>
+                  <tr id="vocab-endpoint"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">Endpoint</span></td><td>A specific URL where an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> can be accessed (e.g. /<span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">api</span>/weather)</td></tr>
+                  <tr id="vocab-third-party-api"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('third-party-api')">Third-party API</span></td><td>An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> built by an external company or service for other developers to use</td></tr>
+                  <tr id="vocab-integration"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('integration')">Integration</span></td><td>Connecting different software systems together, often through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span></td></tr>
+                  <tr id="vocab-rate-limit"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rate-limit')">Rate Limit</span></td><td>A restriction on how many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> requests a client can make in a given time period</td></tr>
                 </tbody>
               </table>
             </div>
@@ -281,31 +292,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The term API was first used in 1968 in a paper about data structures. The concept is older than the internet itself.</p>
+                <p class="text-sm text-theme-muted">The term <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> was first used in 1968 in a paper about data structures. The concept is older than the internet itself.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Google Maps API is used by over 10 million websites worldwide. It processes billions of requests every day.</p>
+                <p class="text-sm text-theme-muted">Google Maps <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> is used by over 10 million websites worldwide. It processes billions of requests every day.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Twilio's API handles over 1 trillion API requests per year for SMS, voice, and video communications.</p>
+                <p class="text-sm text-theme-muted">Twilio's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> handles over 1 trillion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> requests per year for SMS, voice, and video communications.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Stripe's payment API processes billions of dollars in transactions every year for millions of businesses.</p>
+                <p class="text-sm text-theme-muted">Stripe's payment <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> processes billions of dollars in transactions every year for millions of businesses.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The OpenAPI Specification (formerly Swagger) is the standard way to document REST APIs — it lets developers explore an API without writing any code.</p>
+                <p class="text-sm text-theme-muted">The OpenAPI Specification (formerly Swagger) is the standard way to document REST <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> — it lets developers explore an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> without writing any code.</p>
               </div>
             </div>
           </div>
@@ -330,11 +341,11 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does API stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Advanced Protocol Interface</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Application Programming Interface</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Automated Program Integration</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Automated Program <span class="vocab cursor-pointer" onclick="scrollToVocabulary('integration')">Integration</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Application Process Input</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Application Programming Interface</p>
@@ -345,21 +356,21 @@
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The kitchen (backend)</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The customer (user)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The API (messenger between customer and kitchen)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The menu (list of endpoints)</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> (messenger between customer and kitchen)</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The menu (list of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">endpoints</span>)</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The API (messenger between customer and kitchen)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> (messenger between customer and kitchen)</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What format do most modern APIs use to return data?</p>
+                <p class="text-sm font-semibold text-theme">3. What format do most modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> use to return data?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> XML</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> CSV</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> JSON</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> HTML</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> JSON</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span></p>
               </div>
 
             </div>

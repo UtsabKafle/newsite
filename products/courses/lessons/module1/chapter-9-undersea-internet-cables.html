@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -144,33 +159,56 @@
               Think of an undersea cable like a super-long drinking straw that stretches from one country to another across the ocean. Instead of sucking up a drink, you send pulses of light through the straw. At one end, someone sends a message as tiny flashes of light, and at the other end, a receiver reads those flashes. The straw is very thin, but millions of messages can travel through it at the same time, just like many people can whisper through one very long tube if they take turns really fast.
             </p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Undersea cables contain hair-thin strands of glass called optical fibers. Data is converted into laser light and sent through these fibers at incredible speeds. Because light travels differently in glass than in air, it bounces along the inside of the fiber, a principle called total internal reflection. Repeaters placed every 50-100 km along the cable boost the signal so it doesn't fade. This is why you can video call someone on the other side of the planet with barely any delay.
+              Undersea cables contain hair-thin strands of glass called optical fibers. Data is converted into laser light and sent through these fibers at incredible speeds. Because light travels differently in glass than in air, it bounces along the inside of the fiber, a principle called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('total-internal-reflection')">total internal reflection</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeaters</span> placed every 50-100 km along the cable boost the signal so it doesn't fade. This is why you can video call someone on the other side of the planet with barely any delay.
             </p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern undersea cables use Dense Wavelength Division Multiplexing (DWDM), where multiple laser signals at different wavelengths travel simultaneously through a single fiber pair, multiplying capacity to tens of terabits per second. Each cable contains multiple fiber pairs, copper conductors for power, and multiple layers of steel wire, polyethylene, and water-blocking materials. Repeaters use Erbium-Doped Fiber Amplifiers (EDFAs) to amplify optical signals directly without converting to electricity. Cable routes are surveyed meticulously to avoid underwater mountains, shipwrecks, and seismic zones. Landing stations house the termination equipment that connects the submarine cable to terrestrial networks.
+              Modern undersea cables use Dense Wavelength Division Multiplexing (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dwdm')">DWDM</span>), where multiple laser signals at different wavelengths travel simultaneously through a single fiber pair, multiplying capacity to tens of terabits per second. Each cable contains multiple fiber pairs, copper conductors for power, and multiple layers of steel wire, polyethylene, and water-blocking materials. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeaters</span> use Erbium-Doped Fiber Amplifiers (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('edfa')">EDFAs</span>) to amplify optical signals directly without converting to electricity. Cable routes are surveyed meticulously to avoid underwater mountains, shipwrecks, and seismic zones. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing stations</span> house the termination equipment that connects the submarine cable to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('terrestrial-network')">terrestrial networks</span>.
             </p>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Now that you understand the basics of undersea internet cables, let's connect the pieces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">Fiber Optic</span> is one of the most important ideas in this chapter. It works together with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeater</span> to make the whole system run smoothly.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing Station</span> like a team where every member has a specific job. When one part sends information, another part receives it, checks it, and passes it along. This step-by-step teamwork is what makes technology reliable, even when many devices are involved.
+            </p>
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Understanding how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">Fiber Optic</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeater</span> connect helps you explain undersea internet cables to a friend using your own words — not just memorizing definitions.</p>
+            </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, undersea internet cables involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">Fiber Optic</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeater</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing Station</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left text-theme-muted">
-                <thead class="text-xs uppercase text-theme-muted border-b border-theme">
-<tr><th class="pb-2 pr-4 font-semibold text-theme">Term</th><th class="pb-2 pr-4 font-semibold text-theme">Definition</th></tr>
-                  </thead>
-                  <tbody class="text-theme-muted divide-y divide-theme/50">
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Fiber Optic</td><td class="py-2 pr-4">A thin glass strand that carries data as light pulses</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Repeater</td><td class="py-2 pr-4">A device that amplifies a signal to prevent data loss over long distances</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Landing Station</td><td class="py-2 pr-4">The onshore facility where a submarine cable connects to land networks</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">DWDM</td><td class="py-2 pr-4">Dense Wavelength Division Multiplexing — sending many light colors through one fiber simultaneously</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Latency</td><td class="py-2 pr-4">The time it takes for data to travel from source to destination</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Bandwidth</td><td class="py-2 pr-4">The maximum rate of data transfer across a network path</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Total Internal Reflection</td><td class="py-2 pr-4">The principle that keeps light bouncing inside a fiber optic strand</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Terrestrial Network</td><td class="py-2 pr-4">The land-based network of cables and routers that connect to submarine cables</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">EDFA</td><td class="py-2 pr-4">Erbium-Doped Fiber Amplifier — amplifies light signals directly in the fiber</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">CLS</td><td class="py-2 pr-4">Cable Landing Station — the physical building where cables come ashore</td></tr>
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-fiber-optic"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">Fiber Optic</span></td><td>A thin glass strand that carries data as light pulses</td></tr>
+                  <tr id="vocab-repeater"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeater</span></td><td>A device that amplifies a signal to prevent data loss over long distances</td></tr>
+                  <tr id="vocab-landing-station"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing Station</span></td><td>The onshore facility where a submarine cable connects to land networks</td></tr>
+                  <tr id="vocab-dwdm"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dwdm')">DWDM</span></td><td>Dense Wavelength Division Multiplexing — sending many light colors through one fiber simultaneously</td></tr>
+                  <tr id="vocab-latency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></td><td>The time it takes for data to travel from source to destination</td></tr>
+                  <tr id="vocab-bandwidth"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">Bandwidth</span></td><td>The maximum rate of data transfer across a network path</td></tr>
+                  <tr id="vocab-total-internal-reflection"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('total-internal-reflection')">Total Internal Reflection</span></td><td>The principle that keeps light bouncing inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">fiber optic</span> strand</td></tr>
+                  <tr id="vocab-terrestrial-network"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('terrestrial-network')">Terrestrial Network</span></td><td>The land-based network of cables and routers that connect to submarine cables</td></tr>
+                  <tr id="vocab-edfa"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('edfa')">EDFA</span></td><td>Erbium-Doped Fiber Amplifier — amplifies light signals directly in the fiber</td></tr>
+                  <tr id="vocab-cls"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cls')">CLS</span></td><td>Cable <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing Station</span> — the physical building where cables come ashore</td></tr>
                 </tbody>
               </table>
             </div>
@@ -197,7 +235,7 @@
               <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">The Internet is mostly wireless.</strong><br>In truth, over 99% of international data flows through undersea cables. Wi-Fi and cellular only cover the "last mile."</div></li>
               <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Satellites carry most global Internet traffic.</strong><br>Satellites are used for broadcasting and remote areas, but they cannot match the capacity or low cost of undersea cables.</div></li>
               <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Cables are fragile and break often.</strong><br>While breaks do occur (usually from ship anchors or fishing trawlers), cables are heavily armored and can be repaired quickly by specialized ships.</div></li>
-              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data travels as electricity through cables.</strong><br>Undersea cables use light, not electricity, to transmit data. Electricity only powers the repeaters along the route.</div></li>
+              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data travels as electricity through cables.</strong><br>Undersea cables use light, not electricity, to transmit data. Electricity only powers the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span> along the route.</div></li>
             </ul>
           </div>
         </section>
@@ -212,7 +250,7 @@
                   <li>Core: glass optical fibers (thin as hair)</li>
                   <li>Buffer: gel or plastic coating around fibers</li>
                   <li>Strength members: steel wires for tension</li>
-                  <li>Copper conductor: carries power to repeaters</li>
+                  <li>Copper conductor: carries power to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span></li>
                   <li>Insulation: polyethylene waterproof layer</li>
                   <li>Armor: steel wire wrapping (varies by depth)</li>
                   <li>Outer jacket: final protective polymer layer</li>
@@ -222,12 +260,12 @@
                 <h3 class="font-semibold text-brand-200">Path of a Data Packet</h3>
                 <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
                   <li>Your device &rarr; local ISP &rarr; terrestrial fiber</li>
-                  <li>Terrestrial fiber &rarr; cable landing station</li>
-                  <li>Landing station &rarr; submarine cable (light)</li>
-                  <li>Repeaters every 50-100 km amplify signal</li>
-                  <li>Cable reaches far-end landing station</li>
+                  <li>Terrestrial fiber &rarr; cable <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing station</span> &rarr; submarine cable (light)</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeaters</span> every 50-100 km amplify signal</li>
+                  <li>Cable reaches far-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
                   <li>Signal converted back to electrical data</li>
-                  <li>Data enters foreign terrestrial network</li>
+                  <li>Data enters foreign <span class="vocab cursor-pointer" onclick="scrollToVocabulary('terrestrial-network')">terrestrial network</span></li>
                 </ul>
               </div>
             </div>
@@ -243,15 +281,15 @@
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="font-semibold text-brand-200">Multiple Choice</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
-                  <li>What technology allows multiple light signals to travel through one fiber?<br><span class="text-sm ml-5">A) LTE &nbsp;&nbsp; B) DWDM &nbsp;&nbsp; C) HDMI &nbsp;&nbsp; D) USB</span></li>
+                  <li>What technology allows multiple light signals to travel through one fiber?<br><span class="text-sm ml-5">A) LTE &nbsp;&nbsp; B) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dwdm')">DWDM</span> &nbsp;&nbsp; C) HDMI &nbsp;&nbsp; D) USB</span></li>
                   <li>About what percentage of international data travels through undersea cables?<br><span class="text-sm ml-5">A) 25% &nbsp;&nbsp; B) 50% &nbsp;&nbsp; C) 75% &nbsp;&nbsp; D) 99%</span></li>
-                  <li>What device boosts the light signal in an undersea cable?<br><span class="text-sm ml-5">A) Router &nbsp;&nbsp; B) Repeater &nbsp;&nbsp; C) Modem &nbsp;&nbsp; D) Switch</span></li>
+                  <li>What device boosts the light signal in an undersea cable?<br><span class="text-sm ml-5">A) Router &nbsp;&nbsp; B) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeater</span> &nbsp;&nbsp; C) Modem &nbsp;&nbsp; D) Switch</span></li>
                 </ol>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="font-semibold text-brand-200">True or False</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
-                  <li>Undersea cables carry electricity across the ocean. <span class="text-brand-200">(False — they carry light signals; copper conductors carry power for repeaters only)</span></li>
+                  <li>Undersea cables carry electricity across the ocean. <span class="text-brand-200">(False — they carry light signals; copper conductors carry power for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span> only)</span></li>
                   <li>Satellites carry more Internet traffic than undersea cables. <span class="text-brand-200">(False — cables carry 99%+ of traffic)</span></li>
                 </ol>
               </div>
@@ -264,14 +302,14 @@
                   <div class="glass-panel p-2 text-center">Steel armor</div>
                   <div class="glass-panel p-2 text-center">Protects against damage</div>
                   <div class="glass-panel p-2 text-center">Copper conductor</div>
-                  <div class="glass-panel p-2 text-center">Powers repeaters</div>
+                  <div class="glass-panel p-2 text-center">Powers <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span></div>
                 </div>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="font-semibold text-brand-200">Fill in the Blank</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
-                  <li>The principle that keeps light inside a fiber is called __________. <span class="text-brand-200">(total internal reflection)</span></li>
-                  <li>Shorter cables tend to have lower __________, meaning data arrives faster. <span class="text-brand-200">(latency)</span></li>
+                  <li>The principle that keeps light inside a fiber is called __________. <span class="text-brand-200">(<span class="vocab cursor-pointer" onclick="scrollToVocabulary('total-internal-reflection')">total internal reflection</span>)</span></li>
+                  <li>Shorter cables tend to have lower __________, meaning data arrives faster. <span class="text-brand-200">(<span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span>)</span></li>
                 </ol>
               </div>
             </div>
@@ -283,7 +321,7 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
             <ol class="mt-4 space-y-4 text-theme-muted text-[15px] lg:text-base list-decimal list-inside">
               <li>If a single undersea cable is cut, what happens to Internet connectivity for the regions it serves? How might network engineers design redundancy?</li>
-              <li>Why are landing stations strategically placed in specific coastal locations? What geographic and political factors influence cable routes?</li>
+              <li>Why are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing stations</span> strategically placed in specific coastal locations? What geographic and political factors influence cable routes?</li>
               <li>How would global communication change if all undersea cables were simultaneously disrupted for 24 hours? Which industries would be most affected?</li>
             </ol>
           </div>
@@ -299,7 +337,7 @@
               </div>
               <div class="glass-panel p-4">
                 <h3 class="font-semibold text-brand-200">Project 2: Light Simulation</h3>
-                <p class="mt-2 text-sm text-theme-muted">Using a flashlight and a clear glass rod or a long tube of water, demonstrate how light travels and bounces inside a medium. Write a short report explaining how this models data transmission in fiber optic cables.</p>
+                <p class="mt-2 text-sm text-theme-muted">Using a flashlight and a clear glass rod or a long tube of water, demonstrate how light travels and bounces inside a medium. Write a short report explaining how this models data transmission in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fiber-optic')">fiber optic</span> cables.</p>
               </div>
             </div>
           </div>
@@ -309,9 +347,9 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <ul class="mt-4 space-y-3 text-theme-muted text-[15px] lg:text-base list-disc list-inside">
-              <li>Emphasize the contrast between the physical (cables, landing stations) and the abstract (data packets, latency). This helps ground the lesson.</li>
+              <li>Emphasize the contrast between the physical (cables, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing stations</span>) and the abstract (data packets, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span>). This helps ground the lesson.</li>
               <li>Use the submarine cable map (submarinecablemap.com) as an interactive class activity — it is free and visually engaging.</li>
-              <li>The "drinking straw" analogy works well for younger learners; for older students, dive into DWDM and EDFA amplification diagrams.</li>
+              <li>The "drinking straw" analogy works well for younger learners; for older students, dive into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dwdm')">DWDM</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('edfa')">EDFA</span> amplification diagrams.</li>
               <li>Misconception about satellites vs. cables is one of the most persistent; reinforce the 99% statistic with real-world examples (e.g., a transatlantic Zoom call).</li>
               <li>Consider a short video or news article about cable repair ships to show real-world maintenance and engineering challenges.</li>
             </ul>

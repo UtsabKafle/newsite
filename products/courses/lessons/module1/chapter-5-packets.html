@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -152,10 +167,10 @@
               Every time you load a web page, send an email, stream a song, or play a game online, your data is being broken down, labeled, shipped, routed, and reassembled — all in a fraction of a second.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The secret behind this invisible high-speed delivery service is the <strong class="text-brand-200">packet</strong> — the fundamental unit of data transmission on the Internet.
+              The secret behind this invisible high-speed delivery service is the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span></strong> — the fundamental unit of data transmission on the Internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter we explore what packets are, how they work, and why they make the Internet fast, reliable, and scalable.
+              In this chapter we explore what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are, how they work, and why they make the Internet fast, reliable, and scalable.
             </p>
           </div>
         </section>
@@ -175,23 +190,23 @@
                 Some boxes might take a different road. Some might arrive at different times. But once all the boxes reach your cousin, she opens them up and puts the teddy bear back together — good as new!
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                That is exactly how the Internet sends data. Your photo, video, or message is broken into <strong class="text-brand-200">packets</strong>, each packet is sent separately, and when they all arrive, your device puts them back together.
+                That is exactly how the Internet sends data. Your photo, video, or message is broken into <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></strong>, each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is sent separately, and when they all arrive, your device puts them back together.
               </p>
             </div>
 
             <div class="mt-8">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
-              <h3 class="text-xl font-display font-bold mt-3">Packets for Intermediate Learners</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                When you send data over the Internet, your computer does not shoot out one giant blob of information. Instead, it chops the data into thousands of tiny chunks called <strong class="text-brand-200">packets</strong>.
+                When you send data over the Internet, your computer does not shoot out one giant blob of information. Instead, it chops the data into thousands of tiny chunks called <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></strong>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Each packet contains three key parts:
+                Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> contains three key parts:
               </p>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Header</h4>
-                  <p class="text-xs text-theme-muted mt-1">Contains the source IP, destination IP, packet number, and other metadata. Like the "To" and "From" labels on a package.</p>
+                  <p class="text-xs text-theme-muted mt-1">Contains the source IP, destination IP, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> number, and other metadata. Like the "To" and "From" labels on a package.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Payload</h4>
@@ -199,34 +214,34 @@
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Trailer</h4>
-                  <p class="text-xs text-theme-muted mt-1">Often includes error-checking info so the receiver can tell if the packet got damaged in transit.</p>
+                  <p class="text-xs text-theme-muted mt-1">Often includes error-checking info so the receiver can tell if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> got damaged in transit.</p>
                 </div>
               </div>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Packets can take different paths to the same destination. Some routes are faster, some avoid traffic. When they arrive, they might be out of order! Your device reorders them using the packet numbers in the headers.
+                <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> can take different paths to the same destination. Some routes are faster, some avoid traffic. When they arrive, they might be out of order! Your device reorders them using the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> numbers in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">headers</span>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                This is called <strong class="text-brand-200">packet switching</strong> — the technology that makes the Internet efficient and resilient.
+                This is called <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">packet switching</span></strong> — the technology that makes the Internet efficient and resilient.
               </p>
             </div>
 
             <div class="mt-8">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
-              <h3 class="text-xl font-display font-bold mt-3">Packet Switching: A Technical Deep Dive</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Advanced</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Packet switching is a communication method where data is divided into independently routed packets. Unlike circuit switching (used by old telephone networks), packet switching does not require a dedicated communication path. Each packet contains enough addressing information to travel from source to destination independently.
+                <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">Packet switching</span> is a communication method where data is divided into independently routed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>. Unlike circuit switching (used by old telephone networks), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">packet switching</span> does not require a dedicated communication path. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> contains enough addressing information to travel from source to destination independently.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 <strong class="text-brand-200">Key characteristics:</strong>
               </p>
               <ul class="mt-3 space-y-2 text-sm text-theme-muted">
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Store-and-forward:</strong> Each router receives a packet completely before forwarding it to the next hop.</span></li>
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Statistical multiplexing:</strong> Network links are shared dynamically among many users; packets queue and are sent as bandwidth becomes available.</span></li>
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Best-effort delivery:</strong> Packets may be lost, delayed, duplicated, or delivered out of order. Upper-layer protocols (like TCP) handle reliability.</span></li>
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Maximum Transmission Unit (MTU):</strong> Each network link has a maximum packet size (typically 1500 bytes for Ethernet). Larger data must be fragmented.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Store-and-forward:</strong> Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> receives a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> completely before forwarding it to the next hop.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Statistical multiplexing:</strong> Network links are shared dynamically among many users; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> queue and are sent as bandwidth becomes available.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Best-effort delivery:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> may be lost, delayed, duplicated, or delivered out of order. Upper-layer protocols (like TCP) handle reliability.</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Maximum Transmission Unit (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mtu')">MTU</span>):</strong> Each network link has a maximum <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> size (typically 1500 bytes for Ethernet). Larger data must be fragmented.</span></li>
               </ul>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The Internet Protocol (IP) operates at the network layer and defines the packet structure. The Transmission Control Protocol (TCP) sits above IP and manages retransmission, ordering, and flow control.
+                The Internet Protocol (IP) operates at the network layer and defines the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> structure. The Transmission Control Protocol (TCP) sits above IP and manages retransmission, ordering, and flow control.
               </p>
             </div>
           </div>
@@ -236,24 +251,24 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Packet</td><td class="py-3 px-4">A small unit of data transmitted over a network.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Packet Switching</td><td class="py-3 px-4">The method of breaking data into packets and routing them independently.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Header</td><td class="py-3 px-4">The part of a packet containing source/destination addresses and metadata.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Payload</td><td class="py-3 px-4">The actual data content carried inside a packet.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Trailer</td><td class="py-3 px-4">The end section of a packet, often used for error detection.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">MTU</td><td class="py-3 px-4">Maximum Transmission Unit — the largest packet size a network can handle.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Fragmentation</td><td class="py-3 px-4">The process of splitting a packet into smaller pieces to fit network limits.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Router</td><td class="py-3 px-4">A device that forwards packets between networks based on IP addresses.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Latency</td><td class="py-3 px-4">The time it takes for a packet to travel from source to destination.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Throughput</td><td class="py-3 px-4">The rate at which packets are successfully delivered over a network.</td></tr>
+                  <tr id="vocab-packet"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span></td><td>A small unit of data transmitted over a network.</td></tr>
+                  <tr id="vocab-packet-switching"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">Packet Switching</span></td><td>The method of breaking data into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> and routing them independently.</td></tr>
+                  <tr id="vocab-header"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">Header</span></td><td>The part of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> containing source/destination addresses and metadata.</td></tr>
+                  <tr id="vocab-payload"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">Payload</span></td><td>The actual data content carried inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>.</td></tr>
+                  <tr id="vocab-trailer"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('trailer')">Trailer</span></td><td>The end section of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>, often used for error detection.</td></tr>
+                  <tr id="vocab-mtu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mtu')">MTU</span></td><td>Maximum Transmission Unit — the largest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> size a network can handle.</td></tr>
+                  <tr id="vocab-fragmentation"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span></td><td>The process of splitting a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> into smaller pieces to fit network limits.</td></tr>
+                  <tr id="vocab-router"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></td><td>A device that forwards <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> between networks based on IP addresses.</td></tr>
+                  <tr id="vocab-latency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></td><td>The time it takes for a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> to travel from source to destination.</td></tr>
+                  <tr id="vocab-throughput"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">Throughput</span></td><td>The rate at which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are successfully delivered over a network.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -266,19 +281,19 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">1500</p>
-                <p class="text-sm text-theme-muted mt-1">The default MTU for Ethernet is 1500 bytes. Most packets are smaller than a single text message.</p>
+                <p class="text-sm text-theme-muted mt-1">The default <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mtu')">MTU</span> for Ethernet is 1500 bytes. Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are smaller than a single text message.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Billions per second</p>
-                <p class="text-sm text-theme-muted mt-1">The global Internet carries billions of packets every second across millions of routers.</p>
+                <p class="text-sm text-theme-muted mt-1">The global Internet carries billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> every second across millions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Lost in transit</p>
-                <p class="text-sm text-theme-muted mt-1">About 0.1–1% of packets are lost on the open Internet. TCP automatically retransmits them.</p>
+                <p class="text-sm text-theme-muted mt-1">About 0.1–1% of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are lost on the open Internet. TCP automatically retransmits them.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Different paths</p>
-                <p class="text-sm text-theme-muted mt-1">Two packets from the same file can travel entirely different routes across continents and arrive at different times.</p>
+                <p class="text-sm text-theme-muted mt-1">Two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> from the same file can travel entirely different routes across continents and arrive at different times.</p>
               </div>
             </div>
           </div>
@@ -289,16 +304,16 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="space-y-4 mt-4">
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">Packets always travel the same path</p>
-                <p class="text-sm text-theme-muted mt-1">Not true. Packets can take different routes based on network conditions, congestion, and router decisions. This is what makes the Internet resilient — if one path fails, packets are rerouted.</p>
+                <p class="font-display font-semibold text-green-400 text-sm"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> always travel the same path</p>
+                <p class="text-sm text-theme-muted mt-1">Not true. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> can take different routes based on network conditions, congestion, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> decisions. This is what makes the Internet resilient — if one path fails, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are rerouted.</p>
               </div>
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">Packets arrive in order</p>
-                <p class="text-sm text-theme-muted mt-1">They often arrive out of order! Each packet carries a sequence number so the receiving device can reassemble them in the correct order regardless of arrival time.</p>
+                <p class="font-display font-semibold text-green-400 text-sm"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> arrive in order</p>
+                <p class="text-sm text-theme-muted mt-1">They often arrive out of order! Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> carries a sequence number so the receiving device can reassemble them in the correct order regardless of arrival time.</p>
               </div>
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">All packets are the same size</p>
-                <p class="text-sm text-theme-muted mt-1">Packet sizes vary. While Ethernet limits packets to 1500 bytes, the actual payload size depends on the application and protocol. VoIP packets are tiny; video streaming uses larger packets.</p>
+                <p class="font-display font-semibold text-green-400 text-sm">All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are the same size</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> sizes vary. While Ethernet limits <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> to 1500 bytes, the actual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">payload</span> size depends on the application and protocol. VoIP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are tiny; video streaming uses larger <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>.</p>
               </div>
             </div>
           </div>
@@ -316,23 +331,23 @@
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
-                  <div><strong class="text-theme">Fragmentation.</strong> The photo is split into many packets (each ~1500 bytes or less).</div>
+                  <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span>.</strong> The photo is split into many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> (each ~1500 bytes or less).</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
-                  <div><strong class="text-theme">Header attached.</strong> Each packet gets a header: your IP, destination IP, sequence number, and checksum.</div>
+                  <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">Header</span> attached.</strong> Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> gets a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span>: your IP, destination IP, sequence number, and checksum.</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">4</span>
-                  <div><strong class="text-theme">Routing.</strong> Packets leave your device, pass through your home router, ISP routers, and across the Internet backbone.</div>
+                  <div><strong class="text-theme">Routing.</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> leave your device, pass through your home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>, ISP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, and across the Internet backbone.</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">5</span>
-                  <div><strong class="text-theme">Reassembly.</strong> The destination device collects packets, checks for errors, reorders them, and reconstructs the original photo.</div>
+                  <div><strong class="text-theme">Reassembly.</strong> The destination device collects <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, checks for errors, reorders them, and reconstructs the original photo.</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">6</span>
-                  <div><strong class="text-theme">Delivery.</strong> If any packet is missing, the receiver asks for a retransmit. The photo appears on the recipient's screen.</div>
+                  <div><strong class="text-theme">Delivery.</strong> If any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is missing, the receiver asks for a retransmit. The photo appears on the recipient's screen.</div>
                 </div>
               </div>
             </div>
@@ -342,22 +357,22 @@
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
-            <p class="mt-2 text-sm text-theme-muted">Test your understanding of packets.</p>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>.</p>
 
             <div class="mt-6 space-y-6">
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">1. What is a packet?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A permanent connection between two computers</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A small unit of data transmitted over a network</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A type of router</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A type of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span></span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>A domain name</span></label>
                 </div>
                 <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">A small unit of data transmitted over a network.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">2. Which protocol ensures packets are retransmitted if lost?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which protocol ensures <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> are retransmitted if lost?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>HTTP</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>DNS</span></label>
@@ -368,7 +383,7 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the typical MTU for Ethernet networks?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mtu')">MTU</span> for Ethernet networks?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>512 bytes</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>1024 bytes</span></label>
@@ -379,42 +394,42 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: All packets in a message travel the same path.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: All <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> in a message travel the same path.</p>
                 <div class="mt-2 flex gap-4 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>True</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>False</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">False. Packets can take different paths.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">False. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> can take different paths.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: A packet header contains the destination address.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span> contains the destination address.</p>
                 <div class="mt-2 flex gap-4 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>True</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>False</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The header contains source and destination IP addresses.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span> contains source and destination IP addresses.</p></details>
               </div>
 
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">6. Matching: Connect each term to its description.</p>
                 <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-theme-muted">
-                  <div class="glass-panel p-3">Header</div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">Header</span></div>
                   <div class="glass-panel p-3">Contains addressing and sequence info</div>
-                  <div class="glass-panel p-3">Payload</div>
-                  <div class="glass-panel p-3">The actual data inside a packet</div>
-                  <div class="glass-panel p-3">MTU</div>
-                  <div class="glass-panel p-3">Maximum packet size for a network</div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">Payload</span></div>
+                  <div class="glass-panel p-3">The actual data inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span></div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mtu')">MTU</span></div>
+                  <div class="glass-panel p-3">Maximum <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> size for a network</div>
                 </div>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: The process of splitting data into packets is called __________.</p>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Fragmentation (or packetization).</p></details>
+                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: The process of splitting data into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> is called __________.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span> (or packetization).</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: The __________ sits above IP and handles retransmission of lost packets.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: The __________ sits above IP and handles retransmission of lost <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>.</p>
                 <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">TCP (Transmission Control Protocol).</p></details>
               </div>
             </div>
@@ -427,15 +442,15 @@
             <div class="space-y-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">1. Efficiency vs. Reliability</p>
-                <p class="text-sm text-theme-muted mt-1">Why does breaking a file into thousands of small packets make the Internet more efficient than sending the entire file as one block? What happens if one packet out of a thousand gets lost — how does this compare to losing one giant block?</p>
+                <p class="text-sm text-theme-muted mt-1">Why does breaking a file into thousands of small <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> make the Internet more efficient than sending the entire file as one block? What happens if one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> out of a thousand gets lost — how does this compare to losing one giant block?</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">2. Real-World Analogy</p>
-                <p class="text-sm text-theme-muted mt-1">Think of a highway system. How are packets like cars? How are routers like highway interchanges? What would happen if there were no traffic lights (routers) directing the flow?</p>
+                <p class="text-sm text-theme-muted mt-1">Think of a highway system. How are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> like cars? How are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> like highway interchanges? What would happen if there were no traffic lights (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>) directing the flow?</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. Privacy and Packets</p>
-                <p class="text-sm text-theme-muted mt-1">Since packets travel through many routers across the Internet, who could potentially read the payload of your packets? How do encryption technologies (like HTTPS) protect your packet contents?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. Privacy and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span></p>
+                <p class="text-sm text-theme-muted mt-1">Since <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> travel through many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> across the Internet, who could potentially read the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">payload</span> of your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>? How do encryption technologies (like HTTPS) protect your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> contents?</p>
               </div>
             </div>
           </div>
@@ -447,11 +462,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 1: Packet Puzzle</h4>
-                <p class="text-sm text-theme-muted mt-1">Print a short poem or sentence on paper. Cut it into 5-10 strips (packets). Mix them up. Ask a partner to reassemble them using sequence numbers you wrote on the back. Discuss how this mirrors Internet packet reassembly.</p>
+                <p class="text-sm text-theme-muted mt-1">Print a short poem or sentence on paper. Cut it into 5-10 strips (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>). Mix them up. Ask a partner to reassemble them using sequence numbers you wrote on the back. Discuss how this mirrors Internet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> reassembly.</p>
               </div>
               <div class="glass-panel p-4">
                 <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 2: Traceroute Explorer</h4>
-                <p class="text-sm text-theme-muted mt-1">Open a terminal or command prompt and run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Observe the list of routers your packets pass through. Count the hops. Research what each hop represents.</p>
+                <p class="text-sm text-theme-muted mt-1">Open a terminal or command prompt and run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Observe the list of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> pass through. Count the hops. Research what each hop represents.</p>
               </div>
             </div>
           </div>
@@ -464,18 +479,18 @@
               <div>
                 <h4 class="font-display font-semibold text-brand-200">Learning Objectives</h4>
                 <ul class="mt-2 space-y-1 list-disc pl-5">
-                  <li>Define what a packet is and why data is broken into packets.</li>
-                  <li>Describe the three parts of a packet: header, payload, trailer.</li>
-                  <li>Explain packet switching and how it differs from circuit switching.</li>
-                  <li>Understand the role of TCP in reliable packet delivery.</li>
-                  <li>Identify the path a packet travels from source to destination.</li>
+                  <li>Define what a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is and why data is broken into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>.</li>
+                  <li>Describe the three parts of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">payload</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('trailer')">trailer</span>.</li>
+                  <li>Explain <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">packet switching</span> and how it differs from circuit switching.</li>
+                  <li>Understand the role of TCP in reliable <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> delivery.</li>
+                  <li>Identify the path a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> travels from source to destination.</li>
                 </ul>
               </div>
               <div>
                 <h4 class="font-display font-semibold text-brand-200">Preparation</h4>
                 <ul class="mt-2 space-y-1 list-disc pl-5">
-                  <li>Ensure the interactive diagram at <code class="text-brand-300 font-mono text-xs">diagrams/diagram-05-packets/</code> is deployed and tested.</li>
-                  <li>Prepare the "Packet Puzzle" materials: printed sentences, scissors.</li>
+                  <li>Ensure the interactive diagram at <code class="text-brand-300 font-mono text-xs">diagrams/diagram-05-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>/</code> is deployed and tested.</li>
+                  <li>Prepare the "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> Puzzle" materials: printed sentences, scissors.</li>
                   <li>Verify traceroute is available on classroom computers.</li>
                   <li>Review Wireshark basics if doing the live capture extension.</li>
                 </ul>
@@ -483,9 +498,9 @@
               <div>
                 <h4 class="font-display font-semibold text-brand-200">Discussion Prompts</h4>
                 <ul class="mt-2 space-y-1 list-disc pl-5">
-                  <li>What would happen if the Internet used circuit switching instead of packet switching?</li>
-                  <li>Why do streaming services buffer? Relate this to packet arrival times.</li>
-                  <li>How does encryption protect packet payloads from interception?</li>
+                  <li>What would happen if the Internet used circuit switching instead of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet-switching')">packet switching</span>?</li>
+                  <li>Why do streaming services buffer? Relate this to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> arrival times.</li>
+                  <li>How does encryption protect <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('payload')">payloads</span> from interception?</li>
                 </ul>
               </div>
             </div>

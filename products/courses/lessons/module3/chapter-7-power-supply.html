@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The Power Supply Unit (PSU) is the component that converts the alternating current (AC) from your wall outlet into the direct current (DC) voltages that every other component needs. It is easy to overlook, but a low-quality or underpowered PSU can cause crashes, instability, and even damage your hardware.
+              The Power Supply Unit (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span>) is the component that converts the alternating current (AC) from your wall outlet into the direct current (DC) voltages that every other component needs. It is easy to overlook, but a low-quality or underpowered <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> can cause crashes, instability, and even damage your hardware.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Choosing the right PSU involves more than just wattage. Efficiency ratings (80 PLUS), modular cabling, rail configuration, and build quality all matter. A good PSU can last through multiple system builds, making it a smart long-term investment.
+              Choosing the right <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> involves more than just <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">wattage</span>. Efficiency ratings (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span>), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">modular</span> cabling, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rail</span> configuration, and build quality all matter. A good <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> can last through multiple system builds, making it a smart long-term investment.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn how PSUs work, how to calculate wattage requirements, the difference between modular and non-modular units, and best practices for cable management.
+              In this chapter, you will learn how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSUs</span> work, how to calculate <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">wattage</span> requirements, the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">modular</span> and non-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">modular</span> units, and best practices for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span>.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">A PSU takes 110–240V AC input and converts it to multiple DC rails: +3.3V, +5V, and +12V. The +12V rail is the most important — it powers the CPU, GPU, and other high-draw components. The PSU uses a transformer, rectifier, and voltage regulators to produce clean, stable power. Efficiency measures how much of the input power is wasted as heat.</p>
+              <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> takes 110–240V AC input and converts it to multiple DC <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rails</span>: +3.3V, +5V, and +12V. The +12V <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rail</span> is the most important — it powers the CPU, GPU, and other high-draw components. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> uses a transformer, rectifier, and voltage regulators to produce clean, stable power. Efficiency measures how much of the input power is wasted as heat.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of the PSU as the heart of your computer. Just as the heart pumps blood through your body, the PSU sends power through cables to every component. A weak heart cannot supply enough blood when you exercise — similarly, a weak PSU cannot supply enough power when your CPU and GPU are under load. The 80 PLUS rating is like a heart efficiency score — the higher it is, the less energy is wasted as heat.</p>
+              <p class="text-sm text-theme-muted">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> as the heart of your computer. Just as the heart pumps blood through your body, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> sends power through cables to every component. A weak heart cannot supply enough blood when you exercise — similarly, a weak <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> cannot supply enough power when your CPU and GPU are under load. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> rating is like a heart efficiency score — the higher it is, the less energy is wasted as heat.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">PSU Types: Modular vs Non-Modular</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              PSUs come in three cable configurations:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSUs</span> come in three cable configurations:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
@@ -227,48 +229,57 @@
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-brand-200">Fully Modular</h4>
-                <p class="mt-1 text-xs text-theme-muted">Every cable is detachable. Only plug in the cables you need. Best for cable management and clean builds. Recommended for custom or small-form-factor PCs.</p>
+                <p class="mt-1 text-xs text-theme-muted">Every cable is detachable. Only plug in the cables you need. Best for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> and clean builds. Recommended for custom or small-form-factor PCs.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">80 PLUS Efficiency Ratings</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              80 PLUS is a certification that guarantees a PSU is at least 80% efficient at various loads. Higher ratings mean less wasted energy and lower electricity bills:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> is a certification that guarantees a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> is at least 80% efficient at various loads. Higher ratings mean less wasted energy and lower electricity bills:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">80 PLUS White / Bronze</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> White / Bronze</p>
                 <p class="text-sm text-theme-muted">White: 80% at 20–100% load. Bronze: 82–85% efficiency. Entry-level but functional for budget builds with moderate power draw.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">80 PLUS Silver / Gold</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> Silver / Gold</p>
                 <p class="text-sm text-theme-muted">Silver: 85–88%. Gold: 87–90%. Gold is the most popular choice for gaming PCs — excellent efficiency at a reasonable price.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">80 PLUS Platinum</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> Platinum</p>
                 <p class="text-sm text-theme-muted">89–92% efficiency. Used in high-end builds and servers. The reduced heat output can improve overall system cooling.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">80 PLUS Titanium</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> Titanium</p>
                 <p class="text-sm text-theme-muted">90–94% efficiency. The highest certification. Near-zero power loss at 50% load. Reserved for flagship builds and data centres.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Calculating Wattage</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To determine the wattage you need, add up the power draw of your components. The CPU and GPU are the biggest consumers. A mid-range build (e.g., Ryzen 5 + RTX 4060) needs about 500–600W. A high-end build (i9 + RTX 4090) needs 850–1000W or more. Always leave 20–30% headroom for spikes and future upgrades.
+              To determine the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">wattage</span> you need, add up the power draw of your components. The CPU and GPU are the biggest consumers. A mid-range build (e.g., Ryzen 5 + RTX 4060) needs about 500–600W. A high-end build (i9 + RTX 4090) needs 850–1000W or more. Always leave 20–30% headroom for spikes and future upgrades.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cable Management Best Practices</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Good cable management improves airflow, makes the build look professional, and simplifies future upgrades. Route cables behind the motherboard tray whenever possible. Use cable ties to bundle similar cables together. Connect the 24-pin motherboard cable and CPU power cable first, then route GPU and SATA cables. Keep cables away from fans and high-heat areas.
+              Good <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> improves airflow, makes the build look professional, and simplifies future upgrades. Route cables behind the motherboard tray whenever possible. Use cable ties to bundle similar cables together. Connect the 24-pin motherboard cable and CPU power cable first, then route GPU and SATA cables. Keep cables away from fans and high-heat areas.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Never cheap out on the PSU. It is the one component that can destroy every other part if it fails. Buy a reputable brand with an 80 PLUS Bronze or higher rating. A good PSU can last 10+ years and outlive multiple system upgrades.</p>
+              <p class="text-sm text-theme-muted">Never cheap out on the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span>. It is the one component that can destroy every other part if it fails. Buy a reputable brand with an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> Bronze or higher rating. A good <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> can last 10+ years and outlive multiple system upgrades.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, power supply unit involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">Wattage</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -283,14 +294,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>PSU</td><td>Power Supply Unit — the component that converts AC wall power into DC voltages required by computer components</td></tr>
-                  <tr><td>Wattage</td><td>A measure of electrical power (watts) that a PSU can deliver to components. Higher wattage supports more powerful hardware</td></tr>
-                  <tr><td>80 PLUS</td><td>A certification programme that rates PSU efficiency at various load levels, from White (80%) to Titanium (94%)</td></tr>
-                  <tr><td>Modular</td><td>A PSU design where cables can be detached from the unit, allowing only needed cables to be connected</td></tr>
-                  <tr><td>Rail</td><td>A voltage line within a PSU (usually +12V, +5V, +3.3V). Single-rail and multi-rail designs distribute power differently</td></tr>
-                  <tr><td>Cable Management</td><td>The practice of routing and securing cables inside a computer case for improved airflow and aesthetics</td></tr>
-                  <tr><td>SATA Power</td><td>A power connector from the PSU used for SATA storage drives such as HDDs and SSDs</td></tr>
-                  <tr><td>EPS Connector</td><td>An 8-pin (or 4+4 pin) power connector that supplies power to the CPU from the PSU</td></tr>
+                  <tr id="vocab-psu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span></td><td>Power Supply Unit — the component that converts AC wall power into DC voltages required by computer components</td></tr>
+                  <tr id="vocab-wattage"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">Wattage</span></td><td>A measure of electrical power (watts) that a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> can deliver to components. Higher <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">wattage</span> supports more powerful hardware</td></tr>
+                  <tr id="vocab-80-plus"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span></td><td>A certification programme that rates <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> efficiency at various load levels, from White (80%) to Titanium (94%)</td></tr>
+                  <tr id="vocab-modular"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">Modular</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> design where cables can be detached from the unit, allowing only needed cables to be connected</td></tr>
+                  <tr id="vocab-rail"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">Rail</span></td><td>A voltage line within a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> (usually +12V, +5V, +3.3V). Single-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rail</span> and multi-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rail</span> designs distribute power differently</td></tr>
+                  <tr id="vocab-cable-management"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">Cable Management</span></td><td>The practice of routing and securing cables inside a computer case for improved airflow and aesthetics</td></tr>
+                  <tr id="vocab-sata-power"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata-power')">SATA Power</span></td><td>A power connector from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> used for SATA storage drives such as HDDs and SSDs</td></tr>
+                  <tr id="vocab-eps-connector"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('eps-connector')">EPS Connector</span></td><td>An 8-pin (or 4+4 pin) power connector that supplies power to the CPU from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -311,19 +322,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The 80 PLUS Titanium rating requires a PSU to be at least 90% efficient at 10% load — meaning even at idle, very little power is wasted as heat.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> Titanium rating requires a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> to be at least 90% efficient at 10% load — meaning even at idle, very little power is wasted as heat.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Most PSU failures are caused by capacitor wear from heat. Higher efficiency PSUs run cooler and last significantly longer than inefficient ones.</p>
+                <p class="text-sm text-theme-muted">Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> failures are caused by capacitor wear from heat. Higher efficiency <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSUs</span> run cooler and last significantly longer than inefficient ones.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some high-end PSUs include a "zero RPM" fan mode — the fan does not spin at low loads, making the computer completely silent during light use.</p>
+                <p class="text-sm text-theme-muted">Some high-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSUs</span> include a "zero RPM" fan mode — the fan does not spin at low loads, making the computer completely silent during light use.</p>
               </div>
             </div>
           </div>
@@ -348,18 +359,18 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does the 80 PLUS rating measure in a PSU?</p>
+                <p class="text-sm font-semibold text-theme">1. What does the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('80-plus')">80 PLUS</span> rating measure in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The total wattage output</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The total <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wattage')">wattage</span> output</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The efficiency of converting AC to DC power</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The number of modular cables</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">modular</span> cables</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The noise level of the fan</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The efficiency of converting AC to DC power</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Why is a fully modular PSU preferred for cable management?</p>
+                <p class="text-sm font-semibold text-theme">2. Why is a fully <span class="vocab cursor-pointer" onclick="scrollToVocabulary('modular')">modular</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu')">PSU</span> preferred for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It is cheaper than other types</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> All cables are permanently attached</label>
@@ -370,7 +381,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which voltage rail is most important for powering the CPU and GPU?</p>
+                <p class="text-sm font-semibold text-theme">3. Which voltage <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rail')">rail</span> is most important for powering the CPU and GPU?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> +3.3V</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> +5V</label>
@@ -444,7 +455,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

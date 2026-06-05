@@ -11,7 +11,9 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.analogy-card{border-left:3px solid rgba(9,89,200,0.3);transition:border-color 0.3s ease}.analogy-card:hover{border-left-color:rgba(9,89,200,0.7)}.vocab-table th{background:rgba(9,89,200,0.12);font-weight:600;text-align:left;padding:0.75rem 1rem}.vocab-table td{padding:0.75rem 1rem;border-top:1px solid rgba(255,255,255,0.05)}.vocab-table tr:hover td{background:rgba(9,89,200,0.04)}.kb-check{border-left:3px solid rgba(9,89,200,0.25);padding-left:1rem}.kb-check p{margin-bottom:0.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.analogy-card{border-left:3px solid rgba(9,89,200,0.3);transition:border-color 0.3s ease}.analogy-card:hover{border-left-color:rgba(9,89,200,0.7)}.vocab-table th{background:rgba(9,89,200,0.12);font-weight:600;text-align:left;padding:0.75rem 1rem}.vocab-table td{padding:0.75rem 1rem;border-top:1px solid rgba(255,255,255,0.05)}.vocab-table tr:hover td{background:rgba(9,89,200,0.04)}.kb-check{border-left:3px solid rgba(9,89,200,0.25);padding-left:1rem}.kb-check p{margin-bottom:0.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -70,10 +72,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Your computer is packed with powerful hardware — a CPU, memory, storage, and input/output devices. But hardware alone is just a collection of inert components. What brings it to life is <strong class="text-brand-200">software</strong>.
+              Your computer is packed with powerful hardware — a CPU, memory, storage, and input/output devices. But hardware alone is just a collection of inert components. What brings it to life is <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span></strong>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Software is the set of instructions that tells the hardware what to do. At the heart of every computer sits the <strong class="text-brand-200">operating system (OS)</strong> — the master controller that manages all software and hardware resources. In this chapter we explore what software is, the different types, and how operating systems make everything run smoothly.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span> is the set of instructions that tells the hardware what to do. At the heart of every computer sits the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('operating-system-os')">operating system (OS)</span></strong> — the master controller that manages all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> and hardware resources. In this chapter we explore what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> is, the different types, and how operating systems make everything run smoothly.
             </p>
           </div>
         </section>
@@ -85,16 +87,16 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">Software Explained Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Imagine a toy robot. It has arms, legs, a head, and wheels — that's the hardware. But the robot just sits there until you give it instructions. You might say "walk forward," "raise your arm," or "beep." Those instructions are like software.
+                Imagine a toy robot. It has arms, legs, a head, and wheels — that's the hardware. But the robot just sits there until you give it instructions. You might say "walk forward," "raise your arm," or "beep." Those instructions are like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 An operating system is like the robot's brain that decides which instruction to follow at every moment. It makes sure the robot can walk and beep at the same time without falling over. On a computer, the OS manages all your apps so they can share the screen, keyboard, mouse, and memory without getting in each other's way.
               </p>
               <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
                 <p class="text-sm font-semibold text-brand-200 mb-2">Household Object Analogy</p>
-                <p class="text-sm text-theme-muted">Think of the computer as a kitchen. The stove, pots, and utensils are the hardware. The recipes are the software. The operating system is the chef who reads the recipes, coordinates the tools, and makes sure everything is ready at the right time. Without the chef, you just have ingredients and tools — no meal.</p>
+                <p class="text-sm text-theme-muted">Think of the computer as a kitchen. The stove, pots, and utensils are the hardware. The recipes are the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span>. The operating system is the chef who reads the recipes, coordinates the tools, and makes sure everything is ready at the right time. Without the chef, you just have ingredients and tools — no meal.</p>
               </div>
             </div>
 
@@ -102,12 +104,12 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
               <h3 class="text-xl font-display font-bold mt-3">System Software vs Application Software</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Software falls into two broad categories:
+                <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span> falls into two broad categories:
               </p>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="glass-panel p-5">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">System Software</h4>
-                  <p class="text-xs text-theme-muted mt-2">Runs the computer itself. Includes the operating system (Windows, macOS, Linux), device drivers, and utilities. Without system software, your computer cannot function.</p>
+                  <p class="text-xs text-theme-muted mt-2">Runs the computer itself. Includes the operating system (Windows, macOS, Linux), device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span>, and utilities. Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-software')">system software</span>, your computer cannot function.</p>
                 </div>
                 <div class="glass-panel p-5">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Application Software</h4>
@@ -115,13 +117,13 @@
                 </div>
               </div>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The <strong class="text-brand-200">operating system</strong> (OS) is the most important piece of system software. It manages:
+                The <strong class="text-brand-200">operating system</strong> (OS) is the most important piece of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-software')">system software</span>. It manages:
               </p>
               <ul class="mt-3 space-y-2 text-sm text-theme-muted">
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Process management</strong> — deciding which programs get to use the CPU and for how long</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span> management</strong> — deciding which programs get to use the CPU and for how long</span></li>
                 <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Memory management</strong> — allocating RAM to programs and making sure they don't interfere with each other</span></li>
                 <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">File system management</strong> — organizing and storing data on drives</span></li>
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Device management</strong> — communicating with hardware through drivers</span></li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">Device management</strong> — communicating with hardware through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span></span></li>
                 <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <span><strong class="text-brand-200">User interface</strong> — providing a way for you to interact with the computer (GUI or CLI)</span></li>
               </ul>
             </div>
@@ -130,19 +132,28 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">The Operating System: A Technical Deep Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                An operating system is a complex piece of software that acts as an intermediary between hardware and user programs. It provides <strong class="text-brand-200">abstraction</strong> — hiding the messy details of hardware from applications so developers can write code without knowing the specifics of every device.
+                An operating system is a complex piece of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> that acts as an intermediary between hardware and user programs. It provides <strong class="text-brand-200">abstraction</strong> — hiding the messy details of hardware from applications so developers can write code without knowing the specifics of every device.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The <strong class="text-brand-200">kernel</strong> is the core of the OS. It runs in a privileged mode called <em>kernel space</em> and has complete access to all hardware. Applications run in <em>user space</em> and must request hardware access through <strong class="text-brand-200">system calls</strong>. This separation protects the system from crashes and security breaches.
+                The <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span></strong> is the core of the OS. It runs in a privileged mode called <em><span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> space</em> and has complete access to all hardware. Applications run in <em>user space</em> and must request hardware access through <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-call')">system calls</span></strong>. This separation protects the system from crashes and security breaches.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The OS uses <strong class="text-brand-200">scheduling algorithms</strong> (like round-robin, priority-based, or multi-level feedback queues) to decide which process gets CPU time. <strong class="text-brand-200">Virtual memory</strong> allows the OS to use disk space as an extension of RAM, enabling programs larger than physical memory to run.
+                The OS uses <strong class="text-brand-200">scheduling algorithms</strong> (like round-robin, priority-based, or multi-level feedback queues) to decide which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">process</span> gets CPU time. <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtual-memory')">Virtual memory</span></strong> allows the OS to use disk space as an extension of RAM, enabling programs larger than physical memory to run.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Popular OS kernels include the Windows NT kernel, the Linux kernel, and the XNU kernel (macOS/iOS). Each provides the same fundamental services but with different design philosophies regarding performance, security, and hardware support.
+                Popular OS <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernels</span> include the Windows NT <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span>, the Linux <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span>, and the XNU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> (macOS/iOS). Each provides the same fundamental services but with different design philosophies regarding performance, security, and hardware support.
               </p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> &amp; operating systems involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('operating-system-os')">Operating System (OS)</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-software')">System Software</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <!-- Vocabulary Table -->
@@ -152,19 +163,22 @@
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr><th class="text-theme">Term</th><th class="text-theme">Definition</th></tr>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Software</td><td>A set of instructions that tells a computer what to do</td></tr>
-                  <tr><td>Operating System (OS)</td><td>System software that manages hardware and software resources</td></tr>
-                  <tr><td>System Software</td><td>Software designed to run and manage the computer itself</td></tr>
-                  <tr><td>Application Software</td><td>Programs that perform specific tasks for the user</td></tr>
-                  <tr><td>Kernel</td><td>The core component of an OS with full hardware access</td></tr>
-                  <tr><td>System Call</td><td>A request from a user-space program to the kernel for a service</td></tr>
-                  <tr><td>Driver</td><td>Software that enables the OS to communicate with hardware</td></tr>
-                  <tr><td>Process</td><td>A program currently being executed by the CPU</td></tr>
-                  <tr><td>Virtual Memory</td><td>Using disk space as extra RAM to run large programs</td></tr>
-                  <tr><td>Shell / CLI</td><td>A text-based interface for interacting with the OS</td></tr>
+                  <tr id="vocab-software"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span></td><td>A set of instructions that tells a computer what to do</td></tr>
+                  <tr id="vocab-operating-system-os"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('operating-system-os')">Operating System (OS)</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-software')">System software</span> that manages hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</td></tr>
+                  <tr id="vocab-system-software"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-software')">System Software</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span> designed to run and manage the computer itself</td></tr>
+                  <tr id="vocab-application-software"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-software')">Application Software</span></td><td>Programs that perform specific tasks for the user</td></tr>
+                  <tr id="vocab-kernel"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">Kernel</span></td><td>The core component of an OS with full hardware access</td></tr>
+                  <tr id="vocab-system-call"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-call')">System Call</span></td><td>A request from a user-space program to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> for a service</td></tr>
+                  <tr id="vocab-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">Software</span> that enables the OS to communicate with hardware</td></tr>
+                  <tr id="vocab-process"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span></td><td>A program currently being executed by the CPU</td></tr>
+                  <tr id="vocab-virtual-memory"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtual-memory')">Virtual Memory</span></td><td>Using disk space as extra RAM to run large programs</td></tr>
+                  <tr id="vocab-shell-cli"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('shell-cli')">Shell / CLI</span></td><td>A text-based interface for interacting with the OS</td></tr>
                 </tbody>
               </table>
             </div>
@@ -178,7 +192,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Linux everywhere</p>
-                <p class="text-sm text-theme-muted mt-1">The Linux kernel powers everything from Android phones to supercomputers. Over 90% of the world's top 500 supercomputers run Linux.</p>
+                <p class="text-sm text-theme-muted mt-1">The Linux <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> powers everything from Android phones to supercomputers. Over 90% of the world's top 500 supercomputers run Linux.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">First OS</p>
@@ -212,25 +226,25 @@
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
-            <p class="mt-2 text-sm text-theme-muted">Test your understanding of software and operating systems.</p>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> and operating systems.</p>
 
             <div class="mt-6 space-y-6">
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the main purpose of an operating system?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To browse the Internet</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To manage hardware and software resources</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To manage hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To edit photos and videos</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To connect to Wi-Fi</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To manage hardware and software resources</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To manage hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which of these is considered application software?</p>
+                <p class="text-sm font-semibold text-theme">2. Which of these is considered <span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-software')">application software</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Linux kernel</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Device driver</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Linux <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Web browser</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>File system</span></label>
                 </div>
@@ -238,14 +252,14 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What does a system call do?</p>
+                <p class="text-sm font-semibold text-theme">3. What does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-call')">system call</span> do?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Runs a program on the CPU</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Allows a user-space program to request a kernel service</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Allows a user-space program to request a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> service</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Creates a new file on disk</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Shuts down the operating system</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Allows a user-space program to request a kernel service</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Allows a user-space program to request a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> service</p>
               </div>
             </div>
 

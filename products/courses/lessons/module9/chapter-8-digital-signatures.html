@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+
+  <title>Chapter 8: Digital Signatures | Consica Academy</title>
+  <meta name="description" content="Chapter 8: Digital Signatures.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 8</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Digital Signatures</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Signing transactions with cryptographic proof</p>
+
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A digital signature is a mathematical scheme for verifying the authenticity and integrity of digital messages or documents. It provides three guarantees: authentication (the signature was created by someone possessing the private key corresponding to a specific public key), non-repudiation (the signer cannot deny having signed the message), and integrity (the message was not altered after signing).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Digital signatures in blockchain work through public-key cryptography. To sign, the sender hashes the message and encrypts the hash with their private key. To verify, anyone can decrypt the signature using the sender's public key to reveal the hash, then independently hash the message. If the hashes match, the signature is valid. This proves the sender controls the private key and the message is authentic. The Elliptic Curve Digital Signature Algorithm (ECDSA) is the standard used by Bitcoin and most blockchains.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of a digital signature like signing a check. When you write a check, your handwritten signature authorizes the bank to transfer money from your account. The bank verifies your signature against their records. A digital signature works the same way but is mathematically unforgeable. Unlike a handwritten signature that can be copied, a digital signature is unique to both the signer AND the specific document — you cannot copy someone's digital signature from one document and attach it to another.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A practical example: In 2020, the state of Illinois passed a law allowing blockchain-based digital signatures for business records. A company can now sign contracts using the same ECDSA technology that Bitcoin uses. The signature is legally binding and provably authentic. If a dispute arises, anyone can verify the signature by checking it against the signer's public key on the blockchain, without needing a handwriting expert or notary.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-08-hashes/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">How does the blockchain know that you authorized a transaction? How does it prove that a transaction came from you and not from someone pretending to be you? The answer is digital signatures. A digital signature is a mathematical scheme that proves you signed a specific message, much like your handwritten signature proves you signed a paper document — but much more secure.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Digital signatures are built on public-key cryptography. They provide three essential properties: authentication (the signature proves the signer's identity), non-repudiation (the signer cannot later deny signing), and integrity (the signed message cannot be changed without invalidating the signature). Every blockchain transaction includes a digital signature proving the owner authorized it.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how digital signatures work, how they are created and verified, and why they are essential for blockchain security. By the end, you will understand why digital signatures are the foundation of ownership and authorization in cryptocurrency.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Creating a digital signature works like this: Alice has a message (a transaction: 'Pay Bob 5 BTC'). She runs the message through a hash function to get a digest. Then she encrypts that digest with her private key. The result is the digital signature. She sends both the original message and the signature to the network. Only Alice's private key can create a valid signature for this message.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Verifying a digital signature works like this: Bob (or any node) receives the message and signature. They decrypt the signature using Alice's public key, which produces a hash. They also hash the original message themselves. If the two hashes match, the signature is valid. This proves: (1) the message was signed by Alice (because only her private key could create a signature that her public key can verify), (2) the message has not been tampered with (because any change would produce a different hash).</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of a digital signature like a wax seal on a medieval letter. The seal was made with a unique stamp (private key) that only the sender possessed. Anyone who knew the sender's seal pattern (public key) could verify the seal was authentic. If the letter was opened and resealed, the broken seal would show it had been tampered with. Digital signatures work the same way, but with mathematical guarantees instead of wax.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The difference between signing and encryption is important. Encryption (encrypt with public key, decrypt with private key) ensures confidentiality — only the intended recipient can read the message. Signing (sign with private key, verify with public key) ensures authenticity — anyone can verify who wrote the message. Blockchain transactions use signing to prove ownership, but the transactions themselves are typically not encrypted (on public blockchains, all data is visible to everyone).</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Elliptic Curve Digital Signature Algorithm (ECDSA) is the specific signature algorithm Bitcoin uses. To create a signature, the signer generates a random number (called a nonce, different from the mining nonce), computes a point on the elliptic curve, and then uses mathematical operations involving the private key and message hash to produce two numbers (r and s) that form the signature. This process is well-defined and standardized.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Signature malleability is a known challenge. In some signature schemes, a valid signature can be transformed into a different but still valid signature for the same message by someone who does not know the private key. This was exploited in a Bitcoin attack where attackers altered transaction IDs by changing the signature format. The SegWit upgrade (Segregated Witness) fixed this by separating signature data from transaction data, making transaction IDs independent of signature variations.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Your cryptocurrency private key is your identity on the blockchain. Whoever holds the private key controls the associated funds. There is no 'forgot my password' option, no customer support to call, no way to reverse a transaction. This is why private key security is absolutely critical — lose your key, lose your money.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Multisignature (multisig) addresses require multiple private keys to authorize a transaction. A 2-of-3 multisig address, for example, holds funds that require any 2 of 3 designated keys to spend. Multisig is used for joint accounts, corporate treasuries, and escrow services. It provides security against theft (an attacker would need multiple keys) and redundancy (if one key is lost, the others can still access funds).</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Schnorr signatures are an alternative to ECDSA that offer several advantages: they produce shorter signatures, they are provably secure (ECDSA's security proof requires extra assumptions), and they support signature aggregation, where multiple signatures (from multiple signers) can be combined into a single signature. This makes multi-signature transactions smaller and more private. Schnorr signatures were added to Bitcoin with the Taproot upgrade in 2021.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Threshold signatures extend the multisig concept. Instead of a 2-of-3 setup requiring three public keys, threshold signatures use a single public key that represents a group. Any subset of the group (say, 3 out of 5 members) can collectively produce a signature that is valid under that single public key. An observer cannot tell which members participated. Threshold signatures are more efficient and private than traditional multisig.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead><tr><th class="text-theme">Term</th><th class="text-theme">Definition</th></tr></thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-digital-signature"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('digital-signature')">Digital Signature</span></td><td>A cryptographic proof that a specific person authorized a specific message.</td></tr>
+                  <tr id="vocab-ecdsa"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ecdsa')">ECDSA</span></td><td>Elliptic Curve Digital Signature Algorithm — the standard signing algorithm for blockchain.</td></tr>
+                  <tr id="vocab-authentication"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span></td><td>The process of verifying the identity of a user or device.</td></tr>
+                  <tr id="vocab-non-repudiation"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('non-repudiation')">Non-Repudiation</span></td><td>The inability to deny having performed an action, ensured by digital signatures.</td></tr>
+                  <tr id="vocab-hash"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hash')">Hash</span></td><td>A fixed-length string produced by a one-way function, used as a digital fingerprint.</td></tr>
+                  <tr id="vocab-verification"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('verification')">Verification</span></td><td>The process of checking that a digital signature matches a message and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-key')">public key</span>.</td></tr>
+                  <tr id="vocab-public-key"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-key')">Public Key</span></td><td>A cryptographic key shared openly, used to verify signatures.</td></tr>
+                  <tr id="vocab-private-key"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('private-key')">Private Key</span></td><td>A secret key used to create digital signatures and prove ownership.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">A Bitcoin digital signature is between 70 and 73 bytes long. It consists of two 32-byte integers plus a few bytes of formatting.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The ECDSA algorithm used by Bitcoin is the same algorithm used by the US government for classified communications, standardized as FIPS 186-4.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The first known use of digital signatures was in 1976 by Whitfield Diffie and Martin Hellman, who proposed the concept in their paper 'New Directions in Cryptography'.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">A digital signature proves you know the private key without revealing the private key itself. This is an example of a zero-knowledge proof.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Bitcoin transactions can have multiple signatures. A typical transaction has one input signature (from the sender), but multisig transactions can have 3, 5, 15, or more signers.</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="mt-4 space-y-4">
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A digital signature is a scanned image of your handwritten signature.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A scanned signature is just an image — it can be copied and pasted onto any document. A real digital signature is mathematically tied to both the signer's private key and the specific message, making forgery practically impossible.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Digital signatures prove who you are.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Digital signatures prove you control a specific private key. They do not directly prove your real-world identity unless the key is linked to your identity through a trusted process (like KYC verification at a cryptocurrency exchange).</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Signing a transaction reveals your private key.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Signing proves you have the private key without revealing it. The signature is computed from the key and the message, but the key cannot be derived from the signature — that is the fundamental security property of signature algorithms.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You can sign a message that you cannot read.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Signing a hash of a message is standard practice. You are signing the hash, not the full message. This is efficient (shorter data to sign) and safe (the hash uniquely represents the message).</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('digital-signature')">digital signature</span> prove?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The geographic location of the signer</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> That the transaction was authorized by the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('private-key')">private key</span> owner and has not been altered</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The password used to log into the blockchain</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> The IP address of the sender</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> That the transaction was authorized by the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('private-key')">private key</span> owner and has not been altered</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. What is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('non-repudiation')">non-repudiation</span>?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The ability to delete old signatures</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The signer cannot later deny having signed</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The signature is encrypted twice</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hash')">hash</span> is reversible</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The signer cannot later deny having signed</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What happens if the same random number is used in two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ecdsa')">ECDSA</span> signatures?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> The signatures are identical</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('private-key')">private key</span> can be mathematically recovered</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> The transaction is rejected</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Nothing — it is safe to reuse k</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('private-key')">private key</span> can be mathematically recovered</p>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-7-cryptography-basics.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 7</a>
+            <a href="blockchain-basics.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-9-smart-contracts.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 9 &mdash; Smart Contracts</a>
+            </div>
+          </div>
+        </section>
+
+</article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

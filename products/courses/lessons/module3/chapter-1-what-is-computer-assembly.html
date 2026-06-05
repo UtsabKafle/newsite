@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,10 +181,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Have you ever looked inside a desktop computer and wondered how all those parts fit together? Computer assembly is the process of selecting individual hardware components and connecting them into a fully functional system. It is like building with high-tech LEGO bricks — except each piece has a specific job and must be placed correctly.
+              Have you ever looked inside a desktop computer and wondered how all those parts fit together? Computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> is the process of selecting individual hardware <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> and connecting them into a fully functional system. It is like building with high-tech LEGO bricks — except each piece has a specific job and must be placed correctly.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Building your own computer is not just for experts. With the right guidance, anyone can do it. You save money, gain control over performance, and learn exactly how your machine works. Once you understand the assembly process, you can upgrade, repair, and troubleshoot any computer with confidence.
+              Building your own computer is not just for experts. With the right guidance, anyone can do it. You save money, gain control over performance, and learn exactly how your machine works. Once you understand the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> process, you can upgrade, repair, and troubleshoot any computer with confidence.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               In this module, you will learn every step of assembling a computer — from safety precautions and tool preparation to installing the CPU, RAM, storage, power supply, and cooling. By the end, you will be ready to build a PC from scratch.
@@ -195,22 +197,22 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Computer assembly is the physical process of installing components into a case and connecting them so they communicate. The order matters: you typically start with the power supply, then the motherboard, then the CPU, cooler, RAM, storage, GPU, and finally cables. Each step builds on the previous one.</p>
+              <p class="text-sm text-theme-muted">Computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> is the physical process of installing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> into a case and connecting them so they communicate. The order matters: you typically start with the power supply, then the motherboard, then the CPU, cooler, RAM, storage, GPU, and finally cables. Each step builds on the previous one.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of computer assembly like building a custom desk from a furniture store. You have a frame (the case), a work surface (the motherboard), a brain (the CPU), a filing system (storage), and a power cord that must reach everything. Each piece has a dedicated slot and connector. If you force a piece where it does not belong, it will not fit — just like Lego bricks. When everything is connected properly, the desk is ready for use.</p>
+              <p class="text-sm text-theme-muted">Think of computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> like building a custom desk from a furniture store. You have a frame (the case), a work surface (the motherboard), a brain (the CPU), a filing system (storage), and a power cord that must reach everything. Each piece has a dedicated slot and connector. If you force a piece where it does not belong, it will not fit — just like Lego bricks. When everything is connected properly, the desk is ready for use.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Assembly Process</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Building a computer follows a logical sequence. Each step prepares the system for the next:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">1. Preparation</p>
-                <p class="text-sm text-theme-muted">Set up a clean workspace, gather tools (screwdrivers, anti-static wrist strap), and ground yourself to avoid static discharge that can damage components.</p>
+                <p class="text-sm text-theme-muted">Set up a clean workspace, gather tools (screwdrivers, anti-static wrist strap), and ground yourself to avoid static discharge that can damage <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span>.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">2. Power Supply</p>
@@ -230,13 +232,13 @@
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">6. First Boot</p>
-                <p class="text-sm text-theme-muted">Connect the monitor, keyboard, and power. Turn it on and enter the BIOS to verify that all components are detected correctly.</p>
+                <p class="text-sm text-theme-muted">Connect the monitor, keyboard, and power. Turn it on and enter the BIOS to verify that all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> are detected correctly.</p>
               </div>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Why Build Instead of Buy?</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Pre-built computers are convenient, but building your own offers significant advantages. You choose every component, so you can prioritise performance where it matters most — a better GPU for gaming, more RAM for video editing, or a quieter cooler for a home server. You also learn valuable skills that apply to troubleshooting and upgrading.
+              Pre-built computers are convenient, but building your own offers significant advantages. You choose every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">component</span>, so you can prioritise performance where it matters most — a better GPU for gaming, more RAM for video editing, or a quieter cooler for a home server. You also learn valuable skills that apply to troubleshooting and upgrading.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               The cost savings can be substantial. Pre-built systems often include a markup for labour and branding. By assembling yourself, you pay only for the hardware. Plus, you can reuse your case, PSU, and storage when upgrading later.
@@ -244,9 +246,9 @@
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Computer assembly is not about technical talent — it is about following a recipe. If you can read instructions, handle parts gently, and stay organised, you can build a computer. The only special skill required is patience.</p>
+              <p class="text-sm text-theme-muted">Computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> is not about technical talent — it is about following a recipe. If you can read instructions, handle parts gently, and stay organised, you can build a computer. The only special skill required is patience.</p>
             </div>
-          </div>
+</div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -261,14 +263,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Assembly</td><td>The process of putting together individual components to form a complete computer system</td></tr>
-                  <tr><td>Component</td><td>Any individual hardware part of a computer, such as a CPU, RAM stick, or hard drive</td></tr>
-                  <tr><td>Form Factor</td><td>The physical size, shape, and mounting standard of a component or motherboard (e.g., ATX, mATX, ITX)</td></tr>
-                  <tr><td>Socket</td><td>The physical connector on a motherboard that holds the CPU and provides electrical contact</td></tr>
-                  <tr><td>Thermal Paste</td><td>A thermally conductive compound applied between the CPU and cooler to improve heat transfer</td></tr>
-                  <tr><td>Standoff</td><td>A small brass or metal spacer that lifts the motherboard off the case to prevent short circuits</td></tr>
-                  <tr><td>I/O Shield</td><td>A metal plate that fits into the case rear opening and matches the motherboard's ports</td></tr>
-                  <tr><td>Peripheral</td><td>An external device connected to a computer, such as a keyboard, mouse, monitor, or printer</td></tr>
+                  <tr id="vocab-assembly"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">Assembly</span></td><td>The process of putting together individual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> to form a complete computer system</td></tr>
+                  <tr id="vocab-component"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">Component</span></td><td>Any individual hardware part of a computer, such as a CPU, RAM stick, or hard drive</td></tr>
+                  <tr id="vocab-form-factor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('form-factor')">Form Factor</span></td><td>The physical size, shape, and mounting standard of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">component</span> or motherboard (e.g., ATX, mATX, ITX)</td></tr>
+                  <tr id="vocab-socket"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></td><td>The physical connector on a motherboard that holds the CPU and provides electrical contact</td></tr>
+                  <tr id="vocab-thermal-paste"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">Thermal Paste</span></td><td>A thermally conductive compound applied between the CPU and cooler to improve heat transfer</td></tr>
+                  <tr id="vocab-standoff"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('standoff')">Standoff</span></td><td>A small brass or metal spacer that lifts the motherboard off the case to prevent short circuits</td></tr>
+                  <tr id="vocab-i-o-shield"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('i-o-shield')">I/O Shield</span></td><td>A metal plate that fits into the case rear opening and matches the motherboard's ports</td></tr>
+                  <tr id="vocab-peripheral"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('peripheral')">Peripheral</span></td><td>An external device connected to a computer, such as a keyboard, mouse, monitor, or printer</td></tr>
                 </tbody>
               </table>
             </div>
@@ -283,19 +285,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first personal computer kit, the Altair 8800 (1975), came as a box of parts. Buyers had to solder components onto the motherboard themselves.</p>
+                <p class="text-sm text-theme-muted">The first personal computer kit, the Altair 8800 (1975), came as a box of parts. Buyers had to solder <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> onto the motherboard themselves.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A typical gaming PC build contains between 8 and 15 separate components, each from a different manufacturer, all working together.</p>
+                <p class="text-sm text-theme-muted">A typical gaming PC build contains between 8 and 15 separate <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span>, each from a different manufacturer, all working together.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Most computer components use standardised connectors, meaning you can mix and match parts from different brands as long as the sockets match.</p>
+                <p class="text-sm text-theme-muted">Most computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> use standardised connectors, meaning you can mix and match parts from different brands as long as the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">sockets</span> match.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -326,7 +328,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the first step in the computer assembly process?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the first step in the computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span> process?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Installing the CPU</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Preparation and grounding</label>
@@ -337,7 +339,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What is a standoff used for in a computer build?</p>
+                <p class="text-sm font-semibold text-theme">2. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('standoff')">standoff</span> used for in a computer build?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> To hold the CPU cooler in place</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> To lift the motherboard off the case and prevent shorts</label>
@@ -350,8 +352,8 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Why do many builders install the power supply first?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is the heaviest component</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It provides power to test components during assembly</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is the heaviest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">component</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It provides power to test <span class="vocab cursor-pointer" onclick="scrollToVocabulary('component')">components</span> during <span class="vocab cursor-pointer" onclick="scrollToVocabulary('assembly')">assembly</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Installing it later can be difficult due to blocked access</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It needs to be connected to the internet first</label>
                 </div>
@@ -418,7 +420,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

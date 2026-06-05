@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -203,7 +205,7 @@
               <p class="text-sm text-theme-muted">If your car makes a strange noise, you do not immediately replace the engine. You listen, identify where the noise is coming from, check simple things first (oil level, loose parts), and only then consider more complex repairs. Computer troubleshooting follows the same logic: start with the simplest, most likely cause and work your way up.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Common Issues and Their Causes</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -221,7 +223,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">BSOD (Blue Screen of Death)</h4>
                 </div>
-                <p class="text-sm text-theme-muted"><span class="text-brand-200">Symptoms:</span> Windows crashes to a blue screen with an error code. <span class="text-brand-200">Common codes:</span> MEMORY_MANAGEMENT (RAM issue), VIDEO_TDR_TIMEOUT (GPU driver crash), IRQL_NOT_LESS_OR_EQUAL (driver conflict). <span class="text-brand-200">Fix:</span> Note the stop code, update drivers, test RAM with MemTest86.</p>
+                <p class="text-sm text-theme-muted"><span class="text-brand-200">Symptoms:</span> Windows crashes to a blue screen with an error code. <span class="text-brand-200">Common codes:</span> MEMORY_MANAGEMENT (RAM issue), VIDEO_TDR_TIMEOUT (GPU driver crash), IRQL_NOT_LESS_OR_EQUAL (driver conflict). <span class="text-brand-200">Fix:</span> Note the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stop-code')">stop code</span>, update drivers, test RAM with MemTest86.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -249,16 +251,16 @@
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">POST Codes / Beep Codes</p>
-                <p class="text-sm text-theme-muted">Many motherboards have a small 2-digit LED display (POST code reader) that shows a hexadecimal code during startup. Look up the code in the manual. If no display, a speaker connected to the motherboard header will beep patterns indicating the fault.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('post-code')">POST Codes</span> / <span class="vocab cursor-pointer" onclick="scrollToVocabulary('beep-code')">Beep Codes</span></p>
+                <p class="text-sm text-theme-muted">Many motherboards have a small 2-digit LED display (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('post-code')">POST code</span> reader) that shows a hexadecimal code during startup. Look up the code in the manual. If no display, a speaker connected to the motherboard header will beep patterns indicating the fault.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Windows Event Viewer</p>
                 <p class="text-sm text-theme-muted">Press Win + X &rarr; Event Viewer. Look under Windows Logs &rarr; System for critical errors (red) or warnings (yellow) that coincide with crashes or issues. The event ID can be searched online for solutions.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Benchmark &amp; Stress Tests</p>
-                <p class="text-sm text-theme-muted">Tools like Cinebench (CPU), FurMark (GPU), and MemTest86 (RAM) push components to their limits to expose instability. Running a <span class="text-brand-200">benchmark</span> before and after changes quantifies performance gains or losses.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">Benchmark</span> &amp; Stress Tests</p>
+                <p class="text-sm text-theme-muted">Tools like Cinebench (CPU), FurMark (GPU), and MemTest86 (RAM) push components to their limits to expose instability. Running a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span></span> before and after changes quantifies performance gains or losses.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Hardware Monitoring</p>
@@ -272,7 +274,7 @@
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Cleaning (Every 3&ndash;6 Months)</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cleaning')">Cleaning</span> (Every 3&ndash;6 Months)</p>
                 <p class="text-sm text-theme-muted">Dust is the enemy of cooling. Use compressed air to blow dust out of fans, radiators, and heatsinks. Hold fans still while blowing to prevent overspinning (which can generate current and damage the fan controller). Clean dust filters with a soft brush or vacuum on low.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
@@ -281,7 +283,7 @@
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Disk Health</p>
-                <p class="text-sm text-theme-muted">Run CHKDSK to check for file system errors. Use CrystalDiskInfo or the built-in Windows tool to check SSD/HDD health (SMART data). If an SSD reports reallocated sectors or high wear, back up your data immediately and plan for replacement.</p>
+                <p class="text-sm text-theme-muted">Run CHKDSK to check for file system errors. Use CrystalDiskInfo or the built-in Windows tool to check SSD/HDD health (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('smart')">SMART</span> data). If an SSD reports reallocated sectors or high wear, back up your data immediately and plan for replacement.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Thermal Paste Replacement</p>
@@ -295,10 +297,10 @@
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">1.</span> <strong>Identify the symptoms:</strong> What exactly is happening? When does it happen? Did anything change recently?</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> <strong>Isolate the component:</strong> Is the problem with the CPU, GPU, RAM, storage, PSU, or software? Use process of elimination.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> <strong>Isolate the component:</strong> Is the problem with the CPU, GPU, RAM, storage, PSU, or software? Use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('process-of-elimination')">process of elimination</span>.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> <strong>Check the simple things first:</strong> Loose cables, dust, driver updates, monitor input. You would be surprised how often the simplest fix works.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> <strong>Test with known-good parts:</strong> If you suspect the RAM, try one stick at a time, or swap with a known-good stick. If the PSU might be failing, use a PSU tester or replace temporarily.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">5.</span> <strong>Search online:</strong> The exact error message, stop code, or symptom has likely been encountered by thousands of other users. Use search engines and forums like Reddit's r/buildapc.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">5.</span> <strong>Search online:</strong> The exact error message, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stop-code')">stop code</span>, or symptom has likely been encountered by thousands of other users. Use search engines and forums like Reddit's r/buildapc.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">6.</span> <strong>Ask for help:</strong> When all else fails, describe your problem clearly with details about your build, when the issue started, and what you have tried.</p>
             </div>
 
@@ -306,7 +308,16 @@
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">The most expensive mistake in troubleshooting is replacing a part that was not broken. Always test and verify before buying new components. A systematic approach saves time, money, and frustration. Remember: "If it ain't broke, don't fix it" — but if it is broke, diagnose methodically.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, troubleshooting &amp; maintenance involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post-code')">POST Code</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('beep-code')">Beep Code</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smart')">smart</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bsod')">BSOD</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -321,16 +332,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>POST Code</td><td>A hexadecimal diagnostic code displayed on a motherboard LED during startup, indicating the boot stage or fault</td></tr>
-                  <tr><td>Beep Code</td><td>A pattern of audible beeps from the motherboard speaker that signals specific hardware errors during POST</td></tr>
-                  <tr><td>BSOD</td><td>Blue Screen of Death — a Windows crash screen that appears when the OS encounters a critical system error</td></tr>
-                  <tr><td>Benchmark</td><td>A standardised test used to measure and compare the performance of a hardware component or system</td></tr>
-                  <tr><td>Thermal Throttling</td><td>A protective mechanism where the CPU or GPU reduces its speed to lower temperature and prevent damage</td></tr>
-                  <tr><td>Diagnostic</td><td>A tool or process used to identify the cause of a hardware or software problem</td></tr>
-                  <tr><td>Cleaning</td><td>The process of removing dust and debris from inside a computer case to maintain airflow and cooling</td></tr>
-                  <tr><td>SMART</td><td>Self-Monitoring, Analysis and Reporting Technology — a drive health monitoring system built into storage devices</td></tr>
-                  <tr><td>Stop Code</td><td>The error identifier displayed on a BSOD that helps identify the specific cause of the crash</td></tr>
-                  <tr><td>Process of Elimination</td><td>A diagnostic method of removing or swapping components until the faulty one is identified</td></tr>
+                  <tr id="vocab-post-code"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('post-code')">POST Code</span></td><td>A hexadecimal <span class="vocab cursor-pointer" onclick="scrollToVocabulary('diagnostic')">diagnostic</span> code displayed on a motherboard LED during startup, indicating the boot stage or fault</td></tr>
+                  <tr id="vocab-beep-code"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('beep-code')">Beep Code</span></td><td>A pattern of audible beeps from the motherboard speaker that signals specific hardware errors during POST</td></tr>
+                  <tr id="vocab-bsod"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bsod')">BSOD</span></td><td>Blue Screen of Death — a Windows crash screen that appears when the OS encounters a critical system error</td></tr>
+                  <tr id="vocab-benchmark"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">Benchmark</span></td><td>A standardised test used to measure and compare the performance of a hardware component or system</td></tr>
+                  <tr id="vocab-thermal-throttling"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">Thermal Throttling</span></td><td>A protective mechanism where the CPU or GPU reduces its speed to lower temperature and prevent damage</td></tr>
+                  <tr id="vocab-diagnostic"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('diagnostic')">Diagnostic</span></td><td>A tool or process used to identify the cause of a hardware or software problem</td></tr>
+                  <tr id="vocab-cleaning"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cleaning')">Cleaning</span></td><td>The process of removing dust and debris from inside a computer case to maintain airflow and cooling</td></tr>
+                  <tr id="vocab-smart"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('smart')">SMART</span></td><td>Self-Monitoring, Analysis and Reporting Technology — a drive health monitoring system built into storage devices</td></tr>
+                  <tr id="vocab-stop-code"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('stop-code')">Stop Code</span></td><td>The error identifier displayed on a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bsod')">BSOD</span> that helps identify the specific cause of the crash</td></tr>
+                  <tr id="vocab-process-of-elimination"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('process-of-elimination')">Process of Elimination</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('diagnostic')">diagnostic</span> method of removing or swapping components until the faulty one is identified</td></tr>
                 </tbody>
               </table>
             </div>
@@ -357,13 +368,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Dust buildup inside a PC can reduce cooling efficiency by 30% or more. A thick layer of dust on a GPU heatsink can increase temperatures by 15&ndash;20&deg;C. Regular cleaning every 3&ndash;6 months is one of the most effective maintenance tasks.</p>
+                <p class="text-sm text-theme-muted">Dust buildup inside a PC can reduce cooling efficiency by 30% or more. A thick layer of dust on a GPU heatsink can increase temperatures by 15&ndash;20&deg;C. Regular <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cleaning')">cleaning</span> every 3&ndash;6 months is one of the most effective maintenance tasks.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">MemTest86 is one of the most important diagnostic tools for PC builders. A single bad bit in RAM can cause random crashes, file corruption, and data loss. Running MemTest86 for at least one full pass (about 1&ndash;3 hours per 16 GB) is recommended for every new build.</p>
+                <p class="text-sm text-theme-muted">MemTest86 is one of the most important <span class="vocab cursor-pointer" onclick="scrollToVocabulary('diagnostic')">diagnostic</span> tools for PC builders. A single bad bit in RAM can cause random crashes, file corruption, and data loss. Running MemTest86 for at least one full pass (about 1&ndash;3 hours per 16 GB) is recommended for every new build.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -404,7 +415,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does thermal throttling mean?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">thermal throttling</span> mean?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The CPU or GPU automatically slows down to reduce heat and prevent damage</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The computer consumes less power at idle</label>
@@ -489,12 +500,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

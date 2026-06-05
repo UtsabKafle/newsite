@@ -118,3 +118,75 @@ window.ConsicaDOM = {
     });
   },
 };
+
+window.scrollToVocabulary = function(wordId) {
+  const tableRow = document.getElementById('vocab-' + wordId);
+  if (tableRow) {
+    tableRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    tableRow.classList.remove('highlight-pulse');
+    // Trigger reflow to restart animation
+    void tableRow.offsetWidth;
+    tableRow.classList.add('highlight-pulse');
+  }
+};
+
+// Resolve a diagram component id to a canonical vocabulary id using
+// normalization rules and an optional runtime alias map `window.VOCAB_ALIASES`.
+function resolveVocabId(rawId) {
+  if (!rawId) return null;
+  // Direct alias lookup (raw string)
+  if (window.VOCAB_ALIASES && window.VOCAB_ALIASES[rawId]) return window.VOCAB_ALIASES[rawId];
+  // Some diagrams emit objects like 'node1' or semantic ids; normalize form
+  let s = String(rawId).toLowerCase().trim();
+  // strip leading 'vocab-' if present
+  s = s.replace(/^vocab-/, '');
+  // replace spaces/underscores with hyphens
+  s = s.replace(/\s+/g, '-').replace(/_/g, '-');
+  // if explicit alias exists for normalized key
+  if (window.VOCAB_ALIASES && window.VOCAB_ALIASES[s]) return window.VOCAB_ALIASES[s];
+  // strip trailing numbers for ids like core1 -> core
+  s = s.replace(/(\D+)(\d+)$/, '$1');
+  s = s.replace(/-+$/, '');
+  return s;
+}
+
+// Listen for diagram selection events (from embedded diagrams or other windows)
+window.addEventListener('message', function(e) {
+  try {
+    const data = e.data;
+    if (!data || data.type !== 'diagram-select') return;
+    // Prioritize scrolling to the How It Works section
+    const howEl = document.getElementById('how-it-works');
+    if (howEl) howEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Resolve aliases/normalize then highlight vocabulary if matching
+    if (data.id) {
+      const resolved = resolveVocabId(data.id);
+      if (resolved) scrollToVocabulary(resolved);
+    }
+  } catch (err) {
+    console.warn('Invalid diagram message', err);
+  }
+});
+
+// Try to load the non-destructive alias file if an alias map isn't already present.
+if (!window.VOCAB_ALIASES && typeof ConsicaDOM !== 'undefined' && typeof ConsicaDOM.loadScript === 'function') {
+  ConsicaDOM.loadScript('shared/utils/vocab-aliases.js').catch(function(){
+    // ignore failures - alias file is optional
+  });
+}
+
+// Support in-page diagram engines via CustomEvent
+window.addEventListener('diagram-select', function(ev) {
+  try {
+    const data = ev.detail;
+    if (!data) return;
+    const howEl = document.getElementById('how-it-works');
+    if (howEl) howEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (data.id) {
+      const resolved = resolveVocabId(data.id);
+      if (resolved) scrollToVocabulary(resolved);
+    }
+  } catch (err) {
+    console.warn('diagram-select handler error', err);
+  }
+});

@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              You have written the code, tested it locally, and your app works perfectly on your own computer. But how does it get from your machine to the internet where millions of users can access it? That is what <span class="text-brand-200 font-semibold">deployment</span> is all about.
+              You have written the code, tested it locally, and your app works perfectly on your own computer. But how does it get from your machine to the internet where millions of users can access it? That is what <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span></span> is all about.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In the early days of the web, companies had to buy, set up, and maintain their own physical servers — racks of computers in a data centre. Today, most apps run on the <span class="text-brand-200 font-semibold">cloud</span>, which means renting computing power from companies like Amazon (AWS), Microsoft (Azure), or Google (Google Cloud).
+              In the early days of the web, companies had to buy, set up, and maintain their own physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> — racks of computers in a data centre. Today, most apps run on the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span></span>, which means renting computing power from companies like Amazon (AWS), Microsoft (Azure), or Google (Google <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span>).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The cloud has transformed how software is built and delivered. Instead of buying hardware upfront, developers can spin up servers in minutes, scale to millions of users, and pay only for what they use. This chapter explores how deployment works and the different cloud services available.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> has transformed how software is built and delivered. Instead of buying hardware upfront, developers can spin up <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> in minutes, scale to millions of users, and pay only for what they use. This chapter explores how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span> works and the different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> services available.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Deployment is the process of copying your application code to a server that is connected to the internet 24/7. In a modern CI/CD pipeline, the process is automated: you push code to GitHub, the pipeline runs tests and builds your app, then deploys it to a cloud server. DNS (Domain Name System) routes your domain name (like myapp.com) to the server's IP address so users can find it.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span> is the process of copying your application code to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> that is connected to the internet 24/7. In a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span> pipeline, the process is automated: you push code to GitHub, the pipeline runs tests and builds your app, then deploys it to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> (Domain Name System) routes your domain name (like myapp.com) to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server's</span> IP address so users can find it.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Apartment Analogy</p>
-              <p class="text-sm text-theme-muted"><strong>On-premise</strong> is like owning a house — you buy the land, build the structure, and handle all maintenance yourself. <strong>Cloud (IaaS)</strong> is like renting an apartment — the landlord handles the building maintenance, but you still furnish and manage your unit. <strong>PaaS</strong> is like a fully furnished apartment — everything is set up for you, just move in with your code. <strong>Serverless</strong> is like a hotel room — you pay per night, someone else cleans, and you can check out anytime.</p>
+              <p class="text-sm text-theme-muted"><strong>On-premise</strong> is like owning a house — you buy the land, build the structure, and handle all maintenance yourself. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> (IaaS)</strong> is like renting an apartment — the landlord handles the building maintenance, but you still furnish and manage your unit. <strong>PaaS</strong> is like a fully furnished apartment — everything is set up for you, just move in with your code. <strong>Serverless</strong> is like a hotel room — you pay per night, someone else cleans, and you can check out anytime.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Deployment Pipeline</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A modern deployment follows these steps, often automated through a CI/CD pipeline:
+              A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span> follows these steps, often automated through a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span> pipeline:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
               <div class="glass-panel p-4 rounded-xl text-center border border-brand-500/10">
@@ -226,49 +228,58 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mx-auto mb-2">
                   <span class="text-brand-300 font-bold text-sm">3</span>
                 </div>
-                <p class="text-xs font-semibold text-brand-200">CI/CD Pipeline</p>
+                <p class="text-xs font-semibold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span> Pipeline</p>
                 <p class="text-xs text-theme-muted mt-1">Tests run, app is built</p>
               </div>
               <div class="glass-panel p-4 rounded-xl text-center border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mx-auto mb-2">
                   <span class="text-brand-300 font-bold text-sm">4</span>
                 </div>
-                <p class="text-xs font-semibold text-brand-200">Deploy to Cloud</p>
+                <p class="text-xs font-semibold text-brand-200">Deploy to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span></p>
                 <p class="text-xs text-theme-muted mt-1">Copy to AWS/Azure/Google</p>
               </div>
               <div class="glass-panel p-4 rounded-xl text-center border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mx-auto mb-2">
                   <span class="text-brand-300 font-bold text-sm">5</span>
                 </div>
-                <p class="text-xs font-semibold text-brand-200">DNS Routes</p>
+                <p class="text-xs font-semibold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> Routes</p>
                 <p class="text-xs text-theme-muted mt-1">Users reach your app</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cloud Service Models</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Not all cloud services are the same. They range from raw infrastructure to fully managed platforms:
+              Not all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> services are the same. They range from raw infrastructure to fully managed platforms:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <h4 class="font-display font-semibold text-base text-brand-200">VPS / IaaS</h4>
-                <p class="mt-2 text-sm text-theme-muted">Virtual Private Server. You rent a virtual machine and have full control over the OS, software, and security. Examples: AWS EC2, DigitalOcean, Linode.</p>
+                <p class="mt-2 text-sm text-theme-muted">Virtual Private <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span>. You rent a virtual machine and have full control over the OS, software, and security. Examples: AWS EC2, DigitalOcean, Linode.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <h4 class="font-display font-semibold text-base text-brand-200">PaaS</h4>
-                <p class="mt-2 text-sm text-theme-muted">Platform as a Service. You just deploy your code — the platform manages servers, scaling, and updates. Examples: Heroku, Vercel, Google App Engine.</p>
+                <p class="mt-2 text-sm text-theme-muted">Platform as a Service. You just deploy your code — the platform manages <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>, scaling, and updates. Examples: Heroku, Vercel, Google App Engine.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <h4 class="font-display font-semibold text-base text-brand-200">Serverless</h4>
-                <p class="mt-2 text-sm text-theme-muted">You write functions that run on-demand. No server management at all — you pay only when your code runs. Examples: AWS Lambda, Cloudflare Workers.</p>
+                <p class="mt-2 text-sm text-theme-muted">You write functions that run on-demand. No <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> management at all — you pay only when your code runs. Examples: AWS Lambda, Cloudflare Workers.</p>
               </div>
             </div>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">"The cloud" is just someone else's computer. But the real value of cloud computing is not the hardware — it is the services built around it: automatic scaling, managed databases, load balancers, monitoring, and global content delivery networks (CDNs) that make apps fast everywhere.</p>
+              <p class="text-sm text-theme-muted">"The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span>" is just someone else's computer. But the real value of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing is not the hardware — it is the services built around it: automatic scaling, managed databases, load balancers, monitoring, and global content delivery networks (CDNs) that make apps fast everywhere.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -283,13 +294,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Cloud</td><td>On-demand computing resources (servers, storage, databases) delivered over the internet</td></tr>
-                  <tr><td>Deployment</td><td>The process of making an application available for users on a server</td></tr>
-                  <tr><td>Server</td><td>A computer that provides data or services to other computers over a network</td></tr>
-                  <tr><td>CI/CD</td><td>Continuous Integration / Continuous Deployment — automated pipeline for testing and deploying code</td></tr>
-                  <tr><td>DNS</td><td>Domain Name System — translates domain names (google.com) into IP addresses</td></tr>
-                  <tr><td>Hosting</td><td>Providing the infrastructure and services to make a website or app accessible online</td></tr>
-                  <tr><td>Scalability</td><td>The ability of a system to handle increasing amounts of traffic or data</td></tr>
+                  <tr id="vocab-cloud"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span></td><td>On-demand computing resources (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>, storage, databases) delivered over the internet</td></tr>
+                  <tr id="vocab-deployment"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span></td><td>The process of making an application available for users on a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span></td></tr>
+                  <tr id="vocab-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span></td><td>A computer that provides data or services to other computers over a network</td></tr>
+                  <tr id="vocab-ci-cd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span></td><td>Continuous Integration / Continuous <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span> — automated pipeline for testing and deploying code</td></tr>
+                  <tr id="vocab-dns"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></td><td>Domain Name System — translates domain names (google.com) into IP addresses</td></tr>
+                  <tr id="vocab-hosting"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting')">Hosting</span></td><td>Providing the infrastructure and services to make a website or app accessible online</td></tr>
+                  <tr id="vocab-scalability"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('scalability')">Scalability</span></td><td>The ability of a system to handle increasing amounts of traffic or data</td></tr>
                 </tbody>
               </table>
             </div>
@@ -310,7 +321,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The term "cloud computing" was popularised by Google CEO Eric Schmidt in 2006, but the concept dates back to the 1960s with J.C.R. Licklider's "intergalactic computer network."</p>
+                <p class="text-sm text-theme-muted">The term "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> computing" was popularised by Google CEO Eric Schmidt in 2006, but the concept dates back to the 1960s with J.C.R. Licklider's "intergalactic computer network."</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -322,13 +333,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">AWS Lambda changed the game in 2014 by introducing serverless computing. You can run code without provisioning a single server — it scales from zero to millions of requests instantly.</p>
+                <p class="text-sm text-theme-muted">AWS Lambda changed the game in 2014 by introducing serverless computing. You can run code without provisioning a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> — it scales from zero to millions of requests instantly.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Netflix deploys code thousands of times per day using a custom CI/CD tool called Spinnaker. If a deployment causes issues, it automatically rolls back in seconds.</p>
+                <p class="text-sm text-theme-muted">Netflix deploys code thousands of times per day using a custom <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span> tool called Spinnaker. If a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span> causes issues, it automatically rolls back in seconds.</p>
               </div>
             </div>
           </div>
@@ -353,18 +364,18 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does CI/CD stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ci-cd')">CI/CD</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Computer Integration / Computer Deployment</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Continuous Integration / Continuous Deployment</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Cloud Infrastructure / Cloud Development</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Computer Integration / Computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Continuous Integration / Continuous <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> Infrastructure / <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">Cloud</span> Development</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Code Integration / Code Distribution</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Continuous Integration / Continuous Deployment</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Continuous Integration / Continuous <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">Deployment</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which cloud service model lets you run code without managing any servers?</p>
+                <p class="text-sm font-semibold text-theme">2. Which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cloud')">cloud</span> service model lets you run code without managing any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> IaaS (VPS)</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> PaaS</label>
@@ -375,12 +386,12 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What does DNS do?</p>
+                <p class="text-sm font-semibold text-theme">3. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> do?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Encrypts data between client and server</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Encrypts data between client and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Translates domain names into IP addresses</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Stores website files on a server</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Tests code for bugs before deployment</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Stores website files on a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Tests code for bugs before <span class="vocab cursor-pointer" onclick="scrollToVocabulary('deployment')">deployment</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Translates domain names into IP addresses</p>
               </div>

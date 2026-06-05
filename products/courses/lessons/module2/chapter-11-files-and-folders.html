@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -72,10 +87,10 @@
               Imagine a library with thousands of books but no shelves, no labels, and no catalogue. Every book is just tossed into a giant pile. Finding a specific book would be nearly impossible. Your computer faces the same problem — except it stores millions of pieces of data, not books.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              That is why computers use <strong class="text-brand-200">files</strong> and <strong class="text-brand-200">folders</strong> (also called directories). A file is a container that holds a specific piece of information — a document, a photo, a song, a program. A folder is a container that holds files and other folders, creating a tree-like structure that keeps everything organized.
+              That is why computers use <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span></strong> and <strong class="text-brand-200">folders</strong> (also called directories). A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> is a container that holds a specific piece of information — a document, a photo, a song, a program. A folder is a container that holds <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> and other folders, creating a tree-like structure that keeps everything organized.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, we will explore how files are named, how folders create hierarchies, what file extensions mean, how the file system keeps track of everything, and why good organization makes your computer faster and easier to use.
+              In this chapter, we will explore how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> are named, how folders create hierarchies, what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">file extensions</span> mean, how the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> keeps track of everything, and why good organization makes your computer faster and easier to use.
             </p>
           </div>
         </section>
@@ -86,15 +101,15 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">Files and Folders Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Think of your computer like a giant toy box. If you throw all your toys into the box without sorting them, finding one specific toy is hard. But if you use smaller boxes inside — one for LEGO bricks, one for cars, one for action figures — you always know where everything is.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                On a computer, a <strong class="text-brand-200">file</strong> is like one toy or one drawing. A <strong class="text-brand-200">folder</strong> is like the smaller box that holds similar things together. You can put folders inside other folders, just like putting a small box inside a bigger one.
+                On a computer, a <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span></strong> is like one toy or one drawing. A <strong class="text-brand-200">folder</strong> is like the smaller box that holds similar things together. You can put folders inside other folders, just like putting a small box inside a bigger one.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                When you double-click a folder, you open it to see what is inside. When you double-click a file, the computer opens it with the right program — a picture opens in a photo viewer, a song plays in a music player, a document opens in a word processor. The computer knows which program to use because every file has a special label called a <strong class="text-brand-200">file extension</strong> — like <code class="text-brand-300 font-mono text-xs">.jpg</code> for pictures or <code class="text-brand-300 font-mono text-xs">.mp3</code> for music.
+                When you double-click a folder, you open it to see what is inside. When you double-click a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>, the computer opens it with the right program — a picture opens in a photo viewer, a song plays in a music player, a document opens in a word processor. The computer knows which program to use because every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> has a special label called a <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">file extension</span></strong> — like <code class="text-brand-300 font-mono text-xs">.jpg</code> for pictures or <code class="text-brand-300 font-mono text-xs">.mp3</code> for music.
               </p>
             </div>
 
@@ -102,16 +117,16 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
               <h3 class="text-xl font-display font-bold mt-3">File Systems and Organization</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Every operating system includes a <strong class="text-brand-200">file system</strong> — the software that manages how data is stored, named, and retrieved. The most common file systems are NTFS (Windows), APFS (macOS), and ext4 (Linux). They differ in features like security, maximum file size, and journaling (protecting against data loss during crashes).
+                Every operating system includes a <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span></strong> — the software that manages how data is stored, named, and retrieved. The most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file systems</span> are NTFS (Windows), APFS (macOS), and ext4 (Linux). They differ in features like security, maximum <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> size, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('journaling')">journaling</span> (protecting against data loss during crashes).
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Files live in a hierarchy that starts at the <strong class="text-brand-200">root directory</strong> (like <code class="text-brand-300 font-mono text-xs">C:\</code> on Windows or <code class="text-brand-300 font-mono text-xs">/</code> on macOS/Linux). From there, folders branch out like an upside-down tree. The <strong class="text-brand-200">path</strong> to a file describes its location: <code class="text-brand-300 font-mono text-xs">C:\Users\Alice\Documents\report.docx</code> tells you exactly which folders to open to reach the file.
+                <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">Files</span> live in a hierarchy that starts at the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-directory')">root directory</span></strong> (like <code class="text-brand-300 font-mono text-xs">C:\</code> on Windows or <code class="text-brand-300 font-mono text-xs">/</code> on macOS/Linux). From there, folders branch out like an upside-down tree. The <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('path')">path</span></strong> to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> describes its location: <code class="text-brand-300 font-mono text-xs">C:\Users\Alice\Documents\report.docx</code> tells you exactly which folders to open to reach the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">File extensions</strong> (like <code class="text-brand-300 font-mono text-xs">.pdf</code>, <code class="text-brand-300 font-mono text-xs">.png</code>, <code class="text-brand-300 font-mono text-xs">.exe</code>) tell the OS what type of data the file contains and which application should open it. Extensions are usually hidden by default, but you can configure your OS to show them. Renaming a file's extension does not change its contents — it just confuses the OS about which program to use.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">File extensions</span></strong> (like <code class="text-brand-300 font-mono text-xs">.pdf</code>, <code class="text-brand-300 font-mono text-xs">.png</code>, <code class="text-brand-300 font-mono text-xs">.exe</code>) tell the OS what type of data the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> contains and which application should open it. Extensions are usually hidden by default, but you can configure your OS to show them. Renaming a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file's</span> extension does not change its contents — it just confuses the OS about which program to use.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Metadata</strong> is extra information stored alongside each file: the date it was created, the date it was last modified, its size, its permissions (who can read or edit it), and sometimes tags or comments. This metadata helps both you and the operating system sort and find files quickly.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('metadata')">Metadata</span></strong> is extra information stored alongside each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>: the date it was created, the date it was last modified, its size, its permissions (who can read or edit it), and sometimes tags or comments. This <span class="vocab cursor-pointer" onclick="scrollToVocabulary('metadata')">metadata</span> helps both you and the operating system sort and find <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> quickly.
               </p>
             </div>
 
@@ -119,43 +134,52 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">Under the Hood: How File Systems Really Work</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                At the hardware level, a hard drive or SSD is divided into tiny storage units called <strong class="text-brand-200">sectors</strong> (typically 512 bytes or 4 KB each). The file system groups sectors into <strong class="text-brand-200">clusters</strong> (or blocks) — the smallest amount of space a file can occupy. A 1 KB file on a 4 KB cluster system wastes 3 KB; this wasted space is called <strong class="text-brand-200">slack space</strong>.
+                At the hardware level, a hard drive or SSD is divided into tiny storage units called <strong class="text-brand-200">sectors</strong> (typically 512 bytes or 4 KB each). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> groups sectors into <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span></strong> (or blocks) — the smallest amount of space a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> can occupy. A 1 KB <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> on a 4 KB <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">cluster</span> system wastes 3 KB; this wasted space is called <strong class="text-brand-200">slack space</strong>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                The file system maintains a <strong class="text-brand-200">master table</strong> (like the MFT in NTFS or the inode table in ext4) that maps each file to its clusters on disk. When you open a file, the OS looks up its location in this table, then reads the data from those sectors. This is why deleting a file is instant — the OS simply marks those clusters as "free" in the table without erasing the actual data. Until the clusters are overwritten, the file can often be recovered with data recovery tools.
+                The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> maintains a <strong class="text-brand-200">master table</strong> (like the MFT in NTFS or the inode table in ext4) that maps each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> to its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span> on disk. When you open a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>, the OS looks up its location in this table, then reads the data from those sectors. This is why deleting a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> is instant — the OS simply marks those <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span> as "free" in the table without erasing the actual data. Until the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span> are overwritten, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> can often be recovered with data recovery tools.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Fragmentation</strong> occurs when a file is split across non-adjacent clusters. On HDDs this slows read speed because the read head must physically move. SSDs are less affected but still experience write amplification. Modern file systems and operating systems include automatic defragmentation (for HDDs) or TRIM commands (for SSDs) to optimize performance.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span></strong> occurs when a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> is split across non-adjacent <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span>. On HDDs this slows read speed because the read head must physically move. SSDs are less affected but still experience write amplification. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file systems</span> and operating systems include automatic defragmentation (for HDDs) or TRIM commands (for SSDs) to optimize performance.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Journaling</strong> is a feature that records pending file operations in a log (journal) before executing them. If the system crashes mid-operation, the journal allows the OS to pick up where it left off or roll back the partial change — preventing the catastrophic data loss that plagued early file systems. NTFS, APFS, and ext3/ext4 all use journaling (though APFS uses a more modern copy-on-write approach).
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('journaling')">Journaling</span></strong> is a feature that records pending <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> operations in a log (journal) before executing them. If the system crashes mid-operation, the journal allows the OS to pick up where it left off or roll back the partial change — preventing the catastrophic data loss that plagued early <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file systems</span>. NTFS, APFS, and ext3/ext4 all use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('journaling')">journaling</span> (though APFS uses a more modern copy-on-write approach).
               </p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> &amp; folders involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">File</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('folder-directory')">Folder (Directory)</span> does not happen in a straight line. Systems often use backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('path')">paths</span>, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">File Extension</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File</td><td class="py-3 px-4">A container that holds data such as a document, image, or program.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Folder (Directory)</td><td class="py-3 px-4">A container used to organize files and other folders into a hierarchy.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File Extension</td><td class="py-3 px-4">A suffix (e.g., .pdf, .jpg) that indicates the file type and associated application.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">File System</td><td class="py-3 px-4">The software that manages how data is stored, named, and retrieved on a storage device.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Path</td><td class="py-3 px-4">A string that specifies the location of a file or folder in the directory tree.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Root Directory</td><td class="py-3 px-4">The top-level directory from which all other folders and files branch.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Metadata</td><td class="py-3 px-4">Data about a file, including size, creation date, permissions, and tags.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Cluster</td><td class="py-3 px-4">The smallest unit of disk space a file system can allocate to a file.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Journaling</td><td class="py-3 px-4">A feature that logs pending operations to protect against data loss during crashes.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Fragmentation</td><td class="py-3 px-4">A condition where a file is split into non-contiguous clusters, slowing access times.</td></tr>
+                  <tr id="vocab-file"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">File</span></td><td>A container that holds data such as a document, image, or program.</td></tr>
+                  <tr id="vocab-folder-directory"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('folder-directory')">Folder (Directory)</span></td><td>A container used to organize <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> and other folders into a hierarchy.</td></tr>
+                  <tr id="vocab-file-extension"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">File Extension</span></td><td>A suffix (e.g., .pdf, .jpg) that indicates the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> type and associated application.</td></tr>
+                  <tr id="vocab-file-system"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span></td><td>The software that manages how data is stored, named, and retrieved on a storage device.</td></tr>
+                  <tr id="vocab-path"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('path')">Path</span></td><td>A string that specifies the location of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> or folder in the directory tree.</td></tr>
+                  <tr id="vocab-root-directory"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('root-directory')">Root Directory</span></td><td>The top-level directory from which all other folders and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> branch.</td></tr>
+                  <tr id="vocab-metadata"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('metadata')">Metadata</span></td><td>Data about a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>, including size, creation date, permissions, and tags.</td></tr>
+                  <tr id="vocab-cluster"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">Cluster</span></td><td>The smallest unit of disk space a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> can allocate to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>.</td></tr>
+                  <tr id="vocab-journaling"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('journaling')">Journaling</span></td><td>A feature that logs pending operations to protect against data loss during crashes.</td></tr>
+                  <tr id="vocab-fragmentation"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span></td><td>A condition where a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> is split into non-contiguous <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cluster')">clusters</span>, slowing access times.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -167,24 +191,24 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About Files and Folders</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
-                <p class="text-lg font-display font-bold text-brand-200">The first file system</p>
-                <p class="text-sm text-theme-muted mt-1">Early computers had no file systems. Programs loaded data directly from magnetic tape by rewinding to the right position. The first true file system was IBM's ICF in the 1960s.</p>
+                <p class="text-lg font-display font-bold text-brand-200">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span></p>
+                <p class="text-sm text-theme-muted mt-1">Early computers had no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file systems</span>. Programs loaded data directly from magnetic tape by rewinding to the right position. The first true <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> was IBM's ICF in the 1960s.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Trash is a folder</p>
-                <p class="text-sm text-theme-muted mt-1">When you delete a file, it moves to the Recycle Bin or Trash — which is just a special hidden folder. The file is not actually erased until you empty the trash.</p>
+                <p class="text-sm text-theme-muted mt-1">When you delete a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>, it moves to the Recycle Bin or Trash — which is just a special hidden folder. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> is not actually erased until you empty the trash.</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="text-lg font-display font-bold text-brand-200">NTFS supports giant files</p>
-                <p class="text-sm text-theme-muted mt-1">NTFS can theoretically handle files up to 16 exabytes (16 billion GB). In practice, other limits kick in long before that.</p>
+                <p class="text-lg font-display font-bold text-brand-200">NTFS supports giant <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span></p>
+                <p class="text-sm text-theme-muted mt-1">NTFS can theoretically handle <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> up to 16 exabytes (16 billion GB). In practice, other limits kick in long before that.</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="text-lg font-display font-bold text-brand-200">Dot files are hidden</p>
-                <p class="text-sm text-theme-muted mt-1">On Linux and macOS, any file whose name starts with a dot (like <code class="text-brand-300 font-mono text-xs">.bashrc</code>) is automatically hidden from normal directory listings — a convention borrowed from Unix.</p>
+                <p class="text-lg font-display font-bold text-brand-200">Dot <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> are hidden</p>
+                <p class="text-sm text-theme-muted mt-1">On Linux and macOS, any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> whose name starts with a dot (like <code class="text-brand-300 font-mono text-xs">.bashrc</code>) is automatically hidden from normal directory listings — a convention borrowed from Unix.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">FAT32 has a 4 GB limit</p>
-                <p class="text-sm text-theme-muted mt-1">The old FAT32 file system (used on USB drives) cannot store any single file larger than 4 GB. That is why modern drives use exFAT or NTFS.</p>
+                <p class="text-sm text-theme-muted mt-1">The old FAT32 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> (used on USB drives) cannot store any single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> larger than 4 GB. That is why modern drives use exFAT or NTFS.</p>
               </div>
             </div>
           </div>
@@ -205,38 +229,38 @@
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
-            <p class="mt-2 text-sm text-theme-muted">Test your understanding of files, folders, and file systems.</p>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span>, folders, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file systems</span>.</p>
 
             <div class="mt-6 space-y-6">
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">1. What does a file extension tell the operating system?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">1. What does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-extension')">file extension</span> tell the operating system?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The size of the file</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Which application should open the file</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>When the file was created</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The file's location on disk</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The size of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>Which application should open the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>When the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span> was created</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file's</span> location on disk</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Which application should open the file.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Which application should open the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">file</span>.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">2. Which file system is commonly used on modern Windows computers?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">2. Which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> is commonly used on modern Windows computers?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>FAT32</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>ext4</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>NTFS</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>APFS</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">NTFS (New Technology File System).</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">NTFS (New Technology <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span>).</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the purpose of journaling in a file system?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. What is the purpose of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('journaling')">journaling</span> in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To compress files and save space</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To encrypt files for security</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To compress <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> and save space</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To encrypt <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span> for security</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To protect data integrity during crashes</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To automatically back up files</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>To automatically back up <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file')">files</span></span></label>
                 </div>
                 <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To protect data integrity during crashes by logging pending operations.</p></details>
               </div>

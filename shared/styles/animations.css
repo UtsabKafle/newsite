@@ -197,6 +197,16 @@
   animation: auto-scroll-lms-orders 10s ease-in-out infinite;
 }
 
+@keyframes row-highlight-pulse {
+  0% { background-color: rgba(59, 130, 246, 0); }
+  30% { background-color: rgba(59, 130, 246, 0.3); }
+  100% { background-color: rgba(59, 130, 246, 0); }
+}
+
+.highlight-pulse td {
+  animation: row-highlight-pulse 2s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-float-delay {

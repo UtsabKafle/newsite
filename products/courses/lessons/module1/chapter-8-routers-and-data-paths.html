@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -135,7 +150,7 @@
               The internet is a massive network of interconnected devices. But how does your data find the right destination?
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Routers are the traffic directors of the internet — they examine each packet and forward it along the best available path.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> are the traffic directors of the internet — they examine each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> and forward it along the best available path.
             </p>
           </div>
         </section>
@@ -148,30 +163,32 @@
               Imagine you are mailing a letter. The post office looks at the address and decides which truck should carry it.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A router does the same for data — it reads the destination and sends the packet the right way.
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> does the same for data — it reads the destination and sends the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> the right way.
             </p>
             <div class="mt-4 p-4 rounded-xl bg-brand-500/10 border border-brand-500/20">
-              <p class="text-sm text-brand-200 font-medium">Key Idea: Routers are like postal workers for the internet.</p>
+              <p class="text-sm text-brand-200 font-medium">Key Idea: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> are like postal workers for the internet.</p>
             </div>
             <hr class="my-6 border-theme/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every packet traveling across the internet contains a source and destination IP address. Routers use routing tables to decide where to send each packet.
+              Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> traveling across the internet contains a source and destination IP address. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">routing tables</span> to decide where to send each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              These tables are constantly updated using protocols like BGP (Border Gateway Protocol) and OSPF (Open Shortest Path First).
+              These tables are constantly updated using protocols like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span> (Border Gateway Protocol) and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ospf')">OSPF</span> (Open Shortest Path First).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              If one path goes down, routers automatically re-route traffic through an alternate path.
+              If one path goes down, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> automatically re-route traffic through an alternate path.
             </p>
             <hr class="my-6 border-theme/20">
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Routers operate at Layer 3 (Network Layer) of the OSI model. They examine the IP header of each packet, perform a longest-prefix match against the routing table, and forward the packet to the next hop.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> operate at Layer 3 (Network Layer) of the OSI model. They examine the IP header of each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>, perform a longest-prefix match against the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">routing table</span>, and forward the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('next-hop')">next hop</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Core internet routers use BGP to exchange reachability information between Autonomous Systems (AS). Interior gateway protocols like OSPF or IS-IS handle routing within an AS.
+              Core internet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span> to exchange reachability information between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('autonomous-system')">Autonomous Systems</span> (AS). Interior gateway protocols like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ospf')">OSPF</span> or IS-IS handle routing within an AS.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Features like NAT, ACLs, QoS, and VPN termination are commonly handled by enterprise-grade routers.
+              Features like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>, ACLs, QoS, and VPN termination are commonly handled by enterprise-grade <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>.
             </p>
           </div>
         </section>
@@ -180,24 +197,24 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-theme">
-                    <th class="py-2 pr-4 font-semibold text-theme">Term</th>
-                    <th class="py-2 pr-4 font-semibold text-theme">Meaning</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Router</td><td class="py-2 pr-4">Device that forwards data packets between networks</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Packet</td><td class="py-2 pr-4">Small unit of data transmitted over a network</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Routing Table</td><td class="py-2 pr-4">Database of routes used by a router to forward packets</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Hop</td><td class="py-2 pr-4">One leg of a packet's journey between routers</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">BGP</td><td class="py-2 pr-4">Border Gateway Protocol — routes between autonomous systems</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">OSPF</td><td class="py-2 pr-4">Open Shortest Path First — interior gateway protocol</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Latency</td><td class="py-2 pr-4">Time delay for data to travel from source to destination</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">NAT</td><td class="py-2 pr-4">Network Address Translation — maps private IPs to public IPs</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Autonomous System</td><td class="py-2 pr-4">Large network under a single administrative control</td></tr>
-                  <tr class="border-b border-theme/50"><td class="py-2 pr-4 font-medium text-theme">Next Hop</td><td class="py-2 pr-4">The next router a packet is sent to on its path</td></tr>
+                  <tr id="vocab-router"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></td><td>Device that forwards data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> between networks</td></tr>
+                  <tr id="vocab-packet"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span></td><td>Small unit of data transmitted over a network</td></tr>
+                  <tr id="vocab-routing-table"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">Routing Table</span></td><td>Database of routes used by a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> to forward <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></td></tr>
+                  <tr id="vocab-hop"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hop')">Hop</span></td><td>One leg of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet's</span> journey between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span></td></tr>
+                  <tr id="vocab-bgp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span></td><td>Border Gateway Protocol — routes between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('autonomous-system')">autonomous systems</span></td></tr>
+                  <tr id="vocab-ospf"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ospf')">OSPF</span></td><td>Open Shortest Path First — interior gateway protocol</td></tr>
+                  <tr id="vocab-latency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></td><td>Time delay for data to travel from source to destination</td></tr>
+                  <tr id="vocab-nat"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></td><td>Network Address Translation — maps private IPs to public IPs</td></tr>
+                  <tr id="vocab-autonomous-system"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('autonomous-system')">Autonomous System</span></td><td>Large network under a single administrative control</td></tr>
+                  <tr id="vocab-next-hop"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('next-hop')">Next Hop</span></td><td>The next <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is sent to on its path</td></tr>
                 </tbody>
               </table>
             </div>
@@ -208,11 +225,11 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <ul class="mt-4 space-y-3 text-sm text-theme-muted">
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The first router was built in 1969 as part of the ARPANET project.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Core internet routers can handle over 100 billion packets per second.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The BGP routing table has grown to over 950,000 routes as of 2025.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Routers use something called "split horizon" to prevent routing loops.</span></li>
-              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>A packet can take a completely different return path than its outbound path.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> was built in 1969 as part of the ARPANET project.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Core internet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> can handle over 100 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> per second.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">routing table</span> has grown to over 950,000 routes as of 2025.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> use something called "split horizon" to prevent routing loops.</span></li>
+              <li class="flex gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> can take a completely different return path than its outbound path.</span></li>
             </ul>
           </div>
         </section>
@@ -222,20 +239,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
             <div class="mt-4 space-y-4">
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">A router and a modem are the same thing</p>
-                <p class="text-sm text-theme-muted mt-1">A modem connects to your ISP; a router distributes that connection to devices. Many home devices combine both.</p>
+                <p class="text-sm font-semibold text-red-300">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> and a modem are the same thing</p>
+                <p class="text-sm text-theme-muted mt-1">A modem connects to your ISP; a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> distributes that connection to devices. Many home devices combine both.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
                 <p class="text-sm font-semibold text-red-300">Data always takes the shortest path</p>
-                <p class="text-sm text-theme-muted mt-1">Routers consider speed, congestion, and policies — not just distance.</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> consider speed, congestion, and policies — not just distance.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">More hops always means slower speed</p>
+                <p class="text-sm font-semibold text-red-300">More <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hop')">hops</span> always means slower speed</p>
                 <p class="text-sm text-theme-muted mt-1">A shorter path through congested links can be slower than a longer path with high-speed fiber.</p>
               </div>
               <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <p class="text-sm font-semibold text-red-300">Routers only forward data</p>
-                <p class="text-sm text-theme-muted mt-1">Modern routers also filter traffic, enforce security rules, translate addresses, and manage bandwidth.</p>
+                <p class="text-sm font-semibold text-red-300"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> only forward data</p>
+                <p class="text-sm text-theme-muted mt-1">Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> also filter traffic, enforce security rules, translate addresses, and manage bandwidth.</p>
               </div>
             </div>
           </div>
@@ -249,16 +266,16 @@
                 <div class="flex flex-col items-center gap-3 text-sm">
                   <div class="glass-panel px-4 py-2 text-brand-200 font-medium">Your device</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <div class="glass-panel px-4 py-2 text-theme-muted">Home Router (NAT)</div>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">Home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>)</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <div class="glass-panel px-4 py-2 text-theme-muted">ISP Router</div>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">ISP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span></div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <div class="glass-panel px-4 py-2 text-theme-muted">Regional Router (BGP)</div>
+                  <div class="glass-panel px-4 py-2 text-theme-muted">Regional <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span>)</div>
                   <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   <div class="glass-panel px-4 py-2 text-brand-200 font-medium bg-brand-500/10">Destination Server</div>
                 </div>
               </div>
-              <p class="mt-4 text-xs text-theme-faint text-center">A packet traverses multiple routers from source to destination.</p>
+              <p class="mt-4 text-xs text-theme-faint text-center">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> traverses multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> from source to destination.</p>
             </div>
           </div>
         </section>
@@ -268,23 +285,23 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
               <div>
-                <p class="text-sm font-semibold text-theme">1. What does a router use to decide where to send a packet?</p>
+                <p class="text-sm font-semibold text-theme">1. What does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> use to decide where to send a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> MAC address table</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> Routing table</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">Routing table</span></label>
                   <label class="flex items-center gap-2"><input type="radio" name="q1" class="accent-brand-500"> DNS cache</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">2. Which protocol is used for routing between different autonomous systems?</p>
+                <p class="text-sm font-semibold text-theme">2. Which protocol is used for routing between different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('autonomous-system')">autonomous systems</span>?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> OSPF</label>
-                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> BGP</label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ospf')">OSPF</span></label>
+                  <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span></label>
                   <label class="flex items-center gap-2"><input type="radio" name="q2" class="accent-brand-500"> HTTP</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">3. At which OSI layer do routers operate?</p>
+                <p class="text-sm font-semibold text-theme">3. At which OSI layer do <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> operate?</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Layer 2 (Data Link)</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q3" class="accent-brand-500"> Layer 3 (Network)</label>
@@ -292,21 +309,21 @@
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">4. True or False: A packet always takes the same path for both directions.</p>
+                <p class="text-sm font-semibold text-theme">4. True or False: A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> always takes the same path for both directions.</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q4" class="accent-brand-500"> False</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">5. True or False: Routers can filter traffic based on security rules.</p>
+                <p class="text-sm font-semibold text-theme">5. True or False: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> can filter traffic based on security rules.</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> True</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q5" class="accent-brand-500"> False</label>
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">6. Match: NAT stands for ___ .</p>
+                <p class="text-sm font-semibold text-theme">6. Match: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> stands for ___ .</p>
                 <div class="mt-2 space-y-1 text-sm text-theme-muted">
                   <label class="flex items-center gap-2"><input type="radio" name="q6" class="accent-brand-500"> Network Address Translation</label>
                   <label class="flex items-center gap-2"><input type="radio" name="q6" class="accent-brand-500"> Node Access Table</label>
@@ -314,7 +331,7 @@
                 </div>
               </div>
               <div>
-                <p class="text-sm font-semibold text-theme">7. Fill in the blank: A router uses a ___ to store known routes.</p>
+                <p class="text-sm font-semibold text-theme">7. Fill in the blank: A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> uses a ___ to store known routes.</p>
                 <div class="mt-2 text-sm text-theme-muted">
                   <input type="text" placeholder="Type your answer" class="w-full max-w-xs px-3 py-2 rounded-lg bg-surface-dark border border-theme text-theme text-sm" disabled>
                 </div>
@@ -329,14 +346,14 @@
             <details class="mt-6">
               <summary class="text-sm text-brand-300 cursor-pointer hover:text-theme transition-colors">Show Answers</summary>
               <div class="mt-3 p-4 rounded-xl bg-brand-500/10 text-sm text-theme-muted space-y-1">
-                <p>1. Routing table</p>
-                <p>2. BGP</p>
+                <p>1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">Routing table</span></p>
+                <p>2. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span></p>
                 <p>3. Layer 3 (Network)</p>
                 <p>4. False</p>
                 <p>5. True</p>
                 <p>6. Network Address Translation</p>
-                <p>7. routing table</p>
-                <p>8. latency</p>
+                <p>7. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">routing table</span></p>
+                <p>8. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span></p>
               </div>
             </details>
           </div>
@@ -347,16 +364,16 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
             <div class="mt-4 space-y-4 text-sm text-theme-muted">
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">1. What happens to a packet if a router along its path fails?</p>
+                <p class="font-semibold text-theme">1. What happens to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> if a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span> along its path fails?</p>
                 <p class="mt-1">Consider how routing protocols handle failures and reconvergence.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">2. Why might a network administrator prefer a longer path with less latency over a shorter but congested path?</p>
+                <p class="font-semibold text-theme">2. Why might a network administrator prefer a longer path with less <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> over a shorter but congested path?</p>
                 <p class="mt-1">Think about the trade-offs between distance, speed, and reliability.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
-                <p class="font-semibold text-theme">3. How does NAT allow multiple devices to share a single public IP address?</p>
-                <p class="mt-1">Explore how routers map private addresses to public ones.</p>
+                <p class="font-semibold text-theme">3. How does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> allow multiple devices to share a single public IP address?</p>
+                <p class="mt-1">Explore how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> map private addresses to public ones.</p>
               </div>
             </div>
           </div>
@@ -368,11 +385,11 @@
             <div class="mt-4 grid gap-4 sm:grid-cols-2">
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="text-sm font-semibold text-brand-200">Project 1: Traceroute</h3>
-                <p class="mt-2 text-sm text-theme-muted">Run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Count the hops and note the IPs.</p>
+                <p class="mt-2 text-sm text-theme-muted">Run <code class="text-brand-300 font-mono text-xs">tracert google.com</code> (Windows) or <code class="text-brand-300 font-mono text-xs">traceroute google.com</code> (macOS/Linux). Count the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hop')">hops</span> and note the IPs.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="text-sm font-semibold text-brand-200">Project 2: Map Your Home Network</h3>
-                <p class="mt-2 text-sm text-theme-muted">Draw a diagram of all devices connected to your home router. Identify which ones use wired vs wireless connections.</p>
+                <p class="mt-2 text-sm text-theme-muted">Draw a diagram of all devices connected to your home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>. Identify which ones use wired vs wireless connections.</p>
               </div>
             </div>
           </div>
@@ -382,10 +399,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
-              <p><strong class="text-brand-200">Learning Objectives:</strong> Students should understand the role of routers, how routing tables work, and basic routing protocols.</p>
+              <p><strong class="text-brand-200">Learning Objectives:</strong> Students should understand the role of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing-table')">routing tables</span> work, and basic routing protocols.</p>
               <p><strong class="text-brand-200">Discussion Prompts:</strong> Use the postal service analogy. Ask students what happens when a road is closed and traffic is re-routed.</p>
-              <p><strong class="text-brand-200">Assessment Ideas:</strong> Have students trace a route to a distant server and document each hop. Use the knowledge check for review.</p>
-              <p><strong class="text-brand-200">Extensions:</strong> Introduce concepts like BGP hijacking, anycast routing, and software-defined networking (SDN).</p>
+              <p><strong class="text-brand-200">Assessment Ideas:</strong> Have students trace a route to a distant server and document each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hop')">hop</span>. Use the knowledge check for review.</p>
+              <p><strong class="text-brand-200">Extensions:</strong> Introduce concepts like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bgp')">BGP</span> hijacking, anycast routing, and software-defined networking (SDN).</p>
             </div>
           </div>
         </section>

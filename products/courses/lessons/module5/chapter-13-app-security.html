@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -195,15 +197,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Security works in layers. <strong>Encryption</strong> scrambles data so only authorised parties can read it. <strong>HTTPS</strong> ensures communication between your browser and the server is encrypted. <strong>Input validation</strong> prevents attackers from injecting malicious code through forms. <strong>Rate limiting</strong> stops brute-force attacks by limiting how many requests a user can make.</p>
+              <p class="text-sm text-theme-muted">Security works in layers. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></strong> scrambles data so only authorised parties can read it. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span></strong> ensures communication between your browser and the server is encrypted. <strong>Input validation</strong> prevents attackers from injecting malicious code through forms. <strong>Rate limiting</strong> stops brute-force attacks by limiting how many requests a user can make.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">House Security Analogy</p>
-              <p class="text-sm text-theme-muted"><strong>Encryption</strong> is like locking your valuables in a safe — even if a burglar gets in, they cannot read your documents. <strong>HTTPS</strong> is like an armoured mail truck — your letters are sealed and protected during delivery. <strong>Input validation</strong> is like checking IDs at the door — you verify everyone before letting them in. <strong>Rate limiting</strong> is like a bouncer who only lets a few people in at a time to prevent a rush.</p>
+              <p class="text-sm text-theme-muted"><strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></strong> is like locking your valuables in a safe — even if a burglar gets in, they cannot read your documents. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span></strong> is like an armoured mail truck — your letters are sealed and protected during delivery. <strong>Input validation</strong> is like checking IDs at the door — you verify everyone before letting them in. <strong>Rate limiting</strong> is like a bouncer who only lets a few people in at a time to prevent a rush.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Common Security Threats</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Developers need to defend against several common attack types:
             </p>
@@ -234,7 +236,7 @@
                   <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM12 8v4m0 4h.01"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-red-400">Data Breaches</h4>
-                <p class="mt-2 text-sm text-theme-muted">Unauthorised access to sensitive data. Can happen through weak passwords, unpatched vulnerabilities, or insider threats. Affects millions of users at once.</p>
+                <p class="mt-2 text-sm text-theme-muted">Unauthorised access to sensitive data. Can happen through weak passwords, unpatched <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vulnerability')">vulnerabilities</span>, or insider threats. Affects millions of users at once.</p>
               </div>
             </div>
 
@@ -253,7 +255,7 @@
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
                 <p class="text-sm font-semibold text-brand-200">Keep Updated</p>
-                <p class="text-xs text-theme-muted mt-1">Regularly patch frameworks, libraries, and servers</p>
+                <p class="text-xs text-theme-muted mt-1">Regularly <span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">patch</span> frameworks, libraries, and servers</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
                 <p class="text-sm font-semibold text-brand-200">Least Privilege</p>
@@ -265,7 +267,16 @@
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">Security is not a feature you add at the end — it is a mindset you apply throughout development. The OWASP Top 10 is a widely respected list of the most critical security risks for web applications. Every developer should know it.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, app security involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql-injection')">SQL Injection</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -280,14 +291,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Encryption</td><td>The process of converting data into a coded form to prevent unauthorised access</td></tr>
-                  <tr><td>HTTPS</td><td>HTTP over TLS — encrypted communication between a browser and a server</td></tr>
-                  <tr><td>SQL Injection</td><td>A code injection technique where malicious SQL is inserted into a query</td></tr>
-                  <tr><td>XSS</td><td>Cross-Site Scripting — injecting malicious scripts into web pages viewed by others</td></tr>
-                  <tr><td>DDoS</td><td>Distributed Denial of Service — overwhelming a server with traffic to make it unavailable</td></tr>
-                  <tr><td>Firewall</td><td>A security system that monitors and controls incoming and outgoing network traffic</td></tr>
-                  <tr><td>Vulnerability</td><td>A weakness in a system that can be exploited by an attacker</td></tr>
-                  <tr><td>Patch</td><td>An update that fixes a security vulnerability or bug in software</td></tr>
+                  <tr id="vocab-encryption"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></td><td>The process of converting data into a coded form to prevent unauthorised access</td></tr>
+                  <tr id="vocab-https"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span></td><td>HTTP over TLS — encrypted communication between a browser and a server</td></tr>
+                  <tr id="vocab-sql-injection"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql-injection')">SQL Injection</span></td><td>A code injection technique where malicious SQL is inserted into a query</td></tr>
+                  <tr id="vocab-xss"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('xss')">XSS</span></td><td>Cross-Site Scripting — injecting malicious scripts into web pages viewed by others</td></tr>
+                  <tr id="vocab-ddos"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ddos')">DDoS</span></td><td>Distributed Denial of Service — overwhelming a server with traffic to make it unavailable</td></tr>
+                  <tr id="vocab-firewall"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span></td><td>A security system that monitors and controls incoming and outgoing network traffic</td></tr>
+                  <tr id="vocab-vulnerability"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vulnerability')">Vulnerability</span></td><td>A weakness in a system that can be exploited by an attacker</td></tr>
+                  <tr id="vocab-patch"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">Patch</span></td><td>An update that fixes a security <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vulnerability')">vulnerability</span> or bug in software</td></tr>
                 </tbody>
               </table>
             </div>
@@ -308,13 +319,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The Heartbleed bug (2014) was a vulnerability in OpenSSL that let attackers read the memory of servers. It affected about 17% of all secure web servers on the internet.</p>
+                <p class="text-sm text-theme-muted">The Heartbleed bug (2014) was a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vulnerability')">vulnerability</span> in OpenSSL that let attackers read the memory of servers. It affected about 17% of all secure web servers on the internet.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/>/svg>
                 </div>
-                <p class="text-sm text-theme-muted">The largest DDoS attack in history (2023) peaked at over 71 million requests per second. Google, Amazon, and Cloudflare all absorbed record-breaking attacks that year.</p>
+                <p class="text-sm text-theme-muted">The largest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ddos')">DDoS</span> attack in history (2023) peaked at over 71 million requests per second. Google, Amazon, and Cloudflare all absorbed record-breaking attacks that year.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -326,7 +337,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Bug bounty programs pay hackers for finding vulnerabilities. Google has paid over $40 million in bounties since 2010. The largest single payout was $1.5 million for a Chrome exploit chain.</p>
+                <p class="text-sm text-theme-muted">Bug bounty programs pay hackers for finding <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vulnerability')">vulnerabilities</span>. Google has paid over $40 million in bounties since 2010. The largest single payout was $1.5 million for a Chrome exploit chain.</p>
               </div>
             </div>
           </div>
@@ -351,7 +362,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does HTTPS provide that HTTP does not?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span> provide that HTTP does not?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Faster loading times</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Encrypted communication</label>
@@ -364,12 +375,12 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which attack involves injecting malicious code into a database query through user input?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> XSS</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> DDoS</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> SQL Injection</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('xss')">XSS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ddos')">DDoS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql-injection')">SQL Injection</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Phishing</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> SQL Injection</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql-injection')">SQL Injection</span></p>
               </div>
 
               <div class="kb-check">

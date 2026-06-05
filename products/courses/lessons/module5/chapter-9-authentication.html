@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every time you log into an app, two things happen behind the scenes. First, the app figures out who you are — that is <span class="text-brand-200 font-semibold">authentication</span>. Then it checks what you are allowed to do — that is <span class="text-brand-200 font-semibold">authorization</span>. These two concepts are the foundation of security in every modern application.
+              Every time you log into an app, two things happen behind the scenes. First, the app figures out who you are — that is <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span></span>. Then it checks what you are allowed to do — that is <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span></span>. These two concepts are the foundation of security in every modern application.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Without authentication, anyone could access any account. Without authorization, every user would have the same power as an administrator. Apps use a combination of techniques — passwords, biometrics, tokens, and OAuth — to make sure the right people get the right access.
+              Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span>, anyone could access any account. Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span>, every user would have the same power as an administrator. Apps use a combination of techniques — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">passwords</span>, biometrics, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">tokens</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span> — to make sure the right people get the right access.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn the difference between authentication and authorization, explore the most common methods apps use to verify identity, and understand how sessions and tokens keep you logged in seamlessly.
+              In this chapter, you will learn the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span>, explore the most common methods apps use to verify identity, and understand how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('session')">sessions</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">tokens</span> keep you logged in seamlessly.
             </p>
           </div>
         </section>
@@ -195,15 +197,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">When you log in, your app sends your credentials (username and password) to a server. The server verifies them against its database. If they match, the server creates a token or session cookie and sends it back to your device. Your app then sends that token with every subsequent request so the server knows it is still you.</p>
+              <p class="text-sm text-theme-muted">When you log in, your app sends your credentials (username and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span>) to a server. The server verifies them against its database. If they match, the server creates a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">token</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('session')">session</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cookie')">cookie</span> and sends it back to your device. Your app then sends that <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">token</span> with every subsequent request so the server knows it is still you.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Keycard Analogy</p>
-              <p class="text-sm text-theme-muted"><strong>Authentication</strong> is like showing your ID at the door of a secure building. The security guard checks your face matches the photo and that the ID is valid. <strong>Authorization</strong> is like swiping your keycard to enter specific rooms. Your keycard might open the lobby and your office, but not the server room or the CEO's office. Authentication proves who you are; authorization proves what you can access.</p>
+              <p class="text-sm text-theme-muted"><strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span></strong> is like showing your ID at the door of a secure building. The security guard checks your face matches the photo and that the ID is valid. <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span></strong> is like swiping your keycard to enter specific rooms. Your keycard might open the lobby and your office, but not the server room or the CEO's office. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> proves who you are; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span> proves what you can access.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Authentication Methods</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Apps use several different methods to verify your identity. Each has its own trade-offs between security and convenience:
             </p>
@@ -213,7 +215,7 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Passwords</h4>
-                <p class="mt-2 text-sm text-theme-muted">The most common method. A secret string of characters you create. Best practice is to use long, unique passwords stored in a password manager.</p>
+                <p class="mt-2 text-sm text-theme-muted">The most common method. A secret string of characters you create. Best practice is to use long, unique <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">passwords</span> stored in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span> manager.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -227,27 +229,36 @@
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">OAuth</h4>
-                <p class="mt-2 text-sm text-theme-muted">"Login with Google/Apple/Facebook." An open standard that lets you grant one app access to your data on another app without sharing your password.</p>
+                <p class="mt-2 text-sm text-theme-muted">"Login with Google/Apple/Facebook." An open standard that lets you grant one app access to your data on another app without sharing your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">2FA (Two-Factor Auth)</h4>
-                <p class="mt-2 text-sm text-theme-muted">Adds a second layer of security. Even if someone has your password, they also need a temporary code from your phone or a hardware key to log in.</p>
+                <p class="mt-2 text-sm text-theme-muted">Adds a second layer of security. Even if someone has your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span>, they also need a temporary code from your phone or a hardware key to log in.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Sessions and Tokens</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Once you are authenticated, the app needs a way to remember you. Two common approaches are <strong>session-based authentication</strong> (the server stores your session and gives you a cookie) and <strong>token-based authentication</strong> (the server gives you a JWT or similar token that your app sends with each request). Tokens are more common in modern APIs because they are stateless and work well across different devices.
+              Once you are authenticated, the app needs a way to remember you. Two common approaches are <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('session')">session</span>-based <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span></strong> (the server stores your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('session')">session</span> and gives you a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cookie')">cookie</span>) and <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">token</span>-based <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span></strong> (the server gives you a JWT or similar <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">token</span> that your app sends with each request). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">Tokens</span> are more common in modern APIs because they are stateless and work well across different devices.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Authentication and authorization are often confused, but the difference is simple: authentication answers "Who are you?" while authorization answers "What are you allowed to do?" You can be authenticated (logged in) but not authorized (you cannot access the admin panel).</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span> are often confused, but the difference is simple: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span> answers "Who are you?" while <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span> answers "What are you allowed to do?" You can be authenticated (logged in) but not authorized (you cannot access the admin panel).</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">Password</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -262,14 +273,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Authentication</td><td>The process of verifying who a user is</td></tr>
-                  <tr><td>Authorization</td><td>The process of determining what a user is allowed to do</td></tr>
-                  <tr><td>Password</td><td>A secret string of characters used to verify identity</td></tr>
-                  <tr><td>Token</td><td>A digital key issued by a server after successful login, sent with requests to prove identity</td></tr>
-                  <tr><td>OAuth</td><td>An open standard for token-based authentication and authorization</td></tr>
-                  <tr><td>2FA</td><td>Two-Factor Authentication — an extra layer of security beyond a password</td></tr>
-                  <tr><td>Session</td><td>A server-side record of a user's logged-in state, often tracked via a cookie</td></tr>
-                  <tr><td>Cookie</td><td>A small piece of data stored by the browser to remember information between requests</td></tr>
+                  <tr id="vocab-authentication"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span></td><td>The process of verifying who a user is</td></tr>
+                  <tr id="vocab-authorization"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span></td><td>The process of determining what a user is allowed to do</td></tr>
+                  <tr id="vocab-password"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">Password</span></td><td>A secret string of characters used to verify identity</td></tr>
+                  <tr id="vocab-token"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">Token</span></td><td>A digital key issued by a server after successful login, sent with requests to prove identity</td></tr>
+                  <tr id="vocab-oauth"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span></td><td>An open standard for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">token</span>-based <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span></td></tr>
+                  <tr id="vocab-2fa"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span></td><td>Two-Factor <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> — an extra layer of security beyond a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span></td></tr>
+                  <tr id="vocab-session"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('session')">Session</span></td><td>A server-side record of a user's logged-in state, often tracked via a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cookie')">cookie</span></td></tr>
+                  <tr id="vocab-cookie"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cookie')">Cookie</span></td><td>A small piece of data stored by the browser to remember information between requests</td></tr>
                 </tbody>
               </table>
             </div>
@@ -284,13 +295,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The most common password in 2024 was still "123456." It takes a computer less than one second to crack it.</p>
+                <p class="text-sm text-theme-muted">The most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span> in 2024 was still "123456." It takes a computer less than one second to crack it.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Cookies were invented in 1994 by Lou Montulli, a Netscape employee. They were originally created to solve the problem of shopping carts remembering what you added.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cookie')">Cookies</span> were invented in 1994 by Lou Montulli, a Netscape employee. They were originally created to solve the problem of shopping carts remembering what you added.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -302,13 +313,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">OAuth 2.0 is used by almost every major tech company. When you click "Login with Google," you are using OAuth 2.0 under the hood.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span> 2.0 is used by almost every major tech company. When you click "Login with Google," you are using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span> 2.0 under the hood.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first known computer password was used at MIT in 1961. The system was hacked within weeks because someone printed the password file.</p>
+                <p class="text-sm text-theme-muted">The first known computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span> was used at MIT in 1961. The system was hacked within weeks because someone printed the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('password')">password</span> file.</p>
               </div>
             </div>
           </div>
@@ -333,25 +344,25 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the difference between authentication and authorization?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">authentication</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">authorization</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> They mean the same thing</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Authentication = who you are, Authorization = what you can do</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Authentication = what you can do, Authorization = who you are</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Authentication = encryption, Authorization = decryption</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> = who you are, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span> = what you can do</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> = what you can do, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span> = who you are</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> = encryption, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span> = decryption</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Authentication = who you are, Authorization = what you can do</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span> = who you are, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authorization')">Authorization</span> = what you can do</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does 2FA stand for?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Two-Factor Authentication</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Two-Factor <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Two-File Access</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Technical Firewall Access</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Token-First Algorithm</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('token')">Token</span>-First Algorithm</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Two-Factor Authentication</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Two-Factor <span class="vocab cursor-pointer" onclick="scrollToVocabulary('authentication')">Authentication</span></p>
               </div>
 
               <div class="kb-check">
@@ -359,10 +370,10 @@
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> HTTP</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> SQL</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> OAuth</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> DNS</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> OAuth</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('oauth')">OAuth</span></p>
               </div>
 
             </div>

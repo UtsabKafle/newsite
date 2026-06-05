@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -137,13 +152,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: Why Every Device Needs a Unique Address</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In the previous chapter, we learned that data is broken into packets. But how does each packet know exactly where to go? The answer lies in the <strong class="text-brand-200">IP address</strong> — a unique numeric label assigned to every device connected to the Internet.
+              In the previous chapter, we learned that data is broken into packets. But how does each packet know exactly where to go? The answer lies in the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></strong> — a unique numeric label assigned to every device connected to the Internet.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Without IP addresses, packets would wander aimlessly like letters with no address on the envelope. IP addresses make it possible for routers to forward data across the globe with pinpoint accuracy.
+              Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>, packets would wander aimlessly like letters with no address on the envelope. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> make it possible for routers to forward data across the globe with pinpoint accuracy.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, we will explore what IP addresses look like, the difference between IPv4 and IPv6, how devices get their addresses, and why the world is gradually transitioning to IPv6.
+              In this chapter, we will explore what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> look like, the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span>, how devices get their addresses, and why the world is gradually transitioning to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span>.
             </p>
           </div>
         </section>
@@ -155,15 +170,15 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">IP Addresses Explained Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Imagine your house has a street address so the mail carrier knows where to deliver letters. That address is unique — no other house in the world has the exact same address.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Now imagine your tablet, phone, laptop, and game console each need their own mailbox. On the Internet, every device gets its own special number called an <strong class="text-brand-200">IP address</strong>.
+                Now imagine your tablet, phone, laptop, and game console each need their own mailbox. On the Internet, every device gets its own special number called an <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></strong>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                When you ask for a website, your device puts its IP address on the request packet — like writing a return address on an envelope. The website sends the response back to that address. And that is how your screen fills with the right content, not someone else's!
+                When you ask for a website, your device puts its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> on the request packet — like writing a return address on an envelope. The website sends the response back to that address. And that is how your screen fills with the right content, not someone else's!
               </p>
             </div>
 
@@ -171,7 +186,7 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
               <h3 class="text-xl font-display font-bold mt-3">IP Addresses for Intermediate Learners</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                An IP address is a unique identifier that allows devices to find and communicate with each other on a network. There are two main versions in use today:
+                An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> is a unique identifier that allows devices to find and communicate with each other on a network. There are two main versions in use today:
               </p>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="glass-panel p-4">
@@ -184,14 +199,14 @@
                 </div>
               </div>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Devices get IP addresses in two ways:
+                Devices get <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> in two ways:
               </p>
               <ul class="mt-3 space-y-2 text-sm text-theme-muted">
                 <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong class="text-brand-200">Static:</strong> Manually assigned and never changes (used for servers).</li>
-                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong class="text-brand-200">Dynamic (DHCP):</strong> Automatically assigned by a router when you connect. Your phone gets a new "lease" each time it joins a Wi-Fi network.</li>
+                <li class="flex items-start gap-3"><svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong class="text-brand-200">Dynamic (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span>):</strong> Automatically assigned by a router when you connect. Your phone gets a new "lease" each time it joins a Wi-Fi network.</li>
               </ul>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Most home networks use a router that performs <strong class="text-brand-200">NAT (Network Address Translation)</strong>, allowing many devices to share one public IP address.
+                Most home networks use a router that performs <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> (Network Address Translation)</strong>, allowing many devices to share one public <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>.
               </p>
             </div>
 
@@ -199,52 +214,61 @@
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">IP Addressing: A Technical Deep Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                An IP address operates at Layer 3 (Network Layer) of the OSI model. It serves two primary functions: network interface identification and location addressing.
+                An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> operates at Layer 3 (Network Layer) of the OSI model. It serves two primary functions: network interface identification and location addressing.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">IPv4 Structure:</strong> 32-bit number, typically written in dotted decimal notation (e.g., <code class="text-brand-300 font-mono">203.0.113.42</code>). Each octet represents 8 bits. The address is divided into a network portion and a host portion, determined by the subnet mask.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> Structure:</strong> 32-bit number, typically written in dotted decimal notation (e.g., <code class="text-brand-300 font-mono">203.0.113.42</code>). Each octet represents 8 bits. The address is divided into a network portion and a host portion, determined by the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">subnet mask</span>.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Subnetting:</strong> A subnet mask (e.g., <code class="text-brand-300 font-mono">255.255.255.0</code> or <code class="text-brand-300 font-mono">/24</code>) separates the network ID from the host ID. This allows networks to be divided into smaller subnetworks for efficient routing and management.
+                <strong class="text-brand-200">Subnetting:</strong> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">subnet mask</span> (e.g., <code class="text-brand-300 font-mono">255.255.255.0</code> or <code class="text-brand-300 font-mono">/24</code>) separates the network ID from the host ID. This allows networks to be divided into smaller subnetworks for efficient routing and management.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">IPv6 Structure:</strong> 128-bit number written as eight groups of four hexadecimal digits (e.g., <code class="text-brand-300 font-mono">2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). Leading zeros can be omitted, and consecutive zero groups can be replaced with <code class="text-brand-300 font-mono">::</code> (once). IPv6 eliminates the need for NAT and provides built-in IPSec support.
+                <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> Structure:</strong> 128-bit number written as eight groups of four hexadecimal digits (e.g., <code class="text-brand-300 font-mono">2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). Leading zeros can be omitted, and consecutive zero groups can be replaced with <code class="text-brand-300 font-mono">::</code> (once). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> eliminates the need for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> and provides built-in IPSec support.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 <strong class="text-brand-200">Special Addresses:</strong>
               </p>
               <ul class="mt-2 space-y-1 text-sm text-theme-muted">
-                <li><code class="text-brand-300 font-mono text-xs">127.0.0.1</code> — Localhost (loopback), points back to your own device.</li>
+                <li><code class="text-brand-300 font-mono text-xs">127.0.0.1</code> — Localhost (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('loopback')">loopback</span>), points back to your own device.</li>
                 <li><code class="text-brand-300 font-mono text-xs">10.0.0.0/8</code>, <code class="text-brand-300 font-mono text-xs">172.16.0.0/12</code>, <code class="text-brand-300 font-mono text-xs">192.168.0.0/16</code> — Private (RFC 1918) addresses, not routable on the public Internet.</li>
-                <li><code class="text-brand-300 font-mono text-xs">169.254.0.0/16</code> — APIPA (Automatic Private IP Addressing), used when DHCP fails.</li>
+                <li><code class="text-brand-300 font-mono text-xs">169.254.0.0/16</code> — APIPA (Automatic Private IP Addressing), used when <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span> fails.</li>
                 <li><code class="text-brand-300 font-mono text-xs">0.0.0.0</code> — Default route, represents "all networks."</li>
               </ul>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">ip addresses</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IP Address</td><td class="py-3 px-4">A unique numeric identifier assigned to each device on a network.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IPv4</td><td class="py-3 px-4">Internet Protocol version 4, using 32-bit addresses.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">IPv6</td><td class="py-3 px-4">Internet Protocol version 6, using 128-bit addresses to replace IPv4.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Subnet Mask</td><td class="py-3 px-4">A number that separates the network and host portions of an IP address.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">DHCP</td><td class="py-3 px-4">Dynamic Host Configuration Protocol — automatically assigns IP addresses to devices.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">NAT</td><td class="py-3 px-4">Network Address Translation — maps private IPs to a public IP for Internet access.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Loopback</td><td class="py-3 px-4">Address <code class="text-brand-300 font-mono">127.0.0.1</code> used to test network software locally.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Default Gateway</td><td class="py-3 px-4">The router that connects a local network to the Internet.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">DNS</td><td class="py-3 px-4">Domain Name System — translates domain names into IP addresses.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Public IP</td><td class="py-3 px-4">An IP address that is globally routable on the Internet.</td></tr>
+                  <tr id="vocab-ip-address"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span></td><td>A unique numeric identifier assigned to each device on a network.</td></tr>
+                  <tr id="vocab-ipv4"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span></td><td>Internet Protocol version 4, using 32-bit addresses.</td></tr>
+                  <tr id="vocab-ipv6"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span></td><td>Internet Protocol version 6, using 128-bit addresses to replace <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span>.</td></tr>
+                  <tr id="vocab-subnet-mask"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">Subnet Mask</span></td><td>A number that separates the network and host portions of an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>.</td></tr>
+                  <tr id="vocab-dhcp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span></td><td>Dynamic Host Configuration Protocol — automatically assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> to devices.</td></tr>
+                  <tr id="vocab-nat"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></td><td>Network Address Translation — maps private IPs to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span> for Internet access.</td></tr>
+                  <tr id="vocab-loopback"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('loopback')">Loopback</span></td><td>Address <code class="text-brand-300 font-mono">127.0.0.1</code> used to test network software locally.</td></tr>
+                  <tr id="vocab-default-gateway"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('default-gateway')">Default Gateway</span></td><td>The router that connects a local network to the Internet.</td></tr>
+                  <tr id="vocab-dns"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></td><td>Domain Name System — translates domain names into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>.</td></tr>
+                  <tr id="vocab-public-ip"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">Public IP</span></td><td>An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> that is globally routable on the Internet.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -257,19 +281,19 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">4.3 billion</p>
-                <p class="text-sm text-theme-muted mt-1">That is how many IPv4 addresses exist. We ran out in 2011. That is why IPv6 was created.</p>
+                <p class="text-sm text-theme-muted mt-1">That is how many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> addresses exist. We ran out in 2011. That is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> was created.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">340 undecillion</p>
-                <p class="text-sm text-theme-muted mt-1">IPv6 can provide 340,282,366,920,938,463,463,374,607,431,768,211,456 addresses. That is enough for every grain of sand on Earth.</p>
+                <p class="text-sm text-theme-muted mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> can provide 340,282,366,920,938,463,463,374,607,431,768,211,456 addresses. That is enough for every grain of sand on Earth.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">Your IP changes</p>
-                <p class="text-sm text-theme-muted mt-1">Most home users get a dynamic public IP from their ISP. It can change every time the router restarts.</p>
+                <p class="text-sm text-theme-muted mt-1">Most home users get a dynamic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span> from their ISP. It can change every time the router restarts.</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">You can find yours</p>
-                <p class="text-sm text-theme-muted mt-1">Visit <code class="text-brand-300 font-mono text-xs">whatismyip.com</code> or ask a search engine "what is my IP" to see your public IP address right now.</p>
+                <p class="text-sm text-theme-muted mt-1">Visit <code class="text-brand-300 font-mono text-xs">whatismyip.com</code> or ask a search engine "what is my IP" to see your public <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> right now.</p>
               </div>
             </div>
           </div>
@@ -280,20 +304,20 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="space-y-4 mt-4">
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">An IP address never changes</p>
+                <p class="font-display font-semibold text-green-400 text-sm">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> never changes</p>
                 <p class="text-sm text-theme-muted mt-1">Most home IPs are dynamic and change periodically. Only static IPs (usually for servers) are permanent.</p>
               </div>
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">My IP address reveals my exact location</p>
-                <p class="text-sm text-theme-muted mt-1">A public IP can usually identify your city or region, but not your exact street address or home. Geolocation databases are approximate.</p>
+                <p class="font-display font-semibold text-green-400 text-sm">My <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> reveals my exact location</p>
+                <p class="text-sm text-theme-muted mt-1">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span> can usually identify your city or region, but not your exact street address or home. Geolocation databases are approximate.</p>
               </div>
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">IPv4 and IPv6 are compatible</p>
-                <p class="text-sm text-theme-muted mt-1">They are not directly compatible. IPv6-only devices cannot reach IPv4-only websites without translation gateways (like NAT64).</p>
+                <p class="font-display font-semibold text-green-400 text-sm"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> are compatible</p>
+                <p class="text-sm text-theme-muted mt-1">They are not directly compatible. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span>-only devices cannot reach <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span>-only websites without translation gateways (like NAT64).</p>
               </div>
               <div class="glass-panel p-4 border-l-4 border-green-500">
-                <p class="font-display font-semibold text-green-400 text-sm">Every device needs a unique public IP</p>
-                <p class="text-sm text-theme-muted mt-1">With NAT, multiple devices on a home network share a single public IP. Private IPs (like 192.168.x.x) are used internally.</p>
+                <p class="font-display font-semibold text-green-400 text-sm">Every device needs a unique <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span></p>
+                <p class="text-sm text-theme-muted mt-1">With <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>, multiple devices on a home network share a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span>. Private IPs (like 192.168.x.x) are used internally.</p>
               </div>
             </div>
           </div>
@@ -307,11 +331,11 @@
               <div class="space-y-4 text-sm text-theme-muted">
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">1</span>
-                  <div><strong class="text-theme">You type a URL.</strong> Your browser needs the server's IP address. It asks DNS for <code class="text-brand-300 font-mono text-xs">google.com</code>.</div>
+                  <div><strong class="text-theme">You type a URL.</strong> Your browser needs the server's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>. It asks <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> for <code class="text-brand-300 font-mono text-xs">google.com</code>.</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
-                  <div><strong class="text-theme">DNS returns the IP.</strong> Google's server IP is, for example, <code class="text-brand-300 font-mono text-xs">142.250.193.14</code>.</div>
+                  <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> returns the IP.</strong> Google's server IP is, for example, <code class="text-brand-300 font-mono text-xs">142.250.193.14</code>.</div>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
@@ -337,7 +361,7 @@
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
-            <p class="mt-2 text-sm text-theme-muted">Test your understanding of IP addresses.</p>
+            <p class="mt-2 text-sm text-theme-muted">Test your understanding of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>.</p>
 
             <div class="mt-6 space-y-6">
               <div class="glass-panel p-4">
@@ -352,7 +376,7 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">2. How many bits are in an IPv4 address?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">2. How many bits are in an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> address?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>16 bits</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>32 bits</span></label>
@@ -363,54 +387,54 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. Which protocol automatically assigns IP addresses to devices on a network?</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. Which protocol automatically assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> to devices on a network?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>DNS</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>NAT</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>DHCP</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span></span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>HTTP</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">DHCP (Dynamic Host Configuration Protocol).</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span> (Dynamic Host Configuration Protocol).</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: IPv6 was created because we ran out of IPv4 addresses.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">4. True or False: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> was created because we ran out of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> addresses.</p>
                 <div class="mt-2 flex gap-4 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>True</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf1" class="accent-brand-500"> <span>False</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The IPv4 address pool was exhausted in 2011.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> address pool was exhausted in 2011.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: The IP address 127.0.0.1 refers to your own computer.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">5. True or False: The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> 127.0.0.1 refers to your own computer.</p>
                 <div class="mt-2 flex gap-4 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>True</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tf2" class="accent-brand-500"> <span>False</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. 127.0.0.1 is the loopback address (localhost).</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">True. 127.0.0.1 is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('loopback')">loopback</span> address (localhost).</p></details>
               </div>
 
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">6. Matching: Connect each term to its description.</p>
                 <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-theme-muted">
-                  <div class="glass-panel p-3">IPv4</div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span></div>
                   <div class="glass-panel p-3">32-bit address, e.g., 192.168.1.1</div>
-                  <div class="glass-panel p-3">IPv6</div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span></div>
                   <div class="glass-panel p-3">128-bit address, e.g., 2001:db8::1</div>
-                  <div class="glass-panel p-3">NAT</div>
-                  <div class="glass-panel p-3">Maps private IPs to a public IP</div>
+                  <div class="glass-panel p-3"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span></div>
+                  <div class="glass-panel p-3">Maps private IPs to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span></div>
                 </div>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: A __________ mask separates the network and host parts of an IP address.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">7. Fill in the blank: A __________ mask separates the network and host parts of an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>.</p>
                 <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">Subnet.</p></details>
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: __________ translates domain names like <code class="text-brand-300 font-mono text-xs">google.com</code> into IP addresses.</p>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">DNS (Domain Name System).</p></details>
+                <p class="font-display font-semibold text-brand-200 text-sm">8. Fill in the blank: __________ translates domain names like <code class="text-brand-300 font-mono text-xs">google.com</code> into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span>.</p>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> (Domain Name System).</p></details>
               </div>
             </div>
           </div>
@@ -422,15 +446,15 @@
             <div class="space-y-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">1. The Address Shortage</p>
-                <p class="text-sm text-theme-muted mt-1">We have run out of IPv4 addresses. What technologies (NAT, IPv6, carrier-grade NAT) help solve this problem? What are the trade-offs of each approach, especially for peer-to-peer applications like gaming or video calls?</p>
+                <p class="text-sm text-theme-muted mt-1">We have run out of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> addresses. What technologies (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span>, carrier-grade <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span>) help solve this problem? What are the trade-offs of each approach, especially for peer-to-peer applications like gaming or video calls?</p>
               </div>
               <div class="glass-panel p-4">
                 <p class="font-display font-semibold text-brand-200 text-sm">2. Privacy and Tracking</p>
-                <p class="text-sm text-theme-muted mt-1">Your IP address can reveal your approximate location and Internet service provider. How does this affect your privacy online? What tools (VPNs, proxies, Tor) can hide your IP, and how do they work?</p>
+                <p class="text-sm text-theme-muted mt-1">Your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> can reveal your approximate location and Internet service provider. How does this affect your privacy online? What tools (VPNs, proxies, Tor) can hide your IP, and how do they work?</p>
               </div>
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. The Future of IPv6</p>
-                <p class="text-sm text-theme-muted mt-1">Many Internet services still use IPv4. Why is the transition to IPv6 so slow? What would happen if the world suddenly switched off IPv4 tomorrow? Research what "dual stack" means and why it is the current common approach.</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. The Future of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span></p>
+                <p class="text-sm text-theme-muted mt-1">Many Internet services still use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span>. Why is the transition to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> so slow? What would happen if the world suddenly switched off <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> tomorrow? Research what "dual stack" means and why it is the current common approach.</p>
               </div>
             </div>
           </div>
@@ -442,11 +466,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 1: Find Your IP Addresses</h4>
-                <p class="text-sm text-theme-muted mt-1">Open a terminal and run <code class="text-brand-300 font-mono text-xs">ipconfig</code> (Windows) or <code class="text-brand-300 font-mono text-xs">ifconfig</code> (macOS/Linux). Find your private IP address, subnet mask, and default gateway. Then visit a website to find your public IP. Compare the two. Why are they different?</p>
+                <p class="text-sm text-theme-muted mt-1">Open a terminal and run <code class="text-brand-300 font-mono text-xs">ipconfig</code> (Windows) or <code class="text-brand-300 font-mono text-xs">ifconfig</code> (macOS/Linux). Find your private <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">subnet mask</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('default-gateway')">default gateway</span>. Then visit a website to find your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('public-ip')">public IP</span>. Compare the two. Why are they different?</p>
               </div>
               <div class="glass-panel p-4">
                 <h4 class="font-display font-semibold text-brand-200 text-sm">Activity 2: Subnet Calculator</h4>
-                <p class="text-sm text-theme-muted mt-1">Using an online subnet calculator, experiment with different subnet masks. Start with <code class="text-brand-300 font-mono text-xs">192.168.1.0/24</code> — how many usable host addresses does it provide? Try <code class="text-brand-300 font-mono text-xs">/16</code> and <code class="text-brand-300 font-mono text-xs">/28</code>. Write down the network address, broadcast address, and usable range for each.</p>
+                <p class="text-sm text-theme-muted mt-1">Using an online subnet calculator, experiment with different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">subnet masks</span>. Start with <code class="text-brand-300 font-mono text-xs">192.168.1.0/24</code> — how many usable host addresses does it provide? Try <code class="text-brand-300 font-mono text-xs">/16</code> and <code class="text-brand-300 font-mono text-xs">/28</code>. Write down the network address, broadcast address, and usable range for each.</p>
               </div>
             </div>
           </div>
@@ -459,11 +483,11 @@
               <div>
                 <h4 class="font-display font-semibold text-brand-200">Learning Objectives</h4>
                 <ul class="mt-2 space-y-1 list-disc pl-5">
-                  <li>Define an IP address and explain its role in network communication.</li>
-                  <li>Distinguish between IPv4 and IPv6 formats and address spaces.</li>
-                  <li>Explain how DHCP assigns IP addresses dynamically.</li>
-                  <li>Describe NAT and its role in conserving IPv4 addresses.</li>
-                  <li>Understand subnet masks and how they divide networks.</li>
+                  <li>Define an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> and explain its role in network communication.</li>
+                  <li>Distinguish between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv6')">IPv6</span> formats and address spaces.</li>
+                  <li>Explain how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dhcp')">DHCP</span> assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP addresses</span> dynamically.</li>
+                  <li>Describe <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nat')">NAT</span> and its role in conserving <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipv4')">IPv4</span> addresses.</li>
+                  <li>Understand <span class="vocab cursor-pointer" onclick="scrollToVocabulary('subnet-mask')">subnet masks</span> and how they divide networks.</li>
                 </ul>
               </div>
               <div>
@@ -479,8 +503,8 @@
                 <h4 class="font-display font-semibold text-brand-200">Discussion Prompts</h4>
                 <ul class="mt-2 space-y-1 list-disc pl-5">
                   <li>Why does the Internet need both names (domains) and numbers (IPs)?</li>
-                  <li>What would happen if your phone kept the same IP address everywhere you went?</li>
-                  <li>How does a VPN change your apparent IP address?</li>
+                  <li>What would happen if your phone kept the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> everywhere you went?</li>
+                  <li>How does a VPN change your apparent <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span>?</li>
                   <li>Why might an ISP assign dynamic IPs instead of static ones?</li>
                 </ul>
               </div>

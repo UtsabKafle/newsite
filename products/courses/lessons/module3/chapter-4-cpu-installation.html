@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The Central Processing Unit (CPU) is the most important component in your computer. It performs all the calculations and instructions required to run programs. Installing a CPU is one of the most delicate steps in assembly — the socket has hundreds of tiny pins or pads that must align perfectly.
+              The Central Processing Unit (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>) is the most important component in your computer. It performs all the calculations and instructions required to run programs. Installing a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is one of the most delicate steps in assembly — the socket has hundreds of tiny pins or pads that must align perfectly.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs are designed to be impossible to install incorrectly if you pay attention. A small triangle marker on one corner of the CPU aligns with a matching marker on the socket. If it does not drop in effortlessly, you are doing it wrong. Never force a CPU into place.
+              Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> are designed to be impossible to install incorrectly if you pay attention. A small triangle marker on one corner of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> aligns with a matching marker on the socket. If it does not drop in effortlessly, you are doing it wrong. Never force a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> into place.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn about CPU socket types, how to handle and install a CPU, how to apply thermal paste, and how to attach a cooler. A correctly installed CPU, paired with proper cooling, is the heart of a stable system.
+              In this chapter, you will learn about <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> socket types, how to handle and install a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, how to apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">thermal paste</span>, and how to attach a cooler. A correctly installed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, paired with proper cooling, is the heart of a stable system.
             </p>
           </div>
         </section>
@@ -195,26 +197,26 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The CPU sits in a socket on the motherboard. The socket type must match the CPU — an Intel CPU requires an LGA socket, while AMD CPUs use PGA (or LGA on newer models). The CPU is locked in place with a lever or bracket. Once secured, thermal paste is applied to the integrated heat spreader (IHS), and a cooler is attached to draw heat away.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> sits in a socket on the motherboard. The socket type must match the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> — an Intel <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> requires an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span> socket, while AMD <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pga')">PGA</span> (or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span> on newer models). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is locked in place with a lever or bracket. Once secured, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">thermal paste</span> is applied to the integrated heat spreader (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ihs')">IHS</span>), and a cooler is attached to draw heat away.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Installing a CPU is like placing a key into a lock. The key has a specific shape that only fits one way. If you try to force it the wrong way, it will not go in. The CPU has a corner marking (the triangle) just like a key has a specific orientation. When it is aligned correctly, it drops into place with zero resistance — and you lock it down with the socket lever, like turning the key.</p>
+              <p class="text-sm text-theme-muted">Installing a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is like placing a key into a lock. The key has a specific shape that only fits one way. If you try to force it the wrong way, it will not go in. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has a corner marking (the triangle) just like a key has a specific orientation. When it is aligned correctly, it drops into place with zero resistance — and you lock it down with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket-lever')">socket lever</span>, like turning the key.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Socket Types: LGA vs PGA</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              There are two main CPU socket designs:
+              There are two main <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> socket designs:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">LGA (Land Grid Array)</p>
-                <p class="text-sm text-theme-muted">The pins are on the motherboard socket, not the CPU. The CPU has flat contact pads. Used by Intel (LGA1200, LGA1700, etc.) and newer AMD Ryzen (LGA1718 for AM5). More durable for the CPU itself.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span> (Land Grid Array)</p>
+                <p class="text-sm text-theme-muted">The pins are on the motherboard socket, not the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has flat contact pads. Used by Intel (LGA1200, LGA1700, etc.) and newer AMD Ryzen (LGA1718 for AM5). More durable for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> itself.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">PGA (Pin Grid Array)</p>
-                <p class="text-sm text-theme-muted">The pins are on the bottom of the CPU, and the socket has holes. Used by AMD for their AM4 socket. Pins are fragile and can bend if the CPU is dropped or inserted incorrectly.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pga')">PGA</span> (Pin Grid Array)</p>
+                <p class="text-sm text-theme-muted">The pins are on the bottom of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, and the socket has holes. Used by AMD for their AM4 socket. Pins are fragile and can bend if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is dropped or inserted incorrectly.</p>
               </div>
             </div>
 
@@ -225,40 +227,49 @@
             <div class="mt-5 space-y-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
-                <div><p class="text-sm font-semibold text-brand-200">Open the Socket</p><p class="text-sm text-theme-muted">Lift the socket lever (LGA) or release the bracket (PGA) to expose the socket. Do not touch the pins or pads.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Open the Socket</p><p class="text-sm text-theme-muted">Lift the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket-lever')">socket lever</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span>) or release the bracket (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('pga')">PGA</span>) to expose the socket. Do not touch the pins or pads.</p></div>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
-                <div><p class="text-sm font-semibold text-brand-200">Align the CPU</p><p class="text-sm text-theme-muted">Look for the gold triangle on one corner of the CPU. Align it with the matching triangle on the socket. The CPU will only fit one way.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Align the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></p><p class="text-sm text-theme-muted">Look for the gold triangle on one corner of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>. Align it with the matching triangle on the socket. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> will only fit one way.</p></div>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
-                <div><p class="text-sm font-semibold text-brand-200">Lower the CPU Gently</p><p class="text-sm text-theme-muted">Place the CPU into the socket vertically with no sideways motion. It should drop in with zero resistance. Do not push or force it.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Lower the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> Gently</p><p class="text-sm text-theme-muted">Place the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> into the socket vertically with no sideways motion. It should drop in with zero resistance. Do not push or force it.</p></div>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
-                <div><p class="text-sm font-semibold text-brand-200">Lock the Socket</p><p class="text-sm text-theme-muted">Lower the lever or bracket to secure the CPU. For LGA, the lever clicks under the retention tab. For PGA, close the bracket and push the lever down.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Lock the Socket</p><p class="text-sm text-theme-muted">Lower the lever or bracket to secure the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>. For <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span>, the lever clicks under the retention tab. For <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pga')">PGA</span>, close the bracket and push the lever down.</p></div>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
-                <div><p class="text-sm font-semibold text-brand-200">Apply Thermal Paste</p><p class="text-sm text-theme-muted">Place a pea-sized dot of thermal paste in the centre of the CPU's IHS. The cooler's pressure will spread it evenly. Do not spread it manually.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">Thermal Paste</span></p><p class="text-sm text-theme-muted">Place a pea-sized dot of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">thermal paste</span> in the centre of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU's</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ihs')">IHS</span>. The cooler's pressure will spread it evenly. Do not spread it manually.</p></div>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 flex gap-3 items-start">
                 <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">6</span>
-                <div><p class="text-sm font-semibold text-brand-200">Attach the Cooler</p><p class="text-sm text-theme-muted">Place the cooler onto the CPU and secure it with the provided mounting mechanism. Connect the fan cable to the CPU_FAN header on the motherboard.</p></div>
+                <div><p class="text-sm font-semibold text-brand-200">Attach the Cooler</p><p class="text-sm text-theme-muted">Place the cooler onto the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and secure it with the provided mounting mechanism. Connect the fan cable to the CPU_FAN header on the motherboard.</p></div>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Thermal Paste Application Methods</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The most common method is the "pea dot" — a single small blob in the centre of the CPU. When the cooler is pressed down, the paste spreads evenly to fill microscopic gaps. Avoid using too much paste, as it can spill over the edges and create a mess. Too little paste leaves air gaps that reduce cooling efficiency.
+              The most common method is the "pea dot" — a single small blob in the centre of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>. When the cooler is pressed down, the paste spreads evenly to fill microscopic gaps. Avoid using too much paste, as it can spill over the edges and create a mess. Too little paste leaves air gaps that reduce cooling efficiency.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">CPU installation is the only step where you can permanently damage a component with a single mistake. Take it slowly, check alignment twice, and never force anything. If the CPU does not drop into the socket, it is not aligned — lift it out, check the orientation, and try again.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> installation is the only step where you can permanently damage a component with a single mistake. Take it slowly, check alignment twice, and never force anything. If the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> does not drop into the socket, it is not aligned — lift it out, check the orientation, and try again.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">cpu</span> installation involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">Thread</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -273,14 +284,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>CPU</td><td>Central Processing Unit — the primary chip that executes instructions and performs calculations in a computer</td></tr>
-                  <tr><td>Core</td><td>An individual processing unit within a CPU. Multi-core CPUs can execute multiple instructions simultaneously</td></tr>
-                  <tr><td>Thread</td><td>A virtual version of a core that allows a single core to handle multiple instruction streams simultaneously</td></tr>
-                  <tr><td>LGA</td><td>Land Grid Array — a socket design where pins are on the motherboard and contact pads are on the CPU</td></tr>
-                  <tr><td>PGA</td><td>Pin Grid Array — a socket design where pins are on the CPU and holes are on the motherboard socket</td></tr>
-                  <tr><td>Thermal Paste</td><td>A heat-conductive compound applied between the CPU and cooler to improve thermal transfer</td></tr>
-                  <tr><td>IHS</td><td>Integrated Heat Spreader — the metal cap on top of the CPU that distributes heat from the silicon die</td></tr>
-                  <tr><td>Socket Lever</td><td>A metal arm on the motherboard socket that locks the CPU in place after insertion</td></tr>
+                  <tr id="vocab-cpu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td><td>Central Processing Unit — the primary chip that executes instructions and performs calculations in a computer</td></tr>
+                  <tr id="vocab-core"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span></td><td>An individual processing unit within a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>. Multi-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> can execute multiple instructions simultaneously</td></tr>
+                  <tr id="vocab-thread"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">Thread</span></td><td>A virtual version of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> that allows a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> to handle multiple instruction streams simultaneously</td></tr>
+                  <tr id="vocab-lga"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('lga')">LGA</span></td><td>Land Grid Array — a socket design where pins are on the motherboard and contact pads are on the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td></tr>
+                  <tr id="vocab-pga"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pga')">PGA</span></td><td>Pin Grid Array — a socket design where pins are on the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and holes are on the motherboard socket</td></tr>
+                  <tr id="vocab-thermal-paste"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">Thermal Paste</span></td><td>A heat-conductive compound applied between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and cooler to improve thermal transfer</td></tr>
+                  <tr id="vocab-ihs"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ihs')">IHS</span></td><td>Integrated Heat Spreader — the metal cap on top of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> that distributes heat from the silicon die</td></tr>
+                  <tr id="vocab-socket-lever"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket-lever')">Socket Lever</span></td><td>A metal arm on the motherboard socket that locks the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> in place after insertion</td></tr>
                 </tbody>
               </table>
             </div>
@@ -295,25 +306,25 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A modern CPU like the Intel Core i9-14900K contains over 16 billion transistors in an area smaller than a postage stamp.</p>
+                <p class="text-sm text-theme-muted">A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> like the Intel <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> i9-14900K contains over 16 billion transistors in an area smaller than a postage stamp.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The CPU in your smartphone uses less than 10 watts of power, while a high-end desktop CPU can draw over 250 watts under full load.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> in your smartphone uses less than 10 watts of power, while a high-end desktop <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can draw over 250 watts under full load.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Bent CPU socket pins are one of the most common assembly mistakes. Always inspect the socket before installation — a single bent pin can prevent the system from booting.</p>
+                <p class="text-sm text-theme-muted">Bent <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> socket pins are one of the most common assembly mistakes. Always inspect the socket before installation — a single bent pin can prevent the system from booting.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Thermal paste was originally invented for industrial power electronics. It was adopted by PC enthusiasts in the late 1990s to improve CPU cooling performance.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">Thermal paste</span> was originally invented for industrial power electronics. It was adopted by PC enthusiasts in the late 1990s to improve <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> cooling performance.</p>
               </div>
             </div>
           </div>
@@ -338,7 +349,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the correct way to align a CPU into its socket?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the correct way to align a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> into its socket?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Match the brand logo facing up</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Align the gold triangle with the matching marker on the socket</label>
@@ -349,9 +360,9 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. How much thermal paste should you apply to a CPU?</p>
+                <p class="text-sm font-semibold text-theme">2. How much <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">thermal paste</span> should you apply to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A thick layer covering the entire IHS</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A thick layer covering the entire <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ihs')">IHS</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A pea-sized dot in the centre</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A thin line across the edge</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> No paste is needed with modern coolers</label>
@@ -360,12 +371,12 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What should you do if the CPU does not drop into the socket easily?</p>
+                <p class="text-sm font-semibold text-theme">3. What should you do if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> does not drop into the socket easily?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Push down firmly until it clicks</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Wiggle it gently side to side</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Lift it out, check alignment, and try again</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Apply more thermal paste to lubricate it</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Apply more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-paste')">thermal paste</span> to lubricate it</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Lift it out, check alignment, and try again</p>
               </div>
@@ -434,7 +445,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

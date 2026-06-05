@@ -67,6 +67,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              After the CPU has processed your data, the result needs to reach you somehow. That is where output devices come in. Every time you see something on a screen, hear a sound from a speaker, or hold a printed page, you are experiencing the output stage of the Input-Process-Output cycle.
+              After the CPU has processed your data, the result needs to reach you somehow. That is where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output devices</span> come in. Every time you see something on a screen, hear a sound from a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">speaker</span>, or hold a printed page, you are experiencing the output stage of the Input-Process-Output cycle.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Output devices translate the computer's electronic signals into forms humans can perceive — light, sound, movement, or printed text. From the vibrant display on your phone to the hum of a 3D printer, this chapter explores the devices that bring digital data into the physical world.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">Output devices</span> translate the computer's electronic signals into forms humans can perceive — light, sound, movement, or printed text. From the vibrant display on your phone to the hum of a 3D <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printer</span>, this chapter explores the devices that bring digital data into the physical world.
             </p>
           </div>
         </section>
@@ -196,56 +198,56 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of output devices as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output devices</span> as:</p>
               <p class="text-sm text-theme-muted">
-                A translator at a conference. The computer speaks in electricity and binary (a language we cannot understand). Output devices are the translators that convert those signals into sights, sounds, and text that humans can easily perceive.
+                A translator at a conference. The computer speaks in electricity and binary (a language we cannot understand). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">Output devices</span> are the translators that convert those signals into sights, sounds, and text that humans can easily perceive.
               </p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Monitors &amp; Displays</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A monitor is the most common output device. It takes the digital image data from your computer and turns it into visible light. Modern monitors use <span class="text-brand-200">LCD (Liquid Crystal Display)</span> or <span class="text-brand-200">OLED (Organic Light Emitting Diode)</span> technology.
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitor</span> is the most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output device</span>. It takes the digital image data from your computer and turns it into visible light. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitors</span> use <span class="text-brand-200">LCD (Liquid Crystal Display)</span> or <span class="text-brand-200">OLED (Organic Light Emitting Diode)</span> technology.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Each screen is made of millions of tiny dots called <span class="text-brand-200">pixels</span>. Each pixel combines red, green, and blue sub-pixels at different brightness levels to create every color you see. A 1080p screen has about 2 million pixels; a 4K screen has over 8 million.
+              Each screen is made of millions of tiny dots called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span></span>. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixel</span> combines red, green, and blue sub-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span> at different brightness levels to create every color you see. A 1080p screen has about 2 million <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span>; a 4K screen has over 8 million.
             </p>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="glass-panel p-4 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Refresh Rate</p>
-                <p class="text-xs text-theme-muted">Measured in hertz (Hz), this is how many times per second the screen updates. Standard monitors run at 60 Hz; gaming monitors can reach 240 Hz or higher for smoother motion.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('refresh-rate')">Refresh Rate</span></p>
+                <p class="text-xs text-theme-muted">Measured in hertz (Hz), this is how many times per second the screen updates. Standard <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitors</span> run at 60 Hz; gaming <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitors</span> can reach 240 Hz or higher for smoother motion.</p>
               </div>
               <div class="glass-panel p-4 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Resolution</p>
-                <p class="text-xs text-theme-muted">The number of pixels displayed. Higher resolution means sharper, more detailed images. Common resolutions include 1080p, 1440p, and 4K (2160p).</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('resolution')">Resolution</span></p>
+                <p class="text-xs text-theme-muted">The number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span> displayed. Higher <span class="vocab cursor-pointer" onclick="scrollToVocabulary('resolution')">resolution</span> means sharper, more detailed images. Common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('resolution')">resolutions</span> include 1080p, 1440p, and 4K (2160p).</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Speakers &amp; Headphones</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Speakers convert electrical signals into sound waves. Inside a speaker, a <span class="text-brand-200">diaphragm</span> (a thin cone) vibrates back and forth, pushing air to create sound. The electrical signal from the computer tells the diaphragm exactly how fast and how far to move.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">Speakers</span> convert electrical signals into sound waves. Inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">speaker</span>, a <span class="text-brand-200">diaphragm</span> (a thin cone) vibrates back and forth, pushing air to create sound. The electrical signal from the computer tells the diaphragm exactly how fast and how far to move.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Headphones work the same way but on a smaller scale. Their <span class="text-brand-200">drivers</span> range from tiny earbud drivers (8-15 mm) to large over-ear headphones (40-50 mm). Larger drivers generally produce fuller, richer sound.
+              Headphones work the same way but on a smaller scale. Their <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span></span> range from tiny earbud <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> (8-15 mm) to large over-ear headphones (40-50 mm). Larger <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> generally produce fuller, richer sound.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Printers</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Printers take digital documents and turn them into physical copies. The two most common types are <span class="text-brand-200">inkjet printers</span>, which spray tiny droplets of ink onto paper, and <span class="text-brand-200">laser printers</span>, which use toner powder and heat to fuse text and images onto paper.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">Printers</span> take digital documents and turn them into physical copies. The two most common types are <span class="text-brand-200">inkjet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printers</span></span>, which spray tiny droplets of ink onto paper, and <span class="text-brand-200">laser <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printers</span></span>, which use toner powder and heat to fuse text and images onto paper.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A printer's quality is measured in <span class="text-brand-200">DPI (dots per inch)</span>. The higher the DPI, the finer the detail. Standard documents print at 300 DPI, while photo-quality prints use 1200 DPI or more.
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printer's</span> quality is measured in <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span> (dots per inch)</span>. The higher the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span>, the finer the detail. Standard documents print at 300 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span>, while photo-quality prints use 1200 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span> or more.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Other Output Devices</h3>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="glass-panel p-4 text-center">
                 <svg class="w-8 h-8 text-brand-300 mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                <p class="text-sm font-semibold text-brand-200">Projectors</p>
+                <p class="text-sm font-semibold text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('projector')">Projectors</span></p>
                 <p class="text-xs text-theme-muted mt-1">Magnify and display a computer's output onto a large screen or wall using bright light and lenses.</p>
               </div>
               <div class="glass-panel p-4 text-center">
                 <svg class="w-8 h-8 text-brand-300 mx-auto mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
-                <p class="text-sm font-semibold text-brand-200">3D Printers</p>
+                <p class="text-sm font-semibold text-brand-200">3D <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">Printers</span></p>
                 <p class="text-xs text-theme-muted mt-1">Build physical objects layer by layer from digital 3D models using plastic resin, metal, or other materials.</p>
               </div>
               <div class="glass-panel p-4 text-center">
@@ -257,9 +259,18 @@
 
             <div class="mt-6 p-5 rounded-xl bg-brand-500/5 border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">A computer without output devices is like a chef who cooks amazing meals but never serves them. The monitor is the serving platter (presentation), the speakers are the restaurant's ambiance music, and the printer is the takeout box. Each one delivers the final product in a different way.</p>
+              <p class="text-sm text-theme-muted">A computer without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output devices</span> is like a chef who cooks amazing meals but never serves them. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitor</span> is the serving platter (presentation), the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">speakers</span> are the restaurant's ambiance music, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printer</span> is the takeout box. Each one delivers the final product in a different way.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output devices</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">Output Device</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">Monitor</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">Pixel</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <!-- Vocabulary Table -->
@@ -275,16 +286,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Output Device</td><td>Any hardware that converts the computer's data into a human-perceivable form</td></tr>
-                  <tr><td>Monitor</td><td>A display screen that shows visual output from the computer</td></tr>
-                  <tr><td>Pixel</td><td>The smallest unit of a digital image, combining red, green, and blue sub-pixels</td></tr>
-                  <tr><td>Resolution</td><td>The number of pixels displayed on a screen, affecting image sharpness</td></tr>
-                  <tr><td>Refresh Rate</td><td>How many times per second a screen updates the image, measured in hertz (Hz)</td></tr>
-                  <tr><td>Speaker</td><td>A device that converts electrical signals into sound using a vibrating diaphragm</td></tr>
-                  <tr><td>Driver</td><td>The component inside a speaker or headphone that produces sound</td></tr>
-                  <tr><td>Printer</td><td>A device that produces a physical copy of digital documents or images</td></tr>
-                  <tr><td>DPI</td><td>Dots Per Inch — a measure of printing resolution and detail</td></tr>
-                  <tr><td>Projector</td><td>A device that projects computer output onto a large surface using lenses and light</td></tr>
+                  <tr id="vocab-output-device"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">Output Device</span></td><td>Any hardware that converts the computer's data into a human-perceivable form</td></tr>
+                  <tr id="vocab-monitor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">Monitor</span></td><td>A display screen that shows visual output from the computer</td></tr>
+                  <tr id="vocab-pixel"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">Pixel</span></td><td>The smallest unit of a digital image, combining red, green, and blue sub-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span></td></tr>
+                  <tr id="vocab-resolution"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('resolution')">Resolution</span></td><td>The number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">pixels</span> displayed on a screen, affecting image sharpness</td></tr>
+                  <tr id="vocab-refresh-rate"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('refresh-rate')">Refresh Rate</span></td><td>How many times per second a screen updates the image, measured in hertz (Hz)</td></tr>
+                  <tr id="vocab-speaker"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">Speaker</span></td><td>A device that converts electrical signals into sound using a vibrating diaphragm</td></tr>
+                  <tr id="vocab-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span></td><td>The component inside a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">speaker</span> or headphone that produces sound</td></tr>
+                  <tr id="vocab-printer"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">Printer</span></td><td>A device that produces a physical copy of digital documents or images</td></tr>
+                  <tr id="vocab-dpi"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span></td><td>Dots Per Inch — a measure of printing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('resolution')">resolution</span> and detail</td></tr>
+                  <tr id="vocab-projector"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('projector')">Projector</span></td><td>A device that projects computer output onto a large surface using lenses and light</td></tr>
                 </tbody>
               </table>
             </div>
@@ -300,31 +311,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first computer monitor (1950s) could only display green text on a black screen. Today's OLED monitors can show over a billion colors and can be rolled up like a sheet of paper.</p>
+                <p class="text-sm text-theme-muted">The first computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitor</span> (1950s) could only display green text on a black screen. Today's OLED <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitors</span> can show over a billion colors and can be rolled up like a sheet of paper.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The world's largest 3D printer can print houses. In 2021, a 3D-printed home was built in just 48 hours — the walls printed layer by layer using a special concrete mixture.</p>
+                <p class="text-sm text-theme-muted">The world's largest 3D <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printer</span> can print houses. In 2021, a 3D-printed home was built in just 48 hours — the walls printed layer by layer using a special concrete mixture.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">High-end gaming monitors with a 360 Hz refresh rate can display a new image every 2.78 milliseconds — faster than a hummingbird's wingbeat.</p>
+                <p class="text-sm text-theme-muted">High-end gaming <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">monitors</span> with a 360 Hz <span class="vocab cursor-pointer" onclick="scrollToVocabulary('refresh-rate')">refresh rate</span> can display a new image every 2.78 milliseconds — faster than a hummingbird's wingbeat.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Laser printers use static electricity. A laser draws the image onto a rotating drum, which picks up toner powder and transfers it to paper. The paper then passes through heated rollers that fuse the toner permanently.</p>
+                <p class="text-sm text-theme-muted">Laser <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printers</span> use static electricity. A laser draws the image onto a rotating drum, which picks up toner powder and transfers it to paper. The paper then passes through heated rollers that fuse the toner permanently.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first computer printer (1953) was the size of a refrigerator and could only print uppercase letters. Modern inkjet printers can spray 60 million ink droplets per second onto paper with microscopic precision.</p>
+                <p class="text-sm text-theme-muted">The first computer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printer</span> (1953) was the size of a refrigerator and could only print uppercase letters. Modern inkjet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('printer')">printers</span> can spray 60 million ink droplets per second onto paper with microscopic precision.</p>
               </div>
             </div>
           </div>
@@ -350,29 +361,29 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. Which of the following is an output device?</p>
+                <p class="text-sm font-semibold text-theme">1. Which of the following is an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('output-device')">output device</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Keyboard</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Monitor</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">Monitor</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Mouse</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Microphone</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Monitor</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monitor')">Monitor</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does DPI stand for in printing?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dpi')">DPI</span> stand for in printing?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Digital Print Interface</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Dots Per Inch</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Data Processing Index</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Display Pixel Intensity</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Display <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pixel')">Pixel</span> Intensity</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Dots Per Inch</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. How does a speaker produce sound?</p>
+                <p class="text-sm font-semibold text-theme">3. How does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('speaker')">speaker</span> produce sound?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> By heating air inside a chamber</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> By vibrating a diaphragm that pushes air</label>

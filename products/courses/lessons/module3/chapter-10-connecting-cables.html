@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
               You have installed every component inside your case. Now comes the moment where the pile of parts becomes a real computer — connecting the cables. Cabling is often the most intimidating part of a build for beginners because of the tangle of wires, but it is actually straightforward once you understand what each cable does.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              There are three main categories of cables you need to connect: <span class="text-brand-200">power cables</span> from the PSU to each component, <span class="text-brand-200">data cables</span> for storage drives and other peripherals, and <span class="text-brand-200">front panel cables</span> from the case itself — the power button, reset button, LED lights, USB ports, and audio jacks.
+              There are three main categories of cables you need to connect: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">power cables</span></span> from the PSU to each component, <span class="text-brand-200">data cables</span> for storage drives and other peripherals, and <span class="text-brand-200">front panel cables</span> from the case itself — the power button, reset button, LED lights, USB ports, and audio jacks.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Good cable management is not just about aesthetics. Proper routing improves airflow, makes future upgrades easier, and prevents cables from snagging on fan blades or overheating against hot components. A clean build is a happy build.
+              Good <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> is not just about aesthetics. Proper <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing')">routing</span> improves airflow, makes future upgrades easier, and prevents cables from snagging on fan blades or overheating against hot components. A clean build is a happy build.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Cable management is like organising the wires behind your TV stand. A neat setup means you can find the right cable later, nothing gets tangled, and it looks clean. Inside a PC, it also means better airflow and easier troubleshooting.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">Cable management</span> is like organising the wires behind your TV stand. A neat setup means you can find the right cable later, nothing gets tangled, and it looks clean. Inside a PC, it also means better airflow and easier troubleshooting.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of your PC like a kitchen renovation. The PSU is the main water pipe. Power cables are like the pipes running to the sink, dishwasher, and fridge. Data cables (SATA, front panel) are like the electrical wires for lights and switches. A good electrician and plumber route everything neatly behind the walls — that is cable management.</p>
+              <p class="text-sm text-theme-muted">Think of your PC like a kitchen renovation. The PSU is the main water pipe. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">Power cables</span> are like the pipes running to the sink, dishwasher, and fridge. Data cables (SATA, front panel) are like the electrical wires for lights and switches. A good electrician and plumber route everything neatly behind the walls — that is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span>.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Front Panel Headers</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The <span class="text-brand-200">front panel header</span> is a cluster of small pins on the motherboard (usually in the bottom-right corner) that connect to the case' s front panel buttons and LEDs. These tiny 2-pin connectors are labelled on both the cable and the motherboard:
+              The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('front-panel-header')">front panel header</span></span> is a cluster of small pins on the motherboard (usually in the bottom-right corner) that connect to the case' s front panel buttons and LEDs. These tiny 2-pin connectors are labelled on both the cable and the motherboard:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
@@ -252,12 +254,12 @@
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">24-pin ATX Power (Motherboard)</p>
-                <p class="text-sm text-theme-muted">The largest cable from the PSU. It plugs into the 24-pin ATX connector on the motherboard, usually on the right edge. This provides power to the motherboard, RAM, and CPU (via the motherboard' s voltage regulators). Most modern PSUs have a 20+4 pin design for backwards compatibility.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('24-pin-atx')">24-pin ATX</span> Power (Motherboard)</p>
+                <p class="text-sm text-theme-muted">The largest cable from the PSU. It plugs into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('24-pin-atx')">24-pin ATX</span> connector on the motherboard, usually on the right edge. This provides power to the motherboard, RAM, and CPU (via the motherboard' s voltage regulators). Most modern PSUs have a 20+4 pin design for backwards compatibility.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">CPU Power (4+4 pin or 8-pin EPS)</p>
-                <p class="text-sm text-theme-muted">This cable plugs into the top-left corner of the motherboard near the CPU socket. It provides dedicated power to the CPU. High-end motherboards may have two EPS connectors (8+4 or 8+8) for extreme overclocking. Make sure to route this cable behind the motherboard tray before connecting.</p>
+                <p class="text-sm text-theme-muted">This cable plugs into the top-left corner of the motherboard near the CPU socket. It provides dedicated power to the CPU. High-end motherboards may have two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('eps-connector')">EPS connectors</span> (8+4 or 8+8) for extreme overclocking. Make sure to route this cable behind the motherboard tray before connecting.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">PCIe Power (6+2 pin)</p>
@@ -271,7 +273,7 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Data Cables</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">SATA cables</span> connect SATA storage drives (HDDs, SATA SSDs, optical drives) to the motherboard. They are thin, usually red, black, or orange, and have identical L-shaped connectors on both ends. One end goes into the drive, the other into a SATA port on the motherboard. SATA 3.0 supports speeds up to 6 Gb/s.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata-cable')">SATA cables</span></span> connect SATA storage drives (HDDs, SATA SSDs, optical drives) to the motherboard. They are thin, usually red, black, or orange, and have identical L-shaped connectors on both ends. One end goes into the drive, the other into a SATA port on the motherboard. SATA 3.0 supports speeds up to 6 Gb/s.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               For M.2 NVMe drives, there are no data cables — the drive plugs directly into the M.2 slot on the motherboard. This direct connection is one reason NVMe drives are so much faster than SATA drives.
@@ -279,20 +281,20 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cable Management Best Practices</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Good cable management separates a novice build from a professional one:
+              Good <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> separates a novice build from a professional one:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Route Behind the Tray</p>
-                <p class="text-sm text-theme-muted">Most modern cases have a gap behind the motherboard tray. Route all excess cable length there, using <span class="text-brand-200">zip ties</span> or Velcro straps to bundle cables together.</p>
+                <p class="text-sm text-theme-muted">Most modern cases have a gap behind the motherboard tray. Route all excess cable length there, using <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('zip-tie')">zip ties</span></span> or Velcro straps to bundle cables together.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Use Grommets</p>
                 <p class="text-sm text-theme-muted">Pull cables through the rubber grommets in the case at the exact point they need to reach their destination. This hides the cables from the main compartment.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">PSU Shroud</p>
-                <p class="text-sm text-theme-muted">Many cases include a <span class="text-brand-200">PSU shroud</span> — a metal cover at the bottom that hides the PSU and its cables. Route all PSU cables under this shroud.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-shroud')">PSU Shroud</span></p>
+                <p class="text-sm text-theme-muted">Many cases include a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-shroud')">PSU shroud</span></span> — a metal cover at the bottom that hides the PSU and its cables. Route all PSU cables under this shroud.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Connect Before Mounting</p>
@@ -304,7 +306,16 @@
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">Nearly all modern motherboard headers and PSU connectors are <span class="text-brand-200">keyed</span> — they have a specific shape that only fits one way. Never force a connector. If it does not slide in easily, check your alignment. Forcing a connector can bend pins or damage the header.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, connecting cables involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('front-panel-header')">Front Panel Header</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata-cable')">SATA Cable</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">Power Cable</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -319,16 +330,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Front Panel Header</td><td>The set of pins on the motherboard that connect to the case' s power button, reset, LEDs, and audio</td></tr>
-                  <tr><td>SATA Cable</td><td>A data cable connecting SATA storage drives to the motherboard, supporting up to 6 Gb/s</td></tr>
-                  <tr><td>Power Cable</td><td>A cable from the PSU that delivers electrical power to a component (motherboard, CPU, GPU, drives)</td></tr>
-                  <tr><td>Cable Management</td><td>The practice of routing and securing cables neatly inside a case for airflow, aesthetics, and ease of access</td></tr>
-                  <tr><td>Routing</td><td>The path taken by a cable from its source to its destination, ideally behind the motherboard tray</td></tr>
-                  <tr><td>Zip Tie</td><td>A plastic fastener used to bundle cables together for neatness and to prevent tangling</td></tr>
-                  <tr><td>PSU Shroud</td><td>A metal cover in some cases that hides the PSU and excess cables from view</td></tr>
-                  <tr><td>Keyed Connector</td><td>A connector designed to fit only one way to prevent incorrect insertion</td></tr>
-                  <tr><td>EPS Connector</td><td>The 4+4 or 8-pin power cable that supplies dedicated power to the CPU from the PSU</td></tr>
-                  <tr><td>24-pin ATX</td><td>The main power connector from the PSU to the motherboard providing multiple voltage rails</td></tr>
+                  <tr id="vocab-front-panel-header"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('front-panel-header')">Front Panel Header</span></td><td>The set of pins on the motherboard that connect to the case' s power button, reset, LEDs, and audio</td></tr>
+                  <tr id="vocab-sata-cable"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata-cable')">SATA Cable</span></td><td>A data cable connecting SATA storage drives to the motherboard, supporting up to 6 Gb/s</td></tr>
+                  <tr id="vocab-power-cable"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">Power Cable</span></td><td>A cable from the PSU that delivers electrical power to a component (motherboard, CPU, GPU, drives)</td></tr>
+                  <tr id="vocab-cable-management"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">Cable Management</span></td><td>The practice of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing')">routing</span> and securing cables neatly inside a case for airflow, aesthetics, and ease of access</td></tr>
+                  <tr id="vocab-routing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing')">Routing</span></td><td>The path taken by a cable from its source to its destination, ideally behind the motherboard tray</td></tr>
+                  <tr id="vocab-zip-tie"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('zip-tie')">Zip Tie</span></td><td>A plastic fastener used to bundle cables together for neatness and to prevent tangling</td></tr>
+                  <tr id="vocab-psu-shroud"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('psu-shroud')">PSU Shroud</span></td><td>A metal cover in some cases that hides the PSU and excess cables from view</td></tr>
+                  <tr id="vocab-keyed-connector"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('keyed-connector')">Keyed Connector</span></td><td>A connector designed to fit only one way to prevent incorrect insertion</td></tr>
+                  <tr id="vocab-eps-connector"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('eps-connector')">EPS Connector</span></td><td>The 4+4 or 8-pin <span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">power cable</span> that supplies dedicated power to the CPU from the PSU</td></tr>
+                  <tr id="vocab-24-pin-atx"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('24-pin-atx')">24-pin ATX</span></td><td>The main power connector from the PSU to the motherboard providing multiple voltage rails</td></tr>
                 </tbody>
               </table>
             </div>
@@ -343,7 +354,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The 24-pin ATX power connector has been the standard since 2003. It evolved from the 20-pin ATX connector used in earlier Pentium 4 systems. The extra 4 pins provide additional 3.3V and 5V power for PCI Express slots.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('24-pin-atx')">24-pin ATX</span> power connector has been the standard since 2003. It evolved from the 20-pin ATX connector used in earlier Pentium 4 systems. The extra 4 pins provide additional 3.3V and 5V power for PCI Express slots.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -355,7 +366,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The "click" you hear when plugging a PCIe power cable is important — it means the latch has engaged. An unlatched power connector can vibrate loose over time, causing instability or even electrical arcing. Always check your latches!</p>
+                <p class="text-sm text-theme-muted">The "click" you hear when plugging a PCIe <span class="vocab cursor-pointer" onclick="scrollToVocabulary('power-cable')">power cable</span> is important — it means the latch has engaged. An unlatched power connector can vibrate loose over time, causing instability or even electrical arcing. Always check your latches!</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -367,7 +378,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">There is a professional cable management competition called "PC Building Simulator" where builders are judged on wire routing, zip tie placement, and overall cleanliness. Top-tier competitive builds hide nearly every wire from view entirely.</p>
+                <p class="text-sm text-theme-muted">There is a professional <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> competition called "PC Building Simulator" where builders are judged on wire <span class="vocab cursor-pointer" onclick="scrollToVocabulary('routing')">routing</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('zip-tie')">zip tie</span> placement, and overall cleanliness. Top-tier competitive builds hide nearly every wire from view entirely.</p>
               </div>
             </div>
           </div>
@@ -402,7 +413,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does the 24-pin ATX connector do?</p>
+                <p class="text-sm font-semibold text-theme">2. What does the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('24-pin-atx')">24-pin ATX</span> connector do?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Powers the graphics card</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Provides main power to the motherboard</label>
@@ -413,7 +424,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Why is cable management important inside a PC?</p>
+                <p class="text-sm font-semibold text-theme">3. Why is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cable-management')">cable management</span> important inside a PC?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It improves airflow, makes upgrades easier, and prevents cables from snagging fans</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It makes the computer run faster</label>
@@ -487,12 +498,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

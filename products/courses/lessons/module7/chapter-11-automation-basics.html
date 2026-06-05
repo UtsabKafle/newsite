@@ -4,70 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
+
   <title>Chapter 11: Automation Basics | Consica Academy</title>
-  <meta name="description" content="Chapter 11: Automation Basics. Assembling industrial automated sorting loops">
+  <meta name="description" content="Chapter 11: Automation Basics.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
-          },
-          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('consica-theme');
-      var theme = stored || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css">
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>
-    .static-main { padding-top: var(--nav-height); }
-    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
-    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
-    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
-    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
-    .kb-answer { display: none; }
-    .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-ring" role="status" aria-label="Loading"></div>
-      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
-    </div>
-  </div>
-
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
-
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
@@ -91,34 +65,21 @@
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
-
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
-
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,32 +91,18 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
-
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
       <div class="flex justify-around items-center h-16 px-2">
-        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
-          <span class="text-[10px] font-medium">Home</span>
-        </a>
-        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
-          <span class="text-[10px] font-medium">Products</span>
-        </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
-          <span class="text-[10px] font-medium">Services</span>
-        </a>
-        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
-          <span class="text-[10px] font-medium">Contact</span>
-        </a>
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
       </div>
     </nav>
+
 
     <main id="main-content" class="static-main">
       <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
@@ -163,17 +110,21 @@
           <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 11</span>
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
-
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Automation Basics</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Assembling industrial automated sorting loops</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Automation is the use of sensors, loops, and mechanical conveyors to perform repetitive industrial workflows without human intervention.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Automation Basics as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('automation-basics')">Automation Basics</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 <div class="glass-panel p-3 text-center">
@@ -193,18 +144,17 @@
                 </div>
                 
               </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, Automation Basics manages feedback loops.</p>
+              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('automation-basics')">Automation Basics</span> manages feedback loops.</p>
             </div>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
             <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
               <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, Automation Basics operates through specific electrical and mechanical rules:</p>
+                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('automation-basics')">Automation Basics</span> operates through specific electrical and mechanical rules:</p>
                 <ol class="mt-4 space-y-3 text-sm text-theme-muted">
                   
                   <li class="flex gap-3">
@@ -249,33 +199,54 @@
           </div>
         </section>
 
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-11-automation-basics/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </section>
 
-        <!-- Core Explanation -->
-        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Controllers read the voltage values from the Automation Basics subsystem. By comparing these values to set thresholds in the code, the robot decides whether to drive straight, reverse, turn, or activate arm grabbers.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Proper integration of Automation Basics requires managing noise. Electrical signals can fluctuate, requiring calibration algorithms, averaging, or debouncing to ensure the robot doesn't misinterpret environment hazards.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">For advanced robotics, Automation Basics data is fed into filtering algorithms (like Kalman filters) to estimate real-time coordinates. Controllers utilize Pulse Width Modulation (PWM) to regulate motor speed and PID loops to lock wheel alignment.</p>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine a factory where machines work 24 hours a day, 7 days a week, building products with perfect consistency. This is the promise of automation — using robots and computers to perform tasks without human intervention. Automation is one of the most transformative technologies in human history, revolutionizing manufacturing, logistics, and even our homes.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">At its core, automation is about replacing human judgment and manual effort with programmed systems. A simple automation might be a thermostat that turns on the heat when the temperature drops. A complex automation might be an entire warehouse where robots retrieve items, pack boxes, and load trucks without any human workers on the floor.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn about the principles of automation, the different levels of automation from simple to advanced, and how robots are programmed to perform tasks autonomously. You will also explore the benefits and challenges of automation in the real world.</p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
-        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Automation systems follow a three-step cycle: sense, decide, act. Sensors monitor the environment (sense), a controller processes the information and applies rules (decide), and actuators carry out the required action (act). This cycle repeats continuously, often hundreds of times per second. The key is that no human needs to be involved in any of these steps.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A programmable logic controller (PLC) is a specialized industrial computer designed for automation. Unlike general-purpose computers, PLCs are built to withstand vibration, heat, dust, and electrical noise found in factories. They use a programming language called ladder logic, which resembles electrical circuit diagrams, making it accessible to electricians and engineers.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of automation like an automatic pet feeder. The feeder has a timer (controller) that releases food at set times. It does not need you to be there — it senses that the time has arrived (sense), checks that the food hopper is not empty (decide), and opens the food door (act). You set it up once, and it runs automatically.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Automation ranges from fixed (hardware-based) to flexible (software-based). Fixed automation is built for a single task and cannot be changed — like a bottle-capping machine that always does the same motion. Flexible automation can be reprogrammed for different tasks — like a robotic arm that can switch from welding to painting by loading different software. Most modern factories use flexible automation.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Feedback control is essential for reliable automation. An open-loop system performs actions without checking the result — like a sprinkler that runs for 10 minutes regardless of whether it rained. A closed-loop system checks the result and adjusts — like a sprinkler with a moisture sensor that stops when the ground is wet. Robots almost always use closed-loop control.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Human-machine interfaces (HMIs) allow operators to monitor and interact with automated systems. An HMI might be a touchscreen display showing the status of every robot in a factory, with buttons to stop, start, or adjust parameters. Well-designed HMIs are critical for safety and efficiency, allowing a single operator to supervise many robots.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The word 'automation' was first used in 1946 by Del Harder, an engineer at Ford Motor Company. He combined 'automatic' and 'operation' to describe the automatic handling of parts in manufacturing. Today, automation extends far beyond manufacturing into healthcare, agriculture, transportation, and everyday life.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Industry 4.0 refers to the fourth industrial revolution, where automation meets the Internet of Things (IoT) and artificial intelligence. In an Industry 4.0 factory, every machine is connected to a network, sharing data about its operation. AI analyzes this data to predict failures, optimize production schedules, and detect quality issues before they become problems.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Supervisory Control and Data Acquisition (SCADA) systems manage large-scale automation across entire facilities or regions. A SCADA system might monitor and control thousands of sensors and actuators across an oil pipeline, a power grid, or a water treatment plant. Operators oversee the entire system from a central control room, intervening only when the automation cannot handle a situation.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Collaborative robots (cobots) are designed to work alongside humans rather than in isolated cages. Cobots have sensors that detect human presence and stop immediately if contact occurs. They are slower and less powerful than industrial robots but much safer. Cobots are making automation accessible to small businesses that cannot afford traditional robotic installations.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
@@ -287,200 +258,133 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Automation Basics</td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr><td>Voltage Signal</td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr><td>Microcontroller</td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr><td>Actuator</td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
+                  <tr id="vocab-automation-basics"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('automation-basics')">Automation Basics</span></td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr id="vocab-voltage-signal"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span></td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr id="vocab-microcontroller"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span></td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr id="vocab-actuator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span></td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
-        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Robotic components in Automation Basics are designed to operate under extreme vibration.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 80% of automated factories use similar sensors to align precision arms.</p>
+              <p class="text-sm text-theme-muted">The first fully automated factory was built by Oliver Evans in 1785. It used water power to automatically move grain through milling processes without human labor.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The technology has shrunk in size so much that micro-sensors can fit inside consumer watches.</p>
+              <p class="text-sm text-theme-muted">Over 70% of manufacturing tasks in electronics production are now automated. A modern smartphone factory can produce a phone every 2 seconds.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
+              <p class="text-sm text-theme-muted">Automated warehouses use algorithms to decide where to store items based on how frequently they are ordered. Fast-selling items are stored in easily accessible locations.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The most automated country in the world is South Korea, with over 1,000 industrial robots per 10,000 manufacturing employees.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Self-checkout systems in grocery stores are a form of automation that has become so common that most people do not think of it as robotics at all.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+<section class="mt-6 lg:mt-10 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robots see the world exactly as humans do.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Robots only read numeric values from sensors (like 'distance = 15cm'). They have no visual context unless running advanced AI computer vision.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Motors always run at the same speed.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Voltage levels decay as batteries drain, requiring controllers to continuously monitor and adjust pulse widths to maintain speed.</p>
-              </div>
-              
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Automation means no humans are needed.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Automation still requires humans for design, programming, maintenance, supervision, and handling exceptions. The role of humans shifts from doing the work to managing the work.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Automation only applies to manufacturing.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Automation is used in healthcare (robotic surgery), agriculture (autonomous tractors), transportation (self-driving cars), finance (algorithmic trading), and even creative fields (AI-generated art).</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Small businesses cannot use automation.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cloud-based automation services, affordable robot kits, and open-source software have made automation accessible to businesses of all sizes. A small bakery can use an automated oven timer and temperature controller.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Automation is always more efficient than humans.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Automation excels at repetitive, precise, predictable tasks. Humans are better at creative problem-solving, adapting to novel situations, and tasks requiring fine motor skills and judgment.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive elements of Automation Basics and how they communicate inside the robot controller pipeline.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Observe the loop steps and check how input variables affect speed.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on each component to inspect its purpose and internal wiring.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the primary role of Automation Basics?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To print papers</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To print papers</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> To capture or process physical feedback</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To capture or process physical feedback</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. What does PWM stand for in motor speed control?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Pulse Width Modulation</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Power Wire Mapping</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Process Wave Meter</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Processor Work Manager</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Pulse Width Modulation</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Pulse Width Modulation</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which unit converts physical attributes into electrical values?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A sensor</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A chassis</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A gear</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A wheel</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> A sensor</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A sensor</p>
               </div>
-              
             </div>
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">Why is it critical for robots to run sensor checking loops multiple times every second?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">What would happen if the feedback link between a sensor and motor was disconnected?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Sensor Mapping</p>
-                <p class="text-sm text-theme-muted">List three scenarios where a robot needs to measure distance. Explain what sensor it should use.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Logic Tree Design</p>
-                <p class="text-sm text-theme-muted">Draw a simple decision flowchart for a robot vacuum that encounters a drop (cliff) in front of it.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Define the role of Automation Basics.</li><li>Write logical conditions to resolve obstacles.</li><li>Trace data flows from sensor to actuator.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Set up simple logic templates for class reviews.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How does the robot feel its surrounding environment?</li><li>What mistakes might a robot make if its sensor is calibrated poorly?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="chapter-12-robot-decision-making.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Robot Decision Making
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-10-motors-and-movement.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 10</a>
+            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-12-robot-decision-making.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 12 &mdash; Robot Decision Making</a>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
-            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 7 &middot; Chapter 11</p>
-          </div>
         </section>
-      </article>
+
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -521,26 +425,11 @@
       </div>
     </footer>
   </div>
-
   <script src="../../../../shared/data/brand.js" defer></script>
   <script src="../../../../shared/data/products.js" defer></script>
   <script src="../../../../shared/utils/dom.js" defer></script>
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

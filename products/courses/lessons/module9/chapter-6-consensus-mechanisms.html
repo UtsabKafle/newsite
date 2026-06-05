@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+
+  <title>Chapter 6: Consensus Mechanisms | Consica Academy</title>
+  <meta name="description" content="Chapter 6: Consensus Mechanisms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
+  </style>
+</head>
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
+      </aside>
+    </div>
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 6</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Consensus Mechanisms</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How nodes agree on the truth</p>
+
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A consensus mechanism is a fault-tolerant protocol used in blockchain networks to achieve agreement on a single data value or a single state of the network among distributed processes or systems. It ensures that all participants (nodes) agree on which transactions are valid and in what order they occurred, even if some participants are unreliable or malicious.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Consensus mechanisms solve the Byzantine Generals Problem — how to coordinate action in a distributed system where some participants may be untrustworthy. Proof of Work (PoW) uses computational work to secure the network; valid blocks require miners to expend energy solving cryptographic puzzles. Proof of Stake (PoS) uses economic stake; validators put up cryptocurrency as collateral that can be destroyed if they misbehave. Both make attacking the network economically irrational.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of consensus like a classroom vote on where to go for a field trip. In Proof of Work, every student who wants to vote must solve a difficult math problem first — the more problems you solve, the more votes you get. This ensures only serious participants vote, but it takes a lot of energy. In Proof of Stake, each student puts a dollar in a pot to vote. If they vote honestly, they get their dollar back plus a reward. If they vote dishonestly, they lose their dollar.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A concrete example: Ethereum's transition from Proof of Work to Proof of Stake in September 2022 (called the Merge) reduced its energy consumption by 99.95%. Before the Merge, Ethereum used about 78 TWh per year (comparable to a small country). After the Merge, it uses less than 0.01 TWh. This demonstrated that consensus mechanisms can evolve to be both secure and environmentally sustainable.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-06-transactions/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">How do thousands of computers, run by strangers around the world, agree on which transactions are valid? They have never met, they do not trust each other, and some might even be trying to cheat. The answer is consensus. Consensus mechanisms are the rules and incentives that allow a blockchain network to reach agreement without a central authority.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think about how groups make decisions. A classroom might vote and follow the majority. A sports team might let the captain decide. A jury must reach a unanimous verdict. Each approach has different trade-offs. Blockchain consensus mechanisms work similarly — they are protocols that determine how nodes agree on the true state of the blockchain. The most famous are Proof of Work and Proof of Stake.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn what consensus mechanisms are, how Proof of Work and Proof of Stake work in detail, and the trade-offs between different approaches. By the end, you will understand how blockchain networks achieve agreement among untrusted participants.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Proof of Work (PoW) is the original consensus mechanism, used by Bitcoin. Miners compete to solve a cryptographic puzzle: find a number (nonce) that, when combined with the block data, produces a hash starting with a specific number of zeros. This requires massive computation — trying trillions of possibilities. The first miner to find a valid solution broadcasts the block and receives a reward (newly created coins and transaction fees). Other nodes verify the solution is correct — which is easy — and add the block to their chains.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Proof of Stake (PoS) replaces computational work with economic stake. Validators (the PoS equivalent of miners) lock up (stake) a certain amount of cryptocurrency as collateral. The protocol randomly selects a validator to propose the next block. Other validators attest to (vote on) the proposed block's validity. If a validator behaves dishonestly, their staked coins can be taken (slashed). If they behave honestly, they earn rewards. PoS consumes far less energy than PoW.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of Proof of Work like a lottery where you buy tickets by solving puzzles. The more computing power you have, the more tickets you can buy, and the more likely you are to win. Everyone can see the winning ticket and verify it is valid. Proof of Stake is like a lottery where you buy tickets by depositing money. The more you deposit, the more tickets you get, but if you cheat, you lose your deposit. Both select a winner, but they use different resources (work vs. money).</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The difficulty of the Proof of Work puzzle is automatically adjusted. Bitcoin adjusts every 2,016 blocks (about 2 weeks) to maintain a 10-minute average block time. If blocks are being found too quickly (hash rate increased), the target gets harder. If too slowly (hash rate decreased), it gets easier. This self-regulation ensures consistent block times regardless of how much computing power is on the network.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">In Proof of Stake, the validator selection process varies by blockchain. Ethereum's PoS (called Casper) uses a committee-based approach where groups of validators are randomly selected to propose and attest to blocks. The randomness is provided by a verifiable random function (VRF) that produces unpredictable but provably fair selections. Validators earn rewards for honest participation and can lose their stake (slashing) for behaviors like signing two different blocks at the same height (equivocation).</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Alternative consensus mechanisms include: Delegated Proof of Stake (DPoS), where token holders vote for delegates who produce blocks (used by EOS, Tron); Proof of Authority (PoA), where approved validators stake their reputation (used in private blockchains); and Practical Byzantine Fault Tolerance (PBFT), where validators exchange messages to reach agreement (used by Hyperledger Fabric). Each makes different trade-offs between speed, security, and decentralization.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Proof of Work and Proof of Stake solve the same problem in different ways. PoW uses physical resources (electricity, hardware) as the cost of participation. PoS uses financial resources (staked coins) as the cost. Both make it expensive to attack the network — you would have to control more than half the resources, which would be cheaper to use honestly.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The 'nothing at stake' problem is a theoretical vulnerability in some Proof of Stake designs. If there is no cost to validating on multiple forks (chains), validators might validate on all competing forks to collect rewards regardless of which one wins. This undermines consensus because it prevents the network from converging on a single chain. Ethereum's Casper solves this by requiring validators to commit to specific forks and slashing those who equivocate (validate conflicting blocks).</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Long-range attacks are another concern for PoS. An attacker could theoretically create an alternative chain starting from an old block and, because they did not have to expend energy to create it, make it look legitimate. PoS systems counter this with checkpointing — periodically finalizing blocks so they cannot be reorganized. Casper uses 'finality gadgets' that economically finalize blocks after they reach sufficient attestations.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">MEV (Maximal Extractable Value) is the value that miners or validators can extract by reordering, including, or excluding transactions within a block. In PoW, miners have this power. In PoS, validators have it. MEV can be captured through strategies like front-running (inserting your own transaction before a known large trade). MEV creates both opportunities and risks — it incentivizes validators but can also harm users. The MEV debate is central to blockchain economics.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-consensus"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">Consensus</span></td><td>An agreement protocol among distributed nodes to accept a new block.</td></tr>
+                  <tr id="vocab-proof-of-work"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span></td><td>A mining process requiring math calculations to secure the network ledger.</td></tr>
+                  <tr id="vocab-proof-of-stake"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span></td><td>A consensus method where validators stake tokens to propose blocks.</td></tr>
+                  <tr id="vocab-nonce"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nonce')">Nonce</span></td><td>A number used once in mining to produce a valid block hash.</td></tr>
+                  <tr id="vocab-validator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">Validator</span></td><td>A node responsible for proposing and verifying new blocks in Proof of Stake.</td></tr>
+                  <tr id="vocab-miner"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">Miner</span></td><td>A node that uses computing power to solve puzzles and earn rewards.</td></tr>
+                  <tr id="vocab-slashing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('slashing')">Slashing</span></td><td>A penalty where a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">validator</span> loses staked tokens for dishonest behavior.</td></tr>
+                  <tr id="vocab-byzantine-fault"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('byzantine-fault')">Byzantine Fault</span></td><td>A situation where system components give conflicting information to confuse the network.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Bitcoin's PoW consumes an estimated 150 terawatt-hours per year, comparable to the energy consumption of a small country like Argentina.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Ethereum's transition to PoS reduced its energy consumption by approximately 99.95%, from about 78 TWh/year to less than 0.01 TWh/year.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The first successful PoS blockchain was Peercoin, launched in 2012. It used a hybrid PoW/PoS system.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Ethereum's PoS system has over 500,000 active validators (as of 2025), each having staked a minimum of 32 ETH.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Delegated Proof of Stake (DPoS) can process thousands of transactions per second, making it more scalable than PoW or traditional PoS, but less decentralized.</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-8 lg:mt-12 reveal" id="misconceptions">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
+            <div class="mt-4 space-y-4">
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Proof of Work is wasteful and has no purpose.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> PoW's energy expenditure serves a critical purpose: it makes attacking the network extremely expensive. The cost of rewriting Bitcoin's history would require billions of dollars in electricity and hardware, making attacks economically irrational.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Proof of Stake is always better than Proof of Work.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> PoS has trade-offs including the 'nothing at stake' problem and potentially less resistance to long-range attacks. PoW has a longer track record of security. Both are valid approaches with different strengths.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Consensus mechanisms prevent all fraud.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Consensus prevents double-spending and ensures agreement on transaction order. It cannot prevent other types of fraud, like someone tricking you into sending them money, or a smart contract having a bug.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: All nodes participate in consensus.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Most nodes only validate and relay transactions. Only miners (PoW) or validators (PoS) participate in consensus by producing blocks. You can run a node that does not mine or validate.</p>
+            </div>
+            </div>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <div class="mt-6 space-y-6">
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> mechanism?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A tool for designing webpages</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A set of rules that nodes follow to agree on the ledger state</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A type of computer processor</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A programming language for smart contracts</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A set of rules that nodes follow to agree on the ledger state</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. How does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span> secure the network?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By requiring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">validators</span> to lock up tokens</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By making <span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">miners</span> solve difficult math problems that require real computing power</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By using government identification to verify users</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By encrypting all transactions with SHA-512</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> By making <span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">miners</span> solve difficult math problems that require real computing power</p>
+              </div>
+<div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is a key advantage of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> over <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span>?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is more profitable for hackers</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It uses much less energy</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It requires more hardware</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is older and more trusted</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It uses much less energy</p>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-5-decentralization.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 5</a>
+            <a href="blockchain-basics.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-7-cryptography-basics.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 7 &mdash; Cryptography Basics</a>
+            </div>
+          </div>
+        </section>
+
+</article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+</html>

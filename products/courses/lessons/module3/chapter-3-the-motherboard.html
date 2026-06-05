@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              If the CPU is the brain of the computer, the motherboard is the nervous system. It is the large printed circuit board that connects every component together. Every part of your computer — CPU, RAM, storage, GPU, and peripherals — plugs into or connects to the motherboard.
+              If the CPU is the brain of the computer, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> is the nervous system. It is the large printed circuit board that connects every component together. Every part of your computer — CPU, RAM, storage, GPU, and peripherals — plugs into or connects to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Choosing the right motherboard is critical. It determines which CPU you can use, how much RAM you can install, what kind of storage drives are supported, and even what size case you need. Understanding motherboard anatomy is the foundation of computer assembly.
+              Choosing the right <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> is critical. It determines which CPU you can use, how much RAM you can install, what kind of storage drives are supported, and even what size case you need. Understanding <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> anatomy is the foundation of computer assembly.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn about the different parts of a motherboard, how form factors work, and how to properly mount a motherboard into a case. This knowledge is essential because every other component connects to this central board.
+              In this chapter, you will learn about the different parts of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span>, how form factors work, and how to properly mount a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> into a case. This knowledge is essential because every other component connects to this central board.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The motherboard is a large flat board layered with copper traces that carry data and power between components. It has a chipset that manages communication between the CPU, RAM, storage, and peripherals. Everything connects through slots, sockets, and ports soldered onto the board.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> is a large flat board layered with copper traces that carry data and power between components. It has a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span> that manages communication between the CPU, RAM, storage, and peripherals. Everything connects through slots, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">sockets</span>, and ports soldered onto the board.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of the motherboard like the city grid of a modern metropolis. The CPU is city hall (where decisions are made), RAM lanes are highways (fast but short), storage ports are suburbs (slower but spacious), and PCIe slots are like industrial zones for specialised factories. The chipset acts as the traffic control centre, directing data where it needs to go.</p>
+              <p class="text-sm text-theme-muted">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> like the city grid of a modern metropolis. The CPU is city hall (where decisions are made), RAM lanes are highways (fast but short), storage ports are suburbs (slower but spacious), and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pcie-slot')">PCIe slots</span> are like industrial zones for specialised factories. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span> acts as the traffic control centre, directing data where it needs to go.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Motherboard Form Factors</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Motherboards come in standard sizes called form factors. The most common are:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">Motherboards</span> come in standard sizes called form factors. The most common are:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
@@ -233,45 +235,54 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key Parts of a Motherboard</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every motherboard has several key zones that you need to identify:
+              Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> has several key zones that you need to identify:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">CPU Socket</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></p>
                 <p class="text-sm text-theme-muted">The large square connector that holds the CPU. It has hundreds of tiny pins or contact pads. Handle with extreme care.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Chipset</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">Chipset</span></p>
                 <p class="text-sm text-theme-muted">A chip (often under a heatsink) that controls data flow between the CPU, RAM, storage, and expansion slots.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">PCIe Slots</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pcie-slot')">PCIe Slots</span></p>
                 <p class="text-sm text-theme-muted">Long slots used for graphics cards, Wi-Fi cards, and other expansion cards. The top slot is usually the fastest x16 slot for the GPU.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">RAM Slots (DIMM)</p>
-                <p class="text-sm text-theme-muted">Vertical slots next to the CPU socket. They hold RAM modules. Boards typically have 2 or 4 slots.</p>
+                <p class="text-sm text-theme-muted">Vertical slots next to the CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span>. They hold RAM modules. Boards typically have 2 or 4 slots.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">SATA / M.2 Ports</p>
-                <p class="text-sm text-theme-muted">Connectors for storage drives. SATA uses cables, M.2 slots accept tiny SSDs directly on the board. Both carry data at high speed.</p>
+                <p class="text-sm text-theme-muted">Connectors for storage drives. SATA uses cables, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2-slot')">M.2 slots</span> accept tiny SSDs directly on the board. Both carry data at high speed.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">VRM &amp; CMOS Battery</p>
-                <p class="text-sm text-theme-muted">VRMs regulate voltage sent to the CPU. The CMOS battery powers BIOS settings when the computer is off.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vrm')">VRM</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-battery')">CMOS Battery</span></p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vrm')">VRMs</span> regulate voltage sent to the CPU. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-battery')">CMOS battery</span> powers BIOS settings when the computer is off.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Mounting the Motherboard</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To install a motherboard, first install the I/O shield into the case from the inside. Then place the motherboard on the standoffs (pre-installed or added by you) and align the screw holes. Screw the motherboard down gently — do not overtighten. Connect the 24-pin power cable, CPU power cable, front panel headers, and case fans. The motherboard is now ready for component installation.
+              To install a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span>, first install the I/O shield into the case from the inside. Then place the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> on the standoffs (pre-installed or added by you) and align the screw holes. Screw the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> down gently — do not overtighten. Connect the 24-pin power cable, CPU power cable, front panel headers, and case fans. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> is now ready for component installation.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Always install the CPU, RAM, and M.2 storage onto the motherboard before placing it in the case. This gives you better access and prevents accidental damage from working in a cramped space.</p>
+              <p class="text-sm text-theme-muted">Always install the CPU, RAM, and M.2 storage onto the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> before placing it in the case. This gives you better access and prevents accidental damage from working in a cramped space.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">Motherboard</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">Chipset</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -286,14 +297,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Motherboard</td><td>The main printed circuit board of a computer that connects all components and allows them to communicate</td></tr>
-                  <tr><td>Chipset</td><td>A set of chips on the motherboard that manages data flow between the CPU, memory, storage, and peripherals</td></tr>
-                  <tr><td>Socket</td><td>The physical connector on the motherboard that houses the CPU and provides electrical connections</td></tr>
-                  <tr><td>PCIe Slot</td><td>Peripheral Component Interconnect Express — a high-speed expansion slot for GPUs, sound cards, and more</td></tr>
-                  <tr><td>SATA Port</td><td>Serial ATA — a connector for storage drives like HDDs and SSDs that uses a cable for data transfer</td></tr>
-                  <tr><td>M.2 Slot</td><td>A compact slot that accepts small SSDs directly, supporting high-speed NVMe or SATA protocols</td></tr>
-                  <tr><td>VRM</td><td>Voltage Regulator Module — circuitry that supplies clean, stable power to the CPU</td></tr>
-                  <tr><td>CMOS Battery</td><td>A small coin-cell battery that preserves BIOS/UEFI settings when the computer is powered off</td></tr>
+                  <tr id="vocab-motherboard"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">Motherboard</span></td><td>The main printed circuit board of a computer that connects all components and allows them to communicate</td></tr>
+                  <tr id="vocab-chipset"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">Chipset</span></td><td>A set of chips on the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> that manages data flow between the CPU, memory, storage, and peripherals</td></tr>
+                  <tr id="vocab-socket"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></td><td>The physical connector on the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> that houses the CPU and provides electrical connections</td></tr>
+                  <tr id="vocab-pcie-slot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pcie-slot')">PCIe Slot</span></td><td>Peripheral Component Interconnect Express — a high-speed expansion slot for GPUs, sound cards, and more</td></tr>
+                  <tr id="vocab-sata-port"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata-port')">SATA Port</span></td><td>Serial ATA — a connector for storage drives like HDDs and SSDs that uses a cable for data transfer</td></tr>
+                  <tr id="vocab-m-2-slot"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2-slot')">M.2 Slot</span></td><td>A compact slot that accepts small SSDs directly, supporting high-speed NVMe or SATA protocols</td></tr>
+                  <tr id="vocab-vrm"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vrm')">VRM</span></td><td>Voltage Regulator Module — circuitry that supplies clean, stable power to the CPU</td></tr>
+                  <tr id="vocab-cmos-battery"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-battery')">CMOS Battery</span></td><td>A small coin-cell battery that preserves BIOS/UEFI settings when the computer is powered off</td></tr>
                 </tbody>
               </table>
             </div>
@@ -308,25 +319,25 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A modern motherboard can contain up to 10 layers of copper traces sandwiched between fibreglass, each layer thinner than a human hair.</p>
+                <p class="text-sm text-theme-muted">A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> can contain up to 10 layers of copper traces sandwiched between fibreglass, each layer thinner than a human hair.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first motherboard, used in the IBM PC (1981), had a single 8-bit ISA slot and supported a maximum of 64 KB of RAM.</p>
+                <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span>, used in the IBM PC (1981), had a single 8-bit ISA slot and supported a maximum of 64 KB of RAM.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">High-end motherboards include built-in Wi-Fi, Bluetooth, RGB lighting controllers, and even diagnostic LED displays that show error codes during boot.</p>
+                <p class="text-sm text-theme-muted">High-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboards</span> include built-in Wi-Fi, Bluetooth, RGB lighting controllers, and even diagnostic LED displays that show error codes during boot.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The CMOS battery typically lasts 5–10 years. When it dies, the computer may lose its date, time, and BIOS settings.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-battery')">CMOS battery</span> typically lasts 5–10 years. When it dies, the computer may lose its date, time, and BIOS settings.</p>
               </div>
             </div>
           </div>
@@ -351,7 +362,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. Which motherboard form factor is the largest and most feature-rich?</p>
+                <p class="text-sm font-semibold text-theme">1. Which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> form factor is the largest and most feature-rich?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Mini-ITX</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Micro-ATX</label>
@@ -362,7 +373,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What is the role of the chipset on a motherboard?</p>
+                <p class="text-sm font-semibold text-theme">2. What is the role of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span> on a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It stores the operating system</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> It manages data flow between components</label>
@@ -373,12 +384,12 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Why should you install the CPU and RAM onto the motherboard before placing it in the case?</p>
+                <p class="text-sm font-semibold text-theme">3. Why should you install the CPU and RAM onto the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> before placing it in the case?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To improve airflow</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To make cable management easier</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> For better access and reduced risk of damage</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To test the motherboard before mounting</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To test the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('motherboard')">motherboard</span> before mounting</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> For better access and reduced risk of damage</p>
               </div>
@@ -447,7 +458,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

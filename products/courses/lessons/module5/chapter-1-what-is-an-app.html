@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -185,7 +187,7 @@
               An app is not magic. It is a set of instructions written by a developer that tells a computer what to do. From the buttons you tap to the data it saves, every part of an app is carefully designed and programmed.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn what makes an app an app, how it follows the <span class="text-brand-200 font-semibold">Input-Process-Output (IPO) cycle</span>, and the three key layers every app has: the user interface, the logic layer, and the data layer.
+              In this chapter, you will learn what makes an app an app, how it follows the <span class="text-brand-200 font-semibold">Input-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span>-Output (IPO) cycle</span>, and the three key layers every app has: the user interface, the logic layer, and the data layer.
             </p>
           </div>
         </section>
@@ -200,7 +202,7 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of an app like a recipe book. The recipes (code) tell you what ingredients to use (input), what steps to follow (process), and what dish you will get (output). Without the recipe book, you would not know how to make the dish. Without the app's code, the computer would not know what to do.</p>
+              <p class="text-sm text-theme-muted">Think of an app like a recipe book. The recipes (code) tell you what ingredients to use (input), what steps to follow (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">process</span>), and what dish you will get (output). Without the recipe book, you would not know how to make the dish. Without the app's code, the computer would not know what to do.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The IPO Cycle in Apps</h3>
@@ -241,21 +243,21 @@
                 <p class="text-sm text-theme-muted">What you see and interact with — buttons, text, images, menus. The UI is the front-facing part of the app.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Application Logic Layer</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-logic')">Application Logic</span> Layer</p>
                 <p class="text-sm text-theme-muted">The brain of the app — it contains the rules, calculations, and decisions that determine how the app behaves.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Data Storage Layer</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-storage')">Data Storage</span> Layer</p>
                 <p class="text-sm text-theme-muted">Where the app saves your information — your profile, messages, preferences, and files. This data persists even when you close the app.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Not all apps are the same. Some live entirely on your phone (native apps), some run inside a web browser (web apps), and some are hybrid. But they all share the same fundamental structure: they accept input, process it with logic, store and retrieve data, and produce output.
+              Not all apps are the same. Some live entirely on your phone (native apps), some run inside a web browser (web apps), and some are hybrid. But they all share the same fundamental structure: they accept input, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">process</span> it with logic, store and retrieve data, and produce output.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An app is different from the <span class="text-brand-200">operating system</span> it runs on. The operating system (iOS, Android, Windows, macOS) manages the hardware. The app is a program that uses that hardware through the operating system.
+              An app is different from the <span class="text-brand-200">operating system</span> it runs on. The operating system (iOS, Android, Windows, macOS) manages the hardware. The app is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">program</span> that uses that hardware through the operating system.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               When you install an app, you are copying its code onto your device. When you run it, that code is loaded into memory and executed by the CPU — one instruction at a time, billions of times per second.
@@ -265,7 +267,16 @@
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">An app is not the icon on your home screen. The icon is just a shortcut. The real app is the code stored on your device — a set of instructions waiting to be run.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, an app involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-application')">App (Application)</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('user-interface-ui')">User Interface (UI)</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-logic')">Application Logic</span> helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -280,12 +291,12 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>App (Application)</td><td>A program or set of programs designed for end users to perform specific tasks</td></tr>
-                  <tr><td>User Interface (UI)</td><td>The visual elements of an app that a user interacts with — buttons, menus, screens</td></tr>
-                  <tr><td>Application Logic</td><td>The code that defines the rules, calculations, and behaviour of an app</td></tr>
-                  <tr><td>Data Storage</td><td>The system that saves and retrieves information used by an app</td></tr>
-                  <tr><td>Program</td><td>A set of instructions that tells a computer what to do</td></tr>
-                  <tr><td>Process</td><td>A program that is currently running and being executed by the CPU</td></tr>
+                  <tr id="vocab-app-application"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-application')">App (Application)</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">program</span> or set of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">programs</span> designed for end users to perform specific tasks</td></tr>
+                  <tr id="vocab-user-interface-ui"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('user-interface-ui')">User Interface (UI)</span></td><td>The visual elements of an app that a user interacts with — buttons, menus, screens</td></tr>
+                  <tr id="vocab-application-logic"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-logic')">Application Logic</span></td><td>The code that defines the rules, calculations, and behaviour of an app</td></tr>
+                  <tr id="vocab-data-storage"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-storage')">Data Storage</span></td><td>The system that saves and retrieves information used by an app</td></tr>
+                  <tr id="vocab-program"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">Program</span></td><td>A set of instructions that tells a computer what to do</td></tr>
+                  <tr id="vocab-process"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">program</span> that is currently running and being executed by the CPU</td></tr>
                 </tbody>
               </table>
             </div>
@@ -351,19 +362,19 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What does IPO stand for in the context of apps?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Install, Program, Operate</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Input, Process, Output</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Install, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program')">Program</span>, Operate</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Input, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span>, Output</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Internet, Protocol, Object</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Interface, Platform, Option</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Input, Process, Output</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Input, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span>, Output</p>
               </div>
 
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which layer of an app contains the buttons, text, and images you interact with?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Data Storage Layer</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Application Logic Layer</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('data-storage')">Data Storage</span> Layer</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-logic')">Application Logic</span> Layer</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> User Interface Layer</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Network Layer</label>
                 </div>

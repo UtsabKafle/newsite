@@ -4,70 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
+
   <title>Chapter 4: Introduction to Sensors | Consica Academy</title>
-  <meta name="description" content="Chapter 4: Introduction to Sensors. Learning how machines translate physical states to voltage">
+  <meta name="description" content="Chapter 4: Introduction to Sensors.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
-          },
-          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('consica-theme');
-      var theme = stored || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css">
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>
-    .static-main { padding-top: var(--nav-height); }
-    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
-    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
-    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
-    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
-    .kb-answer { display: none; }
-    .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-ring" role="status" aria-label="Loading"></div>
-      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
-    </div>
-  </div>
-
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
-
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
@@ -91,34 +65,21 @@
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
-
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
-
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,32 +91,18 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
-
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
       <div class="flex justify-around items-center h-16 px-2">
-        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
-          <span class="text-[10px] font-medium">Home</span>
-        </a>
-        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
-          <span class="text-[10px] font-medium">Products</span>
-        </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
-          <span class="text-[10px] font-medium">Services</span>
-        </a>
-        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
-          <span class="text-[10px] font-medium">Contact</span>
-        </a>
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
       </div>
     </nav>
+
 
     <main id="main-content" class="static-main">
       <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
@@ -163,17 +110,21 @@
           <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 4</span>
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
-
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Introduction to Sensors</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Learning how machines translate physical states to voltage</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sensors are electronic devices that detect physical properties of the environment and convert them into electrical signals the controller can read.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Introduction to Sensors as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('introduction-to-sensors')">Introduction to Sensors</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 <div class="glass-panel p-3 text-center">
@@ -193,18 +144,17 @@
                 </div>
                 
               </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, Introduction to Sensors manages feedback loops.</p>
+              <p class="mt-4 text-sm text-theme-muted italic">Just as your brain receives sensory feedback from your skin and signals muscles to react, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('introduction-to-sensors')">Introduction to Sensors</span> manages feedback loops.</p>
             </div>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
             <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
               <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, Introduction to Sensors operates through specific electrical and mechanical rules:</p>
+                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as humans rely on physical organs and reflexes, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('introduction-to-sensors')">Introduction to Sensors</span> operates through specific electrical and mechanical rules:</p>
                 <ol class="mt-4 space-y-3 text-sm text-theme-muted">
                   
                   <li class="flex gap-3">
@@ -249,33 +199,54 @@
           </div>
         </section>
 
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-04-introduction-sensors/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
+              Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </section>
 
-        <!-- Core Explanation -->
-        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Controllers read the voltage values from the Introduction to Sensors subsystem. By comparing these values to set thresholds in the code, the robot decides whether to drive straight, reverse, turn, or activate arm grabbers.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Proper integration of Introduction to Sensors requires managing noise. Electrical signals can fluctuate, requiring calibration algorithms, averaging, or debouncing to ensure the robot doesn't misinterpret environment hazards.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">For advanced robotics, Introduction to Sensors data is fed into filtering algorithms (like Kalman filters) to estimate real-time coordinates. Controllers utilize Pulse Width Modulation (PWM) to regulate motor speed and PID loops to lock wheel alignment.</p>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">How does a robot know what is happening around it? The answer lies in sensors — devices that detect physical quantities like light, temperature, distance, touch, and sound. Sensors are the robot's window to the world. Without them, a robot would be blind, deaf, and unable to react to anything.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">A sensor works by converting a physical measurement into an electrical signal that the robot's controller can understand. For example, a temperature sensor converts heat into a voltage. A light sensor converts brightness into a changing resistance. The controller reads this signal and decides how to respond. This process of converting real-world measurements into electrical signals is called transduction.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn about the most common types of sensors used in robotics, how they work at the physical level, and how robots use sensor data to navigate, interact, and make decisions. Sensors are the reason robots can avoid obstacles, follow lines, detect colors, and respond to their environment.</p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
-        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sensors fall into two broad categories: analog and digital. Analog sensors produce a continuous voltage that varies with the measured quantity. For example, a potentiometer (like a volume knob) produces a voltage between 0 and 5 volts depending on its position. The robot's controller reads this analog voltage using a special circuit called an analog-to-digital converter (ADC).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Digital sensors output a discrete signal, either on or off, or a digital value using communication protocols. A simple digital sensor might output 5 volts when a button is pressed and 0 volts when it is not. More complex digital sensors communicate using protocols like I2C or SPI, sending multiple bytes of data such as precise distance measurements or temperature readings.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of sensors like human senses. Your eyes detect light (like a light sensor), your skin detects touch (like a touch sensor), your ears detect sound (like a microphone sensor), and your nose detects chemicals (like a gas sensor). Just as your brain combines information from all your senses to understand the world, a robot's controller combines data from multiple sensors.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The range of a sensor is the minimum and maximum value it can measure. A distance sensor might have a range of 2 cm to 400 cm. The resolution is the smallest change it can detect. A high-resolution sensor might detect a change of just 1 mm. The accuracy describes how close the sensor's reading is to the true value. A sensor might be accurate to within 1% of the actual measurement.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Every sensor has a response time — how quickly it can produce a new reading after a change occurs. A slow sensor might take 100 milliseconds to respond, while a fast sensor can respond in under 1 millisecond. For a fast-moving robot, a slow sensor could cause the robot to crash into an obstacle before detecting it. Choosing the right sensor involves balancing range, resolution, accuracy, speed, and cost.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sensor calibration is the process of adjusting a sensor's output to match known reference values. A light sensor might read 500 in a dim room and 900 in bright sunlight, but these raw numbers are meaningless without calibration. By measuring known light levels and creating a mapping, the robot can convert raw readings into meaningful units like lux or foot-candles.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The human body is packed with sensors. Your skin has about 5 million touch receptors. Your retina has approximately 120 million light-sensitive rod cells. A typical robot has far fewer sensors — perhaps 5 to 20 — but each one is precisely engineered for its specific measurement task.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Sensor fusion is the technique of combining data from multiple sensors to produce a more accurate and reliable understanding of the environment. For example, a robot might combine data from a camera, a distance sensor, and a touch sensor to determine its position. If one sensor gives a faulty reading, the others can compensate. This is why self-driving cars use cameras, radar, lidar, and ultrasonic sensors simultaneously.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Nyquist-Shannon sampling theorem states that to accurately measure a changing signal, you must sample it at least twice as fast as the highest frequency change you want to detect. If a robot's wheel is vibrating at 50 Hz, the sensor must take at least 100 readings per second to accurately capture that vibration. Sampling too slowly leads to aliasing, where fast changes appear as slow, misleading patterns.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Some sensors are active — they emit energy and measure the reflection. Examples include ultrasonic sensors (emit sound pulses) and lidar (emit laser pulses). Other sensors are passive — they only receive energy from the environment. Examples include cameras (detect ambient light) and thermometers (detect infrared radiation). Active sensors work in darkness but consume more power.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
@@ -287,200 +258,133 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Introduction to Sensors</td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr><td>Voltage Signal</td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr><td>Microcontroller</td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr><td>Actuator</td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
+                  <tr id="vocab-introduction-to-sensors"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('introduction-to-sensors')">Introduction to Sensors</span></td><td>The primary technological concept explaining how components interact within the context of How Robots Work.</td></tr><tr id="vocab-voltage-signal"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('voltage-signal')">Voltage Signal</span></td><td>An electrical signal representing data values based on pressure or intensity.</td></tr><tr id="vocab-microcontroller"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcontroller')">Microcontroller</span></td><td>A tiny computer chip designed to process inputs and steer physical circuits.</td></tr><tr id="vocab-actuator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('actuator')">Actuator</span></td><td>A physical mechanical device (like a motor) that creates movement.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
-        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Robotic components in Introduction to Sensors are designed to operate under extreme vibration.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 80% of automated factories use similar sensors to align precision arms.</p>
+              <p class="text-sm text-theme-muted">The first robot sensor was a simple touch switch. The earliest robots used mechanical whiskers like a cat's whiskers to detect obstacles by touch.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The technology has shrunk in size so much that micro-sensors can fit inside consumer watches.</p>
+              <p class="text-sm text-theme-muted">Some temperature sensors can detect changes as small as 0.001 degrees Celsius. These are used in scientific laboratories and precision manufacturing.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
+              <p class="text-sm text-theme-muted">Lidar sensors on self-driving cars rotate at up to 900 RPM, sending out 1.5 million laser pulses per second to create a 3D map of the surroundings.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">A barometric pressure sensor, the same type used in weather stations, can detect changes in altitude as small as 30 centimeters. Drones use these to maintain stable flight.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The human eye can detect a single photon of light. No artificial sensor has yet matched this sensitivity, though scientific sensors come remarkably close.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+<section class="mt-6 lg:mt-10 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Robots see the world exactly as humans do.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Robots only read numeric values from sensors (like 'distance = 15cm'). They have no visual context unless running advanced AI computer vision.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Motors always run at the same speed.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Voltage levels decay as batteries drain, requiring controllers to continuously monitor and adjust pulse widths to maintain speed.</p>
-              </div>
-              
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Sensors are always accurate.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> All sensors have some error. Temperature, humidity, electrical noise, and manufacturing variations all affect sensor readings. That is why robots use calibration and sensor fusion.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: More expensive sensors are always better.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> An expensive sensor with high precision is wasted if the rest of the system cannot utilize that precision. Engineers choose sensors that are good enough for the task at a reasonable cost.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: A camera can see everything.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Cameras have limitations including field of view, resolution, frame rate, and light sensitivity. A camera cannot see in total darkness, cannot see through walls, and may be confused by glare or reflections.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Digital sensors are always better than analog.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Analog sensors can detect subtle continuous changes that digital sensors might miss. Many high-precision applications still use analog sensors because they offer infinite resolution within their range.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive elements of Introduction to Sensors and how they communicate inside the robot controller pipeline.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Observe the loop steps and check how input variables affect speed.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on each component to inspect its purpose and internal wiring.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the primary role of Introduction to Sensors?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To print papers</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To write web pages</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To capture or process physical feedback</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To increase battery capacity</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To print papers</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> To capture or process physical feedback</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To capture or process physical feedback</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. What does PWM stand for in motor speed control?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Pulse Width Modulation</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Power Wire Mapping</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Process Wave Meter</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Processor Work Manager</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Pulse Width Modulation</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Pulse Width Modulation</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which unit converts physical attributes into electrical values?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A sensor</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A chassis</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A gear</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A wheel</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> A sensor</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A sensor</p>
               </div>
-              
             </div>
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">Why is it critical for robots to run sensor checking loops multiple times every second?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">What would happen if the feedback link between a sensor and motor was disconnected?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Sensor Mapping</p>
-                <p class="text-sm text-theme-muted">List three scenarios where a robot needs to measure distance. Explain what sensor it should use.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Logic Tree Design</p>
-                <p class="text-sm text-theme-muted">Draw a simple decision flowchart for a robot vacuum that encounters a drop (cliff) in front of it.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Define the role of Introduction to Sensors.</li><li>Write logical conditions to resolve obstacles.</li><li>Trace data flows from sensor to actuator.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Set up simple logic templates for class reviews.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How does the robot feel its surrounding environment?</li><li>What mistakes might a robot make if its sensor is calibrated poorly?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="chapter-5-touch-sensors.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Touch Sensors
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-3-robot-components.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 3</a>
+            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-5-touch-sensors.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 5 &mdash; Touch Sensors</a>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
-            <a href="how-robots-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 7 &middot; Chapter 4</p>
-          </div>
         </section>
-      </article>
+
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -521,26 +425,11 @@
       </div>
     </footer>
   </div>
-
   <script src="../../../../shared/data/brand.js" defer></script>
   <script src="../../../../shared/data/products.js" defer></script>
   <script src="../../../../shared/utils/dom.js" defer></script>
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

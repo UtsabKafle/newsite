@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -49,6 +49,8 @@
     .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
     .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
     .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -167,13 +169,13 @@
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Build Your First Website</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Building your first complete portfolio website page</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        <!-- Introduction Section -->
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Building a website involves planning a layout, structuring it with semantic HTML tags, styling it with CSS rulesets, and launching it.</p>
             <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Build Your First Website as:</p>
+              <p class="text-sm font-semibold text-brand-200 mb-3">Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> as:</p>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 <div class="glass-panel p-3 text-center">
@@ -193,70 +195,8 @@
                 </div>
                 
               </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as painting a room or adding furniture changes its look and usefulness, Build Your First Website modifies the webpage layout.</p>
+              <p class="mt-4 text-sm text-theme-muted italic">Just as painting a room or adding furniture changes its look and usefulness, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> modifies the webpage layout.</p>
             </div>
-          </div>
-        </section>
-
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
-            <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
-              <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as you use guidelines to design print articles or blueprints, Build Your First Website operates through specific rules:</p>
-                <ol class="mt-4 space-y-3 text-sm text-theme-muted">
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">1</span>
-                    <span>First, map out where the section goes.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">2</span>
-                    <span>Next, define the tags or CSS rules that configure this element.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">3</span>
-                    <span>Finally, check how the browser displays it on screen.</span>
-                  </li>
-                  
-                </ol>
-              </div>
-              <div class="flex-1 glass-panel p-5 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Key Highlights:</p>
-                <ul class="space-y-2 text-sm text-theme-muted">
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Structure planning
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Code implementation
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Browser testing
-                  </li>
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
-            <a href="diagrams/diagram-14-build-your-first-web/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
-            </a>
           </div>
         </section>
 
@@ -264,13 +204,13 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of Build Your First Website to update the DOM tree or apply layout boxes. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers parse the specific syntax of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> to update the DOM tree or apply <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">layout boxes</span>. By reading the properties, the engine determines sizes, positions, and colors before rasterizing them onto the viewport.</p>
             
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring Build Your First Website ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">This subsystem is crucial for modern web performance. Properly structuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> ensures that screen readers, search engine indexers, and slow networks can load and process your webpage without layout shifts or blank screens.</p>
             
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of Build Your First Website. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Modern engines use GPU-accelerated layers to optimize rendering of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span>. Applying transitions, calculations, or layout constraints enables responsive flows that recalculate elements dynamically in real time without bottlenecking the main thread.</p>
           </div>
         </section>
 
@@ -287,7 +227,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Build Your First Website</td><td>The primary technological concept explaining how components interact within the context of Building Websites.</td></tr><tr><td>Styling Rule</td><td>A CSS declaration that targets an HTML selector and sets values.</td></tr><tr><td>Layout Box</td><td>The physical rectangle calculated by the browser for an element.</td></tr><tr><td>Hosting Server</td><td>A computer running 24/7 that serves website files to the public.</td></tr>
+                  <tr id="vocab-build-your-first-website"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span></td><td>The primary technological concept explaining how components interact within the context of Building Websites.</td></tr>
+                  <tr id="vocab-styling-rule"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('styling-rule')">Styling Rule</span></td><td>A CSS declaration that targets an HTML selector and sets values.</td></tr>
+                  <tr id="vocab-layout-box"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout-box')">Layout Box</span></td><td>The physical rectangle calculated by the browser for an element.</td></tr>
+                  <tr id="vocab-hosting-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-server')">Hosting Server</span></td><td>A computer running 24/7 that serves website files to the public.</td></tr>
+                  <tr id="vocab-project-planning"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('project-planning')">Project Planning</span></td><td>The process of sketching, organizing, and outlining your website before coding</td></tr>
+                  <tr id="vocab-wireframe"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('wireframe')">Wireframe</span></td><td>A simple visual blueprint showing the layout structure and element placement on a page</td></tr>
+                  <tr id="vocab-file-structure"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-structure')">File Structure</span></td><td>The organized arrangement of HTML pages, CSS files, images, and folders in a project</td></tr>
+                  <tr id="vocab-index-html"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('index-html')">Index HTML</span></td><td>The default homepage filename that web servers automatically display when a directory is visited</td></tr>
+                  <tr id="vocab-hosting-service"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hosting-service')">Hosting Service</span></td><td>A company that stores your website files on its servers and makes them accessible on the internet</td></tr>
+                  <tr id="vocab-responsive-check"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-check')">Responsive Check</span></td><td>The process of testing a website across different screen sizes and devices</td></tr>
                 </tbody>
               </table>
             </div>
@@ -301,62 +250,36 @@
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Implementing Build Your First Website is one of the most in-demand skills for frontend developers today.</p>
+                <p class="text-sm text-theme-muted">Implementing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> is one of the most in-demand skills for frontend developers today.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on Build Your First Website to structure or style their pages.</p>
+                <p class="text-sm text-theme-muted">Over 95% of websites on the internet rely on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span> to structure or style their pages.</p>
               </div>
               
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <p class="text-sm text-theme-muted">The concept behind this has evolved over 30 years to support modern smartphones.</p>
               </div>
               
-            </div>
+            
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <p class="text-sm text-theme-muted">The very first web page was published on August 6, 1991, by Tim Berners-Lee at CERN, and it only contained text and links.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <p class="text-sm text-theme-muted">You can create and publish your first website for free today using services like Netlify, Vercel, or GitHub Pages.</p>
+              </div>
+</div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You have to code separate sites for mobile and desktop.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Responsive design allows a single HTML page to adjust its layout dynamically using CSS rules.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Websites load instantly from a single server.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Websites load across multiple servers, CDNs, and intermediate routers, downloading assets in separate chunks.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive elements of Build Your First Website and how they communicate inside the browser rendering pipeline.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Observe the sequence of steps and how variables modify the display.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on each node to inspect its specific properties.
-                </li>
-                
-              </ul>
-            </div>
+        <!-- Interactive Diagram Section -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <a href="diagrams/diagram-14-build-your-first-web/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram &rarr;
+            </a>
           </div>
         </section>
 
@@ -367,7 +290,7 @@
             <div class="mt-6 space-y-6">
               
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the main purpose of Build Your First Website?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the main purpose of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('build-your-first-website')">Build Your First Website</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To calculate variables</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To control layout design or structure</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To store hardware memory</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To configure routers</label>
                 </div>
@@ -397,90 +320,15 @@
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">How does this concept make websites easier to use on screens of different sizes?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">What happens if you use incorrect properties or write invalid code in this block?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Code Lab Finder</p>
-                <p class="text-sm text-theme-muted">Open a website, inspect an element, and try to change its background color in the browser developer tools style panel.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Layout Sketcher</p>
-                <p class="text-sm text-theme-muted">Sketch a mobile layout and a desktop layout for a profile page. Note where elements shift positions.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Understand the concept of Build Your First Website.</li><li>Write simple rules to verify styling or structure.</li><li>Differentiate layout options.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Set up editor templates for live coding practice.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How does this change the look of a website?</li><li>What are the common errors you see when styling pages?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
-        <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
+                  <div class="glass-panel p-6 lg:p-8">
             <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="building-websites.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Overview
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
           </div>
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
+            <a href="chapter-13-how-websites-go-live.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 13</a>
             <a href="building-websites.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
             <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 6 &middot; Chapter 14</p>
           </div>
-        </section>
-      </article>
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -544,3 +392,4 @@
   </script>
 </body>
 </html>
+

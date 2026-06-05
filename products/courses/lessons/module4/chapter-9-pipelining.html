@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
               In the previous chapter, we learned that every instruction goes through a fetch-decode-execute cycle. If the CPU processes one instruction at a time — waiting for each to complete before starting the next — most of its components would sit idle for large portions of each cycle. This would be terribly inefficient, like having only one worker on an entire assembly line.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Pipelining</span> solves this problem by allowing multiple instructions to be in different stages of the instruction cycle at the same time. While one instruction is being executed, the next is being decoded, and the one after that is being fetched. This dramatically increases the throughput — the number of instructions completed per unit of time — without requiring a faster clock.
+              <span class="text-brand-200">Pipelining</span> solves this problem by allowing multiple instructions to be in different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> of the instruction cycle at the same time. While one instruction is being executed, the next is being decoded, and the one after that is being fetched. This dramatically increases the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> — the number of instructions completed per unit of time — without requiring a faster clock.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs use pipelines that are 14 to 20 stages deep (or even more in some designs). Pipelining is one of the most important innovations in computer architecture, and understanding it is essential to understanding how modern processors achieve their incredible performance. However, pipelines also introduce challenges — hazards, stalls, and the need for complex branch prediction logic.
+              Modern CPUs use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> that are 14 to 20 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> deep (or even more in some designs). Pipelining is one of the most important innovations in computer architecture, and understanding it is essential to understanding how modern processors achieve their incredible performance. However, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> also introduce challenges — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stall')">stalls</span>, and the need for complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">branch prediction</span> logic.
             </p>
           </div>
         </section>
@@ -195,59 +197,68 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">A CPU pipeline works like a car assembly line. Instead of one team building an entire car from start to finish, each station performs a specific task: one installs the engine, another fits the doors, a third paints the body. Every station works simultaneously on a different car, so a finished car rolls off the line every few minutes instead of every few days.</p>
+              <p class="text-sm text-theme-muted">A CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> works like a car assembly line. Instead of one team building an entire car from start to finish, each station performs a specific task: one installs the engine, another fits the doors, a third paints the body. Every station works simultaneously on a different car, so a finished car rolls off the line every few minutes instead of every few days.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of doing laundry. Without pipelining, you would wash one load, wait for it to finish, dry it, wait for that to finish, then fold it. With pipelining, while one load is drying, the next is washing, and you are folding the previous load. All three stages happen at the same time — the laundry throughput triples, even though each individual step takes the same amount of time.</p>
+              <p class="text-sm text-theme-muted">Think of doing laundry. Without pipelining, you would wash one load, wait for it to finish, dry it, wait for that to finish, then fold it. With pipelining, while one load is drying, the next is washing, and you are folding the previous load. All three <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> happen at the same time — the laundry <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> triples, even though each individual step takes the same amount of time.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Pipeline Stages</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A classic five-stage RISC pipeline consists of five stages: <span class="text-brand-200">IF</span> (Instruction Fetch), <span class="text-brand-200">ID</span> (Instruction Decode), <span class="text-brand-200">EX</span> (Execute), <span class="text-brand-200">MEM</span> (Memory Access), and <span class="text-brand-200">WB</span> (Write Back). Each stage corresponds to a different part of the CPU: the fetch unit, the decoder, the ALU, the cache/memory controller, and the register file.
+              A classic five-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span> RISC <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> consists of five <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span>: <span class="text-brand-200">IF</span> (Instruction Fetch), <span class="text-brand-200">ID</span> (Instruction Decode), <span class="text-brand-200">EX</span> (Execute), <span class="text-brand-200">MEM</span> (Memory Access), and <span class="text-brand-200">WB</span> (Write Back). Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span> corresponds to a different part of the CPU: the fetch unit, the decoder, the ALU, the cache/memory controller, and the register file.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In cycle 1, instruction 1 is fetched. In cycle 2, instruction 1 is decoded while instruction 2 is fetched. By cycle 5, instruction 1 completes its write-back, and instructions 2, 3, 4, and 5 are all in various stages of processing. From that point on, one instruction completes every cycle — a five-fold improvement over the non-pipelined approach.
+              In cycle 1, instruction 1 is fetched. In cycle 2, instruction 1 is decoded while instruction 2 is fetched. By cycle 5, instruction 1 completes its write-back, and instructions 2, 3, 4, and 5 are all in various <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> of processing. From that point on, one instruction completes every cycle — a five-fold improvement over the non-pipelined approach.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Pipeline Hazards</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Pipelines are not without problems. A <span class="text-brand-200">hazard</span> is a situation that prevents the next instruction in the pipeline from executing during its designated clock cycle. There are three types: <span class="text-brand-200">structural hazards</span> (two instructions need the same hardware resource), <span class="text-brand-200">data hazards</span> (an instruction depends on the result of a previous one), and <span class="text-brand-200">control hazards</span> (caused by branches and jumps).
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">Pipelines</span> are not without problems. A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazard</span></span> is a situation that prevents the next instruction in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> from executing during its designated clock cycle. There are three types: <span class="text-brand-200">structural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span></span> (two instructions need the same hardware resource), <span class="text-brand-200">data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span></span> (an instruction depends on the result of a previous one), and <span class="text-brand-200">control <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span></span> (caused by branches and jumps).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Data hazards are the most common. For example, if instruction A computes a value in R1 and instruction B needs that value, instruction B cannot execute until A finishes. Solutions include <span class="text-brand-200">forwarding</span> (also called bypassing) — routing the result directly from the ALU output to the next instruction's input — and <span class="text-brand-200">stalling</span> (inserting a bubble in the pipeline) when forwarding is not enough.
+              Data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span> are the most common. For example, if instruction A computes a value in R1 and instruction B needs that value, instruction B cannot execute until A finishes. Solutions include <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('forwarding')">forwarding</span></span> (also called bypassing) — routing the result directly from the ALU output to the next instruction's input — and <span class="text-brand-200">stalling</span> (inserting a bubble in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span>) when <span class="vocab cursor-pointer" onclick="scrollToVocabulary('forwarding')">forwarding</span> is not enough.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Branch Prediction</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Branch prediction</span> is a technique used to handle control hazards. When the CPU encounters a conditional branch (like an "if" statement), it does not know which instruction will come next until the condition is evaluated. Instead of stalling the pipeline until the condition is resolved, the CPU predicts whether the branch will be taken and fetches instructions from the predicted path.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">Branch prediction</span></span> is a technique used to handle control <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span>. When the CPU encounters a conditional branch (like an "if" statement), it does not know which instruction will come next until the condition is evaluated. Instead of stalling the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> until the condition is resolved, the CPU predicts whether the branch will be taken and fetches instructions from the predicted path.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              If the prediction is correct, the pipeline continues without interruption. If it is wrong, the CPU must flush the incorrectly fetched instructions and start fetching from the correct address — a penalty of several cycles. Modern branch predictors use sophisticated history tables and pattern matching to achieve accuracy rates of 95% or higher. The best predictors can handle complex patterns like nested loops with remarkable reliability.
+              If the prediction is correct, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> continues without interruption. If it is wrong, the CPU must flush the incorrectly fetched instructions and start fetching from the correct address — a penalty of several cycles. Modern branch predictors use sophisticated history tables and pattern matching to achieve accuracy rates of 95% or higher. The best predictors can handle complex patterns like nested loops with remarkable reliability.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Superscalar and Out-of-Order Execution</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">superscalar</span> CPU has multiple execution units — multiple ALUs, multiple floating-point units, multiple memory ports — allowing it to execute more than one instruction per clock cycle. A superscalar processor might have three ALUs and two FPUs, meaning it can potentially execute five instructions simultaneously if there are no dependencies.
+              A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span></span> CPU has multiple execution units — multiple ALUs, multiple floating-point units, multiple memory ports — allowing it to execute more than one instruction per clock cycle. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span> processor might have three ALUs and two FPUs, meaning it can potentially execute five instructions simultaneously if there are no dependencies.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Out-of-order execution</span> takes this further by allowing the CPU to reorder instructions dynamically. If instruction 3 depends on instruction 2 but instruction 4 is independent, the CPU can execute instruction 4 ahead of instruction 3. This keeps the execution units busy even when there are data dependencies in the program flow. The CPU then reorders the results to maintain the illusion of sequential execution.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('out-of-order-execution')">Out-of-order execution</span></span> takes this further by allowing the CPU to reorder instructions dynamically. If instruction 3 depends on instruction 2 but instruction 4 is independent, the CPU can execute instruction 4 ahead of instruction 3. This keeps the execution units busy even when there are data dependencies in the program flow. The CPU then reorders the results to maintain the illusion of sequential execution.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Throughput vs. Latency</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Pipelining improves <span class="text-brand-200">throughput</span> — the number of instructions completed per second — but does not reduce <span class="text-brand-200">latency</span> — the time it takes to complete a single instruction. In fact, pipelining may slightly increase latency because of the overhead of the pipeline registers between stages. However, the throughput gain is so large (up to five times for a five-stage pipeline) that the small latency increase is well worth it.
+              Pipelining improves <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span></span> — the number of instructions completed per second — but does not reduce <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span></span> — the time it takes to complete a single instruction. In fact, pipelining may slightly increase <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> because of the overhead of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> registers between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span>. However, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> gain is so large (up to five times for a five-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span>) that the small <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> increase is well worth it.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              This trade-off is fundamental to CPU design. For interactive applications, latency matters most. For batch processing and server workloads, throughput is king. Modern CPUs balance both: deep pipelines for high throughput, with sophisticated hazard detection to minimise stalls and keep latency under control.
+              This trade-off is fundamental to CPU design. For interactive applications, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> matters most. For batch processing and server workloads, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> is king. Modern CPUs balance both: deep <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> for high <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span>, with sophisticated <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazard</span> detection to minimise <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stall')">stalls</span> and keep <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> under control.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Pipelining is the reason a 3 GHz CPU from 2024 can be dramatically faster than a 3 GHz CPU from 2004 — even at the same clock speed. Improvements in pipeline depth, branch prediction, superscalar width, and out-of-order execution have enabled far more work per clock cycle, even when frequency stopped scaling.</p>
+              <p class="text-sm text-theme-muted">Pipelining is the reason a 3 GHz CPU from 2024 can be dramatically faster than a 3 GHz CPU from 2004 — even at the same clock speed. Improvements in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> depth, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">branch prediction</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span> width, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('out-of-order-execution')">out-of-order execution</span> have enabled far more work per clock cycle, even when frequency stopped scaling.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, pipelining involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">Pipeline</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">Stage</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">Hazard</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -262,16 +273,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Pipeline</td><td>A technique where multiple instructions overlap in execution by being in different stages of the instruction cycle simultaneously</td></tr>
-                  <tr><td>Stage</td><td>One discrete step in the pipeline, such as Fetch, Decode, Execute, Memory Access, or Write Back</td></tr>
-                  <tr><td>Hazard</td><td>A condition that prevents the next instruction from executing in its designated clock cycle within the pipeline</td></tr>
-                  <tr><td>Stall</td><td>A pipeline bubble inserted when a hazard prevents an instruction from advancing to the next stage</td></tr>
-                  <tr><td>Branch Prediction</td><td>A technique that guesses the outcome of a conditional branch to avoid stalling the pipeline</td></tr>
-                  <tr><td>Superscalar</td><td>A CPU design that includes multiple execution units to execute more than one instruction per cycle</td></tr>
-                  <tr><td>Throughput</td><td>The number of instructions completed per unit of time, the primary benefit of pipelining</td></tr>
-                  <tr><td>Latency</td><td>The time taken to complete a single instruction from start to finish</td></tr>
-                  <tr><td>Forwarding</td><td>A technique that routes results directly from one pipeline stage to another to resolve data hazards</td></tr>
-                  <tr><td>Out-of-Order Execution</td><td>A technique where the CPU reorders instructions dynamically to keep execution units busy</td></tr>
+                  <tr id="vocab-pipeline"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">Pipeline</span></td><td>A technique where multiple instructions overlap in execution by being in different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> of the instruction cycle simultaneously</td></tr>
+                  <tr id="vocab-stage"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">Stage</span></td><td>One discrete step in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span>, such as Fetch, Decode, Execute, Memory Access, or Write Back</td></tr>
+                  <tr id="vocab-hazard"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">Hazard</span></td><td>A condition that prevents the next instruction from executing in its designated clock cycle within the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span></td></tr>
+                  <tr id="vocab-stall"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('stall')">Stall</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> bubble inserted when a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazard</span> prevents an instruction from advancing to the next <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span></td></tr>
+                  <tr id="vocab-branch-prediction"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">Branch Prediction</span></td><td>A technique that guesses the outcome of a conditional branch to avoid stalling the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span></td></tr>
+                  <tr id="vocab-superscalar"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">Superscalar</span></td><td>A CPU design that includes multiple execution units to execute more than one instruction per cycle</td></tr>
+                  <tr id="vocab-throughput"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">Throughput</span></td><td>The number of instructions completed per unit of time, the primary benefit of pipelining</td></tr>
+                  <tr id="vocab-latency"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></td><td>The time taken to complete a single instruction from start to finish</td></tr>
+                  <tr id="vocab-forwarding"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('forwarding')">Forwarding</span></td><td>A technique that routes results directly from one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span> to another to resolve data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hazard')">hazards</span></td></tr>
+                  <tr id="vocab-out-of-order-execution"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('out-of-order-execution')">Out-of-Order Execution</span></td><td>A technique where the CPU reorders instructions dynamically to keep execution units busy</td></tr>
                 </tbody>
               </table>
             </div>
@@ -286,31 +297,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first commercial CPU with pipelining was the IBM System/360 Model 91 (1966). It used a sophisticated pipeline with out-of-order execution and register renaming — concepts that are still state of the art today, nearly 60 years later.</p>
+                <p class="text-sm text-theme-muted">The first commercial CPU with pipelining was the IBM System/360 Model 91 (1966). It used a sophisticated <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('out-of-order-execution')">out-of-order execution</span> and register renaming — concepts that are still state of the art today, nearly 60 years later.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The Pentium 4 (2000) had an extremely deep 20-stage pipeline, later extended to 31 stages in the Prescott revision. This allowed very high clock speeds (up to 3.8 GHz) but also meant branch mispredictions were very costly — flushing up to 31 stages of work.</p>
+                <p class="text-sm text-theme-muted">The Pentium 4 (2000) had an extremely deep 20-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stage</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span>, later extended to 31 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> in the Prescott revision. This allowed very high clock speeds (up to 3.8 GHz) but also meant branch mispredictions were very costly — flushing up to 31 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> of work.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Apple's M1 and M2 chips use a wide superscalar design with a 9-wide decode and 14-wide issue — meaning they can fetch, decode, and issue up to 14 instructions per cycle to various execution units. This wide design contributes to their exceptional performance per watt.</p>
+                <p class="text-sm text-theme-muted">Apple's M1 and M2 chips use a wide <span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span> design with a 9-wide decode and 14-wide issue — meaning they can fetch, decode, and issue up to 14 instructions per cycle to various execution units. This wide design contributes to their exceptional performance per watt.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Spectre and Meltdown, the famous security vulnerabilities discovered in 2018, exploited a feature called "speculative execution" — where the CPU executes instructions ahead of time based on branch predictions. These vulnerabilities allowed malicious programs to read protected kernel memory through timing side channels.</p>
+                <p class="text-sm text-theme-muted">Spectre and Meltdown, the famous security vulnerabilities discovered in 2018, exploited a feature called "speculative execution" — where the CPU executes instructions ahead of time based on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">branch predictions</span>. These vulnerabilities allowed malicious programs to read protected kernel memory through timing side channels.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some GPUs have pipelines that are thousands of stages deep, but for a different reason: they process massive numbers of pixels or vertices in parallel. GPU pipelines are optimised for throughput on highly parallel workloads, while CPU pipelines are optimised for low-latency single-thread performance.</p>
+                <p class="text-sm text-theme-muted">Some GPUs have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> that are thousands of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">stages</span> deep, but for a different reason: they process massive numbers of pixels or vertices in parallel. GPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> are optimised for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> on highly parallel workloads, while CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span> are optimised for low-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> single-thread performance.</p>
               </div>
             </div>
           </div>
@@ -336,30 +347,30 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the primary benefit of pipelining in a CPU?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It reduces the latency of each individual instruction</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It increases throughput by allowing multiple instructions to overlap in execution</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It reduces the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> of each individual instruction</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It increases <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> by allowing multiple instructions to overlap in execution</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It eliminates the need for cache memory</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> It doubles the clock speed of the processor</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It increases throughput by allowing multiple instructions to overlap in execution</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It increases <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span> by allowing multiple instructions to overlap in execution</p>
               </div>
 
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. What happens when a branch is mispredicted in a pipelined CPU?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The CPU slows down permanently until reset</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The CPU must flush the pipeline and fetch from the correct address, losing several cycles</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The CPU must flush the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> and fetch from the correct address, losing several cycles</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The instruction is skipped and the program crashes</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The program counter resets to zero</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The CPU must flush the pipeline and fetch from the correct address, losing several cycles</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The CPU must flush the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> and fetch from the correct address, losing several cycles</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. How does a superscalar CPU differ from a standard pipelined CPU?</p>
+                <p class="text-sm font-semibold text-theme">3. How does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span> CPU differ from a standard pipelined CPU?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It has multiple execution units and can execute more than one instruction per cycle</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It does not use branch prediction</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It does not use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('branch-prediction')">branch prediction</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It runs at a higher voltage</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It uses only a single execution unit</label>
                 </div>
@@ -430,12 +441,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

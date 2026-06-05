@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -72,7 +87,7 @@
               Now that you understand how a computer boots up and starts working, there is an important question: how do you keep it running well over time? Just like a car needs oil changes and tire rotations, a computer needs regular maintenance to stay fast, secure, and reliable.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, we will explore the key practices of computer health and maintenance &mdash; from cleaning malware and updating software to managing storage, backing up data, and understanding why digital hygiene matters just as much as physical cleanliness.
+              In this chapter, we will explore the key practices of computer health and maintenance &mdash; from cleaning <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">malware</span> and updating software to managing storage, backing up data, and understanding why digital hygiene matters just as much as physical cleanliness.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Whether you use Windows, macOS, or Linux, the principles of keeping a computer healthy are universal. By the end of this chapter, you will know exactly what to do to keep your machine in top shape.
@@ -86,12 +101,12 @@
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
-              <h3 class="text-xl font-display font-bold mt-3">Computer Health Like You Are 5</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Imagine your computer is like a toy box. Over time, toys get scattered everywhere, dust collects, and sometimes a broken toy gets in the way. If you never clean the toy box, it gets harder and harder to find what you need.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                Computer maintenance is just cleaning your toy box. You delete old files you do not need anymore (throwing away broken toys), you run antivirus scans (checking for creepy crawlies), and you restart your computer (giving it a fresh start). When you take care of your computer, it takes care of you.
+                Computer maintenance is just cleaning your toy box. You delete old files you do not need anymore (throwing away broken toys), you run <span class="vocab cursor-pointer" onclick="scrollToVocabulary('antivirus')">antivirus</span> scans (checking for creepy crawlies), and you restart your computer (giving it a fresh start). When you take care of your computer, it takes care of you.
               </p>
             </div>
 
@@ -104,11 +119,11 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Software Updates</h4>
-                  <p class="text-xs text-theme-muted mt-1">Updates patch security holes, fix bugs, and improve performance. Always install operating system and application updates promptly.</p>
+                  <p class="text-xs text-theme-muted mt-1">Updates <span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">patch</span> security holes, fix bugs, and improve performance. Always install operating system and application updates promptly.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Antivirus &amp; Security</h4>
-                  <p class="text-xs text-theme-muted mt-1">Keep antivirus software active and run regular scans. Avoid downloading files from untrusted sources.</p>
+                  <p class="text-xs text-theme-muted mt-1">Keep <span class="vocab cursor-pointer" onclick="scrollToVocabulary('antivirus')">antivirus</span> software active and run regular scans. Avoid downloading files from untrusted sources.</p>
                 </div>
                 <div class="glass-panel p-4">
                   <h4 class="font-display font-semibold text-brand-200 text-sm">Disk Cleanup</h4>
@@ -126,18 +141,18 @@
 
             <div class="mt-8">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
-              <h3 class="text-xl font-display font-bold mt-3">Advanced System Health &amp; Optimization</h3>
+              <h3 class="text-xl font-display font-bold mt-3">Advanced</h3>
               <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 Beyond basic maintenance, advanced users monitor system health through metrics and diagnostic tools. Understanding these can help you identify problems before they become serious.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">Disk Health (S.M.A.R.T.):</strong> Modern hard drives and SSDs include Self-Monitoring, Analysis, and Reporting Technology. Tools like <code class="text-brand-300 font-mono text-xs">smartctl</code> or CrystalDiskInfo can read drive health attributes and predict failures before they happen. Key indicators include reallocated sector count, power-on hours, and temperature.
+                <strong class="text-brand-200">Disk Health (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('s-m-a-r-t')">S.M.A.R.T.</span>):</strong> Modern hard drives and SSDs include Self-Monitoring, Analysis, and Reporting Technology. Tools like <code class="text-brand-300 font-mono text-xs">smartctl</code> or CrystalDiskInfo can read drive health attributes and predict failures before they happen. Key indicators include reallocated sector count, power-on hours, and temperature.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 <strong class="text-brand-200">Memory Diagnostics:</strong> Faulty RAM can cause crashes, blue screens, and data corruption. Use tools like MemTest86 or the Windows Memory Diagnostic to test RAM modules for errors. Run these tests overnight for a thorough check.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-                <strong class="text-brand-200">System Monitoring:</strong> Tools like <code class="text-brand-300 font-mono text-xs">htop</code> (Linux), Task Manager (Windows), or Activity Monitor (macOS) let you see CPU usage, memory pressure, disk I/O, and network activity in real time. High sustained usage may indicate a runaway process, malware, or a need for hardware upgrades.
+                <strong class="text-brand-200">System Monitoring:</strong> Tools like <code class="text-brand-300 font-mono text-xs">htop</code> (Linux), Task Manager (Windows), or Activity Monitor (macOS) let you see CPU usage, memory pressure, disk I/O, and network activity in real time. High sustained usage may indicate a runaway process, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">malware</span>, or a need for hardware upgrades.
               </p>
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 <strong class="text-brand-200">Thermal Management:</strong> Overheating is one of the most common causes of performance degradation and hardware failure. Keep vents clean, ensure fans are working, and consider reapplying thermal paste on desktop CPUs every few years. Monitor CPU and GPU temperatures with tools like Open Hardware Monitor or HWMonitor.
@@ -145,32 +160,31 @@
               <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
                 <strong class="text-brand-200">Secure Erasure &amp; Disk Wiping:</strong> When disposing of or selling a drive, simple file deletion is not enough. Use tools like <code class="text-brand-300 font-mono text-xs">shred</code> (Linux), DBAN, or the secure erase feature built into SSDs to ensure data cannot be recovered.
               </p>
-            </div>
-          </div>
+            </div></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left border-collapse">
+              <table class="vocab-table w-full text-sm">
                 <thead>
-                  <tr class="border-b border-brand-500/20">
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Term</th>
-                    <th class="py-3 px-4 font-display font-semibold text-theme">Definition</th>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Antivirus</td><td class="py-3 px-4">Software that detects, prevents, and removes malicious programs from a computer.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Malware</td><td class="py-3 px-4">Malicious software designed to harm, exploit, or infiltrate a computer system without consent.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Backup</td><td class="py-3 px-4">A copy of important data stored separately to protect against loss or corruption.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Defragmentation</td><td class="py-3 px-4">The process of reorganizing data on a hard drive to improve access speed (not needed for SSDs).</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">S.M.A.R.T.</td><td class="py-3 px-4">Self-Monitoring, Analysis, and Reporting Technology — a system built into drives that predicts failure.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Patch</td><td class="py-3 px-4">An update that fixes a security vulnerability or bug in software.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Firewall</td><td class="py-3 px-4">A security system that monitors and controls incoming and outgoing network traffic.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Phishing</td><td class="py-3 px-4">A social engineering attack where attackers trick users into revealing sensitive information.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Disk Cleanup</td><td class="py-3 px-4">The process of removing unnecessary files to free up storage space on a drive.</td></tr>
-                  <tr class="border-b border-theme"><td class="py-3 px-4 font-medium text-theme">Driver</td><td class="py-3 px-4">Software that allows the operating system to communicate with hardware components.</td></tr>
+                  <tr id="vocab-antivirus"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('antivirus')">Antivirus</span></td><td>Software that detects, prevents, and removes malicious programs from a computer.</td></tr>
+                  <tr id="vocab-malware"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span></td><td>Malicious software designed to harm, exploit, or infiltrate a computer system without consent.</td></tr>
+                  <tr id="vocab-backup"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backup')">Backup</span></td><td>A copy of important data stored separately to protect against loss or corruption.</td></tr>
+                  <tr id="vocab-defragmentation"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('defragmentation')">Defragmentation</span></td><td>The process of reorganizing data on a hard drive to improve access speed (not needed for SSDs).</td></tr>
+                  <tr id="vocab-s-m-a-r-t"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('s-m-a-r-t')">S.M.A.R.T.</span></td><td>Self-Monitoring, Analysis, and Reporting Technology — a system built into drives that predicts failure.</td></tr>
+                  <tr id="vocab-patch"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">Patch</span></td><td>An update that fixes a security vulnerability or bug in software.</td></tr>
+                  <tr id="vocab-firewall"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span></td><td>A security system that monitors and controls incoming and outgoing network traffic.</td></tr>
+                  <tr id="vocab-phishing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span></td><td>A social engineering attack where attackers trick users into revealing sensitive information.</td></tr>
+                  <tr id="vocab-disk-cleanup"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('disk-cleanup')">Disk Cleanup</span></td><td>The process of removing unnecessary files to free up storage space on a drive.</td></tr>
+                  <tr id="vocab-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span></td><td>Software that allows the operating system to communicate with hardware components.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -195,7 +209,7 @@
               </div>
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">The 3-2-1 rule</p>
-                <p class="text-sm text-theme-muted mt-1">Always keep 3 copies of your data, on 2 different types of media, with 1 copy stored off-site. This backup strategy has saved countless businesses.</p>
+                <p class="text-sm text-theme-muted mt-1">Always keep 3 copies of your data, on 2 different types of media, with 1 copy stored off-site. This <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backup')">backup</span> strategy has saved countless businesses.</p>
               </div>
             </div>
           </div>
@@ -223,11 +237,11 @@
                 <p class="font-display font-semibold text-brand-200 text-sm">1. What is the main purpose of regularly installing software updates?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To make the computer look different</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To patch security holes and fix bugs</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To <span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">patch</span> security holes and fix bugs</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To slow down the computer</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To install new wallpapers</span></label>
                 </div>
-                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To patch security holes and fix bugs.</p></details>
+                <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">To <span class="vocab cursor-pointer" onclick="scrollToVocabulary('patch')">patch</span> security holes and fix bugs.</p></details>
               </div>
 
               <div class="glass-panel p-4">
@@ -242,12 +256,12 @@
               </div>
 
               <div class="glass-panel p-4">
-                <p class="font-display font-semibold text-brand-200 text-sm">3. The 3-2-1 backup rule means:</p>
+                <p class="font-display font-semibold text-brand-200 text-sm">3. The 3-2-1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backup')">backup</span> rule means:</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>3 backups on 2 drives, all in one location</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>3 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backup')">backups</span> on 2 drives, all in one location</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>3 copies of data, on 2 different media types, 1 off-site</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>2 copies on 3 drives, 1 backup per week</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>3 programs, 2 updates, 1 antivirus scan per month</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>2 copies on 3 drives, 1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backup')">backup</span> per week</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>3 programs, 2 updates, 1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('antivirus')">antivirus</span> scan per month</span></label>
                 </div>
                 <details class="mt-2"><summary class="text-xs text-brand-300 cursor-pointer hover:text-theme">Show answer</summary><p class="text-xs text-green-400 mt-1">3 copies of data, on 2 different media types, 1 copy stored off-site.</p></details>
               </div>

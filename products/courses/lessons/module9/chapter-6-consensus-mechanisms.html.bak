@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0959C8">
+  <title>Chapter 6: Consensus Mechanisms | Consica Academy</title>
+  <meta name="description" content="Chapter 6: Consensus Mechanisms. How nodes agree on the truth">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' }, surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' } }, fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] }, boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' } } }
+    };
+  </script>
+  <script>
+    (function () { var s = localStorage.getItem('consica-theme'), t = s || 'dark'; if (!s && window.matchMedia('(prefers-color-scheme: light)').matches) t = 'light'; document.documentElement.setAttribute('data-theme', t); document.documentElement.classList.add(t); })();
+  </script>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="../../../../shared/styles/animations.css">
+  <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
+  <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
+  <style>
+    .static-main { padding-top: var(--nav-height); }
+    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) { .static-main { padding-top: 3.5rem; } .static-main section { scroll-margin-top: 4rem; } .static-main .glass-panel { border-radius: 1rem; } }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
+    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
+    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-answer { display: none; }
+    .kb-answer.revealed { display: block; }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
+</head>
+
+<body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
+    <div class="flex flex-col items-center gap-4">
+      <div class="loader-ring" role="status" aria-label="Loading"></div>
+      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
+    </div>
+  </div>
+
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-mesh"></div>
+  </div>
+
+  <div id="app-root" class="relative z-10 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
+      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
+        <a href="../../../../index.html" class="flex items-center gap-2.5">
+          <span id="main-logo-trigger" class="flex items-center">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+          </span>
+          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
+          <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
+          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
+          <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
+          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
+          <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
+        </div>
+        <div class="nav-actions flex items-center gap-3">
+          <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div id="logo-branding-overlay" class="logo-overlay">
+      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
+    </div>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
+      <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
+      <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+          <span class="font-display font-semibold">Menu</span>
+          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
+        </div>
+        <div class="flex flex-col gap-4">
+          <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
+          <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
+          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
+          <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
+          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
+          <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
+        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
+        </div>
+      </aside>
+    </div>
+
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
+      <div class="flex justify-around items-center h-16 px-2">
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
+      </div>
+    </nav>
+
+    <main id="main-content" class="static-main">
+      <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 6</span>
+          <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
+        </div>
+
+        <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">Consensus</span> Mechanisms</h1>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How nodes agree on the truth</p>
+
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In a decentralized network, thousands of computers must agree on what is true. How do they decide which transactions are valid and which are fraudulent? This is where <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> mechanisms</span> come in.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> mechanism is a set of rules that every node follows to agree on the current state of the ledger. It ensures that even if some nodes are dishonest, the network as a whole can still reach agreement and reject false information.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, you will learn about the two most common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> mechanisms — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> — and how they keep blockchain networks secure and trustworthy.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm text-theme-muted">Every time a new block is proposed, nodes check whether it follows the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> rules. If a majority agrees the block is valid, it is added to the chain. Nodes that cheat or propose invalid blocks are penalized, and honest nodes are rewarded.</p>
+            </div>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of a classroom voting to decide where to go on a field trip. Every student votes, and the destination with the most votes wins. In blockchain, nodes vote by validating blocks. The block with the most validations is accepted as the truth.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">Consensus</span></h3>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span></h4>
+                <p class="mt-2 text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">Miners</span> solve complex math puzzles to validate blocks. First to solve wins the reward.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4m-10-10h4m12 0h4"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span></h4>
+                <p class="mt-2 text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">Validators</span> stake tokens as collateral. They are chosen to propose blocks based on their stake.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Comparing Mechanisms</h3>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span> (Bitcoin)</p>
+                <p class="text-sm text-theme-muted">Uses massive computing power. Extremely secure but consumes as much electricity as a small country. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">Miners</span> race to find a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nonce')">nonce</span> that produces a hash with a certain number of leading zeros.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> (Ethereum 2.0)</p>
+                <p class="text-sm text-theme-muted">Uses much less energy. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">Validators</span> lock up coins as a security deposit. If they validate fraudulently, they lose their stake. This is called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('slashing')">slashing</span>.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">Consensus</span> mechanisms solve the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('byzantine-fault')">Byzantine</span> Generals Problem, a famous computer science challenge where multiple parties must agree on a strategy even when some may be traitors. In blockchain, the "generals" are nodes, and the "strategy" is which block to add next.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Newer mechanisms like Delegated <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> and Proof of Authority offer faster <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> for specific use cases. The choice of mechanism determines the network's security, speed, and energy usage.
+            </p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Ethereum switched from <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span> to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> in 2022, reducing its energy consumption by 99.95% while maintaining the same level of security.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <div class="mt-4 overflow-x-auto">
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-consensus"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">Consensus</span></td><td>An agreement protocol among distributed nodes to accept a new block.</td></tr>
+                  <tr id="vocab-proof-of-work"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span></td><td>A mining process requiring math calculations to secure the network ledger.</td></tr>
+                  <tr id="vocab-proof-of-stake"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span></td><td>A consensus method where validators stake tokens to propose blocks.</td></tr>
+                  <tr id="vocab-nonce"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nonce')">Nonce</span></td><td>A number used once in mining to produce a valid block hash.</td></tr>
+                  <tr id="vocab-validator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">Validator</span></td><td>A node responsible for proposing and verifying new blocks in Proof of Stake.</td></tr>
+                  <tr id="vocab-miner"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">Miner</span></td><td>A node that uses computing power to solve puzzles and earn rewards.</td></tr>
+                  <tr id="vocab-slashing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('slashing')">Slashing</span></td><td>A penalty where a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">validator</span> loses staked tokens for dishonest behavior.</td></tr>
+                  <tr id="vocab-byzantine-fault"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('byzantine-fault')">Byzantine Fault</span></td><td>A situation where system components give conflicting information to confuse the network.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <p class="text-sm text-theme-muted">Bitcoin mining uses more electricity annually than some entire countries, including Norway.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <p class="text-sm text-theme-muted">The first Bitcoin block (Genesis Block) was mined on January 3, 2009, and its reward of 50 BTC is still unspent.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> was first proposed in 2011 by Sunny King and Scott Nadal as an energy-efficient alternative to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span>.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <p class="text-sm text-theme-muted">Some blockchains use Proof of Authority, where a small group of known <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">validators</span> are trusted to process transactions.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <p class="text-sm text-theme-muted">The difficulty of Bitcoin's mining puzzle automatically adjusts every 2,016 blocks to keep block time at about 10 minutes.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-06-transactions/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
+            <div class="mt-6 space-y-6">
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">1. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('consensus')">consensus</span> mechanism?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A tool for designing webpages</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A set of rules that nodes follow to agree on the ledger state</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A type of computer processor</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A programming language for smart contracts</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A set of rules that nodes follow to agree on the ledger state</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">2. How does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span> secure the network?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By requiring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('validator')">validators</span> to lock up tokens</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By making <span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">miners</span> solve difficult math problems that require real computing power</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By using government identification to verify users</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> By encrypting all transactions with SHA-512</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> By making <span class="vocab cursor-pointer" onclick="scrollToVocabulary('miner')">miners</span> solve difficult math problems that require real computing power</p>
+              </div>
+
+              <div class="kb-check">
+                <p class="text-sm font-semibold text-theme">3. What is a key advantage of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-stake')">Proof of Stake</span> over <span class="vocab cursor-pointer" onclick="scrollToVocabulary('proof-of-work')">Proof of Work</span>?</p>
+                <div class="mt-2 space-y-2 text-sm text-theme-muted">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is more profitable for hackers</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It uses much less energy</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It requires more hardware</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It is older and more trusted</label>
+                </div>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It uses much less energy</p>
+              </div>
+            </div>
+
+            <div class="mt-6 text-center">
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+            </div>
+
+            <script>
+              (function() { var btn = document.getElementById('reveal-answers-btn'); if (btn) { btn.addEventListener('click', function() { var answers = document.querySelectorAll('.kb-answer'); var hidden = false; answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; }); answers.forEach(function(a) { a.classList.toggle('revealed', hidden); }); btn.textContent = hidden ? 'Hide Answers' : 'Show Answers'; }); } })();
+            </script>
+          </div>
+        </section>
+
+        <section class="mt-12 lg:mt-20 reveal">
+          <div class="glass-panel p-6 lg:p-8">
+            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
+            <div class="flex justify-center">
+              <a href="chapter-7-cryptography-basics.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
+                Next: Chapter 7 &mdash; Cryptography Basics
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
+            <a href="blockchain-technology.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 9 &middot; Chapter 6</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+
+    <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
+      <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="../../../../index.html" class="flex items-center gap-2.5">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
+            </a>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4>
+            <ul class="space-y-2 text-sm text-theme-muted">
+              <li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li>
+              <li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li>
+              <li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-theme flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center text-sm text-theme-faint">
+          <p>&copy; 2026 Consica Labs. All rights reserved.</p>
+          <p>info@consicalabs.com</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../../../shared/data/brand.js" defer></script>
+  <script src="../../../../shared/data/products.js" defer></script>
+  <script src="../../../../shared/utils/dom.js" defer></script>
+  <script src="../../../../shared/utils/accessibility.js" defer></script>
+  <script src="../../../../shared/scripts/animation-engine.js" defer></script>
+  <script src="../../../../shared/scripts/static-init.js" defer></script>
+</body>
+
+</html>

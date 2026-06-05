@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you use an app, you are probably accessing it in one of two ways: through a web browser or through a native mobile app installed on your device. Both can do amazing things, but they work very differently under the hood.
+              When you use an app, you are probably accessing it in one of two ways: through a web browser or through a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile app</span> installed on your device. Both can do amazing things, but they work very differently under the hood.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200 font-semibold">Web apps</span> run inside a browser like Chrome or Safari. They are responsive, work on any device with a browser, and do not require installation. <span class="text-brand-200 font-semibold">Mobile apps</span> are installed directly on your phone or tablet through an app store. They can access device hardware like the camera, GPS, and accelerometer directly.
+              <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web apps</span></span> run inside a browser like Chrome or Safari. They are responsive, work on any device with a browser, and do not require installation. <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile apps</span></span> are installed directly on your phone or tablet through an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">app store</span>. They can access device hardware like the camera, GPS, and accelerometer directly.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              There is also a third option: <span class="text-brand-200 font-semibold">hybrid apps</span> and PWAs (Progressive Web Apps) that try to combine the best of both worlds. Understanding the differences helps developers choose the right approach for each project.
+              There is also a third option: <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hybrid')">hybrid</span> apps</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWAs</span> (Progressive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web Apps</span>) that try to combine the best of both worlds. Understanding the differences helps developers choose the right approach for each project.
             </p>
           </div>
         </section>
@@ -195,15 +197,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Web apps are delivered over the internet and rendered by a browser. They use HTML, CSS, and JavaScript and are inherently cross-platform — write once, run anywhere. Mobile apps are compiled into native code (Swift for iOS, Kotlin for Android) and installed on the device. They have full access to device APIs but must be built separately for each platform.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web apps</span> are delivered over the internet and rendered by a browser. They use HTML, CSS, and JavaScript and are inherently <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cross-platform')">cross-platform</span> — write once, run anywhere. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile apps</span> are compiled into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> code (Swift for iOS, Kotlin for Android) and installed on the device. They have full access to device APIs but must be built separately for each platform.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">House Analogy</p>
-              <p class="text-sm text-theme-muted">A <strong>web app</strong> is like renting a fully furnished apartment. You can use it anywhere you have an internet connection, you do not need to install anything, but you cannot change the walls or add new rooms. A <strong>mobile app</strong> is like owning your own home. You have full control — you can renovate, install new appliances, and access every corner. But you have to buy it (install it) and maintain it separately for each property.</p>
+              <p class="text-sm text-theme-muted">A <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web app</span></strong> is like renting a fully furnished apartment. You can use it anywhere you have an internet connection, you do not need to install anything, but you cannot change the walls or add new rooms. A <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile app</span></strong> is like owning your own home. You have full control — you can renovate, install new appliances, and access every corner. But you have to buy it (install it) and maintain it separately for each property.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Comparison: Web vs Mobile vs Hybrid</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
@@ -212,7 +214,7 @@
                 <h4 class="font-display font-semibold text-base text-brand-200">Web Apps</h4>
                 <ul class="mt-3 text-sm text-theme-muted space-y-1.5">
                   <li class="flex items-start gap-1.5"><span class="text-green-400 mt-0.5">+</span> No install needed</li>
-                  <li class="flex items-start gap-1.5"><span class="text-green-400 mt-0.5">+</span> Cross-platform</li>
+                  <li class="flex items-start gap-1.5"><span class="text-green-400 mt-0.5">+</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cross-platform')">Cross-platform</span></li>
                   <li class="flex items-start gap-1.5"><span class="text-red-400 mt-0.5">-</span> Slower, limited device access</li>
                   <li class="flex items-start gap-1.5"><span class="text-red-400 mt-0.5">-</span> Requires internet</li>
                 </ul>
@@ -237,7 +239,7 @@
                 <ul class="mt-3 text-sm text-theme-muted space-y-1.5">
                   <li class="flex items-start gap-1.5"><span class="text-green-400 mt-0.5">+</span> Best of both worlds</li>
                   <li class="flex items-start gap-1.5"><span class="text-green-400 mt-0.5">+</span> Single codebase</li>
-                  <li class="flex items-start gap-1.5"><span class="text-red-400 mt-0.5">-</span> Can feel less native</li>
+                  <li class="flex items-start gap-1.5"><span class="text-red-400 mt-0.5">-</span> Can feel less <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span></li>
                   <li class="flex items-start gap-1.5"><span class="text-red-400 mt-0.5">-</span> Limited hardware access</li>
                 </ul>
               </div>
@@ -245,14 +247,23 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Progressive Web Apps (PWAs)</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              PWAs are web apps that use modern browser capabilities to behave like native apps. They can be installed on your home screen, work offline, send push notifications, and access some device features. Companies like Twitter, Pinterest, and Spotify have built PWAs that offer a near-native experience while being delivered through the web.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWAs</span> are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web apps</span> that use modern browser capabilities to behave like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> apps. They can be installed on your home screen, work offline, send push notifications, and access some device features. Companies like Twitter, Pinterest, and Spotify have built <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWAs</span> that offer a near-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> experience while being delivered through the web.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The line between web and mobile apps is blurring. PWAs can do things that were once only possible in native apps, and frameworks like React Native and Flutter let you build mobile apps with web technologies. The right choice depends on your user's needs, budget, and performance requirements.</p>
+              <p class="text-sm text-theme-muted">The line between web and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile apps</span> is blurring. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWAs</span> can do things that were once only possible in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> apps, and frameworks like React <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span> and Flutter let you build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile apps</span> with web technologies. The right choice depends on your user's needs, budget, and performance requirements.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, mobile vs <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web apps</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile App</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -267,13 +278,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Web App</td><td>An application that runs in a web browser, built with HTML, CSS, and JavaScript</td></tr>
-                  <tr><td>Mobile App</td><td>A native application installed on a mobile device through an app store</td></tr>
-                  <tr><td>Native</td><td>Built specifically for one platform (iOS or Android) using platform-specific languages and tools</td></tr>
-                  <tr><td>Hybrid</td><td>An app built with web technologies but wrapped in a native container for distribution</td></tr>
-                  <tr><td>PWA</td><td>Progressive Web App — a web app that can be installed and work offline</td></tr>
-                  <tr><td>App Store</td><td>A digital marketplace (Apple App Store, Google Play) where users download mobile apps</td></tr>
-                  <tr><td>Cross-platform</td><td>An app or technology that works on multiple operating systems from a single codebase</td></tr>
+                  <tr id="vocab-web-app"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span></td><td>An application that runs in a web browser, built with HTML, CSS, and JavaScript</td></tr>
+                  <tr id="vocab-mobile-app"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile App</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> application installed on a mobile device through an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">app store</span></td></tr>
+                  <tr id="vocab-native"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span></td><td>Built specifically for one platform (iOS or Android) using platform-specific languages and tools</td></tr>
+                  <tr id="vocab-hybrid"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hybrid')">Hybrid</span></td><td>An app built with web technologies but wrapped in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> container for distribution</td></tr>
+                  <tr id="vocab-pwa"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWA</span></td><td>Progressive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span> — a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web app</span> that can be installed and work offline</td></tr>
+                  <tr id="vocab-app-store"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">App Store</span></td><td>A digital marketplace (Apple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">App Store</span>, Google Play) where users download <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile apps</span></td></tr>
+                  <tr id="vocab-cross-platform"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cross-platform')">Cross-platform</span></td><td>An app or technology that works on multiple operating systems from a single codebase</td></tr>
                 </tbody>
               </table>
             </div>
@@ -288,7 +299,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first iPhone was released in 2007 without an App Store. Steve Jobs initially wanted only web apps. The App Store launched a year later with 500 apps.</p>
+                <p class="text-sm text-theme-muted">The first iPhone was released in 2007 without an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">App Store</span>. Steve Jobs initially wanted only <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web apps</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('app-store')">App Store</span> launched a year later with 500 apps.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -300,19 +311,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Over 90% of mobile time is spent in native apps, not mobile browsers. The average person uses about 10 apps per day.</p>
+                <p class="text-sm text-theme-muted">Over 90% of mobile time is spent in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> apps, not mobile browsers. The average person uses about 10 apps per day.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The smallest PWA ever built was just 7 KB. It was a fully functional game that could be installed on your home screen and played offline.</p>
+                <p class="text-sm text-theme-muted">The smallest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWA</span> ever built was just 7 KB. It was a fully functional game that could be installed on your home screen and played offline.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">React Native, launched by Facebook in 2015, lets developers build native mobile apps using JavaScript. Instagram, Airbnb, and Uber Eats all use it.</p>
+                <p class="text-sm text-theme-muted">React <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span>, launched by Facebook in 2015, lets developers build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile apps</span> using JavaScript. Instagram, Airbnb, and Uber Eats all use it.</p>
               </div>
             </div>
           </div>
@@ -337,36 +348,36 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is a key advantage of a web app over a native mobile app?</p>
+                <p class="text-sm font-semibold text-theme">1. What is a key advantage of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">web app</span> over a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">native</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">mobile app</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Full access to device hardware</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Works cross-platform without installation</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Works <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cross-platform')">cross-platform</span> without installation</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Faster performance</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Can work offline by default</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Works cross-platform without installation</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Works <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cross-platform')">cross-platform</span> without installation</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does PWA stand for?</p>
+                <p class="text-sm font-semibold text-theme">2. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWA</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Private Web Application</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Progressive Web App</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Progressive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Platform-Wide App</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Primary Web Access</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Progressive Web App</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Progressive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span></p>
               </div>
 
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which type of app requires separate builds for iOS and Android?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Web App</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Native Mobile App</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> PWA</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Hybrid App</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-app')">Web App</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile App</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwa')">PWA</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hybrid')">Hybrid</span> App</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Native Mobile App</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('native')">Native</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mobile-app')">Mobile App</span></p>
               </div>
 
             </div>

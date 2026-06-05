@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
   <title>Chapter 3: How Browsers Display Websites | Consica Academy</title>
-  <meta name="description" content="Chapter 3: How Browsers Display Websites. Tracing the steps from raw code to a beautiful page">
+  <meta name="description" content="Chapter 3: How Browsers Display Websites. Understanding the rendering process from URL to pixels">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,19 +16,25 @@
       theme: {
         extend: {
           colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
+            brand: {
+              DEFAULT: '#0959C8',
+              50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4',
+              400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A',
+              800: '#032652', 900: '#021629',
+            },
+            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' },
           },
           fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
+          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' },
+        },
+      },
     };
   </script>
   <script>
     (function () {
       var stored = localStorage.getItem('consica-theme');
       var theme = stored || 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
       document.documentElement.setAttribute('data-theme', theme);
       document.documentElement.classList.add(theme);
     })();
@@ -39,19 +46,30 @@
   <style>
     .static-main { padding-top: var(--nav-height); }
     .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    @media (max-width: 1024px) {
+      .static-main { padding-top: 3.5rem; }
+      .static-main section { scroll-margin-top: 4rem; }
+      .static-main .glass-panel { border-radius: 1rem; }
+    }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .mobile-bottom-nav { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35); }
+    #mobile-drawer aside { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .safe-top { padding-top: env(safe-area-inset-top, 0); }
+    @media (hover: none) { .card-3d:hover { transform: none !important; } }
+    .lesson-heading { scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
     .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
     .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
     .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
     .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
+    .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
@@ -100,25 +118,18 @@
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
 
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
 
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,9 +141,7 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
 
@@ -165,116 +174,96 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">How Browsers Display Websites</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Tracing the steps from raw code to a beautiful page</p>
+        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Understanding the rendering process from URL to pixels</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers display websites by requesting code files, parsing the HTML to build a DOM tree, applying CSS styling rules to create a render tree, and drawing pixels on the screen in a process called painting.</p>
-            <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of Browser Rendering as:</p>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Blueprints</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Assembly Tree</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Adding Paint</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Final Picture</span>
-                </div>
-                
-              </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as an architect turns raw text blueprints into a physical building with structure and paint, a browser turns raw HTML/CSS code into a visual webpage.</p>
-            </div>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-browser')">web browser</span> is a software application that retrieves, interprets, and displays web content. When you type a URL, the browser orchestrates a chain of events to fetch files from a server and render them as a visual page on your screen.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Popular browsers include Chrome, Firefox, Safari, Edge, and Opera. While they differ in appearance and speed, they all follow the same fundamental process: request, parse, render, and paint.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              In this chapter, you will learn step by step what happens from the moment you type a URL until the page appears.
+            </p>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
-            <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
-              <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Imagine you are building a toy model from a blueprint. You don't just magically snap it together; you follow a process:</p>
-                <ol class="mt-4 space-y-3 text-sm text-theme-muted">
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">1</span>
-                    <span>Parsing: Reading the instruction booklet (HTML) to count the parts.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">2</span>
-                    <span>Styling: Painting the individual pieces (CSS) before putting them together.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">3</span>
-                    <span>Painting: Placing the finished model on display in the room.</span>
-                  </li>
-                  
-                </ol>
-              </div>
-              <div class="flex-1 glass-panel p-5 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Key Highlights:</p>
-                <ul class="space-y-2 text-sm text-theme-muted">
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Instructions Booklet (HTML)
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Painting parts (CSS)
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Finished Assembly (Render)
-                  </li>
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
-            <a href="diagrams/diagram-03-how-browsers-display/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
-            </a>
-          </div>
-        </section>
-
-        <!-- Core Explanation -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">First, the browser reads HTML text code and turns it into a tree of elements called the DOM. Next, it reads the CSS rules and maps them onto the DOM elements. Once it has the layout structured and styled, it draws the colors, texts, and borders onto your screen.</p>
-            
+
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm text-theme-muted">Browsers use a rendering engine (Blink in Chrome, WebKit in Safari, Gecko in Firefox) to convert HTML, CSS, and JavaScript into pixels. The engine parses the raw HTML into a Document Object Model (DOM) tree, applies CSS styles to build a render tree, computes the layout position of every element, and finally paints each pixel to the screen.</p>
+            </div>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Everyday Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of a browser as a film projector. The website files (HTML, CSS, JS) are the film reel. The projector reads the reel frame by frame, processes the instructions, and shines the final image onto the screen. Without the projector, the reel is just a roll of plastic; without a browser, code files are just plain text.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Rendering Pipeline</h3>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">1. Parse HTML</h4>
+                <p class="mt-2 text-sm text-theme-muted">The browser reads HTML line by line and builds a DOM tree &mdash; a structured representation of the page's content and elements.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">2. Apply CSS</h4>
+                <p class="mt-2 text-sm text-theme-muted">CSS rules are matched to DOM nodes, creating a render tree that knows which elements are visible and how they should look.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
+                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-display font-semibold text-base text-brand-200">3. Paint</h4>
+                <p class="mt-2 text-sm text-theme-muted">The layout is computed (position and size of each element), then pixels are drawn to the screen in the correct order.</p>
+              </div>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Request-Response Cycle</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Before rendering begins, the browser must fetch the website files. It sends an HTTP request to the server, which responds with the requested resources. This cycle determines how quickly a page loads.
+            </p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">DNS Lookup</p>
+                <p class="text-sm text-theme-muted">The browser asks a DNS server to translate the domain name (e.g. google.com) into an IP address the network can route to.</p>
+              </div>
+              <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
+                <p class="text-sm font-semibold text-brand-200 mb-1">TCP Handshake</p>
+                <p class="text-sm text-theme-muted">A three-way connection is established between the browser and server to ensure reliable data transfer.</p>
+              </div>
+            </div>
+
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The rendering pipeline includes: Parsing -> DOM Tree Construction -> CSSOM Construction -> Render Tree Creation -> Layout (calculating exact sizes and coordinates of boxes) -> Painting (rasterizing pixels onto the screen grid). If JavaScript is included, it can modify the DOM tree in real time.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Browsers use a layout engine (like Blink in Chrome, WebKit in Safari, or Gecko in Firefox). During parsing, if the browser encounters a script tag, it pauses DOM parsing to fetch and execute JavaScript unless async/defer flags are present. CSS is render-blocking because the render tree cannot be built without CSSOM.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              The DOM tree is a live data structure the browser uses to manage the page. When JavaScript modifies the page, the DOM updates instantly and the browser re-renders only the affected parts to save performance. CSS can block rendering if not loaded quickly, which is why developers place stylesheet links in the head section.
+            </p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">If a CSS file fails to load, the page will appear as plain unstyled HTML &mdash; all the text will be there but no colors, layout, or fonts. This is called a "Flash of Unstyled Content" (FOUC).</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Modern browsers use multi-process architectures. Chrome, for example, runs a separate process for each tab, GPU rendering, and network handling. This isolation improves security and stability &mdash; if one tab crashes, others remain unaffected. Browsers also employ speculative preloading, where they predict and fetch linked resources before the parser encounters them.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              JavaScript execution can be deferred with the <code>defer</code> or <code>async</code> attributes to prevent blocking the HTML parser. Service workers, part of modern progressive web apps, allow browsers to cache assets offline and intercept network requests for near-instant loading.
+            </p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
@@ -287,199 +276,155 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>DOM</td><td>Document Object Model, the tree-like structure of HTML elements in memory.</td></tr><tr><td>CSSOM</td><td>CSS Object Model, the tree containing style rules for each element.</td></tr><tr><td>Render Tree</td><td>The combination of DOM and CSSOM containing only the visible elements.</td></tr><tr><td>Reflow</td><td>The process where the browser recalculates the positions and sizes of elements.</td></tr>
+                  <tr id="vocab-web-browser"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-browser')">Web Browser</span></td><td>A software application used to access and display websites on the Internet.</td></tr>
+                  <tr id="vocab-rendering-engine"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rendering-engine')">Rendering Engine</span></td><td>The browser component that parses HTML/CSS and paints the visual page.</td></tr>
+                  <tr id="vocab-dom"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span></td><td>Document Object Model &mdash; a tree-structured representation of the HTML content of a webpage.</td></tr>
+                  <tr id="vocab-http"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP Request</span></td><td>A message sent by the browser to a server asking for a specific resource (like a webpage).</td></tr>
+                  <tr id="vocab-dns"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS Lookup</span></td><td>The process of converting a domain name into a machine-readable IP address.</td></tr>
+                  <tr id="vocab-tcp"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp')">TCP</span></td><td>Transmission Control Protocol &mdash; ensures data is reliably delivered between browser and server.</td></tr>
+                  <tr id="vocab-render-tree"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('render-tree')">Render Tree</span></td><td>A combination of the DOM and CSSOM that represents what will be painted on screen.</td></tr>
+                  <tr id="vocab-layout"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout')">Layout</span></td><td>The phase where the browser calculates the position and size of every visible element.</td></tr>
+                  <tr id="vocab-fouc"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fouc')">FOUC</span></td><td>Flash of Unstyled Content &mdash; when a page briefly appears with raw HTML before CSS loads.</td></tr>
+                  <tr id="vocab-service-worker"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('service-worker')">Service Worker</span></td><td>A script that runs in the background to enable offline caching and push notifications.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Browsers complete the entire render cycle (parsing, layout, and painting) in less than 16 milliseconds to maintain a smooth 60 frames per second.</p>
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The first web browser, called WorldWideWeb, was created by Tim Berners-Lee in 1990 and could both browse and edit webpages.</p>
               </div>
-              
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The DOM tree starts with a single root called 'document' and branches out to head, body, and everything else.</p>
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Chrome's V8 JavaScript engine can execute code at speeds approaching native machine performance through just-in-time (JIT) compilation.</p>
               </div>
-              
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The CSS rule cascading means styles can trickle down from parent elements to child elements automatically.</p>
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">The browser war between Netscape Navigator and Internet Explorer in the late 1990s led to many of the web standards we use today.</p>
               </div>
-              
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Modern browsers can render a page in under one second, but a slow DNS lookup or large images can add several seconds of delay.</p>
+              </div>
+              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <p class="text-sm text-theme-muted">Over 60% of all web traffic now comes from mobile browsers, making mobile rendering performance critical.</p>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The browser downloads everything in one file.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> The browser downloads HTML first, parses it, finds links to CSS, JS, and images, and then makes separate requests to download those files.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Invisible elements are still in the Render Tree.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Elements styled with 'display: none' are skipped during Render Tree construction because they do not take up space.</p>
-              </div>
-              
-            </div>
+        <!-- Interactive Diagram -->
+        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+          <div class="glass-panel p-6 lg:p-8 text-center">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
+            <a href="diagrams/diagram-03-how-browsers-display/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram shows the sequential rendering pipeline: HTML -> DOM -> Render Tree -> Layout -> Painted Webpage.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Observe how the DOM and CSSOM are combined to form the Render Tree.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Any layout changes force a recalculation step before the page is repainted.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+
             <div class="mt-6 space-y-6">
-              
+
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the tree-like structure that represents HTML tags in the browser's memory?</p>
+                <p class="text-sm font-semibold text-theme">1. What does DOM stand for in web browsing?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> CSSOM</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> DOM</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> Render Node</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> URL List</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> Digital Object Model</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> Document Object Model</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> Display Orientation Map</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> Data Output Module</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> DOM</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Document Object Model</p>
               </div>
-              
+
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What is the process of calculating the exact size and position of elements called?</p>
+                <p class="text-sm font-semibold text-theme">2. What is the first step a browser takes after you type a URL?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Painting</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Layout</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Parsing</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Linking</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Paint the page</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Execute JavaScript</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Perform a DNS lookup</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Download images</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Layout</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Perform a DNS lookup</p>
               </div>
-              
+
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which file is read to define the layout structure?</p>
+                <p class="text-sm font-semibold text-theme">3. What is a Flash of Unstyled Content (FOUC)?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> HTML file</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> CSS file</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> JPEG file</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> MP4 file</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A page that loads too quickly</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A brief appearance of raw HTML before CSS loads</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A JavaScript animation effect</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A browser plugin crash</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> HTML file</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A brief appearance of raw HTML before CSS loads</p>
               </div>
-              
+
             </div>
+
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) {
+                      if (!a.classList.contains('revealed')) hidden = true;
+                    });
+                    answers.forEach(function(a) {
+                      a.classList.toggle('revealed', hidden);
+                    });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">Why is it a good idea to put CSS styles at the top of a webpage and JavaScript at the bottom?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">What would happen to the page rendering speed if a website had 10,000 nested HTML tags?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">DOM Inspector</p>
-                <p class="text-sm text-theme-muted">Open any webpage, right-click an element, and select 'Inspect'. Hover over elements in the panel to see their physical boxes light up on the page.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Box Builder</p>
-                <p class="text-sm text-theme-muted">Draw three nested boxes on paper: represent a <div>, containing a <section>, containing a <p> tag. Label the parent and child elements.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Explain the rendering pipeline stages.</li><li>Define the difference between DOM and CSSOM.</li><li>Understand reflow/layout and painting concepts.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Prepare to demonstrate Chrome Developer Tools inspector.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How does the browser know which font size to use?</li><li>Why do some images flicker when a page first loads?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
             <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
             <div class="flex justify-center">
               <a href="chapter-4-introduction-to-html.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Introduction to HTML
+                Next: Chapter 4 &mdash; Introduction to HTML
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </div>
           </div>
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
+            <a href="chapter-2-types-of-websites.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 2</a>
             <a href="building-websites.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
             <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 6 &middot; Chapter 3</p>
           </div>
         </section>
+
       </article>
     </main>
 
@@ -528,19 +473,6 @@
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
+
 </html>

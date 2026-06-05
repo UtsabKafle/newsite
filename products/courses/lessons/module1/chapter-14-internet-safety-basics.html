@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -187,28 +202,53 @@
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
             <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of the internet like a big playground. Most kids are nice, but sometimes a stranger might try to talk to you. The most important rule: never tell anyone online your real name, where you live, or your school name. If someone says something scary or mean, tell a grown-up right away. And just like you wouldn't share your toothbrush, don't share your passwords — not even with your best friend.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Internet safety is about protecting your digital identity. Use strong, unique passwords for every account — a password manager helps. Enable two-factor authentication (2FA) wherever possible. Be careful what you post: once something is online, it can be shared, screenshotted, or saved even if you delete it. Recognize phishing attempts — suspicious emails or messages asking for personal info. Never meet someone in person that you only know online without a trusted adult present.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cybersecurity is a shared responsibility. Understand threat vectors: phishing, social engineering, malware, ransomware, and zero-day exploits. Practice good cyber hygiene: regular software updates, unique passphrases, encrypted backups, VPN use on public Wi-Fi, and principle of least privilege for accounts. Be aware of digital footprints — employers and institutions often review social media. Understand privacy laws (GDPR, CCPA) and your rights regarding personal data. Report cybercrimes to relevant authorities.</p>
-          </div>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Internet safety is about protecting your digital identity. Use strong, unique passwords for every account — a password manager helps. Enable two-factor authentication (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span>) wherever possible. Be careful what you post: once something is online, it can be shared, screenshotted, or saved even if you delete it. Recognize <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">phishing</span> attempts — suspicious emails or messages asking for personal info. Never meet someone in person that you only know online without a trusted adult present.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Cybersecurity is a shared responsibility. Understand threat vectors: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">phishing</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('social-engineering')">social engineering</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">malware</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ransomware')">ransomware</span>, and zero-day exploits. Practice good cyber hygiene: regular software updates, unique passphrases, encrypted backups, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vpn')">VPN</span> use on public Wi-Fi, and principle of least privilege for accounts. Be aware of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('digital-footprint')">digital footprints</span> — employers and institutions often review social media. Understand privacy laws (GDPR, CCPA) and your rights regarding personal data. Report cybercrimes to relevant authorities.</p>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Now that you understand the basics of internet safety basics, let's connect the pieces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> is one of the most important ideas in this chapter. It works together with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span> to make the whole system run smoothly.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ransomware')">Ransomware</span> like a team where every member has a specific job. When one part sends information, another part receives it, checks it, and passes it along. This step-by-step teamwork is what makes technology reliable, even when many devices are involved.
+            </p>
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Understanding how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span> connect helps you explain internet safety basics to a friend using your own words — not just memorizing definitions.</p>
+            </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, internet safety basics involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ransomware')">Ransomware</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Internet Safety Vocabulary</h2>
             <div class="mt-6 overflow-x-auto">
-              <table class="w-full text-sm lg:text-base">
-                <thead><tr class="border-b border-brand-500/20"><th class="text-left py-2 pr-4 text-theme font-semibold">Term</th><th class="text-left py-2 text-theme font-semibold">Definition</th></tr></thead>
-                <tbody class="text-theme-muted divide-y divide-brand-500/10">
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Phishing</td><td class="py-3 text-theme-muted">A scam where attackers trick you into revealing personal information</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Malware</td><td class="py-3 text-theme-muted">Malicious software designed to harm or infiltrate a device</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Ransomware</td><td class="py-3 text-theme-muted">Malware that locks your files and demands payment to unlock them</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">2FA</td><td class="py-3 text-theme-muted">Two-factor authentication — an extra layer of security beyond a password</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Encryption</td><td class="py-3 text-theme-muted">Scrambling data so only authorized parties can read it</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Firewall</td><td class="py-3 text-theme-muted">A system that monitors and controls incoming and outgoing network traffic</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">VPN</td><td class="py-3 text-theme-muted">Virtual Private Network — encrypts your internet connection and hides your IP</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Digital Footprint</td><td class="py-3 text-theme-muted">The trail of data you leave behind when using the internet</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">Social Engineering</td><td class="py-3 text-theme-muted">Manipulating people into giving up confidential information</td></tr>
-                  <tr><td class="py-3 pr-4 text-brand-200 font-semibold align-top">HTTPS</td><td class="py-3 text-theme-muted">Encrypted version of HTTP that secures communication with websites</td></tr>
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-phishing"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span></td><td>A scam where attackers trick you into revealing personal information</td></tr>
+                  <tr id="vocab-malware"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span></td><td>Malicious software designed to harm or infiltrate a device</td></tr>
+                  <tr id="vocab-ransomware"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ransomware')">Ransomware</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span> that locks your files and demands payment to unlock them</td></tr>
+                  <tr id="vocab-2fa"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span></td><td>Two-factor authentication — an extra layer of security beyond a password</td></tr>
+                  <tr id="vocab-encryption"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></td><td>Scrambling data so only authorized parties can read it</td></tr>
+                  <tr id="vocab-firewall"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span></td><td>A system that monitors and controls incoming and outgoing network traffic</td></tr>
+                  <tr id="vocab-vpn"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('vpn')">VPN</span></td><td>Virtual Private Network — encrypts your internet connection and hides your IP</td></tr>
+                  <tr id="vocab-digital-footprint"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('digital-footprint')">Digital Footprint</span></td><td>The trail of data you leave behind when using the internet</td></tr>
+                  <tr id="vocab-social-engineering"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('social-engineering')">Social Engineering</span></td><td>Manipulating people into giving up confidential information</td></tr>
+                  <tr id="vocab-https"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span></td><td>Encrypted version of HTTP that secures communication with websites</td></tr>
                 </tbody>
               </table>
             </div>
@@ -222,7 +262,7 @@
               <li>The first computer virus, "Creeper," was created in 1971 as an experiment — it just displayed a message.</li>
               <li>The most common password worldwide is still "123456" — don't use it!</li>
               <li>A strong password with 12 characters would take a computer billions of years to crack.</li>
-              <li>More than 3.4 billion phishing emails are sent every day.</li>
+              <li>More than 3.4 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">phishing</span> emails are sent every day.</li>
               <li>Antarctica has its own internet country code: .aq</li>
             </ul>
           </div>
@@ -255,9 +295,9 @@
         <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine a shield around your device: <strong class="text-brand-200">Firewall</strong> blocks unwanted incoming traffic. <strong class="text-brand-200">Encryption</strong> scrambles your data so only the intended recipient can read it. <strong class="text-brand-200">2FA</strong> adds a second lock to your accounts. Together, these layers create a defense-in-depth strategy. Think of it like a castle with a moat, walls, and guards — each layer makes it harder for attackers to breach.</p>
+            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine a shield around your device: <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span></strong> blocks unwanted incoming traffic. <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></strong> scrambles your data so only the intended recipient can read it. <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span></strong> adds a second lock to your accounts. Together, these layers create a defense-in-depth strategy. Think of it like a castle with a moat, walls, and guards — each layer makes it harder for attackers to breach.</p>
             <div class="mt-4 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 text-center">
-              <p class="text-sm text-brand-200 font-medium">[Your Device] → [Firewall] → [Encrypted Tunnel] → [2FA] → [Secure Service]</p>
+              <p class="text-sm text-brand-200 font-medium">[Your Device] → [<span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span>] → [Encrypted Tunnel] → [<span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span>] → [Secure Service]</p>
             </div>
           </div>
         </section>
@@ -267,7 +307,7 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">1. (MCQ) What does HTTPS stand for?</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">1. (MCQ) What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span> stand for?</p>
                 <p class="text-xs text-theme-muted">a) Hyper Text Transfer Protocol Secure  b) High Tech Transfer Protocol Standard  c) Hyper Transfer Text Protocol Secure  d) Home Transfer Text Protocol System</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -283,20 +323,20 @@
                 <p class="text-xs text-theme-muted">True / False</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">5. (T/F) Public Wi-Fi networks are safe to use without a VPN.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2">5. (T/F) Public Wi-Fi networks are safe to use without a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('vpn')">VPN</span>.</p>
                 <p class="text-xs text-theme-muted">True / False</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">6. (Match) Connect each term to its description:</p>
-                <p class="text-xs text-theme-muted">Phishing → (Scam emails tricking you into revealing info)<br>Malware → (Malicious software that harms devices)<br>2FA → (Extra security layer beyond passwords)</p>
+                <p class="text-xs text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> → (Scam emails tricking you into revealing info)<br><span class="vocab cursor-pointer" onclick="scrollToVocabulary('malware')">Malware</span> → (Malicious software that harms devices)<br><span class="vocab cursor-pointer" onclick="scrollToVocabulary('2fa')">2FA</span> → (Extra security layer beyond passwords)</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">7. (Fill-in) ________ scrambles your data so only authorized parties can read it.</p>
-                <p class="text-xs text-theme-muted">Answer: Encryption</p>
+                <p class="text-xs text-theme-muted">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('encryption')">Encryption</span></p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-2">8. (Fill-in) A ________ monitors and controls incoming and outgoing network traffic.</p>
-                <p class="text-xs text-theme-muted">Answer: Firewall</p>
+                <p class="text-xs text-theme-muted">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('firewall')">Firewall</span></p>
               </div>
             </div>
           </div>
@@ -331,8 +371,8 @@
                 <p class="text-xs text-theme-faint mt-1">Create a poster with the top 5 internet safety tips for your age group. Use clear headings, icons, and colors. Display it in your classroom or share it digitally.</p>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200">Project 2: Phishing Email Analysis</p>
-                <p class="text-xs text-theme-faint mt-1">Find or create examples of phishing emails. Identify red flags: suspicious sender address, urgent language, spelling errors, fake links. Write a short guide on how to spot them.</p>
+                <p class="text-sm font-semibold text-brand-200">Project 2: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">Phishing</span> Email Analysis</p>
+                <p class="text-xs text-theme-faint mt-1">Find or create examples of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">phishing</span> emails. Identify red flags: suspicious sender address, urgent language, spelling errors, fake links. Write a short guide on how to spot them.</p>
               </div>
             </div>
           </div>
@@ -345,7 +385,7 @@
               <p><strong class="text-brand-200">Learning Objectives:</strong> Understand core internet safety concepts, recognize common online threats, and apply safe browsing practices.</p>
               <p><strong class="text-brand-200">Discussion Prompts:</strong> "Have you ever received a suspicious message?" and "What would you do if a friend shared your photo without permission?"</p>
               <p><strong class="text-brand-200">Extensions:</strong> Use Common Sense Media resources. Invite a cybersecurity professional for a Q&A. Run a school-wide "spot the phish" challenge.</p>
-              <p><strong class="text-brand-200">Assessment:</strong> Use the knowledge check as a quiz. Evaluate posters and phishing guides for accuracy and depth. Observe class discussions for critical thinking.</p>
+              <p><strong class="text-brand-200">Assessment:</strong> Use the knowledge check as a quiz. Evaluate posters and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('phishing')">phishing</span> guides for accuracy and depth. Observe class discussions for critical thinking.</p>
             </div>
           </div>
         </section>

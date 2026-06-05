@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -182,10 +184,10 @@
               Storage is where your computer keeps everything permanently — the operating system, applications, documents, photos, music, and games. Unlike RAM, storage retains data even when the power is off. Choosing and installing the right storage drives is critical for system responsiveness.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              There are several types of storage drives available today, each with different speeds, capacities, and form factors. Hard Disk Drives (HDDs) offer large capacities at low cost. Solid State Drives (SSDs) are much faster. M.2 NVMe drives are the fastest and most compact, plugging directly into the motherboard.
+              There are several types of storage drives available today, each with different speeds, capacities, and form factors. Hard Disk Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span>) offer large capacities at low cost. Solid State Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>) are much faster. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> drives are the fastest and most compact, plugging directly into the motherboard.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn the differences between HDD, SATA SSD, and NVMe M.2 storage, how to physically install each type, and how to connect the necessary cables. You will also learn about partitioning and formatting drives for use.
+              In this chapter, you will learn the differences between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> storage, how to physically install each type, and how to connect the necessary cables. You will also learn about partitioning and formatting drives for use.
             </p>
           </div>
         </section>
@@ -195,15 +197,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Storage drives connect to the motherboard via SATA cables (for HDDs and 2.5-inch SSDs) or directly through M.2 slots. Data travels between the drive and the system over these interfaces. NVMe drives use the PCIe bus for maximum speed, while SATA drives use the older SATA protocol. Each drive also needs power from the PSU.</p>
+              <p class="text-sm text-theme-muted">Storage drives connect to the motherboard via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> cables (for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> and 2.5-inch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>) or directly through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> slots. Data travels between the drive and the system over these interfaces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> drives use the PCIe bus for maximum speed, while <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> drives use the older <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> protocol. Each drive also needs power from the PSU.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of storage types like different kinds of bookshelves. An HDD is a massive warehouse with a forklift — huge capacity, but slow to find specific items. A SATA SSD is a well-organised bookshelf in your living room — much faster access, decent capacity. An NVMe M.2 drive is like having the book you need already open on your desk — instant access, very fast, but with limited space.</p>
+              <p class="text-sm text-theme-muted">Think of storage types like different kinds of bookshelves. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> is a massive warehouse with a forklift — huge capacity, but slow to find specific items. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> is a well-organised bookshelf in your living room — much faster access, decent capacity. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> drive is like having the book you need already open on your desk — instant access, very fast, but with limited space.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Types of Storage Drives</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Understanding the differences helps you choose the right drive for each use case:
             </p>
@@ -220,14 +222,14 @@
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-brand-200">SATA SSD</h4>
-                <p class="mt-1 text-xs text-theme-muted">Solid State Drive in a 2.5-inch form factor. Uses NAND flash memory, no moving parts. Fast boot times and good reliability. Connects via SATA cable.</p>
+                <p class="mt-1 text-xs text-theme-muted">Solid State Drive in a 2.5-inch form factor. Uses NAND flash memory, no moving parts. Fast boot times and good reliability. Connects via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> cable.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10 text-center">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
                   <svg class="w-6 h-6 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-brand-200">M.2 NVMe SSD</h4>
-                <p class="mt-1 text-xs text-theme-muted">A small stick-shaped drive that plugs directly into the motherboard. Uses the PCIe bus for speeds up to 7,000 MB/s — over 10 times faster than SATA SSDs.</p>
+                <p class="mt-1 text-xs text-theme-muted">A small stick-shaped drive that plugs directly into the motherboard. Uses the PCIe bus for speeds up to 7,000 MB/s — over 10 times faster than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>.</p>
               </div>
             </div>
 
@@ -237,33 +239,42 @@
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">HDD Installation</p>
-                <p class="text-sm text-theme-muted">Slide the HDD into a 3.5-inch drive bay in the case. Secure it with screws on both sides (some cases use tool-less trays). Connect a SATA data cable to the motherboard and a SATA power cable from the PSU.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> Installation</p>
+                <p class="text-sm text-theme-muted">Slide the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> into a 3.5-inch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('drive-bay')">drive bay</span> in the case. Secure it with screws on both sides (some cases use tool-less trays). Connect a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> data cable to the motherboard and a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> power cable from the PSU.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">SATA SSD Installation</p>
-                <p class="text-sm text-theme-muted">Mount the 2.5-inch SSD in a dedicated slot or bay (many cases have SSD mounts behind the motherboard tray). Connect SATA data and power cables the same way as an HDD.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> Installation</p>
+                <p class="text-sm text-theme-muted">Mount the 2.5-inch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> in a dedicated slot or bay (many cases have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> mounts behind the motherboard tray). Connect <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> data and power cables the same way as an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">M.2 NVMe Installation</p>
-                <p class="text-sm text-theme-muted">Insert the M.2 drive at a 30-degree angle into the M.2 slot on the motherboard. Push it down and secure it with the small mounting screw. No cables needed — power and data go through the slot.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> Installation</p>
+                <p class="text-sm text-theme-muted">Insert the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> drive at a 30-degree angle into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> slot on the motherboard. Push it down and secure it with the small mounting screw. No cables needed — power and data go through the slot.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Cable Connections</p>
-                <p class="text-sm text-theme-muted">SATA data cables connect from the drive to a SATA port on the motherboard. SATA power cables come from the PSU. Route cables behind the motherboard tray for a clean build.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> data cables connect from the drive to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> port on the motherboard. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> power cables come from the PSU. Route cables behind the motherboard tray for a clean build.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Partitioning and Formatting</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              After physical installation, a new drive must be initialised before the operating system can use it. In Windows, open Disk Management, initialise the drive (GPT is recommended for modern systems), create a partition, and format it with a file system (NTFS for Windows). This process prepares the drive to store files.
+              After physical installation, a new drive must be initialised before the operating system can use it. In Windows, open Disk Management, initialise the drive (GPT is recommended for modern systems), create a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('format')">format</span> it with a file system (NTFS for Windows). This process prepares the drive to store files.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">For the best performance, install your operating system on an NVMe M.2 drive. Use a large HDD or SATA SSD for bulk file storage (games, media, backups). This tiered approach gives you both speed and capacity at the best value.</p>
+              <p class="text-sm text-theme-muted">For the best performance, install your operating system on an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> drive. Use a large <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> for bulk file storage (games, media, backups). This tiered approach gives you both speed and capacity at the best value.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, storage installation involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -278,14 +289,14 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>HDD</td><td>Hard Disk Drive — a storage device that uses spinning magnetic platters to read and write data mechanically</td></tr>
-                  <tr><td>SSD</td><td>Solid State Drive — a storage device using flash memory chips with no moving parts for fast data access</td></tr>
-                  <tr><td>M.2</td><td>A compact form factor for expansion cards and SSDs that plugs directly into the motherboard</td></tr>
-                  <tr><td>NVMe</td><td>Non-Volatile Memory Express — a high-speed protocol for SSDs that uses the PCIe bus for maximum performance</td></tr>
-                  <tr><td>SATA</td><td>Serial ATA — an interface standard for connecting storage drives like HDDs and SSDs to the motherboard</td></tr>
-                  <tr><td>Drive Bay</td><td>A designated slot or cage inside a computer case designed to hold storage drives</td></tr>
-                  <tr><td>Partition</td><td>A logical division of a storage drive that the operating system treats as a separate unit</td></tr>
-                  <tr><td>Format</td><td>The process of preparing a storage partition with a file system so the OS can store and retrieve files</td></tr>
+                  <tr id="vocab-hdd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></td><td>Hard Disk Drive — a storage device that uses spinning magnetic platters to read and write data mechanically</td></tr>
+                  <tr id="vocab-ssd"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></td><td>Solid State Drive — a storage device using flash memory chips with no moving parts for fast data access</td></tr>
+                  <tr id="vocab-m-2"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span></td><td>A compact form factor for expansion cards and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> that plugs directly into the motherboard</td></tr>
+                  <tr id="vocab-nvme"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span></td><td>Non-Volatile Memory Express — a high-speed protocol for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> that uses the PCIe bus for maximum performance</td></tr>
+                  <tr id="vocab-sata"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></td><td>Serial ATA — an interface standard for connecting storage drives like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> to the motherboard</td></tr>
+                  <tr id="vocab-drive-bay"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('drive-bay')">Drive Bay</span></td><td>A designated slot or cage inside a computer case designed to hold storage drives</td></tr>
+                  <tr id="vocab-partition"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span></td><td>A logical division of a storage drive that the operating system treats as a separate unit</td></tr>
+                  <tr id="vocab-format"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('format')">Format</span></td><td>The process of preparing a storage <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> with a file system so the OS can store and retrieve files</td></tr>
                 </tbody>
               </table>
             </div>
@@ -306,19 +317,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A modern NVMe SSD is over 100,000 times faster than that 1956 hard drive. You could read the entire Library of Congress in under an hour.</p>
+                <p class="text-sm text-theme-muted">A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> is over 100,000 times faster than that 1956 hard drive. You could read the entire Library of Congress in under an hour.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">SSDs have a limited number of write cycles, but modern drives can handle hundreds of terabytes written (TBW) before failing — enough for decades of normal use.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> have a limited number of write cycles, but modern drives can handle hundreds of terabytes written (TBW) before failing — enough for decades of normal use.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Many modern motherboards include a heatsink for the M.2 slot. NVMe drives run hot, and thermal throttling can slow them down — a heatsink prevents this.</p>
+                <p class="text-sm text-theme-muted">Many modern motherboards include a heatsink for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> slot. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> drives run hot, and thermal throttling can slow them down — a heatsink prevents this.</p>
               </div>
             </div>
           </div>
@@ -345,34 +356,34 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. Which storage type offers the fastest data transfer speeds?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> HDD</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> SATA SSD</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> M.2 NVMe SSD</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> All are equally fast</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> M.2 NVMe SSD</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('m-2')">M.2</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What cable does a 2.5-inch SATA SSD need to connect to the motherboard?</p>
+                <p class="text-sm font-semibold text-theme">2. What cable does a 2.5-inch <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> need to connect to the motherboard?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A SATA data cable</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> data cable</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> An Ethernet cable</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> An HDMI cable</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> No cable — it plugs directly into the motherboard</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A SATA data cable</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> data cable</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Why is a modern NVMe drive faster than a SATA SSD?</p>
+                <p class="text-sm font-semibold text-theme">3. Why is a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> drive faster than a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It uses larger storage chips</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It connects via the PCIe bus instead of SATA</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It connects via the PCIe bus instead of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It spins faster</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It uses a different power connector</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It connects via the PCIe bus instead of SATA</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It connects via the PCIe bus instead of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></p>
               </div>
 
             </div>
@@ -439,7 +450,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

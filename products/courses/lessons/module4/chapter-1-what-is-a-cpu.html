@@ -61,6 +61,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -176,13 +178,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every time you click a mouse, type a key, launch a game, or stream a video, a tiny silicon chip deep inside your computer springs into action. That chip is the Central Processing Unit, or CPU — the brain of every computing device ever built.
+              Every time you click a mouse, type a key, launch a game, or stream a video, a tiny silicon chip deep inside your computer springs into action. That chip is the Central Processing Unit, or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> — the brain of every computing device ever built.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              From smartphones and laptops to supercomputers and cloud servers, the CPU is what makes a computer truly "compute." It reads instructions from memory, decodes them, executes mathematical and logical operations, and then writes results back — all billions of times per second. Understanding what a CPU is and how it works is the first step to understanding all of modern computing.
+              From smartphones and laptops to supercomputers and cloud servers, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is what makes a computer truly "compute." It reads instructions from memory, decodes them, executes mathematical and logical operations, and then writes results back — all billions of times per second. Understanding what a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is and how it works is the first step to understanding all of modern computing.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, we will explore the CPU at a high level: what it does, where it came from, how it is built, and why it is so important. By the end, you will never look at a computer the same way again.
+              In this chapter, we will explore the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> at a high level: what it does, where it came from, how it is built, and why it is so important. By the end, you will never look at a computer the same way again.
             </p>
           </div>
         </section>
@@ -192,40 +194,40 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The CPU works by following a simple, repeating pattern called the <span class="text-brand-200">instruction cycle</span> (also known as the fetch-decode-execute cycle). In each cycle, the CPU fetches an instruction from memory, decodes it to figure out what to do, executes the operation, and then moves on to the next instruction.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> works by following a simple, repeating pattern called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span></span> (also known as the fetch-decode-execute cycle). In each cycle, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> fetches an instruction from memory, decodes it to figure out what to do, executes the operation, and then moves on to the next instruction.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Inside the CPU, billions of microscopic switches called <span class="text-brand-200">transistors</span> work together to perform these operations. By arranging transistors into logic gates, engineers build circuits that can add numbers, compare values, make decisions, and store temporary results. The magic of the CPU is that a handful of simple operations, repeated billions of times per second, can run a video game, edit a photo, or browse the web.
+              Inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, billions of microscopic switches called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span></span> work together to perform these operations. By arranging <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> into logic gates, engineers build circuits that can add numbers, compare values, make decisions, and store temporary results. The magic of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is that a handful of simple operations, repeated billions of times per second, can run a video game, edit a photo, or browse the web.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs contain multiple <span class="text-brand-200">cores</span>, each of which is an independent processing unit capable of running its own instruction cycle. A quad-core CPU has four cores that can work on different tasks simultaneously, dramatically improving performance for multitasking and multi-threaded applications.
+              Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> contain multiple <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></span>, each of which is an independent processing unit capable of running its own <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span>. A quad-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has four <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> that can work on different tasks simultaneously, dramatically improving performance for multitasking and multi-threaded applications.
             </p>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of the CPU as a master chef in a busy kitchen. The chef reads recipes (instructions), gathers ingredients from the pantry (memory), prepares each dish step by step (execution), and sends finished plates to the serving area (output). Just as a chef can chop vegetables while a sauce simmers, a modern CPU can work on multiple instructions at the same time using pipelining. The chef's speed depends on how fast they can read, prepare, and plate — exactly like the CPU's clock speed determines how many instructions it can process per second.</p>
+              <p class="text-sm text-theme-muted">Think of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> as a master chef in a busy kitchen. The chef reads recipes (instructions), gathers ingredients from the pantry (memory), prepares each dish step by step (execution), and sends finished plates to the serving area (output). Just as a chef can chop vegetables while a sauce simmers, a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can work on multiple instructions at the same time using pipelining. The chef's speed depends on how fast they can read, prepare, and plate — exactly like the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU's</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> speed determines how many instructions it can process per second.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The first CPU was the Intel 4004, released in 1971. It contained just 2,300 transistors and ran at 740 kHz — about 740,000 cycles per second. Today, a modern CPU like the AMD Ryzen or Apple M-series contains tens of billions of transistors and runs at speeds exceeding 5 GHz (5 billion cycles per second). This astonishing growth follows an observation known as <span class="text-brand-200">Moore's Law</span>, which predicted that the number of transistors on a chip would double roughly every two years.
+              The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> was the Intel 4004, released in 1971. It contained just 2,300 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> and ran at 740 kHz — about 740,000 cycles per second. Today, a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> like the AMD Ryzen or Apple M-series contains tens of billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> and runs at speeds exceeding 5 GHz (5 billion cycles per second). This astonishing growth follows an observation known as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('moore-s-law')">Moore's Law</span></span>, which predicted that the number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> on a chip would double roughly every two years.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A CPU is manufactured on a <span class="text-brand-200">die</span> — a thin slice of silicon crystal. The die is cut from a larger silicon wafer and packaged into a protective chip carrier with metal pins or contacts that connect it to the computer's motherboard through a <span class="text-brand-200">socket</span>. The socket provides power and a data pathway between the CPU and the rest of the system, including RAM, storage, and peripheral devices.
+              A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is manufactured on a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">die</span></span> — a thin slice of silicon crystal. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">die</span> is cut from a larger silicon wafer and packaged into a protective chip carrier with metal pins or contacts that connect it to the computer's motherboard through a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span></span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span> provides power and a data pathway between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and the rest of the system, including RAM, storage, and peripheral devices.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The <span class="text-brand-200">chipset</span> on the motherboard acts as the traffic controller, managing data flow between the CPU, memory, storage, and expansion cards. Together, the CPU, chipset, and socket form the foundation of every computer system.
+              The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span></span> on the motherboard acts as the traffic controller, managing data flow between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, memory, storage, and expansion cards. Together, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span> form the foundation of every computer system.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              At the most fundamental level, a CPU is a <span class="text-brand-200">finite-state machine</span> driven by a clock signal. The clock signal is a square wave that alternates between high and low voltage, and each rising edge triggers the next step in the instruction cycle. This is why clock speed directly limits how many instructions can be processed per second.
+              At the most fundamental level, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is a <span class="text-brand-200">finite-state machine</span> driven by a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> signal. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> signal is a square wave that alternates between high and low voltage, and each rising edge triggers the next step in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span>. This is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> speed directly limits how many instructions can be processed per second.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs employ <span class="text-brand-200">superscalar architecture</span>, meaning they can issue multiple instructions in parallel across several execution units. Combined with <span class="text-brand-200">out-of-order execution</span>, the CPU can reorder instructions to keep execution units busy even when some instructions stall waiting for data from memory. Techniques like <span class="text-brand-200">branch prediction</span> and <span class="text-brand-200">speculative execution</span> further improve performance by guessing which path a program will take and executing ahead of time.
+              Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> employ <span class="text-brand-200">superscalar architecture</span>, meaning they can issue multiple instructions in parallel across several execution units. Combined with <span class="text-brand-200">out-of-order execution</span>, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can reorder instructions to keep execution units busy even when some instructions stall waiting for data from memory. Techniques like <span class="text-brand-200">branch prediction</span> and <span class="text-brand-200">speculative execution</span> further improve performance by guessing which path a program will take and executing ahead of time.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The interface between the CPU and software is defined by the <span class="text-brand-200">Instruction Set Architecture (ISA)</span> — a contract that specifies which operations the CPU can perform, how memory is addressed, and how data flows between registers, cache, and main memory. Two dominant ISAs in modern computing are <span class="text-brand-200">x86</span> (used by Intel and AMD processors) and <span class="text-brand-200">ARM</span> (used in most smartphones and increasingly in laptops and servers).
+              The interface between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and software is defined by the <span class="text-brand-200">Instruction Set Architecture (ISA)</span> — a contract that specifies which operations the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can perform, how memory is addressed, and how data flows between registers, cache, and main memory. Two dominant ISAs in modern computing are <span class="text-brand-200">x86</span> (used by Intel and AMD processors) and <span class="text-brand-200">ARM</span> (used in most smartphones and increasingly in laptops and servers).
             </p>
           </div>
         </section>
@@ -243,16 +245,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>CPU</td><td>Central Processing Unit — the primary component that executes instructions in a computer</td></tr>
-                  <tr><td>Microprocessor</td><td>A CPU fabricated on a single integrated circuit chip</td></tr>
-                  <tr><td>Transistor</td><td>A semiconductor switch that can amplify or switch electronic signals; the fundamental building block of a CPU</td></tr>
-                  <tr><td>Die</td><td>A small block of semiconducting material on which the CPU circuit is fabricated</td></tr>
-                  <tr><td>Core</td><td>An independent processing unit within a CPU that can execute its own instruction stream</td></tr>
-                  <tr><td>Clock</td><td>A timing signal that synchronizes the operations of the CPU, measured in cycles per second (Hz)</td></tr>
-                  <tr><td>Socket</td><td>The physical connector on a motherboard that holds and electrically interfaces with the CPU</td></tr>
-                  <tr><td>Chipset</td><td>A group of chips on the motherboard that manages data flow between the CPU, memory, storage, and peripherals</td></tr>
-                  <tr><td>Instruction Cycle</td><td>The fetch-decode-execute cycle that the CPU repeats for every instruction</td></tr>
-                  <tr><td>Moore's Law</td><td>The observation that transistor density on integrated circuits doubles approximately every two years</td></tr>
+                  <tr id="vocab-cpu"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td><td>Central Processing Unit — the primary component that executes instructions in a computer</td></tr>
+                  <tr id="vocab-microprocessor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprocessor')">Microprocessor</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> fabricated on a single integrated circuit chip</td></tr>
+                  <tr id="vocab-transistor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">Transistor</span></td><td>A semiconductor switch that can amplify or switch electronic signals; the fundamental building block of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td></tr>
+                  <tr id="vocab-die"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">Die</span></td><td>A small block of semiconducting material on which the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> circuit is fabricated</td></tr>
+                  <tr id="vocab-core"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span></td><td>An independent processing unit within a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> that can execute its own instruction stream</td></tr>
+                  <tr id="vocab-clock"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">Clock</span></td><td>A timing signal that synchronizes the operations of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, measured in cycles per second (Hz)</td></tr>
+                  <tr id="vocab-socket"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></td><td>The physical connector on a motherboard that holds and electrically interfaces with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span></td></tr>
+                  <tr id="vocab-chipset"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">Chipset</span></td><td>A group of chips on the motherboard that manages data flow between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, memory, storage, and peripherals</td></tr>
+                  <tr id="vocab-instruction-cycle"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">Instruction Cycle</span></td><td>The fetch-decode-execute cycle that the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> repeats for every instruction</td></tr>
+                  <tr id="vocab-moore-s-law"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('moore-s-law')">Moore's Law</span></td><td>The observation that <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistor</span> density on integrated circuits doubles approximately every two years</td></tr>
                 </tbody>
               </table>
             </div>
@@ -268,25 +270,25 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first microprocessor, the Intel 4004 (1971), had only 2,300 transistors. Today's high-end CPUs have over 50 billion transistors — roughly 20 million times more.</p>
+                <p class="text-sm text-theme-muted">The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprocessor')">microprocessor</span>, the Intel 4004 (1971), had only 2,300 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span>. Today's high-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> have over 50 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> — roughly 20 million times more.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The world's fastest supercomputer uses over 8 million CPU cores and can perform more than a quintillion (10&sup1;&sup8;) operations per second.</p>
+                <p class="text-sm text-theme-muted">The world's fastest supercomputer uses over 8 million <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> and can perform more than a quintillion (10&sup1;&sup8;) operations per second.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">If a CPU transistor were the size of a grain of rice, a modern CPU die would be larger than a football field.</p>
+                <p class="text-sm text-theme-muted">If a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistor</span> were the size of a grain of rice, a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">die</span> would be larger than a football field.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A typical CPU generates so much heat that without a heatsink and fan, it would melt itself in seconds. High-end CPUs can draw over 250 watts — more than many household lightbulbs.</p>
+                <p class="text-sm text-theme-muted">A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> generates so much heat that without a heatsink and fan, it would melt itself in seconds. High-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> can draw over 250 watts — more than many household lightbulbs.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -298,7 +300,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The word "CPU" first appeared in 1963 in an IBM advertisement for the System/360 mainframe — long before the first microprocessor existed.</p>
+                <p class="text-sm text-theme-muted">The word "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>" first appeared in 1963 in an IBM advertisement for the System/360 mainframe — long before the first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprocessor')">microprocessor</span> existed.</p>
               </div>
             </div>
           </div>
@@ -324,10 +326,10 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does CPU stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Central Programming Unit</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Core Processing Unit</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> Processing Unit</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Central Processing Unit</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Computer Power Unit</label>
                 </div>
@@ -335,25 +337,25 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which component connects the CPU to the motherboard?</p>
+                <p class="text-sm font-semibold text-theme">2. Which component connects the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> to the motherboard?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Heatsink</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Socket</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> RAM slot</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Power supply</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Socket</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">Socket</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What is the fundamental building block of a CPU?</p>
+                <p class="text-sm font-semibold text-theme">3. What is the fundamental building block of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Resistor</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Capacitor</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Transistor</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">Transistor</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Diode</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Transistor</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">Transistor</span></p>
               </div>
 
             </div>
@@ -417,7 +419,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
               <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
               <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
               <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>

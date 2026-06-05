@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every app needs to remember things. Instagram remembers your photos and followers. WhatsApp stores your messages. Amazon keeps your order history. But where does all this data live? It lives in a <span class="text-brand-200 font-semibold">database</span> — a structured system for storing, organizing, and retrieving information.
+              Every app needs to remember things. Instagram remembers your photos and followers. WhatsApp stores your messages. Amazon keeps your order history. But where does all this data live? It lives in a <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span></span> — a structured system for storing, organizing, and retrieving information.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Without databases, every time you closed an app, everything would be gone. You would have to create a new account, find new friends, and start from scratch each time. Databases are what make data persistent — they remember everything, forever.
+              Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>, every time you closed an app, everything would be gone. You would have to create a new account, find new friends, and start from scratch each time. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Databases</span> are what make data persistent — they remember everything, forever.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn how databases work, the difference between SQL and NoSQL databases, and the four basic operations that every database supports: Create, Read, Update, and Delete — known as <span class="text-brand-200 font-semibold">CRUD</span>.
+              In this chapter, you will learn how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> work, the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>, and the four basic operations that every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> supports: Create, Read, Update, and Delete — known as <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('crud')">CRUD</span></span>.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">A database is organized storage. Instead of dumping everything into one big pile, data is structured into tables (for SQL databases) or documents (for NoSQL databases). When the backend needs data, it sends a query to the database, and the database returns the matching results.</p>
+              <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> is organized storage. Instead of dumping everything into one big pile, data is structured into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">tables</span> (for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>) or documents (for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>). When the backend needs data, it sends a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">query</span> to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span>, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> returns the matching results.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Library Analogy</p>
-              <p class="text-sm text-theme-muted">An SQL database is like a library with a card catalog. Every book has a specific place, a specific format, and you must follow the rules to find it. A NoSQL database is like a filing cabinet — each drawer can hold different kinds of documents, and you can organise them however you like.</p>
+              <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> is like a library with a card catalog. Every book has a specific place, a specific format, and you must follow the rules to find it. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> is like a filing cabinet — each drawer can hold different kinds of documents, and you can organise them however you like.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">CRUD Operations</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every database operation falls into one of four categories:
+              Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> operation falls into one of four categories:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-4 gap-4">
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
@@ -213,7 +215,7 @@
                   <span class="text-brand-300 font-bold text-lg">+</span>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200">Create</h4>
-                <p class="mt-2 text-sm text-theme-muted">Add new data — a new user, a new post, a new product. Uses the INSERT command in SQL.</p>
+                <p class="mt-2 text-sm text-theme-muted">Add new data — a new user, a new post, a new product. Uses the INSERT command in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl text-center border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3">
@@ -240,32 +242,41 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">SQL vs NoSQL</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              There are two main types of databases:
+              There are two main types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">SQL (Relational)</p>
-                <p class="text-sm text-theme-muted">Data is stored in tables with rows and columns, like a spreadsheet. Every row has the same structure. Great for complex queries, consistency, and relationships between data. Examples: MySQL, PostgreSQL.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</p>
+                <p class="text-sm text-theme-muted">Data is stored in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">tables</span> with rows and columns, like a spreadsheet. Every row has the same structure. Great for complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">queries</span>, consistency, and relationships between data. Examples: MySQL, PostgreSQL.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">NoSQL (Non-Relational)</p>
+                <p class="text-sm font-semibold text-brand-200 mb-2"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> (Non-Relational)</p>
                 <p class="text-sm text-theme-muted">Data is stored as documents (like JSON files) or key-value pairs. Flexible structure — each document can have different fields. Great for scalability, rapid development, and unstructured data. Examples: MongoDB, Firebase.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">schema</span> defines the structure of a database — what tables exist, what columns they have, and what type of data each column can hold. SQL databases require a schema to be defined before you can add data. NoSQL databases are schemaless — you can add documents with any structure.
+              A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('schema')">schema</span></span> defines the structure of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> — what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">tables</span> exist, what columns they have, and what type of data each column can hold. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> require a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('schema')">schema</span> to be defined before you can add data. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> are schemaless — you can add documents with any structure.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When the backend needs data, it sends a <span class="text-brand-200">query</span>. In SQL, a query looks like: <code class="text-brand-200">SELECT name FROM users WHERE id = 1</code>. The database engine finds the matching data and returns it, often in milliseconds even from millions of records.
+              When the backend needs data, it sends a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">query</span></span>. In <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span>, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">query</span> looks like: <code class="text-brand-200">SELECT name FROM users WHERE id = 1</code>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> engine finds the matching data and returns it, often in milliseconds even from millions of records.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The choice between SQL and NoSQL depends on the app. Banking apps need the strict consistency of SQL. Social media apps often prefer the flexibility and scalability of NoSQL.</p>
+              <p class="text-sm text-theme-muted">The choice between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> depends on the app. Banking apps need the strict consistency of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span>. Social media apps often prefer the flexibility and scalability of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span>.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -280,13 +291,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Database</td><td>An organized system for storing, managing, and retrieving data</td></tr>
-                  <tr><td>SQL</td><td>Structured Query Language — used to manage relational databases with structured schemas</td></tr>
-                  <tr><td>NoSQL</td><td>A type of database that stores data in flexible, non-tabular formats like documents or key-value pairs</td></tr>
-                  <tr><td>Table</td><td>A collection of related data organised into rows and columns in a relational database</td></tr>
-                  <tr><td>Query</td><td>A request sent to a database to retrieve or manipulate data</td></tr>
-                  <tr><td>CRUD</td><td>The four basic operations: Create, Read, Update, Delete</td></tr>
-                  <tr><td>Schema</td><td>The structure that defines how data is organized in a database</td></tr>
+                  <tr id="vocab-database"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">Database</span></td><td>An organized system for storing, managing, and retrieving data</td></tr>
+                  <tr id="vocab-sql"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span></td><td>Structured <span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">Query</span> Language — used to manage relational <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> with structured <span class="vocab cursor-pointer" onclick="scrollToVocabulary('schema')">schemas</span></td></tr>
+                  <tr id="vocab-nosql"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span></td><td>A type of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> that stores data in flexible, non-tabular formats like documents or key-value pairs</td></tr>
+                  <tr id="vocab-table"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">Table</span></td><td>A collection of related data organised into rows and columns in a relational <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span></td></tr>
+                  <tr id="vocab-query"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('query')">Query</span></td><td>A request sent to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> to retrieve or manipulate data</td></tr>
+                  <tr id="vocab-crud"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('crud')">CRUD</span></td><td>The four basic operations: Create, Read, Update, Delete</td></tr>
+                  <tr id="vocab-schema"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('schema')">Schema</span></td><td>The structure that defines how data is organized in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -301,19 +312,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The term "database" was first used in the 1960s. Early databases stored data on magnetic tape — reading a record could take minutes.</p>
+                <p class="text-sm text-theme-muted">The term "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span>" was first used in the 1960s. Early <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> stored data on magnetic tape — reading a record could take minutes.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">MySQL is the world's most popular open-source database. It powers Facebook, Twitter, YouTube, and WordPress.</p>
+                <p class="text-sm text-theme-muted">MySQL is the world's most popular open-source <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span>. It powers Facebook, Twitter, YouTube, and WordPress.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Google processes over 3.5 billion searches per day, each one querying massive distributed databases across thousands of servers.</p>
+                <p class="text-sm text-theme-muted">Google processes over 3.5 billion searches per day, each one querying massive distributed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span> across thousands of servers.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -325,7 +336,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Instagram stores over 100 petabytes of data — that is 100 million gigabytes — across its SQL and NoSQL databases.</p>
+                <p class="text-sm text-theme-muted">Instagram stores over 100 petabytes of data — that is 100 million gigabytes — across its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">databases</span>.</p>
               </div>
             </div>
           </div>
@@ -350,7 +361,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does CRUD stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('crud')">CRUD</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Copy, Run, Update, Delete</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Create, Read, Update, Delete</label>
@@ -361,18 +372,18 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which type of database stores data in tables with rows and columns?</p>
+                <p class="text-sm font-semibold text-theme">2. Which type of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> stores data in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">tables</span> with rows and columns?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> NoSQL</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> SQL (Relational)</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> File system</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Spreadsheet</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> SQL (Relational)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which of these is a NoSQL database?</p>
+                <p class="text-sm font-semibold text-theme">3. Which of these is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> MySQL</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> PostgreSQL</label>

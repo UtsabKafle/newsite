@@ -4,70 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0959C8">
+
   <title>Chapter 2: The Scratch Interface | Consica Academy</title>
-  <meta name="description" content="Chapter 2: The Scratch Interface. Navigating panels and coding grids">
+  <meta name="description" content="Chapter 2: The Scratch Interface.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#0959C8', 50: '#E8F1FC', 100: '#C5DBF7', 200: '#8EB8EF', 300: '#5694E4', 400: '#2475D9', 500: '#0959C8', 600: '#0747A3', 700: '#05367A', 800: '#032652', 900: '#021629' },
-            surface: { dark: '#0A0E17', darker: '#060910', card: 'rgba(255,255,255,0.04)', glass: 'rgba(255,255,255,0.06)' }
-          },
-          fontFamily: { display: ['Poppins', 'system-ui', 'sans-serif'], body: ['Inter', 'system-ui', 'sans-serif'] },
-          boxShadow: { glow: '0 0 60px rgba(9, 89, 200, 0.25)', 'glow-lg': '0 0 100px rgba(9, 89, 200, 0.35)', glass: '0 8px 32px rgba(0, 0, 0, 0.24)' }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('consica-theme');
-      var theme = stored || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#0959C8',50:'#E8F1FC',100:'#C5DBF7',200:'#8EB8EF',300:'#5694E4',400:'#2475D9',500:'#0959C8',600:'#0747A3',700:'#05367A',800:'#032652',900:'#021629'}},surface:{dark:'#0A0E17',darker:'#060910',card:'rgba(255,255,255,0.04)',glass:'rgba(255,255,255,0.06)'}},fontFamily:{display:['Poppins','system-ui','sans-serif'],body:['Inter','system-ui','sans-serif']},boxShadow:{glow:'0 0 60px rgba(9, 89, 200, 0.25)','glow-lg':'0 0 100px rgba(9, 89, 200, 0.35)',glass:'0 8px 32px rgba(0, 0, 0, 0.24)'}}}}</script>
+  <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css">
   <link rel="stylesheet" href="../../../../shared/styles/animations.css">
   <link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>
-    .static-main { padding-top: var(--nav-height); }
-    .static-main section { scroll-margin-top: calc(var(--nav-height) + 1rem); }
-    .vocab-table th { background: rgba(9, 89, 200, 0.12); font-weight: 600; text-align: left; padding: 0.75rem 1rem; }
-    .vocab-table td { padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-    .vocab-table tr:hover td { background: rgba(9, 89, 200, 0.04); }
-    .kb-check { border-left: 3px solid rgba(9, 89, 200, 0.25); padding-left: 1rem; }
-    .kb-answer { display: none; }
-    .kb-answer.revealed { display: block; }
-    .analogy-card { border-left: 3px solid rgba(9, 89, 200, 0.3); transition: border-color 0.3s ease; }
-    .analogy-card:hover { border-left-color: rgba(9, 89, 200, 0.7); }
-    .misconception-card { border-left: 3px solid rgba(239, 68, 68, 0.3); }
-    .misconception-card.corrected { border-left-color: rgba(34, 197, 94, 0.4); }
+    .static-main{padding-top:var(--nav-height)}
+    .static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}
+    .static-main{padding-top:3.5rem}
+    .static-main section{scroll-margin-top:4rem}
+    .static-main .glass-panel{border-radius:1rem}
+    .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+    .mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,.35)}
+    #mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+    .safe-top{padding-top:env(safe-area-inset-top,0)}
+    .lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th{background:rgba(9,89,200,.12);font-weight:600;text-align:left;padding:.75rem 1rem}
+    .vocab-table td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.05)}
+    .vocab-table tr:hover td{background:rgba(9,89,200,.04)}
+    .kb-check{border-left:3px solid rgba(9,89,200,.25);padding-left:1rem}
+    .kb-check p{margin-bottom:.25rem}
+    .kb-answer{display:none}
+    .revealed{display:block}
+    .vocab{color:#3b82f6;font-weight:500}
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-ring" role="status" aria-label="Loading"></div>
-      <p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p>
-    </div>
-  </div>
-
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
-
+  <div id="app-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-darker"><div class="flex flex-col items-center gap-4"><div class="loader-ring" role="status" aria-label="Loading"></div><p class="text-sm text-theme-muted font-display tracking-wide">Consica Labs</p></div></div>
+  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true"><div class="aurora-blob aurora-blob-1"></div><div class="aurora-blob aurora-blob-2"></div><div class="aurora-blob aurora-blob-3"></div><div class="aurora-mesh"></div></div>
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
@@ -91,34 +65,21 @@
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
+            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
           </button>
           <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 8h16M4 16h16"/>
-            </svg>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
         </div>
       </nav>
     </header>
-
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../../../assets/images/consica.png" alt="Consica Labs">
-    </div>
-
+    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
       <aside class="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] glass-panel border-l border-theme p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-8">
-          <span class="font-display font-semibold">Menu</span>
-          <button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-8"><span class="font-display font-semibold">Menu</span><button type="button" id="mobile-menu-close" class="p-2" aria-label="Close menu">&times;</button></div>
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
@@ -130,32 +91,18 @@
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
-        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3">
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a>
-        </div>
+        <div class="drawer-contact-row mt-auto pt-6 flex flex-col gap-3"><a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-center w-full">Contact</a></div>
       </aside>
     </div>
-
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 glass-nav pb-safe lg:hidden" aria-label="Quick navigation">
       <div class="flex justify-around items-center h-16 px-2">
-        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg>
-          <span class="text-[10px] font-medium">Home</span>
-        </a>
-        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
-          <span class="text-[10px] font-medium">Products</span>
-        </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
-          <span class="text-[10px] font-medium">Services</span>
-        </a>
-        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg>
-          <span class="text-[10px] font-medium">Contact</span>
-        </a>
+        <a href="../../../../index.html#hero" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20H5v-9.5z"/></svg><span class="text-[10px] font-medium">Home</span></a>
+        <a href="../../../../index.html#products" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg><span class="text-[10px] font-medium">Products</span></a>
+        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="text-[10px] font-medium">Services</span></a>
+        <a href="../../../../index.html#contact" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16v12H4V6l8 7 8-7"/></svg><span class="text-[10px] font-medium">Contact</span></a>
       </div>
     </nav>
+
 
     <main id="main-content" class="static-main">
       <article class="px-5 pt-12 pb-6 lg:px-8 lg:pt-24 lg:pb-16 max-w-[1600px] mx-auto">
@@ -163,119 +110,80 @@
           <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Chapter 2</span>
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
-
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Scratch Interface</h1>
         <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Navigating panels and coding grids</p>
 
-        <!-- Definition Section -->
-        <section class="mt-8 lg:mt-12 reveal" id="definition">
+        
+
+
+
+
+
+<section class="mt-8 lg:mt-12 reveal" id="definition">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Definition</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch interface comprises the Block Palette, Script Area, Stage, Sprite List, and Backdrop Pane, organized for seamless visual coding.</p>
-            <div class="mt-6 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Think of The Scratch Interface as:</p>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Director script</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Grid movements</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Trigger alarms</span>
-                </div>
-                
-                <div class="glass-panel p-3 text-center">
-                  <span class="text-xs text-theme-soft font-semibold block">Costume racks</span>
-                </div>
-                
-              </div>
-              <p class="mt-4 text-sm text-theme-muted italic">Just as an actor changes costume or walks across the theater grid on cue, The Scratch Interface dictates sprite behavior.</p>
-            </div>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch interface is the visual workspace where Scratch programs are created and run. It consists of four main areas: the Stage (where projects run), the Blocks Palette (containing all programming blocks organized by category), the Scripts Area (where blocks are assembled into programs), and the Sprite List (showing all characters in the project).</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Each area of the interface serves a specific purpose. The Stage displays the visual output and uses an x/y coordinate system with (0,0) at the center. The Blocks Palette organizes over 100 block types into color-coded categories: Motion (dark blue), Looks (purple), Sound (pink), Events (yellow), Control (orange), Sensing (light blue), Operators (green), Variables (orange-red), and My Blocks (dark red). The Scripts Area is where you drag blocks to build programs that control your sprites.</p>
           </div>
         </section>
 
-        <!-- Real-Life Example Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="real-life-example">
+<section class="mt-6 lg:mt-10 reveal" id="real-life-example">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Real-Life Example</h2>
-            <div class="mt-4 flex flex-col lg:flex-row gap-6 items-start">
-              <div class="flex-1">
-                <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Just as you coordinate actions in real life, The Scratch Interface works by structuring logic commands in sequence:</p>
-                <ol class="mt-4 space-y-3 text-sm text-theme-muted">
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">1</span>
-                    <span>Register the trigger event block.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">2</span>
-                    <span>Run calculations or movements within a continuous control block.</span>
-                  </li>
-                  
-                  <li class="flex gap-3">
-                    <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">3</span>
-                    <span>Update values or graphics on the stage viewport.</span>
-                  </li>
-                  
-                </ol>
-              </div>
-              <div class="flex-1 glass-panel p-5 bg-brand-500/[0.03]">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Key Highlights:</p>
-                <ul class="space-y-2 text-sm text-theme-muted">
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Trigger event
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Logic evaluation
-                  </li>
-                  
-                  <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-300 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    Visual update
-                  </li>
-                  
-                </ul>
-              </div>
-            </div>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Think of the Scratch interface like a chef's kitchen. The Stage is the serving plate where the final dish is presented. The Blocks Palette is the pantry with all ingredients organized by type (vegetables, spices, tools). The Scripts Area is the counter where you combine ingredients following a recipe. The Sprite List is like the menu board showing all the dishes you are preparing. Just as a well-organized kitchen helps a chef cook efficiently, the Scratch interface helps programmers create efficiently.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In practice, a teacher in a classroom might project the Scratch interface on a screen while students follow along on their own computers. The teacher clicks through each area — 'This is where our cat sprite lives' (Sprite List), 'This is where we find movement blocks' (Palette), 'We snap blocks here to make the cat dance' (Scripts Area), 'And this is where we watch the cat dance' (Stage). Students learn the layout by using it, not by memorizing it.</p>
           </div>
         </section>
 
-        <!-- Interactive Diagram Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
+<section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
-            <p class="mt-4 text-theme-muted">Launch the interactive simulation in the Consica Lab Engine.</p>
+            <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-02-the-scratch-interfac/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
-              Open Interactive Diagram &rarr;
+              Open Interactive Diagram
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </section>
 
-        <!-- Core Explanation -->
-        <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+<section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch engine interprets The Scratch Interface by compiling the visual blocks into executable runtime threads. For each cycle, it updates coordinates, evaluates conditions, and repaint sprites.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Managing The Scratch Interface requires understanding thread execution. In Scratch, multiple scripts can run in parallel, meaning a 'forever' loop checks sensing parameters while a separate event handler moves the sprite.</p>
-            
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Concepts</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">At the code level, The Scratch Interface blocks are processed as asynchronous functions inside the browser page. The interpreter handles variables using scope mappings and coordinates using float coordinates mapped to WebGL pixel coordinates.</p>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">When you first open Scratch, you might feel a little overwhelmed by all the panels, buttons, and menus. Take a deep breath — everything has its place, and you will learn it quickly. The Scratch interface is carefully designed to make programming as intuitive as possible. Once you understand the layout, you will be able to focus on creating instead of searching for tools.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch editor has four main areas: the Stage (top right), where you see your project run; the Sprite List (bottom right), showing all characters in your project; the Blocks Palette (middle left), containing all available programming blocks; and the Scripts Area (middle), where you drag blocks to build programs. Each area has a specific purpose and works together with the others.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will take a guided tour of the Scratch interface. You will learn what each section does, how to navigate between them, and how to customize your workspace. By the end, you will feel comfortable finding your way around and ready to start snapping blocks together.</p>
           </div>
         </section>
 
-        <!-- Vocabulary -->
-        <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
+<section class="mt-6 lg:mt-10 reveal" id="how-it-works">
+          <div class="glass-panel p-6 lg:p-8">
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Stage is where your project comes to life. It is a rectangle, typically 480 pixels wide and 360 pixels tall, with a coordinate system. The center of the stage is at coordinates (0, 0). The x-axis runs left (-240) to right (240), and the y-axis runs bottom (-180) to top (180). Every sprite on the stage has an x and y position that determines where it appears.</p>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Blocks Palette is organized into nine color-coded categories: Motion (dark blue), Looks (purple), Sound (pink), Events (yellow), Control (orange), Sensing (light blue), Operators (green), Variables (orange-red), and My Blocks (dark red). Each category contains blocks related to that type of function. Clicking a category name shows its blocks in the palette. The color coding helps you quickly find the block you need.</p>
+
+            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
+              <p class="text-sm text-theme-muted">Think of the Scratch interface like a painter's studio. The Stage is the canvas where your artwork appears. The Blocks Palette is like your paint palette, with different colors for different types of paint (motion, looks, sound, etc.). The Scripts Area is like your workspace where you mix and apply paint to create effects. And the Sprite List is like a gallery of all your characters, each waiting for your instructions.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The coordinate system in Scratch uses a Cartesian plane, just like in mathematics. The center is (0, 0). Moving right increases x, moving left decreases x. Moving up increases y, moving down decreases y. The stage is 480 pixels wide (x from -240 to 240) and 360 pixels tall (y from -180 to 180). You can see a sprite's current position in the sprite info panel below the stage.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Menu Bar at the top of the editor contains important options: File (new, save, load), Edit (restore, undo), Tutorials (built-in guided lessons), and the Project Name (click to rename). There is also a Share button (when you are online) that publishes your project to the Scratch website. The menu bar also shows your username and has controls for language and account settings.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Toolbar below the menu bar has the Green Flag (start your project), Stop Sign (stop all scripts), and controls for presentation mode (full screen). There are also buttons to duplicate, delete, and grow/shrink sprites. The Undo and Redo buttons are lifesavers when you accidentally delete something important.</p>
+
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">The default stage size of 480x360 pixels was chosen because it divides evenly into many common screen sizes and provides a good balance between detail and performance. This resolution has been consistent across all versions of Scratch since 2007.</p>
+            </div>
+
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Scratch editor supports multiple tabs in the Scripts Area. When you select a sprite, its scripts appear. When you select the Stage, you can add backdrop scripts (code that runs for the background). Each sprite and the stage have their own separate set of scripts, which is how Scratch implements parallel programming — multiple scripts running at the same time.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The Costumes tab (next to the Scripts tab) lets you edit the visual appearance of a sprite. You can draw your own costumes using the built-in vector or bitmap editors. Vector graphics scale without losing quality, while bitmap graphics can create more detailed textures. The Sounds tab lets you record or import sounds, and use the sound editor to trim, fade, and apply effects.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Scratch supports keyboard shortcuts that speed up common tasks. Ctrl+Z (undo), Ctrl+Shift+Z (redo), Ctrl+C/Ctrl+V (copy/paste blocks), and Ctrl+D (duplicate sprite or block). Right-clicking a block or script shows a context menu with options like duplicate, delete, add comment, and (for boolean blocks) the ability to see the block's output value.</p>
+          </div>
+        </section>
+
+<section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
@@ -287,200 +195,150 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>The Scratch Interface</td><td>The primary technological concept explaining how components interact within the context of Scratch Programming.</td></tr><tr><td>Coordinate Grid</td><td>The X and Y plane representing the Stage layout coordinates.</td></tr><tr><td>Hat Block</td><td>A block with a rounded top that registers events to launch scripts.</td></tr><tr><td>Sensing Block</td><td>A block that checks for collisions, touch parameters, or mouse pointer coordinates.</td></tr>
+                  <tr id="vocab-scratch-interface"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('scratch-interface')">Scratch Interface</span></td><td>The visual coding workspace with Blocks Palette, Script Area, Stage, and Sprite List panels.</td></tr>
+                  <tr id="vocab-blocks-palette"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('blocks-palette')">Blocks Palette</span></td><td>The left panel listing all available blocks grouped by color-coded categories.</td></tr>
+                  <tr id="vocab-script-area"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('script-area')">Script Area</span></td><td>The central workspace where blocks are snapped together to form scripts for the selected sprite.</td></tr>
+                  <tr id="vocab-stage"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('stage')">Stage</span></td><td>The top-right display area where projects run on a 480x360 coordinate grid.</td></tr>
+                  <tr id="vocab-sprite-list"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sprite-list')">Sprite List</span></td><td>The bottom-right panel showing all sprites in the project for selection and programming.</td></tr>
+                  <tr id="vocab-backdrop"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backdrop')">Backdrop</span></td><td>The background image or color of the stage, changeable through the Backdrop pane.</td></tr>
+                  <tr id="vocab-coordinate-grid"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('coordinate-grid')">Coordinate Grid</span></td><td>The X (horizontal) and Y (vertical) axes that define sprite positions on the stage.</td></tr>
+                  <tr id="vocab-hat-block"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat Block</span></td><td>A block with a rounded top that registers events (like Green Flag click) to start scripts.</td></tr>
+                  <tr id="vocab-costume"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('costume')">Costume</span></td><td>One of multiple visual appearances a sprite can switch between to create animation.</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <!-- Fun Facts -->
-        <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
+<section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Using The Scratch Interface blocks prevents syntax compiler issues entirely.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">Over 100 million Scratch projects have been shared on the public educational repository.</p>
+              <p class="text-sm text-theme-muted">The Scratch interface has remained remarkably consistent across all three major versions (1.0, 2.0, 3.0). The basic layout has not changed since 2007, so tutorials from any version still feel familiar.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
-              <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm text-theme-muted">The coding ideas behind Scratch are used by university students to learn fundamental syntax concepts.</p>
+              <p class="text-sm text-theme-muted">The green flag as the 'start' button was chosen because it is universally recognized as a signal to begin — inspired by racing flags and traffic lights.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              
+              <p class="text-sm text-theme-muted">Scratch 3.0 was rebuilt from the ground up using JavaScript and HTML5, replacing the Flash-based Scratch 2.0. This took the MIT team over two years of development.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">The Scratch editor has a hidden 'turbo mode' that runs scripts at maximum speed (30x faster than normal). You can enable it by holding Shift while clicking the green flag.</p>
+            </div>
+            <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
+                <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="text-sm text-theme-muted">Every block in Scratch has a unique shape that tells you how it can be used. Hat blocks (rounded top) start scripts, stack blocks (notch top, bump bottom) go in the middle, reporter blocks (rounded) report values, and boolean blocks (pointed) report true/false.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Common Misconceptions -->
-        <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
+<section class="mt-8 lg:mt-12 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <div class="mt-4 space-y-4">
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Sprites can only execute one script stack at a time.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A single sprite can have multiple scripts running simultaneously, starting from different events or the same event.</p>
-              </div>
-              
-              <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-red-400 mb-2">Misconception: Variables are shared across all sprites by default.</p>
-                <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> You can create variables that belong 'For this sprite only', isolating data from other elements.</p>
-              </div>
-              
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The stage coordinates are the same as a computer screen.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Scratch coordinates are relative to the stage center, not the screen. A sprite at (0,0) is in the center of the stage regardless of where the Scratch window is on your screen.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You must memorize where every block is.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> You will naturally learn where blocks are as you use them. The color coding helps: Motion is dark blue, Looks is purple, Sound is pink, etc. You can also search for blocks by name.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: The Scratch editor only works online.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> Scratch 3.0 has an offline editor that you can download from the Scratch website. It works on Windows, macOS, and ChromeOS without an internet connection.</p>
+            </div>
+            <div class="misconception-card corrected p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
+              <p class="text-sm font-semibold text-red-400 mb-2">Misconception: You can only have one script per sprite.</p>
+              <p class="text-sm text-theme-muted"><span class="text-green-400 font-semibold">Truth:</span> A sprite can have hundreds of scripts running simultaneously. Each script starts with a hat block (like 'when green flag clicked') and runs independently of other scripts on the same sprite.</p>
+            </div>
             </div>
           </div>
         </section>
 
-        <!-- Visual Learning Section -->
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">The diagram displays the interactive components of The Scratch Interface and how they link inside the Scratch compilation chain.</p>
-            <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-2">What to notice:</p>
-              <ul class="space-y-2 text-sm text-theme-muted">
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Check how block inputs map to variables and control paths.
-                </li>
-                
-                <li class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  Click on components to see details about coordinate alignment.
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Knowledge Check -->
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the main role of The Scratch Interface?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the main role of the Scratch Interface?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To save system data on disks</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To orchestrate behaviors and controls visually</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To connect internet cables</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq0" class="accent-brand-500"> To generate HTML web tags</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To save system data on disks</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To orchestrate behaviors and controls visually</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To connect internet cables</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> To generate HTML web tags</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> To orchestrate behaviors and controls visually</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To orchestrate behaviors and controls visually</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which block shape starts a script stack in Scratch?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Flat block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Hat block (curved top)</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Diamond block</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Oval block</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Flat block</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hat-block')">Hat block</span> (curved top)</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Diamond block</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Oval block</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> Hat block (curved top)</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Hat block (curved top)</p>
               </div>
-              
-              <div class="kb-check">
+<div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. What is the maximum X coordinate limit on the stage?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 180</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 240</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 360</label><label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> 480</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> 180</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> 240</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> 360</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> 480</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Correct Answer:</strong> 240</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> 240</p>
               </div>
-              
             </div>
             <div class="mt-6 text-center">
               <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
             </div>
+            <script>
+              (function() {
+                var btn = document.getElementById('reveal-answers-btn');
+                if (btn) {
+                  btn.addEventListener('click', function() {
+                    var answers = document.querySelectorAll('.kb-answer');
+                    var hidden = false;
+                    answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
+                    answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
+                    btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
+                  });
+                }
+              })();
+            </script>
           </div>
         </section>
 
-        <!-- Critical Thinking -->
-        <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
-            <div class="mt-4 space-y-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 1</p>
-                <p class="text-sm text-theme-muted">How does changing X coordinates differ from changing Y coordinates when positioning sprites?</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Question 2</p>
-                <p class="text-sm text-theme-muted">Why do you think games need variables to track scores instead of displaying raw text?</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Mini Projects -->
-        <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Block Stacker</p>
-                <p class="text-sm text-theme-muted">Open the Scratch editor and write a script to move a character back and forth across the stage forever.</p>
-              </div>
-              
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Grid Navigator</p>
-                <p class="text-sm text-theme-muted">Write down the X and Y coordinates of the center, top-right, and bottom-left points of the stage.</p>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        <!-- Teacher Notes -->
-        <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
-            <div class="mt-4 space-y-5">
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Learning Objectives</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Explain the purpose of The Scratch Interface.</li><li>Construct control stacks to steer coordinates.</li><li>Manage variables and event loops.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Preparation Needed</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>Prepare basic project templates with pre-loaded sprites.</li>
-                </ul>
-              </div>
-              <div class="p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-2">Discussion Prompts</p>
-                <ul class="space-y-1 text-sm text-theme-muted list-disc list-inside">
-                  <li>How do coordinates help us animate characters?</li><li>What games can you create using variables and collision sensing?</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Navigation -->
         <section class="mt-12 lg:mt-20 reveal">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex justify-center">
-              <a href="chapter-3-sprites-and-stage.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Sprites and Stage
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+            <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <a href="chapter-1-introduction-to-scratch.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Previous: Chapter 1</a>
+            <a href="scratch-programming.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="chapter-3-sprites-and-stage.html" class="btn-primary magnetic-btn text-sm py-2.5 px-6 inline-flex items-center gap-2">Next: Chapter 3 &mdash; Sprites and Stage</a>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme mt-8">
-            <a href="scratch-programming.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 8 &middot; Chapter 2</p>
-          </div>
         </section>
-      </article>
+
+</article>
     </main>
 
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
@@ -521,26 +379,11 @@
       </div>
     </footer>
   </div>
-
   <script src="../../../../shared/data/brand.js" defer></script>
   <script src="../../../../shared/data/products.js" defer></script>
   <script src="../../../../shared/utils/dom.js" defer></script>
   <script src="../../../../shared/utils/accessibility.js" defer></script>
   <script src="../../../../shared/scripts/animation-engine.js" defer></script>
   <script src="../../../../shared/scripts/static-init.js" defer></script>
-  <script>
-    (function() {
-      var btn = document.getElementById('reveal-answers-btn');
-      if (btn) {
-        btn.addEventListener('click', function() {
-          var answers = document.querySelectorAll('.kb-answer');
-          var hidden = false;
-          answers.forEach(function(a) { if (!a.classList.contains('revealed')) hidden = true; });
-          answers.forEach(function(a) { a.classList.toggle('revealed', hidden); });
-          btn.textContent = hidden ? 'Hide Answers' : 'Show Answers';
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

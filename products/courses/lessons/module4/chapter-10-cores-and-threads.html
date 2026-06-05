@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              For decades, CPU performance improved primarily through higher clock speeds. But around 2005, chip manufacturers hit a wall — the "frequency wall" — where increasing clock speed produced too much heat and power consumption. The industry needed a new approach, and the answer was <span class="text-brand-200">multi-core processors</span>.
+              For decades, CPU performance improved primarily through higher clock speeds. But around 2005, chip manufacturers hit a wall — the "frequency wall" — where increasing clock speed produced too much heat and power consumption. The industry needed a new approach, and the answer was <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> processors</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Instead of making one core faster, manufacturers began putting two, four, eight, or even more cores on a single chip. Each core is essentially a complete CPU — with its own ALU, control unit, and cache — capable of running its own program independently. This meant that a dual-core processor could theoretically do twice as much work as a single-core processor at the same clock speed, as long as the software was written to take advantage of multiple cores.
+              Instead of making one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> faster, manufacturers began putting two, four, eight, or even more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> on a single chip. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> is essentially a complete CPU — with its own ALU, control unit, and cache — capable of running its own program independently. This meant that a dual-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> processor could theoretically do twice as much work as a single-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> processor at the same clock speed, as long as the software was written to take advantage of multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Alongside multiple cores came <span class="text-brand-200">threading</span> — the ability to split a program into multiple streams of execution that can run concurrently. Technologies like Intel's Hyper-Threading (and AMD's SMT) allow a single core to handle two threads simultaneously, further improving efficiency by keeping the core's execution units busy even when one thread stalls.
+              Alongside multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> came <span class="text-brand-200">threading</span> — the ability to split a program into multiple streams of execution that can run concurrently. Technologies like Intel's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span> (and AMD's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span>) allow a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> to handle two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> simultaneously, further improving efficiency by keeping the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core's</span> execution units busy even when one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span> stalls.
             </p>
           </div>
         </section>
@@ -195,51 +197,60 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">A multi-core CPU is like having multiple chefs in a kitchen. One chef can only cook one dish at a time, but with two chefs, they can prepare two dishes simultaneously — chopping vegetables on one side while grilling steak on the other. The kitchen (the CPU package) has a single pantry (shared cache) and set of tools, but each chef works independently on their assigned recipe.</p>
+              <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> CPU is like having multiple chefs in a kitchen. One chef can only cook one dish at a time, but with two chefs, they can prepare two dishes simultaneously — chopping vegetables on one side while grilling steak on the other. The kitchen (the CPU package) has a single pantry (shared cache) and set of tools, but each chef works independently on their assigned recipe.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a delivery company. A single-core CPU is one delivery driver making one trip at a time. A multi-core CPU is a fleet of drivers, each with their own van (core). Threads within a core are like having two drivers share one van — when one is delivering a package, the other can plan the next route using the same vehicle resources. Hyper-Threading is that second driver sharing the van without needing a second vehicle.</p>
+              <p class="text-sm text-theme-muted">Think of a delivery company. A single-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> CPU is one delivery driver making one trip at a time. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> CPU is a fleet of drivers, each with their own van (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span>). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">Threads</span> within a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> are like having two drivers share one van — when one is delivering a package, the other can plan the next route using the same vehicle resources. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span> is that second driver sharing the van without needing a second vehicle.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Physical Cores vs. Logical Cores</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">physical core</span> is a complete, independent processing unit on the CPU die with its own dedicated execution resources. A <span class="text-brand-200">logical core</span> (or thread) represents a virtual processing unit created by technologies like Hyper-Threading or SMT. With Hyper-Threading, a single physical core can appear as two logical cores to the operating system, allowing it to run two threads simultaneously.
+              A <span class="text-brand-200">physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span></span> is a complete, independent processing unit on the CPU die with its own dedicated execution resources. A <span class="text-brand-200">logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span></span> (or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span>) represents a virtual processing unit created by technologies like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span> or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span>. With <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span>, a single physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> can appear as two logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> to the operating system, allowing it to run two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> simultaneously.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The operating system's <span class="text-brand-200">scheduler</span> assigns threads to logical cores. If a physical core supports two threads, and one thread stalls (waiting for memory, for example), the other thread can use the core's execution units that would otherwise be idle. This typically provides a 15-30% performance improvement over a single-threaded core, though the exact gain depends on the workload.
+              The operating system's <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('scheduler')">scheduler</span></span> assigns <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> to logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>. If a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> supports two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span>, and one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span> stalls (waiting for memory, for example), the other <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span> can use the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core's</span> execution units that would otherwise be idle. This typically provides a 15-30% performance improvement over a single-threaded <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span>, though the exact gain depends on the workload.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Multi-Core Architectures</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern CPUs use different multi-core architectures depending on their target market. Desktop processors like the AMD Ryzen and Intel Core series typically feature 6 to 16 high-performance cores. Server processors like AMD EPYC or Intel Xeon can have 64 to 128 cores or more. Mobile processors like Apple's M-series use a <span class="text-brand-200">hybrid architecture</span> — a mix of high-performance cores (for demanding tasks) and high-efficiency cores (for background tasks), optimising battery life while maintaining responsiveness.
+              Modern CPUs use different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> architectures depending on their target market. Desktop processors like the AMD Ryzen and Intel <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> series typically feature 6 to 16 high-performance <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>. Server processors like AMD EPYC or Intel Xeon can have 64 to 128 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> or more. Mobile processors like Apple's M-series use a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hybrid-architecture')">hybrid architecture</span></span> — a mix of high-performance <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> (for demanding tasks) and high-efficiency <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> (for background tasks), optimising battery life while maintaining responsiveness.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The cores on a multi-core CPU share certain resources, particularly the last-level cache (L3 cache) and the memory controller. This shared cache is beneficial because if one core accesses data from memory, it becomes available to all other cores at cache speed. However, sharing also creates challenges — if multiple cores try to write to the same memory address simultaneously, the cache coherence protocol must ensure all cores see a consistent view of memory.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> on a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> CPU share certain resources, particularly the last-level cache (L3 cache) and the memory controller. This shared cache is beneficial because if one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> accesses data from memory, it becomes available to all other <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> at cache speed. However, sharing also creates challenges — if multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> try to write to the same memory address simultaneously, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-coherence')">cache coherence</span> protocol must ensure all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> see a consistent view of memory.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Parallelism: Task vs. Data</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Multi-core processors enable two main types of parallelism. <span class="text-brand-200">Task parallelism</span> divides a program into different tasks that can run concurrently — for example, a web browser might have one thread rendering a page, another downloading an image, and a third handling user input. <span class="text-brand-200">Data parallelism</span> splits a large dataset across multiple cores so that each core works on a subset — for example, processing 1000 images on 4 cores, each handling 250 images.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">Multi-core</span> processors enable two main types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">parallelism</span>. <span class="text-brand-200">Task <span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">parallelism</span></span> divides a program into different tasks that can run concurrently — for example, a web browser might have one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span> rendering a page, another downloading an image, and a third handling user input. <span class="text-brand-200">Data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">parallelism</span></span> splits a large dataset across multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> so that each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> works on a subset — for example, processing 1000 images on 4 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>, each handling 250 images.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Not all programs benefit equally from multiple cores. Workloads that are embarrassingly parallel (like video rendering, scientific simulations, or machine learning training) can scale almost linearly with core count. Sequential workloads (like most legacy games or single-threaded applications) see little benefit beyond one or two cores. This is why single-core performance still matters, and why CPUs with fewer but faster cores can outperform chips with many slow cores on certain tasks.
+              Not all programs benefit equally from multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>. Workloads that are embarrassingly parallel (like video rendering, scientific simulations, or machine learning training) can scale almost linearly with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> count. Sequential workloads (like most legacy games or single-threaded applications) see little benefit beyond one or two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>. This is why single-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> performance still matters, and why CPUs with fewer but faster <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> can outperform chips with many slow <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> on certain tasks.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cache Coherency and Coherence Protocols</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When multiple cores each have their own L1 and L2 caches, a problem arises: if core A modifies a value in its cache, core B might still have the old value in its cache. The <span class="text-brand-200">cache coherence protocol</span> (such as MESI or MOESI) ensures that all cores see a consistent view of memory. When a core writes to a cached address, it broadcasts a message to other cores, invalidating their cached copies so they must fetch the updated version.
+              When multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> each have their own L1 and L2 caches, a problem arises: if <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> A modifies a value in its cache, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> B might still have the old value in its cache. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-coherence')">cache coherence</span> protocol</span> (such as MESI or MOESI) ensures that all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> see a consistent view of memory. When a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> writes to a cached address, it broadcasts a message to other <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>, invalidating their cached copies so they must fetch the updated version.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              This coherence traffic is a necessary overhead of multi-core systems. As core counts increase, the amount of coherence traffic grows, potentially becoming a bottleneck. This is known as the coherence wall, and it is one reason why scaling to hundreds of cores is significantly more challenging than just putting more cores on a die.
+              This coherence traffic is a necessary overhead of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> systems. As <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> counts increase, the amount of coherence traffic grows, potentially becoming a bottleneck. This is known as the coherence wall, and it is one reason why scaling to hundreds of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> is significantly more challenging than just putting more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> on a die.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The move to multi-core processors was a fundamental shift in computing. Instead of relying on physics to make individual transistors faster, the industry embraced parallelism — doing more work simultaneously rather than doing individual work faster. This is why modern software is increasingly written with concurrency and parallelism in mind.</p>
+              <p class="text-sm text-theme-muted">The move to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> processors was a fundamental shift in computing. Instead of relying on physics to make individual transistors faster, the industry embraced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">parallelism</span> — doing more work simultaneously rather than doing individual work faster. This is why modern software is increasingly written with concurrency and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">parallelism</span> in mind.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">Thread</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -254,16 +265,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Core</td><td>An independent processing unit within a CPU that can execute its own instructions and run its own program</td></tr>
-                  <tr><td>Thread</td><td>A single sequence of program instructions that can be scheduled and executed independently by the OS</td></tr>
-                  <tr><td>Hyper-Threading</td><td>Intel's implementation of SMT, allowing one physical core to present as two logical cores to the OS</td></tr>
-                  <tr><td>SMT</td><td>Simultaneous Multi-Threading — technology that lets a single core execute multiple threads concurrently</td></tr>
-                  <tr><td>Multi-Core</td><td>A CPU design where multiple independent cores are integrated on a single chip</td></tr>
-                  <tr><td>Parallelism</td><td>The ability to execute multiple tasks or data operations simultaneously across multiple cores</td></tr>
-                  <tr><td>Scheduler</td><td>The OS component that decides which thread runs on which core at any given time</td></tr>
-                  <tr><td>Process</td><td>A program in execution that contains one or more threads sharing the same memory space and resources</td></tr>
-                  <tr><td>Cache Coherence</td><td>A protocol that ensures all cores see a consistent view of shared memory across their private caches</td></tr>
-                  <tr><td>Hybrid Architecture</td><td>A CPU design mixing high-performance cores with high-efficiency cores (e.g., Apple M-series)</td></tr>
+                  <tr id="vocab-core"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Core</span></td><td>An independent processing unit within a CPU that can execute its own instructions and run its own program</td></tr>
+                  <tr id="vocab-thread"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">Thread</span></td><td>A single sequence of program instructions that can be scheduled and executed independently by the OS</td></tr>
+                  <tr id="vocab-hyper-threading"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span></td><td>Intel's implementation of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span>, allowing one physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> to present as two logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> to the OS</td></tr>
+                  <tr id="vocab-smt"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span></td><td>Simultaneous Multi-Threading — technology that lets a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> execute multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> concurrently</td></tr>
+                  <tr id="vocab-multi-core"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">Multi-Core</span></td><td>A CPU design where multiple independent <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> are integrated on a single chip</td></tr>
+                  <tr id="vocab-parallelism"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('parallelism')">Parallelism</span></td><td>The ability to execute multiple tasks or data operations simultaneously across multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></td></tr>
+                  <tr id="vocab-scheduler"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('scheduler')">Scheduler</span></td><td>The OS component that decides which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span> runs on which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> at any given time</td></tr>
+                  <tr id="vocab-process"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('process')">Process</span></td><td>A program in execution that contains one or more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> sharing the same memory space and resources</td></tr>
+                  <tr id="vocab-cache-coherence"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-coherence')">Cache Coherence</span></td><td>A protocol that ensures all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> see a consistent view of shared memory across their private caches</td></tr>
+                  <tr id="vocab-hybrid-architecture"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hybrid-architecture')">Hybrid Architecture</span></td><td>A CPU design mixing high-performance <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> with high-efficiency <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> (e.g., Apple M-series)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -278,31 +289,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first dual-core processor for consumer PCs was the Intel Pentium D (2005), but it was essentially two separate dies glued together. AMD's Athlon 64 X2 (also 2005) was the first true native dual-core CPU with both cores on a single die sharing a memory controller.</p>
+                <p class="text-sm text-theme-muted">The first dual-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> processor for consumer PCs was the Intel Pentium D (2005), but it was essentially two separate dies glued together. AMD's Athlon 64 X2 (also 2005) was the first true native dual-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> CPU with both <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> on a single die sharing a memory controller.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Intel's Hyper-Threading was introduced in 2002 on Xeon processors and later on Pentium 4. It was disabled on some lower-end Pentium 4 models via a fuse, making it one of the earliest examples of feature binning through fuse disabling.</p>
+                <p class="text-sm text-theme-muted">Intel's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span> was introduced in 2002 on Xeon processors and later on Pentium 4. It was disabled on some lower-end Pentium 4 models via a fuse, making it one of the earliest examples of feature binning through fuse disabling.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The AMD EPYC 9654 "Bergamo" (2023) has 128 cores and 256 threads — making it one of the highest-core-count server CPUs. Each core has its own private L1 and L2 caches, plus 384 MB of shared L3 cache across all cores.</p>
+                <p class="text-sm text-theme-muted">The AMD EPYC 9654 "Bergamo" (2023) has 128 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> and 256 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">threads</span> — making it one of the highest-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span>-count server CPUs. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> has its own private L1 and L2 caches, plus 384 MB of shared L3 cache across all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Apple's M1 Ultra (2022) uses UltraFusion to connect two M1 Max dies, creating a 20-core CPU (16 high-performance + 4 efficiency cores). The interconnection has 10,000+ signals delivering 2.5 TB/s of bandwidth between the dies.</p>
+                <p class="text-sm text-theme-muted">Apple's M1 Ultra (2022) uses UltraFusion to connect two M1 Max dies, creating a 20-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> CPU (16 high-performance + 4 efficiency <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>). The interconnection has 10,000+ signals delivering 2.5 TB/s of bandwidth between the dies.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Amdahl's Law predicts the maximum speedup from parallelisation. If 10% of a program is sequential, the maximum speedup is 10x — no matter how many cores you add. This is why optimising serial portions of code is so important.</p>
+                <p class="text-sm text-theme-muted">Amdahl's Law predicts the maximum speedup from parallelisation. If 10% of a program is sequential, the maximum speedup is 10x — no matter how many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> you add. This is why optimising serial portions of code is so important.</p>
               </div>
             </div>
           </div>
@@ -326,36 +337,36 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is the difference between a physical core and a logical core (thread)?</p>
+                <p class="text-sm font-semibold text-theme">1. What is the difference between a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> and a logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('thread')">thread</span>)?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> They are exactly the same thing</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A physical core has dedicated execution resources; a logical core shares a physical core via SMT/Hyper-Threading</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A logical core is faster than a physical core</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A physical core handles graphics, a logical core handles calculations</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> has dedicated execution resources; a logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> shares a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> is faster than a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> handles graphics, a logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> handles calculations</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A physical core has dedicated execution resources; a logical core shares a physical core via SMT/Hyper-Threading</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> has dedicated execution resources; a logical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> shares a physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('smt')">SMT</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('hyper-threading')">Hyper-Threading</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Why do some programs not benefit from having many CPU cores?</p>
+                <p class="text-sm font-semibold text-theme">2. Why do some programs not benefit from having many CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Many cores make the program run slower</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> make the program run slower</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The program may have sequential parts that cannot be parallelised, limiting overall speedup</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The operating system limits programs to only one core</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Cores cannot communicate with each other</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The operating system limits programs to only one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">Cores</span> cannot communicate with each other</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> The program may have sequential parts that cannot be parallelised, limiting overall speedup</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What problem does the cache coherence protocol solve in multi-core CPUs?</p>
+                <p class="text-sm font-semibold text-theme">3. What problem does the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-coherence')">cache coherence</span> protocol solve in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> CPUs?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It prevents cores from overheating</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It ensures all cores have a consistent view of memory when data is modified in their private caches</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It distributes power evenly across cores</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It synchronises the clock speed of all cores</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It prevents <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> from overheating</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It ensures all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> have a consistent view of memory when data is modified in their private caches</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It distributes power evenly across <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It synchronises the clock speed of all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It ensures all cores have a consistent view of memory when data is modified in their private caches</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> It ensures all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> have a consistent view of memory when data is modified in their private caches</p>
               </div>
 
             </div>
@@ -422,12 +433,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

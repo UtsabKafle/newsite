@@ -551,7 +551,7 @@ function getChapterHTML(m, c) {
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  ${c.vocab.map(v => `<tr><td>${v.term}</td><td>${v.definition}</td></tr>`).join('')}
+                  ${c.vocab.map(v => `<tr id="vocab-${v.term.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"><td><span class="vocab">${v.term}</span></td><td>${v.definition}</td></tr>`).join('')}
                 </tbody>
               </table>
             </div>
@@ -1401,6 +1401,87 @@ function getCustomChallengeBlock(mNum, cNum, interactionType) {
   }`;
 }
 
+function getTermRegexPattern(term) {
+  const escaped = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  let bodyPattern;
+  if (term.toLowerCase().endsWith('y')) {
+    const stem = escaped.slice(0, -1);
+    bodyPattern = `${stem}(y|ies|y's)`;
+  } else if (term.toLowerCase().endsWith('s') || term.toLowerCase().endsWith('x') || term.toLowerCase().endsWith('z') || term.toLowerCase().endsWith('ch') || term.toLowerCase().endsWith('sh')) {
+    bodyPattern = `${escaped}(es|'s)?`;
+  } else {
+    bodyPattern = `${escaped}(s|'s)?`;
+  }
+  return `(?<=^|\\W)(${bodyPattern})(?=$|\\W)`;
+}
+
+function highlightVocabulary(html, vocab) {
+  const terms = vocab.map(v => v.term);
+  terms.sort((a, b) => b.length - a.length);
+
+  if (!html.includes('.vocab {')) {
+    const vocabStyle = `\n    .vocab { color: #3b82f6; font-weight: 500; }`;
+    if (html.includes('</style>')) {
+      html = html.replace('</style>', `${vocabStyle}\n  </style>`);
+    }
+  }
+
+  const parts = html.split(/(<[^>]+>)/g);
+  const tagStack = [];
+  const excludedTags = new Set([
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+    'script', 'style', 'head', 'title', 'meta', 'link', 
+    'button', 'select', 'option', 'textarea', 'thead'
+  ]);
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    if (part.startsWith('<')) {
+      const isClosing = part.startsWith('</');
+      const isSelfClosing = part.endsWith('/>');
+      const match = part.match(/^<\/?([a-zA-Z0-9:-]+)/);
+      if (match) {
+        const tagName = match[1].toLowerCase();
+        if (!isSelfClosing) {
+          if (isClosing) {
+            const idx = tagStack.lastIndexOf(tagName);
+            if (idx !== -1) tagStack.splice(idx);
+          } else {
+            tagStack.push(tagName);
+          }
+        }
+      }
+    } else {
+      const hasExcluded = tagStack.some(t => excludedTags.has(t));
+      if (!hasExcluded && part.trim().length > 0) {
+        let text = part;
+        const placeholders = {};
+        let plIndex = 0;
+
+        for (const term of terms) {
+          const pattern = getTermRegexPattern(term);
+          const regex = new RegExp(pattern, 'gi');
+          
+          text = text.replace(regex, (match) => {
+            const plKey = `__VOCAB_PL_${plIndex}__`;
+            const wordId = term.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            placeholders[plKey] = `<span class="vocab cursor-pointer" onclick="scrollToVocabulary('${wordId}')">${match}</span>`;
+            plIndex++;
+            return plKey;
+          });
+        }
+
+        for (const [plKey, replacement] of Object.entries(placeholders)) {
+          text = text.replaceAll(plKey, replacement);
+        }
+
+        parts[i] = text;
+      }
+    }
+  }
+  return parts.join('');
+}
+
 function getDiagramScriptJS(m, c) {
   const diagramTitle = c.title;
   const interactionType = c.type;
@@ -1408,9 +1489,30 @@ function getDiagramScriptJS(m, c) {
   const connections = c.diagram.connections;
   const steps = c.diagram.steps;
   const tour = c.diagram.tour;
+
+  const enrichedComponents = components.map(comp => {
+    const enriched = { ...comp };
+    const matchingVocab = c.vocab.find(v => {
+      const termLower = v.term.toLowerCase();
+      const compNameLower = comp.name.toLowerCase();
+      return compNameLower === termLower || 
+             compNameLower.includes(`<${termLower}>`) || 
+             compNameLower.includes(` ${termLower}`) ||
+             compNameLower.startsWith(termLower);
+    });
+
+    if (matchingVocab) {
+      enriched.vocabDefinition = matchingVocab.definition;
+    }
+    if (!enriched.howItWorks) enriched.howItWorks = comp.description;
+    if (!enriched.deeperDive) enriched.deeperDive = comp.descriptionDetailed;
+    if (!enriched.advancedConcept) enriched.advancedConcept = comp.funFact || comp.takeaway;
+
+    return enriched;
+  });
   
   return `(function(){'use strict';
-var components = ${JSON.stringify(components)};
+var components = ${JSON.stringify(enrichedComponents)};
 var connections = ${JSON.stringify(connections)};
 var steps = ${JSON.stringify(steps)};
 var tour = ${JSON.stringify(tour)};
@@ -1467,7 +1569,9 @@ async function run() {
     // 2. Write Chapters & Diagrams
     for (const c of m.chapters) {
       const chapPath = path.join(modDir, `chapter-${c.num}-${c.slug}.html`);
-      fs.writeFileSync(chapPath, getChapterHTML(m, c), 'utf8');
+      const rawHtml = getChapterHTML(m, c);
+      const highlightedHtml = highlightVocabulary(rawHtml, c.vocab);
+      fs.writeFileSync(chapPath, highlightedHtml, 'utf8');
       
       const diagramFolder = `diagram-${String(c.num).padStart(2, '0')}-${c.slug.replace(/-to-/g, '-').slice(0, 20)}`;
       const chapDiagDir = path.join(diagDir, diagramFolder);

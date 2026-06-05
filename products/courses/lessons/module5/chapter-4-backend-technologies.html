@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              If the frontend is the face of an app, the <span class="text-brand-200 font-semibold">backend</span> is the brain and the engine. It is the part that runs on a server — a powerful computer hidden away in a data centre somewhere — silently processing requests, running business logic, and talking to databases.
+              If the frontend is the face of an app, the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span></span> is the brain and the engine. It is the part that runs on a server — a powerful computer hidden away in a data centre somewhere — silently processing requests, running business logic, and talking to databases.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              When you log into an app, the frontend sends your username and password to the backend. The backend checks whether that combination is correct, looks up your profile, and sends your data back. All of this happens in milliseconds.
+              When you log into an app, the frontend sends your username and password to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> checks whether that combination is correct, looks up your profile, and sends your data back. All of this happens in milliseconds.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn what backend technologies are, the most popular programming languages and frameworks used to build backends, and how they process requests from the frontend.
+              In this chapter, you will learn what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> technologies are, the most popular programming languages and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">frameworks</span> used to build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backends</span>, and how they process requests from the frontend.
             </p>
           </div>
         </section>
@@ -195,26 +197,26 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The backend receives a request from the frontend (usually over HTTP), processes it — which may involve checking authentication, looking up data in a database, running calculations — and then sends a response back. The backend code runs continuously on a server, waiting for incoming requests.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> receives a request from the frontend (usually over HTTP), processes it — which may involve checking authentication, looking up data in a database, running calculations — and then sends a response back. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code runs continuously on a server, waiting for incoming requests.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Restaurant Kitchen Analogy</p>
-              <p class="text-sm text-theme-muted">The backend is like a restaurant kitchen. The chefs (backend code) receive orders (requests) written on tickets. They check the pantry (database), prepare the dish (process data), plate it (format the response), and hand it to the waiter (API) to serve to the customer (frontend). The kitchen runs non-stop, and customers never see what happens inside.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> is like a restaurant kitchen. The chefs (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code) receive orders (requests) written on tickets. They check the pantry (database), prepare the dish (process data), plate it (format the response), and hand it to the waiter (API) to serve to the customer (frontend). The kitchen runs non-stop, and customers never see what happens inside.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Popular Backend Languages &amp; Frameworks</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Backend developers can choose from many languages. Each has its own strengths:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span> developers can choose from many languages. Each has its own strengths:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Python (Django, Flask)</p>
-                <p class="text-sm text-theme-muted">Known for readability and quick development. Used by Instagram, Pinterest, and Spotify for backend services.</p>
+                <p class="text-sm text-theme-muted">Known for readability and quick development. Used by Instagram, Pinterest, and Spotify for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> services.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">JavaScript / Node.js (Express, Nest)</p>
-                <p class="text-sm text-theme-muted">Allows frontend developers to write backend code in the same language. Used by Netflix, Uber, and LinkedIn.</p>
+                <p class="text-sm text-theme-muted">Allows frontend developers to write <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code in the same language. Used by Netflix, Uber, and LinkedIn.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">Java (Spring Boot)</p>
@@ -230,26 +232,35 @@
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">C# (.NET)</p>
-                <p class="text-sm text-theme-muted">Microsoft's flagship backend language. Used by Stack Overflow, GoDaddy, and many enterprise applications.</p>
+                <p class="text-sm text-theme-muted">Microsoft's flagship <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> language. Used by Stack Overflow, GoDaddy, and many enterprise applications.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Backend code runs inside a <span class="text-brand-200">runtime environment</span> — for Node.js it is V8 (the same engine as Chrome), for Python it is the Python interpreter, for Java it is the JVM (Java Virtual Machine). The runtime handles memory management, networking, and file access.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span> code runs inside a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> environment</span> — for Node.js it is V8 (the same engine as Chrome), for Python it is the Python interpreter, for Java it is the JVM (Java Virtual Machine). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> handles memory management, networking, and file access.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">framework</span> is a pre-built library that provides structure for your backend code. Instead of writing everything from scratch, you use a framework to handle routing, request parsing, database connections, and security.
+              A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span></span> is a pre-built library that provides structure for your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code. Instead of writing everything from scratch, you use a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span> to handle routing, request parsing, database connections, and security.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Backends often use <span class="text-brand-200">middleware</span> — pieces of code that run between receiving a request and sending a response. Middleware can handle logging, authentication checks, CORS headers, and error handling.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backends</span> often use <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">middleware</span></span> — pieces of code that run between receiving a request and sending a response. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">Middleware</span> can handle logging, authentication checks, CORS headers, and error handling.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">The backend language does not matter to the frontend. As long as both sides agree on a communication format (usually JSON over HTTP), the frontend does not care whether the backend is written in Python, JavaScript, or Go.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> language does not matter to the frontend. As long as both sides agree on a communication format (usually JSON over HTTP), the frontend does not care whether the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> is written in Python, JavaScript, or Go.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> technologies involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">Server-side</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">Runtime</span> helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -264,12 +275,12 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Backend</td><td>The server-side part of an application that handles logic, authentication, and data processing</td></tr>
-                  <tr><td>Server-side</td><td>Code and operations that run on a server rather than on the user's device</td></tr>
-                  <tr><td>Runtime</td><td>The environment that executes backend code (e.g. Node.js, JVM, Python interpreter)</td></tr>
-                  <tr><td>Framework</td><td>A pre-built library that provides structure and tools for building applications</td></tr>
-                  <tr><td>Middleware</td><td>Software that sits between the request and response, handling tasks like auth and logging</td></tr>
-                  <tr><td>Endpoint</td><td>A specific URL where a backend service can be accessed (e.g. /api/users)</td></tr>
+                  <tr id="vocab-backend"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span></td><td>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">server-side</span> part of an application that handles logic, authentication, and data processing</td></tr>
+                  <tr id="vocab-server-side"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">Server-side</span></td><td>Code and operations that run on a server rather than on the user's device</td></tr>
+                  <tr id="vocab-runtime"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">Runtime</span></td><td>The environment that executes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code (e.g. Node.js, JVM, Python interpreter)</td></tr>
+                  <tr id="vocab-framework"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">Framework</span></td><td>A pre-built library that provides structure and tools for building applications</td></tr>
+                  <tr id="vocab-middleware"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">Middleware</span></td><td>Software that sits between the request and response, handling tasks like auth and logging</td></tr>
+                  <tr id="vocab-endpoint"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">Endpoint</span></td><td>A specific URL where a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> service can be accessed (e.g. /api/users)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -290,25 +301,25 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Django, one of the most popular Python frameworks, was named after the jazz guitarist Django Reinhardt.</p>
+                <p class="text-sm text-theme-muted">Django, one of the most popular Python <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">frameworks</span>, was named after the jazz guitarist Django Reinhardt.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Java's Spring Boot framework is used by 60% of Fortune 500 companies for their backend systems.</p>
+                <p class="text-sm text-theme-muted">Java's Spring Boot <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span> is used by 60% of Fortune 500 companies for their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> systems.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">PHP still powers over 77% of all websites whose server-side language is known — including Wikipedia and Facebook.</p>
+                <p class="text-sm text-theme-muted">PHP still powers over 77% of all websites whose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">server-side</span> language is known — including Wikipedia and Facebook.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">A single backend server can handle thousands of simultaneous requests using techniques like load balancing and async processing.</p>
+                <p class="text-sm text-theme-muted">A single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> server can handle thousands of simultaneous requests using techniques like load balancing and async processing.</p>
               </div>
             </div>
           </div>
@@ -333,7 +344,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. Where does backend code run?</p>
+                <p class="text-sm font-semibold text-theme">1. Where does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code run?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> In the user's web browser</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> On a server (remote computer)</label>
@@ -344,18 +355,18 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What is a backend framework?</p>
+                <p class="text-sm font-semibold text-theme">2. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A tool for designing user interfaces</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A pre-built library providing structure for backend code</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A pre-built library providing structure for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A type of database</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A CSS styling framework</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A CSS styling <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A pre-built library providing structure for backend code</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A pre-built library providing structure for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which of these is NOT a backend programming language?</p>
+                <p class="text-sm font-semibold text-theme">3. Which of these is NOT a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> programming language?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Python</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Node.js (JavaScript)</label>

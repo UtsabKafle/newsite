@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              As apps grow larger and more complex, keeping code organized becomes a serious challenge. Without structure, code becomes a tangled mess where changing one thing breaks five others. That is where <span class="text-brand-200 font-semibold">software architecture patterns</span> come in.
+              As apps grow larger and more complex, keeping code organized becomes a serious challenge. Without structure, code becomes a tangled mess where changing one thing breaks five others. That is where <span class="text-brand-200 font-semibold">software <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> patterns</span> come in.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              An architecture pattern is like a blueprint for how different parts of an app should be organised and how they should communicate. The most famous and widely used pattern is <span class="text-brand-200 font-semibold">MVC</span> — Model-View-Controller. It separates an app into three interconnected parts: the data (Model), the user interface (View), and the logic that connects them (Controller).
+              An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> pattern is like a blueprint for how different parts of an app should be organised and how they should communicate. The most famous and widely used pattern is <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span></span> — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span>. It separates an app into three interconnected parts: the data (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>), the user interface (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>), and the logic that connects them (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span>).
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Many modern frameworks — including Ruby on Rails, Django, Angular, and ASP.NET — are built around MVC or its variations. Understanding MVC gives you a foundation for understanding almost any web or mobile framework.
+              Many modern frameworks — including Ruby on Rails, Django, Angular, and ASP.NET — are built around <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> or its variations. Understanding <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> gives you a foundation for understanding almost any web or mobile framework.
             </p>
           </div>
         </section>
@@ -195,15 +197,15 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">MVC divides your app into three sections. The <strong>Model</strong> manages the data and business logic — it talks to the database and defines the rules. The <strong>View</strong> is what the user sees — buttons, forms, and layouts. The <strong>Controller</strong> is the middleman — it receives user input from the View, asks the Model for data, and sends results back to the View.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> divides your app into three sections. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span></strong> manages the data and business logic — it talks to the database and defines the rules. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span></strong> is what the user sees — buttons, forms, and layouts. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></strong> is the middleman — it receives user input from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>, asks the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span> for data, and sends results back to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Restaurant Analogy</p>
-              <p class="text-sm text-theme-muted">Imagine a restaurant kitchen. The <strong>Model</strong> is the pantry and fridge — all the ingredients (data) stored and ready to use. The <strong>View</strong> is the menu and the table setting — the presentation that the customer sees. The <strong>Controller</strong> is the chef — they read the order (input from customer), retrieve ingredients from the pantry (Model), cook the meal (process), and hand it to the waiter to serve (update the View).</p>
+              <p class="text-sm text-theme-muted">Imagine a restaurant kitchen. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span></strong> is the pantry and fridge — all the ingredients (data) stored and ready to use. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span></strong> is the menu and the table setting — the presentation that the customer sees. The <strong><span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></strong> is the chef — they read the order (input from customer), retrieve ingredients from the pantry (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>), cook the meal (process), and hand it to the waiter to serve (update the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>).</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Three Components of MVC</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mx-auto mb-3">
@@ -217,41 +219,50 @@
                   <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-blue-400">View</h4>
-                <p class="mt-2 text-sm text-theme-muted">What the user sees and interacts with. Renders the UI (HTML, CSS, templates). Displays data from the Model and sends user actions to the Controller.</p>
+                <p class="mt-2 text-sm text-theme-muted">What the user sees and interacts with. Renders the UI (HTML, CSS, templates). Displays data from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span> and sends user actions to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center mx-auto mb-3">
                   <svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <h4 class="font-display font-semibold text-base text-yellow-400">Controller</h4>
-                <p class="mt-2 text-sm text-theme-muted">The middleman that handles user input. Processes requests, interacts with the Model, and decides which View to render as a response.</p>
+                <p class="mt-2 text-sm text-theme-muted">The middleman that handles user input. Processes requests, interacts with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>, and decides which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span> to render as a response.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Other Architecture Patterns</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              MVC is just one of many architecture patterns. Here are a few others you might encounter:
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> is just one of many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> patterns. Here are a few others you might encounter:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
                 <p class="text-sm font-semibold text-brand-200 mb-1">MVVM</p>
-                <p class="text-sm text-theme-muted">Model-View-ViewModel. Popular in mobile development (Android, iOS). The ViewModel holds UI state and exposes data for the View to bind to.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-ViewModel. Popular in mobile development (Android, iOS). The ViewModel holds UI state and exposes data for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span> to bind to.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Clean Architecture</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Clean <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">Architecture</span></p>
                 <p class="text-sm text-theme-muted">Layers your code into concentric circles — entities, use cases, interfaces, and frameworks. Dependencies point inward, never outward.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Microservices</p>
-                <p class="text-sm text-theme-muted">Instead of one big app (monolith), each feature is its own small service that runs independently and communicates via APIs.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microservices')">Microservices</span></p>
+                <p class="text-sm text-theme-muted">Instead of one big app (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('monolith')">monolith</span>), each feature is its own small service that runs independently and communicates via APIs.</p>
               </div>
             </div>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Architecture patterns are not rules — they are guidelines. Most real-world apps use a mix of patterns. The goal is not to follow a pattern perfectly, but to keep your code maintainable, testable, and easy for other developers to understand.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">Architecture</span> patterns are not rules — they are guidelines. Most real-world apps use a mix of patterns. The goal is not to follow a pattern perfectly, but to keep your code maintainable, testable, and easy for other developers to understand.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, app <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">mvc</span>) involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -266,13 +277,13 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>MVC</td><td>Model-View-Controller — a design pattern that separates data, UI, and logic</td></tr>
-                  <tr><td>Model</td><td>The component that manages data, business logic, and database communication</td></tr>
-                  <tr><td>View</td><td>The component that renders the user interface and displays data to the user</td></tr>
-                  <tr><td>Controller</td><td>The component that handles user input and acts as a bridge between Model and View</td></tr>
-                  <tr><td>Architecture</td><td>The overall structure and organisation of a software system</td></tr>
-                  <tr><td>Microservices</td><td>An architecture where each feature runs as an independent service</td></tr>
-                  <tr><td>Monolith</td><td>A single unified codebase where all features are tightly coupled together</td></tr>
+                  <tr id="vocab-mvc"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span></td><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span> — a design pattern that separates data, UI, and logic</td></tr>
+                  <tr id="vocab-model"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span></td><td>The component that manages data, business logic, and database communication</td></tr>
+                  <tr id="vocab-view"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span></td><td>The component that renders the user interface and displays data to the user</td></tr>
+                  <tr id="vocab-controller"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></td><td>The component that handles user input and acts as a bridge between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span></td></tr>
+                  <tr id="vocab-architecture"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">Architecture</span></td><td>The overall structure and organisation of a software system</td></tr>
+                  <tr id="vocab-microservices"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microservices')">Microservices</span></td><td>An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> where each feature runs as an independent service</td></tr>
+                  <tr id="vocab-monolith"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('monolith')">Monolith</span></td><td>A single unified codebase where all features are tightly coupled together</td></tr>
                 </tbody>
               </table>
             </div>
@@ -287,31 +298,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">MVC was first described by Trygve Reenskaug in 1979 while he was visiting Xerox PARC. He designed it for the Smalltalk programming language.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> was first described by Trygve Reenskaug in 1979 while he was visiting Xerox PARC. He designed it for the Smalltalk programming language.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Ruby on Rails (2004) popularised MVC for web development. It is estimated that over 1 million websites have been built with Rails.</p>
+                <p class="text-sm text-theme-muted">Ruby on Rails (2004) popularised <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> for web development. It is estimated that over 1 million websites have been built with Rails.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Amazon was originally a monolith. In the early 2000s, CEO Jeff Bezos mandated that all teams must communicate via APIs — effectively forcing Amazon to adopt microservices.</p>
+                <p class="text-sm text-theme-muted">Amazon was originally a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monolith')">monolith</span>. In the early 2000s, CEO Jeff Bezos mandated that all teams must communicate via APIs — effectively forcing Amazon to adopt <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microservices')">microservices</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The term "spaghetti code" was coined to describe applications with no architecture — where code is tangled like a plate of spaghetti, making it almost impossible to modify safely.</p>
+                <p class="text-sm text-theme-muted">The term "spaghetti code" was coined to describe applications with no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> — where code is tangled like a plate of spaghetti, making it almost impossible to modify safely.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Google's front-end framework Angular uses a variation of MVC called MVVM (Model-View-ViewModel), where the ViewModel replaces the traditional Controller.</p>
+                <p class="text-sm text-theme-muted">Google's front-end framework Angular uses a variation of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> called MVVM (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-ViewModel), where the ViewModel replaces the traditional <span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span>.</p>
               </div>
             </div>
           </div>
@@ -336,36 +347,36 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What does MVC stand for?</p>
+                <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Model-View-Controller</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Main-View-Config</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Module-View-Component</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Model-Visual-Command</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Main-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-Config</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Module-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-Component</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-Visual-Command</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Model-View-Controller</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. In MVC, which component is responsible for managing data and talking to the database?</p>
+                <p class="text-sm font-semibold text-theme">2. In <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span>, which component is responsible for managing data and talking to the database?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> View</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Controller</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Model</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('view')">View</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('controller')">Controller</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Router</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Model</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('model')">Model</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Which architecture breaks an app into many small, independent services?</p>
+                <p class="text-sm font-semibold text-theme">3. Which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> breaks an app into many small, independent services?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Monolith</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Microservices</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> MVC</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('monolith')">Monolith</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microservices')">Microservices</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mvc')">MVC</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> MVVM</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Microservices</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microservices')">Microservices</span></p>
               </div>
 
             </div>

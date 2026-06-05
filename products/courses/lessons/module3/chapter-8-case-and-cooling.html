@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,7 +181,7 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Imagine building a house with all the finest furniture, appliances, and wiring — but no walls and no roof. Your expensive components would be exposed to dust, pets, accidental bumps, and they would overheat without proper airflow. That is exactly what a computer case and cooling system do: they protect, organise, and regulate the temperature of every component inside your build.
+              Imagine building a house with all the finest furniture, appliances, and wiring — but no walls and no roof. Your expensive components would be exposed to dust, pets, accidental bumps, and they would overheat without proper <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span>. That is exactly what a computer case and cooling system do: they protect, organise, and regulate the temperature of every component inside your build.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               The <span class="text-brand-200">case</span> (also called the chassis) is the metal and plastic enclosure that holds all your computer parts. It provides mounting points for the motherboard, drives, fans, and power supply, while also shielding internal components from electromagnetic interference and physical damage.
@@ -200,10 +202,10 @@
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of your PC like a kitchen. The case is the room itself — it keeps everything organised and contained. The fans are the exhaust hood and the window — they pull out hot air (steam, smoke) and bring in cool air. Without them, the kitchen gets uncomfortably hot and your cooking (computing) slows down or stops entirely.</p>
+              <p class="text-sm text-theme-muted">Think of your PC like a kitchen. The case is the room itself — it keeps everything organised and contained. The fans are the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> hood and the window — they pull out hot air (steam, smoke) and bring in cool air. Without them, the kitchen gets uncomfortably hot and your cooking (computing) slows down or stops entirely.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Case Form Factors</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               Cases come in different sizes, and choosing the right one depends on your motherboard and components:
             </p>
@@ -224,7 +226,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Mid Tower</h4>
                 </div>
-                <p class="text-sm text-theme-muted">The most popular form factor. Supports ATX and smaller motherboards. Fits most single-GPU setups with adequate cooling (4&ndash;6 fans). A good balance between space, airflow, and desk footprint. Ideal for most gaming and productivity builds.</p>
+                <p class="text-sm text-theme-muted">The most popular form factor. Supports ATX and smaller motherboards. Fits most single-GPU setups with adequate cooling (4&ndash;6 fans). A good balance between space, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span>, and desk footprint. Ideal for most gaming and productivity builds.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -242,26 +244,26 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Vertical / Cube</h4>
                 </div>
-                <p class="text-sm text-theme-muted">Non-traditional layouts that may support horizontal motherboard mounting, better GPU airflow via riser cables, or unique aesthetic designs. Often feature tempered glass panels for display builds.</p>
+                <p class="text-sm text-theme-muted">Non-traditional layouts that may support horizontal motherboard mounting, better GPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span> via riser cables, or unique aesthetic designs. Often feature tempered glass panels for display builds.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Airflow and Fan Placement</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The principle of case cooling is simple: <span class="text-brand-200">intake</span> fans pull cool air in from the front or bottom, and <span class="text-brand-200">exhaust</span> fans push hot air out through the top or rear. This creates a steady airflow path across all hot components.
+              The principle of case cooling is simple: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span></span> fans pull cool air in from the front or bottom, and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span></span> fans push hot air out through the top or rear. This creates a steady <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span> path across all hot components.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Most cases support fan sizes of 120 mm or 140 mm. Larger fans move more air at lower RPMs, making them quieter. A typical mid-tower setup uses 2&ndash;3 front intake fans and 1 rear exhaust fan, with optional top exhaust fans. The goal is to maintain <span class="text-brand-200">positive pressure</span> — slightly more intake than exhaust — so that air is forced out through filtered gaps rather than being sucked in unfiltered.
+              Most cases support fan sizes of 120 mm or 140 mm. Larger fans move more air at lower RPMs, making them quieter. A typical mid-tower setup uses 2&ndash;3 front <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> fans and 1 rear <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fan, with optional top <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans. The goal is to maintain <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('positive-pressure')">positive pressure</span></span> — slightly more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> — so that air is forced out through filtered gaps rather than being sucked in unfiltered.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Installing Fans</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Fans connect to <span class="text-brand-200">fan headers</span> on the motherboard, usually labelled SYS_FAN, CHA_FAN, or CPU_FAN. Most modern fans use 4-pin PWM (Pulse Width Modulation) connectors, which allow the motherboard to control fan speed dynamically based on temperature. When installing a fan:
+              Fans connect to <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fan-header')">fan headers</span></span> on the motherboard, usually labelled SYS_FAN, CHA_FAN, or CPU_FAN. Most modern fans use 4-pin <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwm')">PWM</span> (Pulse Width Modulation) connectors, which allow the motherboard to control fan speed dynamically based on temperature. When installing a fan:
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">1.</span> Orient the fan so that the airflow arrow points in the desired direction (toward exhaust or away from intake).</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">1.</span> Orient the fan so that the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span> arrow points in the desired direction (toward <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> or away from <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span>).</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> Align the screw holes and use the provided fan screws or rubber anti-vibration mounts.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> Route the fan cable to the nearest fan header, keeping it clear of other fan blades.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> Route the fan cable to the nearest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fan-header')">fan header</span>, keeping it clear of other fan blades.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> Use a fan hub or splitter cable if your motherboard does not have enough headers.</p>
             </div>
 
@@ -283,13 +285,13 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">AIO Liquid Cooler</h4>
                 </div>
-                <p class="text-sm text-theme-muted">An All-In-One liquid cooler uses a pump to circulate coolant through a block on the CPU to a radiator, where fans blow air across the radiator fins. AIOs offer excellent cooling performance, especially for overclocked CPUs, and keep the area around the CPU socket less cluttered. Sizes range from 120 mm to 420 mm radiators.</p>
+                <p class="text-sm text-theme-muted">An All-In-One liquid cooler uses a pump to circulate coolant through a block on the CPU to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('radiator')">radiator</span>, where fans blow air across the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('radiator')">radiator</span> fins. AIOs offer excellent cooling performance, especially for overclocked CPUs, and keep the area around the CPU socket less cluttered. Sizes range from 120 mm to 420 mm <span class="vocab cursor-pointer" onclick="scrollToVocabulary('radiator')">radiators</span>.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Thermal Compound</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Thermal compound</span> (also called thermal paste or TIM — Thermal Interface Material) fills the microscopic gaps between the CPU's heat spreader and the cooler's base plate. Even though both surfaces look smooth, they have tiny imperfections that trap air — and air is a terrible conductor of heat. Thermal compound bridges these gaps, improving heat transfer dramatically.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">Thermal compound</span></span> (also called thermal paste or TIM — Thermal Interface Material) fills the microscopic gaps between the CPU's heat spreader and the cooler's base plate. Even though both surfaces look smooth, they have tiny imperfections that trap air — and air is a terrible conductor of heat. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">Thermal compound</span> bridges these gaps, improving heat transfer dramatically.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               To apply thermal paste, place a pea-sized dot in the centre of the CPU, then mount the cooler. The pressure spreads the paste evenly across the surface. Too little paste leaves air gaps; too much can overflow and cause electrical issues. Most modern coolers come with pre-applied paste, but high-performance builders often use premium compounds like Arctic MX-6 or Thermal Grizzly Kryonaut.
@@ -299,7 +301,16 @@
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">A well-cooled PC runs quieter, lasts longer, and performs better. Every 10&deg;C reduction in operating temperature can double the lifespan of electronic components. Investing in good cooling is one of the smartest things you can do for your build.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, case &amp; cooling involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('case-form-factor')">Case Form Factor</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">Airflow</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fan-header')">Fan Header</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -314,16 +325,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Case Form Factor</td><td>The physical size and layout standard of a computer case (e.g., ATX, Micro-ATX, Mini-ITX)</td></tr>
-                  <tr><td>Airflow</td><td>The movement of air through a case, driven by intake and exhaust fans to cool components</td></tr>
-                  <tr><td>Fan Header</td><td>A connector on the motherboard that supplies power and control signals to a cooling fan</td></tr>
-                  <tr><td>Radiator</td><td>A heat exchanger used in liquid cooling where coolant is cooled by airflow across thin metal fins</td></tr>
-                  <tr><td>AIO Cooler</td><td>All-In-One liquid cooler — a sealed, pre-assembled liquid cooling unit for the CPU</td></tr>
-                  <tr><td>Thermal Compound</td><td>A paste applied between the CPU and cooler to improve heat transfer by filling microscopic gaps</td></tr>
-                  <tr><td>Intake</td><td>A fan configuration that pulls cool air into the case, typically mounted at the front or bottom</td></tr>
-                  <tr><td>Exhaust</td><td>A fan configuration that pushes hot air out of the case, typically mounted at the rear or top</td></tr>
-                  <tr><td>PWM</td><td>Pulse Width Modulation — a 4-pin fan control method that adjusts speed by varying power pulses</td></tr>
-                  <tr><td>Positive Pressure</td><td>A case airflow state where intake fans push more air in than exhaust fans pull out, reducing dust entry</td></tr>
+                  <tr id="vocab-case-form-factor"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('case-form-factor')">Case Form Factor</span></td><td>The physical size and layout standard of a computer case (e.g., ATX, Micro-ATX, Mini-ITX)</td></tr>
+                  <tr id="vocab-airflow"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">Airflow</span></td><td>The movement of air through a case, driven by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans to cool components</td></tr>
+                  <tr id="vocab-fan-header"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fan-header')">Fan Header</span></td><td>A connector on the motherboard that supplies power and control signals to a cooling fan</td></tr>
+                  <tr id="vocab-radiator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('radiator')">Radiator</span></td><td>A heat exchanger used in liquid cooling where coolant is cooled by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span> across thin metal fins</td></tr>
+                  <tr id="vocab-aio-cooler"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('aio-cooler')">AIO Cooler</span></td><td>All-In-One liquid cooler — a sealed, pre-assembled liquid cooling unit for the CPU</td></tr>
+                  <tr id="vocab-thermal-compound"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">Thermal Compound</span></td><td>A paste applied between the CPU and cooler to improve heat transfer by filling microscopic gaps</td></tr>
+                  <tr id="vocab-intake"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">Intake</span></td><td>A fan configuration that pulls cool air into the case, typically mounted at the front or bottom</td></tr>
+                  <tr id="vocab-exhaust"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">Exhaust</span></td><td>A fan configuration that pushes hot air out of the case, typically mounted at the rear or top</td></tr>
+                  <tr id="vocab-pwm"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('pwm')">PWM</span></td><td>Pulse Width Modulation — a 4-pin fan control method that adjusts speed by varying power pulses</td></tr>
+                  <tr id="vocab-positive-pressure"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('positive-pressure')">Positive Pressure</span></td><td>A case <span class="vocab cursor-pointer" onclick="scrollToVocabulary('airflow')">airflow</span> state where <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> fans push more air in than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans pull out, reducing dust entry</td></tr>
                 </tbody>
               </table>
             </div>
@@ -344,19 +355,19 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some high-end cases use "negative pressure" setups (more exhaust than intake) to maximise cooling at the cost of more dust buildup. Enthusiasts debate which is better — but positive pressure is generally recommended for cleaner builds.</p>
+                <p class="text-sm text-theme-muted">Some high-end cases use "negative pressure" setups (more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span>) to maximise cooling at the cost of more dust buildup. Enthusiasts debate which is better — but <span class="vocab cursor-pointer" onclick="scrollToVocabulary('positive-pressure')">positive pressure</span> is generally recommended for cleaner builds.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Liquid cooling can be traced back to mainframe computers in the 1960s. The Cray-2 supercomputer (1985) was famously submerged in a tank of Fluorinert liquid coolant. Today's AIO coolers are much more practical!</p>
+                <p class="text-sm text-theme-muted">Liquid cooling can be traced back to mainframe computers in the 1960s. The Cray-2 supercomputer (1985) was famously submerged in a tank of Fluorinert liquid coolant. Today's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('aio-cooler')">AIO coolers</span> are much more practical!</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The largest PC case ever sold at retail is the Corsair 1000D, which weighs over 30 kg empty and can fit two complete computer systems simultaneously — along with up to 18 fans and a 480 mm radiator.</p>
+                <p class="text-sm text-theme-muted">The largest PC case ever sold at retail is the Corsair 1000D, which weighs over 30 kg empty and can fit two complete computer systems simultaneously — along with up to 18 fans and a 480 mm <span class="vocab cursor-pointer" onclick="scrollToVocabulary('radiator')">radiator</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -397,18 +408,18 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. What does "positive pressure" mean in case cooling?</p>
+                <p class="text-sm font-semibold text-theme">2. What does "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('positive-pressure')">positive pressure</span>" mean in case cooling?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> More exhaust fans than intake fans</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Equal numbers of intake and exhaust fans</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> More intake fans than exhaust fans</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> More <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> fans</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Equal numbers of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> More <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> fans than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> No fans installed at all</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> More intake fans than exhaust fans</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> More <span class="vocab cursor-pointer" onclick="scrollToVocabulary('intake')">intake</span> fans than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('exhaust')">exhaust</span> fans</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What is the purpose of thermal compound (thermal paste)?</p>
+                <p class="text-sm font-semibold text-theme">3. What is the purpose of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-compound')">thermal compound</span> (thermal paste)?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To glue the CPU cooler permanently to the CPU</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To fill microscopic gaps between the CPU and cooler for better heat transfer</label>
@@ -482,12 +493,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

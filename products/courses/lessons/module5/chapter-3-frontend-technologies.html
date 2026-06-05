@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,10 +181,10 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Every website and web app you have ever visited is built on the same three core technologies: <span class="text-brand-200 font-semibold">HTML</span>, <span class="text-brand-200 font-semibold">CSS</span>, and <span class="text-brand-200 font-semibold">JavaScript</span>. These three languages work together to create everything you see and interact with in a browser.
+              Every website and web app you have ever visited is built on the same three core technologies: <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span></span>, <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span></span>, and <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span></span>. These three languages work together to create everything you see and interact with in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">browser</span>.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              HTML gives a page its structure. CSS makes it look good. JavaScript makes it interactive. You might use a framework like React or Vue on top of them, but underneath, it is always HTML, CSS, and JavaScript doing the real work.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> gives a page its structure. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> makes it look good. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> makes it interactive. You might use a framework like React or Vue on top of them, but underneath, it is always <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> doing the real work.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
               In this chapter, you will learn what each language does, how they fit together, and why they are the foundation of the modern web.
@@ -195,12 +197,12 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">When you visit a webpage, your browser downloads HTML, CSS, and JavaScript files. The HTML provides the structure (headings, paragraphs, images, links). The CSS provides the styling (colours, fonts, layout, animations). The JavaScript adds behaviour (click handlers, form validation, fetching data, dynamic updates).</p>
+              <p class="text-sm text-theme-muted">When you visit a webpage, your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">browser</span> downloads <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> files. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> provides the structure (headings, paragraphs, images, links). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> provides the styling (colours, fonts, layout, animations). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> adds behaviour (click handlers, form validation, fetching data, dynamic updates).</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">House Analogy</p>
-              <p class="text-sm text-theme-muted">HTML is the house frame — walls, rooms, doors, windows. CSS is the paint, furniture, and decorations — the colours, textures, and layout. JavaScript is the electricity and plumbing — the stuff that makes things happen when you flip a switch or turn a tap.</p>
+              <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> is the house frame — walls, rooms, doors, windows. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> is the paint, furniture, and decorations — the colours, textures, and layout. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> is the electricity and plumbing — the stuff that makes things happen when you flip a switch or turn a tap.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Three Languages</h3>
@@ -220,33 +222,42 @@
                   <span class="text-brand-300 font-bold text-lg">#</span>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200 mb-2">CSS — Style</h4>
-                <p class="text-sm text-theme-muted">Cascading Style Sheets controls colours, fonts, spacing, and layout. It makes a page look beautiful. A single CSS rule can change the colour of every heading across an entire website.</p>
+                <p class="text-sm text-theme-muted">Cascading Style Sheets controls colours, fonts, spacing, and layout. It makes a page look beautiful. A single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> rule can change the colour of every heading across an entire website.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-3">
                   <span class="text-brand-300 font-bold text-lg">{ }</span>
                 </div>
                 <h4 class="font-display font-semibold text-base text-brand-200 mb-2">JavaScript — Behaviour</h4>
-                <p class="text-sm text-theme-muted">JavaScript adds interactivity: button clicks, form submissions, animations, and real-time updates. It can fetch data from servers and rewrite parts of a page without reloading.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> adds interactivity: button clicks, form submissions, animations, and real-time updates. It can fetch data from servers and rewrite parts of a page without reloading.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The browser reads HTML first, then applies CSS, then runs JavaScript. This is called <span class="text-brand-200">rendering</span>. The <span class="text-brand-200">DOM (Document Object Model)</span> is the browser's internal representation of the page. JavaScript can access and modify the DOM to change what the user sees.
+              The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">browser</span> reads <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> first, then applies <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, then runs <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span>. This is called <span class="text-brand-200">rendering</span>. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span> (Document Object Model)</span> is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">browser's</span> internal representation of the page. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> can access and modify the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span> to change what the user sees.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern frontend development often uses frameworks like React, Vue, or Angular. These frameworks are built on top of JavaScript and help developers build complex apps more efficiently. But they all compile down to HTML, CSS, and JavaScript in the end.
+              Modern frontend development often uses frameworks like React, Vue, or Angular. These frameworks are built on top of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> and help developers build complex apps more efficiently. But they all compile down to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> in the end.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Responsive design</span> is the practice of making pages look good on any device — phone, tablet, or desktop. It is achieved with CSS techniques like flexible grids, media queries, and relative units.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-design')">Responsive design</span></span> is the practice of making pages look good on any device — phone, tablet, or desktop. It is achieved with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> techniques like flexible grids, media queries, and relative units.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">You cannot build a modern web frontend without all three languages. HTML without CSS looks like a document from 1992. CSS without HTML has nothing to style. JavaScript without HTML and CSS would have no interface to talk to.</p>
+              <p class="text-sm text-theme-muted">You cannot build a modern web frontend without all three languages. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> looks like a document from 1992. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> has nothing to style. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> would have no interface to talk to.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, frontend technologies involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -261,12 +272,12 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>HTML</td><td>HyperText Markup Language — the standard language for creating the structure of web pages</td></tr>
-                  <tr><td>CSS</td><td>Cascading Style Sheets — a language that controls the visual appearance of HTML elements</td></tr>
-                  <tr><td>JavaScript</td><td>A programming language that adds interactivity, logic, and dynamic behaviour to web pages</td></tr>
-                  <tr><td>DOM</td><td>Document Object Model — the browser's tree-like representation of a web page's structure</td></tr>
-                  <tr><td>Browser</td><td>A software application (Chrome, Firefox, Safari) that retrieves and displays web pages</td></tr>
-                  <tr><td>Responsive Design</td><td>A design approach that makes web pages adapt to different screen sizes and devices</td></tr>
+                  <tr id="vocab-html"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span></td><td>HyperText Markup Language — the standard language for creating the structure of web pages</td></tr>
+                  <tr id="vocab-css"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span></td><td>Cascading Style Sheets — a language that controls the visual appearance of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> elements</td></tr>
+                  <tr id="vocab-javascript"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span></td><td>A programming language that adds interactivity, logic, and dynamic behaviour to web pages</td></tr>
+                  <tr id="vocab-dom"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span></td><td>Document Object Model — the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">browser's</span> tree-like representation of a web page's structure</td></tr>
+                  <tr id="vocab-browser"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('browser')">Browser</span></td><td>A software application (Chrome, Firefox, Safari) that retrieves and displays web pages</td></tr>
+                  <tr id="vocab-responsive-design"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('responsive-design')">Responsive Design</span></td><td>A design approach that makes web pages adapt to different screen sizes and devices</td></tr>
                 </tbody>
               </table>
             </div>
@@ -281,31 +292,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">HTML was invented by Tim Berners-Lee in 1991 while working at CERN. He created it to share scientific documents.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> was invented by Tim Berners-Lee in 1991 while working at CERN. He created it to share scientific documents.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">CSS was first proposed in 1994 by Håkon Wium Lie. Before CSS, web pages were styled with HTML attributes like <code>&lt;font&gt;</code> and <code>&lt;center&gt;</code>.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> was first proposed in 1994 by Håkon Wium Lie. Before <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, web pages were styled with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> attributes like <code>&lt;font&gt;</code> and <code>&lt;center&gt;</code>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">JavaScript was created in just 10 days by Brendan Eich in 1995. It is now one of the most popular programming languages in the world.</p>
+                <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span> was created in just 10 days by Brendan Eich in 1995. It is now one of the most popular programming languages in the world.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The first ever website (http://info.cern.ch) is still online. It was made with just HTML — no CSS, no JavaScript.</p>
+                <p class="text-sm text-theme-muted">The first ever website (http://info.cern.ch) is still online. It was made with just <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span> — no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span>, no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">There are over 1.8 billion websites on the internet today, and every single one of them uses HTML.</p>
+                <p class="text-sm text-theme-muted">There are over 1.8 billion websites on the internet today, and every single one of them uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span>.</p>
               </div>
             </div>
           </div>
@@ -332,16 +343,16 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. Which language defines the structure and content of a web page?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> CSS</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> JavaScript</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> HTML</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('javascript')">JavaScript</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Python</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> HTML</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('html')">HTML</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. In the house analogy, what does CSS represent?</p>
+                <p class="text-sm font-semibold text-theme">2. In the house analogy, what does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('css')">CSS</span> represent?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The house frame (walls and rooms)</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> The paint, furniture, and decorations</label>
@@ -352,7 +363,7 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What does DOM stand for?</p>
+                <p class="text-sm font-semibold text-theme">3. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Document Object Model</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Data Output Management</label>

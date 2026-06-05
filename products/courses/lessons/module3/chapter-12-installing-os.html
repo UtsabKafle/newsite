@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              You have built a powerful machine. You have configured the BIOS/UEFI and verified that all hardware is recognised. But your computer still cannot do anything useful — because it has no <span class="text-brand-200">operating system</span>. An OS is the master program that manages all hardware and software, providing the interface through which you interact with the computer.
+              You have built a powerful machine. You have configured the BIOS/UEFI and verified that all hardware is recognised. But your computer still cannot do anything useful — because it has no <span class="text-brand-200">operating system</span>. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> is the master program that manages all hardware and software, providing the interface through which you interact with the computer.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              The two most common operating systems for personal computers are <span class="text-brand-200">Microsoft Windows</span> (used in most desktops and laptops worldwide) and <span class="text-brand-200">Linux</span> (a free, open-source OS popular with developers, servers, and enthusiasts). Both can be installed using a <span class="text-brand-200">bootable USB drive</span> containing the OS installation files.
+              The two most common operating systems for personal computers are <span class="text-brand-200">Microsoft Windows</span> (used in most desktops and laptops worldwide) and <span class="text-brand-200">Linux</span> (a free, open-source <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> popular with developers, servers, and enthusiasts). Both can be installed using a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> drive</span> containing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installation files.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              In this chapter, you will learn how to create bootable installation media, partition a drive, and walk through the installation process for both Windows and Linux.
+              In this chapter, you will learn how to create bootable installation media, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> a drive, and walk through the installation process for both Windows and Linux.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">Installing an OS is like moving into a new house. You have built the house (assembled the hardware), checked the utilities (BIOS/UEFI), and now you need to furnish it with furniture and appliances (the OS). The bootable USB drive is like the moving truck that brings everything in.</p>
+              <p class="text-sm text-theme-muted">Installing an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> is like moving into a new house. You have built the house (assembled the hardware), checked the utilities (BIOS/UEFI), and now you need to furnish it with furniture and appliances (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span>). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> drive is like the moving truck that brings everything in.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Think of a computer without an OS like an empty plot of land. The hardware is the land itself. The BIOS/UEFI is the surveyor who checks the land is ready. The OS is the house you build on it — it provides the structure, rooms, doors, and windows (the interface) that let you actually live in and use the space.</p>
+              <p class="text-sm text-theme-muted">Think of a computer without an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> like an empty plot of land. The hardware is the land itself. The BIOS/UEFI is the surveyor who checks the land is ready. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> is the house you build on it — it provides the structure, rooms, doors, and windows (the interface) that let you actually live in and use the space.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Creating Bootable Installation Media</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              To install an OS, you need a USB drive (8 GB or larger) containing the OS installation files. The USB must be made <span class="text-brand-200">bootable</span> — formatted and configured so the computer can boot from it.
+              To install an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span>, you need a USB drive (8 GB or larger) containing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installation files. The USB must be made <span class="text-brand-200">bootable</span> — formatted and configured so the computer can boot from it.
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
@@ -224,57 +226,66 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Linux (Rufus / Balena Etcher)</h4>
                 </div>
-                <p class="text-sm text-theme-muted">Download a Linux distribution ISO file (e.g., Ubuntu, Linux Mint, Fedora). Use a tool like Rufus (Windows) or Balena Etcher (cross-platform) to write the ISO to a USB drive. Select GPT partition scheme and UEFI target system for modern hardware.</p>
+                <p class="text-sm text-theme-muted">Download a Linux distribution <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span> file (e.g., Ubuntu, Linux Mint, Fedora). Use a tool like Rufus (Windows) or Balena Etcher (cross-platform) to write the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span> to a USB drive. Select <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> scheme and UEFI target system for modern hardware.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Installation Process</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Once the bootable USB is ready, insert it into the new PC and boot from it (set boot order in BIOS or use the boot menu key, often F12). The installer will guide you through the process:
+              Once the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> is ready, insert it into the new PC and boot from it (set boot order in BIOS or use the boot menu key, often F12). The installer will guide you through the process:
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">1.</span> <strong>Language and region:</strong> Choose your language, time, and keyboard layout.</p>
               <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">2.</span> <strong>Install now:</strong> Enter the product key (Windows) or choose installation type (Linux).</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> <strong>Partitioning:</strong> Select the drive where the OS will be installed. This is where you choose between automatic or manual partition setup.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> <strong>Copying files:</strong> The installer copies OS files to the drive and prepares the system. This takes 10&ndash;30 minutes depending on drive speed.</p>
-              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">5.</span> <strong>Reboot:</strong> When prompted, remove the USB drive and let the system boot from the newly installed OS for the first time.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">3.</span> <strong>Partitioning:</strong> Select the drive where the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> will be installed. This is where you choose between automatic or manual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> setup.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">4.</span> <strong>Copying files:</strong> The installer copies <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> files to the drive and prepares the system. This takes 10&ndash;30 minutes depending on drive speed.</p>
+              <p class="flex items-start gap-2"><span class="text-brand-200 font-semibold mt-0.5">5.</span> <strong>Reboot:</strong> When prompted, remove the USB drive and let the system boot from the newly installed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> for the first time.</p>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Partitioning Explained</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Partitioning</span> divides a physical drive into logical sections, each behaving like a separate drive. For UEFI-based systems with GPT, Windows typically creates several partitions:
+              <span class="text-brand-200">Partitioning</span> divides a physical drive into logical sections, each behaving like a separate drive. For UEFI-based systems with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span>, Windows typically creates several <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partitions</span>:
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">EFI System Partition (ESP)</p>
-                <p class="text-sm text-theme-muted">A small FAT32 partition (100&ndash;500 MB) that stores the UEFI bootloaders. Required for booting in UEFI mode. Marked with partition type GUID for EFI.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">EFI System <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span> (ESP)</p>
+                <p class="text-sm text-theme-muted">A small FAT32 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> (100&ndash;500 MB) that stores the UEFI bootloaders. Required for booting in UEFI mode. Marked with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> type GUID for EFI.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">MSR (Microsoft Reserved Partition)</p>
-                <p class="text-sm text-theme-muted">A small (16 MB) partition used by Windows for internal management. Not visible in File Explorer. Created automatically during Windows installation.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">MSR (Microsoft Reserved <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span>)</p>
+                <p class="text-sm text-theme-muted">A small (16 MB) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> used by Windows for internal management. Not visible in File Explorer. Created automatically during Windows installation.</p>
               </div>
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
-                <p class="text-sm font-semibold text-brand-200 mb-1">Primary (C:) Partition</p>
-                <p class="text-sm text-theme-muted">The main partition where Windows, programs, and your files live. Formatted as <span class="text-brand-200">NTFS</span> (NT File System) — the native file system for Windows, supporting large files, permissions, and compression.</p>
+                <p class="text-sm font-semibold text-brand-200 mb-1">Primary (C:) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span></p>
+                <p class="text-sm text-theme-muted">The main <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> where Windows, programs, and your files live. Formatted as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span></span> (NT <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span>) — the native <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> for Windows, supporting large files, permissions, and compression.</p>
               </div>
             </div>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              For Linux, the structure is different. Common partitions include: <span class="text-brand-200">/ (root)</span> — the main system partition, usually formatted as <span class="text-brand-200">ext4</span>; <span class="text-brand-200">/boot/efi</span> — the EFI partition; and <span class="text-brand-200">swap</span> — a partition used as virtual memory when RAM is full. Some users create a separate <span class="text-brand-200">/home</span> partition so personal files survive OS reinstallation.
+              For Linux, the structure is different. Common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partitions</span> include: <span class="text-brand-200">/ (root)</span> — the main system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>, usually formatted as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ext4')">ext4</span></span>; <span class="text-brand-200">/boot/efi</span> — the EFI <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>; and <span class="text-brand-200">swap</span> — a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> used as virtual memory when RAM is full. Some users create a separate <span class="text-brand-200">/home</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> so personal files survive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> reinstallation.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Post-Installation First Boot</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              After installation, the system boots into the OS for the first time. For Windows, you will go through the <span class="text-brand-200">Out-of-Box Experience (OOBE)</span> — creating a user account, connecting to Wi-Fi, and configuring privacy settings. For Linux, you will be greeted by a setup wizard that may ask for your username, password, and timezone.
+              After installation, the system boots into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> for the first time. For Windows, you will go through the <span class="text-brand-200">Out-of-Box Experience (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('oobe')">OOBE</span>)</span> — creating a user account, connecting to Wi-Fi, and configuring privacy settings. For Linux, you will be greeted by a setup wizard that may ask for your username, password, and timezone.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              At this stage, the <span class="text-brand-200">Boot Manager</span> (part of UEFI) keeps track of which OS to load. If you install multiple OSes (dual-boot), the boot manager presents a menu at startup letting you choose which one to run.
+              At this stage, the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-manager')">Boot Manager</span></span> (part of UEFI) keeps track of which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> to load. If you install multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OSes</span> (dual-boot), the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-manager')">boot manager</span> presents a menu at startup letting you choose which one to run.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">If the installer cannot find any drives, you may need to load storage drivers (especially for Intel VMD or AMD RAID configurations). On Windows, click "Load Driver" during the drive selection screen and browse to the extracted driver files on another USB. On Linux, the installer usually includes these drivers.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, installing an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">os</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">Bootable USB</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -289,16 +300,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>OS</td><td>Operating System — the master software that manages hardware, runs applications, and provides a user interface</td></tr>
-                  <tr><td>Bootable USB</td><td>A USB drive formatted and configured to boot a computer and run an OS installer</td></tr>
-                  <tr><td>ISO</td><td>A disk image file containing the complete contents of an optical disc, used for OS distribution</td></tr>
-                  <tr><td>Partition</td><td>A logical division of a storage drive that functions as a separate independent unit</td></tr>
-                  <tr><td>File System</td><td>The method and structure used by an OS to organise, store, and retrieve files on a drive</td></tr>
-                  <tr><td>NTFS</td><td>New Technology File System — the primary file system for Windows, supporting large files and permissions</td></tr>
-                  <tr><td>ext4</td><td>Fourth Extended File System — the default file system for many Linux distributions</td></tr>
-                  <tr><td>Boot Manager</td><td>A UEFI component that allows the user to select which OS to boot in a multi-boot setup</td></tr>
-                  <tr><td>GPT</td><td>GUID Partition Table — a modern partitioning scheme required for UEFI boot and drives over 2 TB</td></tr>
-                  <tr><td>OOBE</td><td>Out-of-Box Experience — the initial setup wizard that runs the first time you boot a new OS</td></tr>
+                  <tr id="vocab-os"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span></td><td>Operating System — the master software that manages hardware, runs applications, and provides a user interface</td></tr>
+                  <tr id="vocab-bootable-usb"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">Bootable USB</span></td><td>A USB drive formatted and configured to boot a computer and run an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installer</td></tr>
+                  <tr id="vocab-iso"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span></td><td>A disk image file containing the complete contents of an optical disc, used for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> distribution</td></tr>
+                  <tr id="vocab-partition"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span></td><td>A logical division of a storage drive that functions as a separate independent unit</td></tr>
+                  <tr id="vocab-file-system"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span></td><td>The method and structure used by an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> to organise, store, and retrieve files on a drive</td></tr>
+                  <tr id="vocab-ntfs"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span></td><td>New Technology <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span> — the primary <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> for Windows, supporting large files and permissions</td></tr>
+                  <tr id="vocab-ext4"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ext4')">ext4</span></td><td>Fourth Extended <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span> — the default <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> for many Linux distributions</td></tr>
+                  <tr id="vocab-boot-manager"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-manager')">Boot Manager</span></td><td>A UEFI component that allows the user to select which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> to boot in a multi-boot setup</td></tr>
+                  <tr id="vocab-gpt"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span></td><td>GUID <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">Partition</span> Table — a modern partitioning scheme required for UEFI boot and drives over 2 TB</td></tr>
+                  <tr id="vocab-oobe"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('oobe')">OOBE</span></td><td>Out-of-Box Experience — the initial setup wizard that runs the first time you boot a new <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -313,7 +324,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Windows 95 was installed from 13 floppy disks! A single Windows 11 installation ISO is over 5 GB. Modern installers fit on a USB drive smaller than a single floppy disk.</p>
+                <p class="text-sm text-theme-muted">Windows 95 was installed from 13 floppy disks! A single Windows 11 installation <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span> is over 5 GB. Modern installers fit on a USB drive smaller than a single floppy disk.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -331,13 +342,13 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The NTFS file system was introduced with Windows NT 3.1 in 1993. It supports individual file sizes up to 16 exabytes (16 million TB) and includes features like file compression, encryption (EFS), and disk quotas.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> was introduced with Windows NT 3.1 in 1993. It supports individual file sizes up to 16 exabytes (16 million TB) and includes features like file compression, encryption (EFS), and disk quotas.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some Linux distributions (like Ubuntu) offer a "Try before you install" mode. You can boot the entire OS from the USB drive, use it normally, and only commit to installing it on the hard drive when you are ready. It is a full desktop experience running entirely from USB.</p>
+                <p class="text-sm text-theme-muted">Some Linux distributions (like Ubuntu) offer a "Try before you install" mode. You can boot the entire <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> from the USB drive, use it normally, and only commit to installing it on the hard drive when you are ready. It is a full desktop experience running entirely from USB.</p>
               </div>
             </div>
           </div>
@@ -361,29 +372,29 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is a bootable USB drive?</p>
+                <p class="text-sm font-semibold text-theme">1. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> drive?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A USB drive with extra storage space</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A USB drive formatted to boot a computer and run an OS installer</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A USB drive formatted to boot a computer and run an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installer</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A USB drive that works faster than normal</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A USB drive used only for backups</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A USB drive formatted to boot a computer and run an OS installer</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A USB drive formatted to boot a computer and run an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installer</p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which file system does Windows typically use for its main partition?</p>
+                <p class="text-sm font-semibold text-theme">2. Which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> does Windows typically use for its main <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> FAT32</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> ext4</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> NTFS</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ext4')">ext4</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span></label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> APFS</label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> NTFS</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. What is the purpose of partitioning a drive during OS installation?</p>
+                <p class="text-sm font-semibold text-theme">3. What is the purpose of partitioning a drive during <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installation?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To make the drive physically larger</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> To divide the drive into logical sections, each functioning as a separate unit</label>
@@ -457,12 +468,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

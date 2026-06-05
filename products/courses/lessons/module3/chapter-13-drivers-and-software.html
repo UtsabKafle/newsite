@@ -65,6 +65,8 @@
     .kb-check p { margin-bottom: 0.25rem; }
     .kb-answer { display: none; }
     .kb-answer.revealed { display: block; }
+  
+    .vocab { color: #3b82f6; font-weight: 500; }
   </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -179,13 +181,13 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Your operating system is installed and you can see the desktop. But some things may not work correctly yet — your network adapter might not connect to the internet, your graphics card may be running at low resolution, or your sound might not work. This is because the OS needs <span class="text-brand-200">drivers</span> to communicate with each piece of hardware.
+              Your operating system is installed and you can see the desktop. But some things may not work correctly yet — your network adapter might not connect to the internet, your graphics card may be running at low resolution, or your sound might not work. This is because the OS needs <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span></span> to communicate with each piece of hardware.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A <span class="text-brand-200">device driver</span> is a software program that acts as a translator between the operating system and a hardware device. The OS knows how to talk to generic classes of devices (storage, network, display), but it needs specific drivers to unlock the full capabilities of each component.
+              A <span class="text-brand-200">device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></span> is a software program that acts as a translator between the operating system and a hardware device. The OS knows how to talk to generic classes of devices (storage, network, display), but it needs specific <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> to unlock the full capabilities of each component.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Beyond drivers, you will also want to install essential software — web browsers, utilities, security tools, and productivity applications — to make your new computer truly useful.
+              Beyond <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span>, you will also want to install essential software — web browsers, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('utility')">utilities</span>, security tools, and productivity applications — to make your new computer truly useful.
             </p>
           </div>
         </section>
@@ -195,17 +197,17 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">A driver is like an interpreter at the United Nations. The OS speaks its own language, and each hardware device speaks its own unique language. The driver translates between them so they can understand each other.</p>
+              <p class="text-sm text-theme-muted">A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> is like an interpreter at the United Nations. The OS speaks its own language, and each hardware device speaks its own unique language. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> translates between them so they can understand each other.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-3">Household Object Analogy</p>
-              <p class="text-sm text-theme-muted">Imagine you buy a new smart lightbulb for your house. Your house's wiring provides electricity (like the OS provides basic services), but you need the manufacturer's app to control the bulb's colour, brightness, and schedules. The app is the driver — it unlocks features that the basic wiring alone cannot provide.</p>
+              <p class="text-sm text-theme-muted">Imagine you buy a new smart lightbulb for your house. Your house's wiring provides electricity (like the OS provides basic services), but you need the manufacturer's app to control the bulb's colour, brightness, and schedules. The app is the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> — it unlocks features that the basic wiring alone cannot provide.</p>
             </div>
 
-            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Installing Drivers</h3>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              For a new build, the most important drivers to install are the <span class="text-brand-200">chipset driver</span> and the <span class="text-brand-200">GPU driver</span>. Most other drivers will be included with Windows Update or the chipset driver package.
+              For a new build, the most important <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> to install are the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">chipset driver</span></span> and the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpu-driver')">GPU driver</span></span>. Most other <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> will be included with Windows Update or the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">chipset driver</span> package.
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
@@ -215,7 +217,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Chipset Driver</h4>
                 </div>
-                <p class="text-sm text-theme-muted">The chipset driver is the most important driver for your motherboard. It enables proper communication between the CPU, RAM, PCIe slots, USB ports, SATA controllers, and other motherboard features. Download it from your motherboard manufacturer's support page.</p>
+                <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">chipset driver</span> is the most important <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> for your motherboard. It enables proper communication between the CPU, RAM, PCIe slots, USB ports, SATA controllers, and other motherboard features. Download it from your motherboard manufacturer's support page.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -224,7 +226,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">GPU Driver</h4>
                 </div>
-                <p class="text-sm text-theme-muted">The graphics driver is essential for gaming, video editing, and even basic display output at proper resolution. Download from NVIDIA (GeForce Experience or manual driver download), AMD (Adrenalin Software), or Intel (Arc Control). Keep your GPU driver updated for best performance.</p>
+                <p class="text-sm text-theme-muted">The graphics <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> is essential for gaming, video editing, and even basic display output at proper resolution. Download from NVIDIA (GeForce Experience or manual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> download), AMD (Adrenalin Software), or Intel (Arc Control). Keep your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpu-driver')">GPU driver</span> updated for best performance.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -233,7 +235,7 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Network / LAN Driver</h4>
                 </div>
-                <p class="text-sm text-theme-muted">Windows usually includes a basic Ethernet driver, but installing the manufacturer's driver improves stability and performance. For Wi-Fi cards, the driver is essential. If your motherboard has 2.5 GbE or Wi-Fi 6E, the included drivers unlock those speeds.</p>
+                <p class="text-sm text-theme-muted">Windows usually includes a basic Ethernet <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span>, but installing the manufacturer's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> improves stability and performance. For Wi-Fi cards, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> is essential. If your motherboard has 2.5 GbE or Wi-Fi 6E, the included <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> unlock those speeds.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl border border-brand-500/10">
                 <div class="flex items-center gap-3 mb-2">
@@ -242,29 +244,29 @@
                   </div>
                   <h4 class="font-display font-semibold text-base text-brand-200">Audio Driver</h4>
                 </div>
-                <p class="text-sm text-theme-muted">Modern motherboards use high-definition audio codecs from Realtek or ALC. Installing the Realtek HD Audio Driver enables features like 7.1 surround sound, front panel jack detection, and equaliser controls.</p>
+                <p class="text-sm text-theme-muted">Modern motherboards use high-definition audio codecs from Realtek or ALC. Installing the Realtek HD Audio <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span> enables features like 7.1 surround sound, front panel jack detection, and equaliser controls.</p>
               </div>
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Using Device Manager</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Windows includes a built-in tool called <span class="text-brand-200">Device Manager</span> (devmgmt.msc) that shows all hardware devices and their driver status. Devices with missing or incorrect drivers appear under "Other devices" with a yellow exclamation mark. You can right-click any device and select "Update driver" to search for drivers automatically.
+              Windows includes a built-in tool called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('device-manager')">Device Manager</span></span> (devmgmt.msc) that shows all hardware devices and their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> status. Devices with missing or incorrect <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> appear under "Other devices" with a yellow exclamation mark. You can right-click any device and select "Update <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span>" to search for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> automatically.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              For the cleanest installation, always download drivers directly from the manufacturer's website. Avoid using third-party "driver updater" tools, which often bundle adware or install incorrect drivers.
+              For the cleanest installation, always download <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> directly from the manufacturer's website. Avoid using third-party "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> updater" tools, which often bundle adware or install incorrect <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span>.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">BIOS / Firmware Updates</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              <span class="text-brand-200">Firmware</span> is the software stored on the motherboard's flash memory chip that the BIOS/UEFI runs. Manufacturers release firmware updates (often called BIOS updates) to fix bugs, improve hardware compatibility (especially for new CPUs), add features (like Resizable BAR), and patch security vulnerabilities.
+              <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">Firmware</span></span> is the software stored on the motherboard's flash memory chip that the BIOS/UEFI runs. Manufacturers release <span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">firmware</span> updates (often called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios-update')">BIOS updates</span>) to fix bugs, improve hardware compatibility (especially for new CPUs), add features (like Resizable BAR), and patch security vulnerabilities.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Updating firmware carries some risk — if the process is interrupted (power loss), the motherboard can become "bricked" (unusable). Only update if you have a specific reason, such as installing a newer CPU that requires a BIOS revision. Many modern motherboards support USB BIOS Flashback, which can recover from a failed update.
+              Updating <span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">firmware</span> carries some risk — if the process is interrupted (power loss), the motherboard can become "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bricked')">bricked</span>" (unusable). Only update if you have a specific reason, such as installing a newer CPU that requires a BIOS revision. Many modern motherboards support USB BIOS Flashback, which can recover from a failed update.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Essential Software</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Once drivers are installed, consider adding these essential utilities:
+              Once <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> are installed, consider adding these essential <span class="vocab cursor-pointer" onclick="scrollToVocabulary('utility')">utilities</span>:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-4 rounded-xl border border-brand-500/10">
@@ -287,9 +289,18 @@
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
-              <p class="text-sm text-theme-muted">Windows 10 and 11 include a large library of generic drivers that work for most hardware. For many builds, simply running Windows Update will install all necessary drivers automatically. For best performance (especially for GPU and chipset), download the manufacturer's specific drivers.</p>
+              <p class="text-sm text-theme-muted">Windows 10 and 11 include a large library of generic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> that work for most hardware. For many builds, simply running Windows Update will install all necessary <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> automatically. For best performance (especially for GPU and chipset), download the manufacturer's specific <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span>.</p>
             </div>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> &amp; software involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('device-manager')">Device Manager</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">Chipset Driver</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
@@ -304,16 +315,16 @@
                   </tr>
                 </thead>
                 <tbody class="text-theme-muted">
-                  <tr><td>Driver</td><td>A software program that enables the operating system to communicate with and control a hardware device</td></tr>
-                  <tr><td>Device Manager</td><td>A Windows utility that displays all installed hardware and allows driver management and troubleshooting</td></tr>
-                  <tr><td>Chipset Driver</td><td>The core driver for the motherboard chipset, enabling communication between CPU, RAM, and all peripheral buses</td></tr>
-                  <tr><td>GPU Driver</td><td>A driver package for the graphics card that enables full resolution, 3D acceleration, and performance features</td></tr>
-                  <tr><td>Firmware</td><td>Low-level software stored on a hardware device (like the motherboard BIOS chip) that controls its basic operation</td></tr>
-                  <tr><td>BIOS Update</td><td>A firmware upgrade for the motherboard that adds features, fixes bugs, or adds CPU support</td></tr>
-                  <tr><td>Utility</td><td>A software tool designed to help analyse, configure, optimise, or maintain a computer system</td></tr>
-                  <tr><td>Signed Driver</td><td>A driver that has been digitally signed by Microsoft to verify its authenticity and ensure it has not been tampered with</td></tr>
-                  <tr><td>WHQL</td><td>Windows Hardware Quality Labs — Microsoft's driver certification program ensuring driver stability and compatibility</td></tr>
-                  <tr><td>Bricked</td><td>A device rendered completely unusable due to a failed firmware update, as if it were as useful as a brick</td></tr>
+                  <tr id="vocab-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span></td><td>A software program that enables the operating system to communicate with and control a hardware device</td></tr>
+                  <tr id="vocab-device-manager"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('device-manager')">Device Manager</span></td><td>A Windows <span class="vocab cursor-pointer" onclick="scrollToVocabulary('utility')">utility</span> that displays all installed hardware and allows <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> management and troubleshooting</td></tr>
+                  <tr id="vocab-chipset-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">Chipset Driver</span></td><td>The core <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> for the motherboard chipset, enabling communication between CPU, RAM, and all peripheral buses</td></tr>
+                  <tr id="vocab-gpu-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpu-driver')">GPU Driver</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> package for the graphics card that enables full resolution, 3D acceleration, and performance features</td></tr>
+                  <tr id="vocab-firmware"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">Firmware</span></td><td>Low-level software stored on a hardware device (like the motherboard BIOS chip) that controls its basic operation</td></tr>
+                  <tr id="vocab-bios-update"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios-update')">BIOS Update</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">firmware</span> upgrade for the motherboard that adds features, fixes bugs, or adds CPU support</td></tr>
+                  <tr id="vocab-utility"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('utility')">Utility</span></td><td>A software tool designed to help analyse, configure, optimise, or maintain a computer system</td></tr>
+                  <tr id="vocab-signed-driver"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('signed-driver')">Signed Driver</span></td><td>A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> that has been digitally signed by Microsoft to verify its authenticity and ensure it has not been tampered with</td></tr>
+                  <tr id="vocab-whql"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('whql')">WHQL</span></td><td>Windows Hardware Quality Labs — Microsoft's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> certification program ensuring <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> stability and compatibility</td></tr>
+                  <tr id="vocab-bricked"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bricked')">Bricked</span></td><td>A device rendered completely unusable due to a failed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">firmware</span> update, as if it were as useful as a brick</td></tr>
                 </tbody>
               </table>
             </div>
@@ -328,31 +339,31 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">The term "driver" comes from the early days of computing when a "device driver" was literally a piece of software that "drove" or controlled a hardware peripheral. The first hard drive driver for the IBM PC was only 256 bytes.</p>
+                <p class="text-sm text-theme-muted">The term "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span>" comes from the early days of computing when a "device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span>" was literally a piece of software that "drove" or controlled a hardware peripheral. The first hard drive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> for the IBM PC was only 256 bytes.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">NVIDIA publishes a new graphics driver approximately every 2&ndash;4 weeks, often optimised for newly released games. These drivers can improve performance by 10&ndash;30% in specific titles compared to launch-day drivers.</p>
+                <p class="text-sm text-theme-muted">NVIDIA publishes a new graphics <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> approximately every 2&ndash;4 weeks, often optimised for newly released games. These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> can improve performance by 10&ndash;30% in specific titles compared to launch-day <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span>.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Windows Update now delivers driver updates automatically, but these are WHQL-certified versions that may be several months behind the manufacturer's latest. For gamers and professionals, downloading drivers directly from NVIDIA, AMD, or Intel is recommended.</p>
+                <p class="text-sm text-theme-muted">Windows Update now delivers <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> updates automatically, but these are <span class="vocab cursor-pointer" onclick="scrollToVocabulary('whql')">WHQL</span>-certified versions that may be several months behind the manufacturer's latest. For gamers and professionals, downloading <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> directly from NVIDIA, AMD, or Intel is recommended.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6V2m0 4a8 8 0 100 16 8 8 0 000-16z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">DDU (Display Driver Uninstaller) is a popular tool used to completely remove all traces of a GPU driver. This is useful when switching between NVIDIA and AMD cards or when fixing driver corruption issues that cause crashes or display problems.</p>
+                <p class="text-sm text-theme-muted">DDU (Display <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">Driver</span> Uninstaller) is a popular tool used to completely remove all traces of a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpu-driver')">GPU driver</span>. This is useful when switching between NVIDIA and AMD cards or when fixing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> corruption issues that cause crashes or display problems.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">Some hardware manufacturers still provide drivers via floppy disk or CD-ROM with their products. For modern builds, these are almost always outdated. Always download the latest driver version from the manufacturer's website for optimal performance and security.</p>
+                <p class="text-sm text-theme-muted">Some hardware manufacturers still provide <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">drivers</span> via floppy disk or CD-ROM with their products. For modern builds, these are almost always outdated. Always download the latest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> version from the manufacturer's website for optimal performance and security.</p>
               </div>
             </div>
           </div>
@@ -376,7 +387,7 @@
             <div class="mt-6 space-y-6">
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">1. What is a device driver?</p>
+                <p class="text-sm font-semibold text-theme">1. What is a device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A physical cable that connects devices</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> A software program that translates between the OS and hardware</label>
@@ -387,18 +398,18 @@
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">2. Which is the most important driver to install for a motherboard?</p>
+                <p class="text-sm font-semibold text-theme">2. Which is the most important <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span> to install for a motherboard?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> GPU driver</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Chipset driver</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Audio driver</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Network driver</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpu-driver')">GPU driver</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">Chipset driver</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Audio <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Network <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></label>
                 </div>
-                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Chipset driver</p>
+                <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset-driver')">Chipset driver</span></p>
               </div>
 
               <div class="kb-check">
-                <p class="text-sm font-semibold text-theme">3. Why should you be careful when updating BIOS/firmware?</p>
+                <p class="text-sm font-semibold text-theme">3. Why should you be careful when updating BIOS/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('firmware')">firmware</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> It takes a very long time</label>
                   <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> A failed update can permanently damage the motherboard ("brick" it)</label>
@@ -472,12 +483,12 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
-              <li><a href="../../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
-              <li><a href="../../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
-              <li><a href="../../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
-              <li><a href="../../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
-              <li><a href="../../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
+              <li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li>
+              <li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li>
+              <li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li>
+              <li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li>
+              <li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li>
+              <li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li>
             </ul>
           </div>
           <div>

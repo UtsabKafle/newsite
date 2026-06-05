@@ -11,7 +11,22 @@
   <script>(function(){var s=localStorage.getItem('consica-theme');var t=s||'dark';if(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)t='light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t);})();</script>
   <link rel="stylesheet" href="../../../../shared/styles/base.css"><link rel="stylesheet" href="../../../../shared/styles/animations.css"><link rel="stylesheet" href="../../../../shared/styles/theme-overrides.css">
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
-  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}</style>
+  <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}
+    .vocab-table th {
+      background: rgba(9, 89, 200, 0.12);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+    }
+    .vocab-table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vocab-table tr:hover td {
+      background: rgba(9, 89, 200, 0.04);
+    }
+    .vocab { color: #3b82f6; font-weight: 500; }
+  </style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -148,33 +163,56 @@
               Imagine a giant library that stores every book, movie, song, and photo in the world. Instead of bookshelves, it has rows and rows of computers. When you want to watch a video or visit a website, you send a request to this library, and one of the computers finds what you asked for and sends it back to you. The library never closes, never loses power, and is always ready to help anyone who asks.
             </p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              A data center is organized into racks of servers stacked vertically. Each server is a computer without a monitor or keyboard, optimized for processing requests or storing data. These servers are connected by high-speed networks inside the facility. Because servers generate enormous heat, data centers use advanced cooling systems — often chilled water or air conditioning — to prevent overheating. Redundant power supplies, backup generators, and UPS (Uninterruptible Power Supply) systems ensure the facility never goes offline.
+              A data center is organized into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">racks</span> of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> stacked vertically. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> is a computer without a monitor or keyboard, optimized for processing requests or storing data. These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> are connected by high-speed networks inside the facility. Because <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> generate enormous heat, data centers use advanced cooling systems — often chilled water or air conditioning — to prevent overheating. Redundant power supplies, backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> (Uninterruptible Power Supply) systems ensure the facility never goes offline.
             </p>
             <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
-              Modern data centers are classified into Tiers (I through IV) based on redundancy and uptime guarantees. Tier IV facilities offer 99.995% availability with fully redundant cooling, power, and network paths. Virtualization and containerization (e.g., Kubernetes) allow many workloads to share physical hardware efficiently. Cooling accounts for 30-40% of energy consumption; advanced designs use hot aisle/cold aisle containment, liquid cooling, and free air cooling. Software-defined networking (SDN) and spine-leaf topologies provide low-latency, high-bandwidth internal connectivity. Data centers are also major energy consumers, driving investment in renewable energy and carbon offset programs.
+              Modern data centers are classified into Tiers (I through IV) based on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">redundancy</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uptime')">uptime</span> guarantees. Tier IV facilities offer 99.995% availability with fully redundant cooling, power, and network paths. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">Virtualization</span> and containerization (e.g., Kubernetes) allow many workloads to share physical hardware efficiently. Cooling accounts for 30-40% of energy consumption; advanced designs use hot aisle/cold aisle containment, liquid cooling, and free air cooling. Software-defined networking (SDN) and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('spine-leaf')">spine-leaf</span> topologies provide low-latency, high-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span> internal connectivity. Data centers are also major energy consumers, driving investment in renewable energy and carbon offset programs.
             </p>
-          </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Now that you understand the basics of data centers, let's connect the pieces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> is one of the most important ideas in this chapter. It works together with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> to make the whole system run smoothly.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> like a team where every member has a specific job. When one part sends information, another part receives it, checks it, and passes it along. This step-by-step teamwork is what makes technology reliable, even when many devices are involved.
+            </p>
+            <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+              <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
+              <p class="text-sm text-theme-muted">Understanding how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> connect helps you explain data centers to a friend using your own words — not just memorizing definitions.</p>
+            </div>
+            <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              At a deeper level, data centers involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> design helps the system recover instead of shutting down completely.
+            </p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+            </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
-              <table class="w-full text-sm text-left text-theme-muted">
-                <thead class="text-xs uppercase text-theme-muted border-b border-theme">
-<tr><th class="pb-2 pr-4 font-semibold text-theme">Term</th><th class="pb-2 pr-4 font-semibold text-theme">Definition</th></tr>
-                  </thead>
-                  <tbody class="text-theme-muted divide-y divide-theme/50">
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Server</td><td class="py-2 pr-4">A computer that provides data or services to other computers over a network</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Rack</td><td class="py-2 pr-4">A metal frame that holds stacked servers and networking equipment</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">UPS</td><td class="py-2 pr-4">Uninterruptible Power Supply — battery backup that bridges power gaps before generators start</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Hot Aisle / Cold Aisle</td><td class="py-2 pr-4">A cooling layout that separates hot exhaust air from cold intake air to improve efficiency</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Redundancy</td><td class="py-2 pr-4">Duplication of critical components to ensure continued operation if one fails</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Virtualization</td><td class="py-2 pr-4">Running multiple virtual computers on a single physical server to maximize utilization</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Uptime</td><td class="py-2 pr-4">The percentage of time a data center is operational and available</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Generator</td><td class="py-2 pr-4">A backup power system that runs on diesel or natural gas during outages</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Bandwidth</td><td class="py-2 pr-4">The maximum data transfer rate of a network connection</td></tr>
-                  <tr><td class="py-2 pr-4 font-medium text-theme">Spine-Leaf</td><td class="py-2 pr-4">A network topology that provides equal bandwidth between all connected devices</td></tr>
+              <table class="vocab-table w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="text-theme">Term</th>
+                    <th class="text-theme">Definition</th>
+                  </tr>
+                </thead>
+                <tbody class="text-theme-muted">
+                  <tr id="vocab-server"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span></td><td>A computer that provides data or services to other computers over a network</td></tr>
+                  <tr id="vocab-rack"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span></td><td>A metal frame that holds stacked <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> and networking equipment</td></tr>
+                  <tr id="vocab-ups"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span></td><td>Uninterruptible Power Supply — battery backup that bridges power gaps before <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span> start</td></tr>
+                  <tr id="vocab-hot-aisle-cold-aisle"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hot-aisle-cold-aisle')">Hot Aisle / Cold Aisle</span></td><td>A cooling layout that separates hot exhaust air from cold intake air to improve efficiency</td></tr>
+                  <tr id="vocab-redundancy"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">Redundancy</span></td><td>Duplication of critical components to ensure continued operation if one fails</td></tr>
+                  <tr id="vocab-virtualization"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">Virtualization</span></td><td>Running multiple virtual computers on a single physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> to maximize utilization</td></tr>
+                  <tr id="vocab-uptime"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uptime')">Uptime</span></td><td>The percentage of time a data center is operational and available</td></tr>
+                  <tr id="vocab-generator"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">Generator</span></td><td>A backup power system that runs on diesel or natural gas during outages</td></tr>
+                  <tr id="vocab-bandwidth"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">Bandwidth</span></td><td>The maximum data transfer rate of a network connection</td></tr>
+                  <tr id="vocab-spine-leaf"><td><span class="vocab cursor-pointer" onclick="scrollToVocabulary('spine-leaf')">Spine-Leaf</span></td><td>A network topology that provides equal <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span> between all connected devices</td></tr>
                 </tbody>
               </table>
             </div>
@@ -198,9 +236,9 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Common Misconceptions</h2>
             <ul class="mt-4 space-y-4 text-theme-muted text-[15px] lg:text-base">
-              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">The cloud is truly "in the sky."</strong><br>The "cloud" is just a marketing term for someone else's computers. Every cloud service runs on physical servers in real data centers.</div></li>
-              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data centers are just big server rooms.</strong><br>Modern data centers are highly engineered environments with complex cooling, fire suppression, power distribution, and security systems.</div></li>
-              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data centers don't need cooling if they're in cold climates.</strong><br>Even in cold climates, server heat output is enormous. Cold air can actually help, but precise temperature and humidity control is still required.</div></li>
+              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">The cloud is truly "in the sky."</strong><br>The "cloud" is just a marketing term for someone else's computers. Every cloud service runs on physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> in real data centers.</div></li>
+              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data centers are just big <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> rooms.</strong><br>Modern data centers are highly engineered environments with complex cooling, fire suppression, power distribution, and security systems.</div></li>
+              <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data centers don't need cooling if they're in cold climates.</strong><br>Even in cold climates, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> heat output is enormous. Cold air can actually help, but precise temperature and humidity control is still required.</div></li>
               <li class="flex items-start gap-3"><span class="text-red-400 mt-1 shrink-0">&#10007;</span><div><strong class="text-theme">Data centers are always staffed with people.</strong><br>Many modern data centers are designed for "lights-out" operation — automated and remotely managed, with staff only visiting for hardware repairs.</div></li>
             </ul>
           </div>
@@ -213,10 +251,10 @@
               <div class="glass-panel p-4">
                 <h3 class="font-semibold text-brand-200">Data Center Floor Plan</h3>
                 <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
-                  <li>Server rows with cold aisle (blue) and hot aisle (red)</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> rows with cold aisle (blue) and hot aisle (red)</li>
                   <li>CRAC units (Computer Room Air Conditioning) along walls</li>
-                  <li>UPS and battery rooms near power entry</li>
-                  <li>Generator yard outside the building</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> and battery rooms near power entry</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">Generator</span> yard outside the building</li>
                   <li>Network operations center (NOC) for monitoring</li>
                   <li>Security mantrap at entrance</li>
                   <li>Fire suppression (gas-based, not water)</li>
@@ -226,16 +264,16 @@
                 <h3 class="font-semibold text-brand-200">Power Flow</h3>
                 <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
                   <li>Utility grid &rarr; main transformer</li>
-                  <li>Transfer switch (grid vs. generator)</li>
-                  <li>UPS (battery banks, flywheel)</li>
+                  <li>Transfer switch (grid vs. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generator</span>)</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> (battery banks, flywheel)</li>
                   <li>Power distribution units (PDUs)</li>
-                  <li>Rack power distribution (vertical strips)</li>
-                  <li>Server power supplies (redundant)</li>
-                  <li>Backup generators (N+1 redundancy)</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> power distribution (vertical strips)</li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> power supplies (redundant)</li>
+                  <li>Backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span> (N+1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">redundancy</span>)</li>
                 </ul>
               </div>
             </div>
-            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Data center power and cooling flow showing utility feed, UPS, generators, hot aisle/cold aisle layout, and CRAC units.</p>
+            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Data center power and cooling flow showing utility feed, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span>, hot aisle/cold aisle layout, and CRAC units.</p>
           </div>
         </section>
 
@@ -247,7 +285,7 @@
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="font-semibold text-brand-200">Multiple Choice</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
-                  <li>What device provides temporary power during a brief outage before a generator starts?<br><span class="text-sm ml-5">A) Router &nbsp;&nbsp; B) UPS &nbsp;&nbsp; C) Modem &nbsp;&nbsp; D) Switch</span></li>
+                  <li>What device provides temporary power during a brief outage before a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generator</span> starts?<br><span class="text-sm ml-5">A) Router &nbsp;&nbsp; B) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> &nbsp;&nbsp; C) Modem &nbsp;&nbsp; D) Switch</span></li>
                   <li>Which cooling arrangement separates hot exhaust from cold intake air?<br><span class="text-sm ml-5">A) Open loop &nbsp;&nbsp; B) Hot/cold aisle &nbsp;&nbsp; C) Free cooling &nbsp;&nbsp; D) Liquid immersion</span></li>
                   <li>What is the highest data center Tier for reliability?<br><span class="text-sm ml-5">A) Tier I &nbsp;&nbsp; B) Tier II &nbsp;&nbsp; C) Tier III &nbsp;&nbsp; D) Tier IV</span></li>
                 </ol>
@@ -256,16 +294,16 @@
                 <h3 class="font-semibold text-brand-200">True or False</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
                   <li>Data centers use water-based sprinklers for fire suppression. <span class="text-brand-200">(False — water damages electronics; inert gas systems are used instead)</span></li>
-                  <li>Virtualization allows one physical server to run many virtual servers. <span class="text-brand-200">(True — this maximizes hardware utilization)</span></li>
+                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('virtualization')">Virtualization</span> allows one physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> to run many virtual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>. <span class="text-brand-200">(True — this maximizes hardware utilization)</span></li>
                 </ol>
               </div>
               <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10">
                 <h3 class="font-semibold text-brand-200">Matching</h3>
                 <p class="mt-2">Match each component to its function:</p>
                 <div class="grid grid-cols-2 gap-2 mt-2 text-sm">
-                  <div class="glass-panel p-2 text-center">Generator</div>
+                  <div class="glass-panel p-2 text-center"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">Generator</span></div>
                   <div class="glass-panel p-2 text-center">Long-term backup power</div>
-                  <div class="glass-panel p-2 text-center">UPS</div>
+                  <div class="glass-panel p-2 text-center"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span></div>
                   <div class="glass-panel p-2 text-center">Short-term battery backup</div>
                   <div class="glass-panel p-2 text-center">CRAC</div>
                   <div class="glass-panel p-2 text-center">Room air conditioning</div>
@@ -275,7 +313,7 @@
                 <h3 class="font-semibold text-brand-200">Fill in the Blank</h3>
                 <ol class="mt-3 space-y-3 list-decimal list-inside">
                   <li>The "cloud" runs on physical computers located in a __________. <span class="text-brand-200">(data center)</span></li>
-                  <li>A __________ topology provides equal-bandwidth connectivity between all devices in a data center network. <span class="text-brand-200">(spine-leaf)</span></li>
+                  <li>A __________ topology provides equal-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('bandwidth')">bandwidth</span> connectivity between all devices in a data center network. <span class="text-brand-200">(<span class="vocab cursor-pointer" onclick="scrollToVocabulary('spine-leaf')">spine-leaf</span>)</span></li>
                 </ol>
               </div>
             </div>
@@ -288,7 +326,7 @@
             <ol class="mt-4 space-y-4 text-theme-muted text-[15px] lg:text-base list-decimal list-inside">
               <li>Why do companies like Google and Amazon build data centers in different geographic regions? What trade-offs exist between placing a data center in a cold climate vs. near a major city?</li>
               <li>Data centers consume enormous amounts of electricity. Should governments regulate their energy usage or carbon footprint? What alternatives exist for making them more sustainable?</li>
-              <li>If a major cloud provider's data center suffered a catastrophic failure, what would the downstream effects be on businesses and consumers? How does redundancy help mitigate this?</li>
+              <li>If a major cloud provider's data center suffered a catastrophic failure, what would the downstream effects be on businesses and consumers? How does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">redundancy</span> help mitigate this?</li>
             </ol>
           </div>
         </section>
@@ -299,7 +337,7 @@
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="glass-panel p-4">
                 <h3 class="font-semibold text-brand-200">Project 1: Design Your Own Data Center</h3>
-                <p class="mt-2 text-sm text-theme-muted">Sketch a floor plan for a small data center with 10 server racks. Include cooling aisles, UPS room, generator, network operations center, and security entrance. Label each component and explain the power flow path from the grid to a server.</p>
+                <p class="mt-2 text-sm text-theme-muted">Sketch a floor plan for a small data center with 10 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">racks</span>. Include cooling aisles, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> room, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generator</span>, network operations center, and security entrance. Label each component and explain the power flow path from the grid to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>.</p>
               </div>
               <div class="glass-panel p-4">
                 <h3 class="font-semibold text-brand-200">Project 2: Data Center Energy Audit</h3>
@@ -314,7 +352,7 @@
             <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <ul class="mt-4 space-y-3 text-theme-muted text-[15px] lg:text-base list-disc list-inside">
               <li>Begin by asking students where they think their data "lives" — this surfaces the "cloud in the sky" misconception immediately.</li>
-              <li>The "giant library" analogy works well for younger students; Tier classifications and spine-leaf topology are best for advanced learners.</li>
+              <li>The "giant library" analogy works well for younger students; Tier classifications and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('spine-leaf')">spine-leaf</span> topology are best for advanced learners.</li>
               <li>Show a virtual tour of a Google or Microsoft data center (available on YouTube) to give students a real sense of scale.</li>
               <li>Discuss the energy and environmental angle — data centers are a great gateway to conversations about sustainability and technology.</li>
               <li>Encourage students to explore the concept of latency: where data centers are physically located affects how fast websites load.</li>
