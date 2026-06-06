@@ -42,6 +42,21 @@
   - Re-renders diagram on toggle when in learn/explore mode
   - No changes needed to individual `index.html` diagram wrappers — everything is in the shared engine/CSS
   - **Inline-style text color fix** — Added `[style*="color:#..."]` CSS attribute selectors to override hardcoded JS inline text colors (e9e8f0, 94a3b8, cbd5e1, 475569, f8fafc) with light-theme equivalents; also converted builder panel backgrounds/borders from rgba(255,255,255) to rgba(0,0,0) for light theme
+- **Diagram performance + accessibility + mobile** across diagram engine:
+  - RAF loop caching (`_pulseActiveComponent` caches `.component` Nodelist, skips on unchanged index; `_updateLiveMetrics` skips DOM writes when values unchanged)
+  - Bezier Horner polynomial optimization (6 multiplications + 5 additions per dot vs 12+8 originally)
+  - `destroy()` method (cancels RAF, removes document listeners, clears caches)
+  - ARIA labels, `aria-live="polite"`, `role="alertdialog"`, `:focus-visible` styles
+  - Reduced-motion `@media(prefers-reduced-motion)` covering all CSS keyframe animations
+  - Pinch-to-zoom + 1-finger touch pan on SVG; responsive CSS for `<600px`/`<420px`
+  - Event delegation for play/control buttons (fixes null-ref crashes)
+  - Dark mode animation wrapper (overrides `cfg.animate` to reapply theme palette every frame, fixing play-button color flash)
+- **Auto challenges** — 63 boilerplate diagrams (modules 6-10) converted to `engine.buildAutoChallenge(container)` which generates quiz/sequence challenges from component data; 8 custom challenges preserved; fallback for <2 components
+- **Component SVG icon/text polish**:
+  - Icon circle background now uses theme palette `pal2.iconBg` (was hardcoded `#0959C8`); icon moved 4px higher for 5px gap vs text
+  - Default marker centered at `cx+cw/2` (was left-aligned `cx+22`), uses `pal2.markerBg`, reduced r=14
+  - Component stroke uses `this._pal().compStroke` (was hardcoded `#2a3a55`, fixing light-theme appearance, including cylinder top stroke)
+- **Play button animation fix** — Eliminated SVG `cloneNode(true)` in `_initZoomPan` which was breaking `_flowDots` element references (all flow dots pointed to detached DOM nodes, making `_updateFlowDots` invisible). Replaced with tracked listener removal: `zoomWheel`, `zoomMousedown`, `zoomDblclick`, `zoomTouchstart`, `zoomTouchmove` handlers stored in `this._listeners` and removed before re-adding on re-init. Also set initial `transform` on packet flow dots and initial `cx`/`cy` on trailing dots so they appear at connection start positions (not top-left) before Play is pressed.
 
 ### In Progress
 - (none)
@@ -57,6 +72,7 @@
 
 ## Next Steps
 1. User can request further content tuning or mobile layout adjustments for any specific section/page.
+2. Phase 3 (RTC / Collaboration) — WebSocket server, shared state, teacher presenter mode, live annotations.
 
 ## Critical Context
 - Modules 2-10 had NO visual-learning sections before this audit — only `interactive-diagram`. All 126 were created fresh.

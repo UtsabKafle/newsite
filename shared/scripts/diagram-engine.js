@@ -57,6 +57,9 @@ const ICONS={
 const DIAGRAM_THEMES = {
   dark: {
     compBgs: ['#1a2235','#1d2638','#16233a','#1a2538','#1c2838','#18243a'],
+    compBgActive: '#1e2d50',
+    compStroke: '#2a3a55',
+    compStrokeActive: '#0959C8',
     connColors: ['#475569','#64748b','#475569'],
     connLabel: '#94a3b8',
     compText: '#e2e8f0',
@@ -67,6 +70,9 @@ const DIAGRAM_THEMES = {
   },
   light: {
     compBgs: ['#e2e8f0','#cbd5e1','#d1d5db','#d4d4d8','#e5e7eb','#dce1e8'],
+    compBgActive: '#bfdbfe',
+    compStroke: '#94a3b8',
+    compStrokeActive: '#3b82f6',
     connColors: ['#94a3b8','#64748b','#94a3b8'],
     connLabel: '#64748b',
     compText: '#1e293b',
@@ -93,6 +99,17 @@ class DiagramEngine {
     this._connPaths = [];
     this._flowDots = [];
     this._theme = null;
+    this.zoom = 1;
+    this.panX = 0;
+    this.panY = 0;
+    this._origViewBox = null;
+    this._listeners = {};
+    this._pulseCache = null;
+    this._viewBox = null;
+    this._isPanning = false;
+    this._panStart = null;
+    this._tooltipEl = null;
+    this._tooltipVisible = false;
 
     // LocalStorage key for Completion
     this.storageKey = `consica-diagram-${cfg.module || 0}-${cfg.title.replace(/\s+/g, '-').toLowerCase()}-completed`;
@@ -104,12 +121,39 @@ class DiagramEngine {
     this._initTheme();
 
     if (this.cfg.render) this.cfg.render(this.el.visual, this);
+    this._initZoomPan();
     this._showEmptyState();
     this._updateStepControls();
 
     if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
       this.speed = 0;
       this._updateSpeedDisplay();
+    }
+
+    // Wrap animate callback to apply theme-aware component colors each frame
+    if (this.cfg.animate) {
+      var origAnimate = this.cfg.animate;
+      var eng = this;
+      this.cfg.animate = function(e) {
+        origAnimate(e);
+        if (!e.selectedId && e._pulseCache) {
+          var pals = e._pal();
+          var comps = e._pulseCache.comps;
+          if (comps && comps.length) {
+            for (var ci = 0; ci < comps.length; ci++) {
+              var shape = comps[ci].querySelector('.component-bg > :first-child');
+              if (!shape) continue;
+              if (ci === e._pulseCache.lastIdx) {
+                shape.setAttribute('fill', pals.compBgActive);
+                shape.setAttribute('stroke', pals.compStrokeActive);
+              } else {
+                shape.setAttribute('fill', pals.compBgs[ci % 6]);
+                shape.setAttribute('stroke', pals.compStroke);
+              }
+            }
+          }
+        }
+      };
     }
   }
 
@@ -151,6 +195,7 @@ class DiagramEngine {
       this.t = 0;
       this.currentStep = 0;
       if (this.cfg.render) this.cfg.render(this.el.visual, this);
+      this._initZoomPan();
       this._applyStep();
     } else if (this.mode === 'challenge') {
       if (this.cfg.customChallenge) {
@@ -161,8 +206,201 @@ class DiagramEngine {
     }
   }
 
+  destroy() {
+    this.pause();
+    if (this._listeners.panMove) document.removeEventListener('mousemove', this._listeners.panMove);
+    if (this._listeners.panEnd) document.removeEventListener('mouseup', this._listeners.panEnd);
+    if (this._listeners.keyNav) document.removeEventListener('keydown', this._listeners.keyNav);
+    // Remove SVG zoom/pan listeners
+    var svg = this.el.visual ? this.el.visual.querySelector('svg') : null;
+    if (svg) {
+      if (this._listeners.zoomWheel) svg.removeEventListener('wheel', this._listeners.zoomWheel);
+      if (this._listeners.zoomMousedown) svg.removeEventListener('mousedown', this._listeners.zoomMousedown);
+      if (this._listeners.zoomDblclick) svg.removeEventListener('dblclick', this._listeners.zoomDblclick);
+      if (this._listeners.zoomTouchstart) svg.removeEventListener('touchstart', this._listeners.zoomTouchstart);
+      if (this._listeners.zoomTouchmove) svg.removeEventListener('touchmove', this._listeners.zoomTouchmove);
+    }
+    this._listeners = {};
+    this._connPaths = [];
+    this._flowDots = [];
+    this._pulseCache = null;
+    this._metricsCache = null;
+  }
+
   _pal() {
     return DIAGRAM_THEMES[this._theme === 'light' ? 'light' : 'dark'];
+  }
+
+  _initZoomPan() {
+    var svg = this.el.visual.querySelector('svg');
+    if (!svg) return;
+    var vb = svg.getAttribute('viewBox');
+    if (!vb) return;
+    var parts = vb.split(' ').map(Number);
+    this._origViewBox = { x: parts[0], y: parts[1], w: parts[2], h: parts[3] };
+    this._viewBox = { x: parts[0], y: parts[1], w: parts[2], h: parts[3] };
+    this.zoom = 1;
+    this._isPanning = false;
+    this._panStart = null;
+    var self = this;
+
+    // Remove old SVG listeners to avoid duplicates on re-init
+    if (this._listeners.zoomWheel) { svg.removeEventListener('wheel', this._listeners.zoomWheel); }
+    if (this._listeners.zoomMousedown) { svg.removeEventListener('mousedown', this._listeners.zoomMousedown); }
+    if (this._listeners.zoomDblclick) { svg.removeEventListener('dblclick', this._listeners.zoomDblclick); }
+    if (this._listeners.zoomTouchstart) { svg.removeEventListener('touchstart', this._listeners.zoomTouchstart); }
+    if (this._listeners.zoomTouchmove) { svg.removeEventListener('touchmove', this._listeners.zoomTouchmove); }
+
+    svg.style.cursor = 'grab';
+    this._listeners.zoomWheel = function(e) {
+      e.preventDefault();
+      var rect = svg.getBoundingClientRect();
+      var mx = (e.clientX - rect.left) / rect.width;
+      var my = (e.clientY - rect.top) / rect.height;
+      var factor = e.deltaY > 0 ? 1.12 : 1 / 1.12;
+      var nw = Math.max(50, Math.min(self._origViewBox.w * 5, self._viewBox.w * factor));
+      var nh = nw * (self._origViewBox.h / self._origViewBox.w);
+      self._viewBox.x = (self._viewBox.x + self._viewBox.w * mx) - nw * mx;
+      self._viewBox.y = (self._viewBox.y + self._viewBox.h * my) - nh * my;
+      self._viewBox.w = nw;
+      self._viewBox.h = nh;
+      self.zoom = Math.round((self._origViewBox.w / nw) * 100);
+      svg.setAttribute('viewBox', self._viewBox.x + ' ' + self._viewBox.y + ' ' + nw + ' ' + nh);
+      self._updateZoomDisplay();
+    };
+    svg.addEventListener('wheel', this._listeners.zoomWheel, { passive: false });
+
+    this._listeners.zoomMousedown = function(e) {
+      if (e.button !== 0 || e.target.closest('[data-component-id],[role="button"],[tabindex]')) return;
+      self._isPanning = true;
+      self._panStart = { x: e.clientX, y: e.clientY, vbX: self._viewBox.x, vbY: self._viewBox.y };
+      svg.style.cursor = 'grabbing';
+    };
+    svg.addEventListener('mousedown', this._listeners.zoomMousedown);
+
+    this._listeners.panMove = function(e) {
+      if (!self._isPanning) return;
+      var rect = svg.getBoundingClientRect();
+      var dx = (e.clientX - self._panStart.x) / rect.width * self._viewBox.w;
+      var dy = (e.clientY - self._panStart.y) / rect.height * self._viewBox.h;
+      self._viewBox.x = self._panStart.vbX - dx;
+      self._viewBox.y = self._panStart.vbY - dy;
+      svg.setAttribute('viewBox', self._viewBox.x + ' ' + self._viewBox.y + ' ' + self._viewBox.w + ' ' + self._viewBox.h);
+    };
+    document.addEventListener('mousemove', this._listeners.panMove);
+
+    this._listeners.panEnd = function() {
+      if (!self._isPanning) return;
+      self._isPanning = false;
+      svg.style.cursor = 'grab';
+    };
+    document.addEventListener('mouseup', this._listeners.panEnd);
+
+    this._listeners.zoomDblclick = function() {
+      self._resetZoom();
+    };
+    svg.addEventListener('dblclick', this._listeners.zoomDblclick);
+
+    // Touch zoom/pan
+    var touchDist = 0, touchStart = null;
+    this._listeners.zoomTouchstart = function(e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        touchDist = Math.sqrt(dx * dx + dy * dy);
+      } else if (e.touches.length === 1) {
+        var target = e.target.closest('[data-component-id],[role="button"],[tabindex]');
+        if (!target) {
+          touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY, vbX: self._viewBox.x, vbY: self._viewBox.y };
+        }
+      }
+    };
+    svg.addEventListener('touchstart', this._listeners.zoomTouchstart, { passive: false });
+
+    this._listeners.zoomTouchmove = function(e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (touchDist > 0) {
+          var factor = touchDist / dist;
+          var nw = Math.max(50, Math.min(self._origViewBox.w * 5, self._viewBox.w * factor));
+          var nh = nw * (self._origViewBox.h / self._origViewBox.w);
+          var rect = svg.getBoundingClientRect();
+          var mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          var my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          var rx = (mx - rect.left) / rect.width;
+          var ry = (my - rect.top) / rect.height;
+          self._viewBox.x = (self._viewBox.x + self._viewBox.w * rx) - nw * rx;
+          self._viewBox.y = (self._viewBox.y + self._viewBox.h * ry) - nh * ry;
+          self._viewBox.w = nw;
+          self._viewBox.h = nh;
+          self.zoom = Math.round((self._origViewBox.w / nw) * 100);
+          svg.setAttribute('viewBox', self._viewBox.x + ' ' + self._viewBox.y + ' ' + nw + ' ' + nh);
+          self._updateZoomDisplay();
+          touchDist = dist;
+        }
+      } else if (e.touches.length === 1 && touchStart) {
+        e.preventDefault();
+        var rect = svg.getBoundingClientRect();
+        var dx = (e.touches[0].clientX - touchStart.x) / rect.width * self._viewBox.w;
+        var dy = (e.touches[0].clientY - touchStart.y) / rect.height * self._viewBox.h;
+        self._viewBox.x = touchStart.vbX - dx;
+        self._viewBox.y = touchStart.vbY - dy;
+        svg.setAttribute('viewBox', self._viewBox.x + ' ' + self._viewBox.y + ' ' + self._viewBox.w + ' ' + self._viewBox.h);
+      }
+    };
+    svg.addEventListener('touchmove', this._listeners.zoomTouchmove, { passive: false });
+
+    svg.addEventListener('touchend', function() {
+      touchDist = 0;
+      touchStart = null;
+    });
+  }
+
+  _resetZoom() {
+    if (!this._origViewBox) return;
+    this._viewBox = { x: this._origViewBox.x, y: this._origViewBox.y, w: this._origViewBox.w, h: this._origViewBox.h };
+    this.zoom = 100;
+    var svg = this.el.visual.querySelector('svg');
+    if (svg) svg.setAttribute('viewBox', this._origViewBox.x + ' ' + this._origViewBox.y + ' ' + this._origViewBox.w + ' ' + this._origViewBox.h);
+    this._updateZoomDisplay();
+  }
+
+  _updateZoomDisplay() {
+    if (this.el.zoomDisplay) this.el.zoomDisplay.textContent = this.zoom + '%';
+  }
+
+  _showTooltip(id, e) {
+    var comp = this._findComp(id);
+    if (!comp || !this._tooltipEl) return;
+    var name = comp.name || id;
+    var desc = comp.purpose || comp.description || comp.howItWorks || '';
+    this._tooltipEl.innerHTML = '<div class="comp-tooltip-name">' + this._esc(name) + '</div>' + (desc ? '<div class="comp-tooltip-desc">' + this._esc(desc) + '</div>' : '');
+    this._tooltipEl.style.display = 'block';
+    this._tooltipVisible = true;
+    this._positionTooltip(e);
+  }
+
+  _hideTooltip() {
+    if (!this._tooltipEl) return;
+    this._tooltipEl.style.display = 'none';
+    this._tooltipVisible = false;
+  }
+
+  _positionTooltip(e) {
+    if (!this._tooltipEl || !this._tooltipVisible) return;
+    var x = e.clientX + 14;
+    var y = e.clientY - 10;
+    var tw = this._tooltipEl.offsetWidth || 200;
+    var th = this._tooltipEl.offsetHeight || 60;
+    if (x + tw > window.innerWidth - 10) x = e.clientX - tw - 14;
+    if (y + th > window.innerHeight - 10) y = e.clientY - th - 10;
+    if (y < 10) y = 10;
+    this._tooltipEl.style.left = x + 'px';
+    this._tooltipEl.style.top = y + 'px';
   }
 
   _build() {
@@ -178,136 +416,112 @@ class DiagramEngine {
       document.body.prepend(d); return d;
     })();
 
-    w.innerHTML = `
-      <a class="skip-link" href="#diagram-visual">Skip to diagram</a>
-
-      <!-- Breadcrumb -->
-      <nav class="lab-breadcrumb" aria-label="Breadcrumb">
-        <a href="#">${this._esc(crumb.course)}</a>
-        <span class="crumb-sep">/</span>
-        <a href="#">${this._esc(crumb.module)}</a>
-        <span class="crumb-sep">/</span>
-        <span>${this._esc(crumb.lesson)}</span>
-      </nav>
-
-      <!-- Simulation Header -->
-      <header class="lab-header">
-        <div class="lab-header-main">
-          <div class="lab-header-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
-              <circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/>
-            </svg>
-          </div>
-          <div>
-            <h1 class="lab-title">${this._esc(title)}</h1>
-            <p class="lab-purpose">${this.cfg.desc ? this._esc(this.cfg.desc) : ''}</p>
-          </div>
-        </div>
-        <div class="lab-header-meta">
-          <span class="lab-badge badge-completed" id="completion-status-btn" role="checkbox" aria-checked="false" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12" style="margin-right: 4px;">
-              <path d="M20 6L9 17l-5-5"/>
-            </svg>
-            <span id="completion-text">In Progress</span>
-          </span>
-          <span class="lab-badge badge-diff">${this._esc(this.cfg.difficulty || 'Intermediate')}</span>
-          <span class="lab-badge badge-time">${this._esc(this.cfg.time || '~10')} min</span>
-        </div>
-      </header>
-
-      <!-- Action Bar -->
-      <div class="lab-actions" role="toolbar" aria-label="Simulation controls">
-        <div class="action-group" id="playback-controls">
-          <button class="act-btn" id="ctrl-play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg><span class="act-label">Play</span></button>
-          <button class="act-btn" id="ctrl-replay" aria-label="Replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg><span class="act-label">Replay</span></button>
-        </div>
-        
-        <div class="action-divider" id="divider-play"></div>
-        
-        <!-- Mode Selector Group -->
-        <div class="action-group">
-          <div class="mode-selector-group" role="radiogroup" aria-label="Exploration Mode">
-            <button class="mode-btn active" id="mode-learn" role="radio" aria-checked="true">Learn Mode</button>
-            <button class="mode-btn" id="mode-challenge" role="radio" aria-checked="false">Challenge Mode</button>
-          </div>
-        </div>
-
-        <div class="action-divider"></div>
-        
-        <div class="action-group speed-ctrl" role="group" aria-label="Animation speed">
-          <span class="speed-label">Speed</span>
-          <button class="speed-down" aria-label="Decrease speed">−</button>
-          <span class="speed-display" aria-live="polite">1×</span>
-          <button class="speed-up" aria-label="Increase speed">+</button>
-        </div>
-        
-        <div class="action-group">
-          <button class="theme-toggle-btn-diagram" id="diagram-theme-toggle" aria-label="Switch to light mode"></button>
-        </div>
-        
-        <div class="action-spacer"></div>
-        
-        <div class="action-group">
-          <button class="act-btn" id="ctrl-fullscreen" aria-label="Enter fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg><span class="act-label">Lab</span></button>
-        </div>
-      </div>
-
-      <!-- Main Workspace -->
-      <div class="lab-workspace">
-        <div class="lab-diagram" id="diagram-visual" role="img" aria-label="${this._esc(title)}">
-          <!-- Step Controls inside diagram -->
-          <div class="lab-steps" id="step-controls" role="group" aria-label="Step navigation" hidden>
-            <button class="step-btn" id="step-prev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Prev</button>
-            <span class="step-indicator" id="step-indicator" aria-live="polite"></span>
-            <button class="step-btn" id="step-next" aria-label="Next step">Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-          </div>
-        </div>
-        
-        <aside class="lab-explorer" id="explorer-panel" role="complementary" aria-label="Component explorer">
-          <div class="explorer-empty" id="explorer-empty">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <p>Select a component to inspect</p>
-            <span class="explorer-hint">Click any element in the diagram</span>
-          </div>
-          <div class="explorer-content" id="explorer-content" hidden>
-            <div class="explorer-header">
-              <h2 class="explorer-name" id="explorer-name"></h2>
-            </div>
-            <div class="explorer-scroll" id="explorer-scroll"></div>
-          </div>
-        </aside>
-      </div>
-
-      <!-- Learning Insights -->
-      <div class="lab-insights" id="lab-insights">
-        <div class="insight-card" id="insight-takeaway">
-          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-          <div>
-            <div class="insight-label">Key Takeaway</div>
-            <div class="insight-value" id="insight-takeaway-text">Click any component to see its key takeaway</div>
-          </div>
-        </div>
-        <div class="insight-card" id="insight-analogy">
-          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.78 7.78 5.5 5.5 0 017.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
-          <div>
-            <div class="insight-label">Analogy</div>
-            <div class="insight-value" id="insight-analogy-text">Select a component for a real-world comparison</div>
-          </div>
-        </div>
-        <div class="insight-card" id="insight-funfact">
-          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"/></svg></div>
-          <div>
-            <div class="insight-label">Fun Fact</div>
-            <div class="insight-value" id="insight-funfact-text">Discover interesting facts about components</div>
-          </div>
-        </div>
-      </div>
-    `;
+    w.innerHTML = [
+      '<a class="skip-link" href="#diagram-visual">Skip to diagram</a>',
+      '<nav class="lab-breadcrumb" aria-label="Breadcrumb">',
+        '<a href="#">',this._esc(crumb.course),'</a>',
+        '<span class="crumb-sep">/</span>',
+        '<a href="#">',this._esc(crumb.module),'</a>',
+        '<span class="crumb-sep">/</span>',
+        '<span>',this._esc(crumb.lesson),'</span>',
+      '</nav>',
+      '<header class="lab-header">',
+        '<div class="lab-header-main">',
+          '<div class="lab-header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>',
+          '<div>',
+            '<h1 class="lab-title">',this._esc(title),'</h1>',
+            '<p class="lab-purpose">',(this.cfg.desc ? this._esc(this.cfg.desc) : ''),'</p>',
+          '</div>',
+        '</div>',
+        '<div class="lab-header-meta">',
+          '<span class="lab-badge badge-completed" id="completion-status-btn" role="checkbox" aria-checked="false" tabindex="0" aria-label="Mark diagram as complete">',
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12" style="margin-right:4px"><path d="M20 6L9 17l-5-5"/></svg>',
+            '<span id="completion-text">In Progress</span>',
+          '</span>',
+          '<span class="lab-badge badge-diff">',this._esc(this.cfg.difficulty || 'Intermediate'),'</span>',
+          '<span class="lab-badge badge-time">',this._esc(this.cfg.time || '~10'),' min</span>',
+        '</div>',
+      '</header>',
+      '<div class="lab-actions" role="toolbar" aria-label="Simulation controls">',
+        '<div class="action-group" id="playback-controls">',
+          '<button class="act-btn" id="ctrl-play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg><span class="act-label">Play</span></button>',
+          '<button class="act-btn" id="ctrl-replay" aria-label="Replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg><span class="act-label">Replay</span></button>',
+        '</div>',
+        '<div class="action-divider" id="divider-play"></div>',
+        '<div class="action-group">',
+          '<div class="mode-selector-group" role="radiogroup" aria-label="Exploration Mode">',
+            '<button class="mode-btn active" id="mode-learn" role="radio" aria-checked="true">Learn Mode</button>',
+            '<button class="mode-btn" id="mode-challenge" role="radio" aria-checked="false">Challenge Mode</button>',
+          '</div>',
+        '</div>',
+        '<div class="action-divider"></div>',
+        '<div class="action-group speed-ctrl" role="group" aria-label="Animation speed">',
+          '<span class="speed-label">Speed</span>',
+          '<button class="speed-down" aria-label="Decrease speed">\u2212</button>',
+          '<span class="speed-display" aria-live="polite">1\u00d7</span>',
+          '<button class="speed-up" aria-label="Increase speed">+</button>',
+        '</div>',
+        '<div class="action-group">',
+          '<button class="theme-toggle-btn-diagram" id="diagram-theme-toggle" aria-label="Switch to light mode"></button>',
+        '</div>',
+        '<div class="action-group zoom-controls">',
+          '<button class="act-btn zoom-btn" id="zoom-reset" aria-label="Reset zoom">\u27f2</button>',
+          '<span class="zoom-display" id="zoom-display" aria-live="polite">100%</span>',
+        '</div>',
+        '<div class="action-spacer"></div>',
+        '<div class="action-group">',
+          '<button class="act-btn" id="ctrl-fullscreen" aria-label="Enter fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg><span class="act-label">Lab</span></button>',
+        '</div>',
+      '</div>',
+      '<div class="lab-workspace">',
+        '<div class="lab-diagram" id="diagram-visual" role="img" aria-label="',this._esc(title),'">',
+          '<div class="live-metrics" id="live-metrics" aria-label="Live simulation metrics">',
+            '<div class="metric-item"><span class="metric-label">Packets</span><span class="metric-value" id="metric-packets">0</span></div>',
+            '<div class="metric-item"><span class="metric-label">Latency</span><span class="metric-value" id="metric-latency">0ms</span></div>',
+            '<div class="metric-item"><span class="metric-label">Active</span><span class="metric-value" id="metric-active">0</span></div>',
+            '<div class="metric-item"><span class="metric-label">Rate</span><span class="metric-value" id="metric-rate">0/s</span></div>',
+          '</div>',
+          '<div class="lab-steps" id="step-controls" role="group" aria-label="Step navigation" hidden>',
+            '<button class="step-btn" id="step-prev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Prev</button>',
+            '<span class="step-indicator" id="step-indicator" aria-live="polite"></span>',
+            '<button class="step-btn" id="step-next" aria-label="Next step">Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>',
+          '</div>',
+        '</div>',
+        '<aside class="lab-explorer" id="explorer-panel" role="complementary" aria-label="Component explorer">',
+          '<div class="explorer-empty" id="explorer-empty">',
+            '<div class="explorer-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>',
+            '<p class="explorer-empty-title">Select a component to inspect</p>',
+            '<p class="explorer-empty-hint">Tap any device or connection in the diagram</p>',
+          '</div>',
+          '<div class="explorer-content" id="explorer-content" hidden>',
+            '<div class="explorer-header" id="explorer-name"></div>',
+            '<div class="explorer-scroll" id="explorer-scroll"></div>',
+          '</div>',
+        '</aside>',
+      '</div>',
+      '<div class="lab-insights" id="lab-insights">',
+        '<div class="insight-card" id="insight-takeaway">',
+          '<div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>',
+          '<div><div class="insight-label">Key Takeaway</div><div class="insight-value" id="insight-takeaway-text">Click any component to see its key takeaway</div></div>',
+        '</div>',
+        '<div class="insight-card" id="insight-analogy">',
+          '<div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2zm0 4h4v2H8v-2z"/></svg></div>',
+          '<div><div class="insight-label">Analogy</div><div class="insight-value" id="insight-analogy-text">Select a component for a real-world comparison</div></div>',
+        '</div>',
+        '<div class="insight-card" id="insight-funfact">',
+          '<div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13l-4-4h8l-4 4z"/></svg></div>',
+          '<div><div class="insight-label">Fun Fact</div><div class="insight-value" id="insight-funfact-text">Discover interesting facts about components</div></div>',
+        '</div>',
+      '</div>',
+      '<div class="comp-tooltip" id="comp-tooltip" role="tooltip" style="display:none"></div>'
+    ].join('\n');
 
     document.title = title + ' — Interactive Diagram | Consica Labs';
     this.el.visual = $('#diagram-visual', w);
     this.el.playBtn = $('#ctrl-play', w);
     this.el.replayBtn = $('#ctrl-replay', w);
+    // Debug: ensure play button exists
+    if (!this.el.playBtn) console.warn('[Consica] #ctrl-play not found');
     this.el.speedDown = $('.speed-down', w);
     this.el.speedUp = $('.speed-up', w);
     this.el.speedDisplay = $('.speed-display', w);
@@ -318,11 +532,22 @@ class DiagramEngine {
     this.el.explorerContent = $('#explorer-content', w);
     this.el.explorerName = $('#explorer-name', w);
     this.el.explorerScroll = $('#explorer-scroll', w);
+    // Tooltip
+    this._tooltipEl = $('#comp-tooltip', w);
+    // Zoom
+    this.el.zoomDisplay = $('#zoom-display', w);
+    this.el.zoomReset = $('#zoom-reset', w);
     // Insights
     this.el.insights = $('#lab-insights', w);
     this.el.insightTakeaway = $('#insight-takeaway-text', w);
     this.el.insightAnalogy = $('#insight-analogy-text', w);
     this.el.insightFunfact = $('#insight-funfact-text', w);
+    // Live Metrics
+    this.el.metricsBar = $('#live-metrics', w);
+    this.el.metricPackets = $('#metric-packets', w);
+    this.el.metricLatency = $('#metric-latency', w);
+    this.el.metricActive = $('#metric-active', w);
+    this.el.metricRate = $('#metric-rate', w);
     // Steps
     this.el.stepPrev = $('#step-prev', w);
     this.el.stepNext = $('#step-next', w);
@@ -339,31 +564,44 @@ class DiagramEngine {
   }
 
   _bind() {
-    this.el.playBtn.addEventListener('click', () => this.togglePlay());
-    this.el.replayBtn.addEventListener('click', () => this.replay());
+    var self = this;
+    // Event delegation on wrapper for all action controls
+    this.el.wrapper.addEventListener('click', function(e) {
+      var btn = e.target.closest('[id]');
+      if (!btn) return;
+      switch (btn.id) {
+        case 'ctrl-play': self.togglePlay(); break;
+        case 'ctrl-replay': self.replay(); break;
+        case 'ctrl-fullscreen': self.toggleFullscreen(); break;
+        case 'zoom-reset': self._resetZoom(); break;
+        case 'step-prev': self.prevStep(); break;
+        case 'step-next': self.nextStep(); break;
+        case 'mode-learn': self.setMode('learn'); break;
+        case 'mode-challenge': self.setMode('challenge'); break;
+        case 'completion-status-btn': self.toggleCompletion(); break;
+        case 'diagram-theme-toggle': self._toggleTheme(); break;
+      }
+    });
+    // Speed controls (no ID — use class)
     this.el.speedDown.addEventListener('click', () => this._adjustSpeed(-0.5));
     this.el.speedUp.addEventListener('click', () => this._adjustSpeed(0.5));
-    this.el.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
-    const themeBtn = document.getElementById('diagram-theme-toggle');
-    if (themeBtn) themeBtn.addEventListener('click', () => this._toggleTheme());
-    this.el.stepPrev.addEventListener('click', () => this.prevStep());
-    this.el.stepNext.addEventListener('click', () => this.nextStep());
-    // Mode listeners
-    this.el.modeLearnBtn.addEventListener('click', () => this.setMode('learn'));
-    this.el.modeChallengeBtn.addEventListener('click', () => this.setMode('challenge'));
 
-    // Completion Status Toggle
-    this.el.completionBtn.addEventListener('click', () => this.toggleCompletion());
+    // Completion Status Toggle (keyboard handler only — click via delegation)
     this.el.completionBtn.addEventListener('keydown', e => {
       if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this.toggleCompletion(); }
     });
 
-    document.addEventListener('keydown', e => {
+    this._listeners.keyNav = function(e) {
       if (e.target.closest('input,textarea,select')) return;
-      if (e.key === 'ArrowRight' && e.altKey) { e.preventDefault(); this.nextStep(); }
-      if (e.key === 'ArrowLeft' && e.altKey) { e.preventDefault(); this.prevStep(); }
-      if (e.key === 'Escape') this._clearSelection();
-    });
+      if (e.key === 'ArrowRight' && e.altKey) { e.preventDefault(); self.nextStep(); }
+      if (e.key === 'ArrowLeft' && e.altKey) { e.preventDefault(); self.prevStep(); }
+      if (e.key === 'Escape') self._clearSelection();
+      if (e.key === 'ArrowRight' && !e.altKey) { e.preventDefault(); self._focusNextComp(1); }
+      if (e.key === 'ArrowLeft' && !e.altKey) { e.preventDefault(); self._focusNextComp(-1); }
+      if (e.key === 'ArrowDown') { e.preventDefault(); self._focusNextComp(1); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); self._focusNextComp(-1); }
+    };
+    document.addEventListener('keydown', this._listeners.keyNav);
 
     this.el.visual.addEventListener('click', e => {
       const el = e.target.closest('[data-component-id]');
@@ -374,6 +612,19 @@ class DiagramEngine {
         const el = e.target.closest('[data-component-id]');
         if (el) { e.preventDefault(); this.selectComponent(el.dataset.componentId); }
       }
+    });
+
+    // Tooltip event delegation
+    this.el.visual.addEventListener('mouseover', e => {
+      var el = e.target.closest('[data-component-id]');
+      if (el) this._showTooltip(el.dataset.componentId, e);
+    });
+    this.el.visual.addEventListener('mousemove', e => {
+      if (this._tooltipVisible) this._positionTooltip(e);
+    });
+    this.el.visual.addEventListener('mouseout', e => {
+      var el = e.target.closest('[data-component-id]');
+      if (!el) this._hideTooltip();
     });
   }
 
@@ -423,6 +674,7 @@ class DiagramEngine {
       this.t = 0;
       this.currentStep = 0;
       if (this.cfg.render) this.cfg.render(this.el.visual, this);
+      this._initZoomPan();
       this._applyStep();
     } else if (mode === 'challenge') {
       $('#playback-controls').style.display = 'none';
@@ -433,6 +685,8 @@ class DiagramEngine {
       } else {
         this.buildFallbackChallenge();
       }
+      var firstFocusable = this.el.visual.querySelector('button, [tabindex="0"], .act-btn, .quiz-card');
+      if (firstFocusable) setTimeout(function() { firstFocusable.focus(); }, 100);
     }
   }
 
@@ -454,6 +708,291 @@ class DiagramEngine {
     });
   }
 
+  buildAutoChallenge(container) {
+    var comps = this.cfg.components || [];
+    var steps = this.cfg.steps || [];
+    if (!comps.length) { this.buildFallbackChallenge(); return; }
+    var hasQuizData = comps.some(function(c) { return c.purpose || c.takeaway || c.analogy; });
+    var hasSteps = steps.length >= 2;
+    var variants = [];
+    if (hasQuizData) variants.push('quiz');
+    if (hasSteps) variants.push('sequence');
+    if (variants.length === 0) { this.buildFallbackChallenge(); return; }
+    var pick = variants[Math.floor(Math.random() * variants.length)];
+    if (pick === 'sequence') {
+      this._buildSequenceChallenge(container);
+    } else {
+      var questions = this._generateQuizQuestions();
+      if (questions.length >= 2) {
+        this._buildQuizChallenge(container, questions);
+      } else {
+        this.buildFallbackChallenge();
+      }
+    }
+  }
+
+  _generateQuizQuestions() {
+    var comps = this.cfg.components || [];
+    var questions = [];
+    var types = ['purpose','description','takeaway','analogy','howItWorks','why','funFact'];
+    comps.forEach(function(comp) {
+      var avail = [];
+      types.forEach(function(t) { if (comp[t]) avail.push(t); });
+      if (avail.length === 0) return;
+      var usedType = avail[Math.floor(Math.random() * avail.length)];
+      var questionText = usedType === 'purpose' ? 'What is the purpose of ' + comp.name + '?' :
+                         usedType === 'takeaway' ? 'What is the key takeaway about ' + comp.name + '?' :
+                         usedType === 'analogy' ? 'Which component is described by this analogy?' :
+                         usedType === 'why' ? 'Why does ' + comp.name + ' matter?' :
+                         usedType === 'funFact' ? 'Which component has this fun fact?' :
+                         'Which component is described by:';
+      var answer = comp.name;
+      var distractors = comps.filter(function(c) { return c.id !== comp.id; }).map(function(c) { return c.name; });
+      if (distractors.length < 2) return;
+      var opts = [answer];
+      var shuffled = distractors.sort(function() { return Math.random() - 0.5; }).slice(0, Math.min(3, distractors.length));
+      opts = opts.concat(shuffled).sort(function() { return Math.random() - 0.5; });
+      var desc = usedType === 'analogy' ? comp[usedType] : ('"' + comp[usedType] + '"');
+      questions.push({
+        question: usedType === 'purpose' || usedType === 'takeaway' || usedType === 'why'
+          ? questionText + '\n' + comp[usedType]
+          : questionText + '\n' + desc,
+        answer: answer,
+        options: opts,
+        hint: usedType === 'analogy' ? ('Think about the real-world comparison used for ' + answer) : ''
+      });
+    });
+    var shuffled = questions.sort(function() { return Math.random() - 0.5; }).slice(0, 4);
+    return shuffled;
+  }
+
+  _buildQuizChallenge(container, questions) {
+    var self = this;
+    var title = this.cfg.title || 'Knowledge Check';
+
+    var html = '<div class="sim-interactive-area" style="padding:16px;display:flex;flex-direction:column;gap:14px;width:100%">';
+    html += '<div style="font-size:14px;font-weight:700;color:var(--brand-light);">' + this._esc(title) + ' — Quiz</div>';
+    html += '<p style="font-size:11px;color:var(--text-muted);">Answer each question by selecting the correct component.</p>';
+    html += '<div class="quiz-questions">';
+
+    questions.forEach(function(q, qi) {
+      html += '<div class="quiz-card glass-panel" data-q="' + qi + '" style="padding:12px;border-radius:8px;margin-bottom:10px">';
+      html += '<div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px">Q' + (qi + 1) + ': ' + self._esc(q.question.replace(/\n/g, '<br>')) + '</div>';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+      q.options.forEach(function(opt, oi) {
+        html += '<button class="act-btn quiz-opt" data-q="' + qi + '" data-opt="' + oi + '" data-answer="' + self._esc(opt) + '" style="font-size:11px;padding:6px 12px">' + self._esc(opt) + '</button>';
+      });
+      html += '</div>';
+      html += '<div class="quiz-feedback" style="font-size:11px;margin-top:6px;min-height:18px"></div>';
+      html += '</div>';
+    });
+
+    html += '</div></div>';
+    container.innerHTML = html;
+
+    var correctCount = 0, total = questions.length;
+    container.querySelectorAll('.quiz-opt').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.disabled) return;
+        var qi = parseInt(btn.dataset.q);
+        var card = container.querySelector('.quiz-card[data-q="' + qi + '"]');
+        var fb = card.querySelector('.quiz-feedback');
+        card.querySelectorAll('.quiz-opt').forEach(function(b) { b.disabled = true; });
+        if (btn.dataset.answer === questions[qi].answer) {
+          btn.style.borderColor = '#10b981'; btn.style.color = '#10b981';
+          btn.style.background = 'rgba(16,185,129,0.1)';
+          fb.innerHTML = '<span style="color:#10b981">✓ Correct!</span>';
+          fb.style.color = '#10b981';
+          correctCount++;
+        } else {
+          btn.style.borderColor = '#ef4444'; btn.style.color = '#ef4444';
+          btn.style.background = 'rgba(239,68,68,0.1)';
+          var correctBtn = card.querySelector('.quiz-opt[data-answer="' + self._esc(questions[qi].answer) + '"]');
+          if (correctBtn) { correctBtn.style.borderColor = '#10b981'; correctBtn.style.color = '#10b981'; correctBtn.style.background = 'rgba(16,185,129,0.1)'; }
+          fb.innerHTML = '<span style="color:#ef4444">✗ The answer was: ' + self._esc(questions[qi].answer) + '</span>';
+          fb.style.color = '#ef4444';
+        }
+        if (container.querySelectorAll('.quiz-opt:not(:disabled)').length === 0) {
+          setTimeout(function() {
+            if (correctCount === total) {
+              self._showCompletionCelebration(container);
+              self.markCompleted();
+            } else {
+              var msg = 'You got ' + correctCount + '/' + total + ' correct. Try again?';
+              var retry = document.createElement('button');
+              retry.className = 'act-btn';
+              retry.style.cssText = 'margin:8px auto;display:block';
+              retry.textContent = '🔄 Retry Quiz';
+              retry.addEventListener('click', function() { self.buildAutoChallenge(container); self.pause(); });
+              container.querySelector('.quiz-questions').appendChild(retry);
+            }
+          }, 600);
+        }
+      });
+    });
+  }
+
+  _buildSequenceChallenge(container) {
+    var self = this;
+    var steps = this.cfg.steps || [];
+    if (steps.length < 2) { this.buildFallbackChallenge(); return; }
+
+    var items = steps.map(function(s, i) {
+      return { id: s.id || 'step' + i, label: s.label || 'Step ' + (i + 1), idx: i };
+    });
+    var shuffled = items.sort(function() { return Math.random() - 0.5; });
+
+    var title = this.cfg.title || 'Sequence';
+    var html = '<div class="sim-interactive-area" style="padding:16px;display:flex;flex-direction:column;gap:12px;width:100%">';
+    html += '<div style="font-size:14px;font-weight:700;color:var(--brand-light);">' + this._esc(title) + ' — Sequence</div>';
+    html += '<p style="font-size:11px;color:var(--text-muted);">Drag the items into the correct order.</p>';
+    html += '<div class="seq-slots" style="display:flex;flex-direction:column;gap:6px"></div>';
+    html += '<div class="seq-pool" style="display:flex;flex-direction:column;gap:6px;padding:8px;background:var(--surface-pool);border-radius:6px;border:1px solid var(--border-pool);min-height:60px"></div>';
+    html += '<div class="seq-feedback" style="font-size:11px;min-height:20px;color:var(--text-muted)" aria-live="polite"></div>';
+    html += '</div>';
+    container.innerHTML = html;
+
+    var pool = container.querySelector('.seq-pool');
+    var slots = container.querySelector('.seq-slots');
+    var fb = container.querySelector('.seq-feedback');
+    var placed = [];
+
+    // Create slots
+    items.forEach(function(item, i) {
+      var slot = document.createElement('div');
+      slot.className = 'seq-slot';
+      slot.dataset.slotIdx = i;
+      slot.style.cssText = 'padding:8px 12px;border:1px dashed var(--border-faint);border-radius:6px;min-height:36px;font-size:11px;color:var(--text-faint);display:flex;align-items:center;transition:var(--transition)';
+      slot.textContent = 'Step ' + (i + 1);
+      slots.appendChild(slot);
+    });
+
+    // Shuffle and add items to pool
+    var shuffledItems = shuffled;
+    shuffledItems.forEach(function(item, i) {
+      var card = document.createElement('div');
+      card.className = 'seq-card';
+      card.draggable = true;
+      card.dataset.itemIdx = item.idx;
+      card.style.cssText = 'padding:8px 12px;background:var(--surface3);border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:grab;user-select:none;transition:var(--transition)';
+      card.textContent = item.label;
+      card.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', item.idx);
+        card.style.opacity = '0.4';
+      });
+      card.addEventListener('dragend', function() { card.style.opacity = '1'; });
+      pool.appendChild(card);
+    });
+
+    // Slot drop zones
+    slots.querySelectorAll('.seq-slot').forEach(function(slot, si) {
+      slot.addEventListener('dragover', function(e) { e.preventDefault(); slot.style.borderColor = 'var(--brand-light)'; });
+      slot.addEventListener('dragleave', function() { slot.style.borderColor = 'var(--border-faint)'; });
+      slot.addEventListener('drop', function(e) {
+        e.preventDefault();
+        slot.style.borderColor = 'var(--border-faint)';
+        var idx = parseInt(e.dataTransfer.getData('text/plain'));
+        var card = pool.querySelector('.seq-card[data-item-idx="' + idx + '"]');
+        if (!card) return;
+        // Check if already placed elsewhere
+        var existing = slot.querySelector('.seq-card');
+        if (existing) return;
+        // Check if this card is already in another slot
+        var anywhere = slots.querySelector('.seq-card[data-item-idx="' + idx + '"]');
+        if (anywhere) return;
+
+        slot.innerHTML = '';
+        slot.textContent = '';
+        var clone = card.cloneNode(true);
+        clone.draggable = false;
+        clone.style.cursor = 'default';
+        clone.style.background = 'var(--surface2)';
+        clone.style.border = '1px solid var(--brand-light)';
+        clone.style.margin = '0';
+        clone.style.width = '100%';
+        slot.appendChild(clone);
+        card.remove();
+
+        placed[si] = idx;
+        var allPlaced = placed.filter(function(p) { return p !== undefined; }).length === items.length;
+        if (allPlaced) {
+          var correct = placed.every(function(p, pi) { return p === pi; });
+          if (correct) {
+            fb.innerHTML = '<span style="color:#10b981">✓ Correct sequence! All steps in the right order.</span>';
+            fb.style.color = '#10b981';
+            self._showCompletionCelebration(container);
+            self.markCompleted();
+          } else {
+            fb.innerHTML = '<span style="color:#ef4444">✗ Wrong order. Try again.</span>';
+            fb.style.color = '#ef4444';
+          }
+        }
+      });
+    });
+
+    // Touch support
+    var touchCard = null, touchGhost = null;
+    container.addEventListener('touchstart', function(e) {
+      var card = e.target.closest('.seq-card');
+      if (!card || !card.draggable) return;
+      touchCard = card;
+      var rect = card.getBoundingClientRect();
+      touchGhost = card.cloneNode(true);
+      touchGhost.style.cssText = 'position:fixed;z-index:99999;pointer-events:none;opacity:0.8;background:var(--surface3);border:1px solid var(--brand-light);border-radius:6px;padding:8px 12px;font-size:11px;width:' + rect.width + 'px';
+      touchGhost.style.left = (e.touches[0].clientX - 20) + 'px';
+      touchGhost.style.top = (e.touches[0].clientY - 20) + 'px';
+      document.body.appendChild(touchGhost);
+      card.style.opacity = '0.4';
+    }, { passive: true });
+
+    container.addEventListener('touchmove', function(e) {
+      if (!touchGhost) return;
+      e.preventDefault();
+      touchGhost.style.left = (e.touches[0].clientX - 20) + 'px';
+      touchGhost.style.top = (e.touches[0].clientY - 20) + 'px';
+    }, { passive: false });
+
+    container.addEventListener('touchend', function(e) {
+      if (!touchCard || !touchGhost) return;
+      touchGhost.remove(); touchGhost = null;
+      touchCard.style.opacity = '1';
+      var drop = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      if (drop) {
+        var slot = drop.closest('.seq-slot');
+        if (slot) {
+          var simulatedEvent = new DragEvent('drop', { dataTransfer: new DataTransfer() });
+          simulatedEvent.dataTransfer.setData('text/plain', touchCard.dataset.itemIdx);
+          slot.dispatchEvent(simulatedEvent);
+        }
+      }
+      touchCard = null;
+    });
+  }
+
+  _showCompletionCelebration(container) {
+    var el = document.createElement('div');
+    el.setAttribute('role', 'alertdialog');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-label', 'Challenge complete');
+    el.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:100;border-radius:var(--radius);animation:packetFadeIn .3s ease';
+    var self = this;
+    el.innerHTML = '<div style="text-align:center;padding:24px;background:var(--surface2);border:1px solid var(--brand-light);border-radius:12px;box-shadow:0 0 40px var(--brand-glow)">' +
+      '<div style="font-size:40px;margin-bottom:8px" aria-hidden="true">🎉</div>' +
+      '<div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px">Challenge Complete!</div>' +
+      '<div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">Great work mastering ' + this._esc(this.cfg.title || 'this topic') + '.</div>' +
+      '<button class="act-btn" id="celebration-close-btn" style="font-size:13px;padding:8px 20px">Continue</button>' +
+    '</div>';
+    container.appendChild(el);
+    var closeBtn = document.getElementById('celebration-close-btn');
+    if (closeBtn) {
+      closeBtn.focus();
+      closeBtn.addEventListener('click', function() { el.remove(); });
+      closeBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') el.remove();
+      });
+    }
+  }
+
   togglePlay() {
     if (this.playing) this.pause(); else this.play();
   }
@@ -464,6 +1003,7 @@ class DiagramEngine {
     this._tick();
     this._updatePlayBtn();
     this._setStatus('Playing');
+    if (this.el.metricsBar) this.el.metricsBar.style.display = 'flex';
   }
   pause() {
     if (!this.playing) return;
@@ -471,6 +1011,9 @@ class DiagramEngine {
     if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
     this._updatePlayBtn();
     this._setStatus('Paused');
+    if (this.el.metricsBar) this.el.metricsBar.style.display = 'none';
+    var comps = this.el.visual.querySelectorAll('.component-breathing');
+    comps.forEach(function(c) { c.classList.remove('component-breathing'); });
   }
   replay() {
     this.t = 0;
@@ -487,6 +1030,8 @@ class DiagramEngine {
       this.t += this.dt;
       if (this.cfg.animate) this.cfg.animate(this);
       this._updateFlowDots();
+      this._updateLiveMetrics();
+      this._pulseActiveComponent();
     }
     this.rafId = requestAnimationFrame(() => this._tick());
   }
@@ -517,6 +1062,8 @@ class DiagramEngine {
     if (!id) return;
     this._clearHighlights();
     this.selectedId = id;
+    var comps = this.el.visual.querySelectorAll('.component-breathing');
+    comps.forEach(function(c) { c.classList.remove('component-breathing'); });
     $$('[data-component-id]', this.el.visual).forEach(el => {
       if (el.dataset.componentId === id) el.classList.add('selected');
     });
@@ -554,6 +1101,16 @@ class DiagramEngine {
   _clearHighlights() {
     $$('.selected', this.el.visual).forEach(el => el.classList.remove('selected'));
     $$('.connection.highlighted', this.el.visual).forEach(el => el.classList.remove('highlighted'));
+  }
+
+  _focusNextComp(dir) {
+    var comps = $$('[data-component-id]', this.el.visual);
+    if (!comps.length) return;
+    var cur = this.selectedId;
+    var idx = cur ? comps.findIndex(function(c) { return c.dataset.componentId === cur; }) : -1;
+    var next = (idx + dir + comps.length) % comps.length;
+    comps[next].focus();
+    this.selectComponent(comps[next].dataset.componentId);
   }
 
   _showExplanation(id) {
@@ -844,6 +1401,54 @@ class DiagramEngine {
     gn2.setAttribute('in', 'SourceGraphic');
     gmerge.appendChild(gn1); gmerge.appendChild(gn2);
     gfilter.appendChild(gshadow); gfilter.appendChild(gmerge); defs.appendChild(gfilter);
+
+    // Breathing glow filter for active component
+    var bfilter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+    bfilter.setAttribute('id', 'breath-glow');
+    bfilter.setAttribute('x', '-50%'); bfilter.setAttribute('y', '-50%');
+    bfilter.setAttribute('width', '200%'); bfilter.setAttribute('height', '200%');
+    var bblur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+    bblur.setAttribute('stdDeviation', '3'); bblur.setAttribute('result', 'blur');
+    var bmerge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+    var bn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    bn1.setAttribute('in', 'blur');
+    var bn2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    bn2.setAttribute('in', 'SourceGraphic');
+    bmerge.appendChild(bn1); bmerge.appendChild(bn2);
+    bfilter.appendChild(bblur); bfilter.appendChild(bmerge); defs.appendChild(bfilter);
+
+    // Component gradient defs — 6 distinct gradient pairs for visual depth
+    var gradDefs = [
+      ['comp-grad-0','#1e3a5f','#16223a'],['comp-grad-1','#1a3a5a','#142038'],
+      ['comp-grad-2','#1e3550','#152030'],['comp-grad-3','#1c3858','#132235'],
+      ['comp-grad-4','#1d3455','#162438'],['comp-grad-5','#1b3852','#122030']
+    ];
+    var gradDefsLight = [
+      ['comp-grad-0','#e8ecf1','#d4d8e0'],['comp-grad-1','#e2e6ec','#cdd2da'],
+      ['comp-grad-2','#e4e8ee','#d0d5dd'],['comp-grad-3','#e6eaf0','#d2d7df'],
+      ['comp-grad-4','#e3e7ed','#ced3db'],['comp-grad-5','#e5e9ef','#d1d6de']
+    ];
+    var activeGradDefs = this._theme === 'light' ? gradDefsLight : gradDefs;
+    for (var gi = 0; gi < activeGradDefs.length; gi++) {
+      var gd = activeGradDefs[gi];
+      var grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      grad.setAttribute('id', gd[0]); grad.setAttribute('x1','0'); grad.setAttribute('y1','0');
+      grad.setAttribute('x2','0'); grad.setAttribute('y2','1');
+      var s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      s1.setAttribute('offset','0%'); s1.setAttribute('stop-color', gd[1]);
+      var s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      s2.setAttribute('offset','100%'); s2.setAttribute('stop-color', gd[2]);
+      grad.appendChild(s1); grad.appendChild(s2); defs.appendChild(grad);
+      // Edge highlight overlay gradient (top-to-bottom subtle light)
+      var hgrad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      hgrad.setAttribute('id', gd[0] + '-hl'); hgrad.setAttribute('x1','0'); hgrad.setAttribute('y1','0');
+      hgrad.setAttribute('x2','0'); hgrad.setAttribute('y2','1');
+      var hs1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      hs1.setAttribute('offset','0%'); hs1.setAttribute('stop-color', this._theme === 'light' ? 'rgba(255,255,255,0.6)' : 'var(--border-pool)');
+      var hs2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      hs2.setAttribute('offset','40%'); hs2.setAttribute('stop-color', 'rgba(255,255,255,0)');
+      hgrad.appendChild(hs1); hgrad.appendChild(hs2); defs.appendChild(hgrad);
+    }
     svg.appendChild(defs);
 
     const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -876,7 +1481,8 @@ class DiagramEngine {
       }
       const mx = (bx + tx) / 2, my = (by + ty) / 2;
       const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('class', 'connection');
+      p.setAttribute('class', 'connection conn-entrance');
+      p.style.setProperty('--entrance-delay', (i * 60) + 'ms');
       p.setAttribute('data-from', c.from); p.setAttribute('data-to', c.to);
       p.setAttribute('d', `M${bx} ${by}C${mx} ${by},${mx} ${ty},${tx} ${ty}`);
       p.setAttribute('stroke', c.color || colors[i % 3]);
@@ -901,7 +1507,12 @@ class DiagramEngine {
         t.textContent = c.label;
         svg.appendChild(t);
       }
-      this._connPaths.push({ from: c.from, to: c.to, x1: bx, y1: by, x2: tx, y2: ty, mx, my });
+      this._connPaths.push({
+        from: c.from, to: c.to,
+        x1: bx, y1: by, x2: tx, y2: ty, mx, my,
+        ax: tx - bx, bxc: 3 * (bx - mx), cxc: 3 * (mx - bx),
+        ay: 2 * (by - ty), byc: 3 * (ty - by)
+      });
     });
 
     // Render components
@@ -914,12 +1525,13 @@ class DiagramEngine {
 
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.setAttribute('data-component-id', c.id);
-      g.setAttribute('class', 'component');
+      g.setAttribute('class', 'component comp-entrance');
+      g.style.setProperty('--entrance-delay', (j * 80) + 'ms');
       g.setAttribute('tabindex', '0');
       g.setAttribute('role', 'button');
       g.setAttribute('aria-label', `Select ${c.name || c.id}`);
 
-      this._renderShapeBg(g, shape, cx, cy, cw, ch, bgc);
+      this._renderShapeBg(g, shape, cx, cy, cw, ch, bgc, j);
 
       if (icon && ICONS[icon]) {
         this._renderIcon(g, icon, cx, cy, cw, ch);
@@ -960,29 +1572,34 @@ class DiagramEngine {
       let dot;
       if (pkt) {
         dot = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        dot.setAttribute('class', 'flow-dot packet');
+        dot.setAttribute('class', 'flow-dot packet dot-entrance');
+        dot.style.setProperty('--entrance-delay', (comps.length * 80 + i * 100) + 'ms');
         dot.setAttribute('data-conn-idx', i);
         dot.setAttribute('data-label', pkt.label || '');
         dot.setAttribute('role', 'button');
         dot.setAttribute('tabindex', '0');
         dot.setAttribute('aria-label', 'Packet: ' + (pkt.label || ''));
         dot.style.cursor = 'pointer';
-
-        const pbg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        pbg.setAttribute('x', '-24'); pbg.setAttribute('y', '-8');
-        pbg.setAttribute('width', '48'); pbg.setAttribute('height', '16');
-        pbg.setAttribute('rx', '4'); pbg.setAttribute('ry', '4');
-        pbg.setAttribute('fill', pkt.color || '#22c55e'); pbg.setAttribute('opacity', '0.9');
-        pbg.setAttribute('filter', 'url(#glow)');
-        dot.appendChild(pbg);
+        dot.setAttribute('transform', 'translate(' + cp.x1 + ',' + cp.y1 + ')');
 
         const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('fill', '#fff');
         txt.setAttribute('font-size', '8'); txt.setAttribute('font-weight', '700');
         txt.setAttribute('font-family', "'Inter',sans-serif");
         txt.setAttribute('y', '3'); txt.setAttribute('pointer-events', 'none');
-        txt.textContent = pkt.label || '';
+        var label = pkt.label || '';
+        txt.textContent = label;
         dot.appendChild(txt);
+
+        // Size rect to text width
+        var pw = Math.max(36, label.length * 5.2 + 14);
+        const pbg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        pbg.setAttribute('x', -pw / 2); pbg.setAttribute('y', '-8');
+        pbg.setAttribute('width', pw); pbg.setAttribute('height', '16');
+        pbg.setAttribute('rx', '4'); pbg.setAttribute('ry', '4');
+        pbg.setAttribute('fill', pkt.color || '#22c55e'); pbg.setAttribute('opacity', '0.9');
+        pbg.setAttribute('filter', 'url(#glow)');
+        dot.insertBefore(pbg, txt);
 
         dot.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -992,23 +1609,37 @@ class DiagramEngine {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); self._showPacketInfo(pkt.label, pkt.color, i); }
         });
       } else {
-        dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        dot.setAttribute('r', '4');
-        dot.setAttribute('class', 'flow-dot');
-        dot.setAttribute('data-conn-idx', i);
-        dot.setAttribute('opacity', '0.8');
-        dot.setAttribute('filter', 'url(#glow)');
+        // Multiple trailing dots per connection for particle-stream effect
+        var trailCount = 3;
+        for (var td = 0; td < trailCount; td++) {
+          dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('r', String(4 - td * 0.8));
+          dot.setAttribute('class', 'flow-dot dot-entrance');
+          dot.style.setProperty('--entrance-delay', (comps.length * 80 + i * 100 + td * 40) + 'ms');
+          dot.setAttribute('data-conn-idx', i);
+          dot.setAttribute('data-trail-idx', td);
+          dot.setAttribute('opacity', String(0.8 - td * 0.2));
+          dot.setAttribute('fill', '#10b981');
+          dot.setAttribute('filter', 'url(#glow)');
+          dot.setAttribute('cx', cp.x1); dot.setAttribute('cy', cp.y1);
+          svg.appendChild(dot);
+          this._flowDots.push({ el: dot, idx: i, isPacket: false, trail: td });
+        }
       }
-      svg.appendChild(dot);
-      this._flowDots.push({ el: dot, idx: i, isPacket: !!pkt });
+      if (pkt) {
+        svg.appendChild(dot);
+        this._flowDots.push({ el: dot, idx: i, isPacket: true });
+      }
     });
 
     container.innerHTML = '';
     container.appendChild(svg);
   }
 
-  _renderShapeBg(g, shape, x, y, w, h, bgc) {
+  _renderShapeBg(g, shape, x, y, w, h, bgc, compIdx) {
     const el = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const gradId = 'comp-grad-' + ((compIdx !== undefined ? compIdx : 0) % 6);
+    var strokeColor = this._pal().compStroke;
     let bg;
     switch (shape) {
       case 'circle':
@@ -1039,7 +1670,7 @@ class DiagramEngine {
         const top = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
         top.setAttribute('cx', x + w / 2); top.setAttribute('cy', y + 10);
         top.setAttribute('rx', w / 2); top.setAttribute('ry', 10);
-        top.setAttribute('fill', bgc); top.setAttribute('stroke', '#2a3a55'); top.setAttribute('stroke-width', '1.5');
+        top.setAttribute('fill', 'url(#' + gradId + ')'); top.setAttribute('stroke', strokeColor); top.setAttribute('stroke-width', '1.5');
         el.appendChild(top);
         break;
       case 'cloud-shape':
@@ -1054,10 +1685,18 @@ class DiagramEngine {
         bg.setAttribute('rx', '8');
     }
     if (shape !== 'cylinder') {
-      bg.setAttribute('fill', bgc);
-      bg.setAttribute('stroke', '#2a3a55'); bg.setAttribute('stroke-width', '1.5');
+      bg.setAttribute('fill', 'url(#' + gradId + ')');
+      bg.setAttribute('stroke', strokeColor); bg.setAttribute('stroke-width', '1.5');
       bg.setAttribute('filter', 'url(#g)');
       el.appendChild(bg);
+      // Edge highlight overlay
+      var hl = bg.cloneNode(true);
+      hl.setAttribute('fill', 'url(#' + gradId + '-hl)');
+      hl.setAttribute('stroke', 'none');
+      hl.setAttribute('filter', 'none');
+      hl.setAttribute('pointer-events', 'none');
+      hl.setAttribute('class', 'component-hl');
+      el.appendChild(hl);
     }
     el.setAttribute('class', 'component-bg');
     g.appendChild(el);
@@ -1069,14 +1708,14 @@ class DiagramEngine {
     const pal2 = this._pal();
     const iconSize = 18;
     const ix = cx + cw / 2 - iconSize / 2;
-    const iy = cy + ch / 2 - iconSize / 2 - 5;
+    const iy = cy + ch / 2 - iconSize / 2 - 9;
     const svgNs = 'http://www.w3.org/2000/svg';
     const iconGroup = document.createElementNS(svgNs, 'g');
     iconGroup.setAttribute('pointer-events', 'none');
 
     const bg = document.createElementNS(svgNs, 'circle');
-    bg.setAttribute('cx', cx + cw / 2); bg.setAttribute('cy', cy + ch / 2 - 5);
-    bg.setAttribute('r', '12'); bg.setAttribute('fill', '#0959C8'); bg.setAttribute('opacity', this._theme === 'light' ? '0.1' : '0.15');
+    bg.setAttribute('cx', cx + cw / 2); bg.setAttribute('cy', cy + ch / 2 - 9);
+    bg.setAttribute('r', '12'); bg.setAttribute('fill', pal2.iconBg);
     iconGroup.appendChild(bg);
 
     const path = document.createElementNS(svgNs, 'path');
@@ -1089,13 +1728,14 @@ class DiagramEngine {
   _renderDefaultMarker(g, cx, cy, cw, ch, id) {
     const pal2 = this._pal();
     const svgNs = 'http://www.w3.org/2000/svg';
+    const cx2 = cx + cw / 2;
     const circle = document.createElementNS(svgNs, 'circle');
-    circle.setAttribute('cx', cx + 22); circle.setAttribute('cy', cy + ch / 2);
-    circle.setAttribute('r', '16'); circle.setAttribute('fill', '#0959C8'); circle.setAttribute('opacity', this._theme === 'light' ? '0.12' : '0.2');
+    circle.setAttribute('cx', cx2); circle.setAttribute('cy', cy + ch / 2 - 9);
+    circle.setAttribute('r', '14'); circle.setAttribute('fill', pal2.markerBg);
     g.appendChild(circle);
 
     const letter = document.createElementNS(svgNs, 'text');
-    letter.setAttribute('x', cx + 22); letter.setAttribute('y', cy + ch / 2 + 5);
+    letter.setAttribute('x', cx2); letter.setAttribute('y', cy + ch / 2 - 3);
     letter.setAttribute('text-anchor', 'middle'); letter.setAttribute('fill', pal2.markerText);
     letter.setAttribute('font-size', '14'); letter.setAttribute('font-weight', '700');
     letter.setAttribute('font-family', "'Inter',sans-serif"); letter.setAttribute('pointer-events', 'none');
@@ -1128,10 +1768,10 @@ class DiagramEngine {
     this._flowDots.forEach((fd, j) => {
       const cp = this._connPaths[fd.idx];
       if (!cp) return;
-      let t = (base + j * 0.15) % 1;
-      const u = 1 - t;
-      const x = u * u * u * cp.x1 + 3 * u * u * t * cp.mx + 3 * u * t * t * cp.mx + t * t * t * cp.x2;
-      const y = u * u * u * cp.y1 + 3 * u * u * t * cp.y1 + 3 * u * t * t * cp.y2 + t * t * t * cp.y2;
+      var trailOffset = fd.trail !== undefined ? fd.trail * 0.08 : j * 0.15;
+      let t = (base + trailOffset) % 1;
+      const x = ((cp.ax * t + cp.bxc) * t + cp.cxc) * t + cp.x1;
+      const y = (cp.ay * t + cp.byc) * t * t + cp.y1;
       if (fd.isPacket) {
         fd.el.setAttribute('transform', 'translate(' + x + ',' + y + ')');
       } else {
@@ -1139,6 +1779,57 @@ class DiagramEngine {
         fd.el.setAttribute('cy', y);
       }
     });
+  }
+
+  _updateLiveMetrics() {
+    if (!this.el.metricsBar) return;
+    if (!this._metricsCache) this._metricsCache = {};
+    var connCount = (this.cfg.connections || []).length;
+    var flowCount = this._flowDots ? this._flowDots.length : 0;
+    var activeCount = this._flowDots ? this._flowDots.filter(function(fd) { return fd.isPacket; }).length : 0;
+    var t = this.t;
+    var p = Math.floor(t * 3) % 999;
+    var l = Math.round(12 + Math.sin(t * 2) * 5) + 'ms';
+    var a = activeCount > 0 ? activeCount : Math.max(1, Math.floor(t * 0.5) % (connCount + 1));
+    var r = Math.round(8 + Math.cos(t * 1.5) * 3) + '/s';
+    if (p !== this._metricsCache.p) { this.el.metricPackets.textContent = p; this._metricsCache.p = p; }
+    if (l !== this._metricsCache.l) { this.el.metricLatency.textContent = l; this._metricsCache.l = l; }
+    if (a !== this._metricsCache.a) { this.el.metricActive.textContent = a; this._metricsCache.a = a; }
+    if (r !== this._metricsCache.r) { this.el.metricRate.textContent = r; this._metricsCache.r = r; }
+  }
+
+  _pulseActiveComponent() {
+    if (this.selectedId) return;
+    var comps;
+    if (!this._pulseCache) this._pulseCache = { step: -2 };
+    if (this.currentStep !== this._pulseCache.step) {
+      comps = this.el.visual.querySelectorAll('.component');
+      this._pulseCache.comps = comps;
+      this._pulseCache.step = this.currentStep;
+      this._pulseCache.lastIdx = undefined;
+    } else {
+      comps = this._pulseCache.comps;
+    }
+    if (!comps || !comps.length) return;
+    var idx = Math.floor(this.t * 0.5) % comps.length;
+    if (idx === this._pulseCache.lastIdx) return;
+    if (this._pulseCache.lastIdx !== undefined && this._pulseCache.lastIdx < comps.length) {
+      comps[this._pulseCache.lastIdx].classList.remove('component-breathing');
+      var prevBg = comps[this._pulseCache.lastIdx].querySelector('.component-bg > :first-child');
+      if (prevBg) {
+        var pi = this._pulseCache.lastIdx % 6;
+        prevBg.setAttribute('fill', pal.compBgs[pi]);
+        prevBg.setAttribute('stroke', pal.compStroke);
+      }
+    }
+    comps[idx].classList.add('component-breathing');
+    var pal = this._pal();
+    var curBg = comps[idx].querySelector('.component-bg > :first-child');
+    if (curBg) {
+      curBg.setAttribute('fill', pal.compBgActive);
+      curBg.setAttribute('stroke', pal.compStrokeActive);
+    }
+    this._pulseCache.lastIdx = idx;
   }
 
   _showPacketInfo(label, color, connIdx) {
@@ -1395,7 +2086,7 @@ class DiagramEngine {
       const nodes = flowArea.querySelectorAll('[data-sidx]');
       nodes.forEach(function (n) {
         var idx = parseInt(n.dataset.sidx);
-        n.style.borderColor = idx === i ? '#3b82f6' : 'rgba(255,255,255,0.06)';
+        n.style.borderColor = idx === i ? '#3b82f6' : 'var(--border-pool)';
         n.style.background = idx === i ? 'rgba(9,89,200,0.1)' : 'rgba(255,255,255,0.02)';
         n.style.boxShadow = idx === i ? '0 0 20px rgba(9,89,200,0.3)' : 'none';
       });
@@ -1464,7 +2155,7 @@ class DiagramEngine {
       
       card.addEventListener('click', function () {
         grid.querySelectorAll('[data-component-id]').forEach(el => {
-          el.style.borderColor = 'rgba(255,255,255,0.06)';
+          el.style.borderColor = 'var(--border-pool)';
           el.style.background = 'rgba(255,255,255,0.03)';
         });
         card.style.borderColor = '#3b82f6';
