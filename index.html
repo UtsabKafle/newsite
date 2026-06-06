@@ -137,7 +137,12 @@
         transform: none !important;
       }
     }
-  </style>
+  
+@media(max-width:640px){
+  table{display:block;overflow-x:auto}
+}
+img{max-width:100%;height:auto}
+.glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -194,9 +199,9 @@ s0.parentNode.insertBefore(s1,s0);
         <a href="index.html" class="flex items-center gap-2.5">
           <span id="main-logo-trigger" class="flex items-center">
             <!-- White logo for dark mode -->
-            <img src="assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
+            <img src="assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full">
             <!-- Black logo for light mode -->
-            <img src="assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+            <img src="assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full">
           </span>
           <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
         </a>
@@ -240,7 +245,7 @@ s0.parentNode.insertBefore(s1,s0);
 
     <!-- Logo overlay for branded interaction -->
     <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="assets/images/consica.png" alt="Consica Labs">
+      <img class="max-w-full" src="assets/images/consica.png" alt="Consica Labs">
     </div>
 
     <!-- Mobile Drawer menu -->
@@ -639,7 +644,7 @@ s0.parentNode.insertBefore(s1,s0);
           <div class="marquee-content flex gap-4 animate-marquee-left">
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/typescript.svg" alt="TypeScript" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/typescript.svg" alt="TypeScript" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">TypeScript</p>
@@ -648,7 +653,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/python.svg" alt="Python" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/python.svg" alt="Python" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Python</p>
@@ -657,7 +662,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/nodejs.svg" alt="Node.js" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/nodejs.svg" alt="Node.js" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Node.js</p>
@@ -666,7 +671,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/postgresql.svg" alt="PostgreSQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/postgresql.svg" alt="PostgreSQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">PostgreSQL</p>
@@ -675,7 +680,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/tensorflow.svg" alt="TensorFlow" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/tensorflow.svg" alt="TensorFlow" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">TensorFlow</p>
@@ -684,7 +689,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/openai.svg" alt="OpenAI" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/openai.svg" alt="OpenAI" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">OpenAI</p>
@@ -693,7 +698,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/aws.svg" alt="AWS" class="w-8 h-8 lg:w-10 lg:h-10 object-contain" loading="lazy">
+              <img src="assets/icons/aws.svg" alt="AWS" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full" loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">AWS</p>
                 <p class="text-[10px] lg:text-xs text-theme-faint mt-0.5">Cloud</p>
@@ -701,7 +706,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/docker.svg" alt="Docker" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/docker.svg" alt="Docker" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Docker</p>
@@ -710,7 +715,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/tailwind.svg" alt="Tailwind" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/tailwind.svg" alt="Tailwind" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Tailwind</p>
@@ -719,7 +724,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/flutter.svg" alt="Flutter" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/flutter.svg" alt="Flutter" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Flutter</p>
@@ -728,7 +733,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/dart.svg" alt="Dart" class="w-8 h-8 lg:w-10 lg:h-10 object-contain" loading="lazy">
+              <img src="assets/icons/dart.svg" alt="Dart" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full" loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Dart</p>
                 <p class="text-[10px] lg:text-xs text-theme-faint mt-0.5">Language</p>
@@ -736,7 +741,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/graphql.svg" alt="GraphQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/graphql.svg" alt="GraphQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">GraphQL</p>
@@ -745,7 +750,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0">
-              <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Kubernetes</p>
@@ -755,7 +760,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/typescript.svg" alt="TypeScript" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/typescript.svg" alt="TypeScript" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">TypeScript</p>
@@ -765,7 +770,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/python.svg" alt="Python" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/python.svg" alt="Python" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Python</p>
@@ -775,7 +780,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/nodejs.svg" alt="Node.js" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/nodejs.svg" alt="Node.js" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Node.js</p>
@@ -785,7 +790,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/postgresql.svg" alt="PostgreSQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/postgresql.svg" alt="PostgreSQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">PostgreSQL</p>
@@ -795,7 +800,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/tensorflow.svg" alt="TensorFlow" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/tensorflow.svg" alt="TensorFlow" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">TensorFlow</p>
@@ -805,7 +810,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/openai.svg" alt="OpenAI" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/openai.svg" alt="OpenAI" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">OpenAI</p>
@@ -815,7 +820,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/aws.svg" alt="AWS" class="w-8 h-8 lg:w-10 lg:h-10 object-contain" loading="lazy">
+              <img src="assets/icons/aws.svg" alt="AWS" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full" loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">AWS</p>
                 <p class="text-[10px] lg:text-xs text-theme-faint mt-0.5">Cloud</p>
@@ -824,7 +829,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/docker.svg" alt="Docker" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/docker.svg" alt="Docker" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Docker</p>
@@ -834,7 +839,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/tailwind.svg" alt="Tailwind" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/tailwind.svg" alt="Tailwind" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Tailwind</p>
@@ -844,7 +849,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/flutter.svg" alt="Flutter" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/flutter.svg" alt="Flutter" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Flutter</p>
@@ -854,7 +859,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/dart.svg" alt="Dart" class="w-8 h-8 lg:w-10 lg:h-10 object-contain" loading="lazy">
+              <img src="assets/icons/dart.svg" alt="Dart" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full" loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Dart</p>
                 <p class="text-[10px] lg:text-xs text-theme-faint mt-0.5">Language</p>
@@ -863,7 +868,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/graphql.svg" alt="GraphQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/graphql.svg" alt="GraphQL" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">GraphQL</p>
@@ -873,7 +878,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div
               class="glass-panel !shadow-none px-4 py-3 lg:px-6 lg:py-4 text-center min-w-[130px] lg:min-w-[160px] flex flex-col items-center gap-2 lg:gap-3 shrink-0"
               aria-hidden="true">
-              <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="w-8 h-8 lg:w-10 lg:h-10 object-contain"
+              <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="w-8 h-8 lg:w-10 lg:h-10 object-contain max-w-full"
                 loading="lazy">
               <div>
                 <p class="font-display font-medium text-[13px] lg:text-sm">Kubernetes</p>
@@ -979,7 +984,7 @@ s0.parentNode.insertBefore(s1,s0);
           <article class="reveal glass-panel pt-5 pb-4 px-4 lg:p-6 text-center">
             <div class="mb-2.5 lg:mb-4">
               <div class="w-12 h-12 lg:w-20 lg:h-20 mx-auto rounded-full overflow-hidden border-2 border-brand-500/20">
-                <img src="assets/images/ceo.png" alt="Bikram Adhikari" class="w-full h-full object-cover"
+                <img src="assets/images/ceo.png" alt="Bikram Adhikari" class="w-full h-full object-cover max-w-full"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div
                   class="hidden w-full h-full bg-brand-600 items-center justify-center font-display font-bold text-white text-sm lg:text-xl">
@@ -996,7 +1001,7 @@ s0.parentNode.insertBefore(s1,s0);
           <article class="reveal glass-panel pt-5 pb-4 px-4 lg:p-6 text-center" style="transition-delay: 0.06s">
             <div class="mb-2.5 lg:mb-4">
               <div class="w-12 h-12 lg:w-20 lg:h-20 mx-auto rounded-full overflow-hidden border-2 border-brand-500/20">
-                <img src="assets/images/cto.png" alt="Utsab Kafle" class="w-full h-full object-cover"
+                <img src="assets/images/cto.png" alt="Utsab Kafle" class="w-full h-full object-cover max-w-full"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div
                   class="hidden w-full h-full bg-brand-600 items-center justify-center font-display font-bold text-white text-sm lg:text-xl">
@@ -1013,7 +1018,7 @@ s0.parentNode.insertBefore(s1,s0);
           <article class="reveal glass-panel pt-5 pb-4 px-4 lg:p-6 text-center" style="transition-delay: 0.12s">
             <div class="mb-2.5 lg:mb-4">
               <div class="w-12 h-12 lg:w-20 lg:h-20 mx-auto rounded-full overflow-hidden border-2 border-brand-500/20">
-                <img src="assets/images/HoO.png" alt="Nikit Hamal" class="w-full h-full object-cover"
+                <img src="assets/images/HoO.png" alt="Nikit Hamal" class="w-full h-full object-cover max-w-full"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div
                   class="hidden w-full h-full bg-brand-600 items-center justify-center font-display font-bold text-white text-sm lg:text-xl">
@@ -1030,7 +1035,7 @@ s0.parentNode.insertBefore(s1,s0);
           <article class="reveal glass-panel pt-5 pb-4 px-4 lg:p-6 text-center" style="transition-delay: 0.18s">
             <div class="mb-2.5 lg:mb-4">
               <div class="w-12 h-12 lg:w-20 lg:h-20 mx-auto rounded-full overflow-hidden border-2 border-brand-500/20">
-                <img src="assets/images/ac.png" alt="Sujan Kafle" class="w-full h-full object-cover"
+                <img src="assets/images/ac.png" alt="Sujan Kafle" class="w-full h-full object-cover max-w-full"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div
                   class="hidden w-full h-full bg-brand-600 items-center justify-center font-display font-bold text-white text-sm lg:text-xl">
@@ -1304,9 +1309,9 @@ s0.parentNode.insertBefore(s1,s0);
           <div class="lg:col-span-2">
             <a href="index.html" class="flex items-center gap-2.5">
               <!-- White logo for dark mode -->
-              <img src="assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
+              <img src="assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light max-w-full">
               <!-- Black logo for light mode -->
-              <img src="assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <img src="assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark max-w-full">
               <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
             </a>
             <p class="mt-3 text-sm text-theme-muted max-w-sm">Software · EdTech · SaaS · Innovation Lab. Building trust

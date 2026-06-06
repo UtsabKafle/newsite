@@ -67,7 +67,19 @@
     .kb-answer.revealed { display: block; }
   
     .vocab { color: #3b82f6; font-weight: 500; }
-  </style>
+  
+@media(max-width:640px){
+  .vocab-table,.vocab-table thead,.vocab-table tbody,.vocab-table tr,.vocab-table td{display:block}
+  .vocab-table thead{display:none}
+  .vocab-table tr{padding:.75rem;margin-bottom:.5rem;background:rgba(9,89,246,.02);border:1px solid rgba(9,89,246,.1);border-radius:.75rem}
+  .vocab-table td{padding:.25rem 0;border:none}
+  .vocab-table td:first-child{font-weight:600;font-size:.875rem;padding-bottom:.125rem}
+  .vocab-table td:last-child{font-size:.8125rem;padding-top:0}
+  .vocab-table td:first-child::before{content:'Term: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4)}
+  .vocab-table td:last-child::before{content:'Definition: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4);display:block;margin-top:.25rem}
+}
+img{max-width:100%;height:auto}
+.glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
 
@@ -92,8 +104,8 @@
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
         <a href="../../../../index.html" class="flex items-center gap-2.5">
           <span id="main-logo-trigger" class="flex items-center">
-            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
-            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full">
           </span>
           <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
         </a>
@@ -117,7 +129,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
             </svg>
           </button>
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-3 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
@@ -125,7 +137,7 @@
       </nav>
     </header>
 
-    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="logo-branding-overlay" class="logo-overlay"><img class="max-w-full" src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
 
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
@@ -181,7 +193,7 @@
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
             <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
-              If the frontend is the face of an app, the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span></span> is the brain and the engine. It is the part that runs on a server — a powerful computer hidden away in a data centre somewhere — silently processing requests, running business logic, and talking to databases.
+              If the frontend is the face of an app, the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span></span> is the brain and the engine. It is the part that runs on a server ï¿½ a powerful computer hidden away in a data centre somewhere ï¿½ silently processing requests, running business logic, and talking to databases.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When you log into an app, the frontend sends your username and password to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> checks whether that combination is correct, looks up your profile, and sends your data back. All of this happens in milliseconds.
@@ -197,7 +209,7 @@
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> receives a request from the frontend (usually over HTTP), processes it — which may involve checking authentication, looking up data in a database, running calculations — and then sends a response back. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code runs continuously on a server, waiting for incoming requests.</p>
+              <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> receives a request from the frontend (usually over HTTP), processes it ï¿½ which may involve checking authentication, looking up data in a database, running calculations ï¿½ and then sends a response back. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code runs continuously on a server, waiting for incoming requests.</p>
             </div>
 
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -238,13 +250,13 @@
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
             <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
-              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span> code runs inside a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> environment</span> — for Node.js it is V8 (the same engine as Chrome), for Python it is the Python interpreter, for Java it is the JVM (Java Virtual Machine). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> handles memory management, networking, and file access.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backend</span> code runs inside a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> environment</span> ï¿½ for Node.js it is V8 (the same engine as Chrome), for Python it is the Python interpreter, for Java it is the JVM (Java Virtual Machine). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">runtime</span> handles memory management, networking, and file access.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span></span> is a pre-built library that provides structure for your <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code. Instead of writing everything from scratch, you use a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span> to handle routing, request parsing, database connections, and security.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
-              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backends</span> often use <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">middleware</span></span> — pieces of code that run between receiving a request and sending a response. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">Middleware</span> can handle logging, authentication checks, CORS headers, and error handling.
+              <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">Backends</span> often use <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">middleware</span></span> ï¿½ pieces of code that run between receiving a request and sending a response. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('middleware')">Middleware</span> can handle logging, authentication checks, CORS headers, and error handling.
             </p>
 
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -259,7 +271,7 @@
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">Server-side</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('runtime')">Runtime</span> helps the system recover instead of shutting down completely.
             </p>
             <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
-              Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
+              Scientists and engineers keep improving these systems every year ï¿½ making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
@@ -313,7 +325,7 @@
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
                   <svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <p class="text-sm text-theme-muted">PHP still powers over 77% of all websites whose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">server-side</span> language is known — including Wikipedia and Facebook.</p>
+                <p class="text-sm text-theme-muted">PHP still powers over 77% of all websites whose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server-side')">server-side</span> language is known ï¿½ including Wikipedia and Facebook.</p>
               </div>
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -346,10 +358,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. Where does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code run?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> In the user's web browser</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> On a server (remote computer)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Inside the mobile app file</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> On the user's hard drive</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> In the user's web browser</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> On a server (remote computer)</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> Inside the mobile app file</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> On the user's hard drive</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> On a server (remote computer)</p>
               </div>
@@ -357,10 +369,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. What is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A tool for designing user interfaces</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A pre-built library providing structure for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A type of database</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> A CSS styling <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> A tool for designing user interfaces</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> A pre-built library providing structure for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> A type of database</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> A CSS styling <span class="vocab cursor-pointer" onclick="scrollToVocabulary('framework')">framework</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> A pre-built library providing structure for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> code</p>
               </div>
@@ -368,10 +380,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which of these is NOT a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('backend')">backend</span> programming language?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Python</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Node.js (JavaScript)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> Ruby</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> CSS</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> Python</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> Node.js (JavaScript)</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> Ruby</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> CSS</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> CSS</p>
               </div>
@@ -379,7 +391,7 @@
             </div>
 
             <div class="mt-6 text-center">
-              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-3 px-6">Show Answers</button>
             </div>
 
             <script>
@@ -414,7 +426,7 @@
             </div>
           </div>
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-apps-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="how-apps-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
             <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 5 &middot; Chapter 4</p>
           </div>
         </section>
@@ -427,8 +439,8 @@
         <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
           <div class="lg:col-span-2">
             <a href="../../../../index.html" class="flex items-center gap-2.5">
-              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
-              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light max-w-full">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark max-w-full">
               <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
             </a>
             <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>

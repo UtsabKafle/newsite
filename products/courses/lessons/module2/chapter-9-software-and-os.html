@@ -13,7 +13,19 @@
   <link rel="icon" type="image/png" href="../../../../assets/images/logol.png">
   <style>.static-main{padding-top:var(--nav-height)}.static-main section{scroll-margin-top:calc(var(--nav-height) + 1rem)}@media(max-width:1024px){.static-main{padding-top:3.5rem}.static-main section{scroll-margin-top:4rem}.static-main .glass-panel{border-radius:1rem}}.scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide::-webkit-scrollbar{display:none}.mobile-bottom-nav{box-shadow:0 -8px 32px rgba(0,0,0,0.35)}#mobile-drawer aside{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.safe-top{padding-top:env(safe-area-inset-top,0)}@media(hover:none){.card-3d:hover{transform:none!important}}.lesson-heading{scroll-margin-top:calc(var(--nav-height) + 1.5rem)}.analogy-card{border-left:3px solid rgba(9,89,200,0.3);transition:border-color 0.3s ease}.analogy-card:hover{border-left-color:rgba(9,89,200,0.7)}.vocab-table th{background:rgba(9,89,200,0.12);font-weight:600;text-align:left;padding:0.75rem 1rem}.vocab-table td{padding:0.75rem 1rem;border-top:1px solid rgba(255,255,255,0.05)}.vocab-table tr:hover td{background:rgba(9,89,200,0.04)}.kb-check{border-left:3px solid rgba(9,89,200,0.25);padding-left:1rem}.kb-check p{margin-bottom:0.25rem}.kb-answer{display:none}.kb-answer.revealed{display:block}
     .vocab { color: #3b82f6; font-weight: 500; }
-  </style>
+  
+@media(max-width:640px){
+  .vocab-table,.vocab-table thead,.vocab-table tbody,.vocab-table tr,.vocab-table td{display:block}
+  .vocab-table thead{display:none}
+  .vocab-table tr{padding:.75rem;margin-bottom:.5rem;background:rgba(9,89,246,.02);border:1px solid rgba(9,89,246,.1);border-radius:.75rem}
+  .vocab-table td{padding:.25rem 0;border:none}
+  .vocab-table td:first-child{font-weight:600;font-size:.875rem;padding-bottom:.125rem}
+  .vocab-table td:last-child{font-size:.8125rem;padding-top:0}
+  .vocab-table td:first-child::before{content:'Term: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4)}
+  .vocab-table td:last-child::before{content:'Definition: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4);display:block;margin-top:.25rem}
+}
+img{max-width:100%;height:auto}
+.glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -23,19 +35,19 @@
   <div id="app-root" class="relative z-10 min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
-        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
+        <a href="../../../../index.html" class="flex items-center gap-2.5"><span id="main-logo-trigger" class="flex items-center"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full"></span><span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span></a>
         <div class="hidden lg:flex items-center gap-8">
           <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a><a href="../../../../index.html#products" class="nav-link text-sm">Products</a><a href="../../../../index.html#services" class="nav-link text-sm">Services</a><a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a><a href="../../../../index.html#team" class="nav-link text-sm">Team</a><a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a><a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a><a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a><a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
         </div>
         <div class="nav-actions flex items-center gap-3">
           <button type="button" class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors" aria-label="Toggle theme"><svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-3 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
         </div>
       </nav>
     </header>
 
-    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="logo-branding-overlay" class="logo-overlay"><img class="max-w-full" src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
 
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
@@ -232,10 +244,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What is the main purpose of an operating system?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To browse the Internet</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To manage hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To edit photos and videos</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To connect to Wi-Fi</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To browse the Internet</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To manage hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To edit photos and videos</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> <span>To connect to Wi-Fi</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> To manage hardware and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('software')">software</span> resources</p>
               </div>
@@ -243,10 +255,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which of these is considered <span class="vocab cursor-pointer" onclick="scrollToVocabulary('application-software')">application software</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Linux <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span></span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Web browser</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span>File system</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Linux <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Device <span class="vocab cursor-pointer" onclick="scrollToVocabulary('driver')">driver</span></span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span>Web browser</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span>File system</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Web browser</p>
               </div>
@@ -254,17 +266,17 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. What does a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('system-call')">system call</span> do?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Runs a program on the CPU</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Allows a user-space program to request a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> service</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Creates a new file on disk</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Shuts down the operating system</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Runs a program on the CPU</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Allows a user-space program to request a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> service</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Creates a new file on disk</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> <span>Shuts down the operating system</span></label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Allows a user-space program to request a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> service</p>
               </div>
             </div>
 
             <div class="mt-6 text-center">
-              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-3 px-6">Show Answers</button>
             </div>
 
             <script>
@@ -300,7 +312,7 @@
             </div>
           </div>
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computers-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="how-computers-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
             <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 2 &middot; Chapter 9</p>
           </div>
         </section>
@@ -311,7 +323,7 @@
     <footer class="border-t border-theme pb-28 lg:pb-16 pt-16">
       <div class="px-5 lg:max-w-[1600px] lg:mx-auto lg:px-8">
         <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
-          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
+          <div class="lg:col-span-2"><a href="../../../../index.html" class="flex items-center gap-2.5"><img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light max-w-full"><img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark max-w-full"><span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span></a><p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p></div>
           <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../../academy.html" class="hover:text-theme transition-colors">Consica Academy</a></li><li><a href="../../../ai-systems.html" class="hover:text-theme transition-colors">AI Systems</a></li><li><a href="../../../lms.html" class="hover:text-theme transition-colors">LMS Platforms</a></li><li><a href="../../../school-systems.html" class="hover:text-theme transition-colors">School Systems</a></li><li><a href="../../../saas-tools.html" class="hover:text-theme transition-colors">SaaS Tools</a></li><li><a href="../../../enterprise.html" class="hover:text-theme transition-colors">Enterprise Software</a></li></ul></div>
           <div><h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Academy</h4><ul class="space-y-2 text-sm text-theme-muted"><li><a href="../../explorer-pack.html" class="hover:text-theme transition-colors">Explorer Pack</a></li><li><a href="../../builder-pack.html" class="hover:text-theme transition-colors">Builder Pack</a></li><li><a href="../../../../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li></ul></div>
         </div>

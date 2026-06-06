@@ -67,7 +67,19 @@
     .kb-answer.revealed { display: block; }
   
     .vocab { color: #3b82f6; font-weight: 500; }
-  </style>
+  
+@media(max-width:640px){
+  .vocab-table,.vocab-table thead,.vocab-table tbody,.vocab-table tr,.vocab-table td{display:block}
+  .vocab-table thead{display:none}
+  .vocab-table tr{padding:.75rem;margin-bottom:.5rem;background:rgba(9,89,246,.02);border:1px solid rgba(9,89,246,.1);border-radius:.75rem}
+  .vocab-table td{padding:.25rem 0;border:none}
+  .vocab-table td:first-child{font-weight:600;font-size:.875rem;padding-bottom:.125rem}
+  .vocab-table td:last-child{font-size:.8125rem;padding-top:0}
+  .vocab-table td:first-child::before{content:'Term: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4)}
+  .vocab-table td:last-child::before{content:'Definition: ';font-weight:400;font-size:.75rem;color:rgba(255,255,255,.4);display:block;margin-top:.25rem}
+}
+img{max-width:100%;height:auto}
+.glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
 </head>
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
 
@@ -92,8 +104,8 @@
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
         <a href="../../../../index.html" class="flex items-center gap-2.5">
           <span id="main-logo-trigger" class="flex items-center">
-            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
-            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+            <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full">
+            <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full">
           </span>
           <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
         </a>
@@ -117,7 +129,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
             </svg>
           </button>
-          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <a href="../../../../index.html#contact" class="btn-primary magnetic-btn text-sm py-3 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
           </button>
@@ -125,7 +137,7 @@
       </nav>
     </header>
 
-    <div id="logo-branding-overlay" class="logo-overlay"><img src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
+    <div id="logo-branding-overlay" class="logo-overlay"><img class="max-w-full" src="../../../../assets/images/consica.png" alt="Consica Labs"></div>
 
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
       <div class="absolute inset-0 bg-black/60" id="drawer-backdrop"></div>
@@ -363,10 +375,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('crud')">CRUD</span> stand for?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Copy, Run, Update, Delete</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Create, Read, Update, Delete</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Compile, Render, Upload, Download</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq1" class="accent-brand-500"> Connect, Retrieve, Unify, Distribute</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> Copy, Run, Update, Delete</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> Create, Read, Update, Delete</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> Compile, Render, Upload, Download</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq1" class="accent-brand-500"> Connect, Retrieve, Unify, Distribute</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> Create, Read, Update, Delete</p>
               </div>
@@ -374,10 +386,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">2. Which type of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span> stores data in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('table')">tables</span> with rows and columns?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span></label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> File system</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq2" class="accent-brand-500"> Spreadsheet</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> File system</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq2" class="accent-brand-500"> Spreadsheet</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sql')">SQL</span> (Relational)</p>
               </div>
@@ -385,10 +397,10 @@
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">3. Which of these is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nosql')">NoSQL</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('database')">database</span>?</p>
                 <div class="mt-2 space-y-2 text-sm text-theme-muted">
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> MySQL</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> PostgreSQL</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> MongoDB</label>
-                  <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="mcq3" class="accent-brand-500"> SQLite</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> MySQL</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> PostgreSQL</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> MongoDB</label>
+                  <label class="flex items-center gap-2 cursor-pointer py-2"><input type="radio" name="mcq3" class="accent-brand-500"> SQLite</label>
                 </div>
                 <p class="mt-2 text-xs text-green-400 kb-answer"><strong>Answer:</strong> MongoDB</p>
               </div>
@@ -396,7 +408,7 @@
             </div>
 
             <div class="mt-6 text-center">
-              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-2.5 px-6">Show Answers</button>
+              <button type="button" id="reveal-answers-btn" class="btn-primary magnetic-btn text-sm py-3 px-6">Show Answers</button>
             </div>
 
             <script>
@@ -431,7 +443,7 @@
             </div>
           </div>
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-apps-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1">&larr; Back to Module Overview</a>
+            <a href="how-apps-work.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
             <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 5 &middot; Chapter 5</p>
           </div>
         </section>
@@ -444,8 +456,8 @@
         <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
           <div class="lg:col-span-2">
             <a href="../../../../index.html" class="flex items-center gap-2.5">
-              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
-              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <img src="../../../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light max-w-full">
+              <img src="../../../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark max-w-full">
               <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
             </a>
             <p class="mt-3 text-sm text-theme-muted max-w-sm">Software &middot; EdTech &middot; SaaS &middot; Innovation Lab. Building trust through intelligent technology.</p>

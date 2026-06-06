@@ -102,7 +102,12 @@
         transform: none !important;
       }
     }
-  </style>
+  
+@media(max-width:640px){
+  table{display:block;overflow-x:auto}
+}
+img{max-width:100%;height:auto}
+.glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
 </head>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -139,8 +144,8 @@ s0.parentNode.insertBefore(s1,s0);
       <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between" aria-label="Main navigation">
         <a href="../../index.html" class="flex items-center gap-2.5">
           <span id="main-logo-trigger" class="flex items-center">
-            <img src="../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light">
-            <img src="../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark">
+            <img src="../../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full">
+            <img src="../../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full">
           </span>
           <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
         </a>
@@ -175,7 +180,7 @@ s0.parentNode.insertBefore(s1,s0);
     </header>
 
     <div id="logo-branding-overlay" class="logo-overlay">
-      <img src="../../assets/images/consica.png" alt="Consica Labs">
+      <img class="max-w-full" src="../../assets/images/consica.png" alt="Consica Labs">
     </div>
 
     <div id="mobile-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300" aria-hidden="true" inert>
@@ -453,8 +458,8 @@ s0.parentNode.insertBefore(s1,s0);
         <div class="grid gap-10 lg:grid-cols-4 lg:gap-12">
           <div class="lg:col-span-2">
             <a href="../../index.html" class="flex items-center gap-2.5">
-              <img src="../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light">
-              <img src="../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark">
+              <img src="../../assets/images/logol.png" alt="Consica Labs" class="h-7 html-logo-light max-w-full">
+              <img src="../../assets/images/logob.png" alt="Consica Labs" class="h-7 html-logo-dark max-w-full">
               <span class="font-display font-bold text-xl tracking-tight uppercase">Consica Labs</span>
             </a>
             <p class="mt-3 text-sm text-theme-muted max-w-sm">Software · EdTech · SaaS · Innovation Lab. Building trust through intelligent technology.</p>
