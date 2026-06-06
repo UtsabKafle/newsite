@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">CPU Performance</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Benchmarks and performance factors that determine CPU speed</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Benchmarks and performance factors that determine CPU speed</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When you shop for a CPU, what numbers matter? <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">Clock speed</span> (GHz) is the most commonly quoted metric, but it tells only part of the story. A 4.0 GHz processor from 2025 is dramatically faster than a 4.0 GHz processor from 2010, despite having the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">clock speed</span>. Clearly, there is more to performance than just frequency.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               CPU performance is determined by a combination of factors: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">clock speed</span></span> (how many cycles per second), <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span></span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('instructions-per-cycle')">instructions per cycle</span> — how much work each cycle does), <span class="text-brand-200">core count</span> (how many instructions can run in parallel), <span class="text-brand-200">cache size and speed</span> (how fast data can be accessed), and <span class="text-brand-200">memory bandwidth</span> (how fast data can flow between the CPU and RAM).
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               To make sense of all these factors, the industry uses <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmarks</span></span> — standardised tests that measure real-world performance across different workloads. In this chapter, we explore how CPU performance is measured, what the key metrics mean, and how to interpret <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span> results to make informed purchasing decisions.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">CPU performance is like measuring a car's capabilities. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">Clock speed</span> is the engine RPM — how fast the engine is spinning. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> is the torque — how much work each rotation does. Core count is the number of engines working in parallel. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span> is the lap time around a test track, which takes all factors into account and gives a single, comparable result.</p>
@@ -206,42 +206,42 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span></span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('instructions-per-cycle')">Instructions Per Cycle</span>) is arguably the most important metric for CPU performance. It measures how many instructions the CPU can complete on average during each clock cycle. A CPU with high <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> can do more work at the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">clock speed</span> than a CPU with low <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> is determined by the microarchitecture — the pipeline depth, branch predictor accuracy, cache design, and execution unit configuration.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The theoretical formula is simple: <span class="text-brand-200">Performance = <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">Clock Speed</span> x <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span></span>. In practice, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> is not a fixed number — it varies dramatically depending on the workload. A CPU might achieve 3 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> on a highly parallel, cache-friendly workload but only 0.5 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> on a branch-heavy, memory-bound workload. This is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span> scores vary across different tests, and why a CPU that excels in gaming might not be the best for video rendering.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">FLOPS and MIPS</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flops')">FLOPS</span></span> (Floating Point Operations Per Second) measures the CPU's ability to perform floating-point arithmetic — calculations using decimal numbers. This is critical for scientific computing, 3D rendering, and machine learning. Modern CPUs can achieve hundreds of GFLOPS (giga-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('flops')">FLOPS</span>) or even TFLOPS (tera-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('flops')">FLOPS</span>) using SIMD extensions like AVX-512.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('mips')">MIPS</span></span> (Millions of Instructions Per Second) is a simpler metric that counts raw instruction <span class="vocab cursor-pointer" onclick="scrollToVocabulary('throughput')">throughput</span>. It was popular in the 1980s and 1990s but is less useful today because different instructions have vastly different complexities — a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mips')">MIPS</span> measurement of one CPU cannot be directly compared to another CPU with a different ISA. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flops')">FLOPS</span> has largely replaced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('mips')">MIPS</span> as the standard metric for performance comparisons.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Single-Core vs. Multi-Core Performance</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('single-core')">Single-core</span> performance</span> measures how fast a single CPU core can execute instructions. This matters for applications that are not well-optimised for parallelism — most legacy software, many games, and interactive applications. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('single-core')">Single-core</span> performance depends on <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">clock speed</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span>, and cache latency.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">Multi-core</span> performance</span> measures how well a CPU performs when all cores are working in parallel. It depends on core count, multi-threading efficiency, and how well the workload scales. A 16-core CPU might not be 16 times faster than a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('single-core')">single-core</span> CPU on a given task if the task has sequential dependencies, memory <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bottleneck')">bottlenecks</span>, or synchronisation overhead. The relationship between core count and performance is described by Amdahl's Law.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Benchmarks: How Performance Is Measured</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">Benchmarks</span></span> are standardised programs designed to measure CPU performance in a repeatable, comparable way. There are two main types: <span class="text-brand-200">synthetic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmarks</span></span> (like Geekbench, Cinebench, and PassMark) that test specific CPU subsystems under controlled conditions, and <span class="text-brand-200">real-world <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmarks</span></span> (like application-specific tests in Photoshop, Blender, or 7-Zip) that measure performance in actual software.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               No single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span> tells the whole story. A CPU might score highly in Geekbench's integer tests but poorly in floating-point workloads, or excel in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('multi-core')">multi-core</span> rendering but lag in single-threaded gaming. The best approach is to look at <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">benchmark</span> results from multiple sources that match your intended use case. Reviewers often provide charts showing performance across a range of applications, giving a balanced picture of a CPU's strengths and weaknesses.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Bottlenecks in CPU Performance</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bottleneck')">bottleneck</span></span> is the component that limits overall system performance. Common CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bottleneck')">bottlenecks</span> include: memory bandwidth (the CPU cannot get data fast enough from RAM), cache misses (data is not in the cache and must be fetched from main memory), pipeline hazards (stalls due to dependencies or branch mispredictions), and thermal throttling (the CPU slows down to prevent overheating).
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In a balanced system, no single component should be a severe <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bottleneck')">bottleneck</span>. If your CPU is much more powerful than your GPU, the GPU limits gaming performance. If your memory is slow, even the fastest CPU will spend cycles waiting for data. Understanding <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bottleneck')">bottlenecks</span> helps you make smart upgrade decisions — sometimes adding faster RAM or a better cooler can improve performance more than upgrading the CPU itself.
             </p>
 
@@ -250,20 +250,20 @@
               <p class="text-sm text-theme-muted">CPU performance is multi-dimensional. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock-speed')">Clock speed</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span>, core count, cache, memory bandwidth, and thermal design all interact in complex ways. The best CPU for one workload may be mediocre for another. This is why choosing a CPU requires understanding both the processor's specifications and the tasks you intend to run.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, cpu performance involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('benchmark')">Benchmark</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ipc')">IPC</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flops')">FLOPS</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -291,7 +291,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -329,7 +329,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore CPU Performance.</p>
             <a href="diagrams/diagram-12-performance/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -340,7 +340,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

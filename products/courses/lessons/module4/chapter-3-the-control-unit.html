@@ -171,16 +171,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Control Unit</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The conductor of the CPU orchestra</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">The conductor of the CPU orchestra</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               If the CPU is the brain of the computer, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span> (CU) is the conductor of that brain's orchestra. Every instruction that flows through the processor must be interpreted and coordinated by the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span>, which tells every other component exactly what to do and when to do it.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span> does not perform calculations or store data itself. Instead, it generates timing and control signals that direct the ALU, registers, memory interface, and I/O systems. Without the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span>, instructions would be meaningless data — the CU is what brings programs to life by orchestrating the step-by-step execution of machine code.
             </p>
           </div>
@@ -189,14 +189,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span> operates in lockstep with the CPU clock. On each clock cycle, the CU reads an instruction from the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-register')">Instruction Register</span></span>, decodes it to determine which operation is required, and then asserts the appropriate control signals across the CPU. These signals open and close data paths, activate functional units, and manage the flow of data between registers, the ALU, and memory.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The CU can be implemented in two main ways: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('hardwired-control')">hardwired control</span></span> and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprogrammed-control')">microprogrammed control</span></span>. A hardwired CU uses combinational logic circuits (gates, flip-flops, and multiplexers) to generate control signals directly from the instruction opcode — it is fast but inflexible. A microprogrammed CU stores control signals as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">microcode</span></span> in a special ROM inside the CPU, making it easier to fix bugs and add new instructions without redesigning the silicon.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('decoder')">decoder</span></span> within the CU interprets the instruction's opcode (operation code) and determines the instruction type, operand locations, and the sequence of micro-operations needed to execute it. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sequencer')">sequencer</span></span> then steps through these micro-operations in the correct order, advancing through states on each clock cycle.
             </p>
 
@@ -206,21 +206,21 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-bus')">Control Bus</span></span> carries the CU's timing and control signals to memory and I/O devices. These signals include memory read/write, I/O read/write, interrupt requests, and bus arbitration. The width and organization of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-bus')">control bus</span> vary by architecture and directly affect system performance.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In pipelined CPUs, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('control-unit')">Control Unit</span> must handle <span class="text-brand-200">hazards</span> — situations where the next instruction cannot execute in the following clock cycle. Data hazards occur when an instruction depends on the result of a previous instruction that hasn't completed yet. Control hazards happen with branch instructions where the next instruction address is unknown until the branch is resolved. The CU manages these through techniques like forwarding (bypassing), pipeline stalls, and branch prediction.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The CU is also responsible for <span class="text-brand-200">interrupt handling</span>. When an external device (like a keyboard or network card) needs CPU attention, it sends an interrupt signal. The CU suspends the current instruction stream, saves the processor state, and jumps to an interrupt service routine (ISR). After the ISR completes, the CU restores the saved state and resumes normal execution — all in a matter of microseconds.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprogrammed-control')">microprogrammed control</span> units, each machine instruction corresponds to a <span class="text-brand-200">microprogram</span> — a sequence of microinstructions stored in the <span class="text-brand-200">control store</span> (typically a small, fast ROM or PLAs). Each microinstruction specifies the control signals to be asserted during one clock cycle. The microprogram counter (<span class="text-brand-200">micro-PC</span>) sequences through the microinstructions, and branching within <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">microcode</span> allows for efficient implementation of complex instructions.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The distinction between hardwired and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microprogrammed-control')">microprogrammed control</span> has blurred in modern CPUs. Most high-performance processors use a hybrid approach: frequently used simple instructions are hardwired for speed, while complex or rarely used instructions are microcoded. Additionally, the rise of <span class="text-brand-200">dynamic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">microcode</span> patching</span> allows CPU vendors to fix errata (design bugs) in the field by updating <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">microcode</span> during system boot, without requiring a hardware replacement.
             </p>
           </div>
@@ -229,7 +229,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -258,7 +258,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -303,7 +303,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">See how the Control Unit decodes instructions and routes control signals through the CPU.</p>
             <a href="diagrams/diagram-03-control-unit/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -315,7 +315,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

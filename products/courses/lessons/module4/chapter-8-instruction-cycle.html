@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Instruction Cycle</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Fetch-Decode-Execute cycle explained</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Fetch-Decode-Execute cycle explained</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every program you run — from a web browser to a video game — is made up of millions of tiny instructions that the CPU must process one after another. But the CPU does not just blindly <span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">execute</span> instructions as they arrive. It follows a precise, rhythmic cycle called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span></span>, also known as the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">fetch</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">decode</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">execute</span> cycle.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> is the fundamental process that drives every operation in a computer. At its core, it consists of three main stages: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">Fetch</span></span> (retrieve an instruction from memory), <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">Decode</span></span> (figure out what the instruction means), and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">Execute</span></span> (carry out the instruction). The CPU repeats this cycle billions of times per second, creating the illusion of seamless, instantaneous computing.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Understanding the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> is key to understanding how CPUs work at the lowest level. It explains why clock speed matters, why some instructions take longer than others, and how pipelining (which we cover in the next chapter) can dramatically improve performance. Every modern CPU, from the simplest microcontroller to the most advanced server processor, relies on this cycle.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> is like a chef following a recipe. First, the chef reads the next step (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">Fetch</span>), then interprets what the step says — "chop the onions" (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">Decode</span>), and finally performs the action (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">Execute</span>). Then they move on to the next step, repeating until the dish is complete.</p>
@@ -206,37 +206,37 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The first stage of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> is <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">Fetch</span></span>. The control unit sends the address stored in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program-counter')">Program Counter</span> (PC) to the memory bus, requesting the instruction located at that address. The memory responds by sending the instruction back to the CPU, where it is placed into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-register')">Instruction Register</span> (IR). Meanwhile, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('program-counter')">Program Counter</span> is incremented to point to the next instruction in sequence, preparing for the next cycle.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">Fetch</span> stage is relatively fast because it simply involves reading from memory. However, memory speed can become a bottleneck — which is why CPUs use cache memory to store frequently accessed instructions closer to the processor. A cache hit during <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">fetch</span> can save dozens of clock cycles compared to fetching from main RAM.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Decode Stage</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Once the instruction is in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-register')">Instruction Register</span>, the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">Decode</span></span> stage begins. The instruction is composed of two main parts: the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('opcode')">opcode</span></span> (operation code) which specifies what operation to perform (e.g., ADD, LOAD, JUMP), and the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('operand')">operand</span></span> which provides the data or address location to work with.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The control unit's decoder logic examines the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('opcode')">opcode</span> and determines which CPU components need to be activated. For example, if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('opcode')">opcode</span> is ADD, the decoder activates the ALU and routes the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('operand')">operand</span> values to its inputs. If the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('opcode')">opcode</span> is LOAD, the memory controller is signalled to retrieve data from a specific address. Complex instructions (like those in x86 CISC architecture) may require multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">decode</span> steps or microcode sequences.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Execute Stage</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">Execute</span></span> stage is where the actual work happens. The CPU's functional units — the ALU, the memory controller, or specialised execution units — carry out the operation specified by the decoded <span class="vocab cursor-pointer" onclick="scrollToVocabulary('opcode')">opcode</span>. For arithmetic instructions, the ALU performs calculations like addition, subtraction, or bitwise operations. For memory instructions, data is read from or written to RAM or cache.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Some instructions complete in a single clock cycle, while others — especially those involving memory access or complex floating-point operations — may take many cycles. The result of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">execute</span> stage is typically written back to a register or to memory, completing the life cycle of that instruction.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Machine Cycle</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The term <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-cycle')">machine cycle</span></span> refers to the complete sequence of fetching, decoding, executing, and (where applicable) writing back the result of a single instruction. Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-cycle')">machine cycle</span> is driven by the system clock, which provides a timing signal that synchronises all CPU operations.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                               A single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('machine-cycle')">machine cycle</span> may take one or more clock cycles depending on the instruction complexity. Simple instructions like <code class="text-brand-200 bg-brand-500/10 px-1 py-0.5 rounded">MOV R1, R2</code> may complete in a single cycle, while a floating-point division could take dozens of cycles. This is why clock speed alone does not determine CPU performance — the number of cycles per instruction (CPI) is equally important.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern CPUs employ techniques like branch prediction, speculative execution, and out-of-order execution to keep the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> running efficiently even when instructions depend on one another. These techniques minimise wasted cycles and maximise throughput, allowing multiple instructions to be in different stages of the cycle simultaneously.
             </p>
 
@@ -245,20 +245,20 @@
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> is the heartbeat of the computer. Every action your computer takes — every pixel drawn, every calculation made, every file saved — is the result of billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">fetch</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">decode</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('execute')">execute</span> cycles happening every second. Understanding this cycle gives you a deep appreciation for the incredible engineering inside every processor.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">Instruction Cycle</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fetch')">Fetch</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('decode')">Decode</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -286,7 +286,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -324,7 +324,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see the Instruction Cycle in action.</p>
             <a href="diagrams/diagram-08-instruction-cycle/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -335,7 +335,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

@@ -179,16 +179,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Storage (HDD &amp; SSD)</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Where your files live when the power is off</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Where your files live when the power is off</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Imagine a library. RAM is the book you have open on your desk right now. Storage is the entire library — every book on every shelf, waiting to be picked up. When you close a book and put it back, it stays there until you need it again, even after the library closes for the night.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Your computer's storage drive holds everything: the operating system, your applications, photos, music, documents, and saved games. Unlike RAM, storage is <span class="text-brand-200">non-volatile</span> — it remembers everything even after you shut down the computer. There are two main types of storage drives: Hard Disk Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>) and Solid-State Drives (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span>).
             </p>
           </div>
@@ -197,8 +197,8 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> is like a record player with multiple vinyl records stacked on top of each other. A tiny arm moves back and forth to read or write music (data) on the spinning discs. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> is like a giant notebook with no <span class="vocab cursor-pointer" onclick="scrollToVocabulary('moving-parts')">moving parts</span> — pages can be written or erased instantly using electricity.
             </p>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -207,29 +207,29 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span> stores data on one or more rigid <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span></span> coated with magnetic material. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platters</span> spin at high speed — typically 5400 or 7200 RPM (revolutions per minute). A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('read-write-head')">read/write head</span></span> on a moving arm floats nanometers above the surface, magnetizing tiny regions to write data or detecting magnetic fields to read it.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               To read a file, the arm moves the head to the correct track (seeking), waits for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('platter')">platter</span> to spin the right sector under the head (rotational latency), and then reads the data. This mechanical process is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> are slower than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> — moving physical parts takes time measured in milliseconds.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Solid-State Drives (SSD)</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> has no moving parts. It uses <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nand-flash')">NAND flash</span> memory</span> — billions of floating-gate transistors organized into pages and blocks. Each transistor traps electrons to represent a 0 or 1. Data is written in pages (typically 4 KB or 16 KB) but must be erased in larger blocks (several MB). This is called the <span class="text-brand-200">write amplification</span> problem.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Because <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> access data electronically rather than mechanically, they are dramatically faster. A typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> reads at about 500 MB/s, while a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSD</span> using PCIe Gen 4 can read at over 7000 MB/s — that is 20 times faster than a fast <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDD</span>.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> use technologies like <span class="text-brand-200">PMR</span> (Perpendicular Magnetic Recording) or <span class="text-brand-200">SMR</span> (Shingled Magnetic Recording) to increase density. The fastest enterprise <span class="vocab cursor-pointer" onclick="scrollToVocabulary('hdd')">HDDs</span> reach speeds around 260 MB/s with capacities up to 30 TB. The performance bottleneck is always mechanical: seek time (typically 4-15 ms) and rotational latency (half a rotation at 7200 RPM = 4.17 ms).
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> use a <span class="text-brand-200">flash translation layer</span> (FTL) that maps logical addresses from the OS to physical NAND locations. The FTL handles <span class="vocab cursor-pointer" onclick="scrollToVocabulary('wear-leveling')">wear leveling</span> (distributing writes evenly), garbage collection (consolidating valid data from partially-filled blocks), and bad block management. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> use <span class="text-brand-200">3D NAND</span> with layers stacked vertically — up to 238 layers in 2025 products — to increase density without shrinking individual cells.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span> connect via <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span></span> (6 Gbps, ~550 MB/s real-world) or <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span></span> over PCIe (up to 32 Gbps per Gen 5 lane). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('nvme')">NVMe</span> protocol was designed specifically for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ssd')">SSDs</span>, supporting deep command queues and parallel I/O, while the older AHCI protocol (used with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sata')">SATA</span>) was designed for spinning disks and adds unnecessary overhead.
             </p></div>
         </section>
@@ -237,7 +237,7 @@
         <!-- HDD vs SSD Comparison -->
         <section class="mt-6 lg:mt-10 reveal" id="hdd-vs-ssd">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">HDD vs SSD Comparison</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">HDD vs SSD Comparison</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -265,7 +265,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -294,7 +294,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -335,7 +335,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-06-storage/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -345,7 +345,7 @@
         </section>
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

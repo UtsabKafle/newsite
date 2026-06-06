@@ -78,12 +78,12 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Journey of a Webpage</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Putting it all together &mdash; a single request, end to end</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Putting it all together &mdash; a single request, end to end</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="intro">
           <div class="glass-panel p-6 lg:p-8">
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-lg mb-4">Let's follow a webpage request.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base">Student opens:</p>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-lg mb-4">Let's follow a webpage request.</p>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base">Student opens:</p>
             <div class="p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 text-center mt-3">
               <code class="text-brand-200 font-mono text-lg lg:text-xl font-semibold">www.consicaacademy.com</code>
             </div>
@@ -92,7 +92,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="steps">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">The Steps</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">The Steps</h2>
             <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 flex gap-4 items-start">
                 <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-sm flex items-center justify-center font-bold flex-shrink-0">1</span>
@@ -135,7 +135,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-11-webpage-journey/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
               Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -145,23 +145,23 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Every time you type a website address and press Enter, you set off an invisible chain reaction that spans the globe. In under a second, your browser talks to multiple computers, asks for directions, follows a path across continents, and returns with a webpage. This chapter pulls back the curtain on that journey, step by step.</p>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">Every time you type a website address and press Enter, you set off an invisible chain reaction that spans the globe. In under a second, your browser talks to multiple computers, asks for directions, follows a path across continents, and returns with a webpage. This chapter pulls back the curtain on that journey, step by step.</p>
           </div>
         </section>
 
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Imagine you want to send a letter to a friend who lives far away. First, you look up their address in a phone book &mdash; that's like the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span>, which finds the address of a website. Then you write your letter and drop it in a mailbox. The postal service picks it up and your letter travels through multiple sorting facilities and trucks until it reaches your friend's house. Your friend reads the letter and writes back, sending the reply through the same system. This is exactly how a webpage works: your browser looks up the address, sends a request, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> sends the page back.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">Ordering a package online is a good way to understand a webpage request. When you click "buy," the store looks up your address (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> resolution), prepares your items, and hands them to a shipping carrier. The carrier breaks your order into individual packages (data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>), each labeled with your address and the store's return address. These packages travel through a network of hubs and trucks (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>) to reach your door. If one truck breaks down, the system finds another route. Once all packages arrive, you open each one and assemble your order. Your browser does the same thing: it receives <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, checks they're all there, and assembles the webpage on your screen.</p>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">A webpage request involves the full TCP/IP stack. At the application layer, the browser sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> GET request to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server's</span> IP obtained via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> resolution (using BIND or similar). The transport layer establishes a TCP connection through a three-way handshake (SYN, SYN-ACK, ACK), optionally wrapped in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tls')">TLS</span> handshake for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTPS</span>. The network layer fragments data into IP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, each carrying source and destination addresses. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> along the path use BGP and OSPF to forward these <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> toward their destination. At the link layer, Ethernet or Wi-Fi frames carry <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> across individual hops. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> processes the request, often through a reverse proxy (Nginx, HAProxy) to an application <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, which generates an HTML response. That response is sent back through the same layered model, reassembled by the browser, parsed into a DOM tree, combined with CSSOM, and rendered through the browser's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rendering')">rendering</span> pipeline (layout, paint, composite).</p>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">Imagine you want to send a letter to a friend who lives far away. First, you look up their address in a phone book &mdash; that's like the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span>, which finds the address of a website. Then you write your letter and drop it in a mailbox. The postal service picks it up and your letter travels through multiple sorting facilities and trucks until it reaches your friend's house. Your friend reads the letter and writes back, sending the reply through the same system. This is exactly how a webpage works: your browser looks up the address, sends a request, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> sends the page back.</p>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">Ordering a package online is a good way to understand a webpage request. When you click "buy," the store looks up your address (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> resolution), prepares your items, and hands them to a shipping carrier. The carrier breaks your order into individual packages (data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>), each labeled with your address and the store's return address. These packages travel through a network of hubs and trucks (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>) to reach your door. If one truck breaks down, the system finds another route. Once all packages arrive, you open each one and assemble your order. Your browser does the same thing: it receives <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, checks they're all there, and assembles the webpage on your screen.</p>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">A webpage request involves the full TCP/IP stack. At the application layer, the browser sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> GET request to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server's</span> IP obtained via <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> resolution (using BIND or similar). The transport layer establishes a TCP connection through a three-way handshake (SYN, SYN-ACK, ACK), optionally wrapped in a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tls')">TLS</span> handshake for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTPS</span>. The network layer fragments data into IP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, each carrying source and destination addresses. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Routers</span> along the path use BGP and OSPF to forward these <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> toward their destination. At the link layer, Ethernet or Wi-Fi frames carry <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> across individual hops. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> processes the request, often through a reverse proxy (Nginx, HAProxy) to an application <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, which generates an HTML response. That response is sent back through the same layered model, reassembled by the browser, parsed into a DOM tree, combined with CSSOM, and rendered through the browser's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rendering')">rendering</span> pipeline (layout, paint, composite).</p>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Now that you understand the basics of the journey of a webpage, let's connect the pieces. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> is one of the most important ideas in this chapter. It works together with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span> to make the whole system run smoothly.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Think of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> like a team where every member has a specific job. When one part sends information, another part receives it, checks it, and passes it along. This step-by-step teamwork is what makes technology reliable, even when many devices are involved.
             </p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
@@ -169,20 +169,20 @@
               <p class="text-sm text-theme-muted">Understanding how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span> connect helps you explain the journey of a webpage to a friend using your own words — not just memorizing definitions.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, the journey of a webpage involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP Address</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-6 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -210,20 +210,20 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <ul class="mt-6 space-y-4">
-              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span><p class="text-theme-muted leading-relaxed text-[15px]">A single webpage request can travel over 15,000 kilometers &mdash; crossing oceans and continents &mdash; in under 200 milliseconds.</p></li>
-              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span><p class="text-theme-muted leading-relaxed text-[15px]">Your browser may send dozens of separate requests just to load one webpage &mdash; one for the HTML, several for images, several for stylesheets, and several for scripts.</p></li>
-              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span><p class="text-theme-muted leading-relaxed text-[15px]">Google processes over 99,000 search queries every second &mdash; each one completing the entire webpage journey in milliseconds.</p></li>
-              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">4</span><p class="text-theme-muted leading-relaxed text-[15px]">The first web request ever made was "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">http</span>://info.cern.ch" by Tim Berners-Lee in 1990.</p></li>
-              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">5</span><p class="text-theme-muted leading-relaxed text-[15px]">A single Netflix stream can involve requests to dozens of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> across multiple CDNs, all juggled in real time.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span><p class="text-theme-muted leading-relaxed text-[14px]">A single webpage request can travel over 15,000 kilometers &mdash; crossing oceans and continents &mdash; in under 200 milliseconds.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span><p class="text-theme-muted leading-relaxed text-[14px]">Your browser may send dozens of separate requests just to load one webpage &mdash; one for the HTML, several for images, several for stylesheets, and several for scripts.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span><p class="text-theme-muted leading-relaxed text-[14px]">Google processes over 99,000 search queries every second &mdash; each one completing the entire webpage journey in milliseconds.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">4</span><p class="text-theme-muted leading-relaxed text-[14px]">The first web request ever made was "<span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">http</span>://info.cern.ch" by Tim Berners-Lee in 1990.</p></li>
+              <li class="flex gap-3 items-start"><span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">5</span><p class="text-theme-muted leading-relaxed text-[14px]">A single Netflix stream can involve requests to dozens of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> across multiple CDNs, all juggled in real time.</p></li>
             </ul>
           </div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="misconceptions">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Misconceptions</h2>
             <div class="mt-6 space-y-5">
               <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "A webpage is downloaded as one big file."</p><p class="text-xs text-theme-muted mt-1.5">In reality, a webpage is assembled from dozens or hundreds of separate files &mdash; HTML, CSS, JavaScript, images, fonts &mdash; each requested independently and often from different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span>.</p></div>
               <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p class="text-sm font-semibold text-red-400">Misconception: "The internet is a cloud, so data just floats through the air."</p><p class="text-xs text-theme-muted mt-1.5">Data travels through physical cables, fiber optic lines, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>. The "cloud" is a metaphor &mdash; the real infrastructure is very tangible.</p></div>
@@ -235,26 +235,26 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="text-theme-muted leading-relaxed text-[15px] lg:text-base mt-4">The interactive diagram for this chapter shows a complete end-to-end webpage journey. You will see a browser icon on the left, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, a series of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> forming a network path, and a destination <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> on the right. As you click through each step, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> animate from the browser to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> and back, with labels explaining what happens at each stage. Color-coded arrows distinguish the request path (orange) from the response path (green). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> hops highlight in sequence so you can trace the exact route data takes across the network.</p>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">The interactive diagram for this chapter shows a complete end-to-end webpage journey. You will see a browser icon on the left, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, a series of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> forming a network path, and a destination <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> on the right. As you click through each step, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> animate from the browser to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> and back, with labels explaining what happens at each stage. Color-coded arrows distinguish the request path (orange) from the response path (green). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> hops highlight in sequence so you can trace the exact route data takes across the network.</p>
           </div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
-              <div><p class="text-sm font-semibold text-brand-200 mb-2">Multiple Choice</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Multiple Choice</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[14px]">
                 <li>What does <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> stand for? <span class="block text-xs text-theme-faint mt-1">A) Domain Network Service &nbsp; B) Domain Name System &nbsp; C) Digital Network <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> &nbsp; D) Data Name Service</span></li>
                 <li>Which device forwards <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> between networks? <span class="block text-xs text-theme-faint mt-1">A) Switch &nbsp; B) Modem &nbsp; C) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> &nbsp; D) Hub</span></li>
                 <li>What protocol do browsers use to request webpages? <span class="block text-xs text-theme-faint mt-1">A) FTP &nbsp; B) SMTP &nbsp; C) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> &nbsp; D) SNMP</span></li>
               </ol></div>
-              <div><p class="text-sm font-semibold text-brand-200 mb-2">True or False</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">True or False</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[14px]">
                 <li>A webpage is sent as one single file from the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> to the browser. <span class="block text-xs text-theme-faint mt-1">Answer: False</span></li>
                 <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> can travel along different routes and still arrive at the same destination. <span class="block text-xs text-theme-faint mt-1">Answer: True</span></li>
               </ol></div>
-              <div><p class="text-sm font-semibold text-brand-200 mb-2">Matching</p><p class="text-theme-muted text-[15px]">Match each term to its role:<br>1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> &mdash; <span class="text-theme-faint">Finds the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></span><br>2. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> &mdash; <span class="text-theme-faint">Forwards <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></span><br>3. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> &mdash; <span class="text-theme-faint">Stores website files</span><br>4. Browser &mdash; <span class="text-theme-faint">Renders the webpage</span></p></div>
-              <div><p class="text-sm font-semibold text-brand-200 mb-2">Fill in the Blanks</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[15px]">
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Matching</p><p class="text-theme-muted text-[14px]">Match each term to its role:<br>1. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> &mdash; <span class="text-theme-faint">Finds the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></span><br>2. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> &mdash; <span class="text-theme-faint">Forwards <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></span><br>3. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> &mdash; <span class="text-theme-faint">Stores website files</span><br>4. Browser &mdash; <span class="text-theme-faint">Renders the webpage</span></p></div>
+              <div><p class="text-sm font-semibold text-brand-200 mb-2">Fill in the Blanks</p><ol class="list-decimal pl-5 space-y-3 text-theme-muted text-[14px]">
                 <li>The process of translating a domain name into an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> is called ________. <span class="block text-xs text-theme-faint mt-1">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> resolution</span></li>
                 <li>Small chunks of data sent over a network are called ________. <span class="block text-xs text-theme-faint mt-1">Answer: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span></span></li>
               </ol></div>
@@ -264,18 +264,18 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="critical-thinking">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Critical Thinking</h2>
             <ol class="mt-6 space-y-4 list-decimal pl-5">
-              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">What would happen if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> system went down globally?</span><br>Consider how your daily internet use would change and what systems might still work.</li>
-              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">Why do you think data is broken into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> instead of being sent as one large block?</span><br>Think about network congestion, error recovery, and fairness among users.</li>
-              <li class="text-theme-muted leading-relaxed text-[15px]"><span class="font-medium text-theme">If you could redesign the webpage loading process, what would you change to make it faster?</span><br>Consider caching, compression, parallel connections, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> location.</li>
+              <li class="text-theme-muted leading-relaxed text-[14px]"><span class="font-medium text-theme">What would happen if the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> system went down globally?</span><br>Consider how your daily internet use would change and what systems might still work.</li>
+              <li class="text-theme-muted leading-relaxed text-[14px]"><span class="font-medium text-theme">Why do you think data is broken into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> instead of being sent as one large block?</span><br>Think about network congestion, error recovery, and fairness among users.</li>
+              <li class="text-theme-muted leading-relaxed text-[14px]"><span class="font-medium text-theme">If you could redesign the webpage loading process, what would you change to make it faster?</span><br>Consider caching, compression, parallel connections, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> location.</li>
             </ol>
           </div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="mini-projects">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Mini Projects</h2>
             <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Project 1: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packet</span> Diary</p><p class="text-xs text-theme-muted mt-2">Open your browser's developer tools (F12) and go to the Network tab. Reload any website and watch the list of requests appear. Pick five requests and write down the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span>, file type, size, and load time. Draw a diagram showing the order in which they loaded.</p></div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Project 2: Trace the Route</p><p class="text-xs text-theme-muted mt-2">Use the <code class="text-brand-300">tracert</code> command (Windows) or <code class="text-brand-300">traceroute</code> (Mac/Linux) to trace the path from your computer to <code class="text-brand-300">consicaacademy.com</code>. Record each hop's <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span> and response time. Map the route on paper or using a simple drawing tool.</p></div>
@@ -285,7 +285,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="teacher-notes">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Teacher Notes</h2>
             <div class="mt-6 space-y-4">
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Learning Objectives</p><p class="text-xs text-theme-muted mt-1.5">Students should be able to list the eight steps of a webpage request, explain the role of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, and differentiate between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> and files. They should understand that the internet is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span>-switched network where data takes multiple paths.</p></div>
               <div class="p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10"><p class="text-sm font-semibold text-brand-200">Discussion Prompts</p><p class="text-xs text-theme-muted mt-1.5">Ask students: "What is the slowest part of loading a website?" and "Why do some websites load faster than others?" Compare loading a local file vs. a remote website. Discuss how CDNs (Content Delivery Networks) shorten the journey.</p></div>

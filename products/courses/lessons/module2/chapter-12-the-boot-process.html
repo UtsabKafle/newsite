@@ -78,18 +78,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The Boot Process</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">What happens from the moment you press the power button</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">What happens from the moment you press the power button</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction: The Journey from Off to On</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction: The Journey from Off to On</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Press the power button. Your screen lights up. A logo appears. Seconds later, you see your desktop. It feels simple — but in those few seconds, your computer performs a carefully choreographed sequence of hundreds of tiny operations.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               This sequence is called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span></strong> (short for "bootstrap," from the old phrase "pulling yourself up by your bootstraps"). When a computer is off, its memory is empty — it has no instructions to run. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> is how the computer wakes up, checks itself, finds the operating system, and hands over control so you can start working.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, we will walk through every stage of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span>: from power-on, through the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware, the Power-On Self Test (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span>), the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> loading, and finally the operating system initialization. Understanding the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> helps you troubleshoot startup problems and appreciate the engineering behind every modern computer.
             </p>
           </div>
@@ -97,18 +97,18 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-6">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 1 &mdash; Simple</span>
               <h3 class="text-xl font-display font-bold mt-3">Deeper Dive</h3>
-              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 Imagine you wake up in the morning. First, you open your eyes (power on). Then you check that your arms and legs work (self-test). Next, you remember who you are and where you are (find the operating system). Finally, you get out of bed and start your day (the OS is ready for you to use).
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 Your computer does the same thing. When you press the power button, electricity flows to the motherboard. A tiny chip called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></strong> (or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span>) wakes up first. It checks that all the basic parts are working — the CPU, the memory, the keyboard, the display. If something is broken, the computer beeps to tell you there is a problem.
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 If everything looks good, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> looks for the operating system on your hard drive or SSD. It finds a small program called the <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span></strong>, which then loads the operating system into memory. Once the OS is running, you see your login screen — your computer is ready to go!
               </p>
             </div>
@@ -116,7 +116,7 @@
             <div class="mt-8">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 2 &mdash; Teen</span>
               <h3 class="text-xl font-display font-bold mt-3">The Stages of Booting a Computer</h3>
-              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> can be broken down into five major stages:
               </p>
               <div class="mt-4 space-y-4 text-sm text-theme-muted">
@@ -146,37 +146,37 @@
             <div class="mt-8">
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-200 uppercase tracking-wide">Level 3 &mdash; Adult</span>
               <h3 class="text-xl font-display font-bold mt-3">Firmware Deep Dive: BIOS vs. UEFI</h3>
-              <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> (Basic Input/Output System)</strong> is the traditional firmware interface dating back to the IBM PC in 1981. It runs in 16-bit real mode, limits boot disks to 2.2 TB, and uses the Master Boot Record (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mbr')">MBR</span>) partitioning scheme. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> interacts with hardware through software interrupts (INT 13h for disk I/O) and stores configuration in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos')">CMOS</span> memory backed by a small battery.
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> (Unified Extensible Firmware Interface)</strong> is the modern replacement. It runs in 32-bit or 64-bit protected mode, supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span> partition tables (disks up to 9.4 zettabytes), has a graphical interface, and supports mouse input. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> can load drivers from the firmware itself, and it supports <span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span> — a feature that cryptographically verifies the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader's</span> signature to prevent rootkits and boot-level malware.
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 <strong class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">Boot Process</span>:</strong> On power-on, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> firmware initializes the platform, then scans the EFI System Partition (ESP) for <code class="text-brand-300 font-mono text-xs">.efi</code> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> files. It executes the one specified in the boot manager configuration (stored in NVRAM). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> then loads the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> can even boot directly into an OS without a traditional <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> by using the <strong class="text-brand-200">EFI stub</strong> built into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> itself.
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 <strong class="text-brand-200">Fast Boot and Hybrid Sleep:</strong> Modern systems use "Fast Startup" (Windows) or "warm boot" techniques that save the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> and driver state to a hibernation file on shutdown. On the next power-on, the system restores that state instead of performing a full reinitialization, reducing boot time from 30+ seconds to just a few seconds — at the cost of not fully clearing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('kernel')">kernel</span> memory.
               </p>
-              <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+              <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
                 <strong class="text-brand-200">Troubleshooting Boot Failures:</strong> Common failure points include: a dead <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos')">CMOS</span> battery (loses firmware settings), corrupted <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootloader')">bootloader</span> (requires recovery media), failed hard drive (clicking sounds or SMART errors), incompatible <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> settings (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('secure-boot')">Secure Boot</span>, CSM/Legacy mode), or bad RAM that causes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> to halt. Beep codes from the motherboard speaker are the firmware's way of communicating the fault — a pattern like one long, three short beeps often indicates a graphics card issue.
               </p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">Boot Process</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -204,7 +204,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About the Boot Process</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts About the Boot Process</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div class="glass-panel p-4">
                 <p class="text-lg font-display font-bold text-brand-200">The term "boot" comes from "bootstrap"</p>
@@ -234,7 +234,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-12-boot/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -244,7 +244,7 @@
         </section>
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <p class="mt-2 text-sm text-theme-muted">Test your understanding of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-process')">boot process</span>.</p>
 
             <div class="mt-6 space-y-6">

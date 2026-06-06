@@ -171,16 +171,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">The ALU</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Arithmetic Logic Unit — the calculator</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Arithmetic Logic Unit — the calculator</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every mathematical calculation, every logical comparison, every decision your computer makes ultimately comes down to one component: the Arithmetic <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-unit')">Logic Unit</span>, or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> is the part of the CPU that actually performs the work of addition, subtraction, multiplication, division, and logical operations like AND, OR, NOT, and comparison.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Without the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span>, a computer would be little more than a fancy data-moving machine. Every time you add numbers in a spreadsheet, determine if a game character has collided with a wall, or encrypt a password, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> is hard at work. Understanding how the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> works is key to understanding how computers process information at the most fundamental level.
             </p>
           </div>
@@ -189,14 +189,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> is a digital circuit built from <span class="text-brand-200">logic gates</span> that takes two input values (operands) and produces one output result based on a control signal that selects the operation. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU's</span> control lines come from the Control Unit, which tells the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> whether to add, subtract, compare, or perform a bitwise operation on the inputs.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span>, different functional units handle different operations. An <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adder</span></span> circuit performs addition using a cascade of full <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adders</span>. A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('multiplier')">multiplier</span></span> uses a combination of shifts and additions to compute products. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-unit')">logic unit</span></span> handles bitwise AND, OR, XOR, and NOT operations using simple gate arrays. A <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('comparator')">comparator</span></span> determines whether one value is greater than, less than, or equal to another.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> also produces <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span></span> — status signals that provide information about the result. For example, a <span class="text-brand-200">zero flag</span> is set when the result is zero, a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span> flag</span> is set when an addition produces a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span> out of the most significant bit, and an <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('overflow')">overflow</span> flag</span> indicates when the result exceeds the representable range. These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span> are stored in a special <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span> register</span> and can be tested by conditional branch instructions.
             </p>
 
@@ -206,24 +206,24 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The simplest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> operation is addition, implemented with a <span class="text-brand-200">ripple-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adder</span></span>. A 1-bit full <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adder</span> takes three inputs (A, B, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span>-in) and produces two outputs (sum and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span>-out). To add two N-bit numbers, N full <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adders</span> are chained together, with each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span>-out feeding the next <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span>-in. While simple, ripple-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adders</span> become slower as the bit width increases because the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span> must propagate through all stages. Modern CPUs use <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carry</span>-lookahead <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adders</span></span> (CLA) that compute all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">carries</span> in parallel, dramatically reducing addition time.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Subtraction is performed by taking the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('two-s-complement')">two's complement</span> of the subtrahend and then adding it to the minuend. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('two-s-complement')">two's complement</span> is computed by inverting all bits and adding 1. This means the CPU can reuse the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('adder')">adder</span> circuit for both addition and subtraction, with a simple control signal to select the operation.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span> register</span> (also called the status register) typically includes: <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">Carry</span> (C), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('overflow')">Overflow</span> (O/V), Zero (Z), Sign/Negative (S/N), and sometimes Parity (P) and Auxiliary <span class="vocab cursor-pointer" onclick="scrollToVocabulary('carry')">Carry</span> (AC). These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span> are critical for implementing conditionals like "if (x > y)" in high-level languages — the compiler generates a comparison instruction (which sets <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span>), followed by a conditional branch instruction that tests those <span class="vocab cursor-pointer" onclick="scrollToVocabulary('flags')">flags</span>.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern high-performance CPUs include <span class="text-brand-200">multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALUs</span></span> operating in parallel. A typical superscalar core might have four or more integer <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALUs</span>, two or three floating-point units (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('fpu')">FPUs</span>), and dedicated load/store units. The CPU's scheduler dispatches instructions to available <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALUs</span> based on data dependencies and resource availability.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Floating-point arithmetic is handled by a specialized unit called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fpu')">FPU</span></span> (Floating-Point Unit). Floating-point numbers are represented using the IEEE 754 standard, which stores values in scientific notation with a sign bit, exponent, and mantissa. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('fpu')">FPU</span> operations like addition and multiplication require more complex circuitry and typically take several clock cycles. Some CPUs (especially in embedded systems) implement floating-point in software rather than hardware to save silicon area.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The performance of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> directly limits the CPU's overall throughput. <span class="text-brand-200">Bit width</span> matters: a 64-bit <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> can process 64-bit integers in one operation, whereas a 32-bit <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> would need multiple operations for the same task. This is why the transition from 32-bit to 64-bit processors was such a major milestone — it doubled the amount of data the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> could process per cycle for many operations.
             </p>
           </div>
@@ -232,7 +232,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -261,7 +261,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -306,7 +306,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Watch the ALU in action as it adds, subtracts, and compares values while updating the CPU's status flags.</p>
             <a href="diagrams/diagram-04-alu/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -318,7 +318,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

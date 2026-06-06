@@ -171,16 +171,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">CPU Cache</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">L1, L2, L3 cache hierarchy</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">L1, L2, L3 cache hierarchy</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern CPUs can execute instructions blazingly fast — but they are often held back by how slowly data arrives from main memory. Reading from RAM takes around 100 nanoseconds, while a CPU register can be read in 0.3 nanoseconds. This enormous speed gap, known as the <span class="text-brand-200">memory wall</span>, means the CPU spends most of its time waiting for data unless there is a way to bridge the difference.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The solution is <span class="text-brand-200">CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span> — small, ultra-fast memory banks built directly onto the processor die. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> stores copies of frequently accessed data from main memory so the CPU can retrieve it in just 1 to 20 nanoseconds. Modern CPUs use a hierarchy of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> levels: L1, L2, and L3, each with increasing size but decreasing speed.
             </p>
           </div>
@@ -189,14 +189,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When the CPU needs to read data, it first checks the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('l1-cache')">L1 cache</span></span> — the smallest and fastest <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span>, typically 32 KB to 128 KB per core, divided into L1 instruction <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> (L1i) and L1 data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> (L1d). If the data is found, it is a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-hit')">cache hit</span></span> and the data is returned in 3-5 CPU cycles. If not, the CPU checks the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('l2-cache')">L2 cache</span></span> (256 KB to 1 MB per core, 10-20 cycles), and then the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('l3-cache')">L3 cache</span></span> (8 MB to 64 MB shared across all cores, 30-50 cycles). If all <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span> miss, the CPU must fetch from main memory, which costs 200+ cycles.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> exploits two fundamental properties of programs: <span class="text-brand-200">temporal <span class="vocab cursor-pointer" onclick="scrollToVocabulary('locality')">locality</span></span> and <span class="text-brand-200">spatial <span class="vocab cursor-pointer" onclick="scrollToVocabulary('locality')">locality</span></span>. Temporal <span class="vocab cursor-pointer" onclick="scrollToVocabulary('locality')">locality</span> means that if a memory location is accessed, it is likely to be accessed again soon (think of a loop counter). Spatial <span class="vocab cursor-pointer" onclick="scrollToVocabulary('locality')">locality</span> means that if a memory location is accessed, nearby locations are also likely to be accessed soon (think of iterating through an array). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> loads data in blocks called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-line')">cache lines</span></span>, typically 64 bytes, to exploit spatial <span class="vocab cursor-pointer" onclick="scrollToVocabulary('locality')">locality</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> is built from <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('sram')">SRAM</span></span> (Static Random Access Memory), which is faster but much more expensive and power-hungry than the <span class="text-brand-200">DRAM</span> (Dynamic RAM) used for main memory. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('sram')">SRAM</span> uses 6 transistors per bit (vs. 1 transistor + 1 capacitor for DRAM) and does not need periodic refreshing, making it ideal for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> but impractical for large capacities.
             </p>
 
@@ -206,24 +206,24 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> organizations exist. A <span class="text-brand-200">direct-mapped <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span> maps each memory address to exactly one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-line')">cache line</span> — simple and fast but prone to conflict misses. A <span class="text-brand-200">fully associative <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span> allows any memory address to be stored in any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-line')">cache line</span> — flexible but complex and slow. Most modern CPUs use <span class="text-brand-200">N-way set-associative <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span></span>, which strike a balance by dividing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> into sets of N lines each, where a memory address maps to a specific set but can occupy any of the N lines within that set.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> is full and a new line must be loaded, a <span class="text-brand-200">replacement policy</span> decides which existing line to evict. The most common is <span class="text-brand-200">LRU</span> (Least Recently Used), which evicts the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-line')">cache line</span> that hasn't been accessed for the longest time. Modern CPUs use approximation algorithms like <span class="text-brand-200">pseudo-LRU</span> or <span class="text-brand-200">RRIP</span> (Re-Reference Interval Prediction) to achieve near-LRU performance with less hardware overhead.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> <span class="text-brand-200">coherency</span> is a critical challenge in multi-core processors. When one core modifies data in its private L1 or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('l2-cache')">L2 cache</span>, other cores' <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span> may still hold the old value. <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-coherency')">Cache coherency</span> protocols</span> like MESI (Modified, Exclusive, Shared, Invalid) and MOESI ensure that all cores see a consistent view of memory. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('l3-cache')">L3 cache</span> often serves as a <span class="text-brand-200">snoop filter</span> or <span class="text-brand-200">last-level <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span> (LLC) to reduce coherency traffic.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">Cache</span> latency</span> is measured in CPU clock cycles. An L1 hit typically costs 3-5 cycles, L2 costs 10-20 cycles, and L3 costs 30-60 cycles. Main memory access costs 200-400 cycles. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-miss')">cache miss</span> penalty</span> is the time wasted when data is not found in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> — minimizing misses is one of the most important optimizations in both hardware design and software development.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200">inclusive vs. exclusive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span></span> design determines whether data in L1/L2 is also duplicated in L3. Inclusive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span> (common in Intel processors) guarantee that any line in L1 or L2 is also in L3, simplifying coherency at the cost of capacity. Exclusive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">caches</span> (used in AMD's Zen architecture) ensure that data appears only in one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> level, maximizing effective capacity but requiring more complex data movement.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Some modern CPUs feature <span class="text-brand-200">hardware prefetching</span>, where the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> controller predicts future memory accesses and loads data before the CPU requests it. The prefetcher detects patterns like sequential access (streaming through arrays) or strided access (accessing every Nth element) and proactively fetches <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-line')">cache lines</span>. Prefetching can dramatically reduce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache-miss')">cache miss</span> rates but must be tuned carefully to avoid polluting the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cache')">cache</span> with unused data.
             </p>
           </div>
@@ -232,7 +232,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -261,7 +261,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -306,7 +306,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Explore the L1, L2, and L3 cache hierarchy and see how data moves between cache levels.</p>
             <a href="diagrams/diagram-06-cache/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -318,7 +318,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

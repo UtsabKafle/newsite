@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">BIOS &amp; UEFI Setup</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">First boot, BIOS/UEFI configuration</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">First boot, BIOS/UEFI configuration</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               You have assembled all the hardware, connected every cable, and double-checked your work. Now comes the moment of truth — pressing the power button for the very first time. But before your computer can load Windows, Linux, or any operating system, it needs to run a built-in startup program that checks the hardware and prepares the system to boot.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               This startup program is called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span></span> (Basic Input/Output System) or its modern successor, <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span></span> (Unified Extensible Firmware Interface). Think of it as the computer's own internal startup checklist and configuration panel — it runs before anything else and makes sure everything is working.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, you will learn what happens when you press the power button, how to enter the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> setup, what settings to configure for a new build, and how to troubleshoot common first-boot issues.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> is like the building manager of a hotel. Before guests (the operating system) can check in, the manager does a walkthrough — checking every room (hardware), making sure the lights work (power), and unlocking the front door (boot drive). Only after the manager confirms everything is ready can guests enter.</p>
@@ -206,7 +206,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When you press the power button, the following sequence occurs:
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
@@ -240,7 +240,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Entering the BIOS/UEFI</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               To access the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span>/<span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> setup, you need to press a specific key during the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> process, usually before the operating system starts loading. The exact key varies by manufacturer but is typically displayed on screen during boot:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -255,7 +255,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Key BIOS/UEFI Settings for a New Build</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When you first enter the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> on a new build, here are the settings you should check:
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
@@ -278,10 +278,10 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced Topics</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               For advanced users, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> offers many additional settings. <span class="text-brand-200">CPU overclocking</span> allows you to increase the CPU clock speed and voltage for higher performance, at the cost of more heat and power. <span class="text-brand-200">Fan curves</span> let you customise how fast fans spin at different temperatures. <span class="text-brand-200">Resizable BAR (Above 4G Decoding)</span> allows the CPU to access the full GPU memory, improving gaming performance on modern GPUs.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               If you make a mistake and the system becomes unstable, you can perform a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cmos-reset')">CMOS reset</span></span>. This clears the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> settings back to factory defaults. Methods include: shorting the CMOS jumper with a screwdriver, removing the coin-cell battery (CR2032) on the motherboard for 30 seconds, or pressing a Clear CMOS button on high-end boards.
             </p>
 
@@ -290,20 +290,20 @@
               <p class="text-sm text-theme-muted">If your new build does not display anything on screen, do not panic. Check that the monitor is plugged into the GPU (not the motherboard), all power cables are seated, and the RAM is fully inserted. A single beep from the speaker often means <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> passed. Repeated beeps indicate a specific hardware fault.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">bios</span> &amp; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">uefi</span> setup involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bios')">BIOS</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('uefi')">UEFI</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">POST</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -331,7 +331,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -369,7 +369,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see the BIOS/UEFI setup process.</p>
             <a href="diagrams/diagram-11-bios/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -380,7 +380,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

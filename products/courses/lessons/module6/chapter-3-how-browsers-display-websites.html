@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">How Browsers Display Websites</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Understanding the rendering process from URL to pixels</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Understanding the rendering process from URL to pixels</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('web-browser')">web browser</span> is a software application that retrieves, interprets, and displays web content. When you type a URL, the browser orchestrates a chain of events to fetch files from a server and render them as a visual page on your screen.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Popular browsers include Chrome, Firefox, Safari, Edge, and Opera. While they differ in appearance and speed, they all follow the same fundamental process: request, parse, render, and paint.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, you will learn step by step what happens from the moment you type a URL until the page appears.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">Browsers use a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rendering-engine')">Rendering Engine</span> (Blink in Chrome, WebKit in Safari, Gecko in Firefox) to convert HTML, CSS, and JavaScript into pixels. The engine parses the raw HTML into a Document Object Model (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span>) tree, applies CSS styles to build a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('render-tree')">Render Tree</span>, computes the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('layout')">Layout</span> position of every element, and finally paints each pixel to the screen.</p>
@@ -231,7 +231,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Request-Response Cycle</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Before rendering begins, the browser must fetch the website files. It sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP Request</span> to the server, which responds with the requested resources. This cycle determines how quickly a page loads.
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -246,7 +246,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span> tree is a live data structure the browser uses to manage the page. When JavaScript modifies the page, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dom')">DOM</span> updates instantly and the browser re-renders only the affected parts to save performance. CSS can block rendering if not loaded quickly, which is why developers place stylesheet links in the head section.
             </p>
 
@@ -256,10 +256,10 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern browsers use multi-process architectures. Chrome, for example, runs a separate process for each tab, GPU rendering, and network handling. This isolation improves security and stability &mdash; if one tab crashes, others remain unaffected. Browsers also employ speculative preloading, where they predict and fetch linked resources before the parser encounters them.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               JavaScript execution can be deferred with the <code>defer</code> or <code>async</code> attributes to prevent blocking the HTML parser. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('service-worker')">Service Worker</span>, part of modern progressive web apps, allow browsers to cache assets offline and intercept network requests for near-instant loading.
             </p>
           </div>
@@ -267,7 +267,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -295,7 +295,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -334,7 +334,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-03-how-browsers-display/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -345,7 +345,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

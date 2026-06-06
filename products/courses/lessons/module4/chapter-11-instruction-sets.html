@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Instruction Sets</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">x86, ARM, RISC-V and how CPUs speak different languages</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">x86, ARM, RISC-V and how CPUs speak different languages</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every CPU understands a specific <span class="text-brand-200">language</span> — a set of commands that it can execute. This language is called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">Instruction</span> Set Architecture (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span>)</span>, and it defines the fundamental operations a processor can perform: arithmetic, data movement, control flow, and input/output. Just as humans speak different languages, CPUs from different families speak different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISAs</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> acts as the boundary between hardware and software. Programmers do not need to know the intricate details of a CPU's microarchitecture — they just need to know what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> are available. A program compiled for the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> will run on any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> processor, whether it is an Intel Core i9 or an AMD Ryzen 9, because both implement the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span>. However, that same program will not run on an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span>-based Apple M2 chip without emulation or recompilation.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The choice of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> has enormous implications for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('compatibility')">compatibility</span>, performance, power efficiency, and ecosystem. In this chapter, we explore the three major <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISAs</span> that dominate modern computing: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span></span> (the incumbent in desktops and servers), <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span></span> (the leader in mobile and increasingly in laptops), and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span></span> (the open-source newcomer poised to disrupt the industry).
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> is like a restaurant menu. The menu lists all the dishes (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span>) the kitchen can prepare. You can order any combination of these dishes, and the kitchen will prepare them using its own internal recipes (microarchitecture). Two restaurants might have the same menu but prepare the dishes very differently behind the scenes. As long as the menu items are the same, you can go to either restaurant and get the same result.</p>
@@ -206,42 +206,42 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">Instruction</span> set architectures fall into two broad categories: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span></span> (Complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">Instruction</span> Set Computer) and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span></span> (Reduced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">Instruction</span> Set Computer). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span> architectures like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> provide many complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> that can do multiple things at once — for example, a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instruction</span> might load data from memory, perform arithmetic, and store the result back. This makes individual <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> powerful but complex to decode and execute.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> architectures like <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> take the opposite approach: they provide a small set of simple, uniform <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> that each do one thing. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> program needs more <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> to accomplish the same task as a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span> program, but each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instruction</span> executes very quickly — often in a single clock cycle. This simplicity makes <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> CPUs easier to design, more power-efficient, and easier to pipeline. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> philosophy has largely won the architectural debate, and even modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> CPUs internally decode their complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> into simpler <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span>-like micro-operations.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">x86: The Desktop and Server Standard</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span></span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> originated with Intel's 8086 processor in 1978 and has evolved through decades of backward-compatible extensions. Today, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> (in its 64-bit form, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span>-64 or AMD64) powers the vast majority of desktop PCs, laptops, and cloud servers. Its dominance is driven by an enormous software ecosystem: Windows, Linux, and thousands of applications have been compiled for <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> over four decades.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               One of the most important extensions to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> is <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('simd')">SIMD</span></span> (Single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">Instruction</span>, Multiple Data) — <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instruction</span> sets like SSE and AVX that allow the CPU to perform the same operation on multiple data elements in a single <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instruction</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('simd')">SIMD</span> is crucial for multimedia processing, scientific computing, and machine learning. Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> CPUs also include specialised <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> for cryptography (AES-NI), virtualisation (VT-x/AMD-V), and random number generation.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">ARM: The Mobile and Efficiency Leader</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span></span> (originally Acorn <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> Machine, now Advanced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> Machines) is a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> that dominates the mobile and embedded world. Over 200 billion <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span>-based chips have been shipped, powering nearly every smartphone, tablet, and IoT device. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM's</span> key advantage is power efficiency — its clean <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> design consumes far less energy than <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> for equivalent tasks, which is critical for battery-powered devices.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> Holdings does not manufacture chips; it licenses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> design to companies like Apple, Qualcomm, Samsung, and NVIDIA. This licensing model has created a vast ecosystem of custom chip designs — from Apple's M-series processors (which combine high-performance and efficiency cores) to Qualcomm's Snapdragon chips for Android phones. The latest ARMv9 architecture adds features like Scalable Vector Extensions (SVE) for HPC and AI workloads.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">RISC-V: The Open-Source Revolution</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span></span> (pronounced "risk-five") is a free and open <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> that anyone can use without paying licensing fees. Developed at UC Berkeley starting in 2010, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> is designed to be modular and extensible — a small base set of mandatory <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> (RV32I or RV64I) can be augmented with standard extensions for integer multiplication and division (M), atomic operations (A), single-precision floating point (F), and more.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V's</span> open nature has sparked enormous interest across the industry. It allows companies to design custom processors without paying <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM's</span> licensing fees or being locked into Intel's proprietary ecosystem. Startups, research institutions, and even governments are investing in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> as a strategic hedge against dependence on proprietary <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISAs</span>. While <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> has not yet reached parity with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> in performance or software ecosystem, it is growing rapidly and is expected to be a major force in the coming decade.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Compatibility and Microcode</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">Microcode</span></span> is a hidden layer of low-level <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> that sits between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> and the CPU's hardware. It allows CPU designers to implement complex <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instructions</span> as sequences of simpler micro-operations. More importantly, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microcode')">microcode</span> can be updated via firmware patches, allowing CPU bugs to be fixed — or, controversially, performance to be reduced — after the chip has shipped. This is how Intel and AMD patched the Spectre and Meltdown vulnerabilities in 2018.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('compatibility')">Compatibility</span> between different CPUs that implement the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> is never perfect. There are subtle differences in how each microarchitecture handles edge cases — undefined behaviour in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> specification, timing differences, and errata (documented bugs). Software that relies on undocumented behaviour may work on one CPU but not another. This is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('compatibility')">compatibility</span> testing is a critical part of software development, especially for low-level systems code like operating systems and hypervisors.
             </p>
 
@@ -250,20 +250,20 @@
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> is the contract between software and hardware. It is arguably the most important decision in computing because it determines which software can run on which hardware. The battle between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> is not just a technical one — it is a battle between business models, ecosystems, and visions of the future of computing.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction')">instruction</span> sets involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -291,7 +291,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -329,7 +329,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore Instruction Sets.</p>
             <a href="diagrams/diagram-11-instruction-sets/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -340,7 +340,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

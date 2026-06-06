@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">HTTP & REST</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The language clients and servers use to communicate</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">The language clients and servers use to communicate</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When you open an app on your phone, it talks to a server somewhere in the world. But how do two programs — often written in different languages, running on different hardware — understand each other? They use a common language called <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span></span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> (HyperText Transfer Protocol) is the foundation of data communication on the web. Every time your browser loads a page or your app fetches data, it sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> request and receives an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> response. Think of it as the postal service of the internet — it defines exactly how to address a message, what format it should be in, and how the reply comes back.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">REST</span></span> (Representational State Transfer) is a popular design pattern for building APIs that use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span>. A RESTful API organises resources (like users, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('post')">posts</span>, or products) into <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URLs</span> and uses <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> methods as verbs to manipulate them. It is the most common way modern web and mobile apps talk to servers.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> is a request-response protocol. A client (your app or browser) sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> request to a server. The server processes it and sends back an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> response with a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('status-code')">status code</span> and data. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">REST</span> uses this same protocol but adds conventions: each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URL</span> represents a resource, and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> method tells the server what action to perform.</p>
@@ -206,7 +206,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">REST</span> APIs use these four main <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> methods as verbs. Each one has a specific meaning:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -245,7 +245,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">HTTP Status Codes</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> response includes a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('status-code')">status code</span> that tells the client what happened. Here are the most common ones:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -276,20 +276,20 @@
               <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">REST</span> is not a standard or a protocol — it is an architectural style. When an API is "RESTful," it follows a set of conventions: resources are identified by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('url')">URLs</span>, and actions are performed using standard <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> methods. This simplicity is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">REST</span> has become the dominant API design pattern on the web.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">http</span> & <span class="vocab cursor-pointer" onclick="scrollToVocabulary('rest')">rest</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('https')">HTTPS</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('get')">GET</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -317,7 +317,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -356,7 +356,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see HTTP methods and REST in action.</p>
             <a href="diagrams/diagram-08-http-rest/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -367,7 +367,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

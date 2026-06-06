@@ -171,19 +171,19 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">What Is a CPU?</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Introduction to the Central Processing Unit</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Introduction to the Central Processing Unit</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every time you click a mouse, type a key, launch a game, or stream a video, a tiny silicon chip deep inside your computer springs into action. That chip is the Central Processing Unit, or <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> — the brain of every computing device ever built.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               From smartphones and laptops to supercomputers and cloud servers, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is what makes a computer truly "compute." It reads instructions from memory, decodes them, executes mathematical and logical operations, and then writes results back — all billions of times per second. Understanding what a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is and how it works is the first step to understanding all of modern computing.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, we will explore the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> at a high level: what it does, where it came from, how it is built, and why it is so important. By the end, you will never look at a computer the same way again.
             </p>
           </div>
@@ -192,14 +192,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> works by following a simple, repeating pattern called the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span></span> (also known as the fetch-decode-execute cycle). In each cycle, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> fetches an instruction from memory, decodes it to figure out what to do, executes the operation, and then moves on to the next instruction.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Inside the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, billions of microscopic switches called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span></span> work together to perform these operations. By arranging <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> into logic gates, engineers build circuits that can add numbers, compare values, make decisions, and store temporary results. The magic of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is that a handful of simple operations, repeated billions of times per second, can run a video game, edit a photo, or browse the web.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> contain multiple <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span></span>, each of which is an independent processing unit capable of running its own <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span>. A quad-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">core</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> has four <span class="vocab cursor-pointer" onclick="scrollToVocabulary('core')">cores</span> that can work on different tasks simultaneously, dramatically improving performance for multitasking and multi-threaded applications.
             </p>
 
@@ -209,24 +209,24 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The first <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> was the Intel 4004, released in 1971. It contained just 2,300 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> and ran at 740 kHz — about 740,000 cycles per second. Today, a modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> like the AMD Ryzen or Apple M-series contains tens of billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> and runs at speeds exceeding 5 GHz (5 billion cycles per second). This astonishing growth follows an observation known as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('moore-s-law')">Moore's Law</span></span>, which predicted that the number of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> on a chip would double roughly every two years.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is manufactured on a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">die</span></span> — a thin slice of silicon crystal. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('die')">die</span> is cut from a larger silicon wafer and packaged into a protective chip carrier with metal pins or contacts that connect it to the computer's motherboard through a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span></span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span> provides power and a data pathway between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and the rest of the system, including RAM, storage, and peripheral devices.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span></span> on the motherboard acts as the traffic controller, managing data flow between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, memory, storage, and expansion cards. Together, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('chipset')">chipset</span>, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('socket')">socket</span> form the foundation of every computer system.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At the most fundamental level, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> is a <span class="text-brand-200">finite-state machine</span> driven by a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> signal. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> signal is a square wave that alternates between high and low voltage, and each rising edge triggers the next step in the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('instruction-cycle')">instruction cycle</span>. This is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('clock')">clock</span> speed directly limits how many instructions can be processed per second.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPUs</span> employ <span class="text-brand-200">superscalar architecture</span>, meaning they can issue multiple instructions in parallel across several execution units. Combined with <span class="text-brand-200">out-of-order execution</span>, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can reorder instructions to keep execution units busy even when some instructions stall waiting for data from memory. Techniques like <span class="text-brand-200">branch prediction</span> and <span class="text-brand-200">speculative execution</span> further improve performance by guessing which path a program will take and executing ahead of time.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The interface between the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> and software is defined by the <span class="text-brand-200">Instruction Set Architecture (ISA)</span> — a contract that specifies which operations the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cpu')">CPU</span> can perform, how memory is addressed, and how data flows between registers, cache, and main memory. Two dominant ISAs in modern computing are <span class="text-brand-200">x86</span> (used by Intel and AMD processors) and <span class="text-brand-200">ARM</span> (used in most smartphones and increasingly in laptops and servers).
             </p>
           </div>
@@ -235,7 +235,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -264,7 +264,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -309,7 +309,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Explore an interactive visualization of what a CPU looks like and how it connects to the rest of the computer.</p>
             <a href="diagrams/diagram-01-cpu-intro/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -321,7 +321,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

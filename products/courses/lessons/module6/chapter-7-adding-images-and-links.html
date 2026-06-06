@@ -89,20 +89,20 @@
           <span class="h-px flex-1 bg-gradient-to-r from-brand-500/30 to-transparent"></span>
         </div>
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Adding Images and Links</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Making webpages interactive with images and hyperlinks</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Making webpages interactive with images and hyperlinks</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">Images and links are what make the web visual and interconnected. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('img')">img</span> tag embeds pictures, while the a tag creates hyperlinks that connect pages together, forming the web's structure.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Adding images makes content more engaging and helps communicate ideas visually. Links allow users to navigate between pages, download files, and interact with web applications.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">In this chapter, you will learn how to add images with proper attributes, create hyperlinks, open links in new tabs, and use images as clickable links.</p>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">Images and links are what make the web visual and interconnected. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('img')">img</span> tag embeds pictures, while the a tag creates hyperlinks that connect pages together, forming the web's structure.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">Adding images makes content more engaging and helps communicate ideas visually. Links allow users to navigate between pages, download files, and interact with web applications.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">In this chapter, you will learn how to add images with proper attributes, create hyperlinks, open links in new tabs, and use images as clickable links.</p>
           </div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('img')">img</span> tag is a void element that uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('src')">src</span> attribute to specify the image file path and the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute to provide alternative text. The a tag wraps content and uses the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('href')">href</span> attribute to specify the destination URL. When clicked, the browser navigates to the linked address.</p>
             </div>
@@ -140,21 +140,21 @@
               </div>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute is not optional &mdash; it is required for valid HTML and critical for accessibility. Screen readers announce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text so blind users understand the image content. If an image is purely decorative, use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span>=&quot;&quot; (empty) so the screen reader skips it.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Image file formats matter: JPEG for photographs (small file size, lossy compression), PNG for graphics with transparency (lossless), GIF for simple animations, SVG for scalable vector graphics, and WebP for modern high-compression web images.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute is not optional &mdash; it is required for valid HTML and critical for accessibility. Screen readers announce <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text so blind users understand the image content. If an image is purely decorative, use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span>=&quot;&quot; (empty) so the screen reader skips it.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">Image file formats matter: JPEG for photographs (small file size, lossy compression), PNG for graphics with transparency (lossless), GIF for simple animations, SVG for scalable vector graphics, and WebP for modern high-compression web images.</p>
             <div class="mt-5 p-4 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm font-semibold text-brand-200 mb-2">Key Insight</p>
               <p class="text-sm text-theme-muted">Always provide meaningful <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> text for informative images. Decorative images should have <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span>=&quot;&quot; to be ignored by screen readers. Never leave the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alt')">alt</span> attribute out.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Image optimization is crucial for performance. Large images slow down page loading. Techniques include responsive images with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('srcset')">srcset</span> attribute (serving different sizes for different screen widths), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lazy-loading')">Lazy Loading</span> with loading=&quot;lazy&quot;, and using next-gen formats like WebP with fallback via picture elements.</p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">Links can point to email addresses (mailto:), phone numbers (tel:), and specific sections on a page using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anchor')">Anchor</span> fragments (#id). The rel attribute controls relationship metadata &mdash; rel=&quot;noopener noreferrer&quot; is recommended for external links opened in new tabs for security reasons.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">Image optimization is crucial for performance. Large images slow down page loading. Techniques include responsive images with the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('srcset')">srcset</span> attribute (serving different sizes for different screen widths), <span class="vocab cursor-pointer" onclick="scrollToVocabulary('lazy-loading')">Lazy Loading</span> with loading=&quot;lazy&quot;, and using next-gen formats like WebP with fallback via picture elements.</p>
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">Links can point to email addresses (mailto:), phone numbers (tel:), and specific sections on a page using <span class="vocab cursor-pointer" onclick="scrollToVocabulary('anchor')">Anchor</span> fragments (#id). The rel attribute controls relationship metadata &mdash; rel=&quot;noopener noreferrer&quot; is recommended for external links opened in new tabs for security reasons.</p>
           </div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead><tr><th class="text-theme">Term</th><th class="text-theme">Definition</th></tr></thead>
@@ -177,7 +177,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
@@ -206,7 +206,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-07-adding-images-and-li/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -217,7 +217,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
               <div class="kb-check">
                 <p class="text-sm font-semibold text-theme">1. Which attribute of the img tag provides alternative text for accessibility?</p>

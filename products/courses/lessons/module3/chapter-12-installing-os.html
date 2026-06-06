@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Installing an OS</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Installing Windows or Linux from bootable media</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Installing Windows or Linux from bootable media</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               You have built a powerful machine. You have configured the BIOS/UEFI and verified that all hardware is recognised. But your computer still cannot do anything useful — because it has no <span class="text-brand-200">operating system</span>. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> is the master program that manages all hardware and software, providing the interface through which you interact with the computer.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The two most common operating systems for personal computers are <span class="text-brand-200">Microsoft Windows</span> (used in most desktops and laptops worldwide) and <span class="text-brand-200">Linux</span> (a free, open-source <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> popular with developers, servers, and enthusiasts). Both can be installed using a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> drive</span> containing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installation files.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, you will learn how to create bootable installation media, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> a drive, and walk through the installation process for both Windows and Linux.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">Installing an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> is like moving into a new house. You have built the house (assembled the hardware), checked the utilities (BIOS/UEFI), and now you need to furnish it with furniture and appliances (the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span>). The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> drive is like the moving truck that brings everything in.</p>
@@ -206,7 +206,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               To install an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span>, you need a USB drive (8 GB or larger) containing the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> installation files. The USB must be made <span class="text-brand-200">bootable</span> — formatted and configured so the computer can boot from it.
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -231,7 +231,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Installation Process</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Once the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">bootable USB</span> is ready, insert it into the new PC and boot from it (set boot order in BIOS or use the boot menu key, often F12). The installer will guide you through the process:
             </p>
             <div class="mt-4 space-y-3 text-sm text-theme-muted">
@@ -243,7 +243,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Partitioning Explained</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200">Partitioning</span> divides a physical drive into logical sections, each behaving like a separate drive. For UEFI-based systems with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('gpt')">GPT</span>, Windows typically creates several <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partitions</span>:
             </p>
             <div class="mt-5 space-y-4 text-sm text-theme-muted">
@@ -260,15 +260,15 @@
                 <p class="text-sm text-theme-muted">The main <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> where Windows, programs, and your files live. Formatted as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ntfs')">NTFS</span></span> (NT <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">File System</span>) — the native <span class="vocab cursor-pointer" onclick="scrollToVocabulary('file-system')">file system</span> for Windows, supporting large files, permissions, and compression.</p>
               </div>
             </div>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               For Linux, the structure is different. Common <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partitions</span> include: <span class="text-brand-200">/ (root)</span> — the main system <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>, usually formatted as <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ext4')">ext4</span></span>; <span class="text-brand-200">/boot/efi</span> — the EFI <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span>; and <span class="text-brand-200">swap</span> — a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> used as virtual memory when RAM is full. Some users create a separate <span class="text-brand-200">/home</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('partition')">partition</span> so personal files survive <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> reinstallation.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Post-Installation First Boot</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               After installation, the system boots into the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> for the first time. For Windows, you will go through the <span class="text-brand-200">Out-of-Box Experience (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('oobe')">OOBE</span>)</span> — creating a user account, connecting to Wi-Fi, and configuring privacy settings. For Linux, you will be greeted by a setup wizard that may ask for your username, password, and timezone.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At this stage, the <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-manager')">Boot Manager</span></span> (part of UEFI) keeps track of which <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> to load. If you install multiple <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OSes</span> (dual-boot), the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('boot-manager')">boot manager</span> presents a menu at startup letting you choose which one to run.
             </p>
 
@@ -277,20 +277,20 @@
               <p class="text-sm text-theme-muted">If the installer cannot find any drives, you may need to load storage drivers (especially for Intel VMD or AMD RAID configurations). On Windows, click "Load Driver" during the drive selection screen and browse to the extracted driver files on another USB. On Linux, the installer usually includes these drivers.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, installing an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">os</span> involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('os')">OS</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('bootable-usb')">Bootable USB</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('iso')">ISO</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -318,7 +318,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -356,7 +356,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see the OS installation process.</p>
             <a href="diagrams/diagram-12-os/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -367,7 +367,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

@@ -171,16 +171,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">CPU Architecture</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">Overview of CPU internal design</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">Overview of CPU internal design</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Not all CPUs are created equal. The internal design of a processor — its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> — determines everything from how fast it runs to what software it can execute. Just as the layout of a city's streets and highways determines how efficiently traffic flows, the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> of a CPU determines how efficiently data and instructions move through the chip.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, we will explore the different families of CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span>, the difference between <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microarchitecture')">microarchitecture</span>, and the fundamental design philosophies that have shaped the processors we use every day. Understanding CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> will give you a deep appreciation for why some chips excel at number-crunching while others are optimized for energy efficiency.
             </p>
           </div>
@@ -189,14 +189,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At the highest level, CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> refers to the <span class="text-brand-200">Instruction Set <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">Architecture</span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span>)</span> — the set of commands a processor understands. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> is like a language: every program must be translated into this language before the CPU can execute it. Two programs written in different high-level languages can run on the same CPU as long as both are compiled into the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('microarchitecture')">microarchitecture</span></span>, on the other hand, is the physical implementation of the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> — how the transistors are arranged, how data flows through the chip, and how the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> stages are organized. Two CPUs can implement the same <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> (e.g., <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span>) with completely different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('microarchitecture')">microarchitectures</span> (e.g., Intel's Core vs. AMD's Zen), resulting in different performance and power characteristics.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architectures</span> are divided into two major philosophies: <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span></span> (Reduced Instruction Set Computer) and <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span></span> (Complex Instruction Set Computer). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> processors use a small set of simple, uniform instructions that execute in a single clock cycle, while <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span> processors provide a larger set of more powerful instructions that may take multiple cycles. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span>-based; <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> is <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span>-based.
             </p>
 
@@ -206,24 +206,24 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span>, developed by Intel in 1978 and later adopted by AMD, has dominated desktop and server computing for over four decades. Its <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span> design allows a single instruction to perform complex multi-step operations, which made it easier to program in the early days when memory was scarce and compilers were primitive. Today, modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> CPUs internally decode <span class="vocab cursor-pointer" onclick="scrollToVocabulary('cisc')">CISC</span> instructions into simpler <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span>-like micro-operations, combining the best of both worlds.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> (Advanced <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc')">RISC</span> Machines) <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span>, developed by Acorn Computers in the 1980s and now licensed by <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">Arm</span> Holdings, is the most widely used <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> in the world. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> processors power over 99% of smartphones, along with an increasing number of laptops, servers, and embedded devices. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> emphasizes energy efficiency, using a simpler <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> and fewer transistors per instruction, which translates directly into longer battery life.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Another fundamental architectural concept is <span class="text-brand-200">pipelining</span>. Instead of waiting for one instruction to complete before starting the next, a pipelined CPU overlaps the stages of multiple instructions. A classic five-stage <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipeline</span> includes Fetch, Decode, Execute, Memory Access, and Write-Back. While one instruction is being decoded, the next is being fetched, and the previous one is being executed — dramatically improving throughput.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern CPU <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architectures</span> employ <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('superscalar')">superscalar</span></span> execution, meaning they can issue multiple instructions per clock cycle across several parallel execution <span class="vocab cursor-pointer" onclick="scrollToVocabulary('pipeline')">pipelines</span>. A typical high-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> core might have six or more execution ports: integer ALUs, floating-point units, load/store units, and branch execution units. The CPU's scheduler analyzes the instruction stream and dispatches independent instructions simultaneously.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200">Out-of-order execution</span> (OoO) further enhances performance by allowing the CPU to execute instructions as soon as their operands are ready, rather than in strict program order. The CPU maintains a <span class="text-brand-200">reorder buffer</span> that tracks instruction dependencies and commits results in the original program order to ensure correctness. This technique can dramatically improve utilization of execution units when instructions stall on cache misses or data hazards.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('architecture')">architecture</span> represents a new, open-standard <span class="vocab cursor-pointer" onclick="scrollToVocabulary('isa')">ISA</span> that is gaining traction in academia and industry. Unlike <span class="vocab cursor-pointer" onclick="scrollToVocabulary('x86')">x86</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('arm')">ARM</span>, which are proprietary, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> is freely available, enabling anyone to design and manufacture chips without licensing fees. Its modular design includes a small base integer instruction set plus optional extensions for floating-point, vector processing, cryptography, and more. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('risc-v')">RISC-V</span> is particularly promising for custom application-specific processors, IoT devices, and emerging AI accelerators.
             </p>
           </div>
@@ -232,7 +232,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -261,7 +261,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -306,7 +306,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Explore a visual comparison of different CPU architectures and see how pipelines work under the hood.</p>
             <a href="diagrams/diagram-02-architecture/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -318,7 +318,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

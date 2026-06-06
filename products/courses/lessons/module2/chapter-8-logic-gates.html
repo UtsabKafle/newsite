@@ -168,19 +168,19 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Logic Gates</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The building blocks that turn binary data into decisions, calculations, and programs</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">The building blocks that turn binary data into decisions, calculations, and programs</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Imagine you are at a door with two switches. The door only opens when both switches are flipped up. This simple rule &mdash; <span class="text-brand-200">both must be true</span> &mdash; is the exact same logic your computer uses billions of times every second.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In the last chapter, you learned that computers speak binary &mdash; the language of 1s and 0s. But how does a computer actually <span class="text-brand-200">do something</span> with those 1s and 0s? The answer is <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">logic gates</span></span>. These tiny electronic circuits take binary input signals and produce binary output according to simple rules.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">Logic gates</span> are the fundamental building blocks of every digital device. By combining them in clever ways, engineers build circuits that can add numbers, compare values, store data, and execute entire programs &mdash; all starting from just a few basic rules.
             </p>
           </div>
@@ -189,8 +189,8 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">logic gate</span> is like a bouncer at a club. The bouncer checks who is at the door and decides whether to let them in. An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('and-gate')">AND gate</span> says "you can come in only if BOTH of your friends are with you." An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('or-gate')">OR gate</span> says "you can come in if EITHER friend shows up." A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('not-gate')">NOT gate</span> says "you can come in ONLY if you are NOT on the list."
             </p>
             <div class="mt-5 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10 analogy-card">
@@ -223,10 +223,10 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">Logic gates</span> are built from <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span></span>, which act as tiny electronic switches. In a typical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('and-gate')">AND gate</span>, two <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> are connected in series. Current only flows through both (producing a 1 output) when both <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> are switched on (both inputs are 1). An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('or-gate')">OR gate</span> connects <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> in parallel, so current flows if either path is active.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               By combining <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">logic gates</span>, engineers create <span class="text-brand-200">combinational circuits</span> like adders, multiplexers, and decoders. For example, a half adder uses one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('xor-gate')">XOR gate</span> and one <span class="vocab cursor-pointer" onclick="scrollToVocabulary('and-gate')">AND gate</span> to add two binary digits, producing a sum and a carry bit. An 8-bit adder chains eight of these together to add numbers up to 255.
             </p>
 
@@ -236,13 +236,13 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Modern CPUs use <span class="text-brand-200">CMOS</span> (Complementary Metal-Oxide-Semiconductor) technology to build <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">logic gates</span> from pairs of p-type and n-type <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span>. CMOS consumes very little power because current only flows during switching, not when the gate is idle. This efficiency is why billions of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('transistor')">transistors</span> can fit on a single chip without overheating.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">Logic gates</span> are combined into <span class="text-brand-200">sequential circuits</span> using feedback loops. <span class="text-brand-200">Flip-flops</span> and <span class="text-brand-200">latches</span> store a single bit of data by feeding the output of a gate back into its input. These memory elements are the building blocks of registers, cache, and RAM.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200">Arithmetic Logic Unit (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span>)</span> inside every CPU is a massive network of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('logic-gate')">logic gates</span>. A modern <span class="vocab cursor-pointer" onclick="scrollToVocabulary('alu')">ALU</span> can perform addition, subtraction, multiplication, division, bitwise operations, and comparisons &mdash; all by routing binary data through carefully designed combinations of AND, OR, NOT, and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('xor-gate')">XOR gates</span>.
             </p>
           </div>
@@ -251,7 +251,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -280,7 +280,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -321,7 +321,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-08-logic-gates/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -331,7 +331,7 @@
         </section>
 <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

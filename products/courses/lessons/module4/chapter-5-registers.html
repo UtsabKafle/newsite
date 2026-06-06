@@ -171,16 +171,16 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Registers</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">The CPU's fastest memory</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">The CPU's fastest memory</p>
 
         <!-- Introduction -->
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Inside every CPU, right next to the ALU and Control Unit, sit tiny storage locations called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Registers</span> are the fastest form of memory in a computer system — even faster than the L1 cache. They are built directly into the CPU's execution core and can be read or written in a single clock cycle.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every instruction the CPU executes involves <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> in some way. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Registers</span> hold the operands for arithmetic operations, store the results of calculations, keep track of the next instruction to execute, and hold the CPU's current status. Without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span>, the CPU would have to access main memory (RAM) for every single operation, which would be hundreds of times slower.
             </p>
           </div>
@@ -189,14 +189,14 @@
         <!-- How It Works -->
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> is a group of flip-flops, each storing one bit of data. If a CPU has 64-bit <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> (as all modern x86 and ARM CPUs do), each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> consists of 64 flip-flops arranged in parallel. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-file')">register file</span></span> is a collection of all general-purpose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> in the CPU, organized as a small, ultra-fast array that can be accessed in parallel by different execution units.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Different <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> serve different purposes. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('accumulator')">Accumulator</span></span> (often called RAX in x86) is the primary <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> used for arithmetic and logic operations. The <span class="text-brand-200">Program Counter</span> (PC, also called RIP in x86) holds the memory address of the next instruction to execute. The <span class="text-brand-200">Memory Address <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span></span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mar')">MAR</span>) holds the address being accessed in memory, while the <span class="text-brand-200">Memory Data <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span></span> (<span class="vocab cursor-pointer" onclick="scrollToVocabulary('mdr')">MDR</span>) holds the actual data being read from or written to memory.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200">Stack <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span></span> (SP, Stack Pointer) points to the top of the call stack in memory, which stores function return addresses and local variables. The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('flag-register')">Flag Register</span></span> (also called the Status <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">Register</span> or FLAGS) stores the condition flags set by ALU operations — zero, carry, overflow, sign, and parity flags that control conditional branching.
             </p>
 
@@ -206,24 +206,24 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The number and types of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> vary by architecture. x86-64 processors have 16 general-purpose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> (RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, and R8 through R15), each 64 bits wide. ARM64 (AArch64) processors have 31 general-purpose <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> (X0 through X30). These <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> can also be accessed in narrower forms — for example, the lower 32 bits of RAX are called EAX, the lower 16 bits are AX, and the lower 8 bits are AL.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Most instructions use <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> as operands. For example, an ADD instruction in x86 might look like <code class="text-brand-200 bg-brand-500/10 px-1 rounded">ADD RAX, RBX</code>, which adds the value in RBX to the value in RAX and stores the result back in RAX. This is called a <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span>-to-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span></span> operation and is the fastest type of instruction. Instructions that access memory (like LOAD and STORE) are slower because memory is further from the CPU core.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-file')">register file</span></span> is a critical component of CPU performance. Modern CPUs implement <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-file')">register files</span> with multiple read and write ports, allowing several instructions to read from and write to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> simultaneously. A typical high-performance CPU might have a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-file')">register file</span> with 8 read ports and 4 write ports, enabling the dispatch of multiple instructions per cycle without <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> access conflicts.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               One of the key innovations in modern CPU design is <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-renaming')">register renaming</span></span>. Out-of-order execution can create false dependencies when different instructions use the same architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> but don't actually depend on each other. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register-renaming')">Register renaming</span> maps architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> to a larger pool of physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span>, eliminating these false dependencies and allowing more instructions to execute in parallel.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200">Architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span></span> are the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> defined by the ISA — the ones programmers and compilers see. <span class="text-brand-200">Physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span></span> are the actual hardware <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> inside the CPU. A modern CPU might have 16 architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> but 200+ physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> alias table (RAT) maps architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> names to physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> numbers, and the reorder buffer tracks which physical <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> holds the latest committed value for each architectural <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               On some architectures, certain <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> have special roles. For example, in x86, the RCX <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> is used as the loop counter for the LOOP instruction, RSI and RDI are source and destination index <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">registers</span> for string operations, and RBP is the base pointer for stack frames. In ARM64, X30 is the link <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> that holds the return address for function calls, and X29 is the frame pointer. Understanding these special <span class="vocab cursor-pointer" onclick="scrollToVocabulary('register')">register</span> roles is essential for low-level programming and optimization.
             </p>
           </div>
@@ -232,7 +232,7 @@
         <!-- Vocabulary Table -->
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -261,7 +261,7 @@
         <!-- Fun Facts -->
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -306,7 +306,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">See how data flows through the CPU's register file during instruction execution.</p>
             <a href="diagrams/diagram-05-registers/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -318,7 +318,7 @@
         <!-- Knowledge Check -->
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

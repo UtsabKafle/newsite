@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Heat, Power &amp; Cooling</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">TDP, thermal management, and power efficiency</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">TDP, thermal management, and power efficiency</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Every time a CPU executes instructions, it consumes electrical power — and almost all of that power is converted into heat. A modern high-performance CPU can draw over 200 watts of power, equivalent to two bright incandescent light bulbs, all concentrated into a chip smaller than your thumbnail. Managing this heat is one of the greatest challenges in processor design.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The relationship between power, heat, and performance is governed by physics. Higher clock speeds and voltages increase power consumption quadratically — doubling the voltage quadruples the power draw. This is why CPU frequencies stopped scaling past about 4-5 GHz and why the industry shifted to multi-core designs instead. The <span class="text-brand-200">power wall</span> is the fundamental constraint that shapes modern CPU architecture.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Understanding heat and power is essential not just for CPU designers but for anyone building or maintaining computers. Proper cooling ensures your CPU can maintain its maximum performance without <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">thermal throttling</span></span> — the automatic reduction in clock speed when temperatures get too high. Good thermal management also extends component lifespan and reduces noise from cooling fans.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">A CPU is like a tiny electric heater that happens to do useful calculations. The electrical resistance of billions of transistors switching billions of times per second generates enormous heat. Without a cooling system, a CPU would reach temperatures of over 200&deg;C in seconds and physically destroy itself.</p>
@@ -206,34 +206,34 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span></span> (Thermal Design Power) is the maximum amount of heat a cooling system must dissipate when the CPU is running at its base clock speed under a realistic maximum workload. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> is measured in watts. A CPU with a 125W <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> requires a cooler capable of handling at least 125W of heat. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> is not the same as power consumption — actual power draw can exceed <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> under heavy loads, especially when turbo boost is active.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> ranges vary enormously. Low-power mobile CPUs like the Intel Core i5-1235U have a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> of just 15W, allowing them to run fanless in some designs. Desktop CPUs like the Intel Core i9-14900K have a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> of 125W but can draw over 250W under full load with turbo boost. Server CPUs like the AMD EPYC 9654 have a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> of 360W, requiring massive cooling solutions and significant data centre power budgets.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Thermal Throttling</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">Thermal throttling</span></span> is the CPU's self-protection mechanism. When the internal temperature exceeds a safe threshold (typically around 95-105&deg;C for modern CPUs), the processor automatically reduces its clock speed and voltage to lower heat generation. This prevents permanent damage but also reduces performance — sometimes dramatically.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Throttling can be caused by inadequate cooling (small <span class="vocab cursor-pointer" onclick="scrollToVocabulary('heatsink')">heatsink</span>, poor airflow, dusty fans), high ambient temperature, or extended heavy workloads. In laptops, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">thermal throttling</span> is a common issue because the cooling system is constrained by size and weight. A laptop might run at full speed for only 30-60 seconds before throttling kicks in — this is why "sustained performance" benchmarks are more meaningful than burst performance.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Cooling Methods: Air vs. Liquid</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200">Air cooling</span> is the most common and cost-effective method. A metal <span class="vocab cursor-pointer" onclick="scrollToVocabulary('heatsink')">heatsink</span> (typically copper heat pipes bonded to aluminium fins) sits on top of the CPU, and a fan blows air across the fins to carry heat away. High-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('air-cooler')">air coolers</span> like the Noctua NH-D15 can handle CPUs with <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDPs</span> up to 250W and are nearly silent in operation. Air cooling is reliable, requires no maintenance, and has no risk of leaks.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('liquid-cooling')">Liquid cooling</span></span> (also called water cooling) uses a pump to circulate coolant through a block attached to the CPU and then through a radiator where fans expel the heat. AIO (All-In-One) liquid coolers are sealed units that require no maintenance. Custom loop <span class="vocab cursor-pointer" onclick="scrollToVocabulary('liquid-cooling')">liquid cooling</span> allows enthusiasts to cool the CPU, GPU, and other components with a single system, often achieving lower temperatures than air cooling, especially under sustained loads.
             </p>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Power Efficiency and DVFS</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('dvfs')">DVFS</span></span> (Dynamic Voltage and Frequency Scaling) is the technology that allows a CPU to adjust its voltage and clock speed on the fly based on workload demand. When the CPU is idle, it can drop to a very low frequency and voltage, consuming just a few watts. When a demanding task starts, it ramps up within microseconds. This is why modern CPUs spend most of their time at low power states, contributing significantly to battery life in laptops and energy savings in data centres.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('undervolting')">Undervolting</span></span> is a technique used by enthusiasts to reduce CPU voltage while maintaining the same clock speed. This reduces power consumption and heat output, which can improve sustained performance by reducing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">thermal throttling</span>. However, too little voltage causes instability and crashes. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('undervolting')">Undervolting</span> requires careful testing and is not officially supported by most CPU manufacturers, though it is generally safe when done correctly.
             </p>
 
@@ -242,20 +242,20 @@
               <p class="text-sm text-theme-muted">Power and heat are the fundamental constraints on CPU performance. The laws of physics — not engineering — prevent CPUs from running at 10 GHz or having 1000 cores on a single chip. All modern CPU design is, at its core, a battle against heat. Every architectural innovation, from pipelining to multi-core to chiplet designs, is ultimately about doing more work within strict power and thermal budgets.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, heat, power &amp; cooling involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tdp')">TDP</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('thermal-throttling')">Thermal Throttling</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('heatsink')">Heatsink</span> design helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -283,7 +283,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -321,7 +321,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to explore Heat, Power &amp; Cooling.</p>
             <a href="diagrams/diagram-13-heat-power/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -332,7 +332,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

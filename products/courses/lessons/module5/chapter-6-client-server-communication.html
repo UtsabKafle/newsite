@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">Client-Server Communication</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How the frontend and backend talk over the internet</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">How the frontend and backend talk over the internet</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               You tap a button in an app, and moments later, fresh data appears on your screen. But how did that data get there? It travelled across the internet — from a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> thousands of kilometres away — in a conversation between two pieces of software: the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span></span> and the <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span></span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span> is your device — your phone, laptop, or tablet running the frontend. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> is a remote computer running the backend. They communicate by sending messages called <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">requests</span></span> and <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('response')">responses</span></span> over a protocol called <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, you will learn exactly how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> communication works, step by step, and the technologies that make it possible.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">When the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span> needs data, it sends an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">request</span> to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">request</span> includes a method (GET, POST, PUT, DELETE), a URL, headers, and optionally a body. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> processes the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">request</span> and sends back an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('response')">response</span> with a status code, headers, and the requested data (often in JSON).</p>
@@ -206,7 +206,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">The Six Steps of Communication</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Here is what happens when you interact with an app:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -237,13 +237,13 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               The communication happens over <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp-ip')">TCP/IP</span></span> — the fundamental protocol of the internet. TCP ensures that all data packets arrive in the correct order. IP routes each packet to the correct destination using IP addresses.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTP</span></span> (HyperText Transfer Protocol) sits on top of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('tcp-ip')">TCP/IP</span>. It defines the format of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">requests</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('response')">responses</span>. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('http')">HTTPS</span> is the secure version — it encrypts all data so that nobody can read it in transit.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">Latency</span></span> is the time it takes for a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">request</span> to travel from <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span> to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> and back. It is measured in milliseconds. Even 100ms of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('latency')">latency</span> can feel slow to a user. That is why <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">servers</span> are placed in data centres all over the world — to be closer to users.
             </p>
 
@@ -252,20 +252,20 @@
               <p class="text-sm text-theme-muted">The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span> and <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> do not need to know anything about each other's internal code. They only need to agree on the format of the messages they exchange — this is called a protocol.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">client</span>-<span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> communication involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('client')">Client</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('request')">Request</span> helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -290,7 +290,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -329,7 +329,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-06-client-server/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -340,7 +340,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 

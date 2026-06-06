@@ -175,18 +175,18 @@
         </div>
 
         <h1 class="section-title text-3xl tracking-tight leading-tight lg:text-5xl">APIs &mdash; How Apps Talk</h1>
-        <p class="mt-2.5 text-[15px] lg:mt-4 lg:text-xl text-brand-200">How apps communicate with each other</p>
+        <p class="mt-2.5 text-[14px] lg:mt-4 lg:text-xl text-brand-200">How apps communicate with each other</p>
 
         <section class="mt-8 lg:mt-12 reveal" id="introduction">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Introduction</h2>
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               When a weather app shows you today's forecast, it does not have its own weather station. When you log into a website using Google, the website does not store your Google password. In both cases, apps are talking to each other through <span class="text-brand-200 font-semibold"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span></span> — Application Programming Interfaces.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> is a messenger. It allows one piece of software to request data or services from another piece of software in a structured, predictable way. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are the glue that connects the modern internet — every app you use relies on dozens of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> working behind the scenes.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               In this chapter, you will learn what <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are, how they work, real-world examples, and why they are essential to modern software.
             </p>
           </div>
@@ -194,7 +194,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="how-it-works">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">How It Works</h2>
 
             <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
               <p class="text-sm text-theme-muted">An <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> defines a set of rules that allow two applications to communicate. One app sends a request to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">endpoint</span> (a specific URL), usually including authentication and parameters. The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> processes the request, queries its own backend or database, and returns structured data — most commonly in <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> format.</p>
@@ -206,7 +206,7 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Real-World Examples</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are everywhere. Here are some common examples:
             </p>
             <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -234,13 +234,13 @@
             </div>
 
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Deeper Dive</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> typically return data in <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span></span> (JavaScript Object Notation) — a lightweight, human-readable format that is easy for computers to parse. A <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> response from a weather <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> might look like: <code class="text-brand-200">{"temp": 22, "condition": "sunny"}</code>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('third-party-api')">third-party APIs</span></span> — services built by one company that other developers can use. Twitter has an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>, Stripe has a payment <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>, Twilio has a messaging <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span>. This is called <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('integration')">integration</span></span> — combining different services through their <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span>.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Most <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> enforce <span class="text-brand-200"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rate-limit')">rate limits</span></span> — they restrict how many requests you can make in a given time period. This prevents abuse and ensures fair usage for all developers. A free weather <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> might allow 1,000 requests per day, while a paid plan allows millions.
             </p>
 
@@ -249,20 +249,20 @@
               <p class="text-sm text-theme-muted"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> are the reason modern apps can be built so quickly. Instead of building everything from scratch, developers integrate existing <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">APIs</span> for payments, maps, messaging, AI, and more.</p>
             </div>
             <h3 class="mt-8 text-xl font-display font-bold lg:text-2xl">Advanced</h3>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               At a deeper level, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">apis</span> &mdash; how apps talk involves rules and patterns that engineers use worldwide. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('api')">API</span> follows standards so different brands and devices can still work together. That is why your phone, school laptop, and game console can all connect to the same network or use the same apps.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               <span class="vocab cursor-pointer" onclick="scrollToVocabulary('json')">JSON</span> does not happen in a straight line. Systems often use backup paths, error checking, and retries so information arrives correctly. When something fails, smart <span class="vocab cursor-pointer" onclick="scrollToVocabulary('endpoint')">Endpoint</span> helps the system recover instead of shutting down completely.
             </p>
-            <p class="mt-3 text-theme-muted leading-relaxed text-[15px] lg:text-base">
+            <p class="mt-3 text-theme-muted leading-relaxed text-[14px] lg:text-base">
               Scientists and engineers keep improving these systems every year — making them faster, safer, and more energy-efficient. The ideas you learn in this chapter are the same building blocks used in real data centers, robots, apps, and websites around the world.
             </p></div>
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="vocabulary">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Vocabulary Table</h2>
             <div class="mt-4 overflow-x-auto">
               <table class="vocab-table w-full text-sm">
                 <thead>
@@ -286,7 +286,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="fun-facts">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Fun Facts</h2>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="glass-panel p-5 rounded-xl bg-brand-500/[0.02] border border-brand-500/10">
                 <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center mb-3">
@@ -325,7 +325,7 @@
         <!-- Interactive Diagram -->
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
           <div class="glass-panel p-6 lg:p-8 text-center">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-07-apis/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
@@ -336,7 +336,7 @@
 
         <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-2xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
+            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
             <div class="mt-6 space-y-6">
 
