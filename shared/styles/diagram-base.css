@@ -480,8 +480,6 @@ body {
   border-bottom: var(--border);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
   flex-shrink: 0;
   background: rgba(0, 0, 0, 0.15);
 }
@@ -491,11 +489,6 @@ body {
   font-weight: 700;
   color: var(--brand-light);
   word-break: break-word;
-}
-.explorer-mode {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
 }
 
 /* Explorer Scroll */
@@ -917,6 +910,329 @@ body {
 .sim-input:focus {
   border-color: var(--brand-light);
   box-shadow: 0 0 8px var(--brand-glow);
+}
+
+/* ═══════════════════════════════════════════════════════
+   LIGHT THEME — overrides via data-theme attribute
+   ═══════════════════════════════════════════════════════ */
+[data-theme="light"], .light {
+  --surface: #f0f4f8;
+  --surface-tint: rgba(248, 250, 252, 0.92);
+  --surface2: #e2e8f0;
+  --surface3: #cbd5e1;
+  --text: #0f172a;
+  --text-muted: #334155;
+  --text-faint: #64748b;
+  --glass: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+  --border: 1px solid rgba(0, 0, 0, 0.08);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 25px rgba(9, 89, 200, 0.2);
+}
+
+[data-theme="light"] body,
+.light body {
+  background: radial-gradient(circle at top center, #dbe4f0 0%, var(--surface) 100%);
+}
+
+[data-theme="light"] .lab-breadcrumb a,
+.light .lab-breadcrumb a {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .lab-breadcrumb span:last-child,
+.light .lab-breadcrumb span:last-child {
+  color: var(--text);
+}
+
+[data-theme="light"] .lab-header-icon,
+.light .lab-header-icon {
+  border-color: rgba(9, 89, 200, 0.2);
+}
+
+[data-theme="light"] .lab-actions,
+.light .lab-actions {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .act-btn,
+.light .act-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--text);
+}
+
+[data-theme="light"] .act-btn:hover,
+.light .act-btn:hover {
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+  color: var(--text);
+}
+
+[data-theme="light"] .act-btn.active,
+.light .act-btn.active {
+  color: #fff;
+}
+
+[data-theme="light"] .mode-selector-group,
+.light .mode-selector-group {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .mode-btn,
+.light .mode-btn {
+  color: var(--text-faint);
+}
+
+[data-theme="light"] .mode-btn:hover,
+.light .mode-btn:hover {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .speed-ctrl button,
+.light .speed-ctrl button {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text);
+}
+
+[data-theme="light"] .speed-ctrl button:hover,
+.light .speed-ctrl button:hover {
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+  color: var(--text);
+}
+
+[data-theme="light"] .lab-diagram,
+.light .lab-diagram {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .lab-explorer,
+.light .lab-explorer {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .explorer-header,
+.light .explorer-header {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .ex-value,
+.light .ex-value {
+  color: var(--text);
+}
+
+[data-theme="light"] .lab-steps,
+.light .lab-steps {
+  background: linear-gradient(transparent, rgba(240, 244, 248, 0.95) 70%);
+}
+
+[data-theme="light"] .step-btn,
+.light .step-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--text);
+}
+
+[data-theme="light"] .step-btn:hover:not(:disabled),
+.light .step-btn:hover:not(:disabled) {
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+  color: var(--text);
+}
+
+[data-theme="light"] .insight-card,
+.light .insight-card {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="light"] .badge-time,
+.light .badge-time {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-faint);
+}
+
+[data-theme="light"] .lab-wrapper.lab-fullscreen,
+.light .lab-wrapper.lab-fullscreen {
+  background: var(--surface);
+}
+
+[data-theme="light"] .challenge-box,
+.light .challenge-box {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .challenge-opt-btn,
+.light .challenge-opt-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .challenge-opt-btn:hover,
+.light .challenge-opt-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: var(--text);
+}
+
+[data-theme="light"] .concept-tag,
+.light .concept-tag {
+  background: rgba(9, 89, 200, 0.06);
+  border-color: rgba(9, 89, 200, 0.15);
+}
+
+[data-theme="light"] .explorer-empty p,
+.light .explorer-empty p {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb,
+.light ::-webkit-scrollbar-thumb {
+  background: var(--text-faint);
+}
+
+/* SVG / Component overrides for light theme */
+[data-theme="light"] .connection,
+.light .connection {
+  stroke: #94a3b8;
+}
+
+[data-theme="light"] .connection-arrow,
+.light .connection-arrow {
+  fill: #94a3b8;
+}
+
+[data-theme="light"] .component-bg :is(rect, polygon, path, circle):not([fill*="url("]),
+.light .component-bg :is(rect, polygon, path, circle):not([fill*="url("]) {
+  stroke: #94a3b8 !important;
+}
+
+[data-theme="light"] .flow-dot.packet rect,
+.light .flow-dot.packet rect {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .lab-diagram .flow-dot:not(.packet),
+.light .lab-diagram .flow-dot:not(.packet) {
+  fill: #10b981;
+}
+
+[data-theme="light"] .insight-icon,
+.light .insight-icon {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Builder panel overrides for light theme (inline rgba(255,255,255,*) -> rgba(0,0,0,*) equivalent) */
+[data-theme="light"] #packet-bar,
+.light #packet-bar {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] #packet-bar-inner div,
+.light #packet-bar-inner div {
+  color: var(--text-muted) !important;
+}
+[data-theme="light"] #packet-bar-inner strong,
+.light #packet-bar-inner strong {
+  color: var(--text) !important;
+}
+[data-theme="light"] .lab-diagram [style*="padding:40px"],
+.light .lab-diagram [style*="padding:40px"] {
+  color: var(--text-muted) !important;
+}
+[data-theme="light"] .flow-dot.packet rect,
+.light .flow-dot.packet rect {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+/* === Inline-style text color overrides for light theme ===
+   Target elements whose style attribute contains these hardcoded colors.
+   SVG text elements inside the diagram are handled by DIAGRAM_THEMES in JS already. */
+[data-theme="light"] [style*="color:#e2e8f0"],
+.light [style*="color:#e2e8f0"] {
+  color: #1e293b !important;
+}
+[data-theme="light"] [style*="color:#94a3b8"],
+.light [style*="color:#94a3b8"] {
+  color: #475569 !important;
+}
+[data-theme="light"] [style*="color:#cbd5e1"],
+.light [style*="color:#cbd5e1"] {
+  color: #334155 !important;
+}
+[data-theme="light"] [style*="color:#475569"],
+.light [style*="color:#475569"] {
+  color: #64748b !important;
+}
+[data-theme="light"] [style*="color:#f8fafc"],
+.light [style*="color:#f8fafc"] {
+  color: #0f172a !important;
+}
+/* Drag-matching sim-card and progress text in light theme */
+[data-theme="light"] .sim-card,
+.light .sim-card {
+  color: #1e293b !important;
+  background: rgba(9, 89, 200, 0.08) !important;
+}
+/* Background rgba(255,255,255,*) -> rgba(0,0,0,*) for light theme in builder panels */
+[data-theme="light"] [style*="background:rgba(255,255,255,"],
+.light [style*="background:rgba(255,255,255,"] {
+  background-color: transparent !important;
+}
+/* Border rgba(255,255,255,*) -> rgba(0,0,0,*) for light theme */
+[data-theme="light"] [style*="border:1px solid rgba(255,255,255,"],
+.light [style*="border:1px solid rgba(255,255,255,"] {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] [style*="border:2px dashed rgba(255,255,255,"],
+.light [style*="border:2px dashed rgba(255,255,255,"] {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Theme toggle button in action bar */
+.theme-toggle-btn-diagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.theme-toggle-btn-diagram:hover {
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.theme-toggle-btn-diagram:active {
+  transform: scale(0.97);
+}
+[data-theme="light"] .theme-toggle-btn-diagram,
+.light .theme-toggle-btn-diagram {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--text);
+  color: var(--text);
+}
+[data-theme="light"] .theme-toggle-btn-diagram:hover,
+.light .theme-toggle-btn-diagram:hover {
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+  color: var(--text);
 }
 
 /* ── Scrollbars ── */

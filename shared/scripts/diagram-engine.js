@@ -54,6 +54,29 @@ const ICONS={
   settings:'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z'
 };
 
+const DIAGRAM_THEMES = {
+  dark: {
+    compBgs: ['#1a2235','#1d2638','#16233a','#1a2538','#1c2838','#18243a'],
+    connColors: ['#475569','#64748b','#475569'],
+    connLabel: '#94a3b8',
+    compText: '#e2e8f0',
+    iconBg: 'rgba(9,89,200,0.15)',
+    iconPath: '#60a5fa',
+    markerBg: 'rgba(9,89,200,0.2)',
+    markerText: '#60a5fa'
+  },
+  light: {
+    compBgs: ['#e2e8f0','#cbd5e1','#d1d5db','#d4d4d8','#e5e7eb','#dce1e8'],
+    connColors: ['#94a3b8','#64748b','#94a3b8'],
+    connLabel: '#64748b',
+    compText: '#1e293b',
+    iconBg: 'rgba(9,89,200,0.1)',
+    iconPath: '#3b82f6',
+    markerBg: 'rgba(9,89,200,0.12)',
+    markerText: '#3b82f6'
+  }
+};
+
 class DiagramEngine {
   constructor(cfg) {
     this.cfg = cfg;
@@ -64,11 +87,12 @@ class DiagramEngine {
     this.selectedId = null;
     this.currentStep = -1;
     this.detailMode = 'basic';
-    this.mode = 'learn'; // 'learn', 'explore', 'challenge'
+    this.mode = 'learn'; // 'learn' or 'challenge'
     this.lastFrame = 0;
     this.rafId = null;
     this._connPaths = [];
     this._flowDots = [];
+    this._theme = null;
 
     // LocalStorage key for Completion
     this.storageKey = `consica-diagram-${cfg.module || 0}-${cfg.title.replace(/\s+/g, '-').toLowerCase()}-completed`;
@@ -77,6 +101,7 @@ class DiagramEngine {
     this._build();
     this._bind();
     this._initCompletion();
+    this._initTheme();
 
     if (this.cfg.render) this.cfg.render(this.el.visual, this);
     this._showEmptyState();
@@ -86,6 +111,58 @@ class DiagramEngine {
       this.speed = 0;
       this._updateSpeedDisplay();
     }
+  }
+
+  _getTheme() {
+    return localStorage.getItem('consica-theme') || (window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+  }
+
+  _applyTheme(theme) {
+    this._theme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+    const tb = document.getElementById('diagram-theme-toggle');
+    if (tb) {
+      const next = theme === 'light' ? 'dark' : 'light';
+      tb.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+      tb.innerHTML = theme === 'light'
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="act-label">Dark</span>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><span class="act-label">Light</span>';
+    }
+  }
+
+  _initTheme() {
+    const saved = this._getTheme();
+    this._applyTheme(saved);
+  }
+
+  _toggleTheme() {
+    const next = this._theme === 'light' ? 'dark' : 'light';
+    this._applyTheme(next);
+    localStorage.setItem('consica-theme', next);
+    if (this.mode === 'learn') {
+      this.pause();
+      this.t = 0;
+      this.currentStep = 0;
+      if (this.cfg.render) this.cfg.render(this.el.visual, this);
+      this._applyStep();
+    } else if (this.mode === 'challenge') {
+      if (this.cfg.customChallenge) {
+        this.cfg.customChallenge(this.el.visual, this);
+      } else {
+        this.buildFallbackChallenge();
+      }
+    }
+  }
+
+  _pal() {
+    return DIAGRAM_THEMES[this._theme === 'light' ? 'light' : 'dark'];
   }
 
   _build() {
@@ -151,7 +228,6 @@ class DiagramEngine {
         <div class="action-group">
           <div class="mode-selector-group" role="radiogroup" aria-label="Exploration Mode">
             <button class="mode-btn active" id="mode-learn" role="radio" aria-checked="true">Learn Mode</button>
-            <button class="mode-btn" id="mode-explore" role="radio" aria-checked="false">Explore Mode</button>
             <button class="mode-btn" id="mode-challenge" role="radio" aria-checked="false">Challenge Mode</button>
           </div>
         </div>
@@ -163,6 +239,10 @@ class DiagramEngine {
           <button class="speed-down" aria-label="Decrease speed">−</button>
           <span class="speed-display" aria-live="polite">1×</span>
           <button class="speed-up" aria-label="Increase speed">+</button>
+        </div>
+        
+        <div class="action-group">
+          <button class="theme-toggle-btn-diagram" id="diagram-theme-toggle" aria-label="Switch to light mode"></button>
         </div>
         
         <div class="action-spacer"></div>
@@ -192,10 +272,6 @@ class DiagramEngine {
           <div class="explorer-content" id="explorer-content" hidden>
             <div class="explorer-header">
               <h2 class="explorer-name" id="explorer-name"></h2>
-              <div class="explorer-mode" role="group" aria-label="Detail level">
-                <button class="expl-mode-btn active" data-mode="basic" aria-pressed="true">Overview</button>
-                <button class="expl-mode-btn" data-mode="detailed" aria-pressed="false">Details</button>
-              </div>
             </div>
             <div class="explorer-scroll" id="explorer-scroll"></div>
           </div>
@@ -242,7 +318,6 @@ class DiagramEngine {
     this.el.explorerContent = $('#explorer-content', w);
     this.el.explorerName = $('#explorer-name', w);
     this.el.explorerScroll = $('#explorer-scroll', w);
-    this.el.explorerModeBtns = $$('.expl-mode-btn', this.el.explorer);
     // Insights
     this.el.insights = $('#lab-insights', w);
     this.el.insightTakeaway = $('#insight-takeaway-text', w);
@@ -256,7 +331,6 @@ class DiagramEngine {
 
     // Modes
     this.el.modeLearnBtn = $('#mode-learn', w);
-    this.el.modeExploreBtn = $('#mode-explore', w);
     this.el.modeChallengeBtn = $('#mode-challenge', w);
 
     // Completion Status Button
@@ -270,13 +344,12 @@ class DiagramEngine {
     this.el.speedDown.addEventListener('click', () => this._adjustSpeed(-0.5));
     this.el.speedUp.addEventListener('click', () => this._adjustSpeed(0.5));
     this.el.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+    const themeBtn = document.getElementById('diagram-theme-toggle');
+    if (themeBtn) themeBtn.addEventListener('click', () => this._toggleTheme());
     this.el.stepPrev.addEventListener('click', () => this.prevStep());
     this.el.stepNext.addEventListener('click', () => this.nextStep());
-    this.el.explorerModeBtns.forEach(b => b.addEventListener('click', () => this._setDetailMode(b.dataset.mode)));
-
     // Mode listeners
     this.el.modeLearnBtn.addEventListener('click', () => this.setMode('learn'));
-    this.el.modeExploreBtn.addEventListener('click', () => this.setMode('explore'));
     this.el.modeChallengeBtn.addEventListener('click', () => this.setMode('challenge'));
 
     // Completion Status Toggle
@@ -335,10 +408,8 @@ class DiagramEngine {
   setMode(mode) {
     this.mode = mode;
     this.el.modeLearnBtn.classList.toggle('active', mode === 'learn');
-    this.el.modeExploreBtn.classList.toggle('active', mode === 'explore');
     this.el.modeChallengeBtn.classList.toggle('active', mode === 'challenge');
     this.el.modeLearnBtn.setAttribute('aria-checked', mode === 'learn' ? 'true' : 'false');
-    this.el.modeExploreBtn.setAttribute('aria-checked', mode === 'explore' ? 'true' : 'false');
     this.el.modeChallengeBtn.setAttribute('aria-checked', mode === 'challenge' ? 'true' : 'false');
 
     this.pause();
@@ -353,12 +424,6 @@ class DiagramEngine {
       this.currentStep = 0;
       if (this.cfg.render) this.cfg.render(this.el.visual, this);
       this._applyStep();
-    } else if (mode === 'explore') {
-      $('#playback-controls').style.display = 'flex';
-      $('#divider-play').style.display = 'block';
-      this.el.stepControls.hidden = true;
-      if (this.cfg.render) this.cfg.render(this.el.visual, this);
-      this._setStatus('Explore mode: click components directly');
     } else if (mode === 'challenge') {
       $('#playback-controls').style.display = 'none';
       $('#divider-play').style.display = 'none';
@@ -654,15 +719,6 @@ class DiagramEngine {
     if (!this.cfg.components) return null;
     return this.cfg.components.find(c => c.id === id) || null;
   }
-  _setDetailMode(mode) {
-    this.detailMode = mode;
-    this.el.explorerModeBtns.forEach(b => {
-      const a = b.dataset.mode === mode;
-      b.classList.toggle('active', a);
-      b.setAttribute('aria-pressed', a);
-    });
-    if (this.selectedId) this._showExplanation(this.selectedId);
-  }
 
   toggleFullscreen() {
     const w = this.el.wrapper;
@@ -724,7 +780,8 @@ class DiagramEngine {
     }
 
     const hasPos = comps.some(c => c.x !== undefined);
-    const compColors = ['#1a2235', '#1d2638', '#16233a', '#1a2538', '#1c2838', '#18243a'];
+    const pal = this._pal();
+    const compColors = pal.compBgs;
     let w, h, autoCols, autoRows, autoCw = 120, autoCh = 56, autoGx = 18, autoGy = 22, autoPx = 20, autoPy = 18;
     let compsPos = [];
 
@@ -796,7 +853,7 @@ class DiagramEngine {
 
     // Render connections
     this._connPaths = [];
-    const colors = ['#475569', '#64748b', '#475569'];
+    const colors = pal.connColors;
     conns.forEach((c, i) => {
       const fi = comps.findIndex(x => x.id === c.from);
       const ti = comps.findIndex(x => x.id === c.to);
@@ -839,7 +896,7 @@ class DiagramEngine {
       if (c.label) {
         const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         t.setAttribute('x', mx); t.setAttribute('y', my - 8);
-        t.setAttribute('text-anchor', 'middle'); t.setAttribute('fill', '#94a3b8');
+        t.setAttribute('text-anchor', 'middle'); t.setAttribute('fill', pal.connLabel);
         t.setAttribute('font-size', '11'); t.setAttribute('font-weight', '500');
         t.textContent = c.label;
         svg.appendChild(t);
@@ -881,7 +938,7 @@ class DiagramEngine {
       name.setAttribute('x', textX);
       name.setAttribute('y', cy + ch - 10);
       name.setAttribute('text-anchor', 'middle');
-      name.setAttribute('fill', '#e2e8f0');
+      name.setAttribute('fill', pal.compText);
       name.setAttribute('font-size', String(fs));
       name.setAttribute('font-weight', '600');
       name.setAttribute('font-family', "'Inter',sans-serif");
@@ -1009,6 +1066,7 @@ class DiagramEngine {
   _renderIcon(g, key, cx, cy, cw, ch) {
     const pathData = ICONS[key];
     if (!pathData) return;
+    const pal2 = this._pal();
     const iconSize = 18;
     const ix = cx + cw / 2 - iconSize / 2;
     const iy = cy + ch / 2 - iconSize / 2 - 5;
@@ -1018,26 +1076,27 @@ class DiagramEngine {
 
     const bg = document.createElementNS(svgNs, 'circle');
     bg.setAttribute('cx', cx + cw / 2); bg.setAttribute('cy', cy + ch / 2 - 5);
-    bg.setAttribute('r', '12'); bg.setAttribute('fill', '#0959C8'); bg.setAttribute('opacity', '0.15');
+    bg.setAttribute('r', '12'); bg.setAttribute('fill', '#0959C8'); bg.setAttribute('opacity', this._theme === 'light' ? '0.1' : '0.15');
     iconGroup.appendChild(bg);
 
     const path = document.createElementNS(svgNs, 'path');
-    path.setAttribute('d', pathData); path.setAttribute('fill', '#60a5fa'); path.setAttribute('opacity', '0.9');
+    path.setAttribute('d', pathData); path.setAttribute('fill', pal2.iconPath); path.setAttribute('opacity', '0.9');
     path.setAttribute('transform', `translate(${ix},${iy}) scale(${iconSize / 24})`);
     iconGroup.appendChild(path);
     g.appendChild(iconGroup);
   }
 
   _renderDefaultMarker(g, cx, cy, cw, ch, id) {
+    const pal2 = this._pal();
     const svgNs = 'http://www.w3.org/2000/svg';
     const circle = document.createElementNS(svgNs, 'circle');
     circle.setAttribute('cx', cx + 22); circle.setAttribute('cy', cy + ch / 2);
-    circle.setAttribute('r', '16'); circle.setAttribute('fill', '#0959C8'); circle.setAttribute('opacity', '0.2');
+    circle.setAttribute('r', '16'); circle.setAttribute('fill', '#0959C8'); circle.setAttribute('opacity', this._theme === 'light' ? '0.12' : '0.2');
     g.appendChild(circle);
 
     const letter = document.createElementNS(svgNs, 'text');
     letter.setAttribute('x', cx + 22); letter.setAttribute('y', cy + ch / 2 + 5);
-    letter.setAttribute('text-anchor', 'middle'); letter.setAttribute('fill', '#60a5fa');
+    letter.setAttribute('text-anchor', 'middle'); letter.setAttribute('fill', pal2.markerText);
     letter.setAttribute('font-size', '14'); letter.setAttribute('font-weight', '700');
     letter.setAttribute('font-family', "'Inter',sans-serif"); letter.setAttribute('pointer-events', 'none');
     letter.textContent = (id || '?')[0].toUpperCase();

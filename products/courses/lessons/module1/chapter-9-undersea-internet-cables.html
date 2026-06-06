@@ -145,12 +145,41 @@ img{max-width:100%;height:auto}
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
+          <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-09-undersea-cables/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
               Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          
+            <hr class="my-6 border-theme">
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-theme-muted text-[14px] lg:text-base">
+            <div class="glass-panel p-4">
+            <h3 class="font-semibold text-brand-200">Cable Cross-Section</h3>
+            <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
+            <li>Core: glass optical fibers (thin as hair)</li>
+            <li>Buffer: gel or plastic coating around fibers</li>
+            <li>Strength members: steel wires for tension</li>
+            <li>Copper conductor: carries power to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span></li>
+            <li>Insulation: polyethylene waterproof layer</li>
+            <li>Armor: steel wire wrapping (varies by depth)</li>
+            <li>Outer jacket: final protective polymer layer</li>
+            </ul>
+            </div>
+            <div class="glass-panel p-4">
+            <h3 class="font-semibold text-brand-200">Path of a Data Packet</h3>
+            <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
+            <li>Your device &rarr; local ISP &rarr; terrestrial fiber</li>
+            <li>Terrestrial fiber &rarr; cable <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing station</span> &rarr; submarine cable (light)</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeaters</span> every 50-100 km amplify signal</li>
+            <li>Cable reaches far-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
+            <li>Signal converted back to electrical data</li>
+            <li>Data enters foreign <span class="vocab cursor-pointer" onclick="scrollToVocabulary('terrestrial-network')">terrestrial network</span></li>
+            </ul>
+            </div>
+            </div>
+            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Cross-section showing fiber core, cladding, buffer, strength members, copper conductor, insulation, and outer armor layers.</p>
           </div>
         </section>
 
@@ -251,41 +280,7 @@ img{max-width:100%;height:auto}
             </ul>
           </div>
         </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning — Diagram Notes</h2>
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-theme-muted text-[14px] lg:text-base">
-              <div class="glass-panel p-4">
-                <h3 class="font-semibold text-brand-200">Cable Cross-Section</h3>
-                <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
-                  <li>Core: glass optical fibers (thin as hair)</li>
-                  <li>Buffer: gel or plastic coating around fibers</li>
-                  <li>Strength members: steel wires for tension</li>
-                  <li>Copper conductor: carries power to <span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">repeaters</span></li>
-                  <li>Insulation: polyethylene waterproof layer</li>
-                  <li>Armor: steel wire wrapping (varies by depth)</li>
-                  <li>Outer jacket: final protective polymer layer</li>
-                </ul>
-              </div>
-              <div class="glass-panel p-4">
-                <h3 class="font-semibold text-brand-200">Path of a Data Packet</h3>
-                <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
-                  <li>Your device &rarr; local ISP &rarr; terrestrial fiber</li>
-                  <li>Terrestrial fiber &rarr; cable <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">Landing station</span> &rarr; submarine cable (light)</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('repeater')">Repeaters</span> every 50-100 km amplify signal</li>
-                  <li>Cable reaches far-end <span class="vocab cursor-pointer" onclick="scrollToVocabulary('landing-station')">landing station</span></li>
-                  <li>Signal converted back to electrical data</li>
-                  <li>Data enters foreign <span class="vocab cursor-pointer" onclick="scrollToVocabulary('terrestrial-network')">terrestrial network</span></li>
-                </ul>
-              </div>
-            </div>
-            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Cross-section showing fiber core, cladding, buffer, strength members, copper conductor, insulation, and outer armor layers.</p>
-          </div>
-        </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
@@ -368,25 +363,16 @@ img{max-width:100%;height:auto}
           </div>
         </section>
 
-                                <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <a href="chapter-8-routers-and-data-paths.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Previous: Chapter 8 &mdash; Routers and Data Paths
-              </a>
-              <a href="chapter-10-data-centers.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Chapter 10 &mdash; Data Centers
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+                                                                                  <section class="mt-12 lg:mt-20 reveal">
+            <div class="glass-panel p-6 lg:p-8">
+              <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+              <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+                <a href="chapter-8-routers-and-data-paths.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Previous: Chapter 8</a>
+                <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
+                <a href="chapter-10-data-centers.html" class="btn-primary magnetic-btn text-sm py-3 px-6 inline-flex items-center gap-2">Next: Chapter 10 &mdash; Data Centers</a>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 9</p>
-          </div>
-        </section>
+          </section>
 
       </article>
     </main>

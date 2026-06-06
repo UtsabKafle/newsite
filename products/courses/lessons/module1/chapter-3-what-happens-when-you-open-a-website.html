@@ -239,13 +239,41 @@ img{max-width:100%;height:auto}
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
+          <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-03-website-request/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          
+            <hr class="my-6 border-theme">
+            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
+            The interactive diagram for this chapter shows the full journey of a web request. You will see:
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-theme-muted">
+            <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>A browser icon sending a request arrow to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> icon</span>
+            </li>
+            <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> returning an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></span>
+            </li>
+            <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> traveling through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> across a network map</span>
+            </li>
+            <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> receiving the request and sending back HTML, CSS, and images</span>
+            </li>
+            <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>The browser piecing everything together to display the final page</span>
+            </li>
+            </ul>
+            <p class="mt-4 text-sm text-theme-faint italic">Tip: Watch the animation a few times. Notice how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> can take different paths to reach the same destination.</p>
           </div>
         </section>
 
@@ -431,40 +459,7 @@ img{max-width:100%;height:auto}
             </div>
           </div>
         </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="mt-4 text-theme-muted leading-relaxed text-[14px] lg:text-base">
-              The interactive diagram for this chapter shows the full journey of a web request. You will see:
-            </p>
-            <ul class="mt-4 space-y-2 text-sm text-theme-muted">
-              <li class="flex items-start gap-3">
-                <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>A browser icon sending a request arrow to a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> icon</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> returning an <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ip-address')">IP address</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span><span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> traveling through <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> across a network map</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>The <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> receiving the request and sending back HTML, CSS, and images</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-4 h-4 text-brand-300 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>The browser piecing everything together to display the final page</span>
-              </li>
-            </ul>
-            <p class="mt-4 text-sm text-theme-faint italic">Tip: Watch the animation a few times. Notice how <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> can take different paths to reach the same destination.</p>
-          </div>
-        </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
@@ -612,25 +607,16 @@ img{max-width:100%;height:auto}
           </div>
         </section>
 
-                        <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <a href="chapter-2-how-devices-connect.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Previous: Chapter 2 &mdash; How Devices Connect
-              </a>
-              <a href="chapter-4-understanding-servers.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Chapter 4 &mdash; Understanding Servers
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+                                                                          <section class="mt-12 lg:mt-20 reveal">
+            <div class="glass-panel p-6 lg:p-8">
+              <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+              <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+                <a href="chapter-2-how-devices-connect.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Previous: Chapter 2</a>
+                <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
+                <a href="chapter-4-understanding-servers.html" class="btn-primary magnetic-btn text-sm py-3 px-6 inline-flex items-center gap-2">Next: Chapter 4 &mdash; Understanding Servers</a>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 3</p>
-          </div>
-        </section>
+          </section>
 
       </article>
     </main>

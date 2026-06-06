@@ -149,12 +149,41 @@ img{max-width:100%;height:auto}
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
+          <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-10-data-center/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
               Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          
+            <hr class="my-6 border-theme">
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-theme-muted text-[14px] lg:text-base">
+            <div class="glass-panel p-4">
+            <h3 class="font-semibold text-brand-200">Data Center Floor Plan</h3>
+            <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> rows with cold aisle (blue) and hot aisle (red)</li>
+            <li>CRAC units (Computer Room Air Conditioning) along walls</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> and battery rooms near power entry</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">Generator</span> yard outside the building</li>
+            <li>Network operations center (NOC) for monitoring</li>
+            <li>Security mantrap at entrance</li>
+            <li>Fire suppression (gas-based, not water)</li>
+            </ul>
+            </div>
+            <div class="glass-panel p-4">
+            <h3 class="font-semibold text-brand-200">Power Flow</h3>
+            <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
+            <li>Utility grid &rarr; main transformer</li>
+            <li>Transfer switch (grid vs. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generator</span>)</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> (battery banks, flywheel)</li>
+            <li>Power distribution units (PDUs)</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> power distribution (vertical strips)</li>
+            <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> power supplies (redundant)</li>
+            <li>Backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span> (N+1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">redundancy</span>)</li>
+            </ul>
+            </div>
+            </div>
+            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Data center power and cooling flow showing utility feed, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span>, hot aisle/cold aisle layout, and CRAC units.</p>
           </div>
         </section>
 
@@ -255,41 +284,7 @@ img{max-width:100%;height:auto}
             </ul>
           </div>
         </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning — Diagram Notes</h2>
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-theme-muted text-[14px] lg:text-base">
-              <div class="glass-panel p-4">
-                <h3 class="font-semibold text-brand-200">Data Center Floor Plan</h3>
-                <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> rows with cold aisle (blue) and hot aisle (red)</li>
-                  <li>CRAC units (Computer Room Air Conditioning) along walls</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> and battery rooms near power entry</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">Generator</span> yard outside the building</li>
-                  <li>Network operations center (NOC) for monitoring</li>
-                  <li>Security mantrap at entrance</li>
-                  <li>Fire suppression (gas-based, not water)</li>
-                </ul>
-              </div>
-              <div class="glass-panel p-4">
-                <h3 class="font-semibold text-brand-200">Power Flow</h3>
-                <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
-                  <li>Utility grid &rarr; main transformer</li>
-                  <li>Transfer switch (grid vs. <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generator</span>)</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span> (battery banks, flywheel)</li>
-                  <li>Power distribution units (PDUs)</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('rack')">Rack</span> power distribution (vertical strips)</li>
-                  <li><span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">Server</span> power supplies (redundant)</li>
-                  <li>Backup <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span> (N+1 <span class="vocab cursor-pointer" onclick="scrollToVocabulary('redundancy')">redundancy</span>)</li>
-                </ul>
-              </div>
-            </div>
-            <p class="mt-4 text-sm text-brand-200 italic">Diagram reference: Data center power and cooling flow showing utility feed, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('ups')">UPS</span>, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('generator')">generators</span>, hot aisle/cold aisle layout, and CRAC units.</p>
-          </div>
-        </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
 
@@ -372,25 +367,16 @@ img{max-width:100%;height:auto}
           </div>
         </section>
 
-                                <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <a href="chapter-9-undersea-internet-cables.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Previous: Chapter 9 &mdash; Undersea Internet Cables
-              </a>
-              <a href="chapter-11-the-journey-of-a-webpage.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Chapter 11 &mdash; The Journey of a Webpage
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+                                                                                  <section class="mt-12 lg:mt-20 reveal">
+            <div class="glass-panel p-6 lg:p-8">
+              <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+              <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+                <a href="chapter-9-undersea-internet-cables.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Previous: Chapter 9</a>
+                <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
+                <a href="chapter-11-the-journey-of-a-webpage.html" class="btn-primary magnetic-btn text-sm py-3 px-6 inline-flex items-center gap-2">Next: Chapter 11 &mdash; The Journey of a Webpage</a>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 10</p>
-          </div>
-        </section>
+          </section>
 
       </article>
     </main>

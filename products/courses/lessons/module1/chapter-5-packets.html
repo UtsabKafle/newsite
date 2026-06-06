@@ -163,12 +163,43 @@ img{max-width:100%;height:auto}
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
+          <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see packets in action.</p>
             <a href="diagrams/diagram-05-packets/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4" aria-label="Open interactive diagram">
               Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          
+            <hr class="my-6 border-theme">
+            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
+            <p class="text-sm font-semibold text-brand-200 mb-3">Step-by-Step Walkthrough</p>
+            <div class="space-y-4 text-sm text-theme-muted">
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">1</span>
+            <div><strong class="text-theme">Data is created.</strong> You press send on a photo. Your device reads the file.</div>
+            </div>
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
+            <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span>.</strong> The photo is split into many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> (each ~1500 bytes or less).</div>
+            </div>
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
+            <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">Header</span> attached.</strong> Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> gets a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span>: your IP, destination IP, sequence number, and checksum.</div>
+            </div>
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">4</span>
+            <div><strong class="text-theme">Routing.</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> leave your device, pass through your home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>, ISP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, and across the Internet backbone.</div>
+            </div>
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">5</span>
+            <div><strong class="text-theme">Reassembly.</strong> The destination device collects <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, checks for errors, reorders them, and reconstructs the original photo.</div>
+            </div>
+            <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">6</span>
+            <div><strong class="text-theme">Delivery.</strong> If any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is missing, the receiver asks for a retransmit. The photo appears on the recipient's screen.</div>
+            </div>
+            </div>
+            </div>
           </div>
         </section>
 
@@ -330,43 +361,7 @@ img{max-width:100%;height:auto}
             </div>
           </div>
         </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning: Packet Journey</h2>
-            <div class="mt-4 p-5 rounded-xl bg-brand-500/[0.03] border border-brand-500/10">
-              <p class="text-sm font-semibold text-brand-200 mb-3">Step-by-Step Walkthrough</p>
-              <div class="space-y-4 text-sm text-theme-muted">
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">1</span>
-                  <div><strong class="text-theme">Data is created.</strong> You press send on a photo. Your device reads the file.</div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">2</span>
-                  <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('fragmentation')">Fragmentation</span>.</strong> The photo is split into many <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> (each ~1500 bytes or less).</div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">3</span>
-                  <div><strong class="text-theme"><span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">Header</span> attached.</strong> Each <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> gets a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('header')">header</span>: your IP, destination IP, sequence number, and checksum.</div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">4</span>
-                  <div><strong class="text-theme">Routing.</strong> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">Packets</span> leave your device, pass through your home <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">router</span>, ISP <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span>, and across the Internet backbone.</div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">5</span>
-                  <div><strong class="text-theme">Reassembly.</strong> The destination device collects <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>, checks for errors, reorders them, and reconstructs the original photo.</div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <span class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300 text-xs flex items-center justify-center flex-shrink-0 font-bold">6</span>
-                  <div><strong class="text-theme">Delivery.</strong> If any <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packet</span> is missing, the receiver asks for a retransmit. The photo appears on the recipient's screen.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <p class="mt-2 text-sm text-theme-muted">Test your understanding of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span>.</p>
@@ -519,25 +514,16 @@ img{max-width:100%;height:auto}
           </div>
         </section>
 
-                                <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <a href="chapter-4-understanding-servers.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Previous: Chapter 4 &mdash; Understanding Servers
-              </a>
-              <a href="chapter-6-ip-addresses.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Chapter 6 &mdash; IP Addresses
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+                                                                                  <section class="mt-12 lg:mt-20 reveal">
+            <div class="glass-panel p-6 lg:p-8">
+              <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+              <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+                <a href="chapter-4-understanding-servers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Previous: Chapter 4</a>
+                <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
+                <a href="chapter-6-ip-addresses.html" class="btn-primary magnetic-btn text-sm py-3 px-6 inline-flex items-center gap-2">Next: Chapter 6 &mdash; IP Addresses</a>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 5</p>
-          </div>
-        </section>
+          </section>
 
       </article>
     </main>

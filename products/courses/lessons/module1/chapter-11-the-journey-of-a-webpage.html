@@ -146,12 +146,15 @@ img{max-width:100%;height:auto}
         </section>
 
         <section class="mt-6 lg:mt-10 reveal" id="interactive-diagram">
-          <div class="glass-panel p-6 lg:p-8 text-center">
+          <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Interactive Diagram</h2>
             <p class="mt-4 text-theme-muted">Launch the interactive diagram to see this in action.</p>
             <a href="diagrams/diagram-11-webpage-journey/index.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6 mt-4">
               Open Interactive Diagram <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          
+            <hr class="my-6 border-theme">
+            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">The interactive diagram for this chapter shows a complete end-to-end webpage journey. You will see a browser icon on the left, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, a series of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> forming a network path, and a destination <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> on the right. As you click through each step, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> animate from the browser to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> and back, with labels explaining what happens at each stage. Color-coded arrows distinguish the request path (orange) from the response path (green). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> hops highlight in sequence so you can trace the exact route data takes across the network.</p>
           </div>
         </section>
 
@@ -244,15 +247,7 @@ img{max-width:100%;height:auto}
             </div>
           </div>
         </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="visual-learning">
-          <div class="glass-panel p-6 lg:p-8">
-            <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Visual Learning</h2>
-            <p class="text-theme-muted leading-relaxed text-[14px] lg:text-base mt-4">The interactive diagram for this chapter shows a complete end-to-end webpage journey. You will see a browser icon on the left, a <span class="vocab cursor-pointer" onclick="scrollToVocabulary('dns')">DNS</span> <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span>, a series of <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">routers</span> forming a network path, and a destination <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> on the right. As you click through each step, <span class="vocab cursor-pointer" onclick="scrollToVocabulary('packet')">packets</span> animate from the browser to the <span class="vocab cursor-pointer" onclick="scrollToVocabulary('server')">server</span> and back, with labels explaining what happens at each stage. Color-coded arrows distinguish the request path (orange) from the response path (green). <span class="vocab cursor-pointer" onclick="scrollToVocabulary('router')">Router</span> hops highlight in sequence so you can trace the exact route data takes across the network.</p>
-          </div>
-        </section>
-
-        <section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
+<section class="mt-6 lg:mt-10 reveal" id="knowledge-check">
           <div class="glass-panel p-6 lg:p-8">
             <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Knowledge Check</h2>
             <div class="mt-6 space-y-6">
@@ -306,25 +301,16 @@ img{max-width:100%;height:auto}
           </div>
         </section>
 
-                                <section class="mt-12 lg:mt-20 reveal">
-          <div class="glass-panel p-6 lg:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-theme-faint text-center mb-4">Chapter Navigation</p>
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <a href="chapter-10-data-centers.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Previous: Chapter 10 &mdash; Data Centers
-              </a>
-              <a href="chapter-12-why-the-internet-is-reliable.html" class="btn-primary magnetic-btn inline-flex items-center gap-2 text-sm py-3 px-6">
-                Next: Chapter 12 &mdash; Why the Internet Is Reliable
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+                                                                                  <section class="mt-12 lg:mt-20 reveal">
+            <div class="glass-panel p-6 lg:p-8">
+              <h2 class="text-3xl font-display font-bold lg:text-3xl lesson-heading">Chapter Navigation</h2>
+              <div class="mt-4 lg:mt-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+                <a href="chapter-10-data-centers.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Previous: Chapter 10</a>
+                <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
+                <a href="chapter-12-why-the-internet-is-reliable.html" class="btn-primary magnetic-btn text-sm py-3 px-6 inline-flex items-center gap-2">Next: Chapter 12 &mdash; Why the Internet Is Reliable</a>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-theme">
-            <a href="how-computer-works.html" class="text-sm text-brand-300 hover:text-theme transition-colors inline-flex items-center gap-1 py-2">&larr; Back to Module Overview</a>
-            <p class="text-xs text-theme-faint">Consica Academy &middot; Explorer Pack &middot; Module 1 &middot; Chapter 11</p>
-          </div>
-        </section>
+          </section>
 
       </article>
     </main>
