@@ -214,7 +214,7 @@ function buildNodes(){
     g.setAttribute('aria-label','Select '+n.name);
     var glow=D.createElementNS(NS,'circle');
     glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
-    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    glow.setAttribute('r','22');glow.setAttribute('class','node-circle');
     g.appendChild(glow);
     var bg=D.createElementNS(NS,'rect');
     bg.setAttribute('x',n.x-18);bg.setAttribute('y',n.y-22);
