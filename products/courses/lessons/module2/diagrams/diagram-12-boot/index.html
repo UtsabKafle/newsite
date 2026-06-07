@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app-root" role="main" aria-label="Interactive Diagram: Boot Process">
+  <div id="app-root" role="main" aria-label="Interactive Diagram: Boot">
     <div id="loading-skeleton" class="skeleton" aria-hidden="true">
       <div class="skeleton-shimmer"></div>
       <div class="skeleton-header"></div>
@@ -18,7 +18,7 @@
     <div id="diagram-container" class="diagram-container" style="display:none;">
       <div id="error-boundary" class="error-boundary" role="alert" aria-live="assertive" style="display:none;"></div>
       <header class="diagram-header">
-        <h1 class="diagram-title" id="diagram-title">Boot Process</h1>
+        <h1 class="diagram-title" id="diagram-title">Boot</h1>
         <div class="header-controls">
           <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">&#x1f313;</button>
         </div>
@@ -27,25 +27,31 @@
       <div class="toolbar">
         <div class="speed-control">
           <label for="speed-slider" class="speed-label">Speed: <span id="speed-display">1.0x</span></label>
-          <input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1" aria-label="Speed">
+          <input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1" aria-label="Animation speed">
         </div>
         <button id="play-btn" class="ctrl-btn" aria-label="Play/Pause">&#x25b6; Play</button>
         <button id="reset-btn" class="ctrl-btn" aria-label="Reset">&#x21ba; Reset</button>
       </div>
-      <div id="visual-container" class="visual-container" role="img" aria-label="Visualization">
-        <svg id="diagram-svg" class="diagram-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs id="svg-defs">
-            <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="var(--accent2, #3b82f6)"/></marker>
-          </defs>
-        </svg>
+      <div class="diagram-layout">
+        <div id="visual-container" class="visual-container" role="img" aria-label="Visualization">
+          <canvas id="particle-canvas" class="particle-canvas"></canvas>
+          <svg id="diagram-svg" class="diagram-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs id="svg-defs">
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="var(--accent2)"/></marker>
+            </defs>
+          </svg>
+          <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+        </div>
+        <div id="info-panel" class="info-panel" role="dialog" aria-label="Component details" aria-hidden="true">
+          <div class="info-panel-header">
+            <h2 id="info-title" class="info-title"></h2>
+            <button id="info-close" class="info-close" aria-label="Close panel">&#x2715;</button>
+          </div>
+          <div id="info-content" class="info-content"></div>
+        </div>
       </div>
-      <div id="info-panel" class="info-panel" role="dialog" aria-label="Info" aria-hidden="true">
-        <button id="info-close" class="info-close" aria-label="Close">&#x2715;</button>
-        <h2 id="info-title" class="info-title"></h2>
-        <div id="info-content" class="info-content"></div>
-      </div>
-      <section class="challenge-section" aria-label="Challenge">
+      <section class="challenge-section" aria-label="Knowledge Challenge">
         <h2 class="section-title">&#x1f4dd; Knowledge Challenge</h2>
         <div id="challenge-container" class="challenge-container"></div>
         <div id="challenge-result" class="challenge-result" style="display:none;" role="alert"></div>

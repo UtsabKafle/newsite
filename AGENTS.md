@@ -73,6 +73,15 @@
 - **Fixed 3 broken module 7 diagrams** — diag-12 (Cloud Security, missing script.js), diag-13 (Mobile Security, empty dir), diag-14 (Future Security, empty dir) — all created with topic-appropriate content
 - **Module 1 diagram-09 (Undersea Cables) coordinate bug** — repeater node x/y were quoted strings `"410"`/`"50"` causing string concatenation in bezier math; fixed to numeric
 - **Module 1 diagram-09 icon rendering fix** — added emoji font-family + 22px to `.node-icon` CSS; swapped buoy (🧭→⚓ anchor) and data (📊→💾 floppy) for universal emoji support
+- **Module 2 all 14 diagrams upgraded** — converted from basic text-rectangle template to full premium experience:
+  - **Node icons**: each SVG node has a topic-specific emoji icon (⌨️, ⚙️, 🖥️, 💾, etc.)
+  - **Color-coded categories**: input (blue), process (amber), output (green), storage (purple) via CSS variables
+  - **Canvas particle background**: 50 floating particles with resize observer for ambient visual quality
+  - **Tooltip on hover**: shows node description near cursor without blocking diagram
+  - **Bezier curve connections**: straight lines replaced with quadratic bezier curves with connection labels
+  - **Sidebar info panel**: right-side panel (desktop) / inline section (mobile) that doesn't obstruct the SVG
+  - **Completion concept cards**: per-node description cards in the completion overlay instead of bare key names
+  - **5 custom per-diagram animations**: IPO (4-dot bezier loop), CPU (fetch-decode-execute cycle), Binary (bit toggling), Communication (cubic bezier packet), Boot (timeline progress + checkmark), Future Computing (glow scan)
 
 ### In Progress
 - (none)
@@ -114,3 +123,4 @@
 - `C:\Users\badhi\AppData\Local\Temp\opencode\convert_wrappers.py` (31 KB) — Python conversion script used for 30 wrapper diagrams — extracts `var components`/`var connections` data, generates self-contained script.js/index.html/styles.css.
 - `C:\Users\badhi\AppData\Local\Temp\opencode\fix_module3.js` (15 KB) — Node.js script for module 3 diagram-14 conversion (handles unquoted JS object keys).
 - All 10 module lesson directories (`module1/` through `module10/`) — each with `chapters/` and `diagrams/` subdirectories.
+- `C:\Users\badhi\AppData\Local\Temp\opencode\gen_module2.js` (30 KB) — Node.js generator script for module 2 enhancement: extracts NODES/CONNS/CHALLENGES from old template, adds icons/colors/labels, generates premium self-contained files with particles/tooltips/bezier/sidebar/completion-cards.
