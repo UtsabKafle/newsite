@@ -31,7 +31,12 @@
         </div>
         <button id="play-btn" class="ctrl-btn" aria-label="Play/Pause">&#x25b6; Play</button>
         <button id="reset-btn" class="ctrl-btn" aria-label="Reset">&#x21ba; Reset</button>
-      </div>
+        <div class="zoom-controls">
+          <button id="zoom-out" class="icon-btn" aria-label="Zoom out" title="Zoom Out">&#x2212;</button>
+          <span id="zoom-display" class="zoom-display">100%</span>
+          <button id="zoom-in" class="icon-btn" aria-label="Zoom in" title="Zoom In">&#x002b;</button>
+          <button id="zoom-reset" class="icon-btn" aria-label="Reset zoom" title="Reset">&#x21ba;</button>
+        </div>
       <div class="diagram-layout">
         <div id="visual-container" class="visual-container" role="img" aria-label="Visualization">
           <canvas id="particle-canvas" class="particle-canvas"></canvas>

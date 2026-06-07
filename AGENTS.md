@@ -73,6 +73,10 @@
 - **Fixed 3 broken module 7 diagrams** — diag-12 (Cloud Security, missing script.js), diag-13 (Mobile Security, empty dir), diag-14 (Future Security, empty dir) — all created with topic-appropriate content
 - **Module 1 diagram-09 (Undersea Cables) coordinate bug** — repeater node x/y were quoted strings `"410"`/`"50"` causing string concatenation in bezier math; fixed to numeric
 - **Module 1 diagram-09 icon rendering fix** — added emoji font-family + 22px to `.node-icon` CSS; swapped buoy (🧭→⚓ anchor) and data (📊→💾 floppy) for universal emoji support
+- **Module 2 full premium upgrade** — All 14 diagrams enhanced with: color-coded node categories (input=blue, process=amber, output=green, storage=purple), canvas particle backgrounds, hover tooltips, bezier curve connections, sidebar info panel, completion concept cards, 5 custom per-diagram animations
+- **Diagram margin fix** — Set diagram max-width to 1600px matching chapters to eliminate excessive whitespace
+- **Module 2 zoom+pan** — Added SVG zoom group, pinch-to-zoom, touch pan, mouse wheel, zoom controls to all 14 module 2 diagrams
+- **Module 1 zoom+pan** — Same zoom/pan implementation added to all 14 module 1 diagrams (both patterns: standard diagrams 2-14 and world-map diagram-01)
 - **Module 2 all 14 diagrams upgraded** — converted from basic text-rectangle template to full premium experience:
   - **Node icons**: each SVG node has a topic-specific emoji icon (⌨️, ⚙️, 🖥️, 💾, etc.)
   - **Color-coded categories**: input (blue), process (amber), output (green), storage (purple) via CSS variables
@@ -107,7 +111,7 @@
 - Module 7 broken diagrams fixed: diagram-12 (cloud-security) script.js created, diagram-13 (mobile-security) and diagram-14 (future-security) fully created with topic-appropriate content
 - Module 1 diagram-01 (Internet Highway) is the reference self-contained implementation
 - Module 1 diagram-09 (Undersea Cables) uses custom SVG + canvas particles; had string-coordinate bug in repeater node (fixed) and icon rendering issue resolved with emoji font-family + universally-supported emoji (⚓ anchor, 💾 floppy)
-- Each self-contained diagram includes: 5-6 interactive SVG nodes with info panel, RAF animation loop at 60 FPS, speed slider (0.25×–4×), dark/light theme, 5-10 MCQ challenges, completion overlay, loading skeleton, error boundary, accessibility
+- Each self-contained diagram includes: 5-6 interactive SVG nodes with info panel, RAF animation loop at 60 FPS, speed slider (0.25×–4×), dark/light theme, 5-10 MCQ challenges, completion overlay, loading skeleton, error boundary, accessibility, zoom/pan with pinch-to-zoom (modules 1-2)
 - The `scrollToVocabulary()` function (defined in `shared/utils/dom.js`) provides smooth-scroll with highlight animation — already included in all chapters.
 - Some chapter style blocks are minified (no spaces); regex replacements must match exact no-space format.
 - Module overview pages (e.g., `how-computer-works.html`, `computer-assembly.html`, `mini-projects.html`) were intentionally not given visual-learning sections — they are navigation/overview pages, not lesson content.

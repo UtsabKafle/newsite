@@ -40,7 +40,7 @@
         <filter id="softGlow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <linearGradient id="cableGlow" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--brand)" stop-opacity="0.1"/><stop offset="50%" stop-color="var(--brand)" stop-opacity="0.4"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0.1"/></linearGradient>
       </defs>
-      <rect width="1000" height="550" fill="url(#oceanDepth)"/>
+      <rect width="1000" height="550" fill="var(--surface2)"/>
       <g id="grid" stroke="var(--brand)" stroke-width="0.3" opacity="0.06" fill="none">
         <line x1="0" y1="137.5" x2="1000" y2="137.5"/><line x1="0" y1="275" x2="1000" y2="275"/><line x1="0" y1="412.5" x2="1000" y2="412.5"/>
         <line x1="250" y1="0" x2="250" y2="550"/><line x1="500" y1="0" x2="500" y2="550"/><line x1="750" y1="0" x2="750" y2="550"/>
@@ -54,17 +54,7 @@
       <g id="nodes"></g>
       <g id="webLayer" opacity="0"></g>
       <g id="cities"></g>
-      <g id="compass" transform="translate(920,40)">
-        <circle cx="0" cy="0" r="22" fill="rgba(5,8,22,0.4)" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-        <polygon points="0,-18 3,-5 0,-8 -3,-5" fill="#3b82f6"/>
-        <polygon points="0,18 3,5 0,8 -3,5" fill="rgba(148,163,184,0.3)"/>
-        <polygon points="-18,0 -5,3 -8,0 -5,-3" fill="rgba(148,163,184,0.15)"/>
-        <polygon points="18,0 5,3 8,0 5,-3" fill="rgba(148,163,184,0.15)"/>
-        <text x="0" y="-22" text-anchor="middle" fill="#3b82f6" font-size="7" font-weight="700">N</text>
-        <text x="0" y="30" text-anchor="middle" fill="rgba(148,163,184,0.4)" font-size="6">S</text>
-        <text x="-28" y="3" text-anchor="middle" fill="rgba(148,163,184,0.3)" font-size="6">W</text>
-        <text x="28" y="3" text-anchor="middle" fill="rgba(148,163,184,0.3)" font-size="6">E</text>
-      </g>
+
       <text id="mapLabel" x="500" y="275" text-anchor="middle" fill="var(--text-faint)" font-size="11" opacity="0.5">Click a node to explore</text>
     </svg>
     <span class="layer-badge" id="layerBadge">Internet Layer</span>
@@ -78,7 +68,6 @@
     <div class="ctrl-g toggle-g" role="radiogroup" aria-label="Layer">
       <button class="toggle-btn active" data-layer="internet" role="radio" aria-checked="true">Internet</button>
       <button class="toggle-btn" data-layer="web" role="radio" aria-checked="false">Web</button>
-      <button class="toggle-btn" data-layer="both" role="radio" aria-checked="false">Both</button>
     </div>
     <div class="ctrl-d" aria-hidden="true"></div>
     <div class="ctrl-g speed-g" role="group" aria-label="Speed">
@@ -92,6 +81,13 @@
     </div>
     <div class="ctrl-g">
       <button class="btn-sm" id="resetBtn" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 4v6h6m16 10v-6h-6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36M20.49 15a9 9 0 0 1-14.85 3.36"/></svg> Reset</button>
+        <div class="ctrl-d" aria-hidden="true"></div>
+    <div class="ctrl-g zoom-g" role="group" aria-label="Zoom">
+      <button class="btn-sm" id="zoomOut" aria-label="Zoom out">−</button>
+      <span class="zoom-val" id="zoomDisplay">100%</span>
+      <button class="btn-sm" id="zoomIn" aria-label="Zoom in">+</button>
+      <button class="btn-sm" id="zoomReset" aria-label="Reset zoom">↺</button>
+    </div>
     </div>
     <div class="spacer"></div>
     <div class="route-info" id="routeInfo" aria-live="polite"></div>
@@ -132,6 +128,7 @@
   <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
 </div>
 
+<script src="map-data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

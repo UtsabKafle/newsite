@@ -89,11 +89,11 @@ B:{name:'Satellite Express Route',color:'#a855f7',path:['home','router','isp','d
 C:{name:'Asia-Pacific Route',color:'#06b6d4',path:['home','router','isp','regional','datacenter','server']}
 };
 var CABLE_ROUTES=[
-'M880,200 Q880,180 860,170 Q820,150 780,155 Q740,160 700,170 Q660,180 630,200 Q600,220 580,250',
-'M880,200 Q890,220 870,240 Q840,270 800,290 Q760,310 720,320',
-'M200,400 Q180,420 160,440 Q140,460 130,480 Q120,500 110,520',
-'M600,380 Q580,400 560,420 Q540,440 520,460 Q500,480 480,500',
-'M250,50 Q300,60 350,70 Q400,80 450,75 Q500,70 550,80 Q600,90 650,85 Q700,80 750,90 Q800,100 850,95 Q880,90 900,100'
+'M285,192 C330,165 380,155 420,150 C445,148 465,148 485,148',
+'M290,195 C310,240 320,280 335,310 C345,325 352,330 358,330',
+'M180,192 C320,185 480,183 620,185 C720,188 800,190 875,192',
+'M485,148 C530,168 580,192 630,212 C655,222 670,228 680,232 C705,240 730,245 748,245 C765,252 780,265 790,278',
+'M875,192 C860,225 840,255 815,275 C803,285 798,290 795,295 C815,315 845,335 875,348 C900,360 920,368 935,375'
 ];
 var CONTINENTS={
 na:'M55,98 C58,88 62,78 68,70 C74,62 82,56 92,52 C102,48 115,46 128,46 C141,46 155,48 168,52 C181,56 192,62 202,70 C212,78 218,88 222,98 C226,108 228,118 228,128 C228,138 226,148 222,158 C218,168 212,178 204,186 C196,194 186,200 176,204 C166,208 156,210 146,210 C136,210 126,208 118,204 C110,200 102,194 96,186 C90,178 86,168 84,158 C82,148 80,138 78,128 C76,118 72,108 66,100 C62,96 58,96 55,98 Z',
@@ -114,11 +114,11 @@ var ISLANDS=[
 'M614,300 C618,296 624,294 630,294 C636,294 642,296 646,300 C650,304 652,310 652,316 C652,322 650,328 646,332 C642,336 636,338 630,338 C624,338 618,336 614,332 C610,328 608,322 608,316 C608,310 610,304 614,300 Z'
 ];
 var CITIES=[
-{name:'New York',x:270,y:200,note:'Internet Exchange Point'},{name:'London',x:460,y:130,note:'Major Data Hub'},
-{name:'Tokyo',x:880,y:175,note:'Asia-Pacific Hub'},{name:'Sydney',x:960,y:390,note:'Oceania Gateway'},
-{name:'São Paulo',x:330,y:340,note:'Latin American Hub'},{name:'Mumbai',x:770,y:250,note:'South Asia Gateway'},
-{name:'Cape Town',x:530,y:370,note:'African Landing'},{name:'Singapore',x:800,y:300,note:'Southeast Asia Hub'},
-{name:'Dubai',x:660,y:240,note:'Middle East Hub'},{name:'Los Angeles',x:190,y:170,note:'West Coast Gateway'}
+{name:'New York',x:290,y:190,note:'Internet Exchange Point'},{name:'London',x:490,y:148,note:'Major Data Hub'},
+{name:'Tokyo',x:885,y:190,note:'Asia-Pacific Hub'},{name:'Sydney',x:930,y:370,note:'Oceania Gateway'},
+{name:'São Paulo',x:360,y:330,note:'Latin American Hub'},{name:'Mumbai',x:715,y:235,note:'South Asia Gateway'},
+{name:'Cape Town',x:555,y:358,note:'African Landing'},{name:'Singapore',x:790,y:278,note:'Southeast Asia Hub'},
+{name:'Dubai',x:655,y:220,note:'Middle East Hub'},{name:'Los Angeles',x:175,y:195,note:'West Coast Gateway'}
 ];
 
 /* ═══════════════════════════════════════════
@@ -175,16 +175,11 @@ function setSpeed(val){
    ═══════════════════════════════════════════ */
 function buildMap(){
   var cg=qs('#continents');
-  Object.keys(CONTINENTS).forEach(function(k){
+  cg.setAttribute('transform','translate(0,61) scale(0.5)');
+  COUNTRIES.forEach(function(c){
     var p=D.createElementNS(NS,'path');
-    p.setAttribute('d',CONTINENTS[k]);p.setAttribute('class','continent');
+    p.setAttribute('d',c.d);p.setAttribute('class','continent');
     cg.appendChild(p);
-  });
-  var ig=qs('#islands');
-  ISLANDS.forEach(function(d){
-    var p=D.createElementNS(NS,'path');
-    p.setAttribute('d',d);p.setAttribute('class','island');
-    ig.appendChild(p);
   });
 }
 function buildCities(){
@@ -701,6 +696,37 @@ function hideSkeleton(){
   setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
 }
 
+function initZoomPan(){
+  var svg=$('#mapSvg'),wrap=$('#mapWrap');
+  if(!svg||svg.querySelector('#zoom-group'))return;
+  var zoomG=D.createElementNS(NS,'g');
+  zoomG.setAttribute('id','zoom-group');
+  var kids=[];
+  for(var i=0;i<svg.children.length;i++){var kid=svg.children[i];if(kid.tagName!=='defs'&&kid.id!=='zoom-group'&&kid.tagName!=='rect')kids.push(kid)}
+  for(var i=0;i<kids.length;i++)zoomG.appendChild(kids[i]);
+  svg.appendChild(zoomG);
+  var zoom=1,panX=0,panY=0,drg=false,sx,sy,spx,spy,zoom_listeners=[];
+  function apply(){zoomG.setAttribute('transform','translate('+panX+','+panY+') scale('+zoom+')');var zd=document.getElementById('zoomDisplay');if(zd)zd.textContent=Math.round(zoom*100)+'%'}
+  function wheelHandler(e){e.preventDefault();var r=svg.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,oz=zoom;zoom*=e.deltaY<0?1.1:0.9;zoom=Math.max(0.5,Math.min(4,zoom));panX=mx-(mx-panX)*zoom/oz;panY=my-(my-panY)*zoom/oz;apply()}
+  function mdHandler(e){if(e.button!==0)return;if(e.target.closest('.node,.ctrl,.panel,.challenge-opt,.challenge-next,.overlay-btn,.btn-primary,.btn-sm,.btn-theme,.toggle-btn'))return;e.preventDefault();drg=true;sx=e.clientX;sy=e.clientY;spx=panX;spy=panY;zoomG.classList.add('panning')}
+  function mmHandler(e){if(!drg)return;panX=spx+(e.clientX-sx);panY=spy+(e.clientY-sy);apply()}
+  function muHandler(){if(drg){drg=false;zoomG.classList.remove('panning')}}
+  var touches=null;
+  function tsHandler(e){if(e.touches.length===1){drg=true;sx=e.touches[0].clientX;sy=e.touches[0].clientY;spx=panX;spy=panY}else if(e.touches.length===2){touches=[{x:e.touches[0].clientX,y:e.touches[0].clientY},{x:e.touches[1].clientX,y:e.touches[1].clientY}]}}
+  function tmHandler(e){if(e.touches.length===1&&drg){panX=spx+(e.touches[0].clientX-sx);panY=spy+(e.touches[0].clientY-sy);apply()}else if(e.touches.length===2&&touches){var p1=e.touches[0],p2=e.touches[1];var od=Math.hypot(touches[0].x-touches[1].x,touches[0].y-touches[1].y);var nd=Math.hypot(p1.clientX-p2.clientX,p1.clientY-p2.clientY);var oz=zoom;zoom*=nd/od;zoom=Math.max(0.5,Math.min(4,zoom));apply();touches=[{x:p1.clientX,y:p1.clientY},{x:p2.clientX,y:p2.clientY}]}}
+  function teHandler(){drg=false;touches=null}
+  svg.addEventListener('wheel',wheelHandler,{passive:false});zoom_listeners.push({el:svg,type:'wheel',fn:wheelHandler});
+  svg.addEventListener('mousedown',mdHandler);zoom_listeners.push({el:svg,type:'mousedown',fn:mdHandler});
+  document.addEventListener('mousemove',mmHandler);zoom_listeners.push({el:document,type:'mousemove',fn:mmHandler});
+  document.addEventListener('mouseup',muHandler);zoom_listeners.push({el:document,type:'mouseup',fn:muHandler});
+  svg.addEventListener('touchstart',tsHandler,{passive:true});zoom_listeners.push({el:svg,type:'touchstart',fn:tsHandler});
+  svg.addEventListener('touchmove',tmHandler,{passive:true});zoom_listeners.push({el:svg,type:'touchmove',fn:tmHandler});
+  svg.addEventListener('touchend',teHandler);zoom_listeners.push({el:svg,type:'touchend',fn:teHandler});
+  var zoomInBtn=document.getElementById('zoomIn');if(zoomInBtn)zoomInBtn.addEventListener('click',function(){zoom=Math.min(4,zoom*1.3);apply()});
+  var zoomOutBtn=document.getElementById('zoomOut');if(zoomOutBtn)zoomOutBtn.addEventListener('click',function(){zoom=Math.max(0.5,zoom/1.3);apply()});
+  var zoomResetBtn=document.getElementById('zoomReset');if(zoomResetBtn)zoomResetBtn.addEventListener('click',function(){zoom=1;panX=0;panY=0;apply()});
+}
+
 /* ═══════════════════════════════════════════
    INIT
    ═══════════════════════════════════════════ */
@@ -708,6 +734,7 @@ try{
   DOM.map=qs('#mapWrap');
   buildMap();buildCables();buildConnections();buildNodes();buildCities();
   buildWebLinks();buildWebNodes();buildTrafficDots();
+  initZoomPan();
   var ml=qs('#mapLabel');if(ml)ml.remove();
   pCtx=initParticles();
   initTheme();
