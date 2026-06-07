@@ -1,36 +1,61 @@
 (function(){'use strict';
-var components = [{"id":"node1","name":"Block Header","category":"Structure","icon":"database","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Holds metadata and linkages","description":"Contains block number, nonce, prev-hash, and transaction data.","why":"Identifies the block unit","analogy":"Envelope cover details","funFact":"Includes the timestamp down to the second","takeaway":"Block header is hashed to lock data","mistake":"Editing header variables does not go unnoticed","descriptionDetailed":"Block data payload structure.","howItWorks":"Contains block number, nonce, prev-hash, and transaction data.","deeperDive":"Block data payload structure.","advancedConcept":"Includes the timestamp down to the second"},{"id":"node2","name":"Hash Function","category":"Security","icon":"key","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Computes digital fingerprints","description":"Processes data using SHA-256 algorithm.","why":"Locks record data","analogy":"Digital seal wax","funFact":"Always produces a 64-character hex string","takeaway":"Hashes are one-way only","mistake":"You cannot reconstruct original text from the hash string","descriptionDetailed":"SHA-256 algorithm computation node.","howItWorks":"Processes data using SHA-256 algorithm.","deeperDive":"SHA-256 algorithm computation node.","advancedConcept":"Always produces a 64-character hex string"},{"id":"node3","name":"Linked Block","category":"Chain","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Secures subsequent chain link","description":"The next block containing the hash of the current one.","why":"Creates the tamper-proof link","analogy":"Locked chain links","funFact":"A break in one link invalidates all blocks that follow","takeaway":"Chaining ensures immutability","mistake":"Tampering with data in past blocks breaks all following hashes","descriptionDetailed":"Next sequence block referencing parent node.","howItWorks":"The next block containing the hash of the current one.","deeperDive":"Next sequence block referencing parent node.","advancedConcept":"A break in one link invalidates all blocks that follow"}];
-var connections = [{"from":"node1","to":"node2"},{"from":"node2","to":"node3"}];
-var steps = [{"id":"node1","label":"Step 1: Pack Block","status":"Transactions are packaged into a block header with the previous block's hash."},{"id":"node2","label":"Step 2: Calculate Hash","status":"SHA-256 function processes the block header, outputting a secure hash."},{"id":"node3","label":"Step 3: Link Chain","status":"The calculated hash is stored in the next block's header, securing the link."}];
-var tour = [{"title":"Block Header","description":"Stores transaction data and links.","componentId":"node1"},{"title":"Hash Function","description":"Generates secure digital fingerprints.","componentId":"node2"},{"title":"Linked Block","description":"Binds the blocks into an unbroken chain.","componentId":"node3"}];
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "Real World Blockchain Uses",
-    subtitle: "Blockchain Technology",
-    desc: "Explore the core components and operations.",
-    module: 9,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      engine.buildAutoChallenge(container);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+var theme=localStorage.getItem('consica-theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+var app,container,skeleton,errorBoundary,errorMsg,svgContainer,infoTitle,infoDesc,stepsList,playBtn,resetBtn,speedSlider,speedVal,themeBtn,challengeOverlay,challengeBody,challengeClose,completionOverlay,completionScore,completionClose,challengeBtn,rafId,animating=false,t=0,activeNode=null,nodes=[],flowDots=[],speed=1,challengeState={questions:[],current:0,answers:{},submitted:false};
+var components=[
+{id:'cpu',name:'CPU',sublabel:'General purpose',desc:'CPUs (Central Processing Units) are general-purpose processors optimized for sequential tasks and system control.',purpose:'Handle general computation and orchestration',how:'Few powerful cores with deep caches, optimized for low-latency single-thread performance',why:'CPUs run the operating system and coordinate all hardware',analogy:'A skilled chef who can cook any dish, but one at a time',funFact:'A modern CPU has 5-16 cores, each running at ~3-5 GHz',takeaway:'CPUs are versatile but not optimized for ML parallelism',mistake:'Training neural networks on CPU is impractically slow'},
+{id:'gpu',name:'GPU',sublabel:'Parallel processing',desc:'GPUs (Graphics Processing Units) have thousands of smaller cores designed for parallel computation - ideal for neural networks.',purpose:'Massively parallel matrix operations for ML',how:'Thousands of CUDA cores execute the same operation on different data simultaneously',why:'Neural network training is essentially parallel matrix math',analogy:'A thousand line cooks each chopping one vegetable simultaneously',funFact:'NVIDIA H100 GPU has 18,432 CUDA cores',takeaway:'GPUs reduced neural network training from weeks to hours',mistake:'GPUs consume significant power (300-700W per card)'},
+{id:'tpu',name:'TPU',sublabel:'Google AI chip',desc:'TPUs (Tensor Processing Units) are Google custom ASICs designed specifically for TensorFlow operations.',purpose:'Ultra-fast tensor operations for Google-scale ML',how:'Systolic array architecture optimized for matrix multiply-accumulate operations',why:'General hardware is inefficient for the specific math ML requires',analogy:'A custom-built machine that only does one thing perfectly',funFact:'TPU v4 pods have 4,096 chips and deliver 1 exaflop of performance',takeaway:'TPUs power Google Search, Translate, and YouTube recommendations',mistake:'TPUs only work well with TensorFlow / JAX frameworks'},
+{id:'npu',name:'NPU',sublabel:'Edge AI chip',desc:'NPUs (Neural Processing Units) are specialized processors for running AI inference on edge devices like phones and cameras.',purpose:'Efficient AI inference on power-constrained devices',how:'Dedicated AI cores with quantized integer math for low-power operation',why:'Running AI in the cloud requires network connectivity and adds latency',analogy:'A tiny specialized brain inside your phone',funFact:'Apple A17 Pro has a 16-core Neural Engine capable of 35 trillion ops/s',takeaway:'NPUs bring AI to your pocket without internet dependency',mistake:'Edge NPUs have limited memory and cannot train models'},
+{id:'fpga',name:'FPGA',sublabel:'Reconfigurable logic',desc:'FPGAs (Field-Programmable Gate Arrays) are chips that can be reconfigured after manufacturing for specific workloads.',purpose:'Customizable hardware acceleration for AI inference',how:'Programmable logic blocks and interconnects configured for specific neural network architectures',why:'Flexibility of software with near-ASIC performance',analogy:'Lego bricks you can reassemble into different machines',funFact:'Microsoft uses FPGAs in Azure for real-time AI inference',takeaway:'FPGAs offer a middle ground between flexibility and performance',mistake:'FPGAs are harder to program than GPUs'},
+{id:'quantum',name:'Quantum Computing',sublabel:'Future AI hardware',desc:'Quantum computers use qubits and quantum superposition to solve certain problems exponentially faster than classical computers.',purpose:'Revolutionize AI with exponential speedups',how:'Qubits in superposition explore many states simultaneously, quantum entanglement connects them',why:'Some ML problems (optimization, sampling) are intractable classically',analogy:'A library where you can read all books at once instead of one by one',funFact:'Google Sycamore achieved quantum supremacy in 2019',takeaway:'Quantum ML could revolutionize drug discovery and optimization',mistake:'Practical quantum computing for AI is still 5-10 years away'}
+];
+var connectionsData=[{from:'cpu',to:'gpu'},{from:'gpu',to:'tpu'},{from:'gpu',to:'npu'},{from:'gpu',to:'fpga'},{from:'tpu',to:'quantum'}];
+var stepsData=[
+{id:'cpu',label:'CPU - general-purpose sequential processor'},
+{id:'gpu',label:'GPU - massively parallel matrix operations'},
+{id:'tpu',label:'TPU - Google custom tensor processing ASIC'},
+{id:'npu',label:'NPU - efficient edge AI inference chip'},
+{id:'fpga',label:'FPGA - reconfigurable hardware acceleration'},
+{id:'quantum',label:'Quantum Computing - future exponential speedups'}
+];
+var challenges=[
+{q:'Why are GPUs well-suited for neural network training?',o:['They have high clock speeds','They excel at parallel matrix operations','They consume less power','They are cheaper than CPUs'],a:1},
+{q:'What makes TPUs different from GPUs?',o:['They are general purpose','They are custom ASICs designed specifically for tensor operations','They run on batteries','They are programmable'],a:1},
+{q:'What advantage do NPUs provide in smartphones?',o:['Faster internet','On-device AI without cloud dependency','Better cameras','Longer battery'],a:1},
+{q:'What is the key benefit of FPGAs for AI?',o:['Lowest power consumption','Hardware reconfigurability for custom workloads','Highest raw performance','Easiest programming'],a:1},
+{q:'How many CUDA cores does the NVIDIA H100 GPU have?',o:['4,096','18,432','1,024','100,000'],a:1},
+{q:'Why is quantum computing relevant to AI?',o:['It makes phones faster','It could solve optimization problems intractable for classical computers','It replaces GPUs','It is available today'],a:1}
+];
+function init(){app=document.getElementById('app');container=document.getElementById('diagram-container');skeleton=document.getElementById('loading-skeleton');errorBoundary=document.getElementById('error-boundary');errorMsg=document.getElementById('error-message');svgContainer=document.getElementById('svg-container');infoTitle=document.getElementById('info-title');infoDesc=document.getElementById('info-desc');stepsList=document.getElementById('steps-list');playBtn=document.getElementById('play-btn');resetBtn=document.getElementById('reset-btn');speedSlider=document.getElementById('speed-slider');speedVal=document.getElementById('speed-value');themeBtn=document.getElementById('theme-toggle');challengeOverlay=document.getElementById('challenge-overlay');challengeBody=document.getElementById('challenge-body');challengeClose=document.getElementById('challenge-close');completionOverlay=document.getElementById('completion-overlay');completionScore=document.getElementById('completion-score');completionClose=document.getElementById('completion-close');challengeBtn=document.getElementById('challenge-btn');
+try{buildDiagram();setupControls();setupChallenge();showContainer();}catch(e){showError(e.message||'Failed to build diagram');}}
+function showContainer(){skeleton.classList.add('hidden');container.classList.remove('hidden');}
+function showError(msg){skeleton.classList.add('hidden');errorBoundary.classList.remove('hidden');errorMsg.textContent=msg;}
+function buildDiagram(){var W=860,H=420;var svg=svgCreate('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'AI hardware comparison: CPU, GPU, TPU, NPU, FPGA, Quantum'});svgContainer.appendChild(svg);
+var defs=svgCreate('defs');svg.appendChild(defs);
+defs.innerHTML='<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--conn-stroke)"/></marker><marker id="arrowLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>';
+var positions={cpu:{x:100,y:100},gpu:{x:280,y:100},tpu:{x:460,y:60},npu:{x:460,y:180},fpga:{x:460,y:300},quantum:{x:700,y:200}};
+components.forEach(function(cp){var p=positions[cp.id];var g=svgCreate('g',{class:'node-g',tabIndex:0,role:'button','aria-label':cp.name+': '+cp.sublabel});g.dataset.id=cp.id;
+var h=(cp.id==='tpu'||cp.id==='npu'||cp.id==='fpga')?42:52;
+var rx=svgCreate('rect',{x:p.x-65,y:p.y-h/2,width:130,height:h,rx:10,class:'node-rect'});g.appendChild(rx);
+var lbl=svgCreate('text',{x:p.x,y:p.y-4,class:'node-label'});lbl.textContent=cp.name;g.appendChild(lbl);
+var slbl=svgCreate('text',{x:p.x,y:p.y+14,class:'node-sublabel'});slbl.textContent=cp.sublabel;g.appendChild(slbl);
+g.addEventListener('click',function(){selectNode(cp.id);});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(cp.id);}});svg.appendChild(g);nodes.push({el:g,data:cp,pos:p});});
+connectionsData.forEach(function(c){var f=positions[c.from],t=positions[c.to];var d='M'+(f.x+65)+','+f.y+' Q'+((f.x+t.x)/2)+','+((f.y+t.y)/2)+' '+(t.x-65)+','+t.y;var line=svgCreate('path',{d:d,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});svg.appendChild(line);var fd=svgCreate('circle',{class:'flow-dot',cx:0,cy:0,r:0,fill:'var(--accent)'});svg.appendChild(fd);flowDots.push({el:fd,sx:f.x+65,sy:f.y,ex:t.x-65,ey:t.y});});
+var selected=false;components.forEach(function(c){if(!selected){selectNode(c.id);selected=true;}});renderSteps();}
+function svgCreate(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function selectNode(id){activeNode=id;var cp=getComp(id);if(!cp)return;nodes.forEach(function(n){var r=n.el.querySelector('.node-rect');if(r)r.classList.toggle('active',n.data.id===id);});infoTitle.textContent=cp.name+' - '+cp.sublabel;infoDesc.innerHTML='<strong>Purpose:</strong> '+cp.purpose+'<br><br><strong>How it works:</strong> '+cp.how+'<br><br><strong>Why it matters:</strong> '+cp.why+'<br><br><strong>Analogy:</strong> '+cp.analogy+(cp.funFact?'<br><br><strong>Fun fact:</strong> '+cp.funFact:'')+'<br><br><strong>Key takeaway:</strong> '+cp.takeaway+'<br><br><strong>Common mistake:</strong> '+cp.mistake;var items=stepsList.querySelectorAll('li');items.forEach(function(li){li.classList.toggle('active',li.dataset.id===id);});}
+function getComp(id){for(var i=0;i<components.length;i++){if(components[i].id===id)return components[i];}return null;}
+function renderSteps(){stepsList.innerHTML='';components.forEach(function(c){var li=document.createElement('li');li.dataset.id=c.id;li.textContent=c.name+' - '+c.sublabel;li.tabIndex=0;li.addEventListener('click',function(){selectNode(c.id);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(c.id);}});stepsList.appendChild(li);});}
+function animateDiagram(){var start=performance.now();function frame(now){if(!animating){rafId=null;return;}var dt=(now-start)/1000*speed;t=(t+dt)%1;flowDots.forEach(function(d){d.el.setAttribute('cx',d.sx+(d.ex-d.sx)*t);d.el.setAttribute('cy',d.sy+(d.ey-d.sy)*t);d.el.setAttribute('r',4);});rafId=requestAnimationFrame(frame);}rafId=requestAnimationFrame(frame);}
+function setupControls(){themeBtn.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('consica-theme',theme);});playBtn.addEventListener('click',function(){animating=!animating;if(animating){playBtn.innerHTML='&#9646;&#9646;';animateDiagram();}else{playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});resetBtn.addEventListener('click',function(){t=0;flowDots.forEach(function(d){d.el.setAttribute('r',0);});if(animating){animating=false;playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});speedSlider.addEventListener('input',function(){speed=parseFloat(this.value);speedVal.textContent=speed+'x';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){challengeOverlay.classList.add('hidden');completionOverlay.classList.add('hidden');}});}
+function setupChallenge(){challengeBtn.addEventListener('click',function(){openChallenge();});challengeClose.addEventListener('click',function(){challengeOverlay.classList.add('hidden');});completionClose.addEventListener('click',function(){completionOverlay.classList.add('hidden');challengeOverlay.classList.add('hidden');});}
+function openChallenge(){challengeState.questions=challenges.slice().sort(function(){return Math.random()-0.5;}).slice(0,5);challengeState.current=0;challengeState.answers={};challengeState.submitted=false;challengeOverlay.classList.remove('hidden');renderQuestion();}
+function renderQuestion(){var q=challengeState.questions[challengeState.current];if(!q){finishChallenge();return;}var html='<div class="question"><div class="question-text">'+(challengeState.current+1)+'. '+q.q+'</div><div class="options">';q.o.forEach(function(opt,i){var sel=challengeState.answers[challengeState.current]===i?' selected':'';var cls=challengeState.submitted?(i===q.a?' correct':(challengeState.answers[challengeState.current]===i?' wrong':'')):'';html+='<label class="option-label'+sel+cls+'"><input type="radio" name="q'+challengeState.current+'" value="'+i+'"'+(challengeState.submitted?' disabled':'')+(sel?' checked':'')+' onchange="('+selectOption.toString()+')('+challengeState.current+','+i+')">'+opt+'</label>';});html+='</div></div>';html+='<div class="challenge-actions">';if(!challengeState.submitted){html+='<button class="btn-primary" onclick="('+submitChallenge.toString()+')()">Submit Answer</button>';}else{if(challengeState.current<challengeState.questions.length-1){html+='<button class="btn-primary" onclick="('+nextQuestion.toString()+')()">Next Question</button>';}else{html+='<button class="btn-primary" onclick="('+finishChallenge.toString()+')()">See Results</button>';}}html+='</div>';challengeBody.innerHTML=html;}
+function selectOption(qIdx,optIdx){if(challengeState.submitted)return;challengeState.answers[qIdx]=optIdx;renderQuestion();}
+function submitChallenge(){challengeState.submitted=true;renderQuestion();}
+function nextQuestion(){challengeState.current++;challengeState.submitted=false;renderQuestion();}
+function finishChallenge(){var correct=0,total=challengeState.questions.length;challengeState.questions.forEach(function(q,i){if(challengeState.answers[i]===q.a)correct++;});completionScore.textContent='You scored '+correct+'/'+total;completionOverlay.classList.remove('hidden');}
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();

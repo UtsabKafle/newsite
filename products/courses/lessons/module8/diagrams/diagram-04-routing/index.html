@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0959C8">
+<title>Routing Protocols — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="skeleton" class="skeleton" aria-hidden="true"><div class="skeleton-header"><div class="skeleton-line w-48"></div><div class="skeleton-line w-72"></div></div><div class="skeleton-body"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div></div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden><div class="error-content"><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><h2>Something went wrong</h2><p id="error-msg">An error occurred loading the diagram.</p><button id="error-retry" class="btn">Retry</button></div></div>
+<div id="app" hidden>
+<div id="action-bar" class="action-bar">
+<button id="theme-toggle" class="btn-icon" aria-label="Toggle theme"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"><span id="speed-value" class="speed-value">1×</span></div>
+<button id="reset-btn" class="btn-icon" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></button>
+</div>
+<div id="diagram-container" class="diagram-container">
+<svg id="diagram-svg" class="diagram-svg" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Routing Protocols interactive diagram">
+<defs>
+<marker id="arrow-route" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0l5 10 5-10" fill="#5694E4"/></marker>
+<filter id="glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="10" y="10" width="880" height="680" rx="16" class="viz-bg"/>
+<text x="450" y="40" text-anchor="middle" class="viz-title">Routing Protocols — Autonomous Systems</text>
+<text x="450" y="60" text-anchor="middle" class="viz-subtitle">BGP, OSPF, and Path Advertisement</text>
+<g id="as-graph">
+<ellipse cx="250" cy="220" rx="140" ry="100" class="as-region" data-as="AS1" tabindex="0" role="button" aria-label="AS 64500"/>
+<text x="250" y="210" text-anchor="middle" class="as-label">AS 64500</text>
+<text x="250" y="230" text-anchor="middle" class="as-sub">OSPF Internal</text>
+<ellipse cx="500" cy="200" rx="130" ry="110" class="as-region" data-as="AS2" tabindex="0" role="button" aria-label="AS 64501"/>
+<text x="500" y="190" text-anchor="middle" class="as-label">AS 64501</text>
+<text x="500" y="210" text-anchor="middle" class="as-sub">OSPF Internal</text>
+<ellipse cx="700" cy="250" rx="130" ry="110" class="as-region" data-as="AS3" tabindex="0" role="button" aria-label="AS 64502"/>
+<text x="700" y="240" text-anchor="middle" class="as-label">AS 64502</text>
+<text x="700" y="260" text-anchor="middle" class="as-sub">EIGRP Internal</text>
+<circle cx="200" cy="220" r="22" class="router-node" data-router="R1" tabindex="0" role="button" aria-label="Router R1"/>
+<text x="200" y="225" text-anchor="middle" class="router-label">R1</text>
+<circle cx="300" cy="180" r="22" class="router-node" data-router="R2" tabindex="0" role="button" aria-label="Router R2"/>
+<text x="300" y="185" text-anchor="middle" class="router-label">R2</text>
+<circle cx="320" cy="280" r="22" class="router-node" data-router="R3" tabindex="0" role="button" aria-label="Router R3"/>
+<text x="320" y="285" text-anchor="middle" class="router-label">R3</text>
+<circle cx="460" cy="180" r="22" class="router-node" data-router="R4" tabindex="0" role="button" aria-label="Router R4"/>
+<text x="460" y="185" text-anchor="middle" class="router-label">R4</text>
+<circle cx="540" cy="250" r="22" class="router-node" data-router="R5" tabindex="0" role="button" aria-label="Router R5"/>
+<text x="540" y="255" text-anchor="middle" class="router-label">R5</text>
+<circle cx="650" cy="200" r="22" class="router-node" data-router="R6" tabindex="0" role="button" aria-label="Router R6"/>
+<text x="650" y="205" text-anchor="middle" class="router-label">R6</text>
+<circle cx="720" cy="300" r="22" class="router-node" data-router="R7" tabindex="0" role="button" aria-label="Router R7"/>
+<text x="720" y="305" text-anchor="middle" class="router-label">R7</text>
+<line x1="222" y1="220" x2="278" y2="180" stroke="#5694E4" stroke-width="2" class="link-line" data-link="R1-R2"/>
+<line x1="222" y1="220" x2="298" y2="280" stroke="#5694E4" stroke-width="2" class="link-line" data-link="R1-R3"/>
+<line x1="300" y1="202" x2="438" y2="180" stroke="#5694E4" stroke-width="2" class="link-line border-link" data-link="R2-R4"/>
+<line x1="320" y1="258" x2="518" y2="250" stroke="#5694E4" stroke-width="2" class="link-line border-link" data-link="R3-R5"/>
+<line x1="482" y1="180" x2="628" y2="200" stroke="#5694E4" stroke-width="2" class="link-line border-link" data-link="R4-R6"/>
+<line x1="540" y1="272" x2="698" y2="300" stroke="#5694E4" stroke-width="2" class="link-line" data-link="R5-R7"/>
+</g>
+<g id="bgp-advertisement">
+<rect x="50" y="400" width="800" height="120" rx="10" class="bgp-panel" tabindex="0" role="button" aria-label="BGP Route Advertisement"/>
+<text x="450" y="425" text-anchor="middle" class="bgp-title">BGP Route Advertisement</text>
+<text x="450" y="448" text-anchor="middle" class="bgp-path">Network: 192.168.0.0/16</text>
+<text x="450" y="470" text-anchor="middle" class="bgp-path">Path: {64500, 64501, 64502}</text>
+<text x="450" y="492" text-anchor="middle" class="bgp-path">Next Hop: 10.0.0.1</text>
+<text x="450" y="514" text-anchor="middle" class="bgp-path">MED: 100 | Local Pref: 200</text>
+</g>
+<g id="protocol-legend" transform="translate(50,540)">
+<text x="400" y="20" text-anchor="middle" class="section-title">Routing Protocol Comparison</text>
+<rect x="30" y="35" width="180" height="70" rx="8" class="proto-card" data-proto="BGP" tabindex="0" role="button" aria-label="BGP protocol"/>
+<text x="120" y="58" text-anchor="middle" class="proto-card-title">BGP</text>
+<text x="120" y="78" text-anchor="middle" class="proto-card-sub">Path Vector</text>
+<text x="120" y="95" text-anchor="middle" class="proto-card-detail">Inter-AS · Policy-based</text>
+<rect x="250" y="35" width="180" height="70" rx="8" class="proto-card" data-proto="OSPF" tabindex="0" role="button" aria-label="OSPF protocol"/>
+<text x="340" y="58" text-anchor="middle" class="proto-card-title">OSPF</text>
+<text x="340" y="78" text-anchor="middle" class="proto-card-sub">Link State</text>
+<text x="340" y="95" text-anchor="middle" class="proto-card-detail">Intra-AS · Dijkstra</text>
+<rect x="470" y="35" width="180" height="70" rx="8" class="proto-card" data-proto="EIGRP" tabindex="0" role="button" aria-label="EIGRP protocol"/>
+<text x="560" y="58" text-anchor="middle" class="proto-card-title">EIGRP</text>
+<text x="560" y="78" text-anchor="middle" class="proto-card-sub">Hybrid</text>
+<text x="560" y="95" text-anchor="middle" class="proto-card-detail">Cisco Proprietary · DUAL</text>
+</g>
+<g id="route-packets">
+<circle id="bgp-packet" r="5" class="packet-dot" visibility="hidden"/>
+</g>
+</svg>
+</div>
+<div id="info-panel" class="info-panel" role="dialog" aria-label="Route information" hidden>
+<button id="info-close" class="btn-icon info-close">&times;</button>
+<h3 id="info-title" class="info-title"></h3>
+<p id="info-desc" class="info-desc"></p>
+<div id="info-details" class="info-details"></div>
+</div>
+<div id="controls" class="controls-bar">
+<button id="play-btn" class="btn-primary">Play</button>
+<button id="challenge-btn" class="btn-secondary">Challenge</button>
+</div>
+<div id="challenge-section" class="challenge-section" hidden>
+<h3 class="challenge-title">Routing Challenge</h3>
+<div id="challenge-questions" class="challenge-questions"></div>
+<div class="challenge-actions"><button id="challenge-submit" class="btn-primary">Submit</button><button id="challenge-retry" class="btn-secondary">Retry</button></div>
+<div id="challenge-result" class="challenge-result" hidden></div>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="dialog" aria-modal="true" aria-label="Complete" hidden>
+<div class="completion-card"><svg class="completion-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><h2>Excellent!</h2><p>You completed the Routing diagram.</p><button id="completion-close" class="btn-primary">Continue</button></div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

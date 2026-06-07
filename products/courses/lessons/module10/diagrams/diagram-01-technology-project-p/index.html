@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Technology Project Planning — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Technology Project Planning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application">
+<div id="skeleton" class="skeleton" role="status">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-header"><div class="skeleton-line w-60"></div><div class="skeleton-line w-40"></div></div>
+<div class="skeleton-body"><div class="skeleton-block h-64"></div><div class="skeleton-block h-32"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">\u26A0</div>
+<h2>Something went wrong</h2>
+<p id="error-msg">An unexpected error occurred.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="main-content" hidden>
+<header class="app-header">
+<div class="header-top"><div><h1 class="app-title">Technology Project Planning</h1><p class="app-subtitle">Capstone Mini Projects</p></div>
+<div class="header-controls">
+<button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">\uD83C\uDF13</button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"></div>
+</div></div>
+</header>
+<div class="diagram-layout">
+<div class="diagram-area">
+<div class="svg-container">
+<svg id="diagram-svg" viewBox="0 0 800 460" class="diagram-svg" role="img" aria-label="Technology Project Planning"><g><rect x="20" y="20" width="760" height="420" rx="12" fill="var(--pal-bg)"/><line x1="260" y1="20" x2="260" y2="440" stroke="var(--pal-border)" stroke-dasharray="4"/><line x1="500" y1="20" x2="500" y2="440" stroke="var(--pal-border)" stroke-dasharray="4"/><text x="140" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">MILESTONES</text><text x="380" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">TASK BOARD</text><text x="620" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">RESOURCES</text><rect x="30" y="60" width="220" height="50" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="140" y="90" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Phase 1: Research</text><rect x="30" y="118" width="220" height="50" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="140" y="148" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Phase 2: Design</text><rect x="30" y="176" width="220" height="50" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="140" y="206" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Phase 3: Build</text><rect x="280" y="60" width="200" height="34" rx="4" fill="#22c55e22" stroke="#22c55e"/><text x="380" y="82" text-anchor="middle" fill="#22c55e" font-size="12">Research user needs</text><rect x="280" y="100" width="200" height="34" rx="4" fill="#eab30822" stroke="#eab308"/><text x="380" y="122" text-anchor="middle" fill="#eab308" font-size="12">Wireframe layouts</text><rect x="280" y="140" width="200" height="34" rx="4" fill="#3b82f622" stroke="#3b82f6"/><text x="380" y="162" text-anchor="middle" fill="#3b82f6" font-size="12">Build prototype</text><rect x="280" y="180" width="200" height="34" rx="4" fill="#a855f722" stroke="#a855f7"/><text x="380" y="202" text-anchor="middle" fill="#a855f7" font-size="12">Test and review</text><rect x="520" y="60" width="220" height="34" rx="4" fill="#a855f722" stroke="#a855f7"/><text x="630" y="82" text-anchor="middle" fill="#a855f7" font-size="12">2 Developers</text><rect x="520" y="100" width="220" height="34" rx="4" fill="#a855f722" stroke="#a855f7"/><text x="630" y="122" text-anchor="middle" fill="#a855f7" font-size="12">1 Designer</text><rect x="520" y="140" width="220" height="34" rx="4" fill="#a855f722" stroke="#a855f7"/><text x="630" y="162" text-anchor="middle" fill="#a855f7" font-size="12">Budget: $50k</text><rect x="520" y="180" width="220" height="34" rx="4" fill="#a855f722" stroke="#a855f7"/><text x="630" y="202" text-anchor="middle" fill="#a855f7" font-size="12">Timeline: 6 weeks</text><text x="140" y="255" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">RISKS</text><text x="380" y="255" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">TIMELINE</text><text x="620" y="255" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">REVIEWS</text><rect x="30" y="270" width="220" height="34" rx="4" fill="#ef444422" stroke="#ef4444"/><text x="140" y="292" text-anchor="middle" fill="#ef4444" font-size="11">Scope creep: Change control</text><rect x="30" y="310" width="220" height="34" rx="4" fill="#ef444422" stroke="#ef4444"/><text x="140" y="332" text-anchor="middle" fill="#ef4444" font-size="11">Tech debt: Schedule refactors</text><rect x="280" y="270" width="200" height="80" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="380" y="294" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">Week 1-2: Research</text><text x="380" y="316" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">Week 3-4: Build</text><text x="380" y="338" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">Week 5-6: Launch</text><rect x="520" y="270" width="220" height="34" rx="4" fill="#06b6d422" stroke="#06b6d4"/><text x="630" y="292" text-anchor="middle" fill="#06b6d4" font-size="11">Design Review Week 2</text><rect x="520" y="310" width="220" height="34" rx="4" fill="#06b6d422" stroke="#06b6d4"/><text x="630" y="332" text-anchor="middle" fill="#06b6d4" font-size="11">Launch Review Week 6</text><rect x="280" y="380" width="240" height="34" rx="8" fill="#22c55e" opacity="0.15"/><text x="400" y="402" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="600">CRITICAL PATH: Research &rarr; Build &rarr; Launch</text></g></svg>
+</div>
+<div class="node-list" role="tablist"><button class="node-btn" role="tab" aria-selected="false" data-node="milestones" style="--node-color:#3b82f6"><span class="node-indicator"></span><span class="node-name">Milestones</span><span class="node-cat">Plan</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="tasks" style="--node-color:#22c55e"><span class="node-indicator"></span><span class="node-name">Task Board</span><span class="node-cat">Execute</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="resources" style="--node-color:#eab308"><span class="node-indicator"></span><span class="node-name">Resource Map</span><span class="node-cat">Manage</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="risks" style="--node-color:#ef4444"><span class="node-indicator"></span><span class="node-name">Risk Register</span><span class="node-cat">Assess</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="timeline" style="--node-color:#a855f7"><span class="node-indicator"></span><span class="node-name">Timeline View</span><span class="node-cat">Schedule</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="review" style="--node-color:#06b6d4"><span class="node-indicator"></span><span class="node-name">Review Gates</span><span class="node-cat">Verify</span></button></div>
+</div>
+<div class="info-panel" id="info-panel" role="tabpanel" aria-live="polite">
+<div class="info-placeholder">Click a node to explore</div>
+</div>
+</div>
+<section class="challenge-section">
+<h2 class="section-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-submit">Submit Answers</button>
+</section>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" hidden>
+<div class="completion-card">
+<div class="completion-icon">\uD83C\uDF89</div>
+<h2 class="completion-title">Quiz Complete!</h2>
+<p class="completion-score" id="completion-score">0/0</p>
+<p class="completion-msg" id="completion-msg">Great effort!</p>
+<button id="completion-close" class="btn-primary">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

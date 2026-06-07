@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Computer Hardware Project — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Computer Hardware Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application">
+<div id="skeleton" class="skeleton" role="status">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-header"><div class="skeleton-line w-60"></div><div class="skeleton-line w-40"></div></div>
+<div class="skeleton-body"><div class="skeleton-block h-64"></div><div class="skeleton-block h-32"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">\u26A0</div>
+<h2>Something went wrong</h2>
+<p id="error-msg">An unexpected error occurred.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="main-content" hidden>
+<header class="app-header">
+<div class="header-top"><div><h1 class="app-title">Computer Hardware Project</h1><p class="app-subtitle">Calculator App</p></div>
+<div class="header-controls">
+<button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">\uD83C\uDF13</button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"></div>
+</div></div>
+</header>
+<div class="diagram-layout">
+<div class="diagram-area">
+<div class="svg-container">
+<svg id="diagram-svg" viewBox="0 0 800 460" class="diagram-svg" role="img" aria-label="Computer Hardware Project"><g><rect x="20" y="20" width="760" height="420" rx="12" fill="var(--pal-bg)"/><rect x="120" y="35" width="560" height="44" rx="8" fill="#0f1729" stroke="var(--pal-border)"/><text x="400" y="65" text-anchor="end" fill="#e2e8f0" font-size="20" font-family="monospace" font-weight="600">42 + 58 = 100</text><rect x="130" y="90" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="167" y="118" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="700" font-family="monospace">C</text><rect x="212" y="90" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="249" y="118" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="700" font-family="monospace">CE</text><rect x="294" y="90" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="331" y="118" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="700" font-family="monospace">M+</text><rect x="376" y="90" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="413" y="118" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="700" font-family="monospace">MR</text><rect x="130" y="141" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="167" y="169" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">7</text><rect x="212" y="141" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="249" y="169" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">8</text><rect x="294" y="141" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="331" y="169" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">9</text><rect x="376" y="141" width="75" height="44" rx="6" fill="#3b82f6" stroke="#3b82f6"/><text x="413" y="169" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="monospace">/</text><rect x="130" y="192" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="167" y="220" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">4</text><rect x="212" y="192" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="249" y="220" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">5</text><rect x="294" y="192" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="331" y="220" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">6</text><rect x="376" y="192" width="75" height="44" rx="6" fill="#3b82f6" stroke="#3b82f6"/><text x="413" y="220" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="monospace">*</text><rect x="130" y="243" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="167" y="271" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">1</text><rect x="212" y="243" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="249" y="271" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">2</text><rect x="294" y="243" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="331" y="271" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">3</text><rect x="376" y="243" width="75" height="44" rx="6" fill="#3b82f6" stroke="#3b82f6"/><text x="413" y="271" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="monospace">-</text><rect x="130" y="294" width="160" height="44" rx="6" fill="#22c55e" stroke="#22c55e"/><text x="210" y="322" text-anchor="middle" fill="white" font-size="15" font-weight="700" font-family="monospace">0</text><rect x="297" y="294" width="75" height="44" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="334" y="322" text-anchor="middle" fill="#f1f5f9" font-size="15" font-weight="700" font-family="monospace">.</text><rect x="379" y="294" width="75" height="44" rx="6" fill="#3b82f6" stroke="#3b82f6"/><text x="416" y="322" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="monospace">+</text><rect x="490" y="90" width="200" height="44" rx="8" fill="#eab308" stroke="#eab308"/><text x="590" y="120" text-anchor="middle" fill="white" font-size="20" font-weight="700" font-family="monospace">=</text><rect x="490" y="145" width="200" height="44" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="590" y="170" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">History</text><text x="590" y="185" text-anchor="middle" fill="var(--pal-muted)" font-size="10">12 past calculations</text><rect x="490" y="196" width="200" height="44" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="590" y="221" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">Converter</text><text x="590" y="236" text-anchor="middle" fill="var(--pal-muted)" font-size="10">Length / Weight / Temp</text><rect x="490" y="247" width="200" height="44" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="590" y="272" text-anchor="middle" fill="var(--pal-text)" font-size="12" font-weight="600">Memory: 42</text><text x="590" y="287" text-anchor="middle" fill="var(--pal-muted)" font-size="10">M+ M- MR MC</text><rect x="490" y="310" width="200" height="34" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="590" y="333" text-anchor="middle" fill="var(--pal-text)" font-size="11">PEMDAS: Multiplication first</text></g></svg>
+</div>
+<div class="node-list" role="tablist"><button class="node-btn" role="tab" aria-selected="false" data-node="display" style="--node-color:#3b82f6"><span class="node-indicator"></span><span class="node-name">Display Unit</span><span class="node-cat">Output</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="buttons" style="--node-color:#22c55e"><span class="node-indicator"></span><span class="node-name">Button Matrix</span><span class="node-cat">Input</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="logic" style="--node-color:#eab308"><span class="node-indicator"></span><span class="node-name">Logic Core</span><span class="node-cat">Process</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="memory" style="--node-color:#ef4444"><span class="node-indicator"></span><span class="node-name">Memory Functions</span><span class="node-cat">Storage</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="history" style="--node-color:#a855f7"><span class="node-indicator"></span><span class="node-name">Calculation History</span><span class="node-cat">Log</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="convert" style="--node-color:#06b6d4"><span class="node-indicator"></span><span class="node-name">Unit Converter</span><span class="node-cat">Tool</span></button></div>
+</div>
+<div class="info-panel" id="info-panel" role="tabpanel" aria-live="polite">
+<div class="info-placeholder">Click a node to explore</div>
+</div>
+</div>
+<section class="challenge-section">
+<h2 class="section-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-submit">Submit Answers</button>
+</section>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" hidden>
+<div class="completion-card">
+<div class="completion-icon">\uD83C\uDF89</div>
+<h2 class="completion-title">Quiz Complete!</h2>
+<p class="completion-score" id="completion-score">0/0</p>
+<p class="completion-msg" id="completion-msg">Great effort!</p>
+<button id="completion-close" class="btn-primary">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

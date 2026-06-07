@@ -1,343 +1,65 @@
 (function(){'use strict';
-var components = [
-  {id:"case",name:"Computer Case",category:"Hardware",icon:"server",x:50,y:50,w:100,h:50,purpose:"Houses and protects all internal computer components",description:"The case provides a rigid frame where the motherboard, drives, and power supply mount, with airflow channels and front panel access.",why:"The case protects components and provides the structure for assembly",analogy:"Like the chassis of a car that holds everything together",funFact:"Cases come in form factors like ATX, Micro-ATX, and Mini-ITX",takeaway:"Choose a case that fits your motherboard size and has good airflow",mistake:"A bigger case doesn't always mean better cooling—airflow design matters more"},
-  {id:"motherboard",name:"Motherboard",category:"Hardware",icon:"chip",x:200,y:50,w:100,h:50,purpose:"The main circuit board connecting all components",description:"The motherboard is a large PCB with sockets and slots for the CPU, RAM, storage, and expansion cards.",why:"The motherboard is the central nervous system of the computer",analogy:"Like the foundation and wiring of a house",funFact:"The first PC motherboard had only 24 chips",takeaway:"All components connect to the motherboard, which determines what hardware is compatible",mistake:"Not all CPUs fit all motherboards—check socket compatibility"},
-  {id:"cpu",name:"CPU Processor",category:"Processing",icon:"cpu",x:200,y:150,w:100,h:50,purpose:"Executes instructions and performs calculations",description:"The CPU is the processor chip that interprets program instructions, performs arithmetic, and coordinates data flow through the system.",why:"The CPU is the brain of the computer where all processing happens",analogy:"Like the engine of a car that provides the power",funFact:"Modern CPUs contain billions of transistors on a chip the size of a fingernail",takeaway:"CPU choice determines overall system performance for most tasks",mistake:"A faster CPU alone doesn't guarantee better performance—RAM and storage also matter"},
-  {id:"ram",name:"RAM Memory",category:"Memory",icon:"ram",x:50,y:150,w:100,h:50,purpose:"Provides temporary high-speed data storage for active programs",description:"RAM modules plug into motherboard slots and provide the working memory where the OS and applications run.",why:"RAM determines how many programs can run smoothly at once",analogy:"Like your desk space—more room lets you work with more documents simultaneously",funFact:"DDR5 RAM can transfer data at speeds up to 6400 MT/s",takeaway:"More RAM allows more multitasking and larger applications to run",mistake:"RAM is volatile—all data is lost when power is turned off"},
-  {id:"storage",name:"Storage Drive",category:"Storage",icon:"hdd",x:50,y:250,w:100,h:50,purpose:"Permanently stores the OS, applications, and user files",description:"Storage drives—SSD or HDD—connect to the motherboard via SATA or M.2 and provide non-volatile data retention.",why:"Storage holds everything when the computer is off",analogy:"Like a filing cabinet that keeps documents even when you leave the room",funFact:"NVMe SSDs are up to 7x faster than SATA SSDs",takeaway:"Use an SSD for the OS and programs, HDD for bulk file storage",mistake:"Storage speed affects boot times and program loading more than processing speed"},
-  {id:"psu",name:"Power Supply",category:"Hardware",icon:"power",x:200,y:250,w:100,h:50,purpose:"Converts wall AC power into regulated DC voltages for all components",description:"The PSU takes 120V/240V AC from the wall and converts it to +3.3V, +5V, and +12V DC power.",why:"The PSU provides the essential power every component needs to function",analogy:"Like the heart that pumps blood (power) to all parts of the body",funFact:"80 Plus certification indicates PSU efficiency, with Titanium being the best",takeaway:"A quality PSU is critical for system stability and component safety",mistake:"A higher wattage PSU doesn't always mean better—quality and efficiency matter more"}
+const DATA=[
+{id:"case",name:"Computer Case",icon:"\uD83D\uDDA5\uFE0F",color:"#3b82f6",purpose:"Houses and protects all internal computer components",desc:"The case provides a rigid frame where the motherboard, drives, and power supply mount, with airflow channels and front panel access.",analogy:"Like a car chassis that holds everything together",fun:"Cases come in ATX, Micro-ATX, and Mini-ITX form factors",take:"Choose a case that fits your motherboard size and has good airflow",mistake:"A bigger case doesn't always mean better cooling\u2014airflow design matters more"},
+{id:"mb",name:"Motherboard",icon:"\uD83D\uDCDF",color:"#a855f7",purpose:"Main circuit board connecting all components",desc:"The motherboard has sockets and slots for the CPU, RAM, storage, and expansion cards. It's the central nervous system of the PC.",analogy:"Like the foundation and wiring of a house",fun:"The first PC motherboard had only 24 chips",take:"All components connect to the motherboard\u2014it determines what hardware is compatible",mistake:"Not all CPUs fit all motherboards\u2014check socket compatibility"},
+{id:"cpu",name:"CPU Processor",icon:"\u26A1",color:"#ef4444",purpose:"Executes instructions and performs calculations",desc:"The CPU interprets program instructions, performs arithmetic, and coordinates data flow through the system.",analogy:"Like the engine of a car that provides all the power",fun:"Modern CPUs contain billions of transistors on a chip the size of a fingernail",take:"CPU choice determines overall system performance for most tasks",mistake:"A faster CPU alone doesn't guarantee better performance\u2014RAM and storage also matter"},
+{id:"ram",name:"RAM Memory",icon:"\uD83D\uDCBE",color:"#10b981",purpose:"Temporary high-speed storage for active programs",desc:"RAM modules plug into motherboard slots and provide the working memory where the OS and applications run.",analogy:"Like your desk space\u2014more room lets you work with more documents simultaneously",fun:"DDR5 RAM can transfer data at speeds up to 6400 MT/s",take:"More RAM allows more multitasking and larger applications to run",mistake:"RAM is volatile\u2014all data is lost when power is turned off"},
+{id:"storage",name:"Storage Drive",icon:"\uD83D\uDCBF",color:"#eab308",purpose:"Permanently stores the OS, applications, and user files",desc:"SSD or HDD connects to the motherboard via SATA or M.2 and provides non-volatile data retention.",analogy:"Like a filing cabinet that keeps documents even when you leave the room",fun:"NVMe SSDs are up to 7x faster than SATA SSDs",take:"Use an SSD for the OS and programs, HDD for bulk file storage",mistake:"Storage speed affects boot times and program loading more than processing speed"},
+{id:"psu",name:"Power Supply",icon:"\uD83D\uDD0C",color:"#f97316",purpose:"Converts wall AC power into regulated DC voltages for all components",desc:"The PSU takes 120V/240V AC from the wall and converts it to +3.3V, +5V, and +12V DC power.",analogy:"Like the heart that pumps power to all parts of the body",fun:"80 Plus certification indicates PSU efficiency, with Titanium being the best",take:"A quality PSU is critical for system stability and component safety",mistake:"A higher wattage PSU doesn't always mean better\u2014quality and efficiency matter more"}
 ];
-var connections = [{from:"case",to:"motherboard"},{from:"motherboard",to:"cpu"},{from:"cpu",to:"ram"},{from:"ram",to:"storage"},{from:"storage",to:"psu"}];
-var steps = [{id:"case",label:"Step 1: Case",status:"Install the computer case - the foundation of your build"},{id:"motherboard",label:"Step 2: Motherboard",status:"Install the motherboard into the case"},{id:"cpu",label:"Step 3: CPU",status:"Install the CPU processor onto the motherboard"},{id:"ram",label:"Step 4: RAM",status:"Install RAM modules into the motherboard slots"},{id:"storage",label:"Step 5: Storage",status:"Install the storage drive (SSD/HDD)"},{id:"psu",label:"Step 6: PSU",status:"Install the power supply unit and connect cables"}];
-var tour = [{title:"Computer Case",description:"Start by preparing the case for assembly",componentId:"case"},{title:"Motherboard",description:"Mount the motherboard inside the case",componentId:"motherboard"},{title:"CPU Processor",description:"Carefully install the CPU in its socket",componentId:"cpu"},{title:"RAM Memory",description:"Insert RAM sticks into the correct slots",componentId:"ram"},{title:"Storage Drive",description:"Mount the SSD or HDD and connect it",componentId:"storage"},{title:"Power Supply",description:"Install the PSU and connect all power cables",componentId:"psu"}];
+const CHALLENGE=[
+{q:"What is the first component typically installed when building a PC?",o:["Power Supply","CPU","Computer Case","RAM"],c:2,t:"Assembly Order",fb:"Correct! The case is the foundation everything mounts in.",fw:"The case comes first\u2014everything else mounts inside it."},
+{q:"Which component is considered the brain of the computer?",o:["RAM","Hard Drive","CPU","Motherboard"],c:2,t:"Components",fb:"Yes! The CPU processes all instructions.",fw:"The CPU (Central Processing Unit) is the brain of the computer."},
+{q:"What does RAM stand for?",o:["Read Access Memory","Random Access Memory","Rapid Action Module","Remote Access Memory"],c:1,t:"Memory",fb:"Random Access Memory! It provides fast temporary storage.",fw:"RAM = Random Access Memory."},
+{q:"Which storage type is fastest?",o:["SATA SSD","HDD","NVMe SSD","Flash Drive"],c:2,t:"Storage",fb:"NVMe SSDs use PCIe lanes for speeds up to 14GB/s!",fw:"NVMe SSDs are the fastest, using PCIe direct connection."},
+{q:"What does 80 Plus certification indicate?",o:["CPU speed","PSU efficiency","RAM speed","Case airflow"],c:1,t:"Power Supply",fb:"80 Plus certifies power supply efficiency.",fw:"80 Plus rates how efficiently a PSU converts AC to DC."},
+{q:"What should you do before touching components to prevent ESD?",o:["Wash hands","Wear anti-static wrist strap","Unplug the PSU","Remove RAM"],c:1,t:"Safety",fb:"An anti-static wrist strap prevents ESD damage.",fw:"Always wear an anti-static wrist strap when handling PC components."}
+];
+const COMP_MAP={};DATA.forEach(function(c){COMP_MAP[c.id]=c});
 
-function _findComp(id){return components.find(function(c){return c.id===id})||null}
+function C(){var self=this;this.t=0;this.sp=1;this.run=true;this.sel=null;this.th='dark';this.af=null;this.done=false;this.ci=0;this.cs=0;this.cd=false;
+try{this._init()}catch(e){this._err(e)}}
+C.prototype={_init:function(){var self=this;
+self.th=localStorage.getItem('consica-diagram-theme')||'dark';
+document.documentElement.setAttribute('data-theme',self.th);
+self._ui();self._ev();self._lp();
+setTimeout(function(){var s=document.getElementById('loading-skeleton');if(s)s.classList.add('hide');var a=document.getElementById('app');if(a)a.classList.add('ready')},500)},
+_ui:function(){var a=document.getElementById('app');if(!a)return;
+a.innerHTML='<header class="toolbar" role="toolbar"><div class="toolbar-title"><span>\uD83D\uDDA5\uFE0F</span><span>Computer Assembly</span><span class="badge">Module 3</span></div><div class="toolbar-controls"><label for="spd">Speed</label><input type="range" id="spd" min="0.25" max="4" step="0.25" value="1" aria-label="Animation speed"><select id="challenge-select" class="toolbar-btn"><option>Challenge</option><option>Start Quiz</option></select><button class="toolbar-btn" id="theme-btn" aria-label="Toggle theme">'+(this.th==='dark'?'\u2600\uFE0F':'\uD83C\uDF19')+'</button></div></header><div class="viz-area" id="viz-area" role="main"><div id="viz-content" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;"><svg class="viz-exploded" viewBox="0 0 600 450" aria-label="Exploded computer assembly view"><line class="node-conn" x1="300" y1="80" x2="300" y2="140"/><line class="node-conn" x1="300" y1="140" x2="300" y2="200"/><line class="node-conn" x1="300" y1="200" x2="300" y2="270"/><line class="node-conn" x1="300" y1="270" x2="300" y2="340"/><line class="node-conn" x1="300" y1="340" x2="300" y2="400"/><circle class="flow-p" r="3" opacity="0.6" id="fp1"><animate attributeName="cy" values="80;140;200;270;340;400" dur="3s" repeatCount="indefinite"/></circle><circle class="flow-p" r="2" opacity="0.4" id="fp2"><animate attributeName="cy" values="80;140;200;270;340;400" dur="3s" begin="0.5s" repeatCount="indefinite"/></circle><g class="comp-node" data-id="case" transform="translate(300,80)"><rect x="-80" y="-30" width="160" height="60" rx="8" fill="var(--surface)" stroke="#3b82f6" stroke-width="2"/><rect x="-70" y="-22" width="50" height="44" rx="4" fill="var(--bg2)" stroke="var(--border)" stroke-width="1"/><text class="lbl" y="6">Computer Case</text><text class="slbl" y="18">Foundation</text></g><g class="comp-node" data-id="mb" transform="translate(300,140)"><rect x="-75" y="-28" width="150" height="56" rx="6" fill="var(--surface)" stroke="#a855f7" stroke-width="2"/><rect x="-65" y="-20" width="40" height="40" rx="3" fill="var(--bg2)" stroke="var(--border)" stroke-width="1"/><text class="lbl" y="6">Motherboard</text><text class="slbl" y="18">Central Hub</text></g><g class="comp-node" data-id="cpu" transform="translate(300,200)"><rect x="-60" y="-25" width="120" height="50" rx="4" fill="var(--surface)" stroke="#ef4444" stroke-width="2"/><rect x="-50" y="-17" width="100" height="34" rx="2" fill="var(--bg2)"/><text class="lbl" y="6">CPU Processor</text><text class="slbl" y="18">Brain</text></g><g class="comp-node" data-id="ram" transform="translate(300,270)"><rect x="-55" y="-22" width="110" height="44" rx="4" fill="var(--surface)" stroke="#10b981" stroke-width="2"/><rect x="-45" y="-14" width="20" height="28" rx="2" fill="var(--bg2)"/><rect x="-20" y="-14" width="20" height="28" rx="2" fill="var(--bg2)"/><text class="lbl" y="6">RAM Memory</text><text class="slbl" y="18">Working Memory</text></g><g class="comp-node" data-id="storage" transform="translate(300,340)"><rect x="-65" y="-25" width="130" height="50" rx="6" fill="var(--surface)" stroke="#eab308" stroke-width="2"/><rect x="-55" y="-17" width="60" height="34" rx="3" fill="var(--bg2)" stroke="var(--border)" stroke-width="1"/><text class="lbl" y="6">Storage Drive</text><text class="slbl" y="18">Permanent Storage</text></g><g class="comp-node" data-id="psu" transform="translate(300,400)"><rect x="-70" y="-25" width="140" height="50" rx="6" fill="var(--surface)" stroke="#f97316" stroke-width="2"/><rect x="-60" y="-17" width="40" height="34" rx="2" fill="var(--bg2)"/><text class="lbl" y="6">Power Supply</text><text class="slbl" y="18">Energy Source</text></g></svg></div><div id="viz-status" style="position:absolute;bottom:8px;left:16px;font-size:11px;color:var(--text3);font-weight:500;pointer-events:none;">Click a component to learn more</div></div><div class="info-panel" id="info-panel" role="dialog" aria-label="Component info"><button class="info-panel-close" id="info-close" aria-label="Close">&times;</button><div class="info-panel-title" id="info-title"></div><div class="info-panel-sub" id="info-sub"></div><div class="info-panel-body" id="info-body"></div></div><div class="completion-overlay" id="completion-overlay"><div class="completion-card"><div class="icon">\uD83C\uDF89</div><h2>Build Complete!</h2><p>You built a complete PC! All components installed and system ready for boot.</p><button class="btn" id="completion-btn">Continue</button></div></div><div class="challenge-modal" id="challenge-modal"><div class="challenge-card" id="challenge-card"></div></div>'},
+_ev:function(){var self=this;
+document.getElementById('theme-btn').addEventListener('click',function(){self.th=self.th==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',self.th);localStorage.setItem('consica-diagram-theme',self.th);this.textContent=self.th==='dark'?'\u2600\uFE0F':'\uD83C\uDF19'});
+document.getElementById('spd').addEventListener('input',function(e){self.sp=parseFloat(e.target.value)});
+document.getElementById('info-close').addEventListener('click',function(){document.getElementById('info-panel').classList.remove('open')});
+document.getElementById('challenge-select').addEventListener('change',function(e){if(e.target.value==='Start Quiz'){self._sq();e.target.value='Challenge'}});
+document.getElementById('completion-btn').addEventListener('click',function(){document.getElementById('completion-overlay').classList.remove('show')});
+document.querySelectorAll('.comp-node').forEach(function(el){el.addEventListener('click',function(){var id=this.dataset.id;if(id)self._sel(id)})})},
+_sel:function(id){var c=COMP_MAP[id];if(!c)return;this.sel=id;
+document.querySelectorAll('.comp-node').forEach(function(n){n.classList.remove('selected')});
+var el=document.querySelector('.comp-node[data-id="'+id+'"]');if(el)el.classList.add('selected');
+var p=document.getElementById('info-panel');
+document.getElementById('info-title').textContent=c.name;
+document.getElementById('info-sub').textContent=c.purpose.substring(0,80);
+document.getElementById('info-body').innerHTML='<div><span class="label">Purpose</span><div class="value">'+c.purpose+'</div></div><div><span class="label">How It Works</span><div class="value">'+c.desc+'</div></div><div><span class="label">Analogy</span><div class="value">'+c.analogy+'</div></div><div><span class="label">Fun Fact</span><div class="value">'+c.fun+'</div></div><div><span class="label">Key Takeaway</span><div class="value">'+c.take+'</div></div><div><span class="label">Common Mistake</span><div class="value">'+c.mistake+'</div></div>';
+p.classList.add('open');
+document.getElementById('viz-status').textContent=c.name},
+_lp:function(){var self=this;var last=0;
+function loop(now){if(!last)last=now;var dt=(now-last)/1000;last=now;if(self.run){self.t+=dt*self.sp;self._an(dt)}self.af=requestAnimationFrame(loop)}
+self.af=requestAnimationFrame(loop)},
+_an:function(){var self=this;var fps=document.querySelectorAll('.flow-p');if(!fps.length)return;
+fps.forEach(function(p,i){var t=(self.t*0.5+i*0.3)%1;p.style.opacity=t>0.8?(1-t)*5:t*1.2})},
+mc:function(){if(this.done)return;this.done=true;var self=this;setTimeout(function(){var o=document.getElementById('completion-overlay');if(o)o.classList.add('show')},500)},
+_sq:function(){if(this.cd){this.ci=0;this.cs=0;this.cd=false}this._sc()},
+_sc:function(){var self=this;var card=document.getElementById('challenge-card');var qs=CHALLENGE;
+if(this.ci>=qs.length){var p=Math.round((this.cs/qs.length)*100);card.innerHTML='<h2>Quiz Complete!</h2><p class="sub">You scored '+this.cs+'/'+qs.length+' ('+p+'%)</p><div class="challenge-score">'+(p>=70?'Great job!':p>=40?'Keep practicing!':'Review the material')+'</div><div style="display:flex;gap:8px;justify-content:center"><button class="toolbar-btn" onclick="document.getElementById(\'challenge-modal\').classList.remove(\'show\')">Close</button><button class="toolbar-btn" onclick="location.reload()">Retry</button></div>';this.cd=true;if(p>=70)this.mc();return}
+var q=qs[this.ci];var oh='';q.o.forEach(function(o,i){oh+='<button data-idx="'+i+'" class="challenge-opt-btn">'+o+'</button>'});
+card.innerHTML='<h2>Question '+(this.ci+1)+'</h2><p class="sub">'+(q.t||'Knowledge Check')+'</p><div class="challenge-q">'+q.q+'</div><div class="challenge-opts" id="challenge-opts">'+oh+'</div><div class="challenge-feedback" id="challenge-feedback" style="display:none"></div><div class="challenge-progress">Question '+(this.ci+1)+' of '+qs.length+' | Score: '+this.cs+'</div>';
+card.querySelectorAll('.challenge-opt-btn').forEach(function(btn,idx){btn.addEventListener('click',function(){if(btn.disabled)return;card.querySelectorAll('.challenge-opt-btn').forEach(function(b){b.disabled=true});var fb=document.getElementById('challenge-feedback');
+if(idx===q.c){btn.classList.add('correct');self.cs++;fb.style.display='block';fb.style.background='rgba(16,185,129,0.1)';fb.style.color='var(--success)';fb.style.border='1px solid var(--success)';fb.textContent=q.fb||'Correct!';
+}else{btn.classList.add('wrong');fb.style.display='block';fb.style.background='rgba(239,68,68,0.1)';fb.style.color='var(--error)';fb.style.border='1px solid var(--error)';fb.textContent=q.fw||'Not quite.'+(q.c!==undefined?' Answer: '+q.o[q.c]:'')}
+setTimeout(function(){self.ci++;self._sc()},1800)})});
+document.getElementById('challenge-modal').classList.add('show')},
+_err:function(e){var eb=document.getElementById('error-boundary');var msg=document.getElementById('error-msg');if(eb)eb.classList.add('show');if(msg)msg.textContent=e.message||'An error occurred.';var s=document.getElementById('loading-skeleton');if(s)s.classList.add('hide');var a=document.getElementById('app');if(a)a.classList.remove('ready');console.error('Error:',e)}
+};
 
-function buildDragDrop(container, engine){
-  var stepOrder=['case','motherboard','cpu','ram','storage','psu'];
-  var placed={};
-  var allPlaced=false;
-  var mode='beginner';
-  var draggingEl=null;
-  var touchId=null;
-
-  container.innerHTML='';
-  
-  // Create wrapper layout
-  var mainLayout=document.createElement('div');
-  mainLayout.className='assembly-layout';
-  mainLayout.style.cssText='display:flex; gap:16px; width:100%; flex-wrap:wrap; padding: 12px;';
-  container.appendChild(mainLayout);
-
-  // ── Workspace (left/top) ──
-  var ws=document.createElement('div');
-  ws.style.cssText='flex:1.4; min-width:280px; position:relative; background:linear-gradient(135deg,#0f1729,#0a0e17); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px; display:flex; flex-direction:column; align-items:center; justify-content:center';
-  var wsInner=document.createElement('div');
-  wsInner.style.cssText='position:relative; width:100%; max-width:500px; aspect-ratio:4/3; background:rgba(15,23,42,0.6); border:2px dashed rgba(255,255,255,0.08); border-radius:12px; margin:0 auto; overflow:hidden;';
-  ws.appendChild(wsInner);
-  mainLayout.appendChild(ws);
-
-  // ── Component palette (right/bottom) ──
-  var palette=document.createElement('div');
-  palette.className='assembly-palette';
-  palette.style.cssText='flex:1; min-width:240px; display:flex; flex-direction:column; gap:10px; padding:12px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:8px;';
-  var palTitle=document.createElement('div');
-  palTitle.textContent='Component Toolbox';
-  palTitle.style.cssText='font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; padding-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.06)';
-  palette.appendChild(palTitle);
-  mainLayout.appendChild(palette);
-
-  // ── Feedback Box ──
-  var feedBox = document.createElement('div');
-  feedBox.style.cssText = 'width:100%; padding:10px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.06); border-radius:8px; font-size:12px; color:#cbd5e1;';
-  feedBox.id = 'assembly-feedback';
-  feedBox.textContent = 'Drag Case to the workspace to begin the computer assembly.';
-  container.appendChild(feedBox);
-
-  // ── Drop Zones definitions matching real chassis layout ──
-  var zoneDefs={
-    case:{label:'Computer Case',x:5,y:5,w:90,h:90,desc:'Place the computer case here'},
-    motherboard:{label:'Motherboard',x:12,y:12,w:50,h:60,desc:'Mount the motherboard into the case'},
-    cpu:{label:'CPU Socket',x:20,y:20,w:14,h:18,desc:'Insert the CPU into the socket'},
-    ram:{label:'RAM Slots',x:38,y:18,w:10,h:24,desc:'Insert RAM into the DIMM slots'},
-    storage:{label:'Storage Bay',x:68,y:15,w:18,h:40,desc:'Mount the SSD/HDD in the drive bay'},
-    psu:{label:'PSU Bay',x:15,y:76,w:36,h:16,desc:'Install the power supply unit'}
-  };
-
-  // Inject responsive stylesheet overrides
-  if(!document.getElementById('dd-assembly-styles')){
-    var style=document.createElement('style');
-    style.id='dd-assembly-styles';
-    style.textContent=`
-      @media (max-width: 768px) {
-        .assembly-layout {
-          flex-direction: column !important;
-        }
-        .assembly-palette {
-          width: 100% !important;
-          max-height: none !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // Draw empty zones in workspace
-  function drawZones(){
-    wsInner.innerHTML='';
-    
-    // Draw active target zone (only the current step is active)
-    var nextToPlace = stepOrder.find(id => !placed[id]);
-    
-    // Draw placed background components first (to ensure correct layering)
-    stepOrder.forEach(function(id) {
-      if (!placed[id]) return;
-      var z = zoneDefs[id];
-      var el = document.createElement('div');
-      
-      // Make case background non-blocking so it doesn't cover other slots
-      var isCase = (id === 'case');
-      el.style.cssText = 'position:absolute; left:'+z.x+'%; top:'+z.y+'%; width:'+z.w+'%; height:'+z.h+'%; background:rgba(16,185,129,0.08); border:2px solid #10b981; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-direction:column; box-shadow:0 0 10px rgba(16,185,129,0.1);' + (isCase ? 'pointer-events:none; z-index:1;' : 'z-index:2; cursor:pointer;');
-      
-      if (!isCase) {
-        var nm = document.createElement('span');
-        nm.textContent = _findComp(id) ? _findComp(id).name : '';
-        nm.style.cssText = 'font-size:9px; color:#10b981; font-weight:600; text-align:center; pointer-events:none; line-height:1.2';
-        el.appendChild(nm);
-        var ck = document.createElement('span');
-        ck.textContent = '✓';
-        ck.style.cssText = 'font-size:12px; color:#10b981; pointer-events:none; font-weight:bold;';
-        el.appendChild(ck);
-        el.addEventListener('click', function() {
-          if(_findComp(id)) engine.selectComponent(id);
-        });
-      } else {
-        // Draw case skeleton graphics
-        el.innerHTML = '<div style="position:absolute; bottom:4px; right:8px; font-size:9px; color:rgba(16,185,129,0.4); font-weight:700;">CHASSIS FRAME</div>';
-      }
-      wsInner.appendChild(el);
-    });
-
-    // Draw active zone outline (dashed box)
-    if (nextToPlace) {
-      var z = zoneDefs[nextToPlace];
-      var zone = document.createElement('div');
-      zone.dataset.zoneId = nextToPlace;
-      zone.style.cssText = 'position:absolute; left:'+z.x+'%; top:'+z.y+'%; width:'+z.w+'%; height:'+z.h+'%; border:2px dashed #3b82f6; border-radius:6px; display:flex; align-items:center; justify-content:center; background:rgba(59,130,246,0.03); transition:all 0.3s; z-index:5;';
-      
-      var zlbl = document.createElement('span');
-      zlbl.textContent = z.label;
-      zlbl.style.cssText = 'font-size:9px; color:#3b82f6; font-weight:600; text-align:center; pointer-events:none; line-height:1.2';
-      zone.appendChild(zlbl);
-      
-      // Drag & Drop event bindings
-      zone.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#60a5fa';
-        this.style.background = 'rgba(59,130,246,0.1)';
-      });
-      zone.addEventListener('dragleave', function() {
-        this.style.borderColor = '#3b82f6';
-        this.style.background = 'rgba(59,130,246,0.03)';
-      });
-      zone.addEventListener('drop', function(e) {
-        e.preventDefault();
-        var id = e.dataTransfer.getData('text/plain');
-        tryHandleDrop(id, this.dataset.zoneId);
-      });
-      wsInner.appendChild(zone);
-    }
-  }
-
-  // ── Build component palette ──
-  function buildPalette(){
-    while (palette.children.length > 1) palette.removeChild(palette.lastChild);
-
-    stepOrder.forEach(function(id) {
-      if (placed[id]) return;
-      var comp = _findComp(id);
-      if (!comp) return;
-      
-      var card = document.createElement('div');
-      card.draggable = true;
-      card.dataset.compId = id;
-      card.style.cssText = 'padding:10px 12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; cursor:grab; transition:all 0.2s; user-select:none; display:flex; flex-direction:column; gap:2px;';
-      card.innerHTML = `<div style="font-size:12px; font-weight:600; color:#e2e8f0;">${comp.name}</div><div style="font-size:9px; color:#64748b;">${comp.category}</div>`;
-      
-      card.addEventListener('dragstart', function(e) {
-        draggingEl = this;
-        e.dataTransfer.setData('text/plain', id);
-        this.style.opacity = '0.4';
-      });
-      card.addEventListener('dragend', function() {
-        this.style.opacity = '1';
-        draggingEl = null;
-      });
-      
-      // Mobile/Tablet Touch support
-      card.addEventListener('touchstart', function(e) {
-        var touch = e.touches[0];
-        touchId = id;
-        this.style.opacity = '0.4';
-        
-        var ghost = document.createElement('div');
-        ghost.id = 'drag-ghost';
-        ghost.textContent = comp.name;
-        ghost.style.cssText = 'position:fixed; pointer-events:none; z-index:9999; padding:8px 14px; background:#0959C8; color:#fff; border-radius:6px; font-size:12px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translate(-50%,-50%)';
-        document.body.appendChild(ghost);
-        moveGhost(touch.clientX, touch.clientY);
-      }, { passive: true });
-
-      card.addEventListener('touchmove', function(e) {
-        var touch = e.touches[0];
-        moveGhost(touch.clientX, touch.clientY);
-      }, { passive: true });
-
-      card.addEventListener('touchend', function(e) {
-        this.style.opacity = '1';
-        var ghost = document.getElementById('drag-ghost');
-        if (ghost) ghost.remove();
-        
-        var touch = e.changedTouches[0];
-        var target = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (target) {
-          var zone = target.closest('[data-zone-id]');
-          if (zone) {
-            tryHandleDrop(touchId, zone.dataset.zoneId);
-          }
-        }
-        touchId = null;
-      });
-      
-      palette.appendChild(card);
-    });
-
-    var pCount = Object.keys(placed).length;
-    var prog = document.createElement('div');
-    prog.style.cssText = 'font-size:10px; color:#64748b; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); text-align:center; font-weight:600;';
-    prog.textContent = `Progress: ${pCount} / ${stepOrder.length} Assembled`;
-    palette.appendChild(prog);
-  }
-
-  function moveGhost(x, y){
-    var ghost = document.getElementById('drag-ghost');
-    if (ghost) {
-      ghost.style.left = x + 'px';
-      ghost.style.top = y + 'px';
-    }
-  }
-
-  function tryHandleDrop(compId, zoneId) {
-    if (!compId) return;
-    
-    // Check strict assembly order
-    var targetIdx = stepOrder.indexOf(compId);
-    for (var i = 0; i < targetIdx; i++) {
-      if (!placed[stepOrder[i]]) {
-        var prevName = _findComp(stepOrder[i]).name;
-        feedBox.style.color = '#ef4444';
-        feedBox.textContent = `❌ Assembly Order Error: You must install the ${prevName} before installing the ${_findComp(compId).name}.`;
-        engine._setStatus(`Assembly error: missing ${prevName}`);
-        return;
-      }
-    }
-
-    if (compId !== zoneId) {
-      feedBox.style.color = '#ef4444';
-      feedBox.textContent = `❌ Fit Error: The ${_findComp(compId).name} does not belong in the ${zoneDefs[zoneId].label} slot.`;
-      return;
-    }
-
-    placed[compId] = true;
-    engine.selectComponent(compId);
-    
-    var nextItem = stepOrder[targetIdx + 1];
-    feedBox.style.color = '#10b981';
-    if (nextItem) {
-      feedBox.textContent = `✓ Placed ${_findComp(compId).name}. Next step: Install the ${_findComp(nextItem).name}.`;
-    } else {
-      feedBox.textContent = `✓ All parts installed! Click the Power button below to boot the system.`;
-      allPlaced = true;
-      showPowerBtn();
-    }
-    
-    drawZones();
-    buildPalette();
-  }
-
-  function showPowerBtn() {
-    if (container.querySelector('#btn-power-on')) return;
-    var btn = document.createElement('button');
-    btn.id = 'btn-power-on';
-    btn.textContent = '⚡ POWER ON SYSTEM';
-    btn.style.cssText = 'margin:12px auto; padding:12px 30px; font-size:13px; font-weight:700; background:linear-gradient(135deg,#10b981,#059669); color:#fff; border:none; border-radius:8px; cursor:pointer; box-shadow:0 0 20px rgba(16,185,129,0.3); font-family:inherit; transition: all 0.3s;';
-    btn.addEventListener('click', function() {
-      bootSystem(this);
-    });
-    container.appendChild(btn);
-  }
-
-  function bootSystem(btn) {
-    btn.disabled = true;
-    btn.style.opacity = '0.7';
-    feedBox.style.color = '#3b82f6';
-    feedBox.textContent = 'Initializing BIOS and checking hardware connection components...';
-    
-    var stages = [
-      'Initializing BIOS chip set... OK',
-      'Running Power-On Self Test (POST)... Check OK',
-      'RAM Check: 16 GB DDR5 detected... OK',
-      'Storage Check: NVMe SSD detected... OK',
-      'Loading Windows/Linux Bootloader...',
-      'System Ready!'
-    ];
-
-    var idx = 0;
-    var interval = setInterval(function() {
-      if (idx < stages.length) {
-        feedBox.textContent = `> ${stages[idx]}`;
-        engine._setStatus(stages[idx]);
-        idx++;
-      } else {
-        clearInterval(interval);
-        feedBox.style.color = '#10b981';
-        feedBox.innerHTML = `<strong>🎉 Success!</strong> Computer assembled and booted successfully! Course checkpoint completed.`;
-        engine._setStatus('PC assembly simulation successfully finished');
-        engine.markCompleted();
-      }
-    }, 1000);
-  }
-
-  // Draw initial state
-  drawZones();
-  buildPalette();
-}
-
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Computer Assembly',
-    subtitle: 'Drag & Drop - Build Your Computer',
-    desc: 'Build a computer step by step by selecting and installing components.',
-    module: 3,
-    difficulty: 'Intermediate',
-    time: '10',
-    objectives: 'Build a computer by selecting and installing each component.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to explore');
-    },
-    
-    customChallenge: function(container, engine) {
-      buildDragDrop(container, engine);
-    },
-
-    animate: function(engine) {},
-    onReplay: function(engine) {}
-  });
-});
+try{new C()}catch(e){var eb=document.getElementById('error-boundary');if(eb)eb.classList.add('show');document.getElementById('loading-skeleton')?.classList.add('hide');console.error('Init:',e)}
 })();

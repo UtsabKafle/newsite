@@ -1,115 +1,216 @@
 (function(){'use strict';
-var components = [{"id":"root","name":"<html> Root","category":"Structure","icon":"code","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Tells browser it is HTML","description":"The wrapper tag enclosing the entire HTML document.","why":"Defines the document boundaries","analogy":"The outer cover of a book","funFact":"The root tag can define the page language using lang='en'","takeaway":"Every HTML page starts and ends with this tag","mistake":"Never place other tags outside the html tags","descriptionDetailed":"Root element of the HTML document tree.","vocabDefinition":"HyperText Markup Language, the standard code language for structure.","howItWorks":"The wrapper tag enclosing the entire HTML document.","deeperDive":"Root element of the HTML document tree.","advancedConcept":"The root tag can define the page language using lang='en'"},{"id":"head","name":"<head> Meta","category":"Structure","icon":"settings","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Contains page metadata","description":"Stores non-visible information: title, stylesheet links, and scripts.","why":"Tells the browser how to load resources","analogy":"Catalog details card inside a book","funFact":"Search engines read the head tag to get page descriptions","takeaway":"Head elements are not drawn in the main viewport","mistake":"Do not put page text or content inside the head tag","descriptionDetailed":"Header block containing document configuration and links.","howItWorks":"Stores non-visible information: title, stylesheet links, and scripts.","deeperDive":"Header block containing document configuration and links.","advancedConcept":"Search engines read the head tag to get page descriptions"},{"id":"body","name":"<body> Content","category":"Structure","icon":"monitor","shape":"rounded-rect","x":200,"y":180,"w":110,"h":56,"purpose":"Contains visible elements","description":"Encloses all visible texts, graphics, tables, and links.","why":"Houses everything the user interacts with","analogy":"The actual readable pages of a book","funFact":"The body tag is where CSS styling usually applies global settings","takeaway":"Everything visible on screen sits inside body tags","mistake":"Do not put metadata links like stylesheets inside the body tag","descriptionDetailed":"Body container representing the viewport layout tree.","howItWorks":"Encloses all visible texts, graphics, tables, and links.","deeperDive":"Body container representing the viewport layout tree.","advancedConcept":"The body tag is where CSS styling usually applies global settings"}];
-var connections = [{"from":"root","to":"head"},{"from":"root","to":"body"}];
-var steps = [{"id":"root","label":"Step 1: Define Root","status":"Browser finds html tag, initializing HTML tree parser."},{"id":"head","label":"Step 2: Read Metadata","status":"Browser reads head settings: title, fonts, CSS files."},{"id":"body","label":"Step 3: Load Content","status":"Browser reads body tags and begins rendering the visible page layout."}];
-var tour = [{"title":"<html> Root","description":"The main envelope wrapping all webpage code.","componentId":"root"},{"title":"<head> Meta","description":"Configurations and connections loaded first.","componentId":"head"},{"title":"<body> Content","description":"The content that is actually rendered for the user.","componentId":"body"}];
-
-function initCustomInteractiveChallenge(container, engine) {
-      container.innerHTML = '<div class="sim-interactive-area" style="padding: 16px; display:flex; flex-direction:column; gap:12px; width:100%;">' +
-        '<div style="font-size:14px; font-weight:700; color:#60a5fa;">HTML Document Structure Builder</div>' +
-        '<p style="font-size:11px; color:#cbd5e1;">Assemble a basic HTML document. Select the correct tag for each slot.</p>' +
-        '<div class="glass-panel" style="padding:16px; display:flex; flex-direction:column; gap:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02);">' +
-          '<div style="font-family:monospace; font-size:12px; display:flex; flex-direction:column; gap:8px; color:#a7f3d0;">' +
-            '<div>&lt;!DOCTYPE html&gt;</div>' +
-            '<div style="display:flex; align-items:center; gap:8px;">' +
-              '<span>1.</span>' +
-              '<select class="html-slot" id="slot-1" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px;">' +
-                '<option value="">-- Select --</option>' +
-                '<option value="html">&lt;html&gt;</option>' +
-                '<option value="body">&lt;body&gt;</option>' +
-                '<option value="head">&lt;head&gt;</option>' +
-              '</select>' +
-            '</div>' +
-            '<div style="display:flex; align-items:center; gap:8px; margin-left:16px;">' +
-              '<span>2.</span>' +
-              '<select class="html-slot" id="slot-2" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px;">' +
-                '<option value="">-- Select --</option>' +
-                '<option value="head">&lt;head&gt;</option>' +
-                '<option value="title">&lt;title&gt;</option>' +
-                '<option value="body">&lt;body&gt;</option>' +
-              '</select>' +
-            '</div>' +
-            '<div style="margin-left:32px; color:#64748b;">&lt;title&gt;My First Webpage&lt;/title&gt;</div>' +
-            '<div style="margin-left:16px; color:#a7f3d0;">&lt;/head&gt;</div>' +
-            '<div style="display:flex; align-items:center; gap:8px; margin-left:16px;">' +
-              '<span>3.</span>' +
-              '<select class="html-slot" id="slot-3" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px;">' +
-                '<option value="">-- Select --</option>' +
-                '<option value="body">&lt;body&gt;</option>' +
-                '<option value="html">&lt;html&gt;</option>' +
-                '<option value="h1">&lt;h1&gt;</option>' +
-              '</select>' +
-            '</div>' +
-            '<div style="display:flex; align-items:center; gap:8px; margin-left:32px;">' +
-              '<span>4.</span>' +
-              '<select class="html-slot" id="slot-4" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px;">' +
-                '<option value="">-- Select --</option>' +
-                '<option value="h1">&lt;h1&gt;</option>' +
-                '<option value="p">&lt;p&gt;</option>' +
-                '<option value="head">&lt;head&gt;</option>' +
-              '</select>' +
-              '<span>Welcome to my website&lt;/h1&gt;</span>' +
-            '</div>' +
-            '<div style="margin-left:32px; color:#64748b;">&lt;p&gt;This is structured content!&lt;/p&gt;</div>' +
-            '<div style="margin-left:16px; color:#a7f3d0;">&lt;/body&gt;</div>' +
-            '<div style="color:#a7f3d0;">&lt;/html&gt;</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="glass-panel" style="padding:12px; background:rgba(0,0,0,0.25); min-height:50px; font-size:11px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">' +
-          '<div id="html-feedback" style="color:#94a3b8; font-weight:500;">Select the tags to build a correct HTML document layout.</div>' +
-        '</div>' +
-      '</div>';
-
-      var s1 = container.querySelector("#slot-1");
-      var s2 = container.querySelector("#slot-2");
-      var s3 = container.querySelector("#slot-3");
-      var s4 = container.querySelector("#slot-4");
-      var fb = container.querySelector("#html-feedback");
-
-      function validateHTML() {
-        if (s1.value === "html" && s2.value === "head" && s3.value === "body" && s4.value === "h1") {
-          fb.style.color = "#10b981";
-          fb.innerHTML = "<strong>🎉 Success!</strong> Document structured correctly. Tim Berners-Lee would be proud!";
-          engine.markCompleted();
-        } else {
-          fb.style.color = "#94a3b8";
-          fb.textContent = "Keep trying! html wraps everything, head holds title, body holds visible elements.";
-        }
-      }
-
-      s1.addEventListener("change", validateHTML);
-      s2.addEventListener("change", validateHTML);
-      s3.addEventListener("change", validateHTML);
-      s4.addEventListener("change", validateHTML);
-    }
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "Introduction to HTML",
-    subtitle: "Building Websites",
-    desc: "Explore the core components and operations.",
-    module: 6,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      initCustomInteractiveChallenge(container, engine);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
+var NODES={{"root": {"x": 95.0, "y": 108.0, "w": 110, "h": 56, "desc": "The wrapper tag enclosing the entire HTML document.", "fields": {"Purpose": "Tells browser it is HTML", "How It Works": "The wrapper tag enclosing the entire HTML document.", "Why": "Defines the document boundaries", "Analogy": "The outer cover of a book", "Fun Fact": "The root tag can define the page language using lang='en'", "Key Takeaway": "Every HTML page starts and ends with this tag", "Common Mistake": "Never place other tags outside the html tags"}, "name": "<html> Root"}, "head": {"x": 255.0, "y": 108.0, "w": 110, "h": 56, "desc": "Stores non-visible information: title, stylesheet links, and scripts.", "fields": {"Purpose": "Contains page metadata", "How It Works": "Stores non-visible information: title, stylesheet links, and scripts.", "Why": "Tells the browser how to load resources", "Analogy": "Catalog details card inside a book", "Fun Fact": "Search engines read the head tag to get page descriptions", "Key Takeaway": "Head elements are not drawn in the main viewport", "Common Mistake": "Do not put page text or content inside the head tag"}, "name": "<head> Meta"}, "body": {"x": 255.0, "y": 208.0, "w": 110, "h": 56, "desc": "Encloses all visible texts, graphics, tables, and links.", "fields": {"Purpose": "Contains visible elements", "How It Works": "Encloses all visible texts, graphics, tables, and links.", "Why": "Houses everything the user interacts with", "Analogy": "The actual readable pages of a book", "Fun Fact": "The body tag is where CSS styling usually applies global settings", "Key Takeaway": "Everything visible on screen sits inside body tags", "Common Mistake": "Do not put metadata links like stylesheets inside the body tag"}, "name": "<body> Content"}}};
+var CONNS=[{"from": "root", "to": "head"}, {"from": "root", "to": "body"}];
+var CHALLENGES=[{"q": "What is the purpose of <html> Root?", "opts": ["Contains page metadata", "Contains visible elements", "Tells browser it is HTML"], "ans": 2}, {"q": "What is the purpose of <head> Meta?", "opts": ["Contains visible elements", "Tells browser it is HTML", "Contains page metadata"], "ans": 2}, {"q": "What is the purpose of <body> Content?", "opts": ["Contains page metadata", "Contains visible elements", "Tells browser it is HTML"], "ans": 1}];
+var TITLE="Introduction to HTML";
+var DESC="Explore the core components and operations.";
+var svg,infoPanel,overlay;
+var ctx={t:0,playing:false,speed:1,selectedId:null,theme:'dark'};
+var rafId,quizAnswered={},quizSubmitted=false;
+function init(){
+  try{
+    var saved=localStorage.getItem('consica-diagram-theme');
+    ctx.theme=saved||'dark';
+    document.documentElement.setAttribute('data-theme',ctx.theme);
+    setupDOM();buildSVG();setupEvents();buildChallenge();hideSkeleton();startLoop();
+  }catch(e){showError(e);}
+}
+function setupDOM(){
+  svg=document.getElementById('diagram-svg');
+  infoPanel=document.getElementById('info-panel');
+  overlay=document.getElementById('completion-overlay');
+  document.getElementById('theme-toggle').addEventListener('click',function(){
+    ctx.theme=ctx.theme==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',ctx.theme);
+    localStorage.setItem('consica-diagram-theme',ctx.theme);
   });
-});
+  document.getElementById('play-btn').addEventListener('click',function(){
+    ctx.playing=!ctx.playing;this.innerHTML=ctx.playing?'⏸ Pause':'▶ Play';
+  });
+  document.getElementById('reset-btn').addEventListener('click',function(){
+    ctx.t=0;ctx.playing=false;
+    document.getElementById('play-btn').innerHTML='▶ Play';
+    if(svg)svg.querySelectorAll('.flow-dot').forEach(function(d){d.style.opacity='0';});
+  });
+  document.getElementById('info-close').addEventListener('click',closeInfo);
+  document.getElementById('completion-close').addEventListener('click',function(){overlay.style.display='none';});
+  document.getElementById('speed-slider').addEventListener('input',function(){
+    ctx.speed=parseFloat(this.value);
+    document.getElementById('speed-display').textContent=this.value+'x';
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeInfo();});
+}
+function buildSVG(){
+  var ids=Object.keys(NODES);
+  ids.forEach(function(id){
+    var n=NODES[id];
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','node-group');
+    g.setAttribute('data-id',id);
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-label',id);
+    var bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    bg.setAttribute('class','node-bg');
+    bg.setAttribute('x',n.x-n.w/2);
+    bg.setAttribute('y',n.y-n.h/2);
+    bg.setAttribute('width',n.w);
+    bg.setAttribute('height',n.h);
+    bg.setAttribute('rx','8');
+    bg.setAttribute('fill','var(--surface,#1a2235)');
+    bg.setAttribute('stroke','var(--border,#2a3a55)');
+    bg.setAttribute('stroke-width','2');
+    g.appendChild(bg);
+    var txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',n.x);
+    txt.setAttribute('y',n.y+4);
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('fill','var(--text,#e9e8f0)');
+    txt.setAttribute('font-size','12');
+    txt.setAttribute('font-weight','600');
+    txt.textContent=n.name||id.charAt(0).toUpperCase()+id.slice(1);
+    g.appendChild(txt);
+    g.addEventListener('click',function(){selectNode(id);});
+    g.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(id);}
+    });
+    svg.appendChild(g);
+  });
+  CONNS.forEach(function(c){
+    var from=NODES[c.from],to=NODES[c.to];
+    if(!from||!to)return;
+    var line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',from.x+from.w/2);
+    line.setAttribute('y1',from.y);
+    line.setAttribute('x2',to.x-to.w/2);
+    line.setAttribute('y2',to.y);
+    line.setAttribute('stroke','var(--accent2,#3b82f6)');
+    line.setAttribute('stroke-width','2');
+    line.setAttribute('marker-end','url(#arrowhead)');
+    line.style.opacity='0.5';
+    svg.insertBefore(line,svg.firstChild);
+    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('class','flow-dot');
+    dot.setAttribute('r','4');
+    dot.setAttribute('fill','var(--accent2,#3b82f6)');
+    dot.style.opacity='0';
+    dot.dataset.cx=from.x+from.w/2;dot.dataset.cy=from.y;
+    dot.dataset.tx=to.x-to.w/2;dot.dataset.ty=to.y;
+    svg.appendChild(dot);
+  });
+}
+function selectNode(id){
+  ctx.selectedId=id;
+  var n=NODES[id];
+  if(!n)return;
+  document.getElementById('info-title').textContent=n.name||(id.charAt(0).toUpperCase()+id.slice(1));
+  var html='<p style="margin-bottom:10px;color:var(--text2)">'+n.desc+'</p>';
+  if(n.fields)Object.keys(n.fields).forEach(function(k){
+    html+='<p><strong>'+k+':</strong> '+n.fields[k]+'</p>';
+  });
+  document.getElementById('info-content').innerHTML=html;
+  infoPanel.setAttribute('aria-hidden','false');
+  infoPanel.style.display='block';
+  svg.querySelectorAll('.node-bg').forEach(function(b){b.setAttribute('stroke','var(--border,#2a3a55)');});
+  var sel=svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+  if(sel)sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+}
+function closeInfo(){
+  infoPanel.setAttribute('aria-hidden','true');
+  infoPanel.style.display='none';
+  ctx.selectedId=null;
+  svg.querySelectorAll('.node-bg').forEach(function(b){b.setAttribute('stroke','var(--border,#2a3a55)');});
+}
+function startLoop(){
+  var last=0;
+  function loop(time){
+    rafId=requestAnimationFrame(loop);
+    var dt=last?(time-last)/1000:0;last=time;
+    if(ctx.playing&&ctx.t!==undefined){
+      ctx.t+=dt*ctx.speed;
+      svg.querySelectorAll('.flow-dot').forEach(function(d){
+        var cx=parseFloat(d.dataset.cx)||0,cy=parseFloat(d.dataset.cy)||0;
+        var tx=parseFloat(d.dataset.tx)||0,ty=parseFloat(d.dataset.ty)||0;
+        var p=(ctx.t%3)/3;
+        d.setAttribute('cx',cx+(tx-cx)*p);
+        d.setAttribute('cy',cy+(ty-cy)*p);
+        d.style.opacity='1';
+      });
+    }
+    var ids=Object.keys(NODES);
+    var idx=Math.floor(ctx.t*0.5)%ids.length;
+    svg.querySelectorAll('.node-bg').forEach(function(bg,i){
+      bg.setAttribute('fill',i===idx?'var(--surface2,#1e2d50)':'var(--surface,#1a2235)');
+      bg.setAttribute('stroke',i===idx?'var(--accent2,#3b82f6)':'var(--border,#2a3a55)');
+    });
+  }
+  rafId=requestAnimationFrame(loop);
+}
+function buildChallenge(){
+  var ctn=document.getElementById('challenge-container');
+  ctn.innerHTML='';
+  quizAnswered={};quizSubmitted=false;
+  CHALLENGES.forEach(function(c,i){
+    var d=document.createElement('div');d.className='challenge-question';d.dataset.qi=i;
+    var qt=document.createElement('div');qt.className='challenge-q-text';qt.textContent=(i+1)+'. '+c.q;
+    d.appendChild(qt);
+    var opts=document.createElement('div');opts.className='challenge-options';
+    c.opts.forEach(function(o,j){
+      var lbl=document.createElement('label');lbl.className='challenge-option';
+      var r=document.createElement('input');r.type='radio';r.name='chq-'+i;r.value=j;
+      r.addEventListener('change',function(){
+        quizAnswered[i]=j;
+        opts.querySelectorAll('.challenge-option').forEach(function(l){l.classList.remove('selected');});
+        lbl.classList.add('selected');
+      });
+      lbl.appendChild(r);lbl.appendChild(document.createTextNode(' '+o));
+      opts.appendChild(lbl);
+    });
+    d.appendChild(opts);ctn.appendChild(d);
+  });
+  var sb=document.createElement('button');sb.className='challenge-submit';sb.textContent='Submit Answers';
+  sb.addEventListener('click',submitQuiz);ctn.appendChild(sb);
+}
+function submitQuiz(){
+  if(quizSubmitted)return;
+  var correct=0;
+  CHALLENGES.forEach(function(c,i){
+    var opts=document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+    var labels=opts.querySelectorAll('.challenge-option');
+    labels.forEach(function(l,j){
+      var r=l.querySelector('input');r.disabled=true;
+      if(j===c.ans)l.classList.add('correct');
+      else if(r.checked)l.classList.add('wrong');
+    });
+    if(typeof quizAnswered[i]!=='undefined'&&quizAnswered[i]===c.ans)correct++;
+  });
+  quizSubmitted=true;
+  var total=CHALLENGES.length;
+  var pct=Math.round((correct/total)*100);
+  var res=document.getElementById('challenge-result');
+  res.style.display='block';
+  res.innerHTML='<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+  if(pct>=70){
+    res.innerHTML+='<br>Great job!';
+    overlay.style.display='flex';
+    document.getElementById('completion-score').textContent='Score: '+correct+'/'+total;
+    document.getElementById('completion-concepts').innerHTML='<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){return '- '+(NODES[id].name||id);}).join('<br>');
+  }else{
+    res.innerHTML+='<br>Review and try again.';
+  }
+}
+function setupEvents(){}
+function hideSkeleton(){
+  var skel=document.getElementById('loading-skeleton');
+  if(skel){skel.style.display='none';skel.setAttribute('aria-hidden','true');}
+  document.getElementById('diagram-container').style.display='block';
+}
+function showError(e){
+  var eb=document.getElementById('error-boundary');
+  eb.style.display='block';
+  eb.textContent='Error: '+(e.message||'Unexpected error. Refresh please.');
+  hideSkeleton();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+else init();
 })();

@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>What Is an App — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>What Is an App — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="skeleton" class="skeleton" role="status" aria-label="Loading diagram">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-content"><div class="skeleton-title"></div><div class="skeleton-svg"></div><div class="skeleton-panel"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden><div class="error-box"><div class="error-icon">⚠</div><h2>Something went wrong</h2><p id="error-message"></p><button class="btn-primary" onclick="location.reload()">Reload</button></div></div>
+<div id="app" hidden>
+<header class="diagram-header"><div class="header-left"><h1 class="diagram-title">What Is an App</h1><p class="diagram-subtitle">Explore the layers of a modern application</p></div><div class="header-right"><button id="theme-toggle" class="icon-btn" aria-label="Toggle dark/light theme" onclick="toggleTheme()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button><button id="challenge-btn" class="icon-btn" aria-label="Open challenge quiz" onclick="showChallenge()" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button></div></header>
+<div id="diagram-container" class="diagram-container" role="img" aria-label="Interactive app layers diagram showing presentation, logic, and data tiers"></div>
+<div id="info-panel" class="info-panel" role="region" aria-label="Component information" hidden>
+<button class="info-close" aria-label="Close info panel" onclick="closeInfo()">✕</button>
+<div id="info-content"></div>
+</div>
+<div class="controls-bar"><label class="speed-label"><span>Speed</span><input type="range" id="speed-slider" min="0" max="16" value="4" step="1" aria-label="Animation speed"><span id="speed-val">1×</span></label><button id="play-btn" class="btn-primary" onclick="togglePlay()" aria-label="Start animation">▶ Play</button></div>
+<section id="challenge-section" class="challenge-section" aria-label="Knowledge check quiz" hidden>
+<h2>Knowledge Check</h2>
+<div id="challenge-questions"></div>
+<div class="challenge-actions"><button class="btn-primary" onclick="submitChallenge()">Submit Answers</button></div>
+<div id="challenge-result" class="challenge-result" hidden></div>
+</section>
+<div id="completion-overlay" class="completion-overlay" role="dialog" aria-modal="true" aria-label="Completion" hidden>
+<div class="completion-card"><div class="completion-icon">🏆</div><h2 id="completion-title">Congratulations!</h2><p id="completion-score"></p><p id="completion-msg"></p><button class="btn-primary" onclick="closeCompletion()">Continue</button></div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

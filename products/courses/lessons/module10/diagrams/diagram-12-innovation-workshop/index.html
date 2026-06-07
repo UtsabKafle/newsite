@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Innovation Workshop — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Innovation Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application">
+<div id="skeleton" class="skeleton" role="status">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-header"><div class="skeleton-line w-60"></div><div class="skeleton-line w-40"></div></div>
+<div class="skeleton-body"><div class="skeleton-block h-64"></div><div class="skeleton-block h-32"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">\u26A0</div>
+<h2>Something went wrong</h2>
+<p id="error-msg">An unexpected error occurred.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="main-content" hidden>
+<header class="app-header">
+<div class="header-top"><div><h1 class="app-title">Innovation Workshop</h1><p class="app-subtitle">Game Development Engine</p></div>
+<div class="header-controls">
+<button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">\uD83C\uDF13</button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"></div>
+</div></div>
+</header>
+<div class="diagram-layout">
+<div class="diagram-area">
+<div class="svg-container">
+<svg id="diagram-svg" viewBox="0 0 800 460" class="diagram-svg" role="img" aria-label="Innovation Workshop"><g><rect x="20" y="20" width="760" height="420" rx="12" fill="var(--pal-bg)"/><text x="400" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">GAME ENGINE ARCHITECTURE</text><rect x="60" y="65" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="160" y="92" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Input System</text><text x="160" y="114" text-anchor="middle" fill="#64748b" font-size="11">Keyboard | Mouse</text><text x="160" y="130" text-anchor="middle" fill="#64748b" font-size="11">Touch | Controller</text><rect x="300" y="65" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="400" y="92" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Physics Engine</text><text x="400" y="114" text-anchor="middle" fill="#64748b" font-size="11">Gravity | Collision</text><text x="400" y="130" text-anchor="middle" fill="#64748b" font-size="11">Forces | Joints</text><rect x="540" y="65" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="640" y="92" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Render Pipeline</text><text x="640" y="114" text-anchor="middle" fill="#64748b" font-size="11">Sprites | Meshes</text><text x="640" y="130" text-anchor="middle" fill="#64748b" font-size="11">Shaders | Effects</text><rect x="60" y="160" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="160" y="187" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Audio System</text><text x="160" y="209" text-anchor="middle" fill="#64748b" font-size="11">SFX | Music | 3D</text><text x="160" y="225" text-anchor="middle" fill="#64748b" font-size="11">Volume | Panning</text><rect x="300" y="160" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="400" y="187" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Game UI Layer</text><text x="400" y="209" text-anchor="middle" fill="#64748b" font-size="11">HUD | Menus | Health</text><text x="400" y="225" text-anchor="middle" fill="#64748b" font-size="11">Score | Inventory</text><rect x="540" y="160" width="200" height="70" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="640" y="187" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Game Loop</text><text x="640" y="209" text-anchor="middle" fill="#64748b" font-size="11">Update | Draw | Sync</text><text x="640" y="225" text-anchor="middle" fill="#64748b" font-size="11">60 FPS target</text><polygon points="260,100 280,100 280,96 290,103 280,110 280,106 260,106" fill="#3b82f6"/><polygon points="500,100 520,100 520,96 530,103 520,110 520,106 500,106" fill="#3b82f6"/><polygon points="260,195 280,195 280,191 290,198 280,205 280,201 260,201" fill="#3b82f6"/><polygon points="500,195 520,195 520,191 530,198 520,205 520,201 500,201" fill="#3b82f6"/><rect x="200" y="260" width="400" height="44" rx="8" fill="#22c55e22" stroke="#22c55e"/><text x="400" y="285" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="600">INPUT → PHYSICS → RENDER → AUDIO → UI</text><text x="400" y="300" text-anchor="middle" fill="#64748b" font-size="10">Each frame: 16.67ms budget at 60 FPS</text><rect x="100" y="330" width="600" height="50" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="400" y="355" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Delta Time: Frame-rate independent movement</text><text x="400" y="372" text-anchor="middle" fill="#64748b" font-size="11">Use dt to ensure consistent speed across all devices</text></g></svg>
+</div>
+<div class="node-list" role="tablist"><button class="node-btn" role="tab" aria-selected="false" data-node="input" style="--node-color:#3b82f6"><span class="node-indicator"></span><span class="node-name">Input System</span><span class="node-cat">Events</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="physics" style="--node-color:#22c55e"><span class="node-indicator"></span><span class="node-name">Physics Engine</span><span class="node-cat">Simulation</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="render" style="--node-color:#eab308"><span class="node-indicator"></span><span class="node-name">Render Pipeline</span><span class="node-cat">Graphics</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="audio" style="--node-color:#ef4444"><span class="node-indicator"></span><span class="node-name">Audio System</span><span class="node-cat">Sound</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="gameui" style="--node-color:#a855f7"><span class="node-indicator"></span><span class="node-name">Game UI Layer</span><span class="node-cat">Interface</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="gameloop" style="--node-color:#06b6d4"><span class="node-indicator"></span><span class="node-name">Game Loop</span><span class="node-cat">Core</span></button></div>
+</div>
+<div class="info-panel" id="info-panel" role="tabpanel" aria-live="polite">
+<div class="info-placeholder">Click a node to explore</div>
+</div>
+</div>
+<section class="challenge-section">
+<h2 class="section-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-submit">Submit Answers</button>
+</section>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" hidden>
+<div class="completion-card">
+<div class="completion-icon">\uD83C\uDF89</div>
+<h2 class="completion-title">Quiz Complete!</h2>
+<p class="completion-score" id="completion-score">0/0</p>
+<p class="completion-msg" id="completion-msg">Great effort!</p>
+<button id="completion-close" class="btn-primary">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

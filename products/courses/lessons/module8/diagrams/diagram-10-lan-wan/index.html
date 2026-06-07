@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0959C8">
+<title>LAN &amp; WAN — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="skeleton" class="skeleton" aria-hidden="true"><div class="skeleton-header"><div class="skeleton-line w-48"></div><div class="skeleton-line w-72"></div></div><div class="skeleton-body"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div></div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden><div class="error-content"><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><h2>Something went wrong</h2><p id="error-msg">An error occurred loading the diagram.</p><button id="error-retry" class="btn">Retry</button></div></div>
+<div id="app" hidden>
+<div id="action-bar" class="action-bar">
+<button id="theme-toggle" class="btn-icon" aria-label="Toggle theme"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"><span id="speed-value" class="speed-value">1×</span></div>
+<button id="reset-btn" class="btn-icon" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></button>
+</div>
+<div id="diagram-container" class="diagram-container">
+<svg id="diagram-svg" class="diagram-svg" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="LAN WAN interactive diagram">
+<defs>
+<marker id="arrow-lw" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0l5 10 5-10" fill="#5694E4"/></marker>
+<filter id="glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="10" y="10" width="880" height="680" rx="16" class="viz-bg"/>
+<text x="450" y="40" text-anchor="middle" class="viz-title">LAN &amp; WAN — Network Geography</text>
+<text x="450" y="60" text-anchor="middle" class="viz-subtitle">Local Area vs Wide Area Network Comparison</text>
+<g id="lan-section" transform="translate(50,80)">
+<rect x="0" y="0" width="380" height="260" rx="16" class="lan-region" tabindex="0" role="button" aria-label="LAN"/>
+<text x="190" y="28" text-anchor="middle" class="region-title">Local Area Network (LAN)</text>
+<text x="190" y="48" text-anchor="middle" class="region-sub">Office Building · 100m radius</text>
+<rect x="30" y="65" width="80" height="40" rx="8" class="lan-device" data-dev="Switch" tabindex="0" role="button" aria-label="Switch"/>
+<text x="70" y="90" text-anchor="middle" class="dev-label">Switch</text>
+<rect x="140" y="65" width="80" height="40" rx="8" class="lan-device" data-dev="Router" tabindex="0" role="button" aria-label="Router"/>
+<text x="180" y="90" text-anchor="middle" class="dev-label">Router</text>
+<rect x="250" y="65" width="80" height="40" rx="8" class="lan-device" data-dev="AP" tabindex="0" role="button" aria-label="Access Point"/>
+<text x="290" y="90" text-anchor="middle" class="dev-label">Wi-Fi AP</text>
+<rect x="30" y="130" width="120" height="40" rx="8" class="host-lw" data-host="PC1" tabindex="0" role="button" aria-label="PC"/>
+<text x="90" y="155" text-anchor="middle" class="dev-label">Workstation</text>
+<rect x="170" y="130" width="120" height="40" rx="8" class="host-lw" data-host="Server" tabindex="0" role="button" aria-label="File Server"/>
+<text x="230" y="155" text-anchor="middle" class="dev-label">File Server</text>
+<rect x="30" y="190" width="120" height="40" rx="8" class="host-lw" data-host="Printer" tabindex="0" role="button" aria-label="Printer"/>
+<text x="90" y="215" text-anchor="middle" class="dev-label">Printer</text>
+<rect x="170" y="190" width="120" height="40" rx="8" class="host-lw" data-host="Phone" tabindex="0" role="button" aria-label="IP Phone"/>
+<text x="230" y="215" text-anchor="middle" class="dev-label">IP Phone</text>
+<line x1="110" y1="105" x2="70" y2="130" stroke="var(--brand-light)" stroke-width="1" opacity=".5"/>
+<line x1="180" y1="105" x2="230" y2="130" stroke="var(--brand-light)" stroke-width="1" opacity=".5"/>
+</g>
+<g id="wan-section" transform="translate(470,80)">
+<rect x="0" y="0" width="380" height="260" rx="16" class="wan-region" tabindex="0" role="button" aria-label="WAN"/>
+<text x="190" y="28" text-anchor="middle" class="region-title">Wide Area Network (WAN)</text>
+<text x="190" y="48" text-anchor="middle" class="region-sub">Global · Thousands of km</text>
+<circle cx="80" cy="100" r="25" class="wan-site" data-site="NYC" tabindex="0" role="button" aria-label="New York"/>
+<text x="80" y="104" text-anchor="middle" class="site-label">NYC</text>
+<circle cx="190" cy="80" r="25" class="wan-site" data-site="LON" tabindex="0" role="button" aria-label="London"/>
+<text x="190" y="84" text-anchor="middle" class="site-label">LON</text>
+<circle cx="300" cy="110" r="25" class="wan-site" data-site="TYO" tabindex="0" role="button" aria-label="Tokyo"/>
+<text x="300" y="114" text-anchor="middle" class="site-label">TYO</text>
+<circle cx="80" cy="190" r="25" class="wan-site" data-site="SYD" tabindex="0" role="button" aria-label="Sydney"/>
+<text x="80" y="194" text-anchor="middle" class="site-label">SYD</text>
+<circle cx="190" cy="200" r="25" class="wan-site" data-site="BOM" tabindex="0" role="button" aria-label="Mumbai"/>
+<text x="190" y="204" text-anchor="middle" class="site-label">BOM</text>
+<circle cx="300" cy="180" r="25" class="wan-site" data-site="SGP" tabindex="0" role="button" aria-label="Singapore"/>
+<text x="300" y="184" text-anchor="middle" class="site-label">SGP</text>
+<line x1="105" y1="100" x2="165" y2="80" stroke="#5694E4" stroke-width="1.5" class="wan-link"/>
+<line x1="215" y1="80" x2="275" y2="110" stroke="#5694E4" stroke-width="1.5" class="wan-link"/>
+<line x1="105" y1="190" x2="165" y2="200" stroke="#5694E4" stroke-width="1.5" class="wan-link"/>
+<line x1="215" y1="200" x2="275" y2="180" stroke="#5694E4" stroke-width="1.5" class="wan-link"/>
+</g>
+<g id="comparison" transform="translate(50,370)">
+<rect x="0" y="0" width="800" height="140" rx="10" class="comp-bg" tabindex="0" role="button" aria-label="Comparison table"/>
+<text x="400" y="22" text-anchor="middle" class="section-title">LAN vs WAN Comparison</text>
+<line x1="0" y1="32" x2="800" y2="32" stroke="var(--border)" stroke-width="1"/>
+<text x="100" y="50" text-anchor="middle" class="comp-header">Property</text>
+<text x="300" y="50" text-anchor="middle" class="comp-header-lan">LAN</text>
+<text x="550" y="50" text-anchor="middle" class="comp-header-wan">WAN</text>
+<line x1="0" y1="60" x2="800" y2="60" stroke="var(--border)" stroke-width=".5"/>
+<text x="100" y="78" text-anchor="middle" class="comp-prop">Scope</text>
+<text x="300" y="78" text-anchor="middle" class="comp-lan">Single building/campus</text>
+<text x="550" y="78" text-anchor="middle" class="comp-wan">Cities/countries/global</text>
+<text x="100" y="100" text-anchor="middle" class="comp-prop">Latency</text>
+<text x="300" y="100" text-anchor="middle" class="comp-lan">&lt;1ms</text>
+<text x="550" y="100" text-anchor="middle" class="comp-wan">10-500ms</text>
+<text x="100" y="122" text-anchor="middle" class="comp-prop">Bandwidth</text>
+<text x="300" y="122" text-anchor="middle" class="comp-lan">1-100 Gbps</text>
+<text x="550" y="122" text-anchor="middle" class="comp-wan">1 Mbps-10 Gbps</text>
+</g>
+<g id="topologies" transform="translate(50,540)">
+<text x="400" y="20" text-anchor="middle" class="section-title">Network Topologies</text>
+<rect x="20" y="35" width="180" height="55" rx="8" class="topo-card" data-topo="star" tabindex="0" role="button" aria-label="Star"/>
+<text x="110" y="58" text-anchor="middle" class="topo-title">Star Topology</text>
+<text x="110" y="78" text-anchor="middle" class="topo-desc">Central switch/hub</text>
+<rect x="220" y="35" width="180" height="55" rx="8" class="topo-card" data-topo="mesh" tabindex="0" role="button" aria-label="Mesh"/>
+<text x="310" y="58" text-anchor="middle" class="topo-title">Mesh Topology</text>
+<text x="310" y="78" text-anchor="middle" class="topo-desc">Full interconnect</text>
+<rect x="420" y="35" width="180" height="55" rx="8" class="topo-card" data-topo="bus" tabindex="0" role="button" aria-label="Bus"/>
+<text x="510" y="58" text-anchor="middle" class="topo-title">Bus Topology</text>
+<text x="510" y="78" text-anchor="middle" class="topo-desc">Shared backbone</text>
+<rect x="620" y="35" width="180" height="55" rx="8" class="topo-card" data-topo="ring" tabindex="0" role="button" aria-label="Ring"/>
+<text x="710" y="58" text-anchor="middle" class="topo-title">Ring Topology</text>
+<text x="710" y="78" text-anchor="middle" class="topo-desc">Circular path</text>
+</g>
+<g id="packets">
+<circle id="lan-packet" r="4" class="packet-dot" visibility="hidden"/>
+</g>
+</svg>
+</div>
+<div id="info-panel" class="info-panel" role="dialog" aria-label="Network information" hidden>
+<button id="info-close" class="btn-icon info-close">&times;</button>
+<h3 id="info-title" class="info-title"></h3>
+<p id="info-desc" class="info-desc"></p>
+<div id="info-details" class="info-details"></div>
+</div>
+<div id="controls" class="controls-bar">
+<button id="play-btn" class="btn-primary">Play</button>
+<button id="challenge-btn" class="btn-secondary">Challenge</button>
+</div>
+<div id="challenge-section" class="challenge-section" hidden>
+<h3 class="challenge-title">LAN &amp; WAN Challenge</h3>
+<div id="challenge-questions" class="challenge-questions"></div>
+<div class="challenge-actions"><button id="challenge-submit" class="btn-primary">Submit</button><button id="challenge-retry" class="btn-secondary">Retry</button></div>
+<div id="challenge-result" class="challenge-result" hidden></div>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="dialog" aria-modal="true" aria-label="Complete" hidden>
+<div class="completion-card"><svg class="completion-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><h2>Excellent!</h2><p>You completed the LAN &amp; WAN diagram.</p><button id="completion-close" class="btn-primary">Continue</button></div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

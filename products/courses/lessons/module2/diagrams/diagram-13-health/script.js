@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"antivirus",name:"Antivirus Protection",category:"Security",purpose:"Detects and removes malicious software that could harm your computer",description:"Antivirus software continuously monitors for known malware signatures, suspicious behavior, and potentially unwanted programs.",why:"Antivirus is essential for protection against the constant threat of malware",analogy:"Like a bodyguard that constantly watches for threats",funFact:"Over 350,000 new malware samples are discovered every day",takeaway:"Antivirus must be kept updated with the latest malware definitions",mistake:"Antivirus alone isn\\'t enough—safe browsing habits are equally important",descriptionDetailed:"Modern antivirus uses signature detection, behavioral monitoring, and machine learning. Real-time scanning checks files when accessed. Heuristic analysis detects new variants."},    {id:"defrag",name:"Disk Defragmentation",category:"Storage",purpose:"Reorganizes fragmented data on hard drives for faster access",description:"Defragmentation rearranges files that are split across non-contiguous disk sectors so they are stored in continuous blocks, reducing seek time.",why:"Defragmentation restores HDD performance lost to file fragmentation over time",analogy:"Like reorganizing a messy desk so everything is in its proper place",funFact:"SSDs don\\'t need defragmentation—it can actually reduce their lifespan",takeaway:"Fragmentation slows HDDs but doesn\\'t affect SSDs the same way",mistake:"Modern Windows and macOS defragment automatically—you rarely need to do it manually",descriptionDetailed:"Defrag tools analyze the volume and move file fragments to contiguous locations. The process reads each fragment and writes it to a new continuous location. TRIM commands replace defrag for SSDs."},    {id:"cleanup",name:"Disk Cleanup",category:"Storage",purpose:"Removes unnecessary files to free up storage space",description:"Disk cleanup deletes temporary files, cache data, old downloads, recycle bin contents, and other files that are no longer needed.",why:"Regular cleanup prevents storage from filling up and slowing the system",analogy:"Like taking out the trash so your house doesn\\'t overflow",funFact:"Temporary files can accumulate tens of gigabytes over time",takeaway:"Cleaning up temporary files regularly helps maintain system performance",mistake:"Emptying the recycle bin permanently deletes files, not moves them elsewhere",descriptionDetailed:"Disk cleanup targets temp files, log files, cache, and previous Windows installations. It can compress old files and remove unused system restore points."},    {id:"update",name:"System Updates",category:"Software",purpose:"Installs the latest security patches and feature improvements",description:"System updates download and install fixes for security vulnerabilities, driver updates, performance improvements, and new features from the OS vendor.",why:"Updates patch security holes that attackers could exploit",analogy:"Like getting regular vaccinations to protect against new diseases",funFact:"Microsoft\\'s Patch Tuesday releases updates on the second Tuesday of each month",takeaway:"Keeping your system updated is the most important security practice",mistake:"Updates don\\'t just add features—they fix critical security flaws",descriptionDetailed:"Updates are delivered through centralized update services like Windows Update or package managers. They include security patches, driver updates, and feature updates."},    {id:"backup",name:"System Backup",category:"Storage",purpose:"Creates copies of system files and data for disaster recovery",description:"Backup software creates snapshots or copies of the entire system or specific files so you can restore after hardware failure or data loss.",why:"Backups are your safety net against data loss from any cause",analogy:"Like an insurance policy that lets you recover from disaster",funFact:"Apple\\'s Time Machine makes automatic hourly backups with no user effort",takeaway:"Follow the 3-2-1 rule: 3 copies, 2 media types, 1 off-site",mistake:"A backup isn\\'t verified until you successfully restore from it",descriptionDetailed:"Backup strategies include full system images, file-level backups, and cloud sync. Versioning allows restoring previous versions of files."},    {id:"monitor",name:"System Monitoring",category:"Software",purpose:"Tracks system performance, temperature, and resource usage",description:"Monitoring tools display real-time data about CPU usage, memory utilization, disk activity, network traffic, and component temperatures.",why:"Monitoring helps detect problems before they cause system failure",analogy:"Like a car dashboard showing speed, fuel level, and engine temperature",funFact:"Windows Task Manager was first introduced in Windows NT 4.0",takeaway:"Monitoring helps identify performance bottlenecks and failing hardware early",mistake:"100% disk usage doesn\\'t always mean failure—it could be normal heavy activity",descriptionDetailed:"Monitoring tools poll system counters for CPU, memory, disk, and network metrics. They can log data over time and trigger alerts when thresholds are exceeded."}];
-var connections = [{from:"antivirus",to:"defrag"},{from:"defrag",to:"cleanup"},{from:"cleanup",to:"update"},{from:"update",to:"backup"},{from:"backup",to:"monitor"}];
-var steps = [{label:"Step 1: Antivirus Protection",status:"Exploring: Antivirus Protection - Detects and removes malicious software that could harm your computer"},{label:"Step 2: Disk Defragmentation",status:"Exploring: Disk Defragmentation - Reorganizes fragmented data on hard drives for faster access"},{label:"Step 3: Disk Cleanup",status:"Exploring: Disk Cleanup - Removes unnecessary files to free up storage space"},{label:"Step 4: System Updates",status:"Exploring: System Updates - Installs the latest security patches and feature improvements"},{label:"Step 5: System Backup",status:"Exploring: System Backup - Creates copies of system files and data for disaster recovery"},{label:"Step 6: System Monitoring",status:"Exploring: System Monitoring - Tracks system performance, temperature, and resource usage"}];
-var tour = [{title:"Antivirus Protection",description:"Detects and removes malicious software that could harm your computer",componentId:"antivirus"},{title:"Disk Defragmentation",description:"Reorganizes fragmented data on hard drives for faster access",componentId:"defrag"},{title:"Disk Cleanup",description:"Removes unnecessary files to free up storage space",componentId:"cleanup"},{title:"System Updates",description:"Installs the latest security patches and feature improvements",componentId:"update"},{title:"System Backup",description:"Creates copies of system files and data for disaster recovery",componentId:"backup"},{title:"System Monitoring",description:"Tracks system performance, temperature, and resource usage",componentId:"monitor"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"antivirus":{"x":130,"y":120,"fields":{"Purpose":"Malware detection/removal","How It Works":"Signature detection, behavioral monitoring, ML, real-time scanning.","Analogy":"Bodyguard","Fun Fact":"350K+ new malware daily","Key Takeaway":"Must keep definitions updated"},"desc":"Malicious software protection."},"defrag":{"x":340,"y":120,"fields":{"Purpose":"Reorg fragmented HDD data","How It Works":"Moves fragments to contiguous locations; SSDs use TRIM instead.","Analogy":"Organizing messy desk","Fun Fact":"SSDs should NOT be defragged","Key Takeaway":"Fragmentation slows HDDs"},"desc":"Disk optimization tool."},"cleanup":{"x":550,"y":120,"fields":{"Purpose":"Remove unnecessary files","How It Works":"Deletes temps, cache, recycle bin, browser cache.","Analogy":"Taking out trash","Fun Fact":"Browser cache can exceed 5GB","Key Takeaway":"Prevents storage bloat"},"desc":"Storage space recovery."},"update":{"x":200,"y":370,"fields":{"Purpose":"Security patches + features","How It Works":"Checks vendor servers, downloads/applies OS/driver/firmware updates.","Analogy":"Health checkups","Fun Fact":"WannaCry hit unpatched systems 2017","Key Takeaway":"Install updates promptly"},"desc":"System patch management."},"backup":{"x":420,"y":370,"fields":{"Purpose":"Data recovery copies","How It Works":"Full + incremental backups; off-site/cloud for disaster protection.","Analogy":"Spare key","Fun Fact":"3-2-1 rule: 3 copies, 2 media, 1 off-site","Key Takeaway":"It is not if but when"},"desc":"Data protection strategy."}};
+  var CONNS=[{from:"antivirus",to:"defrag"},{from:"defrag",to:"cleanup"},{from:"cleanup",to:"update"},{from:"update",to:"backup"}];
+  var CHALLENGES=[{q:"Daily new malware:",opts:["5K","50K","350K","1M"],ans:2},{q:"SSD no defrag because:",opts:["Too fast","Reduces life","Wont work","Auto defrag"],ans:1},{q:"3-2-1 rule:",opts:["3 copies, 2 media, 1 off-site","3 backups, 2 days","3 users, 2 drives","3 files, 2 folders"],ans:0},{q:"WannaCry exploited:",opts:["Hardware","Unpatched systems","Weak passwords","Cables"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Health',
-    subtitle: 'How Computers Work',
-    desc: 'Discover best practices for computer maintenance and health.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Discover best practices for computer maintenance.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

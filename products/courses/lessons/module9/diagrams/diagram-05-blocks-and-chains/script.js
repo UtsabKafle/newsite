@@ -1,119 +1,56 @@
 (function(){'use strict';
-var components = [{"id":"node1","name":"Block Header","category":"Structure","icon":"database","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Holds metadata and linkages","description":"Contains block number, nonce, prev-hash, and transaction data.","why":"Identifies the block unit","analogy":"Envelope cover details","funFact":"Includes the timestamp down to the second","takeaway":"Block header is hashed to lock data","mistake":"Editing header variables does not go unnoticed","descriptionDetailed":"Block data payload structure.","howItWorks":"Contains block number, nonce, prev-hash, and transaction data.","deeperDive":"Block data payload structure.","advancedConcept":"Includes the timestamp down to the second"},{"id":"node2","name":"Hash Function","category":"Security","icon":"key","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Computes digital fingerprints","description":"Processes data using SHA-256 algorithm.","why":"Locks record data","analogy":"Digital seal wax","funFact":"Always produces a 64-character hex string","takeaway":"Hashes are one-way only","mistake":"You cannot reconstruct original text from the hash string","descriptionDetailed":"SHA-256 algorithm computation node.","howItWorks":"Processes data using SHA-256 algorithm.","deeperDive":"SHA-256 algorithm computation node.","advancedConcept":"Always produces a 64-character hex string"},{"id":"node3","name":"Linked Block","category":"Chain","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Secures subsequent chain link","description":"The next block containing the hash of the current one.","why":"Creates the tamper-proof link","analogy":"Locked chain links","funFact":"A break in one link invalidates all blocks that follow","takeaway":"Chaining ensures immutability","mistake":"Tampering with data in past blocks breaks all following hashes","descriptionDetailed":"Next sequence block referencing parent node.","howItWorks":"The next block containing the hash of the current one.","deeperDive":"Next sequence block referencing parent node.","advancedConcept":"A break in one link invalidates all blocks that follow"}];
-var connections = [{"from":"node1","to":"node2"},{"from":"node2","to":"node3"}];
-var steps = [{"id":"node1","label":"Step 1: Pack Block","status":"Transactions are packaged into a block header with the previous block's hash."},{"id":"node2","label":"Step 2: Calculate Hash","status":"SHA-256 function processes the block header, outputting a secure hash."},{"id":"node3","label":"Step 3: Link Chain","status":"The calculated hash is stored in the next block's header, securing the link."}];
-var tour = [{"title":"Block Header","description":"Stores transaction data and links.","componentId":"node1"},{"title":"Hash Function","description":"Generates secure digital fingerprints.","componentId":"node2"},{"title":"Linked Block","description":"Binds the blocks into an unbroken chain.","componentId":"node3"}];
-
-function initCustomInteractiveChallenge(container, engine) {
-      container.innerHTML = '<div class="sim-interactive-area" style="padding: 16px; display:flex; flex-direction:column; gap:12px; width:100%;">' +
-        '<div style="font-size:14px; font-weight:700; color:#60a5fa;">SHA-256 Block Hashing Lab</div>' +
-        '<p style="font-size:11px; color:#cbd5e1;">Mine a block. Find a Nonce that makes the hash start with two zeros "00...".</p>' +
-        '<div style="display:flex; flex-direction:column; gap:8px; width:100%;">' +
-          '<div style="display:flex; align-items:center; gap:6px; font-size:11px; color:#94a3b8;">' +
-            '<span>Block Data:</span>' +
-            '<input type="text" id="miner-data" value="Hello" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px; flex:1; font-size:10px;">' +
-          '</div>' +
-          '<div style="display:flex; align-items:center; gap:6px; font-size:11px; color:#94a3b8;">' +
-            '<span>Nonce:</span>' +
-            '<input type="number" id="miner-nonce" value="0" style="background:#1e293b; color:#fff; border:1px solid #475569; border-radius:4px; padding:2px 6px; width:80px; font-size:10px;">' +
-            '<button class="act-btn" id="btn-mine" style="padding: 4px 12px; font-weight:bold; cursor:pointer; font-size:10px; margin-left:6px;">MINE</button>' +
-          '</div>' +
-          '<div class="glass-panel" style="padding:10px; word-break:break-all; font-family:monospace; font-size:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.25); border-radius:6px;">' +
-            '<div>Hash:</div>' +
-            '<div id="lbl-hash" style="color:#eab308; margin-top:2px;">-</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="glass-panel" style="padding:12px; background:rgba(0,0,0,0.25); min-height:50px; font-size:11px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">' +
-          '<div id="miner-feedback" style="color:#94a3b8; font-weight:500;">Enter a nonce or click MINE to search hashes starting with "00...".</div>' +
-        '</div>' +
-      '</div>';
-
-      function calcSHA256(ascii) {
-        var h = 0;
-        for (var i = 0; i < ascii.length; i++) {
-          h = (h << 5) - h + ascii.charCodeAt(i);
-        }
-        var hex = Math.abs(h).toString(16);
-        return "00000000".substring(hex.length) + hex;
-      }
-
-      var minerData = container.querySelector("#miner-data");
-      var minerNonce = container.querySelector("#miner-nonce");
-      var lblHash = container.querySelector("#lbl-hash");
-      var fb = container.querySelector("#miner-feedback");
-      var btnMine = container.querySelector("#btn-mine");
-
-      function updateHash() {
-        var data = minerData.value;
-        var nonce = minerNonce.value;
-        var hash = calcSHA256(data + nonce);
-        lblHash.textContent = hash;
-        
-        if (hash.startsWith("00")) {
-          lblHash.style.color = "#10b981";
-          fb.style.color = "#10b981";
-          fb.innerHTML = "<strong>🎉 Block Mined!</strong> Nonce " + nonce + " solved hash. Challenge completed.";
-          engine.markCompleted();
-          return true;
-        } else {
-          lblHash.style.color = "#eab308";
-          fb.style.color = "#cbd5e1";
-          fb.textContent = 'Hash does not start with "00". Change nonce or click MINE.';
-          return false;
-        }
-      }
-
-      btnMine.addEventListener("click", function() {
-        var n = 0;
-        btnMine.disabled = true;
-        btnMine.textContent = "MINING...";
-        
-        function mineStep() {
-          minerNonce.value = n;
-          var solved = updateHash();
-          if (!solved && n < 1000) {
-            n++;
-            setTimeout(mineStep, 10);
-          } else {
-            btnMine.disabled = false;
-            btnMine.textContent = "MINE";
-          }
-        }
-        mineStep();
-      });
-
-      minerData.addEventListener("input", updateHash);
-      minerNonce.addEventListener("input", updateHash);
-      updateHash();
-    }
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "Blocks and Chains",
-    subtitle: "Blockchain Technology",
-    desc: "Explore the core components and operations.",
-    module: 9,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      initCustomInteractiveChallenge(container, engine);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+var theme=localStorage.getItem('consica-theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+var app,container,skeleton,errorBoundary,errorMsg,svgContainer,infoTitle,infoDesc,stepsList,playBtn,resetBtn,speedSlider,speedVal,themeBtn,challengeOverlay,challengeBody,challengeClose,completionOverlay,completionScore,completionClose,challengeBtn,rafId,animating=false,t=0,activeNode=null,nodes=[],flowDots=[],speed=1,challengeState={questions:[],current:0,answers:{},submitted:false};
+var components=[
+{id:'agent',name:'Agent',sublabel:'Decision maker',desc:'The agent is the AI system that learns to make decisions by interacting with an environment.',purpose:'Learn optimal behavior through trial and error',how:'Observe state, choose action, receive reward, update policy',why:'Enables learning without explicit training data',analogy:'A puppy learning tricks through treats and scolding',funFact:'RL agents have mastered Go, chess, and Atari games',takeaway:'RL is learning by doing, not by being told',mistake:'Agents can exploit reward bugs in unexpected ways'},
+{id:'state',name:'State',sublabel:'Current situation',desc:'A state represents the agent perception of the environment at a given moment.',purpose:'Give the agent context for choosing actions',how:'Encoded as a vector of numbers representing relevant environmental variables',why:'The agent needs to know where it is to decide what to do',analogy:'A chessboard configuration showing piece positions',funFact:'In autonomous driving, state includes speed, position, and sensor readings',takeaway:'A good state representation is critical for learning',mistake:'Partial observability (missing state info) makes learning harder'},
+{id:'action',name:'Action',sublabel:'Agent choice',desc:'Actions are the decisions the agent can make that affect the environment state.',purpose:'Change the environment to achieve goals',how:'Selected from an action space - discrete (left/right) or continuous (steering angle)',why:'Actions are how the agent influences its world',analogy:'Pressing buttons on a game controller',funFact:'AlphaGo action space has 361 possible moves per turn',takeaway:'More actions equals harder learning problem',mistake:'Too many actions can overwhelm the agent'},
+{id:'env',name:'Environment',sublabel:'The external world',desc:'The environment is everything the agent interacts with - it receives actions and returns new states and rewards.',purpose:'Provide context, consequences, and feedback',how:'Defines state space, action space, transition dynamics, and reward function',why:'Without an environment, there is nothing to learn from',analogy:'A video game world that responds to player inputs',funFact:'OpenAI Gym provides standardized RL environments for research',takeaway:'The environment defines the rules of the game',mistake:'Poorly defined rewards lead to unintended behavior'},
+{id:'reward',name:'Reward',sublabel:'Feedback signal',desc:'Rewards are numerical signals that tell the agent whether its action was good or bad.',purpose:'Guide the agent toward desired behavior',how:'Scalar value returned after each action - positive for good, negative for bad',why:'Rewards are the only learning signal the agent receives',analogy:'Getting points in a video game for collecting coins',funFact:'Sparse rewards (rare feedback) make RL extremely difficult',takeaway:'Reward design is crucial for successful RL',mistake:'Agents can find reward hacking - exploiting loopholes'},
+{id:'policy',name:'Policy',sublabel:'Decision strategy',desc:'The policy is the agent strategy - a function that maps states to actions.',purpose:'Determine the best action for any state',how:'Neural network or table mapping states to action probabilities, updated via algorithms like Q-learning',why:'The policy is the brain of the agent',analogy:'A muscle memory that improves with practice',funFact:'Deep Q-Networks (DQN) combine RL with deep neural networks',takeaway:'The policy is what gets deployed after training',mistake:'An optimal policy in simulation may fail in the real world'}
+];
+var connectionsData=[{from:'agent',to:'state'},{from:'state',to:'action'},{from:'action',to:'env'},{from:'env',to:'reward'},{from:'reward',to:'agent'}];
+var stepsData=[
+{id:'agent',label:'Agent - the AI system learning through interaction'},
+{id:'state',label:'State - the agent current understanding of the environment'},
+{id:'action',label:'Action - the agent chooses a move'},
+{id:'env',label:'Environment - responds to the action with new state'},
+{id:'reward',label:'Reward - feedback signal for the action taken'},
+{id:'policy',label:'Policy - the strategy mapping states to actions'}
+];
+var challenges=[
+{q:'In reinforcement learning, what guides the agent toward good behavior?',o:['Pre-labeled data','Reward signals','Pre-programmed rules','User instructions'],a:1},
+{q:'What is the policy in RL?',o:['A set of rules for the environment','A strategy mapping states to actions','A type of reward','The state space'],a:1},
+{q:'What problem do sparse rewards cause in RL?',o:['Faster learning','Very slow or failed learning','Better policies','Smaller models'],a:1},
+{q:'What is reward hacking?',o:['Stealing reward tokens','When an agent exploits reward function loopholes','A hacking technique','A type of environment'],a:1},
+{q:'How does RL differ from supervised learning?',o:['RL is faster','RL learns through trial and error without labeled data','RL uses larger datasets','RL requires GPUs'],a:1},
+{q:'Why might a policy that works in simulation fail in the real world?',o:['Simulations are always wrong','The real world has different physics, noise, and uncertainty','Policies are not transferable','Simulations are too simple'],a:1}
+];
+function init(){app=document.getElementById('app');container=document.getElementById('diagram-container');skeleton=document.getElementById('loading-skeleton');errorBoundary=document.getElementById('error-boundary');errorMsg=document.getElementById('error-message');svgContainer=document.getElementById('svg-container');infoTitle=document.getElementById('info-title');infoDesc=document.getElementById('info-desc');stepsList=document.getElementById('steps-list');playBtn=document.getElementById('play-btn');resetBtn=document.getElementById('reset-btn');speedSlider=document.getElementById('speed-slider');speedVal=document.getElementById('speed-value');themeBtn=document.getElementById('theme-toggle');challengeOverlay=document.getElementById('challenge-overlay');challengeBody=document.getElementById('challenge-body');challengeClose=document.getElementById('challenge-close');completionOverlay=document.getElementById('completion-overlay');completionScore=document.getElementById('completion-score');completionClose=document.getElementById('completion-close');challengeBtn=document.getElementById('challenge-btn');
+try{buildDiagram();setupControls();setupChallenge();showContainer();}catch(e){showError(e.message||'Failed to build diagram');}}
+function showContainer(){skeleton.classList.add('hidden');container.classList.remove('hidden');}
+function showError(msg){skeleton.classList.add('hidden');errorBoundary.classList.remove('hidden');errorMsg.textContent=msg;}
+function buildDiagram(){var W=820,H=460;var svg=svgCreate('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Reinforcement learning loop showing agent, state, action, environment, reward cycle'});svgContainer.appendChild(svg);
+var defs=svgCreate('defs');svg.appendChild(defs);
+defs.innerHTML='<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--conn-stroke)"/></marker><marker id="arrowLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>';
+var positions={agent:{x:410,y:80},state:{x:160,y:230},action:{x:660,y:230},env:{x:660,y:380},reward:{x:160,y:380},policy:{x:410,y:230}};
+connectionsData.forEach(function(c){var f=positions[c.from],t=positions[c.to];var d='M'+f.x+','+(f.y+26)+' Q'+((f.x+t.x)/2)+','+(Math.max(f.y,t.y)+60)+' '+t.x+','+(t.y-26);var line=svgCreate('path',{d:d,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});svg.appendChild(line);var fd=svgCreate('circle',{class:'flow-dot',cx:0,cy:0,r:0,fill:'var(--accent)'});svg.appendChild(fd);flowDots.push({el:fd,sx:f.x,sy:f.y+26,ex:t.x,ey:t.y-26});});
+components.forEach(function(cp){var p=positions[cp.id];var g=svgCreate('g',{class:'node-g',tabIndex:0,role:'button','aria-label':cp.name+': '+cp.sublabel});g.dataset.id=cp.id;var rx=svgCreate('rect',{x:p.x-70,y:p.y-26,width:140,height:52,rx:10,class:'node-rect'});g.appendChild(rx);var lbl=svgCreate('text',{x:p.x,y:p.y-4,class:'node-label'});lbl.textContent=cp.name;g.appendChild(lbl);var slbl=svgCreate('text',{x:p.x,y:p.y+14,class:'node-sublabel'});slbl.textContent=cp.sublabel;g.appendChild(slbl);g.addEventListener('click',function(){selectNode(cp.id);});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(cp.id);}});svg.appendChild(g);nodes.push({el:g,data:cp,pos:p});});
+var selected=false;components.forEach(function(c){if(!selected){selectNode(c.id);selected=true;}});renderSteps();}
+function svgCreate(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function selectNode(id){activeNode=id;var cp=getComp(id);if(!cp)return;nodes.forEach(function(n){var r=n.el.querySelector('.node-rect');if(r)r.classList.toggle('active',n.data.id===id);});infoTitle.textContent=cp.name+' - '+cp.sublabel;infoDesc.innerHTML='<strong>Purpose:</strong> '+cp.purpose+'<br><br><strong>How it works:</strong> '+cp.how+'<br><br><strong>Why it matters:</strong> '+cp.why+'<br><br><strong>Analogy:</strong> '+cp.analogy+(cp.funFact?'<br><br><strong>Fun fact:</strong> '+cp.funFact:'')+'<br><br><strong>Key takeaway:</strong> '+cp.takeaway+'<br><br><strong>Common mistake:</strong> '+cp.mistake;var items=stepsList.querySelectorAll('li');items.forEach(function(li){li.classList.toggle('active',li.dataset.id===id);});}
+function getComp(id){for(var i=0;i<components.length;i++){if(components[i].id===id)return components[i];}return null;}
+function renderSteps(){stepsList.innerHTML='';components.forEach(function(c){var li=document.createElement('li');li.dataset.id=c.id;li.textContent=c.name+' - '+c.sublabel;li.tabIndex=0;li.addEventListener('click',function(){selectNode(c.id);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(c.id);}});stepsList.appendChild(li);});}
+function animateDiagram(){var start=performance.now();function frame(now){if(!animating){rafId=null;return;}var dt=(now-start)/1000*speed;t=(t+dt)%1;flowDots.forEach(function(d){d.el.setAttribute('cx',d.sx+(d.ex-d.sx)*t);d.el.setAttribute('cy',d.sy+(d.ey-d.sy)*t);d.el.setAttribute('r',4);});rafId=requestAnimationFrame(frame);}rafId=requestAnimationFrame(frame);}
+function setupControls(){themeBtn.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('consica-theme',theme);});playBtn.addEventListener('click',function(){animating=!animating;if(animating){playBtn.innerHTML='&#9646;&#9646;';animateDiagram();}else{playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});resetBtn.addEventListener('click',function(){t=0;flowDots.forEach(function(d){d.el.setAttribute('r',0);});if(animating){animating=false;playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});speedSlider.addEventListener('input',function(){speed=parseFloat(this.value);speedVal.textContent=speed+'x';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){challengeOverlay.classList.add('hidden');completionOverlay.classList.add('hidden');}});}
+function setupChallenge(){challengeBtn.addEventListener('click',function(){openChallenge();});challengeClose.addEventListener('click',function(){challengeOverlay.classList.add('hidden');});completionClose.addEventListener('click',function(){completionOverlay.classList.add('hidden');challengeOverlay.classList.add('hidden');});}
+function openChallenge(){challengeState.questions=challenges.slice().sort(function(){return Math.random()-0.5;}).slice(0,5);challengeState.current=0;challengeState.answers={};challengeState.submitted=false;challengeOverlay.classList.remove('hidden');renderQuestion();}
+function renderQuestion(){var q=challengeState.questions[challengeState.current];if(!q){finishChallenge();return;}var html='<div class="question"><div class="question-text">'+(challengeState.current+1)+'. '+q.q+'</div><div class="options">';q.o.forEach(function(opt,i){var sel=challengeState.answers[challengeState.current]===i?' selected':'';var cls=challengeState.submitted?(i===q.a?' correct':(challengeState.answers[challengeState.current]===i?' wrong':'')):'';html+='<label class="option-label'+sel+cls+'"><input type="radio" name="q'+challengeState.current+'" value="'+i+'"'+(challengeState.submitted?' disabled':'')+(sel?' checked':'')+' onchange="('+selectOption.toString()+')('+challengeState.current+','+i+')">'+opt+'</label>';});html+='</div></div>';html+='<div class="challenge-actions">';if(!challengeState.submitted){html+='<button class="btn-primary" onclick="('+submitChallenge.toString()+')()">Submit Answer</button>';}else{if(challengeState.current<challengeState.questions.length-1){html+='<button class="btn-primary" onclick="('+nextQuestion.toString()+')()">Next Question</button>';}else{html+='<button class="btn-primary" onclick="('+finishChallenge.toString()+')()">See Results</button>';}}html+='</div>';challengeBody.innerHTML=html;}
+function selectOption(qIdx,optIdx){if(challengeState.submitted)return;challengeState.answers[qIdx]=optIdx;renderQuestion();}
+function submitChallenge(){challengeState.submitted=true;renderQuestion();}
+function nextQuestion(){challengeState.current++;challengeState.submitted=false;renderQuestion();}
+function finishChallenge(){var correct=0,total=challengeState.questions.length;challengeState.questions.forEach(function(q,i){if(challengeState.answers[i]===q.a)correct++;});completionScore.textContent='You scored '+correct+'/'+total;completionOverlay.classList.remove('hidden');}
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();

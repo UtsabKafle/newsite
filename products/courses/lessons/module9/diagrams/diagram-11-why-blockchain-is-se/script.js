@@ -1,124 +1,56 @@
 (function(){'use strict';
-var components = [{"id":"node1","name":"Block Header","category":"Structure","icon":"database","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Holds metadata and linkages","description":"Contains block number, nonce, prev-hash, and transaction data.","why":"Identifies the block unit","analogy":"Envelope cover details","funFact":"Includes the timestamp down to the second","takeaway":"Block header is hashed to lock data","mistake":"Editing header variables does not go unnoticed","descriptionDetailed":"Block data payload structure.","howItWorks":"Contains block number, nonce, prev-hash, and transaction data.","deeperDive":"Block data payload structure.","advancedConcept":"Includes the timestamp down to the second"},{"id":"node2","name":"Hash Function","category":"Security","icon":"key","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Computes digital fingerprints","description":"Processes data using SHA-256 algorithm.","why":"Locks record data","analogy":"Digital seal wax","funFact":"Always produces a 64-character hex string","takeaway":"Hashes are one-way only","mistake":"You cannot reconstruct original text from the hash string","descriptionDetailed":"SHA-256 algorithm computation node.","howItWorks":"Processes data using SHA-256 algorithm.","deeperDive":"SHA-256 algorithm computation node.","advancedConcept":"Always produces a 64-character hex string"},{"id":"node3","name":"Linked Block","category":"Chain","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Secures subsequent chain link","description":"The next block containing the hash of the current one.","why":"Creates the tamper-proof link","analogy":"Locked chain links","funFact":"A break in one link invalidates all blocks that follow","takeaway":"Chaining ensures immutability","mistake":"Tampering with data in past blocks breaks all following hashes","descriptionDetailed":"Next sequence block referencing parent node.","howItWorks":"The next block containing the hash of the current one.","deeperDive":"Next sequence block referencing parent node.","advancedConcept":"A break in one link invalidates all blocks that follow"}];
-var connections = [{"from":"node1","to":"node2"},{"from":"node2","to":"node3"}];
-var steps = [{"id":"node1","label":"Step 1: Pack Block","status":"Transactions are packaged into a block header with the previous block's hash."},{"id":"node2","label":"Step 2: Calculate Hash","status":"SHA-256 function processes the block header, outputting a secure hash."},{"id":"node3","label":"Step 3: Link Chain","status":"The calculated hash is stored in the next block's header, securing the link."}];
-var tour = [{"title":"Block Header","description":"Stores transaction data and links.","componentId":"node1"},{"title":"Hash Function","description":"Generates secure digital fingerprints.","componentId":"node2"},{"title":"Linked Block","description":"Binds the blocks into an unbroken chain.","componentId":"node3"}];
-
-function initCustomInteractiveChallenge(container, engine) {
-      container.innerHTML = '<div class="sim-interactive-area" style="padding: 16px; display:flex; flex-direction:column; gap:12px; width:100%;">' +
-        '<div style="font-size:14px; font-weight:700; color:#60a5fa;">Chain Tamper-Proofing Simulator</div>' +
-        '<p style="font-size:11px; color:#cbd5e1;">Edit Block 2\'s data to break Block 3. Mine Block 2 and Block 3 to repair links.</p>' +
-        '<div style="display:flex; flex-direction:column; gap:8px; width:100%;">' +
-          '<div class="b-card" id="b1" style="background:#1e293b; padding:6px; border:1px solid #10b981; border-radius:4px; font-size:10px;">' +
-            '<div style="font-weight:bold; color:#10b981;">Block 1</div>' +
-            '<div>Data: <span style="font-family:monospace; color:#fff;">Tx: Alice -&gt; Bob $10</span></div>' +
-            '<div>Prev: <span style="font-family:monospace; color:#64748b;">000000</span></div>' +
-            '<div>Hash: <span style="font-family:monospace; color:#10b981;">00a1b2</span></div>' +
-          '</div>' +
-          '<div class="b-card" id="b2" style="background:#1e293b; padding:6px; border:1px solid #10b981; border-radius:4px; font-size:10px;">' +
-            '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-              '<span style="font-weight:bold; color:#10b981;">Block 2</span>' +
-              '<button class="act-btn" id="btn-mine-2" style="padding:2px 8px; font-size:9px; cursor:pointer;" disabled>MINE</button>' +
-            '</div>' +
-            '<div style="display:flex; align-items:center; gap:4px; margin-top:2px;">' +
-              '<span>Data:</span>' +
-              '<input type="text" id="b2-data" value="Tx: Bob -&gt; Charlie $5" style="background:#0f172a; color:#fff; border:1px solid #475569; border-radius:2px; padding:1px 4px; flex:1; font-size:9px;">' +
-            '</div>' +
-            '<div>Prev: <span style="font-family:monospace; color:#cbd5e1;">00a1b2</span></div>' +
-            '<div>Hash: <span id="b2-hash" style="font-family:monospace; color:#10b981;">00c3d4</span></div>' +
-          '</div>' +
-          '<div class="b-card" id="b3" style="background:#1e293b; padding:6px; border:1px solid #10b981; border-radius:4px; font-size:10px;">' +
-            '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-              '<span style="font-weight:bold; color:#10b981;" id="b3-title">Block 3</span>' +
-              '<button class="act-btn" id="btn-mine-3" style="padding:2px 8px; font-size:9px; cursor:pointer;" disabled>MINE</button>' +
-            '</div>' +
-            '<div>Data: <span style="font-family:monospace; color:#fff;">Tx: Charlie -&gt; David $2</span></div>' +
-            '<div>Prev: <span id="b3-prev" style="font-family:monospace; color:#10b981;">00c3d4</span></div>' +
-            '<div>Hash: <span id="b3-hash" style="font-family:monospace; color:#10b981;">00e5f6</span></div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="glass-panel" style="padding:12px; background:rgba(0,0,0,0.25); min-height:50px; font-size:11px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">' +
-          '<div id="tamper-feedback" style="color:#94a3b8; font-weight:500;">Edit Block 2\'s text to trigger the tamper validation flag.</div>' +
-        '</div>' +
-      '</div>';
-
-      var b2Data = container.querySelector("#b2-data");
-      var b2Hash = container.querySelector("#b2-hash");
-      var b3Prev = container.querySelector("#b3-prev");
-      var b3Hash = container.querySelector("#b3-hash");
-      var btnMine2 = container.querySelector("#btn-mine-2");
-      var btnMine3 = container.querySelector("#btn-mine-3");
-      var fb = container.querySelector("#tamper-feedback");
-      var b2Card = container.querySelector("#b2");
-      var b3Card = container.querySelector("#b3");
-
-      function calcSHA256(ascii) {
-        var h = 0;
-        for (var i = 0; i < ascii.length; i++) h = (h << 5) - h + ascii.charCodeAt(i);
-        var hex = Math.abs(h).toString(16);
-        return "0000".substring(hex.length) + hex;
-      }
-
-      b2Data.addEventListener("input", function() {
-        var val = b2Data.value;
-        var hash = calcSHA256(val);
-        b2Hash.textContent = hash;
-        b2Card.style.borderColor = "#ef4444";
-        b3Prev.style.color = "#ef4444";
-        b3Card.style.borderColor = "#ef4444";
-        fb.style.color = "#ef4444";
-        fb.innerHTML = "<strong>⚠️ Warning!</strong> Chain link broken! Block 3 expects " + b3Prev.textContent + " but Block 2 is " + hash;
-        btnMine2.disabled = false;
-      });
-
-      btnMine2.addEventListener("click", function() {
-        b2Hash.textContent = "00m2f8";
-        b2Card.style.borderColor = "#10b981";
-        fb.style.color = "#eab308";
-        fb.textContent = "Block 2 mined. Now click MINE on Block 3 to propagate the hash!";
-        btnMine2.disabled = true;
-        btnMine3.disabled = false;
-      });
-
-      btnMine3.addEventListener("click", function() {
-        b3Prev.textContent = "00m2f8";
-        b3Prev.style.color = "#10b981";
-        b3Hash.textContent = "00m3k9";
-        b3Card.style.borderColor = "#10b981";
-        fb.style.color = "#10b981";
-        fb.innerHTML = "<strong>🎉 Success!</strong> Hashing chain repaired and consensus synced. Immutability check complete.";
-        btnMine3.disabled = true;
-        engine.markCompleted();
-      });
-    }
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "Why Blockchain Is Secure",
-    subtitle: "Blockchain Technology",
-    desc: "Explore the core components and operations.",
-    module: 9,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      initCustomInteractiveChallenge(container, engine);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+var theme=localStorage.getItem('consica-theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+var app,container,skeleton,errorBoundary,errorMsg,svgContainer,infoTitle,infoDesc,stepsList,playBtn,resetBtn,speedSlider,speedVal,themeBtn,challengeOverlay,challengeBody,challengeClose,completionOverlay,completionScore,completionClose,challengeBtn,rafId,animating=false,t=0,activeNode=null,nodes=[],flowDots=[],speed=1,challengeState={questions:[],current:0,answers:{},submitted:false};
+var components=[
+{id:'tf',name:'TensorFlow',sublabel:'Google ML framework',desc:'TensorFlow is an open-source ML platform developed by Google, widely used for production ML systems.',purpose:'Build and deploy ML models at scale',how:'Define computation graphs, train on GPU/TPU, deploy via TensorFlow Serving',why:'End-to-end platform from research to production',analogy:'A full factory assembly line for ML models',funFact:'TensorFlow 1.0 was released in 2017, now at version 2.x',takeaway:'TensorFlow is the most widely adopted production ML framework',mistake:'TensorFlow 1.x graphs were harder to debug than eager execution'},
+{id:'pt',name:'PyTorch',sublabel:'Meta ML framework',desc:'PyTorch is an open-source ML framework developed by Meta, known for its dynamic computation graphs and Pythonic design.',purpose:'Flexible, research-friendly deep learning',how:'Define-and-run by default with dynamic graphs, automatic differentiation',why:'Preferred by researchers for its flexibility and debugging ease',analogy:'A modular workshop where you can easily swap tools',funFact:'PyTorch is the most popular framework for AI research papers',takeaway:'PyTorch dominates research; TensorFlow dominates production',mistake:'PyTorch had limited production deployment options (now improved with TorchServe)'},
+{id:'sklearn',name:'scikit-learn',sublabel:'Classic ML library',desc:'scikit-learn provides simple, efficient tools for classic machine learning - regression, classification, clustering, and more.',purpose:'Easy-to-use classic ML algorithms',how:'Consistent API across dozens of algorithms, with built-in preprocessing and evaluation',why:'Perfect for traditional ML without deep learning',analogy:'A Swiss Army knife for standard ML tasks',funFact:'scikit-learn was started in 2007 as a Google Summer of Code project',takeaway:'scikit-learn is the go-to for non-deep learning ML',mistake:'scikit-learn does not support GPU acceleration'},
+{id:'hf',name:'Hugging Face',sublabel:'NLP model hub',desc:'Hugging Face provides a platform with thousands of pre-trained models, datasets, and Spaces for AI development.',purpose:'Access and share pre-trained models easily',how:'Transformers library provides unified API for 100,000+ models',why:'Eliminates the need to train models from scratch',analogy:'An app store for AI models',funFact:'The Hugging Face model hub hosts over 500,000 models',takeaway:'Hugging Face democratized access to state-of-the-art NLP',mistake:'Pre-trained models may not work well for domain-specific tasks without fine-tuning'},
+{id:'jax',name:'JAX',sublabel:'High-performance ML',desc:'JAX is a high-performance ML library by Google that combines NumPy-like API with automatic differentiation and JIT compilation.',purpose:'High-speed numerical computing and ML research',how:'XLA compilation, automatic differentiation, vectorized maps, GPU/TPU support',why:'Enables cutting-edge research with fast, composable functions',analogy:'A race car engine for ML computations',funFact:'JAX powers many Google Research projects and DeepMind systems',takeaway:'JAX is for researchers who need maximum performance',mistake:'JAX has a steeper learning curve than TensorFlow or PyTorch'},
+{id:'onnx',name:'ONNX',sublabel:'Model interchange',desc:'ONNX (Open Neural Network Exchange) is an open format for representing ML models, enabling interoperability between frameworks.',purpose:'Move models between frameworks seamlessly',how:'Standardized format that converts models from PyTorch, TensorFlow, etc.',why:'Prevents vendor lock-in to a single framework',analogy:'A universal translator between different languages',funFact:'ONNX was co-developed by Microsoft and Facebook in 2017',takeaway:'ONNX enables framework flexibility and portability',mistake:'Not all operators are supported across all framework conversions'}
+];
+var connectionsData=[{from:'tf',to:'onnx'},{from:'pt',to:'onnx'},{from:'sklearn',to:'onnx'},{from:'hf',to:'pt'},{from:'jax',to:'onnx'}];
+var stepsData=[
+{id:'tf',label:'TensorFlow - Google production ML framework'},
+{id:'pt',label:'PyTorch - Meta research-friendly ML framework'},
+{id:'sklearn',label:'scikit-learn - classic ML algorithm library'},
+{id:'hf',label:'Hugging Face - pre-trained model hub and library'},
+{id:'jax',label:'JAX - high-performance numerical computing'},
+{id:'onnx',label:'ONNX - universal model interchange format'}
+];
+var challenges=[
+{q:'Which framework is most popular for AI research papers?',o:['TensorFlow','PyTorch','scikit-learn','JAX'],a:1},
+{q:'What does Hugging Face primarily provide?',o:['Hardware for training','Pre-trained models and datasets','Cloud services','Data labeling'],a:1},
+{q:'What problem does ONNX solve?',o:['Training speed','Model portability between frameworks','Data storage','Visualization'],a:1},
+{q:'Why would you choose scikit-learn over deep learning frameworks?',o:['It is faster','Classic ML algorithms with easy API, no GPU needed','It supports deep learning','It works with images'],a:1},
+{q:'What makes JAX different from TensorFlow?',o:['It is slower','NumPy-like API with JIT compilation and functional design','It only runs on CPU','It does not support neural networks'],a:1},
+{q:'Which framework dominates production ML deployments?',o:['PyTorch','TensorFlow','JAX','scikit-learn'],a:1}
+];
+function init(){app=document.getElementById('app');container=document.getElementById('diagram-container');skeleton=document.getElementById('loading-skeleton');errorBoundary=document.getElementById('error-boundary');errorMsg=document.getElementById('error-message');svgContainer=document.getElementById('svg-container');infoTitle=document.getElementById('info-title');infoDesc=document.getElementById('info-desc');stepsList=document.getElementById('steps-list');playBtn=document.getElementById('play-btn');resetBtn=document.getElementById('reset-btn');speedSlider=document.getElementById('speed-slider');speedVal=document.getElementById('speed-value');themeBtn=document.getElementById('theme-toggle');challengeOverlay=document.getElementById('challenge-overlay');challengeBody=document.getElementById('challenge-body');challengeClose=document.getElementById('challenge-close');completionOverlay=document.getElementById('completion-overlay');completionScore=document.getElementById('completion-score');completionClose=document.getElementById('completion-close');challengeBtn=document.getElementById('challenge-btn');
+try{buildDiagram();setupControls();setupChallenge();showContainer();}catch(e){showError(e.message||'Failed to build diagram');}}
+function showContainer(){skeleton.classList.add('hidden');container.classList.remove('hidden');}
+function showError(msg){skeleton.classList.add('hidden');errorBoundary.classList.remove('hidden');errorMsg.textContent=msg;}
+function buildDiagram(){var W=860,H=420;var svg=svgCreate('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'AI tools ecosystem: TensorFlow, PyTorch, scikit-learn, Hugging Face, JAX, ONNX'});svgContainer.appendChild(svg);
+var defs=svgCreate('defs');svg.appendChild(defs);
+defs.innerHTML='<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--conn-stroke)"/></marker><marker id="arrowLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>';
+var positions={tf:{x:180,y:70},pt:{x:360,y:70},sklearn:{x:540,y:70},hf:{x:360,y:200},jax:{x:540,y:200},onnx:{x:430,y:340}};
+connectionsData.forEach(function(c){var f=positions[c.from],t=positions[c.to];var line;if(c.from==='hf'){var d='M'+f.x+','+(f.y+26)+' Q'+((f.x+t.x)/2)+','+((f.y+t.y)/2)+' '+t.x+','+(t.y-26);line=svgCreate('path',{d:d,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}else{var d2='M'+f.x+','+(f.y+26)+' Q'+((f.x+t.x)/2)+','+((f.y+t.y)/2+30)+' '+t.x+','+(t.y-26);line=svgCreate('path',{d:d2,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}svg.appendChild(line);var fd=svgCreate('circle',{class:'flow-dot',cx:0,cy:0,r:0,fill:'var(--accent)'});svg.appendChild(fd);flowDots.push({el:fd,sx:f.x,sy:f.y+26,ex:t.x,ey:t.y-26});});
+components.forEach(function(cp){var p=positions[cp.id];var g=svgCreate('g',{class:'node-g',tabIndex:0,role:'button','aria-label':cp.name+': '+cp.sublabel});g.dataset.id=cp.id;var rx=svgCreate('rect',{x:p.x-75,y:p.y-26,width:150,height:52,rx:10,class:'node-rect'});g.appendChild(rx);var lbl=svgCreate('text',{x:p.x,y:p.y-4,class:'node-label'});lbl.textContent=cp.name;g.appendChild(lbl);var slbl=svgCreate('text',{x:p.x,y:p.y+14,class:'node-sublabel'});slbl.textContent=cp.sublabel;g.appendChild(slbl);g.addEventListener('click',function(){selectNode(cp.id);});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(cp.id);}});svg.appendChild(g);nodes.push({el:g,data:cp,pos:p});});
+var selected=false;components.forEach(function(c){if(!selected){selectNode(c.id);selected=true;}});renderSteps();}
+function svgCreate(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function selectNode(id){activeNode=id;var cp=getComp(id);if(!cp)return;nodes.forEach(function(n){var r=n.el.querySelector('.node-rect');if(r)r.classList.toggle('active',n.data.id===id);});infoTitle.textContent=cp.name+' - '+cp.sublabel;infoDesc.innerHTML='<strong>Purpose:</strong> '+cp.purpose+'<br><br><strong>How it works:</strong> '+cp.how+'<br><br><strong>Why it matters:</strong> '+cp.why+'<br><br><strong>Analogy:</strong> '+cp.analogy+(cp.funFact?'<br><br><strong>Fun fact:</strong> '+cp.funFact:'')+'<br><br><strong>Key takeaway:</strong> '+cp.takeaway+'<br><br><strong>Common mistake:</strong> '+cp.mistake;var items=stepsList.querySelectorAll('li');items.forEach(function(li){li.classList.toggle('active',li.dataset.id===id);});}
+function getComp(id){for(var i=0;i<components.length;i++){if(components[i].id===id)return components[i];}return null;}
+function renderSteps(){stepsList.innerHTML='';components.forEach(function(c){var li=document.createElement('li');li.dataset.id=c.id;li.textContent=c.name+' - '+c.sublabel;li.tabIndex=0;li.addEventListener('click',function(){selectNode(c.id);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(c.id);}});stepsList.appendChild(li);});}
+function animateDiagram(){var start=performance.now();function frame(now){if(!animating){rafId=null;return;}var dt=(now-start)/1000*speed;t=(t+dt)%1;flowDots.forEach(function(d){d.el.setAttribute('cx',d.sx+(d.ex-d.sx)*t);d.el.setAttribute('cy',d.sy+(d.ey-d.sy)*t);d.el.setAttribute('r',4);});rafId=requestAnimationFrame(frame);}rafId=requestAnimationFrame(frame);}
+function setupControls(){themeBtn.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('consica-theme',theme);});playBtn.addEventListener('click',function(){animating=!animating;if(animating){playBtn.innerHTML='&#9646;&#9646;';animateDiagram();}else{playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});resetBtn.addEventListener('click',function(){t=0;flowDots.forEach(function(d){d.el.setAttribute('r',0);});if(animating){animating=false;playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});speedSlider.addEventListener('input',function(){speed=parseFloat(this.value);speedVal.textContent=speed+'x';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){challengeOverlay.classList.add('hidden');completionOverlay.classList.add('hidden');}});}
+function setupChallenge(){challengeBtn.addEventListener('click',function(){openChallenge();});challengeClose.addEventListener('click',function(){challengeOverlay.classList.add('hidden');});completionClose.addEventListener('click',function(){completionOverlay.classList.add('hidden');challengeOverlay.classList.add('hidden');});}
+function openChallenge(){challengeState.questions=challenges.slice().sort(function(){return Math.random()-0.5;}).slice(0,5);challengeState.current=0;challengeState.answers={};challengeState.submitted=false;challengeOverlay.classList.remove('hidden');renderQuestion();}
+function renderQuestion(){var q=challengeState.questions[challengeState.current];if(!q){finishChallenge();return;}var html='<div class="question"><div class="question-text">'+(challengeState.current+1)+'. '+q.q+'</div><div class="options">';q.o.forEach(function(opt,i){var sel=challengeState.answers[challengeState.current]===i?' selected':'';var cls=challengeState.submitted?(i===q.a?' correct':(challengeState.answers[challengeState.current]===i?' wrong':'')):'';html+='<label class="option-label'+sel+cls+'"><input type="radio" name="q'+challengeState.current+'" value="'+i+'"'+(challengeState.submitted?' disabled':'')+(sel?' checked':'')+' onchange="('+selectOption.toString()+')('+challengeState.current+','+i+')">'+opt+'</label>';});html+='</div></div>';html+='<div class="challenge-actions">';if(!challengeState.submitted){html+='<button class="btn-primary" onclick="('+submitChallenge.toString()+')()">Submit Answer</button>';}else{if(challengeState.current<challengeState.questions.length-1){html+='<button class="btn-primary" onclick="('+nextQuestion.toString()+')()">Next Question</button>';}else{html+='<button class="btn-primary" onclick="('+finishChallenge.toString()+')()">See Results</button>';}}html+='</div>';challengeBody.innerHTML=html;}
+function selectOption(qIdx,optIdx){if(challengeState.submitted)return;challengeState.answers[qIdx]=optIdx;renderQuestion();}
+function submitChallenge(){challengeState.submitted=true;renderQuestion();}
+function nextQuestion(){challengeState.current++;challengeState.submitted=false;renderQuestion();}
+function finishChallenge(){var correct=0,total=challengeState.questions.length;challengeState.questions.forEach(function(q,i){if(challengeState.answers[i]===q.a)correct++;});completionScore.textContent='You scored '+correct+'/'+total;completionOverlay.classList.remove('hidden');}
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();

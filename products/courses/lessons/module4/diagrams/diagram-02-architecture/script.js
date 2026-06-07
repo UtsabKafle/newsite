@@ -1,44 +1,96 @@
-(function(){'use strict';
-var components = [    {id:"controlunit",name:"Control Unit",category:"Processing",purpose:"Orchestrates instruction fetching, decoding, and execution sequencing",description:"The control unit directs the flow of instructions and data through the CPU, generating timing and control signals for all other components.",why:"The control unit is the conductor that coordinates all CPU activities",analogy:"Like a film director who tells everyone what to do and when",funFact:"The control unit can be microprogrammed or hardwired—hardwired is faster",takeaway:"The control unit doesn\\'t process data but manages the processing pipeline",mistake:"The control unit and ALU are separate components with different functions",descriptionDetailed:"Fetch: retrieves instruction from memory. Decode: interprets the instruction. Execute: sends signals to ALU/memory. The control unit uses instruction registers, program counter, and status registers to manage execution flow."},    {id:"alu",name:"Arithmetic Logic Unit",category:"Processing",purpose:"Performs all mathematical calculations and logical comparisons",description:"The ALU executes arithmetic operations (add, subtract, multiply) and logical operations (AND, OR, XOR, compare) on data from registers.",why:"The ALU is where all actual computation in the CPU happens",analogy:"Like a calculator permanently built into the brain of the computer",funFact:"Modern ALUs use carry-lookahead adders for faster addition",takeaway:"Every mathematical operation, no matter how complex, breaks down into ALU operations",mistake:"Floating-point math is handled by the FPU, not the main ALU",descriptionDetailed:"The ALU accepts operands from registers and returns results plus status flags (carry, zero, overflow, negative). Combinational logic circuits perform operations in a single clock cycle. Bit width (32-bit vs 64-bit) determines operand size."},    {id:"registers",name:"Internal Registers",category:"Processing",purpose:"Provides immediate storage for data and instructions the CPU is actively using",description:"Registers are the fastest memory locations inside the CPU, holding operands, results, addresses, and processor state information.",why:"Registers provide zero-cycle access to data for the ALU and control unit",analogy:"Like the numbers currently displayed on a calculator screen",funFact:"The x86 architecture has only 16 general-purpose registers in 64-bit mode",takeaway:"Register count and efficiency affect CPU performance significantly",mistake:"Registers are not the same as cache—they\\'re inside the execution pipeline",descriptionDetailed:"General-purpose registers (RAX, RBX, etc.) hold data for operations. The program counter (RIP) points to the next instruction. The status register (EFLAGS) records operation results. SSE/AVX registers handle vector operations."},    {id:"cache",name:"On-Chip Cache",category:"Memory",purpose:"Reduces memory latency by storing frequently accessed data near the cores",description:"Cache is organized in levels with L1 closest (fastest/smallest), L2 per-core, and L3 shared across all cores, using SRAM technology.",why:"Cache hierarchy balances speed with capacity to minimize average memory access time",analogy:"Like nested toolboxes: pocket tools (L1), desk drawer (L2), and garage (L3)",funFact:"L1 cache access takes about 1-3 cycles, while main RAM takes 100+ cycles",takeaway:"Cache hit rate is crucial for CPU performance—more cache helps but has diminishing returns",mistake:"Cache and registers serve different purposes—registers hold active data, cache holds recent data",descriptionDetailed:"L1 cache is split into instruction (L1i) and data (L1d) caches. Cache lines are typically 64 bytes. Inclusive caches keep data in all levels; exclusive caches allow unique data per level. Prefetching loads likely-needed data before it\\'s requested."},    {id:"businterface",name:"Bus Interface Unit",category:"Processing",purpose:"Connects the CPU cores to the rest of the system through external buses",description:"The bus interface unit manages communication between the CPU and external components including memory, PCIe devices, and the chipset.",why:"The bus interface is the CPU\\'s gateway to all off-chip resources",analogy:"Like a shipping department that handles all packages going in and out",funFact:"Intel\\'s Ring Bus connects cores within the CPU at speeds over 100 GB/s",takeaway:"Bus interface speed affects how fast the CPU can access memory and I/O",mistake:"Internal CPU interconnects (mesh/ring) are different from external buses (PCIe/DMI)",descriptionDetailed:"The bus interface translates internal CPU requests to external protocols. It handles memory requests to the IMC and I/O requests through PCIe. Coherency protocols ensure all cores see consistent data. The interface manages power states."},    {id:"memorycontroller",name:"Integrated Memory Controller",category:"Memory",purpose:"Directly manages communication between the CPU and system RAM",description:"The IMC is integrated on the CPU die, controlling RAM timing, data transfer, refresh cycles, and multi-channel configuration.",why:"On-die memory controllers eliminate the latency of going through a separate chipset",analogy:"Like a dedicated ordering counter instead of sending orders through a central office",funFact:"AMD\\'s 64-bit x86-64 architecture was the first to integrate the memory controller on-die",takeaway:"The IMC determines what RAM speed and type the CPU supports",mistake:"The IMC doesn\\'t store data—it manages access to external RAM",descriptionDetailed:"The IMC supports DDR4/DDR5 with specific speed ranges (JEDEC and overclocked). It manages channel interleaving for bandwidth. Each channel is 64 bits wide (72 with ECC). The IMC handles command scheduling and timing optimization."}];
-var connections = [{from:"controlunit",to:"alu"},{from:"alu",to:"registers"},{from:"registers",to:"cache"},{from:"cache",to:"businterface"},{from:"businterface",to:"memorycontroller"}];
-var steps = [{label:"Step 1: Control Unit",status:"Exploring: Control Unit - Orchestrates instruction fetching, decoding, and execution sequencing"},{label:"Step 2: Arithmetic Logic Unit",status:"Exploring: Arithmetic Logic Unit - Performs all mathematical calculations and logical comparisons"},{label:"Step 3: Internal Registers",status:"Exploring: Internal Registers - Provides immediate storage for data and instructions the CPU is actively using"},{label:"Step 4: On-Chip Cache",status:"Exploring: On-Chip Cache - Reduces memory latency by storing frequently accessed data near the cores"},{label:"Step 5: Bus Interface Unit",status:"Exploring: Bus Interface Unit - Connects the CPU cores to the rest of the system through external buses"},{label:"Step 6: Integrated Memory Controller",status:"Exploring: Integrated Memory Controller - Directly manages communication between the CPU and system RAM"}];
-var tour = [{title:"Control Unit",description:"Orchestrates instruction fetching, decoding, and execution sequencing",componentId:"controlunit"},{title:"Arithmetic Logic Unit",description:"Performs all mathematical calculations and logical comparisons",componentId:"alu"},{title:"Internal Registers",description:"Provides immediate storage for data and instructions the CPU is actively using",componentId:"registers"},{title:"On-Chip Cache",description:"Reduces memory latency by storing frequently accessed data near the cores",componentId:"cache"},{title:"Bus Interface Unit",description:"Connects the CPU cores to the rest of the system through external buses",componentId:"businterface"},{title:"Integrated Memory Controller",description:"Directly manages communication between the CPU and system RAM",componentId:"memorycontroller"}];
+(function(){
+'use strict';
+var $=function(s,c){return(c||document).querySelector(s)};
+var $$=function(s,c){return Array.from((c||document).querySelectorAll(s))};
+var ce=function(t,a,c){var e=document.createElement(t);if(a)Object.entries(a).forEach(function(kv){var k=kv[0],v=kv[1];if(k==='className')e.className=v;else if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k==='dataset')Object.assign(e.dataset,v);else e.setAttribute(k,v)});if(c)c.forEach(function(x){if(typeof x==='string')e.appendChild(document.createTextNode(x));else if(x)e.appendChild(x)});return e};
+var nodes=[{id:'cu',name:'Control Unit',color:'#3b82f6',x:.03,y:.08,w:.22,h:.25,desc:'Orchestrates instruction fetching, decoding, and execution sequencing via control signals.',analogy:'Like a conductor directing an orchestra.',detail:'Can be microprogrammed or hardwired. Generates timing and control signals. Uses instruction registers and program counter.'},{id:'alu',name:'Arithmetic Logic Unit',color:'#f43f5e',x:.28,y:.08,w:.22,h:.25,desc:'Performs arithmetic (add/sub/mul) and logical (AND/OR/XOR) operations on register data.',analogy:'Like a calculator built into the CPU.',detail:'Uses carry-lookahead adders. Accepts operands from registers, returns results plus status flags. 32 or 64 bit width.'},{id:'reg',name:'Register File',color:'#eab308',x:.53,y:.08,w:.22,h:.25,desc:'Fast storage locations (RAX, RBX, RCX, RDX, RSP, RBP, RSI, RDI) for active data.',analogy:'Like a stack of sticky notes on a desk.',detail:'x86-64 has 16 general-purpose registers plus XMM/YMM for SIMD. Register renaming enables out-of-order execution.'},{id:'l1c',name:'L1 Cache',color:'#a855f7',x:.78,y:.08,w:.19,h:.25,desc:'Split L1I and L1D caches, 32KB each, 1-3 cycle latency.',analogy:'Like a pocket notebook for quick reference.',detail:'Direct-mapped or set-associative (4-8 ways). Full CPU clock speed.'},{id:'l2c',name:'L2 Cache',color:'#10b981',x:.03,y:.38,w:.22,h:.2,desc:'256-512KB unified cache per core, 7-12 cycle latency.',analogy:'Like a desk drawer with frequently used files.',detail:'8-16 way set-associative. Write-back policy. Acts as victim cache for L1.'},{id:'l3c',name:'L3 Cache',color:'#06b6d4',x:.28,y:.38,w:.22,h:.2,desc:'8-32MB shared cache, 30-50 cycle latency.',analogy:'Like a shared library for all departments.',detail:'Inclusive or non-inclusive policy. Coherence protocols maintain data consistency.'},{id:'mc',name:'Memory Controller',color:'#f97316',x:.53,y:.38,w:.22,h:.2,desc:'Integrated IMC manages DDR4/DDR5 RAM with dual/quad channel.',analogy:'Like a traffic controller for data.',detail:'Each channel has 64-bit data path. Manages timing, refresh, voltage.'},{id:'io',name:'I/O & PCIe',color:'#22d3ee',x:.78,y:.38,w:.19,h:.2,desc:'Direct PCIe lanes for GPU/NVMe plus DMI to chipset.',analogy:'Like airport gates connecting to destinations.',detail:'Up to 28 direct PCIe lanes. DMI connects to chipset for legacy I/O.'}];
+var quizData={questions:[{q:'Which component performs arithmetic operations?',options:['Control Unit','ALU','Register File','Memory Controller'],answer:1},{q:'How many general-purpose registers does x86-64 have?',options:['8','16','32','64'],answer:1},{q:'Which cache level is shared across all cores?',options:['L1','L2','L3','All'],answer:2},{q:'What connects the CPU directly to GPU and NVMe?',options:['DMI bus','PCIe lanes','SATA','USB'],answer:1},{q:'The Control Unit is best described as:',options:['A calculator','A conductor','A library','A highway'],answer:1},{q:'What technology enables out-of-order execution in modern CPUs?',options:['Cache','Register renaming','PCIe','Clock speed'],answer:1}],maxAttempts:2};
+var state={speed:1,rafId:null,t:0,selectedId:null,challengeDone:false,challengeIdx:0,quizResults:[]};
+function getTheme(){return localStorage.getItem('consica-theme')||'dark'}
+function setTheme(t){localStorage.setItem('consica-theme',t);document.documentElement.setAttribute('data-theme',t==='light'?'light':'')}
+var dom={};
+function initDOM(){dom={loading:$('#loading-skeleton'),error:$('#error-boundary'),container:$('#diagram-container'),viz:$('#visualization'),info:$('#info-panel'),infoTitle:$('#info-title'),infoDesc:$('#info-desc'),infoAnalogy:$('#info-analogy'),infoDetail:$('#info-detail'),infoClose:$('#info-close'),speed:$('#speed-slider'),speedLabel:$('#speed-label'),theme:$('#theme-toggle'),help:$('#help-btn'),challenge:$('#challenge-container'),completion:$('#completion-overlay'),completionMsg:$('#completion-msg'),completionReset:$('#completion-reset'),errMsg:$('#error-message')}}
+function showError(m){if(dom.error){dom.error.hidden=false;if(dom.errMsg)dom.errMsg.textContent=m}if(dom.container)dom.container.hidden=true;if(dom.loading)dom.loading.hidden=true}
+function showInfo(data){if(!dom.info)return;dom.infoTitle.textContent=data.name||'';dom.infoDesc.textContent=data.desc||'';dom.infoAnalogy.textContent=data.analogy?'💡 '+data.analogy:'';dom.infoDetail.textContent=data.detail||'';dom.info.hidden=false;state.selectedId=data.id||null}
+function renderChallenge(){
+  if(!dom.challenge||!quizData)return;
+  if(state.challengeDone&&state.challengeIdx>=quizData.questions.length){showCompletion('All complete!');return}
+  var qs=quizData.questions,idx=state.challengeIdx,total=qs.length,attempts=0,answered=false;
+  var progress=ce('div',{className:'challenge-progress'});
+  for(var i=0;i<total;i++){var dot=ce('div',{className:'challenge-dot'+(i===idx?' active':'')+(state.quizResults[i]===true?' done':'')+(state.quizResults[i]===false?' wrong':'')},[''+(i+1)]);progress.appendChild(dot)}
+  var card=ce('div',{className:'quiz-card'});
+  var qData=qs[idx];
+  card.appendChild(ce('div',{className:'q-text'},[qData.q]));
+  var opts=ce('div',{className:'quiz-options'});
+  var resDiv=ce('div',{className:'challenge-result'});
+  qData.options.forEach(function(opt,oi){
+    var optEl=ce('div',{className:'quiz-option'},[ce('span',{className:'indicator'}),ce('span',{},[opt])]);
+    optEl.addEventListener('click',function(){
+      if(answered)return;answered=true;attempts++;
+      var correct=oi===qData.answer;state.quizResults[idx]=correct;
+      optEl.classList.add(correct?'correct':'wrong');
+      optEl.querySelector('.indicator').textContent=correct?'✓':'✗';
+      $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='none'});
+      if(correct){resDiv.className='challenge-result correct';resDiv.textContent='✓ Correct!'}
+      else{resDiv.className='challenge-result wrong';resDiv.textContent=attempts<quizData.maxAttempts?'✗ Try again.':'✗ The answer was: '+qData.options[qData.answer]}
+      opts.appendChild(resDiv);
+      setTimeout(function(){
+        if(correct||attempts>=quizData.maxAttempts){
+          state.challengeIdx++;
+          if(state.challengeIdx>=total){state.challengeDone=true;showCompletion('You completed all '+total+' questions!')}
+          else renderChallenge()
+        }else{answered=false;
+          $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='auto';o.classList.remove('wrong','correct');o.querySelector('.indicator').textContent=''});
+          resDiv.className='challenge-result';resDiv.textContent=''}
+      },correct?800:2000)
+    });opts.appendChild(optEl)});
+  card.appendChild(opts);dom.challenge.innerHTML='';dom.challenge.appendChild(progress);dom.challenge.appendChild(card)}
+function showCompletion(msg){if(dom.completionMsg)dom.completionMsg.textContent=msg||'Mastered!';if(dom.completion)dom.completion.hidden=false}
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Architecture',
-    subtitle: 'CPU Components',
-    desc: 'Understand CPU architecture from cores to memory controller.',
-    module: 4,
-    difficulty: 'Advanced',
-    time: '10',
-    objectives: 'Understand CPU architecture from cores to memory controller.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+// Draw chip floorplan
+function drawViz(container){
+  container.innerHTML='';
+  var svg=ce('svg',{className:'viz-svg',viewBox:'0 0 800 500',preserveAspectRatio:'xMidYMid meet'});
+  var defs=ce('defs',{});
+  defs.innerHTML='<linearGradient id="fbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0e17"/><stop offset="100%" stop-color="#0f1729"/></linearGradient>';
+  svg.appendChild(defs);
+  svg.appendChild(ce('rect',{x:0,y:0,width:800,height:500,fill:'url(#fbg)'}));
+  // Grid overlay
+  for(var i=0;i<16;i++)svg.appendChild(ce('line',{x1:i*50,y1:0,x2:i*50,y2:500,stroke:'rgba(255,255,255,0.02)','stroke-width':1}));
+  for(var i=0;i<10;i++)svg.appendChild(ce('line',{x1:0,y1:i*50,x2:800,y2:i*50,stroke:'rgba(255,255,255,0.02)','stroke-width':1}));
+  // Data bus trunk
+  svg.appendChild(ce('rect',{x:0,y:340,width:800,height:10,fill:'rgba(59,130,246,0.1)',stroke:'#3b82f6','stroke-width':0.5}));
+  svg.appendChild(ce('rect',{x:0,y:355,width:800,height:4,fill:'rgba(59,130,246,0.05)'}));
+  nodes.forEach(function(n){
+    var g=ce('g',{className:'node',dataset:{id:n.id}});
+    var x=n.x*800+4,y=n.y*500+4,w=n.w*800-8,h=n.h*500-8;
+    g.appendChild(ce('rect',{className:'node-bg',x:x,y:y,width:w,height:h,rx:6,fill:'rgba(255,255,255,0.02)',stroke:n.color,'stroke-width':1.5}));
+    g.appendChild(ce('text',{className:'node-label',x:x+w/2,y:y+h/2-4,'text-anchor':'middle',fill:n.color,'font-size':'11','font-weight':'600','font-family':'Inter,sans-serif'},[n.name]));
+    g.addEventListener('click',function(){showInfo(n)});
+    svg.appendChild(g)});
+  container.appendChild(svg)}
+
+function animateNodes(t){
+  var idx=Math.floor(t*0.35)%nodes.length;
+  $$('.node .node-bg').forEach(function(el,i){
+    var n=nodes[i];
+    if(i===idx){el.setAttribute('stroke-width','2.5');el.setAttribute('fill',n.color+'20')}
+    else{el.setAttribute('stroke-width','1.5');el.setAttribute('fill','rgba(255,255,255,0.02)')}})}
+
+function init(){
+  initDOM();setTheme(getTheme());
+  if(dom.theme)dom.theme.addEventListener('click',function(){setTheme(getTheme()==='light'?'dark':'light')});
+  if(dom.speed)dom.speed.addEventListener('input',function(){state.speed=parseFloat(this.value);if(dom.speedLabel)dom.speedLabel.textContent=state.speed.toFixed(2)+'×'});
+  if(dom.infoClose)dom.infoClose.addEventListener('click',function(){dom.info.hidden=true;state.selectedId=null});
+  if(dom.completionReset)dom.completionReset.addEventListener('click',function(){dom.completion.hidden=true;state.challengeDone=false;state.challengeIdx=0;state.quizResults=[];renderChallenge()});
+  if(dom.help)dom.help.addEventListener('click',function(){showInfo({name:'How to use',desc:'Explore the CPU architecture floorplan. Each block represents a functional unit. Click to learn. The data bus trunk connects all components.',analogy:'',detail:''})});
+  setTimeout(function(){
+    if(dom.loading)dom.loading.hidden=true;
+    if(dom.container)dom.container.hidden=false;
+    drawViz(dom.viz);renderChallenge();
+    var last=0;
+    function frame(ts){if(!last)last=ts;var dt=(ts-last)/1000;last=ts;state.t+=dt*state.speed;animateNodes(state.t);state.rafId=requestAnimationFrame(frame)}
+    state.rafId=requestAnimationFrame(frame)
+  },800)}
+init();
 })();

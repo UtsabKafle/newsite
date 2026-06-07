@@ -1,195 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"client",name:"Client Application",category:"Software",icon:"monitor",shape:"rounded-rect",x:30,y:65,w:110,h:50,purpose:"Sends requests to the server and processes the response for the user",description:"The client—a browser, mobile app, or desktop application—formulates a request and waits for the server's response.",why:"Clients are what users directly interact with to access services",analogy:"Like a customer at a restaurant placing an order with the waiter",funFact:"A client doesn't need to know where the server is physically located",takeaway:"The client always initiates the communication in a client-server model",mistake:"The client doesn't store data. It just requests and displays it",descriptionDetailed:"The client serializes a request into the appropriate protocol format (HTTP, WebSocket, etc.) and sends it over a network socket. It manages connection pooling, timeouts, and retries. Upon receiving the response, the client deserializes the data and updates its user interface."},
-  {id:"loadbalancer",name:"Load Balancer",category:"Network",icon:"load-balancer",shape:"diamond",x:160,y:65,w:110,h:50,purpose:"Distributes incoming client requests across multiple backend servers",description:"The load balancer sits between clients and servers, deciding which server should handle each request based on health and load.",why:"Load balancers prevent any single server from being overwhelmed",analogy:"Like a receptionist directing customers to the shortest checkout line",funFact:"Load balancers can detect and route around failed servers automatically",takeaway:"Load balancing enables websites to handle millions of concurrent users",mistake:"The client doesn't directly choose a server. The load balancer decides",descriptionDetailed:"Load balancers use algorithms like round-robin, least connections, or IP hash to distribute traffic. They perform health checks by pinging servers or checking specific endpoints. Advanced load balancers also terminate SSL/TLS, offloading encryption work from backend servers."},
-  {id:"webserver",name:"Web Server",category:"Software",icon:"server",shape:"rounded-rect",x:290,y:65,w:110,h:50,purpose:"Processes HTTP requests and serves web content or forwards to application logic",description:"The web server receives the forwarded request, handles static files directly, or passes dynamic requests to an application server.",why:"Web servers are the frontline of request processing on the server side",analogy:"Like a restaurant kitchen that prepares your order based on the recipe",funFact:"Nginx was created to solve the C10K problem of handling 10,000 concurrent connections",takeaway:"Web servers handle both static content and act as reverse proxies",mistake:"A web server and an application server are different. The app server runs business logic",descriptionDetailed:"The web server parses the HTTP request, checks URL routing rules, and decides how to handle it. Static files are served directly from disk with appropriate MIME types. Dynamic requests are forwarded to an application server via FastCGI, uWSGI, or a similar protocol."},
-  {id:"dbserver",name:"Database Server",category:"Storage",icon:"database",shape:"cylinder",x:420,y:65,w:110,h:50,purpose:"Stores, retrieves, and manages data required by the application",description:"The database server processes queries from the application server, reading or writing data in structured tables or documents.",why:"Databases persist all user data, content, and application state",analogy:"Like a filing cabinet where information is stored and searched",funFact:"MySQL handles over 10 million queries per second at major companies",takeaway:"Most dynamic websites query a database to generate each page",mistake:"Database servers don't store files. They store structured records",descriptionDetailed:"The database server runs a DBMS like PostgreSQL or MongoDB that manages data storage, indexing, and query execution. It uses caching, connection pooling, and query optimization to handle high throughput. Replication ensures data is copied to multiple servers for redundancy."},
-  {id:"cache",name:"Cache Server",category:"Storage",icon:"cache",shape:"cylinder",x:550,y:65,w:110,h:50,purpose:"Temporarily stores frequently accessed data to reduce load on backend servers",description:"The cache server keeps copies of popular data in fast memory so subsequent requests can be served instantly without hitting the database.",why:"Caching dramatically reduces response times and server load",analogy:"Like keeping frequently used tools on your workbench instead of in the garage",funFact:"Memcached was created by a LiveJournal developer to reduce database load",takeaway:"Cached data is temporary and may be outdated if not invalidated properly",mistake:"Caches don't store everything. They only keep what's requested often enough",descriptionDetailed:"Cache servers like Redis or Memcached store data in RAM for sub-millisecond access. They use LRU or LFU eviction policies to manage memory. Cached data is invalidated when the source data changes, either through TTL expiration or active invalidation."}
-];
-var connections = [{from:"client",to:"loadbalancer"},{from:"loadbalancer",to:"webserver"},{from:"webserver",to:"dbserver"},{from:"dbserver",to:"cache"}];
-var steps = [{id:"client",label:"Step 1: Client Application",status:"Exploring: Client Application - Sends requests to the server and processes the response for the user"},{id:"loadbalancer",label:"Step 2: Load Balancer",status:"Exploring: Load Balancer - Distributes incoming client requests across multiple backend servers"},{id:"webserver",label:"Step 3: Web Server",status:"Exploring: Web Server - Processes HTTP requests and serves web content or forwards to application logic"},{id:"dbserver",label:"Step 4: Database Server",status:"Exploring: Database Server - Stores, retrieves, and manages data required by the application"},{id:"cache",label:"Step 5: Cache Server",status:"Exploring: Cache Server - Temporarily stores frequently accessed data to reduce load on backend servers"}];
-var tour = [{title:"Client Application",description:"Sends requests to the server and processes the response for the user",componentId:"client"},{title:"Load Balancer",description:"Distributes incoming client requests across multiple backend servers",componentId:"loadbalancer"},{title:"Web Server",description:"Processes HTTP requests and serves web content or forwards to application logic",componentId:"webserver"},{title:"Database Server",description:"Stores, retrieves, and manages data required by the application",componentId:"dbserver"},{title:"Cache Server",description:"Temporarily stores frequently accessed data to reduce load on backend servers",componentId:"cache"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Client Server',
-    subtitle: 'How Internet Works',
-    desc: 'Explore how clients communicate with servers through load balancers, databases, and caches.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Explore how clients and servers communicate over a network.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'API Request',color:'#22c55e'},
-      {label:'Route',color:'#60a5fa'},
-      {label:'DB Query',color:'#c084fc'},
-      {label:'Cached Data',color:'#f59e0b'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "client", "name": "Client Application", "cat": "Software", "icon": "💻", "x": 60, "y": 140, "desc": "The client formulates a request and waits for the servers response.", "how": "The client serializes a request into HTTP format and sends it over a network socket, managing connection pooling and timeouts.", "why": "Clients are what users directly interact with to access services", "analogy": "Like a customer at a restaurant placing an order", "fun": "A client doesnt need to know where the server is physically located", "take": "The client always initiates the communication in a client-server model"}, {"id": "loadbalancer", "name": "Load Balancer", "cat": "Network", "icon": "⚖️", "x": 200, "y": 140, "desc": "The load balancer sits between clients and servers, deciding which server should handle each request.", "how": "Load balancers use algorithms like round-robin or least connections to distribute traffic and perform health checks.", "why": "Load balancers prevent any single server from being overwhelmed", "analogy": "Like a receptionist directing customers to the shortest checkout line", "fun": "Load balancers can detect and route around failed servers automatically", "take": "Load balancing enables websites to handle millions of concurrent users"}, {"id": "webserver", "name": "Web Server", "cat": "Software", "icon": "🖥️", "x": 350, "y": 140, "desc": "The web server receives the forwarded request and handles static files or passes to application logic.", "how": "The server checks URL routing rules, serves static files directly, and forwards dynamic requests to an application server.", "why": "Web servers are the frontline of request processing on the server side", "analogy": "Like a restaurant kitchen that prepares your order", "fun": "Nginx was created to solve the C10K problem", "take": "Web servers handle both static content and act as reverse proxies"}, {"id": "dbserver", "name": "Database Server", "cat": "Storage", "icon": "🗄️", "x": 525, "y": 75, "desc": "The database server processes queries, reading or writing data in structured tables.", "how": "The DBMS manages data storage, indexing, and query execution using caching, connection pooling, and query optimization.", "why": "Databases persist all user data, content, and application state", "analogy": "Like a filing cabinet where information is stored and searched", "fun": "MySQL handles over 10 million queries per second at major companies", "take": "Most dynamic websites query a database to generate each page"}, {"id": "cache", "name": "Cache Server", "cat": "Storage", "icon": "⚡", "x": 525, "y": 205, "desc": "The cache server keeps copies of popular data in fast memory for instant serving.", "how": "Cache servers like Redis store data in RAM for sub-millisecond access using LRU eviction policies.", "why": "Caching dramatically reduces response times and server load", "analogy": "Like keeping frequently used tools on your workbench", "fun": "Memcached was created to reduce database load", "take": "Cached data is temporary and may be outdated if not invalidated properly"}];
+var CONNECTIONS=[{"from": "client", "to": "loadbalancer", "type": "fiber"}, {"from": "loadbalancer", "to": "webserver", "type": "fiber"}, {"from": "webserver", "to": "dbserver", "type": "fiber"}, {"from": "dbserver", "to": "cache", "type": "cable"}];
+var ROUTES={"A": {"name": "API Request Flow", "color": "#3b82f6", "path": ["client", "loadbalancer", "webserver", "dbserver", "cache"]}};
+var CHALLENGES=[{"q": "Who initiates communication in a client-server model?", "opts": ["The server", "The client", "Both simultaneously", "Neither"], "ans": 1, "exp": "The client always initiates communication by sending a request to the server."}, {"q": "What is the primary purpose of a load balancer?", "opts": ["Store data", "Distribute requests across servers", "Encrypt traffic", "Manage domains"], "ans": 1, "exp": "Load balancers distribute incoming requests across multiple backend servers to prevent overload."}, {"q": "What algorithm might a load balancer use?", "opts": ["Binary search", "Round-robin", "Bubble sort", "Quick sort"], "ans": 1, "exp": "Round-robin is a common load balancing algorithm that distributes requests sequentially across servers."}, {"q": "What does C10K problem refer to?", "opts": ["10,000 concurrent connections", "10 KB file size", "10,000 servers", "10-gigabit speed"], "ans": 0, "exp": "The C10K problem was about handling 10,000 concurrent network connections, which Nginx solved."}, {"q": "What type of data does a database server store?", "opts": ["Files and folders", "Structured records", "Raw network packets", "Executable programs"], "ans": 1, "exp": "Database servers store structured records in tables or documents, not raw files."}, {"q": "How does a cache server store data for fast access?", "opts": ["On hard disks", "In RAM", "On tape drives", "On optical media"], "ans": 1, "exp": "Cache servers like Redis store data in RAM for sub-millisecond access times."}, {"q": "What does LRU stand for in cache management?", "opts": ["Least Recently Used", "Long Range Unit", "Low Resource Usage", "Load Response Unit"], "ans": 0, "exp": "LRU (Least Recently Used) eviction policy removes the least recently accessed items when memory is full."}, {"q": "How does a web server handle dynamic content?", "opts": ["Serves it directly from disk", "Forwards to an application server", "Caches it permanently", "Converts to static HTML"], "ans": 1, "exp": "Dynamic content is forwarded to an application server via FastCGI or similar protocol."}, {"q": "What is a reverse proxy?", "opts": ["Client-side cache", "A server that sits between clients and backend servers", "A database replica", "A DNS server"], "ans": 1, "exp": "A reverse proxy accepts client requests and forwards them to backend servers, often used with web servers."}, {"q": "What happens if a load balancer detects a failed server?", "opts": ["It crashes", "It routes traffic away from that server", "It restarts the server", "It sends all traffic there"], "ans": 1, "exp": "Load balancers perform health checks and automatically route around failed servers."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    customChallenge: function(container, engine) {
-      // Client-Server Communication Lab
-      container.innerHTML = `
-        <div class="sim-interactive-area" style="padding: 16px;">
-          <div style="font-size:14px; font-weight:700; color:#60a5fa; margin-bottom:4px;">Client-Server Communication Lab</div>
-          <p style="font-size:11px; color:#cbd5e1; margin-bottom:12px;">Trigger HTTP requests and watch data route to Load Balancer, Web Server, Cache, and DB.</p>
-          
-          <div style="display:flex; gap:12px; margin-bottom:12px; align-items:center; flex-wrap:wrap;">
-            <div>
-              <label style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase;">HTTP Method</label>
-              <select class="sim-input" id="sim-http-method" style="margin-left:4px;">
-                <option value="GET">GET</option>
-                <option value="POST">POST</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase;">Endpoint</label>
-              <select class="sim-input" id="sim-http-path" style="margin-left:4px;">
-                <option value="/profile">/profile (User Profile)</option>
-                <option value="/settings">/settings (Account Config)</option>
-              </select>
-            </div>
-            <button class="act-btn" id="sim-request-btn" style="background:#0959C8; border-color:#3b82f6;">📡 Send HTTP Request</button>
-          </div>
-          
-          <div class="sim-canvas" style="display:flex; justify-content:space-around; align-items:center; padding:16px;">
-            <div id="sim-node-client" class="glass-panel" style="padding:8px; text-align:center;">
-              <span style="font-size:20px;">💻</span>
-              <div style="font-size:8px; font-weight:bold;">Client</div>
-            </div>
-            <div id="sim-node-lb" class="glass-panel" style="padding:8px; text-align:center;">
-              <span style="font-size:20px;">⚖️</span>
-              <div style="font-size:8px; font-weight:bold;">Load Balancer</div>
-            </div>
-            <div id="sim-node-server" class="glass-panel" style="padding:8px; text-align:center;">
-              <span style="font-size:20px;">🖥️</span>
-              <div style="font-size:8px; font-weight:bold;">Web Server</div>
-            </div>
-            <div id="sim-node-cache" class="glass-panel" style="padding:8px; text-align:center; opacity:0.6;">
-              <span style="font-size:20px;">⚡</span>
-              <div style="font-size:8px; font-weight:bold;">Redis Cache</div>
-            </div>
-            <div id="sim-node-db" class="glass-panel" style="padding:8px; text-align:center; opacity:0.6;">
-              <span style="font-size:20px;">🗄️</span>
-              <div style="font-size:8px; font-weight:bold;">Database</div>
-            </div>
-          </div>
-          
-          <div class="glass-panel" style="padding:10px; background:rgba(0,0,0,0.3); border-radius:6px; min-height:80px; font-family:monospace; font-size:11px;">
-            <div style="font-weight:bold; color:#60a5fa; margin-bottom:4px;">HTTP Response Console</div>
-            <div id="sim-console-output" style="color:#cbd5e1;">Waiting for request...</div>
-          </div>
-        </div>
-      `;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
 
-      var btn = container.querySelector('#sim-request-btn');
-      var methodSel = container.querySelector('#sim-http-method');
-      var pathSel = container.querySelector('#sim-http-path');
-      var consoleOutput = container.querySelector('#sim-console-output');
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
 
-      var mockCache = {};
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
 
-      btn.addEventListener('click', function() {
-        var method = methodSel.value;
-        var path = pathSel.value;
-        sendRequest(method, path);
-      });
-
-      function sendRequest(method, path) {
-        btn.disabled = true;
-        consoleOutput.innerHTML = "Connecting to server...";
-        
-        var nodeClient = container.querySelector('#sim-node-client');
-        var nodeLb = container.querySelector('#sim-node-lb');
-        var nodeServer = container.querySelector('#sim-node-server');
-        var nodeCache = container.querySelector('#sim-node-cache');
-        var nodeDb = container.querySelector('#sim-node-db');
-
-        // Reset opacity highlights
-        [nodeClient, nodeLb, nodeServer, nodeCache, nodeDb].forEach(n => n.style.borderColor = "rgba(255,255,255,0.08)");
-
-        // Client to LB
-        setTimeout(() => {
-          nodeClient.style.borderColor = "#3b82f6";
-          nodeLb.style.borderColor = "#3b82f6";
-          consoleOutput.innerHTML = `&gt; ${method} ${path} HTTP/1.1<br>Host: api.consica.edu`;
-        }, 300);
-
-        // LB to WebServer
-        setTimeout(() => {
-          nodeServer.style.borderColor = "#3b82f6";
-          consoleOutput.innerHTML += `<br>&gt; Load Balancer forwarding to WebServer-01...`;
-        }, 900);
-
-        // Cache Hit/Miss logic
-        setTimeout(() => {
-          nodeCache.style.opacity = "1";
-          nodeCache.style.borderColor = "#3b82f6";
-          
-          if (method === "GET" && mockCache[path]) {
-            // Cache hit
-            nodeCache.style.borderColor = "#10b981";
-            consoleOutput.innerHTML += `<br>&gt; Redis Cache Hit! Returning data from memory...`;
-            setTimeout(() => {
-              finishRequest(200, "OK", mockCache[path], true);
-            }, 600);
-          } else {
-            // Cache miss (must hit Database)
-            nodeCache.style.borderColor = "#ef4444";
-            consoleOutput.innerHTML += `<br>&gt; Cache Miss. Fetching from PostgreSQL Database...`;
-            setTimeout(() => {
-              nodeDb.style.opacity = "1";
-              nodeDb.style.borderColor = "#3b82f6";
-              
-              setTimeout(() => {
-                var responseData = { status: "Active", name: "Consica Learner" };
-                if (method === "POST") {
-                  responseData.lastUpdated = new Date().toISOString();
-                }
-                mockCache[path] = responseData; // save in cache
-                finishRequest(method === "POST" ? 201 : 200, method === "POST" ? "Created" : "OK", responseData, false);
-              }, 600);
-            }, 600);
-          }
-        }, 1500);
-
-        function finishRequest(code, status, data, isCached) {
-          nodeClient.style.borderColor = "#10b981";
-          consoleOutput.innerHTML += `<br><br><span style="color:#10b981;">HTTP/1.1 ${code} ${status}</span><br>` +
-            `<span style="color:#64748b;">X-Cache: ${isCached ? 'HIT' : 'MISS'}</span><br>` +
-            `<span style="color:#fff;">${JSON.stringify(data, null, 2)}</span>`;
-          btn.disabled = false;
-          engine.markCompleted();
-        }
-      }
-    },
-
-    onReplay: function(engine) {
-      engine.t = 0;
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

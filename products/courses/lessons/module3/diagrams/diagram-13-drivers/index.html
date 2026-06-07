@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Drivers — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Drivers &amp; Software — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="loading-skeleton" role="status" aria-label="Loading"><div class="skel-spinner"></div><div class="skel-bar"></div><div class="skel-text"></div></div>
+<div id="app"></div>
+<div class="error-boundary" id="error-boundary"><div class="icon">&#9888;&#65039;</div><h2>Something went wrong</h2><p id="error-msg">An unexpected error occurred. Please reload.</p><button class="btn" onclick="location.reload()">Reload</button></div>
+<script src="script.js"></script>
 </body>
 </html>

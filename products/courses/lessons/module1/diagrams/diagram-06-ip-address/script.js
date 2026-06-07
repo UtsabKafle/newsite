@@ -1,60 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"ipv4",name:"IPv4 Address",category:"Network",icon:"globe",shape:"pill",x:50,y:20,w:110,h:50,purpose:"Identifies devices on a network using a 32-bit numeric label",description:"IPv4 addresses are written as four decimal numbers separated by dots, like 192.168.1.1, and provide about 4.3 billion unique addresses.",why:"IPv4 is the addressing system that the Internet was built on",analogy:"Like a street address made of house number, street, city, and zip code",funFact:"All 4.3 billion IPv4 addresses were officially exhausted in 2019",takeaway:"IPv4 addresses are running out, which is why IPv6 was created",mistake:"192.168.x.x addresses aren\\'t public?'they\\'re reserved for private networks",descriptionDetailed:"An IPv4 address has 32 bits divided into four octets, each ranging from 0 to 255. The address is split into a network portion and a host portion, determined by the subnet mask. Public IPv4 addresses are assigned by IANA and regional registries, while private ranges are for local use."},
-  {id:"ipv6",name:"IPv6 Address",category:"Network",icon:"globe",shape:"pill",x:300,y:20,w:110,h:50,purpose:"Identifies devices using a 128-bit address to solve IPv4 exhaustion",description:"IPv6 addresses are written as eight groups of four hex digits, like 2001:0db8:85a3::8a2e:0370:7334, offering trillions of addresses.",why:"IPv6 ensures the Internet can continue growing for generations",analogy:"Like expanding from a 4-digit ZIP code to one with enough combinations for every grain of sand",funFact:"IPv6 has 340 undecillion addresses?'enough for every atom on Earth\\'s surface 100 times over",takeaway:"IPv6 is the future of Internet addressing, but adoption is still ongoing",mistake:"IPv6 isn\\'t just IPv4 with more numbers?'it has a completely different header structure",descriptionDetailed:"IPv6 addresses are 128 bits, providing 2^128 unique addresses. IPv6 eliminates NAT, restores end-to-end connectivity, and includes built-in IPsec security. The transition uses dual-stack and tunneling mechanisms."},
-  {id:"subnet",name:"Subnet Mask",category:"Network",icon:"filter",shape:"rounded-rect",x:50,y:135,w:110,h:50,purpose:"Divides an IP address into network and host portions for routing efficiency",description:"The subnet mask tells routers which part of an IP identifies the network and which part identifies specific devices on that network.",why:"Subnets organize networks into manageable segments and reduce broadcast traffic",analogy:"Like a ZIP code that identifies a region vs. the street number identifying a specific house",funFact:"CIDR notation like /24 represents the number of bits in the network portion",takeaway:"Subnet masks are essential for routing packets to the right network",mistake:"Subnet masks are not part of the IP address?'they\\'re a separate setting",descriptionDetailed:"A subnet mask is a 32-bit number where network bits are set to 1 and host bits to 0. For example, 255.255.255.0 means the first 24 bits are the network. Subnetting allows network administrators to create smaller, more efficient network segments."},
-  {id:"gateway",name:"Default Gateway",category:"Network",icon:"router",shape:"rounded-rect",x:300,y:135,w:110,h:50,purpose:"Acts as the exit point from a local network to other networks",description:"The default gateway is the router\\'s IP address that your device sends packets to when the destination is outside your local network.",why:"Without a gateway, your device can only communicate within its own network",analogy:"Like the front door of your building that you must leave through to go elsewhere",funFact:"The default gateway is usually the first or last usable IP in a subnet",takeaway:"Every device needs a default gateway to access the Internet",mistake:"The gateway isn\\'t a physical device?'it\\'s the IP address of your router",descriptionDetailed:"When a device determines the destination is not on its local subnet, it forwards the packet to the default gateway\\'s MAC address. The gateway then routes the packet to the next hop. Multiple gateways can be configured for redundancy using protocols like VRRP."},
-  {id:"dhcp",name:"DHCP Server",category:"Network",icon:"server",shape:"cylinder",x:175,y:85,w:110,h:50,purpose:"Automatically assigns IP addresses and network configuration to devices",description:"The Dynamic Host Configuration Protocol server hands out IP addresses, subnet masks, gateways, and DNS servers to devices when they connect.",why:"DHCP eliminates the need to manually configure every device on a network",analogy:"Like a valet who parks your car and gives you a ticket instead of you finding a spot yourself",funFact:"DHCP leases are temporary?'devices must renew periodically to keep their IP",takeaway:"DHCP makes connecting to a network as simple as plugging in a cable",mistake:"DHCP doesn\\'t assign a permanent IP unless configured for a static reservation",descriptionDetailed:"DHCP uses a four-step process: Discover, Offer, Request, and Acknowledge. Leases have configurable durations, and the server can provide options like DNS, NTP, and domain names."},
-  {id:"nat",name:"Network Address Translation",category:"Network",icon:"network",shape:"rounded-rect",x:175,y:220,w:110,h:50,purpose:"Maps multiple private IP addresses to a single public IP address",description:"NAT allows many devices on a private network to share one public IP address by rewriting packet headers as they pass through the router.",why:"NAT conserves IPv4 addresses and adds a layer of privacy",analogy:"Like a company mailroom that receives packages and delivers them to the correct employee",funFact:"NAT is the reason your devices have IPs like 192.168.x.x instead of public ones",takeaway:"NAT lets hundreds of devices share one public IP address",mistake:"NAT is not a security feature, though it does hide internal IPs",descriptionDetailed:"NAT maintains a translation table mapping each private IP and port to the public IP and a unique port number. When a response arrives, the router looks up the port in the table to forward it to the correct internal device."}
-];
-var connections = [{from:"ipv4",to:"ipv6"},{from:"ipv6",to:"subnet"},{from:"subnet",to:"gateway"},{from:"gateway",to:"dhcp"},{from:"dhcp",to:"nat"}];
-var steps = [{label:"Step 1: IPv4 Address",status:"Exploring: IPv4 Address - Identifies devices on a network using a 32-bit numeric label"},{label:"Step 2: IPv6 Address",status:"Exploring: IPv6 Address - Identifies devices using a 128-bit address to solve IPv4 exhaustion"},{label:"Step 3: Subnet Mask",status:"Exploring: Subnet Mask - Divides an IP address into network and host portions for routing efficiency"},{label:"Step 4: Default Gateway",status:"Exploring: Default Gateway - Acts as the exit point from a local network to other networks"},{label:"Step 5: DHCP Server",status:"Exploring: DHCP Server - Automatically assigns IP addresses and network configuration to devices"},{label:"Step 6: Network Address Translation",status:"Exploring: Network Address Translation - Maps multiple private IP addresses to a single public IP address"}];
-var tour = [{title:"IPv4 Address",description:"Identifies devices on a network using a 32-bit numeric label",componentId:"ipv4"},{title:"IPv6 Address",description:"Identifies devices using a 128-bit address to solve IPv4 exhaustion",componentId:"ipv6"},{title:"Subnet Mask",description:"Divides an IP address into network and host portions for routing efficiency",componentId:"subnet"},{title:"Default Gateway",description:"Acts as the exit point from a local network to other networks",componentId:"gateway"},{title:"DHCP Server",description:"Automatically assigns IP addresses and network configuration to devices",componentId:"dhcp"},{title:"Network Address Translation",description:"Maps multiple private IP addresses to a single public IP address",componentId:"nat"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Ip Address',
-    subtitle: 'How Internet Works',
-    desc: 'Learn how IPv4, IPv6, subnet masks, gateways, and NAT work together.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Understand IP addressing, subnet masks, and network configuration.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'Address Lookup',color:'#22c55e'},
-      {label:'Subnet Mask',color:'#60a5fa'},
-      {label:'Gateway Route',color:'#c084fc'},
-      {label:'DHCP Lease',color:'#f59e0b'},
-      {label:'Network Config',color:'#22c55e'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "ipv4", "name": "IPv4 Address", "cat": "Network", "icon": "🌐", "x": 80, "y": 50, "desc": "IPv4 addresses are written as four decimal numbers separated by dots, providing about 4.3 billion unique addresses.", "how": "An IPv4 address has 32 bits divided into four octets (0-255), split into network and host portions by the subnet mask.", "why": "IPv4 is the addressing system that the Internet was built on", "analogy": "Like a street address made of house number, street, city, and zip code", "fun": "All 4.3 billion IPv4 addresses were officially exhausted in 2019", "take": "IPv4 addresses are running out, which is why IPv6 was created"}, {"id": "ipv6", "name": "IPv6 Address", "cat": "Network", "icon": "🌐", "x": 280, "y": 50, "desc": "IPv6 addresses are 128-bit addresses offering trillions of addresses to solve IPv4 exhaustion.", "how": "IPv6 uses 128 bits providing 2^128 addresses, eliminates NAT, restores end-to-end connectivity, and includes built-in IPsec security.", "why": "IPv6 ensures the Internet can continue growing for generations", "analogy": "Like expanding from a 4-digit ZIP code to one with enough combinations for every atom", "fun": "IPv6 has 340 undecillion addresses enough for every atom on Earths surface 100 times over", "take": "IPv6 is the future of Internet addressing, but adoption is still ongoing"}, {"id": "subnet", "name": "Subnet Mask", "cat": "Network", "icon": "🔍", "x": 80, "y": 160, "desc": "The subnet mask tells routers which part of an IP identifies the network and which identifies specific devices.", "how": "A subnet mask is a 32-bit number where network bits are 1 and host bits are 0, e.g. 255.255.255.0 means first 24 bits are network.", "why": "Subnets organize networks into manageable segments and reduce broadcast traffic", "analogy": "Like a ZIP code that identifies a region vs the street number identifying a specific house", "fun": "CIDR notation like /24 represents the number of bits in the network portion", "take": "Subnet masks are essential for routing packets to the right network"}, {"id": "gateway", "name": "Default Gateway", "cat": "Network", "icon": "📡", "x": 280, "y": 160, "desc": "The default gateway is the routers IP that your device sends packets to when the destination is outside your local network.", "how": "When a device determines the destination is not on its local subnet, it forwards the packet to the default gateways MAC address.", "why": "Without a gateway, your device can only communicate within its own network", "analogy": "Like the front door of your building that you must leave through to go elsewhere", "fun": "The default gateway is usually the first or last usable IP in a subnet", "take": "Every device needs a default gateway to access the Internet"}, {"id": "dhcp", "name": "DHCP Server", "cat": "Network", "icon": "🖥️", "x": 180, "y": 270, "desc": "The DHCP server assigns IP addresses, subnet masks, gateways, and DNS servers to devices when they connect.", "how": "DHCP uses a four-step process: Discover, Offer, Request, and Acknowledge (DORA). Leases have configurable durations.", "why": "DHCP eliminates the need to manually configure every device on a network", "analogy": "Like a valet who parks your car and gives you a ticket instead of you finding a spot yourself", "fun": "DHCP leases are temporary devices must renew periodically to keep their IP", "take": "DHCP makes connecting to a network as simple as plugging in a cable"}, {"id": "nat", "name": "Network Address Translation", "cat": "Network", "icon": "🌐", "x": 380, "y": 270, "desc": "NAT allows many devices on a private network to share one public IP by rewriting packet headers.", "how": "NAT maintains a translation table mapping each private IP and port to the public IP and a unique port number.", "why": "NAT conserves IPv4 addresses and adds a layer of privacy", "analogy": "Like a company mailroom that receives packages and delivers them to the correct employee", "fun": "NAT is the reason your devices have IPs like 192.168.x.x instead of public ones", "take": "NAT lets hundreds of devices share one public IP address"}];
+var CONNECTIONS=[{"from": "ipv4", "to": "ipv6", "type": "fiber"}, {"from": "ipv6", "to": "subnet", "type": "fiber"}, {"from": "subnet", "to": "gateway", "type": "fiber"}, {"from": "gateway", "to": "dhcp", "type": "cable"}, {"from": "dhcp", "to": "nat", "type": "fiber"}];
+var ROUTES={"A": {"name": "Address Resolution Flow", "color": "#3b82f6", "path": ["ipv4", "ipv6", "subnet", "gateway", "dhcp", "nat"]}};
+var CHALLENGES=[{"q": "How many bits does an IPv4 address use?", "opts": ["16 bits", "32 bits", "64 bits", "128 bits"], "ans": 1, "exp": "IPv4 uses 32 bits, written as four decimal octets (e.g., 192.168.1.1)."}, {"q": "When were all IPv4 addresses officially exhausted?", "opts": ["2011", "2015", "2019", "2022"], "ans": 2, "exp": "All 4.3 billion IPv4 addresses were officially exhausted in 2019."}, {"q": "How many unique addresses does IPv6 provide?", "opts": ["4.3 billion", "340 undecillion", "1 million", "1 trillion"], "ans": 1, "exp": "IPv6 provides 340 undecillion (2^128) unique addresses."}, {"q": "What does CIDR notation /24 mean?", "opts": ["24 host bits", "24 network bits", "24 total bits", "24 subnets"], "ans": 1, "exp": "CIDR /24 means the first 24 bits are the network portion, with 8 bits for hosts."}, {"q": "What is the default gateway?", "opts": ["The DNS server IP", "The routers IP address on your network", "Your devices IP", "The ISPs IP"], "ans": 1, "exp": "The default gateway is typically your routers IP address, which devices send off-network traffic to."}, {"q": "What does DHCP stand for?", "opts": ["Dynamic Host Configuration Protocol", "Domain Host Control Protocol", "Digital Handshake Configuration Protocol", "Data Handling Control Process"], "ans": 0, "exp": "DHCP stands for Dynamic Host Configuration Protocol."}, {"q": "What are the four steps of DHCP?", "opts": ["SYN, SYN-ACK, ACK, FIN", "Discover, Offer, Request, Acknowledge", "Connect, Send, Receive, Close", "Query, Response, Cache, Update"], "ans": 1, "exp": "DHCP uses DORA: Discover, Offer, Request, Acknowledge."}, {"q": "What does NAT do?", "opts": ["Encrypts all traffic", "Maps private IPs to a public IP", "Speeds up the connection", "Blocks malware"], "ans": 1, "exp": "NAT maps multiple private IP addresses to a single public IP address."}, {"q": "Which IP ranges are reserved for private networks?", "opts": ["1.0.0.0 - 1.255.255.255", "192.168.x.x, 10.x.x.x, 172.16-31.x.x", "8.8.8.0 - 8.8.8.255", "0.0.0.0 - 0.255.255.255"], "ans": 1, "exp": "Private ranges include 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16."}, {"q": "What feature does IPv6 include that IPv4 lacks?", "opts": ["Built-in IPsec", "Faster speed", "Smaller addresses", "Less security"], "ans": 0, "exp": "IPv6 includes built-in IPsec security, unlike IPv4 where it is optional."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    onReplay: function(engine) {
-      engine.t = 0;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
+
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
+
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
+
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

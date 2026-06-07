@@ -1,50 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"source",name:"Communication Source",category:"Network",purpose:"Initiates the data transmission in a communication system",description:"The source is the sender that generates data to be transmitted, such as a computer creating a message or a sensor reading.",why:"Every communication begins with a source that has something to send",analogy:"Like a person who starts speaking to convey information",funFact:"In Shannon\\'s information theory, the source is the first of five communication components",takeaway:"The source generates the original message that needs to be transmitted",mistake:"The source isn\\'t always a person—it can be any device generating data",descriptionDetailed:"The source encodes data into a format suitable for transmission. The data is framed into protocol-specific units with headers. The source also initiates error correction coding."},    {id:"protocol",name:"Communication Protocol",category:"Network",purpose:"Defines the rules and format for data exchange between systems",description:"A protocol is a set of rules specifying how data is formatted, transmitted, received, and acknowledged, ensuring both sides understand each other.",why:"Protocols enable different systems to communicate reliably and predictably",analogy:"Like the rules of a phone call: dial, wait, say hello, speak, say goodbye",funFact:"The Internet uses a suite of over 500 different protocols working together",takeaway:"Protocols standardize communication so devices from different manufacturers can work together",mistake:"Protocols also define timing, error handling, and sequencing, not just format",descriptionDetailed:"Protocols are organized in layers (OSI or TCP/IP model). Each layer has its own protocols: HTTP, TCP, IP, Ethernet. Headers contain metadata like addresses, sequence numbers, and checksums."},    {id:"interface",name:"Communication Interface",category:"Network",purpose:"The physical or logical connection point where data enters or leaves a system",description:"An interface can be a physical port (Ethernet, USB) or a logical API (socket) that defines how data is exchanged between components.",why:"Interfaces provide the connection points that make communication physically possible",analogy:"Like a telephone jack on the wall where you plug in your phone",funFact:"The USB interface can carry data, power, and display signals simultaneously",takeaway:"Every communication system needs a standardized interface at both ends",mistake:"Interfaces aren\\'t just physical—software APIs are also interfaces",descriptionDetailed:"Physical interfaces define electrical characteristics, pinouts, and connector shapes. Logical interfaces define data formats and function calls. Network interfaces are identified by MAC addresses."},    {id:"medium",name:"Transmission Medium",category:"Network",purpose:"The physical path through which data travels from source to destination",description:"The medium is the channel that carries signals—copper wire, fiber optic cable, radio waves, or even light—between communicating devices.",why:"The medium determines speed, distance, and reliability of communication",analogy:"Like the road or air that carries vehicles or sound waves",funFact:"The speed of light in fiber optic cable is about 200,000 km/s",takeaway:"Different media offer different trade-offs between speed, distance, cost, and reliability",mistake:"Wireless isn\\'t always slower than wired—modern Wi-Fi can exceed 1 Gbps",descriptionDetailed:"Guided media include twisted-pair copper, coaxial cable, and fiber optics. Unguided media include radio, microwave, and infrared. Each has different bandwidth, latency, and interference characteristics."},    {id:"destination",name:"Communication Destination",category:"Network",purpose:"Receives the transmitted data and processes it for consumption",description:"The destination is the receiver that captures the transmitted signal, decodes it, and presents the recovered data to the end application or user.",why:"The destination completes the communication loop by consuming the transmitted information",analogy:"Like the person who listens to a speaker and understands the message",funFact:"The destination must acknowledge receipt in reliable protocols like TCP",takeaway:"Successful communication requires both a working medium and a configured destination",mistake:"The destination isn\\'t passive—it sends acknowledgments and requests retransmission",descriptionDetailed:"The destination performs signal reception, demodulation, error detection, and data extraction. It strips protocol headers and passes data to the application."}];
-var connections = [{from:"source",to:"protocol"},{from:"protocol",to:"interface"},{from:"interface",to:"medium"},{from:"medium",to:"destination"}];
-var steps = [{label:"Step 1: Communication Source",status:"Exploring: Communication Source - Initiates the data transmission in a communication system"},{label:"Step 2: Communication Protocol",status:"Exploring: Communication Protocol - Defines the rules and format for data exchange between systems"},{label:"Step 3: Communication Interface",status:"Exploring: Communication Interface - The physical or logical connection point where data enters or leaves a system"},{label:"Step 4: Transmission Medium",status:"Exploring: Transmission Medium - The physical path through which data travels from source to destination"},{label:"Step 5: Communication Destination",status:"Exploring: Communication Destination - Receives the transmitted data and processes it for consumption"}];
-var tour = [{title:"Communication Source",description:"Initiates the data transmission in a communication system",componentId:"source"},{title:"Communication Protocol",description:"Defines the rules and format for data exchange between systems",componentId:"protocol"},{title:"Communication Interface",description:"The physical or logical connection point where data enters or leaves a system",componentId:"interface"},{title:"Transmission Medium",description:"The physical path through which data travels from source to destination",componentId:"medium"},{title:"Communication Destination",description:"Receives the transmitted data and processes it for consumption",componentId:"destination"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"source":{"x":130,"y":200,"fields":{"Purpose":"Initiates data transmission","How It Works":"Generates data, encodes for transmission, adds headers and error correction.","Analogy":"Person starting to speak","Fun Fact":"First of 5 Shannon components","Key Takeaway":"Every comm starts with source"},"desc":"Origin of transmitted data."},"protocol":{"x":340,"y":120,"fields":{"Purpose":"Defines data exchange rules","How It Works":"OSI/TCP/IP layered: HTTP, TCP, IP, Ethernet; headers have addresses and checksums.","Analogy":"Phone call rules","Fun Fact":"500+ Internet protocols","Key Takeaway":"Standardizes device communication"},"desc":"Communication rules and formats."},"interface":{"x":560,"y":120,"fields":{"Purpose":"Connection point for data","How It Works":"NICs with unique MAC addresses; convert digital to signals.","Analogy":"Telephone jack","Fun Fact":"Early ones used coaxial cable","Key Takeaway":"Bridges digital and physical"},"desc":"Data entry/exit point."},"medium":{"x":340,"y":360,"fields":{"Purpose":"Physical data path","How It Works":"Wired (copper, fiber) or wireless (radio); each has different characteristics.","Analogy":"Roads for data","Fun Fact":"Fiber = speed of light","Key Takeaway":"Determines speed and range"},"desc":"Physical transmission path."},"destination":{"x":560,"y":360,"fields":{"Purpose":"Receives and processes data","How It Works":"Converts signals to digital, checks errors, reassembles packets.","Analogy":"Person listening","Fun Fact":"Sends acknowledgment","Key Takeaway":"Comm completes at destination"},"desc":"Data receiving endpoint."}};
+  var CONNS=[{from:"source",to:"protocol"},{from:"protocol",to:"interface"},{from:"interface",to:"medium"},{from:"medium",to:"destination"}];
+  var CHALLENGES=[{q:"First communication element:",opts:["Destination","Medium","Source","Protocol"],ans:2},{q:"Protocol defines:",opts:["Hardware specs","Exchange rules","Drivers","Power"],ans:1},{q:"NIC unique ID:",opts:["IP","MAC","DNS","Port"],ans:1},{q:"Uses light pulses:",opts:["Copper","Fiber optic","Radio","Infrared"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Communication',
-    subtitle: 'How Computers Work',
-    desc: 'Follow how data travels from source to destination through protocols and media.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Follow how data travels from source to destination.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    packetFlow: [
-      {label: 'Data Frame', color: '#22c55e'},
-      {label: 'Protocol Header', color: '#60a5fa'},
-      {label: 'Signal', color: '#c084fc'},
-      {label: 'Acknowledgment', color: '#f59e0b'}
-    ],
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

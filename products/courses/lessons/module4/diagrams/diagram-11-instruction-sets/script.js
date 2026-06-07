@@ -1,44 +1,99 @@
-(function(){'use strict';
-var components = [    {id:"cisc",name:"CISC Architecture",category:"Processing",purpose:"Complex Instruction Set Computer with variable-length, powerful instructions",description:"CISC (x86) allows complex instructions that can perform multiple operations (e.g., a memory access and an arithmetic operation in one instruction).",why:"CISC provides rich instructions that reduce the number of lines of assembly code needed",analogy:"Like a Swiss Army knife with many tools built into one device",funFact:"x86 CISC instructions can be from 1 to 15 bytes long",takeaway:"CISC instructions are powerful but complex to decode",mistake:"Modern CISC CPUs internally convert to RISC-like micro-ops for execution",descriptionDetailed:"CISC has variable instruction lengths, complex addressing modes, and instructions that combine memory access with computation. Examples include x86, x86-64, and VAX. The decoder is complex, converting CISC instructions into simpler micro-ops."},    {id:"risc",name:"RISC Architecture",category:"Processing",purpose:"Reduced Instruction Set Computer with simple, fixed-length instructions",description:"RISC uses simple, fixed-length (32-bit) instructions that execute in a single cycle, with a load-store architecture separating memory and computation.",why:"RISC simplifies processor design, enabling higher clock speeds and lower power",analogy:"Like a set of simple, dedicated tools rather than a Swiss Army knife",funFact:"Apple\\'s M-series chips use ARM, a RISC architecture",takeaway:"RISC instructions are simpler, enabling more efficient pipelining",mistake:"RISC programs often need more instructions than CISC for the same task",descriptionDetailed:"RISC has fixed 32-bit instructions, large uniform register files, simple addressing modes, and load-store architecture (memory only accessed via explicit loads/stores). Examples: ARM, RISC-V, MIPS, PowerPC. RISC designs are more power-efficient."},    {id:"simd",name:"SIMD Instructions",category:"Processing",purpose:"Single Instruction Multiple Data—processes multiple data with one instruction",description:"SIMD (SSE, AVX, NEON) instructions allow the CPU to perform the same operation on multiple data elements simultaneously using wide registers.",why:"SIMD dramatically accelerates multimedia, graphics, and scientific computing",analogy:"Like painting a whole wall with a roller instead of a small brush",funFact:"AVX-512 uses 512-bit registers, processing 16 32-bit integers at once",takeaway:"SIMD is essential for video encoding, image processing, and machine learning",mistake:"SIMD requires compiler support or hand-tuning to be effective",descriptionDetailed:"SIMD registers (XMM: 128-bit, YMM: 256-bit, ZMM: 512-bit) hold multiple data elements. SSE has 70+ instructions for floating-point and integer operations. AVX adds 256-bit operations and FMA (fused multiply-add). Auto-vectorization in compilers generates SIMD code automatically."},    {id:"mips",name:"MIPS Architecture",category:"Processing",purpose:"A classic RISC architecture known for clean design and academic use",description:"MIPS (Microprocessor without Interlocked Pipeline Stages) is a pioneering RISC design with fixed 32-bit instructions, 32 registers, and simple pipelining.",why:"MIPS is historically important as one of the first commercial RISC implementations",analogy:"Like the Model T Ford—not modern but foundational to automotive design",funFact:"MIPS was used in the Nintendo 64, PlayStation, and PlayStation Portable",takeaway:"MIPS introduced many RISC concepts still used today",mistake:"MIPS isn\\'t widely used in new designs—ARM and RISC-V dominate",descriptionDetailed:"MIPS has 5-stage pipeline, 32 general-purpose registers, delayed branching, and load-store architecture. It influenced later RISC designs. MIPS is still used in some embedded systems and networking equipment. The name originally stood for Stanford\\'s MIPS project."},    {id:"arm",name:"ARM Architecture",category:"Processing",purpose:"A power-efficient RISC architecture dominant in mobile and now desktop",description:"ARM features fixed 32-bit (or variable for Thumb2) instructions, high register count, conditional execution, and extremely low power consumption.",why:"ARM powers most smartphones and increasingly laptops and servers",analogy:"Like a fuel-efficient car that does 60 miles per gallon",funFact:"Over 200 billion ARM chips have been shipped worldwide",takeaway:"ARM\\'s power efficiency makes it ideal for battery-powered devices",mistake:"ARM isn\\'t just for mobile—Apple\\'s M-series proves it can compete with high-end x86",descriptionDetailed:"ARM is a RISC architecture with 16-32 registers, fixed instruction width (32-bit ARM, 16-bit Thumb). Features include barrel shifting per instruction, conditional execution on most instructions, and load-store architecture. ARMv9 adds SVE2 for scalable vector processing."},    {id:"x86",name:"x86 Architecture",category:"Processing",purpose:"The dominant CISC architecture for desktops, laptops, and servers",description:"x86 is a complex instruction set architecture with variable-length instructions, backward compatibility extending back to 1978, and dominant market presence.",why:"x86 is the most widely used desktop/server architecture with vast software compatibility",analogy:"Like the standard power outlet—virtually everything is designed for it",funFact:"x86 maintains backward compatibility with 8086 code from 1978",takeaway:"x86\\'s backward compatibility is both its strength and its complexity burden",mistake:"x86 isn\\'t owned by Intel—AMD also licenses and develops x86-64",descriptionDetailed:"x86 features variable-length instructions (1-15 bytes), complex addressing modes, 8-16 general-purpose registers (64-bit mode), and legacy support for 16/32-bit modes. x86-64 (AMD64) extended to 64-bit. Modern x86 CPUs decode to micro-ops internally."}];
-var connections = [{from:"cisc",to:"risc"},{from:"risc",to:"simd"},{from:"simd",to:"mips"},{from:"mips",to:"arm"},{from:"arm",to:"x86"}];
-var steps = [{label:"Step 1: CISC Architecture",status:"Exploring: CISC Architecture - Complex Instruction Set Computer with variable-length, powerful instructions"},{label:"Step 2: RISC Architecture",status:"Exploring: RISC Architecture - Reduced Instruction Set Computer with simple, fixed-length instructions"},{label:"Step 3: SIMD Instructions",status:"Exploring: SIMD Instructions - Single Instruction Multiple Data—processes multiple data with one instruction"},{label:"Step 4: MIPS Architecture",status:"Exploring: MIPS Architecture - A classic RISC architecture known for clean design and academic use"},{label:"Step 5: ARM Architecture",status:"Exploring: ARM Architecture - A power-efficient RISC architecture dominant in mobile and now desktop"},{label:"Step 6: x86 Architecture",status:"Exploring: x86 Architecture - The dominant CISC architecture for desktops, laptops, and servers"}];
-var tour = [{title:"CISC Architecture",description:"Complex Instruction Set Computer with variable-length, powerful instructions",componentId:"cisc"},{title:"RISC Architecture",description:"Reduced Instruction Set Computer with simple, fixed-length instructions",componentId:"risc"},{title:"SIMD Instructions",description:"Single Instruction Multiple Data—processes multiple data with one instruction",componentId:"simd"},{title:"MIPS Architecture",description:"A classic RISC architecture known for clean design and academic use",componentId:"mips"},{title:"ARM Architecture",description:"A power-efficient RISC architecture dominant in mobile and now desktop",componentId:"arm"},{title:"x86 Architecture",description:"The dominant CISC architecture for desktops, laptops, and servers",componentId:"x86"}];
+(function(){
+'use strict';
+var $=function(s,c){return(c||document).querySelector(s)};
+var $$=function(s,c){return Array.from((c||document).querySelectorAll(s))};
+var ce=function(t,a,c){var e=document.createElement(t);if(a)Object.entries(a).forEach(function(kv){var k=kv[0],v=kv[1];if(k==='className')e.className=v;else if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k==='dataset')Object.assign(e.dataset,v);else e.setAttribute(k,v)});if(c)c.forEach(function(x){if(typeof x==='string')e.appendChild(document.createTextNode(x));else if(x)e.appendChild(x)});return e};
+var archs=[{id:'cisc',name:'x86 (CISC)',color:'#3b82f6',example:'MOV EAX, [EBX+ECX*4]',desc:'Complex Instruction Set Computer. Variable-length instructions (1-15 bytes). Dominant in desktops, laptops, servers.',analogy:'Like a Swiss Army knife with many built-in tools.',detail:'CISC has complex addressing modes and instructions combining memory access with computation. Modern x86 CPUs internally convert to RISC-like micro-ops. Intel and AMD both use x86-64.'},{id:'risc',name:'ARM (RISC)',color:'#10b981',example:'LDR R0, [R1, #4]',desc:'Reduced Instruction Set Computer. Fixed 32-bit instructions. Dominant in mobile. Power-efficient design.',analogy:'Like a set of simple, dedicated tools.',detail:'RISC has load-store architecture (memory only via explicit loads/stores). Large uniform register files. Apple M-series uses ARM. Simpler decoding than x86.'},{id:'riscv',name:'RISC-V',color:'#eab308',example:'ld x5, 8(x6)',desc:'Open-source ISA gaining traction. Modular design with base integer ISA plus optional extensions.',analogy:'Like an open-source toolkit anyone can use and extend.',detail:'RISC-V is free and open. Base ISA is only 47 instructions. Extensions include M (multiply), F (float), V (vector). Growing ecosystem of cores and tools.'},{id:'simd',name:'SIMD (AVX/NEON)',color:'#a855f7',example:'VADDSD XMM0, XMM1',desc:'Single Instruction Multiple Data processes multiple data elements in parallel with one instruction.',analogy:'Like a cafeteria tray holding many plates at once.',detail:'SIMD enables parallel data processing for multimedia, scientific computing. x86 has SSE/AVX/AVX-512. ARM has NEON/SVE. Width has grown from 64-bit to 512-bit.'}];
+var quizData={questions:[{q:'What variable length range do x86 instructions have?',options:['1-3 bytes','1-15 bytes','2-8 bytes','4-16 bytes'],answer:1},{q:'Which architecture uses a load-store design?',options:['x86 (CISC)','ARM (RISC)','Both','Neither'],answer:1},{q:'What is unique about RISC-V?',options:['It is proprietary','It is open-source','It is the fastest','It is the oldest'],answer:1},{q:'SIMD stands for:',options:['Single Instruction Multiple Data','Simple Integrated Module','Sequential Instruction Mode','Standard Interface'],answer:0},{q:'Which architecture is dominant in mobile devices?',options:['x86','ARM','RISC-V','MIPS'],answer:1},{q:'How many instructions are in the RISC-V base ISA?',options:['16','32','47','64'],answer:2}],maxAttempts:2};
+var state={speed:1,rafId:null,t:0,selectedId:null,challengeDone:false,challengeIdx:0,quizResults:[]};
+function getTheme(){return localStorage.getItem('consica-theme')||'dark'}
+function setTheme(t){localStorage.setItem('consica-theme',t);document.documentElement.setAttribute('data-theme',t==='light'?'light':'')}
+var dom={};
+function initDOM(){dom={loading:$('#loading-skeleton'),error:$('#error-boundary'),container:$('#diagram-container'),viz:$('#visualization'),info:$('#info-panel'),infoTitle:$('#info-title'),infoDesc:$('#info-desc'),infoAnalogy:$('#info-analogy'),infoDetail:$('#info-detail'),infoClose:$('#info-close'),speed:$('#speed-slider'),speedLabel:$('#speed-label'),theme:$('#theme-toggle'),help:$('#help-btn'),challenge:$('#challenge-container'),completion:$('#completion-overlay'),completionMsg:$('#completion-msg'),completionReset:$('#completion-reset'),errMsg:$('#error-message')}}
+function showError(m){if(dom.error){dom.error.hidden=false;if(dom.errMsg)dom.errMsg.textContent=m}if(dom.container)dom.container.hidden=true;if(dom.loading)dom.loading.hidden=true}
+function showInfo(data){if(!dom.info)return;dom.infoTitle.textContent=data.name||'';dom.infoDesc.textContent=data.desc||'';dom.infoAnalogy.textContent=data.analogy?'💡 '+data.analogy:'';dom.infoDetail.textContent=data.detail||'';dom.info.hidden=false;state.selectedId=data.id||null}
+function renderChallenge(){
+  if(!dom.challenge||!quizData)return;
+  if(state.challengeDone&&state.challengeIdx>=quizData.questions.length){showCompletion('All complete!');return}
+  var qs=quizData.questions,idx=state.challengeIdx,total=qs.length,attempts=0,answered=false;
+  var progress=ce('div',{className:'challenge-progress'});
+  for(var i=0;i<total;i++){var dot=ce('div',{className:'challenge-dot'+(i===idx?' active':'')+(state.quizResults[i]===true?' done':'')+(state.quizResults[i]===false?' wrong':'')},[''+(i+1)]);progress.appendChild(dot)}
+  var card=ce('div',{className:'quiz-card'});
+  var qData=qs[idx];
+  card.appendChild(ce('div',{className:'q-text'},[qData.q]));
+  var opts=ce('div',{className:'quiz-options'});
+  var resDiv=ce('div',{className:'challenge-result'});
+  qData.options.forEach(function(opt,oi){
+    var optEl=ce('div',{className:'quiz-option'},[ce('span',{className:'indicator'}),ce('span',{},[opt])]);
+    optEl.addEventListener('click',function(){
+      if(answered)return;answered=true;attempts++;
+      var correct=oi===qData.answer;state.quizResults[idx]=correct;
+      optEl.classList.add(correct?'correct':'wrong');
+      optEl.querySelector('.indicator').textContent=correct?'✓':'✗';
+      $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='none'});
+      if(correct){resDiv.className='challenge-result correct';resDiv.textContent='✓ Correct!'}
+      else{resDiv.className='challenge-result wrong';resDiv.textContent=attempts<quizData.maxAttempts?'✗ Try again.':'✗ The answer was: '+qData.options[qData.answer]}
+      opts.appendChild(resDiv);
+      setTimeout(function(){
+        if(correct||attempts>=quizData.maxAttempts){
+          state.challengeIdx++;
+          if(state.challengeIdx>=total){state.challengeDone=true;showCompletion('You completed all '+total+' questions!')}
+          else renderChallenge()
+        }else{answered=false;
+          $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='auto';o.classList.remove('wrong','correct');o.querySelector('.indicator').textContent=''});
+          resDiv.className='challenge-result';resDiv.textContent=''}
+      },correct?800:2000)
+    });opts.appendChild(optEl)});
+  card.appendChild(opts);dom.challenge.innerHTML='';dom.challenge.appendChild(progress);dom.challenge.appendChild(card)}
+function showCompletion(msg){if(dom.completionMsg)dom.completionMsg.textContent=msg||'Mastered!';if(dom.completion)dom.completion.hidden=false}
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Instruction Sets',
-    subtitle: 'CPU Components',
-    desc: 'Explore x86, ARM, and RISC-V instruction set architectures.',
-    module: 4,
-    difficulty: 'Advanced',
-    time: '10',
-    objectives: 'Explore x86, ARM, and RISC-V architectures.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+// Draw instruction set comparison cards
+function drawViz(container){
+  container.innerHTML='';
+  var svg=ce('svg',{className:'viz-svg',viewBox:'0 0 800 500',preserveAspectRatio:'xMidYMid meet'});
+  svg.appendChild(ce('rect',{x:0,y:0,width:800,height:500,fill:'#0a0e17'}));
+  svg.appendChild(ce('text',{x:400,y:25,'text-anchor':'middle',fill:'#64748b','font-size':'10','font-weight':'600','font-family':'Inter,sans-serif',opacity:0.6},['▼ ARCHITECTURE COMPARISON ▼']));
+  archs.forEach(function(a,i){
+    var g=ce('g',{className:'node',dataset:{id:a.id}});
+    var x=15+i*196,y=40;
+    g.appendChild(ce('rect',{className:'node-bg',x:x,y:y,width:180,height:200,rx:10,fill:'rgba(255,255,255,0.02)',stroke:a.color,'stroke-width':1.5}));
+    g.appendChild(ce('text',{x:x+90,y:y+30,'text-anchor':'middle',fill:a.color,'font-size':'14','font-weight':'700','font-family':'Inter,sans-serif'},[a.name]));
+    g.appendChild(ce('rect',{x:x+15,y:y+45,width:150,height:40,rx:4,fill:'rgba(255,255,255,0.03)',stroke:'rgba(255,255,255,0.06)','stroke-width':0.5}));
+    g.appendChild(ce('text',{x:x+90,y:y+70,'text-anchor':'middle',fill:'#22c55e','font-size':'11','font-weight':'600','font-family':'monospace'},[a.example]));
+    // Description
+    var words=a.desc.split(' ');
+    var lines=[];
+    var cl='';
+    words.forEach(function(w){if((cl+' '+w).length>25){lines.push(cl);cl=w}else cl=cl?(cl+' '+w):w});
+    if(cl)lines.push(cl);
+    lines=[lines.slice(0,2).join(' '),lines.slice(2,5).join(' '),lines.slice(5).join(' ')];
+    lines.forEach(function(l,li){
+      if(l)g.appendChild(ce('text',{x:x+90,y:y+105+li*16,'text-anchor':'middle',fill:'#94a3b8','font-size':'8','font-family':'Inter,sans-serif'},[l.trim()]));});
+    g.addEventListener('click',function(){showInfo(a)});
+    svg.appendChild(g)});
+  container.appendChild(svg)}
+
+function animateNodes(t){
+  var idx=Math.floor(t*0.35)%archs.length;
+  $$('.node .node-bg').forEach(function(el,i){
+    var a=archs[i];
+    if(i===idx){el.setAttribute('stroke-width','2.5');el.setAttribute('fill',a.color+'15')}
+    else{el.setAttribute('stroke-width','1.5');el.setAttribute('fill','rgba(255,255,255,0.02)')}})}
+
+function init(){
+  initDOM();setTheme(getTheme());
+  if(dom.theme)dom.theme.addEventListener('click',function(){setTheme(getTheme()==='light'?'dark':'light')});
+  if(dom.speed)dom.speed.addEventListener('input',function(){state.speed=parseFloat(this.value);if(dom.speedLabel)dom.speedLabel.textContent=state.speed.toFixed(2)+'×'});
+  if(dom.infoClose)dom.infoClose.addEventListener('click',function(){dom.info.hidden=true;state.selectedId=null});
+  if(dom.completionReset)dom.completionReset.addEventListener('click',function(){dom.completion.hidden=true;state.challengeDone=false;state.challengeIdx=0;state.quizResults=[];renderChallenge()});
+  if(dom.help)dom.help.addEventListener('click',function(){showInfo({name:'How to use',desc:'Explore different instruction set architectures. Each card shows the architecture name, an opcode example, and key characteristics. Click for detailed information.',analogy:'',detail:''})});
+  setTimeout(function(){
+    if(dom.loading)dom.loading.hidden=true;
+    if(dom.container)dom.container.hidden=false;
+    drawViz(dom.viz);renderChallenge();
+    var last=0;
+    function frame(ts){if(!last)last=ts;var dt=(ts-last)/1000;last=ts;state.t+=dt*state.speed;animateNodes(state.t);state.rafId=requestAnimationFrame(frame)}
+    state.rafId=requestAnimationFrame(frame)
+  },800)}
+init();
 })();

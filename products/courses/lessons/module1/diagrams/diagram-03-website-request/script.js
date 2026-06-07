@@ -1,60 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"browser",name:"Web Browser",category:"Software",icon:"browser",shape:"circle",x:50,y:30,w:120,h:56,purpose:"Initiates and displays web content by sending requests and rendering responses",description:"The browser takes a URL you type, sends a request to fetch the page, then renders the HTML, CSS, and JavaScript into a visual display.",why:"The browser is your window into the World Wide Web",analogy:"Like a TV that tunes into channels and shows you the content",funFact:"The first web browser, WorldWideWeb, was also a page editor",takeaway:"Browsers translate code into the visual web pages you see",mistake:"The browser doesn\\'t fetch pages directly—it asks servers for them",descriptionDetailed:"The browser first performs a DNS lookup on the URL\\'s domain, then opens a TCP connection to the server. It sends an HTTP GET request and receives the response containing HTML, CSS, JavaScript, and media files. The browser\\'s rendering engine parses HTML into a DOM tree, applies CSS styles, executes JavaScript, and paints the final page."},
-  {id:"dns",name:"DNS Server",category:"Network",icon:"globe",shape:"rounded-rect",x:210,y:30,w:120,h:56,purpose:"Translates the domain name in the URL into the server\\'s IP address",description:"When you type example.com, DNS servers find the matching IP address so your browser knows where to send the request.",why:"DNS allows us to use memorable names instead of numeric IPs",analogy:"Like looking up a friend\\'s address in your contacts list",funFact:"There are only 13 logical root DNS servers in the world",takeaway:"DNS is the first step in every web request after you press Enter",mistake:"DNS isn\\'t instant—it queries multiple servers in a hierarchy",descriptionDetailed:"The recursive resolver first checks its local cache, then queries the root server, then the TLD server (.com, .org), and finally the authoritative name server. Each level provides the address of the next server to query. The final answer is cached locally for faster future lookups."},
-  {id:"server",name:"Web Server",category:"Software",icon:"server",shape:"cylinder",x:50,y:125,w:120,h:56,purpose:"Receives the browser\\'s request and responds with the requested webpage files",description:"The web server receives the HTTP request, locates the requested file, and sends it back to the browser with a status code.",why:"Servers do the heavy lifting of storing and delivering all web content",analogy:"Like a restaurant kitchen that prepares your meal after you order",funFact:"Apache web server has been running since 1995 and still powers 25% of websites",takeaway:"Every website you visit is stored on one or more servers somewhere in the world",mistake:"The server doesn\\'t send the whole website at once—it sends files one by one",descriptionDetailed:"The server parses the HTTP request method (GET, POST, etc.), headers, and URL path. It maps the path to a file in its document root, applies access controls, and returns the file with an HTTP status code (200 OK, 404 Not Found, etc.) and appropriate MIME type headers. Dynamic content may trigger server-side scripts."},
-  {id:"isp",name:"Internet Service Provider",category:"Network",icon:"cloud",shape:"cloud-shape",x:210,y:125,w:120,h:56,purpose:"Carries your request from your router to the destination server across the Internet",description:"Your ISP routes your request through multiple network hops until it reaches the server hosting the website.",why:"ISPs build and maintain the physical infrastructure that connects everyone",analogy:"Like the postal service that carries your letter across the country",funFact:"Data can travel from New York to Sydney in under 200 milliseconds",takeaway:"Your request may pass through 10-20 different networks before reaching the server",mistake:"Your data doesn\\'t travel in a straight line—it hops between many routers",descriptionDetailed:"When data leaves your home, it traverses the ISP\\'s regional network, then connects to larger backbone networks at Internet Exchange Points. Tier 1 ISPs interconnect without payment, while lower tiers pay for transit. The path your data takes is determined by BGP routing protocols that consider path length, policies, and network health."},
-  {id:"packet",name:"Data Packet",category:"Data",icon:"packet",shape:"diamond",x:50,y:220,w:120,h:56,purpose:"Transports the request and response data in small, manageable chunks",description:"Your web request is broken into packets that travel independently and are reassembled at the destination.",why:"Packet switching makes the Internet efficient and resilient to failures",analogy:"Like sending a puzzle in separate pieces that arrive and get put back together",funFact:"Each packet can take a completely different route to reach the same destination",takeaway:"The Internet is designed to handle lost packets by requesting retransmission",mistake:"Packets can arrive out of order—TCP puts them back in sequence",descriptionDetailed:"Each IP packet contains a header (20-60 bytes) and payload (up to 65535 bytes, but typically 1500 bytes for Ethernet). The header includes source/destination IP, TTL, protocol type, and checksum. TCP adds sequence numbers so the receiver can reorder packets and request retransmission of missing ones."},
-  {id:"website",name:"Website Content",category:"Content",icon:"globe",shape:"rounded-rect",x:210,y:220,w:120,h:56,purpose:"The collection of files and data that make up the webpage being requested",description:"HTML structures the page, CSS styles it, JavaScript adds interactivity, and media files enrich the experience.",why:"Understanding how web content is assembled helps you build better websites",analogy:"Like a house built from blueprints (HTML), paint (CSS), and appliances (JavaScript)",funFact:"The average webpage is over 2 MB and makes 70+ separate requests",takeaway:"A modern website is a combination of many different file types working together",mistake:"The HTML file is just the starting point—browsers then fetch CSS, JS, images, and fonts"}
-];
-var connections = [{from:"browser",to:"dns"},{from:"dns",to:"server"},{from:"server",to:"isp"},{from:"isp",to:"packet"},{from:"packet",to:"website"}];
-var steps = [{label:"Step 1: Web Browser",status:"Exploring: Web Browser - Initiates and displays web content by sending requests and rendering responses"},{label:"Step 2: DNS Server",status:"Exploring: DNS Server - Translates the domain name in the URL into the server\\'s IP address"},{label:"Step 3: Web Server",status:"Exploring: Web Server - Receives the browser\\'s request and responds with the requested webpage files"},{label:"Step 4: Internet Service Provider",status:"Exploring: Internet Service Provider - Carries your request from your router to the destination server across the Internet"},{label:"Step 5: Data Packet",status:"Exploring: Data Packet - Transports the request and response data in small, manageable chunks"},{label:"Step 6: Website Content",status:"Exploring: Website Content - The collection of files and data that make up the webpage being requested"}];
-var tour = [{title:"Web Browser",description:"Initiates and displays web content by sending requests and rendering responses",componentId:"browser"},{title:"DNS Server",description:"Translates the domain name in the URL into the server\\'s IP address",componentId:"dns"},{title:"Web Server",description:"Receives the browser\\'s request and responds with the requested webpage files",componentId:"server"},{title:"Internet Service Provider",description:"Carries your request from your router to the destination server across the Internet",componentId:"isp"},{title:"Data Packet",description:"Transports the request and response data in small, manageable chunks",componentId:"packet"},{title:"Website Content",description:"The collection of files and data that make up the webpage being requested",componentId:"website"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Website Request',
-    subtitle: 'How Internet Works',
-    desc: 'Trace what happens when you type a URL — from browser to DNS, server, and back.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Trace the journey of a URL from browser to server and back.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'DNS Query',color:'#22c55e'},
-      {label:'IP Found',color:'#60a5fa'},
-      {label:'HTTP 200',color:'#c084fc'},
-      {label:'Data Stream',color:'#f59e0b'},
-      {label:'Render',color:'#22c55e'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "browser", "name": "Web Browser", "cat": "Software", "icon": "🌍", "x": 80, "y": 60, "desc": "The browser takes a URL you type, sends a request to fetch the page, then renders the HTML, CSS, and JavaScript into a visual display.", "how": "The browser performs DNS lookup on the URLs domain, opens a TCP connection, sends an HTTP GET request, and renders the response.", "why": "The browser is your window into the World Wide Web", "analogy": "Like a TV that tunes into channels and shows you the content", "fun": "The first web browser, WorldWideWeb, was also a page editor", "take": "Browsers translate code into the visual web pages you see"}, {"id": "dns", "name": "DNS Server", "cat": "Network", "icon": "🌐", "x": 240, "y": 60, "desc": "DNS servers translate human-readable domain names into numeric IP addresses that computers understand.", "how": "The recursive resolver queries root, TLD, and authoritative servers in sequence to find the IP address.", "why": "DNS allows us to use memorable names instead of numeric IPs", "analogy": "Like looking up a friends address in your contacts list", "fun": "There are only 13 logical root DNS servers in the world", "take": "DNS is the first step in every web request after you press Enter"}, {"id": "server", "name": "Web Server", "cat": "Software", "icon": "🖥️", "x": 80, "y": 190, "desc": "The web server receives the HTTP request, locates the requested file, and sends it back to the browser with a status code.", "how": "The server parses the HTTP method, headers, and URL path, maps the path to a file, and returns it with the appropriate MIME type and status code.", "why": "Servers do the heavy lifting of storing and delivering all web content", "analogy": "Like a restaurant kitchen that prepares your meal after you order", "fun": "Apache web server has been running since 1995 and still powers 25 percent of websites", "take": "Every website you visit is stored on one or more servers somewhere in the world"}, {"id": "isp", "name": "ISP Network", "cat": "Network", "icon": "☁️", "x": 240, "y": 190, "desc": "Your ISP routes your request through multiple network hops until it reaches the server hosting the website.", "how": "Data traverses the ISPs regional network, connects to backbone networks at Internet Exchange Points, using BGP routing protocols.", "why": "ISPs build and maintain the physical infrastructure that connects everyone", "analogy": "Like the postal service that carries your letter across the country", "fun": "Data can travel from New York to Sydney in under 200 milliseconds", "take": "Your request may pass through 10-20 different networks before reaching the server"}, {"id": "packet", "name": "Data Packet", "cat": "Data", "icon": "📦", "x": 430, "y": 60, "desc": "Your web request is broken into packets that travel independently and are reassembled at the destination.", "how": "Each IP packet contains a header with source/destination IP, TTL, and sequence numbers so TCP can reorder them at the destination.", "why": "Packet switching makes the Internet efficient and resilient to failures", "analogy": "Like sending a puzzle in separate pieces that arrive and get put back together", "fun": "Each packet can take a completely different route to reach the same destination", "take": "The Internet is designed to handle lost packets by requesting retransmission"}, {"id": "website", "name": "Website Content", "cat": "Content", "icon": "🌍", "x": 430, "y": 190, "desc": "HTML structures the page, CSS styles it, JavaScript adds interactivity, and media files enrich the experience.", "how": "The browser parses HTML into a DOM tree, applies CSS styles from the CSSOM, executes JavaScript, and paints the final page.", "why": "Understanding how web content is assembled helps you build better websites", "analogy": "Like a house built from blueprints (HTML), paint (CSS), and appliances (JavaScript)", "fun": "The average webpage is over 2 MB and makes 70+ separate requests", "take": "A modern website is a combination of many different file types working together"}];
+var CONNECTIONS=[{"from": "browser", "to": "dns", "type": "fiber"}, {"from": "dns", "to": "server", "type": "fiber"}, {"from": "server", "to": "isp", "type": "fiber"}, {"from": "isp", "to": "packet", "type": "fiber"}, {"from": "packet", "to": "website", "type": "cable"}];
+var ROUTES={"A": {"name": "HTTP Request Path", "color": "#3b82f6", "path": ["browser", "dns", "server", "isp", "packet", "website"]}};
+var CHALLENGES=[{"q": "What is the first step a browser takes after you type a URL?", "opts": ["Opens TCP connection", "Performs DNS lookup", "Sends HTTP request", "Renders the page"], "ans": 1, "exp": "The browser first performs a DNS lookup to resolve the domain name to an IP address."}, {"q": "What does DNS stand for?", "opts": ["Domain Name System", "Data Network Service", "Digital Name Server", "Domain Network System"], "ans": 0, "exp": "DNS stands for Domain Name System, which translates domain names to IP addresses."}, {"q": "What happens when a web server receives a request for a file?", "opts": ["It creates the file", "It locates the file and returns it with a status code", "It forwards the request to another server", "It deletes the file"], "ans": 1, "exp": "The server maps the URL path to a file in its document root and returns it with an HTTP status code."}, {"q": "What does HTTP status code 200 mean?", "opts": ["Not Found", "OK - Success", "Server Error", "Redirect"], "ans": 1, "exp": "HTTP 200 OK means the request succeeded and the server is sending the requested data."}, {"q": "How does data travel through ISP networks?", "opts": ["Directly to the server", "Through multiple network hops", "Through a single cable", "Through satellites only"], "ans": 1, "exp": "Data traverses multiple network hops, passing through regional networks and backbone connections at Internet Exchange Points."}, {"q": "What routing protocol do ISPs use to determine data paths?", "opts": ["OSPF only", "BGP (Border Gateway Protocol)", "RIP", "EIGRP"], "ans": 1, "exp": "BGP is the protocol used between ISPs to exchange routing information and determine optimal paths."}, {"q": "What is an Internet Exchange Point (IXP)?", "opts": ["A place where cables connect", "A physical location where networks interconnect", "A type of server", "A DNS server location"], "ans": 1, "exp": "IXPs are physical locations where different networks connect and exchange traffic."}, {"q": "What protocol ensures packets are reassembled in the correct order?", "opts": ["IP", "TCP", "UDP", "HTTP"], "ans": 1, "exp": "TCP adds sequence numbers to packets so the receiver can reorder them correctly."}, {"q": "What is the average size of a modern webpage?", "opts": ["200 KB", "500 KB", "1 MB", "Over 2 MB"], "ans": 3, "exp": "The average webpage is over 2 MB and makes 70+ separate requests for different resources."}, {"q": "What does the browser build from parsed HTML?", "opts": ["CSSOM", "DOM tree", "JavaScript AST", "Render tree"], "ans": 1, "exp": "The browser parses HTML into a Document Object Model (DOM) tree."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    onReplay: function(engine) {
-      engine.t = 0;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
+
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
+
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
+
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

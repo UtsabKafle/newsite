@@ -57,6 +57,22 @@
   - Default marker centered at `cx+cw/2` (was left-aligned `cx+22`), uses `pal2.markerBg`, reduced r=14
   - Component stroke uses `this._pal().compStroke` (was hardcoded `#2a3a55`, fixing light-theme appearance, including cylinder top stroke)
 - **Play button animation fix** — Eliminated SVG `cloneNode(true)` in `_initZoomPan` which was breaking `_flowDots` element references (all flow dots pointed to detached DOM nodes, making `_updateFlowDots` invisible). Replaced with tracked listener removal: `zoomWheel`, `zoomMousedown`, `zoomDblclick`, `zoomTouchstart`, `zoomTouchmove` handlers stored in `this._listeners` and removed before re-adding on re-init. Also set initial `transform` on packet flow dots and initial `cx`/`cy` on trailing dots so they appear at connection start positions (not top-left) before Play is pressed.
+- **Architectural redesign: Self-contained diagrams** — Converted 138 of 168 diagrams from shared-engine wrappers to fully self-contained premium interactive experiences:
+  - Each diagram has its own index.html (~9 KB), styles.css (~17 KB), script.js (~23-45 KB) — zero imports from `shared/`
+  - 60 FPS RAF animation loops, bezier data flow, canvas particles, theme toggle, speed slider, info panel, completion overlay, loading skeleton, error boundary
+  - 28 new diagrams created in modules 6 & 8 (Software Development + Networking topics, each had 14 new)
+  - Module 1 diagram-01 (Internet Highway) is the reference implementation: world map, 13 nodes, 10 cities, canvas particles, 3-layer toggle, compass rose
+- **Deleted 165 orphaned backup files** (110 `.bak` + 55 `.bak2`) from modules 7-10
+- **Removed dead code** from shared engine: `buildClickExplorer()` (~60 lines), `_getIconChar()` (~45 lines), `@keyframes celebrationPulse` CSS
+- **Backfilled missing data** — `deeperDive` + `advancedConcept` fields for all 14 module 7 diagrams (42 component objects)
+- **Loading skeleton** — Added to all 140 diagram `index.html` files with shimmer animation + fade-out on load
+- **Speed controller upgrade** — Button-based → range slider (0.25×–4×) in `diagram-engine.js` + `diagram-base.css`
+- **Created `shared/scripts/diagram-premium.js`** — Utilities for world map builder, canvas particles, completion overlay, bezier interpolation, layer toggle (for diagrams that still used shared engine)
+- **Module 10 grand capstone converted** — Upgraded with packet flow animation, custom animate callback, enhanced layout/styling
+- **Converted remaining 30 wrapper diagrams** (modules 6 website development, 8 Scratch, 3 diag-14 troubleshooting, 10 diag-14 grand capstone) — all now fully self-contained with zero shared dependencies
+- **Fixed 3 broken module 7 diagrams** — diag-12 (Cloud Security, missing script.js), diag-13 (Mobile Security, empty dir), diag-14 (Future Security, empty dir) — all created with topic-appropriate content
+- **Module 1 diagram-09 (Undersea Cables) coordinate bug** — repeater node x/y were quoted strings `"410"`/`"50"` causing string concatenation in bezier math; fixed to numeric
+- **Module 1 diagram-09 icon rendering fix** — added emoji font-family + 22px to `.node-icon` CSS; swapped buoy (🧭→⚓ anchor) and data (📊→💾 floppy) for universal emoji support
 
 ### In Progress
 - (none)
@@ -65,19 +81,24 @@
 - (none)
 
 ## Key Decisions
-- Visual-learning content for modules 2-10 was generated from a content map keyed to diagram directory names, using longest-substring matching for precision. Each entry describes what the diagram shows, interactions, and key insight.
-- Merged section keeps `id="interactive-diagram"` (visual-learning section element removed; its inner content moved inside the diagram section's glass-panel after an `<hr class="my-6 border-theme">` separator).
-- Touch target sizes use `py-2` for inline text links (36px+) and `py-3` for buttons (44px) — pragmatic balance between design and accessibility.
-- "Chapter 14" back links are `btn-primary` buttons (already 44px with `py-3`), not text links — no `py-2` needed.
+- Removed ALL shared engine dependencies from all 168 diagrams — each is fully self-contained with zero imports
+- Shared engine files (`diagram-engine.js`, `diagram-base.css`, `icons.js`, `diagram-premium.js`) kept in `shared/` for reference, but no active diagram references them
+- Google Fonts (Inter) is the only external dependency — no CDN resources
+- Consistent architectural pattern: CSS variables for theming, RAF animation, bezier data flow, canvas particles, clickable SVG nodes, custom challenge system, completion overlay, loading skeleton, error boundary
+- Module 7 broken diagrams (12–14) created using module 7 custom-GV format (NODES array, CHALLENGES with q/o/a fields, zone-based SVG painting) — matches existing HTML/CSS patterns already in place
+- Node.js preferred over Python for JS data extraction (avoids PowerShell emoji escaping issues, can eval() JS object literals directly)
 
 ## Next Steps
 1. User can request further content tuning or mobile layout adjustments for any specific section/page.
 2. Phase 3 (RTC / Collaboration) — WebSocket server, shared state, teacher presenter mode, live annotations.
 
 ## Critical Context
-- Modules 2-10 had NO visual-learning sections before this audit — only `interactive-diagram`. All 126 were created fresh.
-- Module 1 already had both sections in correct order with diagram-specific content — only the merge was applied.
-- Diagram `index.html` files are minimal wrappers (~750 bytes each) that load external JS; their directory names provide topic mapping.
+- **168 total diagram directories** across 10 modules; **all 168 fully self-contained** — zero shared engine dependencies
+- Shared engine files still exist at `shared/` paths but no diagram references them (kept for reference)
+- Module 7 broken diagrams fixed: diagram-12 (cloud-security) script.js created, diagram-13 (mobile-security) and diagram-14 (future-security) fully created with topic-appropriate content
+- Module 1 diagram-01 (Internet Highway) is the reference self-contained implementation
+- Module 1 diagram-09 (Undersea Cables) uses custom SVG + canvas particles; had string-coordinate bug in repeater node (fixed) and icon rendering issue resolved with emoji font-family + universally-supported emoji (⚓ anchor, 💾 floppy)
+- Each self-contained diagram includes: 5-6 interactive SVG nodes with info panel, RAF animation loop at 60 FPS, speed slider (0.25×–4×), dark/light theme, 5-10 MCQ challenges, completion overlay, loading skeleton, error boundary, accessibility
 - The `scrollToVocabulary()` function (defined in `shared/utils/dom.js`) provides smooth-scroll with highlight animation — already included in all chapters.
 - Some chapter style blocks are minified (no spaces); regex replacements must match exact no-space format.
 - Module overview pages (e.g., `how-computer-works.html`, `computer-assembly.html`, `mini-projects.html`) were intentionally not given visual-learning sections — they are navigation/overview pages, not lesson content.
@@ -90,4 +111,6 @@
 - `C:\Users\badhi\AppData\Local\Temp\opencode\insert_visual_learning.py` — script that inserted visual-learning sections into 126 chapter files.
 - `C:\Users\badhi\AppData\Local\Temp\opencode\fix_responsive.py` — added responsive vocab table CSS + image max-width to all chapters.
 - `C:\Users\badhi\AppData\Local\Temp\opencode\fix_touch_targets.py` — fixed touch target sizes across 150 files.
+- `C:\Users\badhi\AppData\Local\Temp\opencode\convert_wrappers.py` (31 KB) — Python conversion script used for 30 wrapper diagrams — extracts `var components`/`var connections` data, generates self-contained script.js/index.html/styles.css.
+- `C:\Users\badhi\AppData\Local\Temp\opencode\fix_module3.js` (15 KB) — Node.js script for module 3 diagram-14 conversion (handles unquoted JS object keys).
 - All 10 module lesson directories (`module1/` through `module10/`) — each with `chapters/` and `diagrams/` subdirectories.

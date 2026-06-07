@@ -1,17 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Website Request — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Website Request &mdash; Interactive Diagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="skeleton" class="skeleton" aria-hidden="true"><div class="skel-shimmer"></div><div class="skel-header"><div class="skel-title"></div><div class="skel-meta"><div class="skel-badge"></div><div class="skel-badge"></div><div class="skel-badge"></div></div></div><div class="skel-body"><div class="skel-main"><div class="skel-toolbar"></div><div class="skel-content"></div></div><div class="skel-sidebar"><div class="skel-card"></div><div class="skel-card"></div></div></div></div>
+
+<div id="app" class="app" role="application" aria-label="Website Request Interactive Diagram">
+  <header class="hd">
+    <div class="hd-main">
+      <div class="hd-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20zM2 12h20"/></svg>
+      </div>
+      <div class="hd-titles">
+        <h1 class="hd-title">Website Request</h1>
+        <p class="hd-sub">How Internet Works &mdash; Interactive Simulation</p>
+      </div>
+      <div class="hd-meta">
+        <span class="badge badge-diff">Beginner</span>
+        <span class="badge badge-time">~10 min</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="map-wrap" id="mapWrap" role="img" aria-label="Interactive diagram showing Trace what happens when you type a URL from browser to DNS, server, and back.">
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <svg id="mapSvg" viewBox="0 0 750 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="var(--brand)" stop-opacity="0.3"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/></radialGradient>
+        <radialGradient id="pktGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.6"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="softGlow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <rect width="100%" height="100%" fill="var(--surface2)"/>
+      <g id="grid" stroke="var(--brand)" stroke-width="0.3" opacity="0.06" fill="none"></g>
+      <g id="background"></g>
+      <g id="connections"></g>
+      <g id="trafficDots"></g>
+      <g id="packets"></g>
+      <g id="nodes"></g>
+      <g id="labels"></g>
+      <text id="mapLabel" x="50%" y="50%" text-anchor="middle" fill="var(--text-faint)" font-size="11" opacity="0.5">Click a node to explore</text>
+    </svg>
+    <span class="layer-badge" id="layerBadge">Website Request</span>
+  </div>
+
+  <nav class="ctrl" role="toolbar" aria-label="Controls">
+    <div class="ctrl-g">
+      <button class="btn-primary" id="sendBtn" aria-label="Start journey"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey</button>
+    </div>
+    <div class="ctrl-d" aria-hidden="true"></div>
+    <div class="ctrl-g speed-g" role="group" aria-label="Speed">
+      <span class="speed-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+      <input type="range" id="speedSlider" class="speed-slider" min="0" max="16" value="4" step="1" aria-label="Animation speed">
+      <span class="speed-val" id="speedDisplay">1&times;</span>
+    </div>
+    <div class="ctrl-d" aria-hidden="true"></div>
+    <div class="ctrl-g">
+      <button class="btn-theme" id="themeBtn" aria-label="Switch to light mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    </div>
+    <div class="ctrl-g">
+      <button class="btn-sm" id="resetBtn" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 4v6h6m16 10v-6h-6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36M20.49 15a9 9 0 0 1-14.85 3.36"/></svg> Reset</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="route-info" id="routeInfo" aria-live="polite"></div>
+  </nav>
+
+  <aside class="panel" id="infoPanel" role="dialog" aria-label="Component information" aria-hidden="true">
+    <div class="panel-hdle" aria-hidden="true"></div>
+    <button class="panel-close" id="panelClose" aria-label="Close">&times;</button>
+    <div class="panel-cat" id="panelCat"></div>
+    <div class="panel-title" id="panelTitle"></div>
+    <div class="panel-desc" id="panelDesc"></div>
+    <div id="panelSections"></div>
+  </aside>
+
+  <div class="section challenge-section" id="challengeSection">
+    <div class="challenge-header">
+      <h2 class="challenge-title">Knowledge Challenge</h2>
+      <p class="challenge-hint">Test what you learned about website request</p>
+    </div>
+    <div id="challengeContent"></div>
+  </div>
+
+  <div class="overlay" id="completionOverlay" role="alertdialog" aria-modal="true" aria-label="Journey complete" hidden>
+    <div class="overlay-card">
+      <div class="overlay-icon" aria-hidden="true">&#10003;</div>
+      <div class="overlay-title">Journey Complete</div>
+      <p class="overlay-desc">Your data traveled across the website request system</p>
+      <div class="overlay-path" id="overlayPath"></div>
+      <div class="overlay-stats">
+        <div class="overlay-stat"><div class="stat-val" id="statDist">0</div><div class="stat-lbl">Distance (km)</div></div>
+        <div class="overlay-stat"><div class="stat-val" id="statTime">0</div><div class="stat-lbl">Time (ms)</div></div>
+        <div class="overlay-stat"><div class="stat-val" id="statHops">0</div><div class="stat-lbl">Hops</div></div>
+      </div>
+      <button class="overlay-btn" id="overlayClose">Continue</button>
+    </div>
+  </div>
+
+  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

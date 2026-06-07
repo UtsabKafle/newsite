@@ -3,15 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Animation Projects — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
+  <title>Animation Projects &mdash; Interactive Diagram | Consica Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
+  <div id="app-root" role="main" aria-label="Interactive Diagram: Animation Projects">
+    <div id="loading-skeleton" class="skeleton" aria-hidden="true">
+      <div class="skeleton-shimmer"></div>
+      <div class="skeleton-header"></div>
+      <div class="skeleton-visual"></div>
+      <div class="skeleton-controls"></div>
+    </div>
+    <div id="diagram-container" class="diagram-container" style="display:none;">
+      <div id="error-boundary" class="error-boundary" role="alert" aria-live="assertive" style="display:none;"></div>
+      <header class="diagram-header">
+        <h1 class="diagram-title" id="diagram-title">Animation Projects</h1>
+        <div class="header-controls">
+          <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">&#x1f313;</button>
+        </div>
+      </header>
+      <p class="diagram-desc">Explore the core components and operations.</p>
+      <div class="toolbar">
+        <div class="speed-control">
+          <label for="speed-slider" class="speed-label">Speed: <span id="speed-display">1.0x</span></label>
+          <input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1" aria-label="Speed">
+        </div>
+        <button id="play-btn" class="ctrl-btn" aria-label="Play/Pause">&#x25b6; Play</button>
+        <button id="reset-btn" class="ctrl-btn" aria-label="Reset">&#x21ba; Reset</button>
+      </div>
+      <div id="visual-container" class="visual-container" role="img" aria-label="Visualization">
+        <svg id="diagram-svg" class="diagram-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs id="svg-defs">
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="var(--accent2, #3b82f6)"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <div id="info-panel" class="info-panel" role="dialog" aria-label="Info" aria-hidden="true">
+        <button id="info-close" class="info-close" aria-label="Close">&#x2715;</button>
+        <h2 id="info-title" class="info-title"></h2>
+        <div id="info-content" class="info-content"></div>
+      </div>
+      <section class="challenge-section" aria-label="Challenge">
+        <h2 class="section-title">&#x1f4dd; Knowledge Challenge</h2>
+        <div id="challenge-container" class="challenge-container"></div>
+        <div id="challenge-result" class="challenge-result" style="display:none;" role="alert"></div>
+      </section>
+      <div id="completion-overlay" class="completion-overlay" role="dialog" aria-modal="true" style="display:none;">
+        <div class="completion-card">
+          <h2 class="completion-title">&#x1f389; Complete!</h2>
+          <p id="completion-score" class="completion-score"></p>
+          <div id="completion-concepts" class="completion-concepts"></div>
+          <button id="completion-close" class="ctrl-btn primary-btn">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

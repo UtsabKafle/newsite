@@ -1,36 +1,74 @@
 (function(){'use strict';
-var components = [{"id":"node1","name":"Block Header","category":"Structure","icon":"database","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Holds metadata and linkages","description":"Contains block number, nonce, prev-hash, and transaction data.","why":"Identifies the block unit","analogy":"Envelope cover details","funFact":"Includes the timestamp down to the second","takeaway":"Block header is hashed to lock data","mistake":"Editing header variables does not go unnoticed","descriptionDetailed":"Block data payload structure.","howItWorks":"Contains block number, nonce, prev-hash, and transaction data.","deeperDive":"Block data payload structure.","advancedConcept":"Includes the timestamp down to the second"},{"id":"node2","name":"Hash Function","category":"Security","icon":"key","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Computes digital fingerprints","description":"Processes data using SHA-256 algorithm.","why":"Locks record data","analogy":"Digital seal wax","funFact":"Always produces a 64-character hex string","takeaway":"Hashes are one-way only","mistake":"You cannot reconstruct original text from the hash string","descriptionDetailed":"SHA-256 algorithm computation node.","howItWorks":"Processes data using SHA-256 algorithm.","deeperDive":"SHA-256 algorithm computation node.","advancedConcept":"Always produces a 64-character hex string"},{"id":"node3","name":"Linked Block","category":"Chain","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Secures subsequent chain link","description":"The next block containing the hash of the current one.","why":"Creates the tamper-proof link","analogy":"Locked chain links","funFact":"A break in one link invalidates all blocks that follow","takeaway":"Chaining ensures immutability","mistake":"Tampering with data in past blocks breaks all following hashes","descriptionDetailed":"Next sequence block referencing parent node.","howItWorks":"The next block containing the hash of the current one.","deeperDive":"Next sequence block referencing parent node.","advancedConcept":"A break in one link invalidates all blocks that follow"}];
-var connections = [{"from":"node1","to":"node2"},{"from":"node2","to":"node3"}];
-var steps = [{"id":"node1","label":"Step 1: Pack Block","status":"Transactions are packaged into a block header with the previous block's hash."},{"id":"node2","label":"Step 2: Calculate Hash","status":"SHA-256 function processes the block header, outputting a secure hash."},{"id":"node3","label":"Step 3: Link Chain","status":"The calculated hash is stored in the next block's header, securing the link."}];
-var tour = [{"title":"Block Header","description":"Stores transaction data and links.","componentId":"node1"},{"title":"Hash Function","description":"Generates secure digital fingerprints.","componentId":"node2"},{"title":"Linked Block","description":"Binds the blocks into an unbroken chain.","componentId":"node3"}];
+var theme=localStorage.getItem('consica-theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+var app,container,skeleton,errorBoundary,errorMsg,svgContainer,infoTitle,infoDesc,stepsList,playBtn,resetBtn,speedSlider,speedVal,themeBtn,challengeOverlay,challengeBody,challengeClose,completionOverlay,completionScore,completionClose,challengeBtn,rafId,animating=false,t=0,activeNode=null,nodes=[],connections=[],flowDots=[],speed=1,challengeState={questions:[],current:0,answers:{},submitted:false};
 
-deferInit(function(){
-  new DiagramEngine({
-    title: "How Records Are Stored",
-    subtitle: "Blockchain Technology",
-    desc: "Explore the core components and operations.",
-    module: 9,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      engine.buildAutoChallenge(container);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+var components=[
+{id:'data',name:'Data Collection',sublabel:'Raw input gathering',desc:'The foundation of any ML project - collecting high-quality, relevant data from various sources.',purpose:'Provide raw material for learning',how:'Gather data from databases, APIs, sensors, or manual labeling',why:'ML models are only as good as their training data',analogy:'Gathering ingredients before cooking a meal',funFact:'ML models need 10x more data than most people expect for good performance',takeaway:'Quality data matters more than quantity',mistake:'Biased data leads to biased models'},
+{id:'prep',name:'Data Preparation',sublabel:'Cleaning and transforming',desc:'Raw data must be cleaned, normalized, and structured before training can begin.',purpose:'Make data usable for algorithms',how:'Remove duplicates, handle missing values, normalize scales, encode categories',why:'Real-world data is messy and inconsistent',analogy:'Washing and chopping vegetables before cooking',funFact:'Data scientists spend 80% of their time cleaning data, not building models',takeaway:'Clean data prevents garbage-in-garbage-out',mistake:'Skipping data cleaning causes model failure in production'},
+{id:'train',name:'Model Training',sublabel:'Learning from data',desc:'Training feeds prepared data through an algorithm that adjusts internal parameters to minimize prediction error.',purpose:'Create a predictive model',how:'Iteratively adjust weights using optimization algorithms like gradient descent',why:'This is where the actual learning happens',analogy:'Practicing a sport - repeated attempts with corrections',funFact:'Training a large model can cost millions of dollars in compute',takeaway:'Training is the most compute-intensive step',mistake:'Overfitting happens when a model memorizes instead of generalizes'},
+{id:'eval',name:'Model Evaluation',sublabel:'Testing accuracy',desc:'Evaluating model performance on unseen data to verify it generalizes beyond its training set.',purpose:'Validate model quality before deployment',how:'Split data into train/test sets, measure accuracy, precision, recall, F1 score',why:'A model that only works on training data is useless',analogy:'Taking a final exam after studying practice problems',funFact:'The test set should never be seen during training, not even for peeking',takeaway:'Cross-validation gives reliable performance estimates',mistake:'Data leakage inflates test scores unrealistically'},
+{id:'deploy',name:'Deployment',sublabel:'Putting ML to work',desc:'Deployment integrates the trained model into a production environment where it can make predictions on new data.',purpose:'Deliver value from ML in real applications',how:'Package model as API, edge device, or batch pipeline with monitoring',why:'A model in a notebook has zero business value',analogy:'Launching a rocket after years of testing on the ground',funFact:'ML models in production need constant monitoring - data drift can degrade performance',takeaway:'Deployment is where ML creates measurable impact',mistake:'Models degrade over time without retraining'},
+{id:'feedback',name:'Feedback Loop',sublabel:'Continuous improvement',desc:'Production models generate predictions that can be used as new training data, creating a cycle of improvement.',purpose:'Keep models accurate over time',how:'Collect predictions plus outcomes, retrain periodically with fresh data',why:'The world changes - models must adapt',analogy:'A chef tasting and adjusting the recipe with each batch',funFact:'Netflix retrains its recommendation model every few hours',takeaway:'ML is never done - it requires ongoing maintenance',mistake:'Ignoring feedback loops leads to model decay'}
+];
+
+var connectionsData=[{from:'data',to:'prep'},{from:'prep',to:'train'},{from:'train',to:'eval'},{from:'eval',to:'deploy'},{from:'deploy',to:'feedback'}];
+
+var stepsData=[
+{id:'data',label:'Data Collection - gather raw data from multiple sources'},
+{id:'prep',label:'Data Preparation - clean, normalize, structure the data'},
+{id:'train',label:'Model Training - algorithm learns patterns from data'},
+{id:'eval',label:'Model Evaluation - test accuracy on unseen data'},
+{id:'deploy',label:'Deployment - put the model into production'},
+{id:'feedback',label:'Feedback Loop - collect results and retrain'}
+];
+
+var challenges=[
+{q:'What is the most time-consuming part of ML for data scientists?',o:['Model training','Data preparation and cleaning','Deployment','Choosing algorithms'],a:1},
+{q:'Why do we split data into training and test sets?',o:['To make training faster','To evaluate generalization to unseen data','To reduce storage costs','To satisfy regulations'],a:1},
+{q:'What happens when a model memorizes training data instead of learning patterns?',o:['Underfitting','Overfitting','Convergence','Regularization'],a:1},
+{q:'Why do ML models need monitoring after deployment?',o:['Because they expire after 30 days','Because data drift can degrade performance','To track user logins','For billing purposes'],a:1},
+{q:'What does garbage in, garbage out mean in ML?',o:['Models only work with premium data','Poor quality data produces poor quality models','Trash cans should be emptied','Garbage collection is important'],a:1},
+{q:'How often should production ML models be retrained?',o:['Never - train once','Only when errors occur','Periodically based on data drift monitoring','Every 24 hours'],a:2}
+];
+
+function init(){app=document.getElementById('app');container=document.getElementById('diagram-container');skeleton=document.getElementById('loading-skeleton');errorBoundary=document.getElementById('error-boundary');errorMsg=document.getElementById('error-message');svgContainer=document.getElementById('svg-container');infoTitle=document.getElementById('info-title');infoDesc=document.getElementById('info-desc');stepsList=document.getElementById('steps-list');playBtn=document.getElementById('play-btn');resetBtn=document.getElementById('reset-btn');speedSlider=document.getElementById('speed-slider');speedVal=document.getElementById('speed-value');themeBtn=document.getElementById('theme-toggle');challengeOverlay=document.getElementById('challenge-overlay');challengeBody=document.getElementById('challenge-body');challengeClose=document.getElementById('challenge-close');completionOverlay=document.getElementById('completion-overlay');completionScore=document.getElementById('completion-score');completionClose=document.getElementById('completion-close');challengeBtn=document.getElementById('challenge-btn');
+try{buildDiagram();setupControls();setupChallenge();showContainer();}catch(e){showError(e.message||'Failed to build diagram');}}
+function showContainer(){skeleton.classList.add('hidden');container.classList.remove('hidden');}
+function showError(msg){skeleton.classList.add('hidden');errorBoundary.classList.remove('hidden');errorMsg.textContent=msg;}
+
+function buildDiagram(){
+var W=860,H=340,pad=40;
+var svg=svgCreate('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'ML workflow pipeline: Data Collection to Feedback Loop'});
+svgContainer.appendChild(svg);
+var defs=svgCreate('defs');
+svg.appendChild(defs);
+defs.innerHTML='<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--conn-stroke)"/></marker><marker id="arrowLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>';
+var positions={data:{x:70,y:130},prep:{x:220,y:130},train:{x:370,y:130},eval:{x:520,y:130},deploy:{x:670,y:130},feedback:{x:430,y:260}};
+connectionsData.forEach(function(c){var f=positions[c.from],t=positions[c.to];var line;if(c.to==='feedback'){line=svgCreate('path',{d:'M'+f.x+','+f.y+' Q'+((f.x+t.x)/2)+','+((f.y+t.y)/2+30)+' '+t.x+','+t.y,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}else{line=svgCreate('line',{x1:f.x+70,y1:f.y,x2:t.x-70,y2:t.y,class:'connection-line','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}svg.appendChild(line);var fd=svgCreate('circle',{class:'flow-dot',cx:0,cy:0,r:0,fill:'var(--accent)'});svg.appendChild(fd);var sx=c.to==='feedback'?f.x+70:f.x+70;var sy=f.y;var ex=t.x-70;var ey=t.y;flowDots.push({el:fd,sx:sx,sy:sy,ex:ex,ey:ey});});
+components.forEach(function(cp){var p=positions[cp.id];var g=svgCreate('g',{class:'node-g',tabIndex:0,role:'button','aria-label':cp.name+': '+cp.sublabel});g.dataset.id=cp.id;var rx=svgCreate('rect',{x:p.x-70,y:p.y-26,width:140,height:52,rx:10,class:'node-rect'});g.appendChild(rx);var lbl=svgCreate('text',{x:p.x,y:p.y-4,class:'node-label'});lbl.textContent=cp.name;g.appendChild(lbl);var slbl=svgCreate('text',{x:p.x,y:p.y+14,class:'node-sublabel'});slbl.textContent=cp.sublabel;g.appendChild(slbl);g.addEventListener('click',function(){selectNode(cp.id);});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(cp.id);}});svg.appendChild(g);nodes.push({el:g,data:cp,pos:p});});
+var arrow=svgCreate('path',{d:'M400,260 L420,260 L410,250 M400,260 L420,260 L410,270',stroke:'var(--accent2)',fill:'none',strokeWidth:2});svg.appendChild(arrow);
+var selected=false;components.forEach(function(c){if(!selected){selectNode(c.id);selected=true;}});
+renderSteps();}
+
+function svgCreate(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+
+function selectNode(id){activeNode=id;var cp=getComp(id);if(!cp)return;nodes.forEach(function(n){var r=n.el.querySelector('.node-rect');if(r)r.classList.toggle('active',n.data.id===id);});infoTitle.textContent=cp.name+' - '+cp.sublabel;infoDesc.innerHTML='<strong>Purpose:</strong> '+cp.purpose+'<br><br><strong>How it works:</strong> '+cp.how+'<br><br><strong>Why it matters:</strong> '+cp.why+'<br><br><strong>Analogy:</strong> '+cp.analogy+(cp.funFact?'<br><br><strong>Fun fact:</strong> '+cp.funFact:'')+'<br><br><strong>Key takeaway:</strong> '+cp.takeaway+'<br><br><strong>Common mistake:</strong> '+cp.mistake;var items=stepsList.querySelectorAll('li');items.forEach(function(li){li.classList.toggle('active',li.dataset.id===id);});}
+function getComp(id){for(var i=0;i<components.length;i++){if(components[i].id===id)return components[i];}return null;}
+function renderSteps(){stepsList.innerHTML='';components.forEach(function(c){var li=document.createElement('li');li.dataset.id=c.id;li.textContent=c.name+' - '+c.sublabel;li.tabIndex=0;li.addEventListener('click',function(){selectNode(c.id);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(c.id);}});stepsList.appendChild(li);});}
+
+function animateDiagram(){var start=performance.now();function frame(now){if(!animating){rafId=null;return;}var dt=(now-start)/1000*speed;t=(t+dt)%1;flowDots.forEach(function(d){d.el.setAttribute('cx',d.sx+(d.ex-d.sx)*t);d.el.setAttribute('cy',d.sy+(d.ey-d.sy)*t);d.el.setAttribute('r',4);});rafId=requestAnimationFrame(frame);}rafId=requestAnimationFrame(frame);}
+
+function setupControls(){themeBtn.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('consica-theme',theme);});playBtn.addEventListener('click',function(){animating=!animating;if(animating){playBtn.innerHTML='&#9646;&#9646;';animateDiagram();}else{playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});resetBtn.addEventListener('click',function(){t=0;flowDots.forEach(function(d){d.el.setAttribute('r',0);});if(animating){animating=false;playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});speedSlider.addEventListener('input',function(){speed=parseFloat(this.value);speedVal.textContent=speed+'x';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){challengeOverlay.classList.add('hidden');completionOverlay.classList.add('hidden');}});}
+
+function setupChallenge(){challengeBtn.addEventListener('click',function(){openChallenge();});challengeClose.addEventListener('click',function(){challengeOverlay.classList.add('hidden');});completionClose.addEventListener('click',function(){completionOverlay.classList.add('hidden');challengeOverlay.classList.add('hidden');});}
+function openChallenge(){challengeState.questions=challenges.slice().sort(function(){return Math.random()-0.5;}).slice(0,5);challengeState.current=0;challengeState.answers={};challengeState.submitted=false;challengeOverlay.classList.remove('hidden');renderQuestion();}
+function renderQuestion(){var q=challengeState.questions[challengeState.current];if(!q){finishChallenge();return;}var html='<div class="question"><div class="question-text">'+(challengeState.current+1)+'. '+q.q+'</div><div class="options">';q.o.forEach(function(opt,i){var sel=challengeState.answers[challengeState.current]===i?' selected':'';var cls=challengeState.submitted?(i===q.a?' correct':(challengeState.answers[challengeState.current]===i?' wrong':'')):'';html+='<label class="option-label'+sel+cls+'"><input type="radio" name="q'+challengeState.current+'" value="'+i+'"'+(challengeState.submitted?' disabled':'')+(sel?' checked':'')+' onchange="('+selectOption.toString()+')('+challengeState.current+','+i+')">'+opt+'</label>';});html+='</div></div>';html+='<div class="challenge-actions">';if(!challengeState.submitted){html+='<button class="btn-primary" onclick="('+submitChallenge.toString()+')()">Submit Answer</button>';}else{if(challengeState.current<challengeState.questions.length-1){html+='<button class="btn-primary" onclick="('+nextQuestion.toString()+')()">Next Question</button>';}else{html+='<button class="btn-primary" onclick="('+finishChallenge.toString()+')()">See Results</button>';}}html+='</div>';challengeBody.innerHTML=html;}
+function selectOption(qIdx,optIdx){if(challengeState.submitted)return;challengeState.answers[qIdx]=optIdx;renderQuestion();}
+function submitChallenge(){challengeState.submitted=true;renderQuestion();}
+function nextQuestion(){challengeState.current++;challengeState.submitted=false;renderQuestion();}
+function finishChallenge(){var correct=0,total=challengeState.questions.length;challengeState.questions.forEach(function(q,i){if(challengeState.answers[i]===q.a)correct++;});completionScore.textContent='You scored '+correct+'/'+total;completionOverlay.classList.remove('hidden');}
+
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();

@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Blockchain Project — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blockchain Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application">
+<div id="skeleton" class="skeleton" role="status">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-header"><div class="skeleton-line w-60"></div><div class="skeleton-line w-40"></div></div>
+<div class="skeleton-body"><div class="skeleton-block h-64"></div><div class="skeleton-block h-32"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">\u26A0</div>
+<h2>Something went wrong</h2>
+<p id="error-msg">An unexpected error occurred.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="main-content" hidden>
+<header class="app-header">
+<div class="header-top"><div><h1 class="app-title">Blockchain Project</h1><p class="app-subtitle">Data Dashboard</p></div>
+<div class="header-controls">
+<button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">\uD83C\uDF13</button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"></div>
+</div></div>
+</header>
+<div class="diagram-layout">
+<div class="diagram-area">
+<div class="svg-container">
+<svg id="diagram-svg" viewBox="0 0 800 460" class="diagram-svg" role="img" aria-label="Blockchain Project"><g><rect x="20" y="20" width="760" height="420" rx="12" fill="var(--pal-bg)"/><text x="400" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">DATA DASHBOARD</text><rect x="50" y="65" width="220" height="80" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="160" y="90" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Total Users</text><text x="160" y="115" text-anchor="middle" fill="#3b82f6" font-size="22" font-weight="700">12,847</text><text x="160" y="135" text-anchor="middle" fill="#22c55e" font-size="11">+12.5% vs last month</text><rect x="290" y="65" width="220" height="80" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="400" y="90" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Revenue</text><text x="400" y="115" text-anchor="middle" fill="#22c55e" font-size="22" font-weight="700">$84,230</text><text x="400" y="135" text-anchor="middle" fill="#22c55e" font-size="11">+8.3% vs last month</text><rect x="530" y="65" width="220" height="80" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="640" y="90" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Active Sessions</text><text x="640" y="115" text-anchor="middle" fill="#eab308" font-size="22" font-weight="700">2,401</text><text x="640" y="135" text-anchor="middle" fill="#64748b" font-size="11">Avg: 4m 32s</text><rect x="50" y="160" width="340" height="120" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="80" y="185" fill="var(--pal-text)" font-size="13" font-weight="600">Weekly Signups</text><rect x="70" y="198" width="20" height="60" rx="2" fill="#3b82f6" opacity="0.6"/><rect x="100" y="180" width="20" height="78" rx="2" fill="#3b82f6" opacity="0.7"/><rect x="130" y="170" width="20" height="88" rx="2" fill="#3b82f6" opacity="0.8"/><rect x="160" y="185" width="20" height="73" rx="2" fill="#3b82f6" opacity="0.7"/><rect x="190" y="175" width="20" height="83" rx="2" fill="#3b82f6" opacity="0.8"/><rect x="220" y="160" width="20" height="98" rx="2" fill="#3b82f6" opacity="0.9"/><rect x="250" y="168" width="20" height="90" rx="2" fill="#3b82f6"/><rect x="280" y="155" width="20" height="103" rx="2" fill="#22c55e"/><text x="310" y="260" fill="#64748b" font-size="9">+45% this week</text><rect x="420" y="160" width="330" height="120" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="450" y="185" fill="var(--pal-text)" font-size="13" font-weight="600">Filter Controls</text><rect x="440" y="195" width="90" height="28" rx="4" fill="#3b82f6"/><text x="485" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="600">7 days</text><rect x="540" y="195" width="70" height="28" rx="4" fill="var(--pal-node-bg)" stroke="var(--pal-border)"/><text x="575" y="215" text-anchor="middle" fill="var(--pal-text)" font-size="10">30 days</text><rect x="620" y="195" width="70" height="28" rx="4" fill="var(--pal-node-bg)" stroke="var(--pal-border)"/><text x="655" y="215" text-anchor="middle" fill="var(--pal-text)" font-size="10">90 days</text><rect x="440" y="230" width="250" height="28" rx="4" fill="var(--pal-node-bg)" stroke="var(--pal-border)"/><text x="480" y="250" fill="#64748b" font-size="11">Category: All | Region: All</text><rect x="50" y="300" width="340" height="50" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="80" y="325" fill="var(--pal-text)" font-size="13" font-weight="600">Export</text><text x="160" y="325" fill="#64748b" font-size="11">CSV | PDF | Image</text><rect x="420" y="300" width="330" height="50" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="450" y="325" fill="var(--pal-text)" font-size="13" font-weight="600">Real-time Updates</text><text x="560" y="325" fill="#22c55e" font-size="11">● Last update: 2s ago</text></g></svg>
+</div>
+<div class="node-list" role="tablist"><button class="node-btn" role="tab" aria-selected="false" data-node="charts" style="--node-color:#3b82f6"><span class="node-indicator"></span><span class="node-name">Chart Library</span><span class="node-cat">Visualize</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="tables" style="--node-color:#22c55e"><span class="node-indicator"></span><span class="node-name">Data Tables</span><span class="node-cat">Display</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="filters" style="--node-color:#eab308"><span class="node-indicator"></span><span class="node-name">Filter Controls</span><span class="node-cat">Query</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="metrics" style="--node-color:#ef4444"><span class="node-indicator"></span><span class="node-name">KPI Cards</span><span class="node-cat">Summary</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="export" style="--node-color:#a855f7"><span class="node-indicator"></span><span class="node-name">Export and Share</span><span class="node-cat">Output</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="realtime" style="--node-color:#06b6d4"><span class="node-indicator"></span><span class="node-name">Real-time Updates</span><span class="node-cat">Live</span></button></div>
+</div>
+<div class="info-panel" id="info-panel" role="tabpanel" aria-live="polite">
+<div class="info-placeholder">Click a node to explore</div>
+</div>
+</div>
+<section class="challenge-section">
+<h2 class="section-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-submit">Submit Answers</button>
+</section>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" hidden>
+<div class="completion-card">
+<div class="completion-icon">\uD83C\uDF89</div>
+<h2 class="completion-title">Quiz Complete!</h2>
+<p class="completion-score" id="completion-score">0/0</p>
+<p class="completion-msg" id="completion-msg">Great effort!</p>
+<button id="completion-close" class="btn-primary">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,44 +1,113 @@
-(function(){'use strict';
-var components = [    {id:"l1",name:"L1 Cache",category:"Memory",purpose:"Provides the fastest possible data access for each CPU core",description:"L1 cache is split into instruction (L1i) and data (L1d) caches, typically 32-64KB each per core, operating at CPU core speed.",why:"L1 cache is the first place the CPU looks, offering near-zero latency",analogy:"Like a pocket notebook that holds only the most essential information",funFact:"L1 cache access latency is about 1-3 CPU cycles",takeaway:"L1 is the smallest but fastest cache, split into instructions and data",mistake:"L1i and L1d are separate physical caches to avoid contention",descriptionDetailed:"L1 is built from SRAM on the same die as the core. It\\'s direct-mapped or set-associative (4-8 ways). L1d uses a write-through or write-back policy. L1i is read-only. L1 typically operates at the full CPU clock speed."},    {id:"l2",name:"L2 Cache",category:"Memory",purpose:"A larger, slightly slower cache that backs up L1 misses",description:"L2 cache is typically 256-512KB per core, unified (data and instructions), with latency of about 7-12 cycles.",why:"L2 reduces the performance penalty when data isn\\'t found in L1",analogy:"Like a desk drawer with more supplies than what\\'s in your pocket",funFact:"AMD\\'s 3D V-Cache adds 64MB of L3, not L2",takeaway:"L2 is larger and slower than L1 but still much faster than main memory",mistake:"L2 is per-core in most modern CPUs, not shared across cores",descriptionDetailed:"L2 is typically 8-16 way set-associative. It uses write-back policy to reduce memory traffic. L2 serves as a victim cache for L1 evictions. Some designs use inclusive policies where L2 contains all L1 data."},    {id:"l3",name:"L3 Cache",category:"Memory",purpose:"Shared cache that reduces latency between cores and serves L2 misses",description:"L3 cache is shared across all CPU cores, typically 8-32MB, with latency of about 30-50 cycles, acting as a last-level cache before RAM.",why:"L3 cache improves multi-core performance by sharing data between cores",analogy:"Like a shared office supply cabinet that everyone can access",funFact:"Intel\\'s Sapphire Rapids Xeon has up to 112.5MB of L3 cache",takeaway:"L3 is the largest cache and shared across cores, reducing redundant data storage",mistake:"L3 is slower than L2 but still 5-10x faster than main memory",descriptionDetailed:"L3 cache uses non-inclusive or exclusive policies to maximize effective capacity. It\\'s typically 12-20 way set-associative. L3 serves as a communication channel between cores via cache coherency protocols. Large L3 reduces memory bandwidth demands."},    {id:"controller",name:"Cache Controller",category:"Memory",purpose:"Manages cache operations, coherency, and replacement policies",description:"The cache controller handles read/write requests, cache lookups, evicting old data, maintaining coherence across cores, and communicating with memory.",why:"The cache controller ensures data consistency and efficient cache utilization",analogy:"Like a librarian who manages book checkouts, returns, and shelving",funFact:"The MESI protocol (Modified, Exclusive, Shared, Invalid) is the most common cache coherency protocol",takeaway:"The cache controller keeps all cores\\' caches consistent with each other",mistake:"Cache coherence only matters in multi-core systems—single cores don\\'t need it",descriptionDetailed:"The controller implements a replacement policy (LRU, pseudo-LRU) to decide what to evict. It uses a coherency protocol (MESI, MOESI, MESIF). It handles write policies: write-through (write to memory too) or write-back (write only to cache). The controller manages prefetching algorithms."},    {id:"line",name:"Cache Line",category:"Memory",purpose:"The smallest unit of data transfer between cache and memory",description:"A cache line is typically 64 bytes, aligned on a 64-byte boundary, containing contiguous data from main memory that is loaded as a block.",why:"Cache lines exploit spatial locality—if you access one address, nearby data is likely needed too",analogy:"Like loading an entire shelf of books instead of one page",funFact:"Cache line size has been 64 bytes since the Pentium III era",takeaway:"Accessing data in the same cache line is faster than random access",mistake:"Cache line alignment matters—data split across two lines requires two cache accesses",descriptionDetailed:"When a cache miss occurs, the entire cache line is loaded from memory. Each cache slot stores a tag, data block, and status bits. False sharing occurs when cores modify different data in the same cache line, causing coherency traffic."},    {id:"policy",name:"Cache Replacement Policy",category:"Memory",purpose:"Decides which cache entries to evict when new data needs to be loaded",description:"Replacement policies determine what data to discard from cache when space is needed, using strategies like LRU, pseudo-LRU, or random.",why:"Good replacement policies maximize cache hit rates by keeping useful data",analogy:"Like deciding which old files to archive when your desk drawer is full",funFact:"Simple pseudo-LRU algorithms perform nearly as well as true LRU with less hardware",takeaway:"Replacement policy significantly affects cache performance",mistake:"LRU isn\\'t always optimal—different workloads benefit from different policies",descriptionDetailed:"LRU (Least Recently Used) evicts the oldest accessed entry. Pseudo-LRU uses tree-based approximation. Random replacement is simple but surprisingly effective. Adaptive policies change strategy based on observed access patterns. Insertion policies also exist for newly loaded data."}];
-var connections = [{from:"l1",to:"l2"},{from:"l2",to:"l3"},{from:"l3",to:"controller"},{from:"controller",to:"line"},{from:"line",to:"policy"}];
-var steps = [{label:"Step 1: L1 Cache",status:"Exploring: L1 Cache - Provides the fastest possible data access for each CPU core"},{label:"Step 2: L2 Cache",status:"Exploring: L2 Cache - A larger, slightly slower cache that backs up L1 misses"},{label:"Step 3: L3 Cache",status:"Exploring: L3 Cache - Shared cache that reduces latency between cores and serves L2 misses"},{label:"Step 4: Cache Controller",status:"Exploring: Cache Controller - Manages cache operations, coherency, and replacement policies"},{label:"Step 5: Cache Line",status:"Exploring: Cache Line - The smallest unit of data transfer between cache and memory"},{label:"Step 6: Cache Replacement Policy",status:"Exploring: Cache Replacement Policy - Decides which cache entries to evict when new data needs to be loaded"}];
-var tour = [{title:"L1 Cache",description:"Provides the fastest possible data access for each CPU core",componentId:"l1"},{title:"L2 Cache",description:"A larger, slightly slower cache that backs up L1 misses",componentId:"l2"},{title:"L3 Cache",description:"Shared cache that reduces latency between cores and serves L2 misses",componentId:"l3"},{title:"Cache Controller",description:"Manages cache operations, coherency, and replacement policies",componentId:"controller"},{title:"Cache Line",description:"The smallest unit of data transfer between cache and memory",componentId:"line"},{title:"Cache Replacement Policy",description:"Decides which cache entries to evict when new data needs to be loaded",componentId:"policy"}];
+(function(){
+'use strict';
+var $=function(s,c){return(c||document).querySelector(s)};
+var $$=function(s,c){return Array.from((c||document).querySelectorAll(s))};
+var ce=function(t,a,c){var e=document.createElement(t);if(a)Object.entries(a).forEach(function(kv){var k=kv[0],v=kv[1];if(k==='className')e.className=v;else if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k==='dataset')Object.assign(e.dataset,v);else e.setAttribute(k,v)});if(c)c.forEach(function(x){if(typeof x==='string')e.appendChild(document.createTextNode(x));else if(x)e.appendChild(x)});return e};
+var levels=[{id:'l1',name:'L1 Cache',color:'#3b82f6',size:'32-64KB',latency:'~1ns',desc:'Split into L1i (instructions) and L1d (data) caches. Operates at full CPU core speed.',analogy:'Like a pocket notebook for essential info.',detail:'L1 is direct-mapped or 4-8 way set-associative. Write-through or write-back policy. 1-3 cycle latency. Built from SRAM on the same die.'},{id:'l2',name:'L2 Cache',color:'#10b981',size:'256-512KB',latency:'~3ns',desc:'Unified per-core cache that catches L1 misses. Larger but slower than L1.',analogy:'Like a desk drawer with more supplies.',detail:'8-16 way set-associative. Write-back policy. Acts as victim cache for L1 evictions. Per-core in modern CPUs.'},{id:'l3',name:'L3 Cache',color:'#eab308',size:'8-32MB',latency:'~10ns',desc:'Shared across all cores. Reduces inter-core latency and serves L2 misses.',analogy:'Like a shared library for all departments.',detail:'Last-level cache before RAM. Inclusive or non-inclusive policy. Coherence protocols keep data consistent.'},{id:'ram',name:'System RAM',color:'#f43f5e',size:'8-64GB',latency:'~50ns',desc:'Main memory (DDR4/DDR5). Much larger but orders of magnitude slower than CPU cache.',analogy:'Like a warehouse archive.',detail:'DRAM is cheaper per GB than SRAM. Requires refresh cycles. Managed by integrated memory controller.'}];
+var quizData={questions:[{q:'Which cache level is split into instruction and data sections?',options:['L1','L2','L3','RAM'],answer:0},{q:'What is the typical latency of L1 cache?',options:['1ns','3ns','10ns','50ns'],answer:0},{q:'L3 cache is unique because it is:',options:['Per-core','Shared across all cores','Volatile','Read-only'],answer:1},{q:'What is the typical size of L2 cache per core?',options:['32-64KB','256-512KB','8-32MB','8-64GB'],answer:1},{q:'Why is cache necessary?',options:['To store files','To reduce memory latency','To cool the CPU','To connect peripherals'],answer:1},{q:'What technology is L1/L2/L3 cache built from?',options:['DRAM','SRAM','Flash','ROM'],answer:1}],maxAttempts:2};
+var state={speed:1,rafId:null,t:0,selectedId:null,challengeDone:false,challengeIdx:0,quizResults:[],hitAnim:false,hitCount:0};
+function getTheme(){return localStorage.getItem('consica-theme')||'dark'}
+function setTheme(t){localStorage.setItem('consica-theme',t);document.documentElement.setAttribute('data-theme',t==='light'?'light':'')}
+var dom={};
+function initDOM(){dom={loading:$('#loading-skeleton'),error:$('#error-boundary'),container:$('#diagram-container'),viz:$('#visualization'),info:$('#info-panel'),infoTitle:$('#info-title'),infoDesc:$('#info-desc'),infoAnalogy:$('#info-analogy'),infoDetail:$('#info-detail'),infoClose:$('#info-close'),speed:$('#speed-slider'),speedLabel:$('#speed-label'),theme:$('#theme-toggle'),help:$('#help-btn'),challenge:$('#challenge-container'),completion:$('#completion-overlay'),completionMsg:$('#completion-msg'),completionReset:$('#completion-reset'),errMsg:$('#error-message')}}
+function showError(m){if(dom.error){dom.error.hidden=false;if(dom.errMsg)dom.errMsg.textContent=m}if(dom.container)dom.container.hidden=true;if(dom.loading)dom.loading.hidden=true}
+function showInfo(data){if(!dom.info)return;dom.infoTitle.textContent=data.name||'';dom.infoDesc.textContent=data.desc||'';dom.infoAnalogy.textContent=data.analogy?'💡 '+data.analogy:'';dom.infoDetail.textContent=data.detail||'';dom.info.hidden=false;state.selectedId=data.id||null}
+function renderChallenge(){
+  if(!dom.challenge||!quizData)return;
+  if(state.challengeDone&&state.challengeIdx>=quizData.questions.length){showCompletion('All complete!');return}
+  var qs=quizData.questions,idx=state.challengeIdx,total=qs.length,attempts=0,answered=false;
+  var progress=ce('div',{className:'challenge-progress'});
+  for(var i=0;i<total;i++){var dot=ce('div',{className:'challenge-dot'+(i===idx?' active':'')+(state.quizResults[i]===true?' done':'')+(state.quizResults[i]===false?' wrong':'')},[''+(i+1)]);progress.appendChild(dot)}
+  var card=ce('div',{className:'quiz-card'});
+  var qData=qs[idx];
+  card.appendChild(ce('div',{className:'q-text'},[qData.q]));
+  var opts=ce('div',{className:'quiz-options'});
+  var resDiv=ce('div',{className:'challenge-result'});
+  qData.options.forEach(function(opt,oi){
+    var optEl=ce('div',{className:'quiz-option'},[ce('span',{className:'indicator'}),ce('span',{},[opt])]);
+    optEl.addEventListener('click',function(){
+      if(answered)return;answered=true;attempts++;
+      var correct=oi===qData.answer;state.quizResults[idx]=correct;
+      optEl.classList.add(correct?'correct':'wrong');
+      optEl.querySelector('.indicator').textContent=correct?'✓':'✗';
+      $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='none'});
+      if(correct){resDiv.className='challenge-result correct';resDiv.textContent='✓ Correct!'}
+      else{resDiv.className='challenge-result wrong';resDiv.textContent=attempts<quizData.maxAttempts?'✗ Try again.':'✗ The answer was: '+qData.options[qData.answer]}
+      opts.appendChild(resDiv);
+      setTimeout(function(){
+        if(correct||attempts>=quizData.maxAttempts){
+          state.challengeIdx++;
+          if(state.challengeIdx>=total){state.challengeDone=true;showCompletion('You completed all '+total+' questions!')}
+          else renderChallenge()
+        }else{answered=false;
+          $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='auto';o.classList.remove('wrong','correct');o.querySelector('.indicator').textContent=''});
+          resDiv.className='challenge-result';resDiv.textContent=''}
+      },correct?800:2000)
+    });opts.appendChild(optEl)});
+  card.appendChild(opts);dom.challenge.innerHTML='';dom.challenge.appendChild(progress);dom.challenge.appendChild(card)}
+function showCompletion(msg){if(dom.completionMsg)dom.completionMsg.textContent=msg||'Mastered!';if(dom.completion)dom.completion.hidden=false}
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Cache',
-    subtitle: 'CPU Components',
-    desc: 'Explore the L1, L2, and L3 cache hierarchy.',
-    module: 4,
-    difficulty: 'Advanced',
-    time: '10',
-    objectives: 'Explore the L1, L2, and L3 cache hierarchy.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any step to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
+// Draw cache pyramid
+function drawViz(container){
+  container.innerHTML='';
+  var svg=ce('svg',{className:'viz-svg',viewBox:'0 0 800 500',preserveAspectRatio:'xMidYMid meet'});
+  svg.appendChild(ce('rect',{x:0,y:0,width:800,height:500,fill:'#0a0e17'}));
+  // Animated data request line
+  var heights=[120,180,260,360];
+  var widths=[200,320,460,600];
+  levels.forEach(function(l,i){
+    var g=ce('g',{className:'node',dataset:{id:l.id}});
+    var y=40,w=widths[i],h=heights[i],x=(800-w)/2;
+    g.appendChild(ce('rect',{className:'node-bg',x:x,y:y,width:w,height:h,rx:8,fill:'rgba(255,255,255,0.02)',stroke:l.color,'stroke-width':1.5}));
+    g.appendChild(ce('text',{x:400,y:y+40,'text-anchor':'middle',fill:l.color,'font-size':'14','font-weight':'700','font-family':'Inter,sans-serif'},[l.name]));
+    g.appendChild(ce('text',{x:400,y:y+62,'text-anchor':'middle',fill:'#94a3b8','font-size':'12','font-family':'Inter,sans-serif'},['Size: '+l.size]));
+    g.appendChild(ce('text',{x:400,y:y+82,'text-anchor':'middle',fill:'#64748b','font-size':'12','font-family':'Inter,sans-serif'},['Latency: '+l.latency]));
+    // Arrow down
+    if(i<levels.length-1){
+      var y2=40+heights[i+1];
+      svg.appendChild(ce('line',{className:'conn-line',x1:400,y1:y+h,x2:400,y2:y2-10,stroke:'rgba(255,255,255,0.1)','stroke-width':1.5,opacity:0.4}));
+      svg.appendChild(ce('polygon',{points:'394,'+(y2-20)+' 400,'+(y2-10)+' 406,'+(y2-20),fill:'rgba(255,255,255,0.1)',opacity:0.4}));
     }
-  });
-});
+    g.addEventListener('click',function(){showInfo(l)});
+    svg.appendChild(g)});
+  // Hit/miss indicator
+  var hitBar=ce('g',{id:'hit-bar'});
+  hitBar.appendChild(ce('text',{x:400,y:20,'text-anchor':'middle',fill:'#64748b','font-size':'11','font-family':'Inter,sans-serif'},['🔥 Cache Hit Rate: <tspan id="hit-rate">95</tspan>%']));
+  svg.appendChild(hitBar);
+  container.appendChild(svg)}
+
+function animateNodes(t){
+  // Animate data request traveling
+  var phase=(t*0.5)%1;
+  var heights=[120,180,260,360];
+  var yPos=40+phase*320;
+  var svg=dom.viz.querySelector('svg');
+  if(!svg)return;
+  var old=svg.querySelectorAll('.data-dot');
+  old.forEach(function(o){o.remove()});
+  var dot=ce('circle',{className:'data-dot',cx:400,cy:yPos,r:6,fill:'#3b82f6',opacity:0.8});
+  svg.appendChild(dot);
+  // Sequential node highlight
+  var idx=Math.floor(t*0.3)%levels.length;
+  $$('.node .node-bg').forEach(function(el,i){
+    var l=levels[i];
+    if(i===idx){el.setAttribute('stroke-width','2.5');el.setAttribute('fill',l.color+'15')}
+    else{el.setAttribute('stroke-width','1.5');el.setAttribute('fill','rgba(255,255,255,0.02)')}})}
+
+function init(){
+  initDOM();setTheme(getTheme());
+  if(dom.theme)dom.theme.addEventListener('click',function(){setTheme(getTheme()==='light'?'dark':'light')});
+  if(dom.speed)dom.speed.addEventListener('input',function(){state.speed=parseFloat(this.value);if(dom.speedLabel)dom.speedLabel.textContent=state.speed.toFixed(2)+'×'});
+  if(dom.infoClose)dom.infoClose.addEventListener('click',function(){dom.info.hidden=true;state.selectedId=null});
+  if(dom.completionReset)dom.completionReset.addEventListener('click',function(){dom.completion.hidden=true;state.challengeDone=false;state.challengeIdx=0;state.quizResults=[];renderChallenge()});
+  if(dom.help)dom.help.addEventListener('click',function(){showInfo({name:'How to use',desc:'Explore the cache hierarchy pyramid. Data requests travel from L1 (top) down to RAM (bottom). Each level has different size and speed. Click for details.',analogy:'',detail:''})});
+  setTimeout(function(){
+    if(dom.loading)dom.loading.hidden=true;
+    if(dom.container)dom.container.hidden=false;
+    drawViz(dom.viz);renderChallenge();
+    var last=0;
+    function frame(ts){if(!last)last=ts;var dt=(ts-last)/1000;last=ts;state.t+=dt*state.speed;animateNodes(state.t);state.rafId=requestAnimationFrame(frame)}
+    state.rafId=requestAnimationFrame(frame)
+  },800)}
+init();
 })();

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Incident Response — Interactive Diagram | Consica Labs</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div id="skeleton" class="skeleton"><div class="skeleton-header"></div><div class="skeleton-body"><div class="skeleton-node"></div><div class="skeleton-node"></div><div class="skeleton-node"></div><div class="skeleton-node"></div><div class="skeleton-node"></div></div></div>
+<div id="error-boundary" class="error-boundary" hidden><div class="error-icon">⚠</div><h2 class="error-title">Something went wrong</h2><p class="error-msg" id="error-msg">The diagram could not load.</p><button class="error-btn" onclick="location.reload()">Reload</button></div>
+<div id="app" class="app" hidden>
+<header class="app-header"><div class="header-top"><h1 class="app-title">Incident Response</h1><div class="header-controls"><div class="speed-group"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"><span class="speed-value" id="speed-value">1×</span></div><button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌙</button></div></div><p class="app-desc">Follow the incident response lifecycle: preparation, detection, containment, eradication, recovery, and lessons learned.</p></header>
+<div id="svg-container" class="svg-container" role="img" aria-label="Incident response lifecycle diagram"></div>
+<div id="info-panel" class="info-panel" hidden><button class="info-close" id="info-close">✕</button><h3 id="info-title" class="info-title"></h3><p id="info-desc" class="info-desc"></p><div id="info-details" class="info-details"></div></div>
+<section class="challenge-section"><h2 class="challenge-title">Knowledge Check</h2><div id="challenge-container" class="challenge-container"></div><button id="challenge-submit" class="challenge-submit">Check Answers</button><div id="challenge-result" class="challenge-result" hidden></div></section>
+</div>
+<div id="completion-overlay" class="completion-overlay" hidden><div class="completion-modal"><div class="completion-icon">🎉</div><h2 class="completion-title">Diagram Complete!</h2><p class="completion-msg">You've explored incident response.</p><div class="completion-stats"><span>Nodes explored: <strong id="completion-nodes">0</strong>/5</span><span>Quiz score: <strong id="completion-score">0</strong>%</span></div><button class="completion-btn" onclick="this.closest('.completion-overlay').hidden=true">Continue</button></div></div>
+<script src="script.js"></script>
+</body>
+</html>

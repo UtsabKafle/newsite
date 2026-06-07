@@ -1,44 +1,112 @@
-(function(){'use strict';
-var components = [    {id:"core1",name:"Core 1",category:"Processing",purpose:"The first physical processing core, executing its own instruction stream",description:"Core 1 is an independent processing unit with its own control unit, ALU, L1/L2 cache, and registers, capable of running a separate thread.",why:"Each core increases the CPU\\'s ability to handle parallel tasks",analogy:"Like having a second chef in the kitchen who can cook independently",funFact:"Dual-core CPUs became mainstream in 2005 with Intel\\'s Pentium D",takeaway:"Multiple cores enable true parallel processing of multiple tasks",mistake:"Two cores don\\'t double performance—multithreading must be efficient",descriptionDetailed:"Each core operates independently but shares L3 cache and memory controller. Cores communicate through coherency protocols. Core count scales from 2 (budget) to 16+ (high-end desktop) and 64+ (server). Core 1 is typically the bootstrap processor (BSP) at boot."},    {id:"core2",name:"Core 2",category:"Processing",purpose:"Second core providing additional parallel processing capacity",description:"Core 2 is identical to Core 1 and can process a different thread simultaneously, doubling the CPU\\'s multi-threaded throughput.",why:"Core 2 enables true parallel execution of two threads at once",analogy:"Like a second checkout lane in a supermarket",funFact:"Different cores can run at different frequencies in modern CPUs",takeaway:"With two cores, the OS can schedule two tasks to run simultaneously",mistake:"Cores 1 and 2 always run at the same speed—no, each can have independent frequency",descriptionDetailed:"Core 2 is functionally identical to Core 1. It has its own L1/L2 cache but shares L3. The OS scheduler assigns threads to available cores. Core parking powers down idle cores to save energy."},    {id:"core3",name:"Core 3",category:"Processing",purpose:"Third core for higher multi-threaded performance",description:"Core 3 adds additional parallel capability, enabling the CPU to handle three threads simultaneously and improving multi-tasking.",why:"More cores improve performance in multi-threaded applications like video editing",analogy:"Like a third assembly line in a factory increasing production capacity",funFact:"8-core CPUs are now common in mainstream desktop processors",takeaway:"Additional cores scale performance for workloads that can parallelize",mistake:"Not all software can use more than 4 cores effectively",descriptionDetailed:"Core 3 adds another independent execution unit. Memory bandwidth becomes a bottleneck with many cores. Thermal design must account for all cores under full load. Ryzen\\'s chiplet design connects groups of cores via Infinity Fabric."},    {id:"core4",name:"Core 4",category:"Processing",purpose:"Fourth core completing a common quad-core configuration",description:"Core 4 completes the quad-core setup, providing substantial multi-threading capability for demanding applications and heavy multitasking.",why:"Quad-core is the sweet spot for mainstream computing performance",analogy:"Like a four-lane highway compared to a single-lane road",funFact:"A quad-core CPU at 3 GHz has the same peak potential as a single-core at 12 GHz for parallel work",takeaway:"Quad-core CPUs handle modern gaming, streaming, and productivity well",mistake:"A quad-core CPU doesn\\'t make your system four times faster—it depends on the software",descriptionDetailed:"Quad-core CPUs balance cost, power, and performance. The four cores share L3 cache (8-16 MB typical). Intel\\'s hybrid architecture (P-cores + E-cores) changes the traditional identical-core model. AMD\\'s quad-core CCX modules interconnect via Infinity Fabric."},    {id:"smt",name:"Simultaneous Multithreading",category:"Processing",purpose:"Makes one physical core appear as two logical cores to the OS",description:"SMT (Hyper-Threading) allows a single core to run two threads simultaneously by duplicating architectural state while sharing execution units.",why:"SMT improves throughput by keeping execution units busy when one thread stalls",analogy:"Like a chef who preps ingredients for the next dish while the current one cooks",funFact:"Intel calls SMT \\'Hyper-Threading\\'; AMD calls it \\'SMT Technology\\'",takeaway:"SMT can improve performance by 15-30% in multi-threaded workloads",mistake:"SMT isn\\'t the same as having an additional physical core—it shares resources",descriptionDetailed:"SMT duplicates registers, program counter, and state but shares ALU, cache, and pipeline. The OS sees 2 logical cores per physical core. Power cost is small (~5%) for the performance gain. Some workloads (highly parallel) benefit more than others (cache-bound)."},    {id:"scheduler",name:"Thread Scheduler",category:"Software",purpose:"Assigns threads from the OS to available CPU cores",description:"The CPU\\'s scheduler distributes threads across cores, considering load, cache affinity, power states, and priority for optimal performance.",why:"Intelligent scheduling maximizes performance and minimizes power consumption",analogy:"Like a hotel front desk assigning guests to available rooms",funFact:"The Windows scheduler can migrate threads between cores thousands of times per second",takeaway:"The scheduler tries to keep threads on the same core for cache efficiency",mistake:"The OS scheduler, not the CPU hardware alone, decides thread placement",descriptionDetailed:"The scheduler considers NUMA topology (which core is close to which memory). Cache affinity keeps threads on the same core. Heterogeneous scheduling (Intel hybrid) distinguishes P-cores from E-cores. The scheduler balances load across cores while respecting priority and power policies."}];
-var connections = [{from:"core1",to:"core2"},{from:"core2",to:"core3"},{from:"core3",to:"core4"},{from:"core4",to:"smt"},{from:"smt",to:"scheduler"}];
-var steps = [{label:"Step 1: Core 1",status:"Exploring: Core 1 - The first physical processing core, executing its own instruction stream"},{label:"Step 2: Core 2",status:"Exploring: Core 2 - Second core providing additional parallel processing capacity"},{label:"Step 3: Core 3",status:"Exploring: Core 3 - Third core for higher multi-threaded performance"},{label:"Step 4: Core 4",status:"Exploring: Core 4 - Fourth core completing a common quad-core configuration"},{label:"Step 5: Simultaneous Multithreading",status:"Exploring: Simultaneous Multithreading - Makes one physical core appear as two logical cores to the OS"},{label:"Step 6: Thread Scheduler",status:"Exploring: Thread Scheduler - Assigns threads from the OS to available CPU cores"}];
-var tour = [{title:"Core 1",description:"The first physical processing core, executing its own instruction stream",componentId:"core1"},{title:"Core 2",description:"Second core providing additional parallel processing capacity",componentId:"core2"},{title:"Core 3",description:"Third core for higher multi-threaded performance",componentId:"core3"},{title:"Core 4",description:"Fourth core completing a common quad-core configuration",componentId:"core4"},{title:"Simultaneous Multithreading",description:"Makes one physical core appear as two logical cores to the OS",componentId:"smt"},{title:"Thread Scheduler",description:"Assigns threads from the OS to available CPU cores",componentId:"scheduler"}];
+(function(){
+'use strict';
+var $=function(s,c){return(c||document).querySelector(s)};
+var $$=function(s,c){return Array.from((c||document).querySelectorAll(s))};
+var ce=function(t,a,c){var e=document.createElement(t);if(a)Object.entries(a).forEach(function(kv){var k=kv[0],v=kv[1];if(k==='className')e.className=v;else if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k==='dataset')Object.assign(e.dataset,v);else e.setAttribute(k,v)});if(c)c.forEach(function(x){if(typeof x==='string')e.appendChild(document.createTextNode(x));else if(x)e.appendChild(x)});return e};
+var cores=[{id:'c0',name:'Core 0',color:'#3b82f6',threads:2,desc:'First physical processing core. Runs its own instruction stream independently.',analogy:'Like having a separate chef in the kitchen.',detail:'Each core has its own control unit, ALU, L1/L2 cache. Core 0 is typically the bootstrap processor (BSP) at boot. Can run at different frequencies than other cores.'},{id:'c1',name:'Core 1',color:'#10b981',threads:1,desc:'Second core enabling true parallel execution of separate threads.',analogy:'Like a second checkout lane in a supermarket.',detail:'Functionally identical to Core 0. Has its own L1/L2. Shares L3 and memory controller. OS scheduler assigns threads to available cores.'},{id:'c2',name:'Core 2',color:'#eab308',threads:2,desc:'Third core adding more parallel processing capacity for multi-threaded workloads.',analogy:'Like adding more workers to an assembly line.',detail:'Core parking powers down idle cores to save energy. Modern CPUs can have 16+ cores (desktop) or 64+ (server).'},{id:'c3',name:'Core 3',color:'#f43f5e',threads:1,desc:'Fourth core completing a common quad-core configuration.',analogy:'Like four checkout lanes open simultaneously.',detail:'Quad-core was the enthusiast standard for years. More cores improve performance for well-parallelized workloads. Not all software scales perfectly with core count.'},{id:'smt',name:'SMT (Hyper-Threading)',color:'#a855f7',threads:0,desc:'Simultaneous Multithreading makes each physical core appear as 2 logical cores to the OS.',analogy:'Like one chef using both hands to cook two dishes.',detail:'SMT shares execution resources between two threads. Can improve throughput 15-30%. Requires OS support. Not all workloads benefit equally.'},{id:'sched',name:'Thread Scheduler',color:'#f97316',threads:0,desc:'OS component that assigns threads to available logical cores, balancing workload.',analogy:'Like a dispatcher assigning tasks to workers.',detail:'Modern schedulers use run queues per core. Consider cache affinity to keep threads on same core. Load balancing migrates threads between cores. SMT-aware scheduling prefers idle logical cores.'}];
+var quizData={questions:[{q:'What does SMT stand for?',options:['System Management Tool','Simultaneous Multithreading','Shared Memory Technology','Single Mode Transfer'],answer:1},{q:'How many logical cores does SMT create per physical core?',options:['1','2','4','8'],answer:1},{q:'What is core parking?',options:['Core overheating','Powering down idle cores','Core locking','Cache clearing'],answer:1},{q:'Which core is typically the bootstrap processor?',options:['Core 0','Core 1','Core 2','Core 3'],answer:0},{q:'Typical SMT performance improvement is:',options:['5-10%','15-30%','50-80%','100%+'],answer:1},{q:'What does the OS thread scheduler consider?',options:['Cache affinity','Core color','Memory speed','Power supply'],answer:0}],maxAttempts:2};
+var state={speed:1,rafId:null,t:0,selectedId:null,challengeDone:false,challengeIdx:0,quizResults:[]};
+function getTheme(){return localStorage.getItem('consica-theme')||'dark'}
+function setTheme(t){localStorage.setItem('consica-theme',t);document.documentElement.setAttribute('data-theme',t==='light'?'light':'')}
+var dom={};
+function initDOM(){dom={loading:$('#loading-skeleton'),error:$('#error-boundary'),container:$('#diagram-container'),viz:$('#visualization'),info:$('#info-panel'),infoTitle:$('#info-title'),infoDesc:$('#info-desc'),infoAnalogy:$('#info-analogy'),infoDetail:$('#info-detail'),infoClose:$('#info-close'),speed:$('#speed-slider'),speedLabel:$('#speed-label'),theme:$('#theme-toggle'),help:$('#help-btn'),challenge:$('#challenge-container'),completion:$('#completion-overlay'),completionMsg:$('#completion-msg'),completionReset:$('#completion-reset'),errMsg:$('#error-message')}}
+function showError(m){if(dom.error){dom.error.hidden=false;if(dom.errMsg)dom.errMsg.textContent=m}if(dom.container)dom.container.hidden=true;if(dom.loading)dom.loading.hidden=true}
+function showInfo(data){if(!dom.info)return;dom.infoTitle.textContent=data.name||'';dom.infoDesc.textContent=data.desc||'';dom.infoAnalogy.textContent=data.analogy?'💡 '+data.analogy:'';dom.infoDetail.textContent=data.detail||'';dom.info.hidden=false;state.selectedId=data.id||null}
+function renderChallenge(){
+  if(!dom.challenge||!quizData)return;
+  if(state.challengeDone&&state.challengeIdx>=quizData.questions.length){showCompletion('All complete!');return}
+  var qs=quizData.questions,idx=state.challengeIdx,total=qs.length,attempts=0,answered=false;
+  var progress=ce('div',{className:'challenge-progress'});
+  for(var i=0;i<total;i++){var dot=ce('div',{className:'challenge-dot'+(i===idx?' active':'')+(state.quizResults[i]===true?' done':'')+(state.quizResults[i]===false?' wrong':'')},[''+(i+1)]);progress.appendChild(dot)}
+  var card=ce('div',{className:'quiz-card'});
+  var qData=qs[idx];
+  card.appendChild(ce('div',{className:'q-text'},[qData.q]));
+  var opts=ce('div',{className:'quiz-options'});
+  var resDiv=ce('div',{className:'challenge-result'});
+  qData.options.forEach(function(opt,oi){
+    var optEl=ce('div',{className:'quiz-option'},[ce('span',{className:'indicator'}),ce('span',{},[opt])]);
+    optEl.addEventListener('click',function(){
+      if(answered)return;answered=true;attempts++;
+      var correct=oi===qData.answer;state.quizResults[idx]=correct;
+      optEl.classList.add(correct?'correct':'wrong');
+      optEl.querySelector('.indicator').textContent=correct?'✓':'✗';
+      $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='none'});
+      if(correct){resDiv.className='challenge-result correct';resDiv.textContent='✓ Correct!'}
+      else{resDiv.className='challenge-result wrong';resDiv.textContent=attempts<quizData.maxAttempts?'✗ Try again.':'✗ The answer was: '+qData.options[qData.answer]}
+      opts.appendChild(resDiv);
+      setTimeout(function(){
+        if(correct||attempts>=quizData.maxAttempts){
+          state.challengeIdx++;
+          if(state.challengeIdx>=total){state.challengeDone=true;showCompletion('You completed all '+total+' questions!')}
+          else renderChallenge()
+        }else{answered=false;
+          $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='auto';o.classList.remove('wrong','correct');o.querySelector('.indicator').textContent=''});
+          resDiv.className='challenge-result';resDiv.textContent=''}
+      },correct?800:2000)
+    });opts.appendChild(optEl)});
+  card.appendChild(opts);dom.challenge.innerHTML='';dom.challenge.appendChild(progress);dom.challenge.appendChild(card)}
+function showCompletion(msg){if(dom.completionMsg)dom.completionMsg.textContent=msg||'Mastered!';if(dom.completion)dom.completion.hidden=false}
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Cores Threads',
-    subtitle: 'CPU Components',
-    desc: 'Learn about multi-core processors and simultaneous multithreading.',
-    module: 4,
-    difficulty: 'Advanced',
-    time: '10',
-    objectives: 'Learn about multi-core processors and multithreading.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
+// Draw multi-core visualization with threads
+function drawViz(container){
+  container.innerHTML='';
+  var svg=ce('svg',{className:'viz-svg',viewBox:'0 0 800 500',preserveAspectRatio:'xMidYMid meet'});
+  svg.appendChild(ce('rect',{x:0,y:0,width:800,height:500,fill:'#0a0e17'}));
+  // Shared L3 at top
+  svg.appendChild(ce('rect',{x:200,y:380,width:400,height:60,rx:6,fill:'rgba(16,185,129,0.05)',stroke:'#10b981','stroke-width':1}));
+  svg.appendChild(ce('text',{x:400,y:415,'text-anchor':'middle',fill:'#10b981','font-size':'11','font-weight':'600','font-family':'Inter,sans-serif'},['SHARED L3 CACHE + MEMORY CONTROLLER']));
+  svg.appendChild(ce('rect',{x:200,y:450,width:400,height:40,rx:6,fill:'rgba(249,115,22,0.05)',stroke:'#f97316','stroke-width':1}));
+  svg.appendChild(ce('text',{x:400,y:475,'text-anchor':'middle',fill:'#f97316','font-size':'10','font-weight':'600','font-family':'Inter,sans-serif'},['THREAD SCHEDULER']));
+
+  cores.forEach(function(c,i){
+    var g=ce('g',{className:'node',dataset:{id:c.id}});
+    var x=60+i*120,y=40;
+    g.appendChild(ce('rect',{className:'node-bg',x:x,y:y,width:100,height:130,rx:8,fill:'rgba(255,255,255,0.02)',stroke:c.color,'stroke-width':1.5}));
+    g.appendChild(ce('text',{x:x+50,y:y+25,'text-anchor':'middle',fill:c.color,'font-size':'11','font-weight':'700','font-family':'Inter,sans-serif'},[c.name]));
+    // Thread indicators
+    if(c.threads>0){
+      for(var t=0;t<c.threads;t++){
+        var ty=y+45+t*25;
+        g.appendChild(ce('rect',{x:x+15,y:ty,width:70,height:18,rx:4,fill:'rgba(255,255,255,0.05)',stroke:'rgba(255,255,255,0.1)','stroke-width':0.5}));
+        g.appendChild(ce('text',{x:x+50,y:ty+14,'text-anchor':'middle',fill:'#94a3b8','font-size':'8','font-family':'monospace'},['Thread '+(t+1)]));
+      }
+    } else {
+      // For SMT and Scheduler
+      if(i===4){
+        g.appendChild(ce('text',{x:x+50,y:y+70,'text-anchor':'middle',fill:'#64748b','font-size':'8','font-family':'Inter,sans-serif'},['2x Logical per core']));
+        g.appendChild(ce('text',{x:x+50,y:y+90,'text-anchor':'middle',fill:'#64748b','font-size':'8','font-family':'Inter,sans-serif'},['15-30% improvement']));
+      }
     }
-  });
-});
+    // Connection to L3
+    svg.insertBefore(ce('line',{x1:x+50,y1:y+130,x2:x+50,y2:380,stroke:c.color,'stroke-width':1,opacity:0.2}),svg.querySelector('.node'));
+    g.addEventListener('click',function(){showInfo(c)});
+    svg.appendChild(g)});
+  // Interconnect bus
+  svg.appendChild(ce('rect',{x:60,y:170,width:480,height:4,rx:2,fill:'rgba(59,130,246,0.15)'}));
+  container.appendChild(svg)}
+
+function animateNodes(t){
+  var idx=Math.floor(t*0.3)%cores.length;
+  // Animate thread activity
+  $$('.node .node-bg').forEach(function(el,i){
+    var c=cores[i];
+    if(i===idx){el.setAttribute('stroke-width','2.5');el.setAttribute('fill',c.color+'20')}
+    else{el.setAttribute('stroke-width','1.5');el.setAttribute('fill','rgba(255,255,255,0.02)')}})}
+
+function init(){
+  initDOM();setTheme(getTheme());
+  if(dom.theme)dom.theme.addEventListener('click',function(){setTheme(getTheme()==='light'?'dark':'light')});
+  if(dom.speed)dom.speed.addEventListener('input',function(){state.speed=parseFloat(this.value);if(dom.speedLabel)dom.speedLabel.textContent=state.speed.toFixed(2)+'×'});
+  if(dom.infoClose)dom.infoClose.addEventListener('click',function(){dom.info.hidden=true;state.selectedId=null});
+  if(dom.completionReset)dom.completionReset.addEventListener('click',function(){dom.completion.hidden=true;state.challengeDone=false;state.challengeIdx=0;state.quizResults=[];renderChallenge()});
+  if(dom.help)dom.help.addEventListener('click',function(){showInfo({name:'How to use',desc:'Explore multi-core architecture. Each core has its own L1/L2 cache and can run threads. SMT creates 2 logical cores per physical core. The scheduler assigns threads.',analogy:'',detail:''})});
+  setTimeout(function(){
+    if(dom.loading)dom.loading.hidden=true;
+    if(dom.container)dom.container.hidden=false;
+    drawViz(dom.viz);renderChallenge();
+    var last=0;
+    function frame(ts){if(!last)last=ts;var dt=(ts-last)/1000;last=ts;state.t+=dt*state.speed;animateNodes(state.t);state.rafId=requestAnimationFrame(frame)}
+    state.rafId=requestAnimationFrame(frame)
+  },800)}
+init();
 })();

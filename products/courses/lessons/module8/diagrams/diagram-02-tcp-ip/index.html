@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0959C8">
+<title>TCP/IP Model — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="skeleton" class="skeleton" aria-hidden="true"><div class="skeleton-header"><div class="skeleton-line w-48"></div><div class="skeleton-line w-72"></div></div><div class="skeleton-body"><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div><div class="skeleton-block"></div></div></div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden><div class="error-content"><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><h2>Something went wrong</h2><p id="error-msg">An error occurred loading the diagram.</p><button id="error-retry" class="btn">Retry</button></div></div>
+<div id="app" hidden>
+<div id="action-bar" class="action-bar">
+<button id="theme-toggle" class="btn-icon" aria-label="Toggle theme"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"><span id="speed-value" class="speed-value">1×</span></div>
+<button id="reset-btn" class="btn-icon" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></button>
+</div>
+<div id="diagram-container" class="diagram-container">
+<svg id="diagram-svg" class="diagram-svg" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" role="img" aria-label="TCP/IP Model interactive diagram">
+<defs>
+<marker id="arrow-tcp" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0l5 10 5-10" fill="#5694E4"/></marker>
+<filter id="glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="tcpGrad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0959C8"/><stop offset="100%" stop-color="#0747A3"/></linearGradient>
+<linearGradient id="tcpGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2475D9"/><stop offset="100%" stop-color="#0959C8"/></linearGradient>
+<linearGradient id="tcpGrad3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5694E4"/><stop offset="100%" stop-color="#2475D9"/></linearGradient>
+<linearGradient id="tcpGrad4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#72A5E8"/><stop offset="100%" stop-color="#5694E4"/></linearGradient>
+</defs>
+<rect x="10" y="10" width="880" height="680" rx="16" class="viz-bg"/>
+<text x="450" y="45" text-anchor="middle" class="viz-title">TCP/IP Model — 4 Layers</text>
+<text x="450" y="65" text-anchor="middle" class="viz-subtitle">Internet Protocol Suite &amp; Protocol Mapping</text>
+<g id="tcp-layers">
+<rect x="100" y="90" width="700" height="110" rx="12" class="layer-box" data-layer="4" tabindex="0" role="button" aria-label="Application Layer"/>
+<rect x="100" y="215" width="700" height="110" rx="12" class="layer-box" data-layer="3" tabindex="0" role="button" aria-label="Transport Layer"/>
+<rect x="100" y="340" width="700" height="110" rx="12" class="layer-box" data-layer="2" tabindex="0" role="button" aria-label="Internet Layer"/>
+<rect x="100" y="465" width="700" height="110" rx="12" class="layer-box" data-layer="1" tabindex="0" role="button" aria-label="Network Access Layer"/>
+<text x="450" y="140" text-anchor="middle" class="layer-label" data-layer="4">Application Layer</text>
+<text x="450" y="265" text-anchor="middle" class="layer-label" data-layer="3">Transport Layer</text>
+<text x="450" y="390" text-anchor="middle" class="layer-label" data-layer="2">Internet Layer</text>
+<text x="450" y="515" text-anchor="middle" class="layer-label" data-layer="1">Network Access Layer</text>
+</g>
+<g id="protocol-examples">
+<text x="750" y="140" text-anchor="end" class="proto-label" data-layer="4">HTTP · DNS · FTP · SMTP</text>
+<text x="750" y="265" text-anchor="end" class="proto-label" data-layer="3">TCP · UDP</text>
+<text x="750" y="390" text-anchor="end" class="proto-label" data-layer="2">IP · ICMP · ARP</text>
+<text x="750" y="515" text-anchor="end" class="proto-label" data-layer="1">Ethernet · Wi-Fi · PPP</text>
+</g>
+<g id="pdu-labels">
+<text x="150" y="170" text-anchor="start" class="pdu-label" data-layer="4">PDU: Data</text>
+<text x="150" y="295" text-anchor="start" class="pdu-label" data-layer="3">PDU: Segment</text>
+<text x="150" y="420" text-anchor="start" class="pdu-label" data-layer="2">PDU: Packet</text>
+<text x="150" y="545" text-anchor="start" class="pdu-label" data-layer="1">PDU: Frame</text>
+</g>
+<g id="encapsulation-arrows">
+<line x1="450" y1="590" x2="450" y2="640" stroke="#5694E4" stroke-width="2" marker-end="url(#arrow-tcp)"/>
+<text x="450" y="665" text-anchor="middle" class="viz-caption">Encapsulation ↓ &nbsp;&nbsp; Decapsulation ↑</text>
+</g>
+<g id="data-flow">
+<circle id="flow-dot" r="6" class="flow-dot" filter="url(#glow)" visibility="hidden"/>
+</g>
+</svg>
+</div>
+<div id="info-panel" class="info-panel" role="dialog" aria-label="Layer information" hidden>
+<button id="info-close" class="btn-icon info-close" aria-label="Close">&times;</button>
+<h3 id="info-title" class="info-title"></h3>
+<p id="info-desc" class="info-desc"></p>
+<div id="info-details" class="info-details"></div>
+</div>
+<div id="controls" class="controls-bar">
+<button id="play-btn" class="btn-primary">Play</button>
+<button id="challenge-btn" class="btn-secondary">Challenge</button>
+</div>
+<div id="challenge-section" class="challenge-section" hidden>
+<h3 class="challenge-title">TCP/IP Model Challenge</h3>
+<div id="challenge-questions" class="challenge-questions"></div>
+<div class="challenge-actions"><button id="challenge-submit" class="btn-primary">Submit</button><button id="challenge-retry" class="btn-secondary">Retry</button></div>
+<div id="challenge-result" class="challenge-result" hidden></div>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="dialog" aria-modal="true" aria-label="Complete" hidden>
+<div class="completion-card"><svg class="completion-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><h2>Excellent!</h2><p>You completed the TCP/IP Model diagram.</p><button id="completion-close" class="btn-primary">Continue</button></div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

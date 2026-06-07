@@ -1,36 +1,216 @@
 (function(){'use strict';
-var components = [{"id":"html","name":"HTML Code","category":"Code","icon":"code","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Provides page structure","description":"The raw HTML document containing tags.","why":"The foundational blueprint","analogy":"Brick structure of a house","funFact":"HTML was created to share scientific research documents","takeaway":"HTML is parsed line-by-line","mistake":"HTML doesn't style the page","descriptionDetailed":"Text streams parsed by the HTML parser tokenizer.","howItWorks":"The raw HTML document containing tags.","deeperDive":"Text streams parsed by the HTML parser tokenizer.","advancedConcept":"HTML was created to share scientific research documents"},{"id":"dom","name":"DOM Tree","category":"DOM","icon":"network","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Memory tag model","description":"The browser's memory tree representing HTML tags.","why":"Lets JS manipulate the page","analogy":"Family tree of elements","funFact":"You can change DOM nodes instantly using JavaScript console","takeaway":"DOM maps parent-child tag hierarchies","mistake":"DOM isn't visible on screen directly","descriptionDetailed":"Document Object Model tree nodes instantiated in C++ by the layout engine.","vocabDefinition":"Document Object Model, the tree-like structure of HTML elements in memory.","howItWorks":"The browser's memory tree representing HTML tags.","deeperDive":"Document Object Model tree nodes instantiated in C++ by the layout engine.","advancedConcept":"You can change DOM nodes instantly using JavaScript console"},{"id":"cssom","name":"CSSOM Rules","category":"Style","icon":"settings","shape":"rounded-rect","x":200,"y":180,"w":110,"h":56,"purpose":"Applies CSS rulesets","description":"Memory tree of style rules parsed from CSS.","why":"Applies visuals to DOM","analogy":"Color paint guidelines","funFact":"CSSOM has to calculate selectors matching specificity","takeaway":"Cascading styles cascade down the tree","mistake":"CSSOM is separate from the HTML DOM tree","descriptionDetailed":"CSS Object Model styling definitions mapped to matching CSS selectors.","vocabDefinition":"CSS Object Model, the tree containing style rules for each element.","howItWorks":"Memory tree of style rules parsed from CSS.","deeperDive":"CSS Object Model styling definitions mapped to matching CSS selectors.","advancedConcept":"CSSOM has to calculate selectors matching specificity"},{"id":"rendertree","name":"Render Tree","category":"Render","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Visible boxes mapping","description":"Combined DOM and CSSOM representing visible nodes.","why":"Filters out invisible elements","analogy":"Blueprint with color paint added","funFact":"Display:none nodes are left out of this tree entirely","takeaway":"Render tree holds visible nodes","mistake":"Visibility:hidden elements are in this tree, but display:none aren't","descriptionDetailed":"Instantiated render tree nodes that represent boxes to lay out and paint.","vocabDefinition":"The combination of DOM and CSSOM containing only the visible elements.","howItWorks":"Combined DOM and CSSOM representing visible nodes.","deeperDive":"Instantiated render tree nodes that represent boxes to lay out and paint.","advancedConcept":"Display:none nodes are left out of this tree entirely"},{"id":"paint","name":"Painting","category":"Output","icon":"printer","shape":"rounded-rect","x":520,"y":80,"w":110,"h":56,"purpose":"Rasterizes pixels on screen","description":"Draws colors, borders, and images onto screen pixels.","why":"Displays the webpage to the user","analogy":"Painting the walls of the built house","funFact":"Graphics processors are used by modern browsers to hardware-accelerate paint","takeaway":"Painting is the final visual step","mistake":"Painting must rerun if content changes or moves","descriptionDetailed":"Graphics context calls converting layout boxes into bitmap buffers displayed on screen.","howItWorks":"Draws colors, borders, and images onto screen pixels.","deeperDive":"Graphics context calls converting layout boxes into bitmap buffers displayed on screen.","advancedConcept":"Graphics processors are used by modern browsers to hardware-accelerate paint"}];
-var connections = [{"from":"html","to":"dom"},{"from":"dom","to":"rendertree"},{"from":"cssom","to":"rendertree"},{"from":"rendertree","to":"paint"}];
-var steps = [{"id":"html","label":"Step 1: Parse HTML","status":"Browser reads HTML code and builds the DOM tree in memory."},{"id":"cssom","label":"Step 2: Parse CSS","status":"Browser reads stylesheets and applies formatting to style tree."},{"id":"rendertree","label":"Step 3: Render Tree","status":"DOM and CSSOM merge to map out only the visible webpage sections."},{"id":"paint","label":"Step 4: Layout & Paint","status":"Browser calculates box coordinates and draws pixels on screen."}];
-var tour = [{"title":"HTML Code","description":"The starting structure instructions.","componentId":"html"},{"title":"DOM Tree","description":"Hierarchy of HTML tags in memory.","componentId":"dom"},{"title":"CSSOM Rules","description":"Applies CSS rules to style tree.","componentId":"cssom"},{"title":"Render Tree","description":"The merged, visible components map.","componentId":"rendertree"},{"title":"Painting","description":"Draws the final pixels onto the screen.","componentId":"paint"}];
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "How Browsers Display Websites",
-    subtitle: "Building Websites",
-    desc: "Explore the core components and operations.",
-    module: 6,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      engine.buildAutoChallenge(container);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
+var NODES={{"html": {"x": 95.0, "y": 108.0, "w": 110, "h": 56, "desc": "The raw HTML document containing tags.", "fields": {"Purpose": "Provides page structure", "How It Works": "The raw HTML document containing tags.", "Why": "The foundational blueprint", "Analogy": "Brick structure of a house", "Fun Fact": "HTML was created to share scientific research documents", "Key Takeaway": "HTML is parsed line-by-line", "Common Mistake": "HTML doesn't style the page"}, "name": "HTML Code"}, "dom": {"x": 255.0, "y": 108.0, "w": 110, "h": 56, "desc": "The browser's memory tree representing HTML tags.", "fields": {"Purpose": "Memory tag model", "How It Works": "The browser's memory tree representing HTML tags.", "Why": "Lets JS manipulate the page", "Analogy": "Family tree of elements", "Fun Fact": "You can change DOM nodes instantly using JavaScript console", "Key Takeaway": "DOM maps parent-child tag hierarchies", "Common Mistake": "DOM isn't visible on screen directly"}, "name": "DOM Tree"}, "cssom": {"x": 255.0, "y": 208.0, "w": 110, "h": 56, "desc": "Memory tree of style rules parsed from CSS.", "fields": {"Purpose": "Applies CSS rulesets", "How It Works": "Memory tree of style rules parsed from CSS.", "Why": "Applies visuals to DOM", "Analogy": "Color paint guidelines", "Fun Fact": "CSSOM has to calculate selectors matching specificity", "Key Takeaway": "Cascading styles cascade down the tree", "Common Mistake": "CSSOM is separate from the HTML DOM tree"}, "name": "CSSOM Rules"}, "rendertree": {"x": 415.0, "y": 108.0, "w": 110, "h": 56, "desc": "Combined DOM and CSSOM representing visible nodes.", "fields": {"Purpose": "Visible boxes mapping", "How It Works": "Combined DOM and CSSOM representing visible nodes.", "Why": "Filters out invisible elements", "Analogy": "Blueprint with color paint added", "Fun Fact": "Display:none nodes are left out of this tree entirely", "Key Takeaway": "Render tree holds visible nodes", "Common Mistake": "Visibility:hidden elements are in this tree, but display:none aren't"}, "name": "Render Tree"}, "paint": {"x": 575.0, "y": 108.0, "w": 110, "h": 56, "desc": "Draws colors, borders, and images onto screen pixels.", "fields": {"Purpose": "Rasterizes pixels on screen", "How It Works": "Draws colors, borders, and images onto screen pixels.", "Why": "Displays the webpage to the user", "Analogy": "Painting the walls of the built house", "Fun Fact": "Graphics processors are used by modern browsers to hardware-accelerate paint", "Key Takeaway": "Painting is the final visual step", "Common Mistake": "Painting must rerun if content changes or moves"}, "name": "Painting"}}};
+var CONNS=[{"from": "html", "to": "dom"}, {"from": "dom", "to": "rendertree"}, {"from": "cssom", "to": "rendertree"}, {"from": "rendertree", "to": "paint"}];
+var CHALLENGES=[{"q": "What is the purpose of HTML Code?", "opts": ["Rasterizes pixels on screen", "Applies CSS rulesets", "Provides page structure", "Visible boxes mapping"], "ans": 2}, {"q": "What is the purpose of DOM Tree?", "opts": ["Applies CSS rulesets", "Rasterizes pixels on screen", "Memory tag model", "Visible boxes mapping"], "ans": 2}, {"q": "What is the purpose of CSSOM Rules?", "opts": ["Memory tag model", "Rasterizes pixels on screen", "Visible boxes mapping", "Applies CSS rulesets"], "ans": 3}, {"q": "What is the purpose of Render Tree?", "opts": ["Applies CSS rulesets", "Provides page structure", "Visible boxes mapping", "Memory tag model"], "ans": 2}, {"q": "What is the purpose of Painting?", "opts": ["Applies CSS rulesets", "Memory tag model", "Rasterizes pixels on screen", "Provides page structure"], "ans": 2}];
+var TITLE="How Browsers Display Websites";
+var DESC="Explore the core components and operations.";
+var svg,infoPanel,overlay;
+var ctx={t:0,playing:false,speed:1,selectedId:null,theme:'dark'};
+var rafId,quizAnswered={},quizSubmitted=false;
+function init(){
+  try{
+    var saved=localStorage.getItem('consica-diagram-theme');
+    ctx.theme=saved||'dark';
+    document.documentElement.setAttribute('data-theme',ctx.theme);
+    setupDOM();buildSVG();setupEvents();buildChallenge();hideSkeleton();startLoop();
+  }catch(e){showError(e);}
+}
+function setupDOM(){
+  svg=document.getElementById('diagram-svg');
+  infoPanel=document.getElementById('info-panel');
+  overlay=document.getElementById('completion-overlay');
+  document.getElementById('theme-toggle').addEventListener('click',function(){
+    ctx.theme=ctx.theme==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',ctx.theme);
+    localStorage.setItem('consica-diagram-theme',ctx.theme);
   });
-});
+  document.getElementById('play-btn').addEventListener('click',function(){
+    ctx.playing=!ctx.playing;this.innerHTML=ctx.playing?'⏸ Pause':'▶ Play';
+  });
+  document.getElementById('reset-btn').addEventListener('click',function(){
+    ctx.t=0;ctx.playing=false;
+    document.getElementById('play-btn').innerHTML='▶ Play';
+    if(svg)svg.querySelectorAll('.flow-dot').forEach(function(d){d.style.opacity='0';});
+  });
+  document.getElementById('info-close').addEventListener('click',closeInfo);
+  document.getElementById('completion-close').addEventListener('click',function(){overlay.style.display='none';});
+  document.getElementById('speed-slider').addEventListener('input',function(){
+    ctx.speed=parseFloat(this.value);
+    document.getElementById('speed-display').textContent=this.value+'x';
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeInfo();});
+}
+function buildSVG(){
+  var ids=Object.keys(NODES);
+  ids.forEach(function(id){
+    var n=NODES[id];
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','node-group');
+    g.setAttribute('data-id',id);
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-label',id);
+    var bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    bg.setAttribute('class','node-bg');
+    bg.setAttribute('x',n.x-n.w/2);
+    bg.setAttribute('y',n.y-n.h/2);
+    bg.setAttribute('width',n.w);
+    bg.setAttribute('height',n.h);
+    bg.setAttribute('rx','8');
+    bg.setAttribute('fill','var(--surface,#1a2235)');
+    bg.setAttribute('stroke','var(--border,#2a3a55)');
+    bg.setAttribute('stroke-width','2');
+    g.appendChild(bg);
+    var txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',n.x);
+    txt.setAttribute('y',n.y+4);
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('fill','var(--text,#e9e8f0)');
+    txt.setAttribute('font-size','12');
+    txt.setAttribute('font-weight','600');
+    txt.textContent=n.name||id.charAt(0).toUpperCase()+id.slice(1);
+    g.appendChild(txt);
+    g.addEventListener('click',function(){selectNode(id);});
+    g.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(id);}
+    });
+    svg.appendChild(g);
+  });
+  CONNS.forEach(function(c){
+    var from=NODES[c.from],to=NODES[c.to];
+    if(!from||!to)return;
+    var line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',from.x+from.w/2);
+    line.setAttribute('y1',from.y);
+    line.setAttribute('x2',to.x-to.w/2);
+    line.setAttribute('y2',to.y);
+    line.setAttribute('stroke','var(--accent2,#3b82f6)');
+    line.setAttribute('stroke-width','2');
+    line.setAttribute('marker-end','url(#arrowhead)');
+    line.style.opacity='0.5';
+    svg.insertBefore(line,svg.firstChild);
+    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('class','flow-dot');
+    dot.setAttribute('r','4');
+    dot.setAttribute('fill','var(--accent2,#3b82f6)');
+    dot.style.opacity='0';
+    dot.dataset.cx=from.x+from.w/2;dot.dataset.cy=from.y;
+    dot.dataset.tx=to.x-to.w/2;dot.dataset.ty=to.y;
+    svg.appendChild(dot);
+  });
+}
+function selectNode(id){
+  ctx.selectedId=id;
+  var n=NODES[id];
+  if(!n)return;
+  document.getElementById('info-title').textContent=n.name||(id.charAt(0).toUpperCase()+id.slice(1));
+  var html='<p style="margin-bottom:10px;color:var(--text2)">'+n.desc+'</p>';
+  if(n.fields)Object.keys(n.fields).forEach(function(k){
+    html+='<p><strong>'+k+':</strong> '+n.fields[k]+'</p>';
+  });
+  document.getElementById('info-content').innerHTML=html;
+  infoPanel.setAttribute('aria-hidden','false');
+  infoPanel.style.display='block';
+  svg.querySelectorAll('.node-bg').forEach(function(b){b.setAttribute('stroke','var(--border,#2a3a55)');});
+  var sel=svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+  if(sel)sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+}
+function closeInfo(){
+  infoPanel.setAttribute('aria-hidden','true');
+  infoPanel.style.display='none';
+  ctx.selectedId=null;
+  svg.querySelectorAll('.node-bg').forEach(function(b){b.setAttribute('stroke','var(--border,#2a3a55)');});
+}
+function startLoop(){
+  var last=0;
+  function loop(time){
+    rafId=requestAnimationFrame(loop);
+    var dt=last?(time-last)/1000:0;last=time;
+    if(ctx.playing&&ctx.t!==undefined){
+      ctx.t+=dt*ctx.speed;
+      svg.querySelectorAll('.flow-dot').forEach(function(d){
+        var cx=parseFloat(d.dataset.cx)||0,cy=parseFloat(d.dataset.cy)||0;
+        var tx=parseFloat(d.dataset.tx)||0,ty=parseFloat(d.dataset.ty)||0;
+        var p=(ctx.t%3)/3;
+        d.setAttribute('cx',cx+(tx-cx)*p);
+        d.setAttribute('cy',cy+(ty-cy)*p);
+        d.style.opacity='1';
+      });
+    }
+    var ids=Object.keys(NODES);
+    var idx=Math.floor(ctx.t*0.5)%ids.length;
+    svg.querySelectorAll('.node-bg').forEach(function(bg,i){
+      bg.setAttribute('fill',i===idx?'var(--surface2,#1e2d50)':'var(--surface,#1a2235)');
+      bg.setAttribute('stroke',i===idx?'var(--accent2,#3b82f6)':'var(--border,#2a3a55)');
+    });
+  }
+  rafId=requestAnimationFrame(loop);
+}
+function buildChallenge(){
+  var ctn=document.getElementById('challenge-container');
+  ctn.innerHTML='';
+  quizAnswered={};quizSubmitted=false;
+  CHALLENGES.forEach(function(c,i){
+    var d=document.createElement('div');d.className='challenge-question';d.dataset.qi=i;
+    var qt=document.createElement('div');qt.className='challenge-q-text';qt.textContent=(i+1)+'. '+c.q;
+    d.appendChild(qt);
+    var opts=document.createElement('div');opts.className='challenge-options';
+    c.opts.forEach(function(o,j){
+      var lbl=document.createElement('label');lbl.className='challenge-option';
+      var r=document.createElement('input');r.type='radio';r.name='chq-'+i;r.value=j;
+      r.addEventListener('change',function(){
+        quizAnswered[i]=j;
+        opts.querySelectorAll('.challenge-option').forEach(function(l){l.classList.remove('selected');});
+        lbl.classList.add('selected');
+      });
+      lbl.appendChild(r);lbl.appendChild(document.createTextNode(' '+o));
+      opts.appendChild(lbl);
+    });
+    d.appendChild(opts);ctn.appendChild(d);
+  });
+  var sb=document.createElement('button');sb.className='challenge-submit';sb.textContent='Submit Answers';
+  sb.addEventListener('click',submitQuiz);ctn.appendChild(sb);
+}
+function submitQuiz(){
+  if(quizSubmitted)return;
+  var correct=0;
+  CHALLENGES.forEach(function(c,i){
+    var opts=document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+    var labels=opts.querySelectorAll('.challenge-option');
+    labels.forEach(function(l,j){
+      var r=l.querySelector('input');r.disabled=true;
+      if(j===c.ans)l.classList.add('correct');
+      else if(r.checked)l.classList.add('wrong');
+    });
+    if(typeof quizAnswered[i]!=='undefined'&&quizAnswered[i]===c.ans)correct++;
+  });
+  quizSubmitted=true;
+  var total=CHALLENGES.length;
+  var pct=Math.round((correct/total)*100);
+  var res=document.getElementById('challenge-result');
+  res.style.display='block';
+  res.innerHTML='<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+  if(pct>=70){
+    res.innerHTML+='<br>Great job!';
+    overlay.style.display='flex';
+    document.getElementById('completion-score').textContent='Score: '+correct+'/'+total;
+    document.getElementById('completion-concepts').innerHTML='<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){return '- '+(NODES[id].name||id);}).join('<br>');
+  }else{
+    res.innerHTML+='<br>Review and try again.';
+  }
+}
+function setupEvents(){}
+function hideSkeleton(){
+  var skel=document.getElementById('loading-skeleton');
+  if(skel){skel.style.display='none';skel.setAttribute('aria-hidden','true');}
+  document.getElementById('diagram-container').style.display='block';
+}
+function showError(e){
+  var eb=document.getElementById('error-boundary');
+  eb.style.display='block';
+  eb.textContent='Error: '+(e.message||'Unexpected error. Refresh please.');
+  hideSkeleton();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+else init();
 })();

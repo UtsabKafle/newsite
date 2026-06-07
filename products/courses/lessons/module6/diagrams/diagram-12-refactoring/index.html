@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Refactoring — Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="skeleton" class="skeleton" role="status" aria-label="Loading diagram">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-body">
+<div class="skeleton-title"></div>
+<div class="skeleton-visual"></div>
+<div class="skeleton-controls"><div class="skeleton-btn"></div><div class="skeleton-btn"></div></div>
+</div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">&#9888;</div>
+<h2>Something went wrong</h2>
+<p id="error-message">Unable to load the diagram.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="app" class="app-container" hidden>
+<div class="app-header">
+<div class="header-toolbar"><button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">&#9790;</button></div>
+<h1 class="diagram-title">Refactoring</h1>
+<p class="diagram-subtitle">Code Improvement</p>
+<p class="diagram-desc">Compare messy code before refactoring with clean code after.</p>
+<div class="speed-control"><label for="speed-slider">Speed: <span id="speed-label" class="speed-value">1x</span></label>
+<input type="range" id="speed-slider" min="0" max="16" value="4" class="speed-slider" aria-label="Animation speed"></div>
+</div>
+<div id="svg-container" class="svg-container" role="img" aria-label="Refactoring visualization"></div>
+<div id="info-panel" class="info-panel" role="dialog" aria-label="Component details" aria-hidden="true" hidden>
+<div class="info-header"><h3 id="info-title"></h3><button id="info-close" class="icon-btn info-close" aria-label="Close">&times;</button></div>
+<div id="info-content" class="info-content"></div>
+</div>
+<section class="challenge-section" aria-label="Knowledge check">
+<h2 class="challenge-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-btn">Submit Answers</button>
+</section>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" aria-label="Results" hidden>
+<div class="completion-card">
+<div class="completion-icon">&#127942;</div>
+<h2 id="completion-title" class="completion-title">Great Job!</h2>
+<p id="completion-score" class="completion-score"></p>
+<p id="completion-message" class="completion-message"></p>
+<button id="completion-close" class="btn-primary completion-btn">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

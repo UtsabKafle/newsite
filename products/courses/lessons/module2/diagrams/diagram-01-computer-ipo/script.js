@@ -1,163 +1,231 @@
-(function(){'use strict';
-var components = [
-  {id:"input",name:"Input",category:"Input",purpose:"Accepts data and commands from the user or other systems into the computer",description:"Input devices like keyboards, mice, and sensors convert physical actions or environmental data into digital signals the computer can process.",why:"Input is how we communicate with computers and give them instructions",analogy:"Like your ears and eyes that gather information for your brain",funFact:"A typical keyboard registers keystrokes in less than 16 milliseconds",takeaway:"All computer operations start with input, whether from a user or another system",mistake:"Input isn't limited to human actions—sensors, networks, and timers all provide input",descriptionDetailed:"Input devices convert physical phenomena into electrical signals. These signals are digitized by analog-to-digital converters and sent to the CPU via buses. The OS processes inputs through device drivers and makes them available to applications."},
-  {id:"process",name:"Processing",category:"Processing",purpose:"Performs calculations and logical operations on input data to produce output",description:"The CPU executes instructions from programs to transform input data through arithmetic, logic, and control operations.",why:"Processing is where raw data becomes useful information",analogy:"Like your brain thinking, calculating, and making decisions from what you sense",funFact:"A modern CPU can perform billions of calculations per second",takeaway:"Processing is the core function that makes computers useful",mistake:"Processing isn't just math—it includes data movement, comparison, and decision making",descriptionDetailed:"The CPU fetches instructions from memory, decodes them, and executes them using the ALU and control unit. Instructions include arithmetic, data movement, branching, and logical operations. The clock synchronizes all operations at speeds measured in gigahertz."},
-  {id:"output",name:"Output",category:"Output",purpose:"Presents processed data to the user in a perceivable form",description:"Output devices like monitors, speakers, and printers convert digital data into visual images, sound, or physical media.",why:"Output is how computers communicate results back to us",analogy:"Like your mouth speaking words that your brain has formed",funFact:"The first computer monitor could only display green text on a black screen",takeaway:"Output completes the communication loop between computer and user",mistake:"Output isn't just visual—it includes sound, haptics, data files, and network transmissions",descriptionDetailed:"Output devices receive digital data from the computer and convert it into human-perceptible form. Displays use LCD/LED panels with millions of pixels driven by graphics processors. Speakers use electromagnets to vibrate diaphragms."},
-  {id:"storage",name:"Storage",category:"Storage",purpose:"Saves data and programs permanently for future use",description:"Storage devices like SSDs and HDDs retain data even when the computer is powered off, holding the OS, applications, and user files.",why:"Storage ensures data persists beyond the current computing session",analogy:"Like a notebook where you write things down to remember them later",funFact:"Modern SSDs can read data in less than 0.1 milliseconds",takeaway:"Storage provides non-volatile retention of programs and data",mistake:"Storage and memory are different—RAM is temporary, storage is permanent",descriptionDetailed:"Storage uses magnetic (HDD) or flash (SSD) technology to retain data. The file system organizes data into files and directories. Data is read/written in blocks and cached in RAM for performance."},
-  {id:"feedback",name:"Feedback Loop",category:"Processing",purpose:"Uses output to influence future input, creating adaptive behavior",description:"Feedback in computing allows systems to adjust their behavior based on results—like a thermostat adjusting temperature based on readings.",why:"Feedback enables automation, error correction, and intelligent behavior",analogy:"Like a chef tasting soup and adjusting the seasoning",funFact:"Feedback loops are the foundation of all control systems and artificial intelligence",takeaway:"Feedback makes computing systems smarter and more responsive",mistake:"Feedback doesn't have to be user-facing—many feedback loops happen automatically in software",descriptionDetailed:"Feedback involves measuring output and adjusting future input or processing accordingly. Error correction uses feedback to detect and fix transmission errors. Machine learning relies on feedback loops where model outputs are compared to expected results to improve accuracy."}
-];
-var connections = [{from:"input",to:"process"},{from:"process",to:"output"},{from:"output",to:"storage"},{from:"storage",to:"feedback"}];
-var steps = [{id:"input",label:"Step 1: Input",status:"Exploring: Input - Accepts data and commands from the user or other systems into the computer"},{id:"process",label:"Step 2: Processing",status:"Exploring: Processing - Performs calculations and logical operations on input data to produce output"},{id:"output",label:"Step 3: Output",status:"Exploring: Output - Presents processed data to the user in a perceivable form"},{id:"storage",label:"Step 4: Storage",status:"Exploring: Storage - Saves data and programs permanently for future use"},{id:"feedback",label:"Step 5: Feedback Loop",status:"Exploring: Feedback Loop - Uses output to influence future input, creating adaptive behavior"}];
-var tour = [{title:"Input",description:"Accepts data and commands from the user or other systems into the computer",componentId:"input"},{title:"Processing",description:"Performs calculations and logical operations on input data to produce output",componentId:"process"},{title:"Output",description:"Presents processed data to the user in a perceivable form",componentId:"output"},{title:"Storage",description:"Saves data and programs permanently for future use",componentId:"storage"},{title:"Feedback Loop",description:"Uses output to influence future input, creating adaptive behavior",componentId:"feedback"}];
+﻿(function(){
+  var TH='consica-diagram-theme';
+  var NODES={"input":{"x":100,"y":200,"fields":{"Purpose":"Accepts data and commands from the user or other systems","How It Works":"Input devices convert physical phenomena into electrical signals digitized by ADCs and sent via buses.","Analogy":"Like your ears and eyes gathering information for your brain","Fun Fact":"A keyboard registers keystrokes in under 16 ms","Key Takeaway":"All computer operations start with input"},"desc":"Input is how we get data into the computer. Keyboards, mice, and scanners convert physical actions into digital signals."},"process":{"x":350,"y":200,"fields":{"Purpose":"Performs calculations and logical operations on input data","How It Works":"The CPU fetches, decodes, and executes instructions from memory, synchronized by the clock at billions of cycles per second.","Analogy":"Like your brain thinking and making decisions","Fun Fact":"A modern CPU can perform over 10 billion calculations per second","Key Takeaway":"Processing transforms raw data into useful information"},"desc":"The CPU processes input data to produce meaningful output."},"output":{"x":600,"y":200,"fields":{"Purpose":"Presents processed data to the user","How It Works":"Output devices convert digital data into physical form: monitors use liquid crystals, speakers vibrate diaphragms.","Analogy":"Like your mouth speaking words your brain has formed","Fun Fact":"The first monitor could only display green text on black","Key Takeaway":"Output completes the communication loop"},"desc":"Output devices present processed data as visuals, sound, or print."},"storage":{"x":350,"y":380,"fields":{"Purpose":"Saves data permanently for future use","How It Works":"Uses magnetic (HDD) or flash (SSD) technology to retain data without power.","Analogy":"Like a notebook for remembering later","Fun Fact":"Modern SSDs can read data in under 0.1 ms","Key Takeaway":"Storage is non-volatile"},"desc":"Storage saves data permanently even after power-off."}};
+  var CONNS=[{from:"input",to:"process"},{from:"process",to:"output"},{from:"output",to:"storage"},{from:"storage",to:"input"}];
+  var CHALLENGES=[{q:"What is the first step in the IPO cycle?",opts:["Input","Processing","Output","Storage"],ans:0},{q:"Which component performs calculations?",opts:["Storage drive","CPU","Monitor","Keyboard"],ans:1},{q:"What does an output device do?",opts:["Accepts commands","Processes data","Presents processed data","Stores files"],ans:2},{q:"Storage is considered:",opts:["Volatile","Temporary","Non-volatile","Virtual"],ans:2},{q:"What is an input device?",opts:["Printer","Speaker","Keyboard","Monitor"],ans:2},{q:"What does the P in IPO stand for?",opts:["Programming","Processing","Printing","Powering"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Computer Ipo',
-    subtitle: 'How Computers Work',
-    desc: 'Understand the Input-Process-Output cycle that powers all computing.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Understand the Input-Process-Output cycle that powers all computing.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
 
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any component to learn more');
-    },
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
 
-    customChallenge: function(container, engine) {
-      // Interactive Data Flow Simulator
-      container.innerHTML = `
-        <div class="sim-interactive-area" style="padding:16px;">
-          <div style="font-size:14px; font-weight:700; color:#60a5fa; margin-bottom:4px;">Interactive Data Flow Lab</div>
-          <p style="font-size:11px; color:#94a3b8; margin-bottom:12px;">Trigger inputs (Keyboard, Mouse, or Mic) and follow the data flow through the CPU to Output/Storage targets.</p>
-          
-          <div style="display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap;">
-            <!-- Inputs -->
-            <div class="glass-panel" style="flex:1; min-width:140px; padding:10px; display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; font-weight:700; color:#64748b; text-transform:uppercase;">1. Trigger Input</span>
-              <button class="act-btn sim-input-trigger" data-type="keyboard">⌨️ Keyboard (Text)</button>
-              <button class="act-btn sim-input-trigger" data-type="mouse">🖱️ Mouse (Movement)</button>
-              <button class="act-btn sim-input-trigger" data-type="mic">🎙️ Microphone (Voice)</button>
-            </div>
-            
-            <!-- CPU & Processing -->
-            <div class="glass-panel" style="flex:1.2; min-width:160px; padding:10px; text-align:center; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-              <div id="sim-cpu-block" style="width:70px; height:70px; border:2px solid #2a3a55; border-radius:12px; background:rgba(255,255,255,0.03); display:flex; flex-direction:column; align-items:center; justify-content:center; transition: all 0.3s;">
-                <span style="font-size:24px;">⚙️</span>
-                <span style="font-size:9px; font-weight:bold; margin-top:2px;">CPU</span>
-              </div>
-              <div id="sim-data-bits" style="font-family:monospace; font-size:10px; color:#cbd5e1; margin-top:8px;">00000000</div>
-            </div>
-            
-            <!-- Outputs -->
-            <div class="glass-panel" style="flex:1; min-width:140px; padding:10px; display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; font-weight:700; color:#64748b; text-transform:uppercase;">2. Output Target</span>
-              <div id="sim-out-monitor" style="padding:6px; font-size:11px; border:1px solid rgba(255,255,255,0.05); border-radius:6px; text-align:center;">🖥️ Monitor</div>
-              <div id="sim-out-speaker" style="padding:6px; font-size:11px; border:1px solid rgba(255,255,255,0.05); border-radius:6px; text-align:center;">🔊 Speaker</div>
-              <div id="sim-out-printer" style="padding:6px; font-size:11px; border:1px solid rgba(255,255,255,0.05); border-radius:6px; text-align:center;">🖨️ Printer</div>
-            </div>
-          </div>
-          
-          <div class="glass-panel" style="padding:10px; background:rgba(0,0,0,0.3); border-radius:6px; min-height:60px; font-size:12px;">
-            <div id="sim-ipo-feedback" style="color:#cbd5e1; font-weight:500;">Select an input trigger to begin the cycle...</div>
-          </div>
-        </div>
-      `;
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
 
-      var triggers = container.querySelectorAll('.sim-input-trigger');
-      var cpu = container.querySelector('#sim-cpu-block');
-      var bits = container.querySelector('#sim-data-bits');
-      var feedback = container.querySelector('#sim-ipo-feedback');
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
 
-      var monitor = container.querySelector('#sim-out-monitor');
-      var speaker = container.querySelector('#sim-out-speaker');
-      var printer = container.querySelector('#sim-out-printer');
-
-      var runsCompleted = 0;
-
-      triggers.forEach(function(trig) {
-        trig.addEventListener('click', function() {
-          var type = this.dataset.type;
-          triggers.forEach(b => b.disabled = true);
-          
-          // Reset highlights
-          [monitor, speaker, printer].forEach(o => {
-            o.style.borderColor = "rgba(255,255,255,0.05)";
-            o.style.background = "transparent";
-            o.style.color = "#cbd5e1";
-          });
-          
-          // Phase 1: Input to CPU
-          cpu.style.borderColor = "#3b82f6";
-          cpu.style.background = "rgba(9,89,200,0.15)";
-          
-          var mockBits = "";
-          var targetEl, desc = "";
-          
-          if (type === "keyboard") {
-            mockBits = "01001000 01001001"; // 'HI'
-            targetEl = monitor;
-            desc = "Keystroke input converted to binary ASCII, processed by CPU, and rendered on the Monitor screen.";
-          } else if (type === "mouse") {
-            mockBits = "11010010 00111010"; // coords
-            targetEl = monitor;
-            desc = "Mouse coordinates digitized, calculated in CPU registers, and updated cursor on Monitor.";
-          } else if (type === "mic") {
-            mockBits = "11100010 01010111"; // wave
-            targetEl = speaker;
-            desc = "Analog sound waves sampled by ADC, processed in CPU, and outputted through the Speaker.";
-          }
-          
-          bits.textContent = "Digitizing...";
-          feedback.textContent = `Capturing input from ${type} and converting to digital format...`;
-
-          setTimeout(() => {
-            // Processing phase
-            bits.textContent = mockBits;
-            feedback.textContent = `CPU processing data: Arithmetic Logic calculations executing...`;
-            cpu.style.transform = "scale(1.08)";
-            
-            setTimeout(() => {
-              // Output phase
-              cpu.style.transform = "scale(1)";
-              targetEl.style.borderColor = "#10b981";
-              targetEl.style.background = "rgba(16, 185, 129, 0.08)";
-              targetEl.style.color = "#10b981";
-              feedback.textContent = `✓ Done! ${desc}`;
-              
-              runsCompleted++;
-              triggers.forEach(b => b.disabled = false);
-              
-              if (runsCompleted >= 2) {
-                engine.markCompleted();
-              }
-            }, 1000);
-          }, 800);
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
         });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

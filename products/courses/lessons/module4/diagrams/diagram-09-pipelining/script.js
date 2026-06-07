@@ -1,44 +1,111 @@
-(function(){'use strict';
-var components = [    {id:"if",name:"Instruction Fetch",category:"Processing",purpose:"The first pipeline stage that retrieves instructions from cache",description:"Instructions are fetched from the L1 instruction cache using the program counter, moving to a queue for decoding in the next cycle.",why:"IF stage supplies the pipeline with instructions to keep it busy",analogy:"Like the first station on an assembly line that provides the base part",funFact:"A modern CPU has a 14-20 stage pipeline, not just 5",takeaway:"Each stage passes its result to the next stage every clock cycle",mistake:"The IF stage doesn\\'t just fetch one instruction—it can fetch 4-6 per cycle",descriptionDetailed:"The IF stage accesses the L1 instruction cache. It uses branch prediction to decide which instructions to fetch after branches. Prefetching brings instructions before they\\'re needed. The fetched instructions are placed in a pre-decode buffer."},    {id:"id",name:"Instruction Decode",category:"Processing",purpose:"Second stage that decodes instructions into micro-operations",description:"The decode stage interprets the instruction, determines the operation type, reads register operands, and generates control signals.",why:"Decoding transforms machine instructions into executable micro-ops",analogy:"Like translating an order into specific instructions for the kitchen staff",funFact:"The decode stage is more complex in CISC (x86) than RISC (ARM) designs",takeaway:"Instructions are decoded into simpler micro-ops for execution",mistake:"Register read happens in the decode stage, not the execute stage",descriptionDetailed:"Instructions are decoded from the pre-decode buffer. x86 instructions are split into 1-4 micro-ops. Register renaming happens here to avoid false dependencies. The decoded instructions are sent to the issue queue."},    {id:"ex",name:"Execute",category:"Processing",purpose:"Third stage where ALU operations are performed on operands",description:"The execute stage dispatches operations to execution units (ALU, FPU, AGU) and performs the actual computation or address calculation.",why:"The EX stage is where the real work of computation happens",analogy:"Like the station where parts are actually assembled",funFact:"The execute stage can have multiple parallel execution units",takeaway:"Different execution units handle different types of operations (ALU, FPU, memory)",mistake:"Not every instruction uses the ALU—memory instructions use the address generation unit",descriptionDetailed:"Integer ALU operations complete in one cycle. Floating-point and multiply take multiple cycles. The execution units are parallel: 4-6 ALUs, 2-3 load/store units. Results are forwarded to dependent instructions via bypass paths."},    {id:"mem",name:"Memory Access",category:"Processing",purpose:"Accesses data cache for load and store operations",description:"The memory stage handles data cache access for loads (reading data) and stores (writing data), using calculated addresses from the EX stage.",why:"The MEM stage bridges the gap between computation and data storage",analogy:"Like fetching or storing parts from the warehouse",funFact:"Cache misses in the MEM stage cause the longest pipeline stalls",takeaway:"Data cache access happens in this stage, separate from instruction fetch",mistake:"Only load and store instructions need the MEM stage—ALU-only instructions skip it",descriptionDetailed:"The load/store unit accesses L1 data cache. Loads that hit in L1 return data in one cycle. Stores are buffered in a store queue before writing to cache. Cache misses trigger a request to L2/L3/RAM."},    {id:"wb",name:"Write Back",category:"Processing",purpose:"Final stage that writes results back to the register file",description:"The write-back stage stores the execution result into the destination register, completing the instruction and making its result available.",why:"WB commits the instruction\\'s result so subsequent instructions can use it",analogy:"Like the final quality check and packaging on an assembly line",funFact:"Results can be forwarded directly from EX to ID, bypassing WB entirely",takeaway:"The write-back stage updates the architectural state of the CPU",mistake:"Stores write to memory, not registers—stores complete in the MEM stage",descriptionDetailed:"Results are written to the register file. Forwarding paths send results to dependent instructions before WB completes. The instruction is retired from the reorder buffer. Any exceptions from the instruction are handled here."},    {id:"hazard",name:"Pipeline Hazard",category:"Processing",purpose:"Conditions that prevent the next instruction from executing in the next cycle",description:"Hazards include data hazards (instruction needs a result not yet computed), structural hazards (resource conflicts), and control hazards (branches).",why:"Hazards threaten correct execution and must be detected and handled",analogy:"Like a factory assembly line where one worker has to wait for parts",funFact:"Modern CPUs have complex hazard detection and resolution logic consuming significant die area",takeaway:"Hazards reduce pipeline efficiency; techniques like forwarding and speculation mitigate them",mistake:"Hazards don\\'t cause incorrect results—the hardware ensures correctness",descriptionDetailed:"Data hazards: read-after-write (RAW), write-after-read (WAR), write-after-write (WAW). Forwarding/bypassing resolves RAW hazards. Branch prediction mitigates control hazards. Register renaming eliminates WAW and WAR hazards. Stalls (bubbles) are inserted when hazards can\\'t be resolved."}];
-var connections = [{from:"if",to:"id"},{from:"id",to:"ex"},{from:"ex",to:"mem"},{from:"mem",to:"wb"},{from:"wb",to:"hazard"}];
-var steps = [{label:"Step 1: Instruction Fetch",status:"Exploring: Instruction Fetch - The first pipeline stage that retrieves instructions from cache"},{label:"Step 2: Instruction Decode",status:"Exploring: Instruction Decode - Second stage that decodes instructions into micro-operations"},{label:"Step 3: Execute",status:"Exploring: Execute - Third stage where ALU operations are performed on operands"},{label:"Step 4: Memory Access",status:"Exploring: Memory Access - Accesses data cache for load and store operations"},{label:"Step 5: Write Back",status:"Exploring: Write Back - Final stage that writes results back to the register file"},{label:"Step 6: Pipeline Hazard",status:"Exploring: Pipeline Hazard - Conditions that prevent the next instruction from executing in the next cycle"}];
-var tour = [{title:"Instruction Fetch",description:"The first pipeline stage that retrieves instructions from cache",componentId:"if"},{title:"Instruction Decode",description:"Second stage that decodes instructions into micro-operations",componentId:"id"},{title:"Execute",description:"Third stage where ALU operations are performed on operands",componentId:"ex"},{title:"Memory Access",description:"Accesses data cache for load and store operations",componentId:"mem"},{title:"Write Back",description:"Final stage that writes results back to the register file",componentId:"wb"},{title:"Pipeline Hazard",description:"Conditions that prevent the next instruction from executing in the next cycle",componentId:"hazard"}];
+(function(){
+'use strict';
+var $=function(s,c){return(c||document).querySelector(s)};
+var $$=function(s,c){return Array.from((c||document).querySelectorAll(s))};
+var ce=function(t,a,c){var e=document.createElement(t);if(a)Object.entries(a).forEach(function(kv){var k=kv[0],v=kv[1];if(k==='className')e.className=v;else if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k==='dataset')Object.assign(e.dataset,v);else e.setAttribute(k,v)});if(c)c.forEach(function(x){if(typeof x==='string')e.appendChild(document.createTextNode(x));else if(x)e.appendChild(x)});return e};
+var stages=[{id:'if',name:'IF: Instruction Fetch',color:'#3b82f6',desc:'Fetches instructions from L1I cache using program counter. Can fetch 4-6 per cycle with branch prediction.',analogy:'Like first station on an assembly line providing base parts.',detail:'Accesses L1 instruction cache. Uses branch prediction for branches. Prefetching brings instructions before needed. Fetched instructions go to pre-decode buffer.'},{id:'id',name:'ID: Instruction Decode',color:'#a855f7',desc:'Decodes instructions into micro-ops. x86 CISC instructions split into 1-4 simpler RISC-like micro-ops.',analogy:'Like translating an order into specific kitchen instructions.',detail:'Instructions decoded from pre-decode buffer. Register renaming avoids false dependencies. Decoded instructions sent to issue queue.'},{id:'ex',name:'EX: Execute',color:'#eab308',desc:'Dispatches micro-ops to ALU, FPU, or load/store units. Out-of-order execution allowed.',analogy:'Like workers at different stations on an assembly line.',detail:'Multiple execution units operate in parallel. Results forwarded between stages to avoid hazards. Branch prediction resolves here.'},{id:'mem',name:'MEM: Memory Access',color:'#10b981',desc:'Accesses L1D cache for loads/stores. Cache hit = 3-5 cycles. Miss = main memory (~100 cycles).',analogy:'Like fetching materials from a warehouse.',detail:'Load/store unit manages address calculation. Store buffer holds pending writes. Cache miss stalls the pipeline.'},{id:'wb',name:'WB: Write Back',color:'#f43f5e',desc:'Commits results to register file. The instruction retires and architectural state updates.',analogy:'Like completing a task and recording the result.',detail:'Results written to destination register. Forwarding bypasses results to dependent instructions. Reorder buffer retires instructions in program order.'},{id:'haz',name:'⚠ Hazard Detection',color:'#f97316',desc:'Detects data hazards (RAW/WAR/WAW), control hazards (branches), and structural hazards (resource conflicts).',analogy:'Like traffic lights preventing collisions.',detail:'Data hazards solved by forwarding/bypassing. Control hazards solved by branch prediction. Structural hazards from limited resources. Stalls inserted when needed.'}];
+var quizData={questions:[{q:'How many instructions can modern CPUs fetch per cycle?',options:['1','2-3','4-6','10+'],answer:2},{q:'What technique helps avoid data hazards?',options:['Caching','Forwarding/bypassing','Clock gating','Prefetching'],answer:1},{q:'What does a branch misprediction cause?',options:['Cache miss','Pipeline flush','ALU overflow','Register error'],answer:1},{q:'How are x86 CISC instructions handled in modern pipelines?',options:['Executed directly','Split into micro-ops','Converted to ARM','Skipped'],answer:1},{q:'What stage resolves branch instructions?',options:['Fetch','Decode','Execute','Writeback'],answer:2},{q:'What is a structural hazard?',options:['Data conflict','Resource conflict','Control conflict','Power conflict'],answer:1}],maxAttempts:2};
+var state={speed:1,rafId:null,t:0,selectedId:null,challengeDone:false,challengeIdx:0,quizResults:[]};
+function getTheme(){return localStorage.getItem('consica-theme')||'dark'}
+function setTheme(t){localStorage.setItem('consica-theme',t);document.documentElement.setAttribute('data-theme',t==='light'?'light':'')}
+var dom={};
+function initDOM(){dom={loading:$('#loading-skeleton'),error:$('#error-boundary'),container:$('#diagram-container'),viz:$('#visualization'),info:$('#info-panel'),infoTitle:$('#info-title'),infoDesc:$('#info-desc'),infoAnalogy:$('#info-analogy'),infoDetail:$('#info-detail'),infoClose:$('#info-close'),speed:$('#speed-slider'),speedLabel:$('#speed-label'),theme:$('#theme-toggle'),help:$('#help-btn'),challenge:$('#challenge-container'),completion:$('#completion-overlay'),completionMsg:$('#completion-msg'),completionReset:$('#completion-reset'),errMsg:$('#error-message')}}
+function showError(m){if(dom.error){dom.error.hidden=false;if(dom.errMsg)dom.errMsg.textContent=m}if(dom.container)dom.container.hidden=true;if(dom.loading)dom.loading.hidden=true}
+function showInfo(data){if(!dom.info)return;dom.infoTitle.textContent=data.name||'';dom.infoDesc.textContent=data.desc||'';dom.infoAnalogy.textContent=data.analogy?'💡 '+data.analogy:'';dom.infoDetail.textContent=data.detail||'';dom.info.hidden=false;state.selectedId=data.id||null}
+function renderChallenge(){
+  if(!dom.challenge||!quizData)return;
+  if(state.challengeDone&&state.challengeIdx>=quizData.questions.length){showCompletion('All complete!');return}
+  var qs=quizData.questions,idx=state.challengeIdx,total=qs.length,attempts=0,answered=false;
+  var progress=ce('div',{className:'challenge-progress'});
+  for(var i=0;i<total;i++){var dot=ce('div',{className:'challenge-dot'+(i===idx?' active':'')+(state.quizResults[i]===true?' done':'')+(state.quizResults[i]===false?' wrong':'')},[''+(i+1)]);progress.appendChild(dot)}
+  var card=ce('div',{className:'quiz-card'});
+  var qData=qs[idx];
+  card.appendChild(ce('div',{className:'q-text'},[qData.q]));
+  var opts=ce('div',{className:'quiz-options'});
+  var resDiv=ce('div',{className:'challenge-result'});
+  qData.options.forEach(function(opt,oi){
+    var optEl=ce('div',{className:'quiz-option'},[ce('span',{className:'indicator'}),ce('span',{},[opt])]);
+    optEl.addEventListener('click',function(){
+      if(answered)return;answered=true;attempts++;
+      var correct=oi===qData.answer;state.quizResults[idx]=correct;
+      optEl.classList.add(correct?'correct':'wrong');
+      optEl.querySelector('.indicator').textContent=correct?'✓':'✗';
+      $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='none'});
+      if(correct){resDiv.className='challenge-result correct';resDiv.textContent='✓ Correct!'}
+      else{resDiv.className='challenge-result wrong';resDiv.textContent=attempts<quizData.maxAttempts?'✗ Try again.':'✗ The answer was: '+qData.options[qData.answer]}
+      opts.appendChild(resDiv);
+      setTimeout(function(){
+        if(correct||attempts>=quizData.maxAttempts){
+          state.challengeIdx++;
+          if(state.challengeIdx>=total){state.challengeDone=true;showCompletion('You completed all '+total+' questions!')}
+          else renderChallenge()
+        }else{answered=false;
+          $$('.quiz-option',opts).forEach(function(o){o.style.pointerEvents='auto';o.classList.remove('wrong','correct');o.querySelector('.indicator').textContent=''});
+          resDiv.className='challenge-result';resDiv.textContent=''}
+      },correct?800:2000)
+    });opts.appendChild(optEl)});
+  card.appendChild(opts);dom.challenge.innerHTML='';dom.challenge.appendChild(progress);dom.challenge.appendChild(card)}
+function showCompletion(msg){if(dom.completionMsg)dom.completionMsg.textContent=msg||'Mastered!';if(dom.completion)dom.completion.hidden=false}
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Pipelining',
-    subtitle: 'CPU Components',
-    desc: 'See how instruction pipelining improves CPU throughput.',
-    module: 4,
-    difficulty: 'Advanced',
-    time: '10',
-    objectives: 'See how instruction pipelining improves CPU throughput.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any step to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
+// Draw pipeline - instructions flowing through stages
+function drawViz(container){
+  container.innerHTML='';
+  var svg=ce('svg',{className:'viz-svg',viewBox:'0 0 800 500',preserveAspectRatio:'xMidYMid meet'});
+  svg.appendChild(ce('rect',{x:0,y:0,width:800,height:500,fill:'#0a0e17'}));
+  stages.forEach(function(s,i){
+    var g=ce('g',{className:'node',dataset:{id:s.id}});
+    var x=10+i*132,y=80;
+    g.appendChild(ce('rect',{className:'node-bg',x:x,y:y,width:122,height:200,rx:6,fill:'rgba(255,255,255,0.02)',stroke:s.color,'stroke-width':1.5}));
+    g.appendChild(ce('text',{x:x+61,y:y+20,'text-anchor':'middle',fill:s.color,'font-size':'10','font-weight':'700','font-family':'Inter,sans-serif'},[s.name.split(':')[0]]));
+    // Instructions slots
+    for(var j=0;j<4;j++){
+      var iy=y+35+j*42;
+      g.appendChild(ce('rect',{x:x+8,y:iy,width:106,height:34,rx:4,fill:'rgba(255,255,255,0.03)',stroke:'rgba(255,255,255,0.06)','stroke-width':0.5}));
+      g.appendChild(ce('text',{className:'inst-label',x:x+61,y:iy+22,'text-anchor':'middle',fill:'#64748b','font-size':'8','font-family':'monospace'},['Inst '+(j+1)]));
     }
+    // Arrow
+    if(i<stages.length-1){
+      svg.appendChild(ce('line',{x1:x+122,y1:y+100,x2:x+132,y2:y+100,stroke:'#64748b','stroke-width':1,opacity:0.3,'marker-end':'url(#parr)'}));
+    }
+    g.addEventListener('click',function(){showInfo(s)});
+    svg.appendChild(g)});
+  var defs=ce('defs',{});
+  defs.innerHTML='<marker id="parr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="#64748b"/></marker>';
+  svg.insertBefore(defs,svg.firstChild);
+  // Title
+  svg.appendChild(ce('text',{x:400,y:35,'text-anchor':'middle',fill:'#64748b','font-size':'12','font-weight':'600','font-family':'Inter,sans-serif',opacity:0.6},['PIPELINE STAGES — Instructions Flow Left to Right']));
+  container.appendChild(svg)}
+
+function animateNodes(t){
+  var idx=Math.floor(t*0.35)%stages.length;
+  // Animate instruction labels flowing
+  var phase=t*2;
+  $$('.inst-label').forEach(function(el,i){
+    var stageIdx=Math.floor(i/4);
+    var slotIdx=i%4;
+    var instIdx=Math.floor(phase+slotIdx-stageIdx);
+    var opcodes=['ADD','SUB','LD','ST','AND','OR','XOR','CMP'];
+    el.textContent=opcodes[instIdx%opcodes.length]+' R'+((instIdx+1)%8);
   });
-});
+  $$('.node .node-bg').forEach(function(el,i){
+    var s=stages[i];
+    if(i===idx){el.setAttribute('stroke-width','2.5');el.setAttribute('fill',s.color+'15')}
+    else{el.setAttribute('stroke-width','1.5');el.setAttribute('fill','rgba(255,255,255,0.02)')}})}
+
+function init(){
+  initDOM();setTheme(getTheme());
+  if(dom.theme)dom.theme.addEventListener('click',function(){setTheme(getTheme()==='light'?'dark':'light')});
+  if(dom.speed)dom.speed.addEventListener('input',function(){state.speed=parseFloat(this.value);if(dom.speedLabel)dom.speedLabel.textContent=state.speed.toFixed(2)+'×'});
+  if(dom.infoClose)dom.infoClose.addEventListener('click',function(){dom.info.hidden=true;state.selectedId=null});
+  if(dom.completionReset)dom.completionReset.addEventListener('click',function(){dom.completion.hidden=true;state.challengeDone=false;state.challengeIdx=0;state.quizResults=[];renderChallenge()});
+  if(dom.help)dom.help.addEventListener('click',function(){showInfo({name:'How to use',desc:'Explore the 6-stage pipeline. Each stage processes instructions (shown inside). Instructions flow left to right with new ones entering every cycle. The hazard detector monitors for conflicts.',analogy:'',detail:''})});
+  setTimeout(function(){
+    if(dom.loading)dom.loading.hidden=true;
+    if(dom.container)dom.container.hidden=false;
+    drawViz(dom.viz);renderChallenge();
+    var last=0;
+    function frame(ts){if(!last)last=ts;var dt=(ts-last)/1000;last=ts;state.t+=dt*state.speed;animateNodes(state.t);state.rafId=requestAnimationFrame(frame)}
+    state.rafId=requestAnimationFrame(frame)
+  },800)}
+init();
 })();

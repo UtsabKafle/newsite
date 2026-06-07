@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>CPU Learning Project — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CPU Learning Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application">
+<div id="skeleton" class="skeleton" role="status">
+<div class="skeleton-shimmer"></div>
+<div class="skeleton-header"><div class="skeleton-line w-60"></div><div class="skeleton-line w-40"></div></div>
+<div class="skeleton-body"><div class="skeleton-block h-64"></div><div class="skeleton-block h-32"></div></div>
+</div>
+<div id="error-boundary" class="error-boundary" role="alert" hidden>
+<div class="error-icon">\u26A0</div>
+<h2>Something went wrong</h2>
+<p id="error-msg">An unexpected error occurred.</p>
+<button onclick="location.reload()" class="btn-primary">Reload</button>
+</div>
+<div id="main-content" hidden>
+<header class="app-header">
+<div class="header-top"><div><h1 class="app-title">CPU Learning Project</h1><p class="app-subtitle">Todo App CRUD</p></div>
+<div class="header-controls">
+<button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">\uD83C\uDF13</button>
+<div class="speed-control"><label for="speed-slider" class="speed-label">Speed</label><input type="range" id="speed-slider" class="speed-slider" min="0.25" max="4" step="0.25" value="1"></div>
+</div></div>
+</header>
+<div class="diagram-layout">
+<div class="diagram-area">
+<div class="svg-container">
+<svg id="diagram-svg" viewBox="0 0 800 460" class="diagram-svg" role="img" aria-label="CPU Learning Project"><g><rect x="20" y="20" width="760" height="420" rx="12" fill="var(--pal-bg)"/><text x="400" y="48" text-anchor="middle" fill="var(--pal-muted)" font-size="11" font-weight="600">TODO APP — CRUD FLOW</text><rect x="60" y="65" width="620" height="36" rx="6" fill="#1e293b" stroke="var(--pal-border)"/><text x="80" y="90" fill="#94a3b8" font-size="13">Add a new task...</text><rect x="530" y="68" width="60" height="30" rx="4" fill="#3b82f6"/><text x="560" y="89" text-anchor="middle" fill="white" font-size="13" font-weight="600">Add</text><rect x="60" y="115" width="340" height="38" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><rect x="70" y="122" width="18" height="18" rx="3" fill="none" stroke="#64748b" stroke-width="2"/><text x="100" y="140" fill="var(--pal-text)" font-size="13">Build todo app wireframe</text><rect x="60" y="160" width="340" height="38" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><rect x="70" y="167" width="18" height="18" rx="3" fill="#22c55e" stroke="#22c55e"/><polyline points="75,176 79,180 85,172" stroke="white" stroke-width="2" fill="none"/><text x="100" y="185" fill="#64748b" font-size="13" text-decoration="line-through">Research user needs</text><rect x="60" y="205" width="340" height="38" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><rect x="70" y="212" width="18" height="18" rx="3" fill="none" stroke="#64748b" stroke-width="2"/><text x="100" y="230" fill="var(--pal-text)" font-size="13">Write CSS styles</text><rect x="60" y="250" width="340" height="38" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><rect x="70" y="257" width="18" height="18" rx="3" fill="none" stroke="#64748b" stroke-width="2"/><text x="100" y="275" fill="var(--pal-text)" font-size="13">Add localStorage persistence</text><rect x="60" y="295" width="340" height="38" rx="6" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><rect x="70" y="302" width="18" height="18" rx="3" fill="#eab308" stroke="#eab308"/><text x="100" y="320" fill="var(--pal-text)" font-size="13">Test CRUD operations</text><rect x="420" y="115" width="160" height="48" rx="8" fill="#22c55e22" stroke="#22c55e"/><text x="500" y="140" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="600">CREATE</text><text x="500" y="156" text-anchor="middle" fill="var(--pal-muted)" font-size="10">New task → object</text><rect x="420" y="170" width="160" height="48" rx="8" fill="#3b82f622" stroke="#3b82f6"/><text x="500" y="195" text-anchor="middle" fill="#3b82f6" font-size="14" font-weight="600">READ</text><text x="500" y="211" text-anchor="middle" fill="var(--pal-muted)" font-size="10">Fetch + filter + sort</text><rect x="420" y="225" width="160" height="48" rx="8" fill="#eab30822" stroke="#eab308"/><text x="500" y="250" text-anchor="middle" fill="#eab308" font-size="14" font-weight="600">UPDATE</text><text x="500" y="266" text-anchor="middle" fill="var(--pal-muted)" font-size="10">Edit + toggle status</text><rect x="420" y="280" width="160" height="48" rx="8" fill="#ef444422" stroke="#ef4444"/><text x="500" y="305" text-anchor="middle" fill="#ef4444" font-size="14" font-weight="600">DELETE</text><text x="500" y="321" text-anchor="middle" fill="var(--pal-muted)" font-size="10">Remove + undo option</text><rect x="610" y="115" width="140" height="130" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="680" y="140" text-anchor="middle" fill="var(--pal-text)" font-size="13" font-weight="600">Stats</text><text x="680" y="168" text-anchor="middle" fill="#22c55e" font-size="20" font-weight="700">3</text><text x="680" y="186" text-anchor="middle" fill="var(--pal-muted)" font-size="11">Pending</text><text x="680" y="210" text-anchor="middle" fill="#94a3b8" font-size="20" font-weight="700">1</text><text x="680" y="228" text-anchor="middle" fill="var(--pal-muted)" font-size="11">Completed</text><rect x="610" y="265" width="140" height="80" rx="8" fill="var(--pal-node-bg)" stroke="var(--pal-node-border)"/><text x="680" y="288" text-anchor="middle" fill="var(--pal-text)" font-size="11" font-weight="600">Persistence</text><text x="680" y="310" text-anchor="middle" fill="#64748b" font-size="10">localStorage</text><text x="680" y="328" text-anchor="middle" fill="#64748b" font-size="10">auto-save enabled</text><rect x="60" y="360" width="280" height="34" rx="6" fill="#3b82f622" stroke="#3b82f6"/><text x="200" y="383" text-anchor="middle" fill="#3b82f6" font-size="11">Arrow keys: navigate tasks | Enter: toggle</text></g></svg>
+</div>
+<div class="node-list" role="tablist"><button class="node-btn" role="tab" aria-selected="false" data-node="create" style="--node-color:#3b82f6"><span class="node-indicator"></span><span class="node-name">Create Task</span><span class="node-cat">CRUD</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="read" style="--node-color:#22c55e"><span class="node-indicator"></span><span class="node-name">List View</span><span class="node-cat">CRUD</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="update" style="--node-color:#eab308"><span class="node-indicator"></span><span class="node-name">Edit and Toggle</span><span class="node-cat">CRUD</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="delete" style="--node-color:#ef4444"><span class="node-indicator"></span><span class="node-name">Remove Task</span><span class="node-cat">CRUD</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="persist" style="--node-color:#a855f7"><span class="node-indicator"></span><span class="node-name">Data Persistence</span><span class="node-cat">Storage</span></button>
+<button class="node-btn" role="tab" aria-selected="false" data-node="ui" style="--node-color:#06b6d4"><span class="node-indicator"></span><span class="node-name">UI Components</span><span class="node-cat">Display</span></button></div>
+</div>
+<div class="info-panel" id="info-panel" role="tabpanel" aria-live="polite">
+<div class="info-placeholder">Click a node to explore</div>
+</div>
+</div>
+<section class="challenge-section">
+<h2 class="section-title">Knowledge Check</h2>
+<div id="challenge-container" class="challenge-container"></div>
+<button id="submit-challenge" class="btn-primary challenge-submit">Submit Answers</button>
+</section>
+</div>
+<div id="completion-overlay" class="completion-overlay" role="alertdialog" aria-modal="true" hidden>
+<div class="completion-card">
+<div class="completion-icon">\uD83C\uDF89</div>
+<h2 class="completion-title">Quiz Complete!</h2>
+<p class="completion-score" id="completion-score">0/0</p>
+<p class="completion-msg" id="completion-msg">Great effort!</p>
+<button id="completion-close" class="btn-primary">Continue</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

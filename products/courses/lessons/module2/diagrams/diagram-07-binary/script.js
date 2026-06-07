@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"bit",name:"Bit",category:"Processing",purpose:"The smallest unit of data in computing, representing either a 0 or a 1",description:"A bit is a binary digit that can be one of two values, typically representing off/on, false/true, or 0/1 in electrical circuits.",why:"All digital data is ultimately made of bits",analogy:"Like a light switch that can only be on or off",funFact:"The word bit is a contraction of binary digit coined by John Tukey in 1947",takeaway:"Everything a computer stores or processes is built from bits",mistake:"Bits aren\\'t physical objects—they\\'re states represented by voltage levels in circuits",descriptionDetailed:"Bits are physically represented by voltage levels in circuits (0V for 0, +3.3V for 1). In storage, bits are represented by magnetic polarity or charge in a floating gate. Groups of bits encode numbers, text, colors, and instructions."},    {id:"byte",name:"Byte",category:"Processing",purpose:"A group of 8 bits used as the standard unit of data storage",description:"A byte can represent 256 different values (0-255), enough to encode a single character, a small number, or part of a larger value.",why:"Bytes are the fundamental unit for memory addressing and file sizes",analogy:"Like a word made from 8 letters, where each letter is a bit",funFact:"The byte was originally variable-sized (4-6 bits) before standardizing to 8 bits in the 1960s",takeaway:"A byte is the basic unit for measuring data: KB, MB, GB, and TB",mistake:"A kilobyte is 1,024 bytes (2^10), not 1,000 bytes",descriptionDetailed:"8 bits form one byte, which is the smallest addressable unit of memory. A byte stores one ASCII character, a small integer (0-255), or part of a larger number."},    {id:"binary",name:"Binary Number System",category:"Processing",purpose:"A base-2 number system that computers use to represent all data",description:"Binary uses only two digits (0 and 1) to represent any number, with each position representing a power of 2 instead of powers of 10.",why:"Binary maps perfectly to the on/off nature of electronic circuits",analogy:"Like counting with only two symbols instead of the ten we normally use",funFact:"The binary system was described in ancient India and China over 2,000 years ago",takeaway:"Binary is the native language of computers—everything else is built on top of it",mistake:"Computers don\\'t think in decimal—all math is done in binary at the hardware level",descriptionDetailed:"In binary, each digit represents a power of 2. For example, binary 1101 = 1x8 + 1x4 + 0x2 + 1x1 = 13 decimal. Negative numbers use two\\'s complement representation."},    {id:"hex",name:"Hexadecimal",category:"Processing",purpose:"A base-16 number system used as a compact representation of binary data",description:"Hexadecimal uses 16 digits (0-9 and A-F) where each hex digit represents exactly 4 bits, making it much more readable than long binary strings.",why:"Hex provides a human-friendly way to view binary data",analogy:"Like shorthand for binary—2 hex characters replace 8 binary characters",funFact:"Hex is used for color codes in web design, like #FF0000 for red",takeaway:"Each hex digit represents 4 bits, so 2 hex digits = 1 byte",mistake:"Hex isn\\'t a different kind of data—it\\'s just a different way of writing the same binary values",descriptionDetailed:"Hexadecimal groups 4 bits into one digit (0-15 represented as 0-9, A-F). Programmers use hex for memory addresses, machine code, color values, and network addresses."},    {id:"ascii",name:"ASCII Encoding",category:"Processing",purpose:"Maps characters and symbols to numeric values for text representation",description:"ASCII assigns a unique 7-bit number (0-127) to each letter, digit, punctuation mark, and control character, standardizing text in computers.",why:"ASCII allows text to be stored and transmitted as binary data",analogy:"Like a secret code where each letter is replaced by a number",funFact:"ASCII was developed from telegraph codes and published in 1963",takeaway:"When you type a letter, the computer stores its ASCII number, not the letter itself",mistake:"ASCII only handles English characters—Unicode is needed for global language support",descriptionDetailed:"ASCII uses 7 bits to encode 128 characters: 33 control characters and 95 printable characters. \\'A\\' is 65, \\'a\\' is 97, \\'0\\' is 48."},    {id:"integer",name:"Integer Representation",category:"Processing",purpose:"Stores whole numbers in binary for arithmetic operations",description:"Integers are stored as fixed-width binary numbers, with methods for handling both positive values and negative values using two\\'s complement.",why:"Integer math is the foundation of all computer calculations",analogy:"Like writing numbers in binary instead of decimal",funFact:"Due to binary limitations, 0.1 + 0.2 doesn\\'t equal exactly 0.3 in floating point",takeaway:"Computers represent integers exactly but have limits based on bit width",mistake:"Integers wrap around on overflow—they don\\'t automatically use more bits",descriptionDetailed:"Unsigned integers store only non-negative values. Signed integers use two\\'s complement. Common sizes are 8-bit (byte), 16-bit (short), 32-bit (int), and 64-bit (long long)."}];
-var connections = [{from:"bit",to:"byte"},{from:"byte",to:"binary"},{from:"binary",to:"hex"},{from:"hex",to:"ascii"},{from:"ascii",to:"integer"}];
-var steps = [{label:"Step 1: Bit",status:"Exploring: Bit - The smallest unit of data in computing, representing either a 0 or a 1"},{label:"Step 2: Byte",status:"Exploring: Byte - A group of 8 bits used as the standard unit of data storage"},{label:"Step 3: Binary Number System",status:"Exploring: Binary Number System - A base-2 number system that computers use to represent all data"},{label:"Step 4: Hexadecimal",status:"Exploring: Hexadecimal - A base-16 number system used as a compact representation of binary data"},{label:"Step 5: ASCII Encoding",status:"Exploring: ASCII Encoding - Maps characters and symbols to numeric values for text representation"},{label:"Step 6: Integer Representation",status:"Exploring: Integer Representation - Stores whole numbers in binary for arithmetic operations"}];
-var tour = [{title:"Bit",description:"The smallest unit of data in computing, representing either a 0 or a 1",componentId:"bit"},{title:"Byte",description:"A group of 8 bits used as the standard unit of data storage",componentId:"byte"},{title:"Binary Number System",description:"A base-2 number system that computers use to represent all data",componentId:"binary"},{title:"Hexadecimal",description:"A base-16 number system used as a compact representation of binary data",componentId:"hex"},{title:"ASCII Encoding",description:"Maps characters and symbols to numeric values for text representation",componentId:"ascii"},{title:"Integer Representation",description:"Stores whole numbers in binary for arithmetic operations",componentId:"integer"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"bit":{"x":130,"y":130,"fields":{"Purpose":"Smallest data unit: 0 or 1","How It Works":"Represented by voltage levels (0V or +3.3V) or magnetic polarity.","Analogy":"Light switch on/off","Fun Fact":"Bit = binary digit, coined 1947","Key Takeaway":"Everything builds from bits"},"desc":"Fundamental unit of digital data."},"byte":{"x":340,"y":130,"fields":{"Purpose":"8 bits = standard unit","How It Works":"Represents 256 values (0-255); stores one character.","Analogy":"8-letter word","Fun Fact":"Byte was originally 4-6 bits","Key Takeaway":"KB = 1024 bytes"},"desc":"Group of 8 bits."},"binary":{"x":550,"y":130,"fields":{"Purpose":"Base-2 number system","How It Works":"Each position = power of 2. All numbers and instructions encoded in binary.","Analogy":"Decimal with only 2 digits","Fun Fact":"Described by Leibniz in 1689","Key Takeaway":"Native computer language"},"desc":"Binary number system using 0 and 1."},"hex":{"x":200,"y":360,"fields":{"Purpose":"Compact binary representation","How It Works":"Base-16: each digit = 4 bits; used for addresses and colors.","Analogy":"Binary shorthand","Fun Fact":"Used in web colors like #FF0000","Key Takeaway":"One hex digit = 4 bits"},"desc":"Hexadecimal base-16 system."},"ascii":{"x":470,"y":360,"fields":{"Purpose":"Character to number mapping","How It Works":"7-bit values (0-127); A=65, a=97, 0=48.","Analogy":"Letter phonebook","Fun Fact":"Developed in 1963","Key Takeaway":"Foundation of text encoding"},"desc":"Character encoding standard."}};
+  var CONNS=[{from:"bit",to:"byte"},{from:"byte",to:"binary"},{from:"binary",to:"hex"},{from:"hex",to:"ascii"}];
+  var CHALLENGES=[{q:"What is a bit?",opts:["8 bytes","0 or 1","A virus","A file"],ans:1},{q:"Bits in a byte?",opts:["4","8","16","32"],ans:1},{q:"Binary 1010 = decimal?",opts:["8","9","10","12"],ans:2},{q:"Hex uses what base?",opts:["8","10","16","2"],ans:2},{q:"ASCII for A:",opts:["65","97","49","33"],ans:0}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Binary',
-    subtitle: 'How Computers Work',
-    desc: 'Discover how computers represent data using bits, bytes, and binary numbers.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Discover how computers represent data using bits and binary.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

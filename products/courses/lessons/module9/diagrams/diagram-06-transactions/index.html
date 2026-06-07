@@ -1,17 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Transactions — Interactive Diagram | Consica Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../../../../../shared/styles/diagram-base.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Neural Networks - Interactive Diagram | Consica Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <script src="../../../../../../shared/scripts/diagram-engine.js"></script>
-  <script src="script.js"></script>
+<div id="app" role="application" aria-label="Neural Networks Interactive Diagram">
+  <div id="loading-skeleton" class="skeleton" role="status" aria-label="Loading diagram">
+    <div class="skeleton-header"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-subtitle"></div></div>
+    <div class="skeleton-visual"><div class="skeleton-node"></div><div class="skeleton-node"></div><div class="skeleton-node"></div></div>
+    <div class="skeleton-panel"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+  </div>
+  <div id="error-boundary" class="error-boundary hidden" role="alert">
+    <div class="error-icon">&#9888;</div>
+    <h2>Something went wrong</h2>
+    <p id="error-message">The diagram could not be loaded.</p>
+    <button class="btn-primary" onclick="location.reload()">Reload</button>
+  </div>
+  <div id="diagram-container" class="hidden">
+    <header class="diagram-header">
+      <h1 class="diagram-title">Neural Networks</h1>
+      <p class="diagram-subtitle">Brain-Inspired Computing - Core Concepts</p>
+      <div class="header-controls">
+        <button id="theme-toggle" class="ctrl-btn" aria-label="Toggle dark/light theme">&#9790;</button>
+      </div>
+    </header>
+    <div class="diagram-layout">
+      <div class="visual-panel" id="visual-panel">
+        <div id="svg-container" class="svg-container"></div>
+        <div class="controls-bar">
+          <div class="speed-control">
+            <label for="speed-slider" class="speed-label">Speed</label>
+            <input type="range" id="speed-slider" class="speed-slider" min="0" max="4" step="0.25" value="1" aria-label="Animation speed">
+            <span id="speed-value" class="speed-value">1x</span>
+          </div>
+          <button id="play-btn" class="ctrl-btn play-btn" aria-label="Play animation">&#9654;</button>
+          <button id="reset-btn" class="ctrl-btn" aria-label="Reset view">&#8635;</button>
+        </div>
+        <div id="info-panel" class="info-panel" role="region" aria-label="Component information">
+          <div class="info-header"><h3 id="info-title">Explore AI</h3></div>
+          <div class="info-content"><p id="info-desc">Click any node to learn about AI concepts.</p></div>
+        </div>
+      </div>
+      <div class="side-panel">
+        <div id="steps-panel" class="steps-panel">
+          <h3>AI Subfields</h3>
+          <ul id="steps-list" class="steps-list"></ul>
+        </div>
+        <button id="challenge-btn" class="btn-primary challenge-btn">Start Challenge</button>
+      </div>
+    </div>
+  </div>
+  <div id="challenge-overlay" class="challenge-overlay hidden" role="dialog" aria-modal="true" aria-label="Knowledge challenge">
+    <div class="challenge-modal">
+      <div class="challenge-header">
+        <h2>AI Knowledge Challenge</h2>
+        <button id="challenge-close" class="ctrl-btn" aria-label="Close challenge">&times;</button>
+      </div>
+      <div id="challenge-body" class="challenge-body"></div>
+    </div>
+  </div>
+  <div id="completion-overlay" class="completion-overlay hidden" role="dialog" aria-modal="true" aria-label="Challenge complete">
+    <div class="completion-modal">
+      <div class="completion-icon">&#10003;</div>
+      <h2>Challenge Complete!</h2>
+      <p id="completion-score">You scored 0/0</p>
+      <button id="completion-close" class="btn-primary">Continue</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,36 +1,63 @@
 (function(){'use strict';
-var components = [{"id":"node1","name":"Block Header","category":"Structure","icon":"database","shape":"rounded-rect","x":40,"y":80,"w":110,"h":56,"purpose":"Holds metadata and linkages","description":"Contains block number, nonce, prev-hash, and transaction data.","why":"Identifies the block unit","analogy":"Envelope cover details","funFact":"Includes the timestamp down to the second","takeaway":"Block header is hashed to lock data","mistake":"Editing header variables does not go unnoticed","descriptionDetailed":"Block data payload structure.","howItWorks":"Contains block number, nonce, prev-hash, and transaction data.","deeperDive":"Block data payload structure.","advancedConcept":"Includes the timestamp down to the second"},{"id":"node2","name":"Hash Function","category":"Security","icon":"key","shape":"rounded-rect","x":200,"y":80,"w":110,"h":56,"purpose":"Computes digital fingerprints","description":"Processes data using SHA-256 algorithm.","why":"Locks record data","analogy":"Digital seal wax","funFact":"Always produces a 64-character hex string","takeaway":"Hashes are one-way only","mistake":"You cannot reconstruct original text from the hash string","descriptionDetailed":"SHA-256 algorithm computation node.","howItWorks":"Processes data using SHA-256 algorithm.","deeperDive":"SHA-256 algorithm computation node.","advancedConcept":"Always produces a 64-character hex string"},{"id":"node3","name":"Linked Block","category":"Chain","icon":"monitor","shape":"diamond","x":360,"y":80,"w":110,"h":56,"purpose":"Secures subsequent chain link","description":"The next block containing the hash of the current one.","why":"Creates the tamper-proof link","analogy":"Locked chain links","funFact":"A break in one link invalidates all blocks that follow","takeaway":"Chaining ensures immutability","mistake":"Tampering with data in past blocks breaks all following hashes","descriptionDetailed":"Next sequence block referencing parent node.","howItWorks":"The next block containing the hash of the current one.","deeperDive":"Next sequence block referencing parent node.","advancedConcept":"A break in one link invalidates all blocks that follow"}];
-var connections = [{"from":"node1","to":"node2"},{"from":"node2","to":"node3"}];
-var steps = [{"id":"node1","label":"Step 1: Pack Block","status":"Transactions are packaged into a block header with the previous block's hash."},{"id":"node2","label":"Step 2: Calculate Hash","status":"SHA-256 function processes the block header, outputting a secure hash."},{"id":"node3","label":"Step 3: Link Chain","status":"The calculated hash is stored in the next block's header, securing the link."}];
-var tour = [{"title":"Block Header","description":"Stores transaction data and links.","componentId":"node1"},{"title":"Hash Function","description":"Generates secure digital fingerprints.","componentId":"node2"},{"title":"Linked Block","description":"Binds the blocks into an unbroken chain.","componentId":"node3"}];
-
-deferInit(function(){
-  new DiagramEngine({
-    title: "Build a Paper Blockchain",
-    subtitle: "Blockchain Technology",
-    desc: "Explore the core components and operations.",
-    module: 9,
-    difficulty: "Intermediate",
-    time: "10",
-    objectives: "Explore the core components and operations.",
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    customChallenge: function(container, engine) {
-      engine.buildAutoChallenge(container);
-    },
-    
-    animate: function(engine) {},
-    onReplay: function(engine) {
-      engine.t = 0;
-    }
-  });
-});
+var theme=localStorage.getItem('consica-theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+var app,container,skeleton,errorBoundary,errorMsg,svgContainer,infoTitle,infoDesc,stepsList,playBtn,resetBtn,speedSlider,speedVal,themeBtn,challengeOverlay,challengeBody,challengeClose,completionOverlay,completionScore,completionClose,challengeBtn,rafId,animating=false,t=0,activeNode=null,nodes=[],flowDots=[],speed=1,challengeState={questions:[],current:0,answers:{},submitted:false};
+var components=[
+{id:'agi',name:'AGI',sublabel:'2025-2030',desc:'Artificial General Intelligence (AGI) would match or exceed human cognitive ability across virtually all domains.',purpose:'Create AI as capable as humans at any intellectual task',how:'Scale current architectures with new breakthroughs in reasoning, memory, and understanding',why:'AGI could solve problems currently beyond human reach',analogy:'A mind as versatile as a human but with perfect memory and infinite patience',funFact:'Sam Altman has said GPT-5 may be considered AGI',takeaway:'AGI remains the holy grail of AI research',mistake:'AGI timelines are highly uncertain - predictions range from 2025 to never'},
+{id:'robots',name:'Advanced Robotics',sublabel:'2026-2030',desc:'Next-generation robots with general intelligence will work alongside humans in homes, factories, and hospitals.',purpose:'Create versatile physical laborers for any environment',how:'Foundation models for robotics combine vision, language, and motor control',why:'Physical labor automation is the next frontier after digital',analogy:'A robot that can cook dinner, fold laundry, and build furniture',funFact:'Tesla Optimus aims to be a general-purpose humanoid robot for $20,000',takeaway:'General-purpose robots will transform manual labor',mistake:'Hardware limitations (battery, dexterity) are as hard as AI'},
+{id:'climate2',name:'Climate AI',sublabel:'2027-2032',desc:'AI will play a crucial role in combating climate change through advanced modeling, carbon capture, and clean energy optimization.',purpose:'Accelerate solutions to the climate crisis',how:'AI models simulate climate scenarios, optimize renewable grids, discover new materials for batteries',why:'Climate change requires solutions at a complexity only AI can manage',analogy:'A supercomputer modeling every variable of Earth climate system',funFact:'AI-accelerated fusion research could unlock unlimited clean energy',takeaway:'AI may be essential for humanity survival on this planet',mistake:'AI itself consumes significant energy - must be green AI'},
+{id:'health2',name:'Health Revolution',sublabel:'2028-2035',desc:'AI will enable personalized medicine, real-time health monitoring, drug discovery acceleration, and life extension.',purpose:'Dramatically extend human healthspan and lifespan',how:'AI analyzes multi-omics data, designs proteins, predicts disease before symptoms appear',why:'Biology is information-processing - AI is perfect for it',analogy:'A doctor who has studied every medical case in history',funFact:'AlphaFold solved the 50-year protein folding problem in 2021',takeaway:'AI will transform medicine from reactive to preventive',mistake:'Biological data is noisy and incomplete - perfect AI needs perfect data'},
+{id:'space',name:'Space AI',sublabel:'2030-2035',desc:'AI will power autonomous space exploration, from self-driving rovers to intelligent spacecraft that make decisions without Earth comms.',purpose:'Explore the solar system autonomously',how:'AI vision for navigation, ML for scientific discovery, autonomous planning for missions',why:'Communication delays make Earth control impractical for deep space',analogy:'A self-sufficient explorer traveling to unknown lands',funFact:'Perseverance rover uses AI for autonomous navigation on Mars',takeaway:'AI is essential for exploring beyond our solar system',mistake:'Radiation in space damages electronics - AI hardware must be hardened'},
+{id:'beyond',name:'Beyond 2035',sublabel:'Long-term vision',desc:'Beyond 2035, AI may merge with blockchain, quantum computing, and BCIs to create a fundamentally different civilization.',purpose:'Envision the long-term trajectory of AI',how:'Convergence of AI + quantum + biotech + blockchain creates new paradigms',why:'Technological convergence will amplify each technology impact',analogy:'The invention of electricity - it changed everything, not just lighting',funFact:'Ray Kurzweil predicts the Singularity around 2045',takeaway:'The future of AI is limited only by physics and imagination',mistake:'Predicting technology 10+ years out is extremely unreliable'}
+];
+var connectionsData=[{from:'agi',to:'robots'},{from:'robots',to:'climate2'},{from:'climate2',to:'health2'},{from:'health2',to:'space'},{from:'space',to:'beyond'}];
+var stepsData=[
+{id:'agi',label:'AGI (2025-2030) - human-level general intelligence'},
+{id:'robots',label:'Advanced Robotics (2026-2030) - general-purpose physical labor'},
+{id:'climate2',label:'Climate AI (2027-2032) - combating climate change'},
+{id:'health2',label:'Health Revolution (2028-2035) - personalized medicine'},
+{id:'space',label:'Space AI (2030-2035) - autonomous exploration'},
+{id:'beyond',label:'Beyond 2035 - convergence with quantum and biotech'}
+];
+var challenges=[
+{q:'What is Artificial General Intelligence (AGI)?',o:['AI that can play chess','AI that matches human ability across all intellectual domains','A type of robot','A programming language'],a:1},
+{q:'What major scientific problem did AlphaFold solve?',o:['Climate modeling','The protein folding problem','Quantum computing','Space travel'],a:1},
+{q:'Why is AI essential for deep space exploration?',o:['It makes spacecraft lighter','Communication delays make Earth control impractical','It reduces fuel consumption','It looks cool'],a:1},
+{q:'What does Ray Kurzweil predict will happen around 2045?',o:['AI winter','The Singularity','Mars colony','Internet shutdown'],a:1},
+{q:'What is a key challenge for AI in healthcare?',o:['It is too fast','Biological data is noisy and incomplete','Doctors do not use computers','Patients prefer robots'],a:1},
+{q:'Why do general-purpose robots face hardware challenges?',o:['They are too heavy','Battery life and dexterity limitations are as hard as AI','They cost too little','They break easily'],a:1}
+];
+function init(){app=document.getElementById('app');container=document.getElementById('diagram-container');skeleton=document.getElementById('loading-skeleton');errorBoundary=document.getElementById('error-boundary');errorMsg=document.getElementById('error-message');svgContainer=document.getElementById('svg-container');infoTitle=document.getElementById('info-title');infoDesc=document.getElementById('info-desc');stepsList=document.getElementById('steps-list');playBtn=document.getElementById('play-btn');resetBtn=document.getElementById('reset-btn');speedSlider=document.getElementById('speed-slider');speedVal=document.getElementById('speed-value');themeBtn=document.getElementById('theme-toggle');challengeOverlay=document.getElementById('challenge-overlay');challengeBody=document.getElementById('challenge-body');challengeClose=document.getElementById('challenge-close');completionOverlay=document.getElementById('completion-overlay');completionScore=document.getElementById('completion-score');completionClose=document.getElementById('completion-close');challengeBtn=document.getElementById('challenge-btn');
+try{buildDiagram();setupControls();setupChallenge();showContainer();}catch(e){showError(e.message||'Failed to build diagram');}}
+function showContainer(){skeleton.classList.add('hidden');container.classList.remove('hidden');}
+function showError(msg){skeleton.classList.add('hidden');errorBoundary.classList.remove('hidden');errorMsg.textContent=msg;}
+function buildDiagram(){var W=840,H=420;var svg=svgCreate('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Future of AI timeline from 2025 to beyond 2035'});svgContainer.appendChild(svg);
+var defs=svgCreate('defs');svg.appendChild(defs);
+defs.innerHTML='<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--conn-stroke)"/></marker><marker id="arrowLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>';
+var positions={agi:{x:140,y:100},robots:{x:280,y:100},climate2:{x:420,y:100},health2:{x:560,y:100},space:{x:700,y:100},beyond:{x:420,y:280}};
+components.forEach(function(cp){var p=positions[cp.id];var g=svgCreate('g',{class:'node-g',tabIndex:0,role:'button','aria-label':cp.name+': '+cp.sublabel});g.dataset.id=cp.id;
+var h=(cp.id==='beyond')?42:52;
+var rx=svgCreate('rect',{x:p.x-65,y:p.y-h/2,width:130,height:h,rx:10,class:'node-rect'});g.appendChild(rx);
+var lbl=svgCreate('text',{x:p.x,y:p.y-4,class:'node-label'});lbl.textContent=cp.name;g.appendChild(lbl);
+var slbl=svgCreate('text',{x:p.x,y:p.y+14,class:'node-sublabel'});slbl.textContent=cp.sublabel;g.appendChild(slbl);
+g.addEventListener('click',function(){selectNode(cp.id);});g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(cp.id);}});svg.appendChild(g);nodes.push({el:g,data:cp,pos:p});});
+connectionsData.forEach(function(c){var f=positions[c.from],t=positions[c.to];var line;if(c.to==='beyond'){var d='M'+f.x+','+(f.y+26)+' Q'+((f.x+t.x)/2)+','+((f.y+t.y)/2+20)+' '+t.x+','+(t.y-26);line=svgCreate('path',{d:d,class:'connection-line',fill:'none','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}else{line=svgCreate('line',{x1:f.x+65,y1:f.y,x2:t.x-65,y2:t.y,class:'connection-line','marker-end':theme==='light'?'url(#arrowLight)':'url(#arrow)'});}svg.appendChild(line);var fd=svgCreate('circle',{class:'flow-dot',cx:0,cy:0,r:0,fill:'var(--accent)'});svg.appendChild(fd);flowDots.push({el:fd,sx:f.x+65,sy:f.y,ex:t.x-65,ey:t.y});});
+var axis=svgCreate('line',{x1:40,y1:130,x2:800,y2:130,stroke:'var(--border)',strokeWidth:1,strokeDasharray:'4,4'});svg.appendChild(axis);
+['2025','2026','2028','2030','2035','2045+'].forEach(function(y,i){var x=[75,215,355,495,635,775][i];var t=svgCreate('text',{x:x,y:150,class:'node-sublabel','font-size':'10'});t.textContent=y;svg.appendChild(t);});
+var selected=false;components.forEach(function(c){if(!selected){selectNode(c.id);selected=true;}});renderSteps();}
+function svgCreate(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function selectNode(id){activeNode=id;var cp=getComp(id);if(!cp)return;nodes.forEach(function(n){var r=n.el.querySelector('.node-rect');if(r)r.classList.toggle('active',n.data.id===id);});infoTitle.textContent=cp.name+' - '+cp.sublabel;infoDesc.innerHTML='<strong>Purpose:</strong> '+cp.purpose+'<br><br><strong>How it works:</strong> '+cp.how+'<br><br><strong>Why it matters:</strong> '+cp.why+'<br><br><strong>Analogy:</strong> '+cp.analogy+(cp.funFact?'<br><br><strong>Fun fact:</strong> '+cp.funFact:'')+'<br><br><strong>Key takeaway:</strong> '+cp.takeaway+'<br><br><strong>Common mistake:</strong> '+cp.mistake;var items=stepsList.querySelectorAll('li');items.forEach(function(li){li.classList.toggle('active',li.dataset.id===id);});}
+function getComp(id){for(var i=0;i<components.length;i++){if(components[i].id===id)return components[i];}return null;}
+function renderSteps(){stepsList.innerHTML='';components.forEach(function(c){var li=document.createElement('li');li.dataset.id=c.id;li.textContent=c.name+' - '+c.sublabel;li.tabIndex=0;li.addEventListener('click',function(){selectNode(c.id);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(c.id);}});stepsList.appendChild(li);});}
+function animateDiagram(){var start=performance.now();function frame(now){if(!animating){rafId=null;return;}var dt=(now-start)/1000*speed;t=(t+dt)%1;flowDots.forEach(function(d){d.el.setAttribute('cx',d.sx+(d.ex-d.sx)*t);d.el.setAttribute('cy',d.sy+(d.ey-d.sy)*t);d.el.setAttribute('r',4);});rafId=requestAnimationFrame(frame);}rafId=requestAnimationFrame(frame);}
+function setupControls(){themeBtn.addEventListener('click',function(){theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('consica-theme',theme);});playBtn.addEventListener('click',function(){animating=!animating;if(animating){playBtn.innerHTML='&#9646;&#9646;';animateDiagram();}else{playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});resetBtn.addEventListener('click',function(){t=0;flowDots.forEach(function(d){d.el.setAttribute('r',0);});if(animating){animating=false;playBtn.innerHTML='&#9654;';if(rafId){cancelAnimationFrame(rafId);rafId=null;}}});speedSlider.addEventListener('input',function(){speed=parseFloat(this.value);speedVal.textContent=speed+'x';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){challengeOverlay.classList.add('hidden');completionOverlay.classList.add('hidden');}});}
+function setupChallenge(){challengeBtn.addEventListener('click',function(){openChallenge();});challengeClose.addEventListener('click',function(){challengeOverlay.classList.add('hidden');});completionClose.addEventListener('click',function(){completionOverlay.classList.add('hidden');challengeOverlay.classList.add('hidden');});}
+function openChallenge(){challengeState.questions=challenges.slice().sort(function(){return Math.random()-0.5;}).slice(0,5);challengeState.current=0;challengeState.answers={};challengeState.submitted=false;challengeOverlay.classList.remove('hidden');renderQuestion();}
+function renderQuestion(){var q=challengeState.questions[challengeState.current];if(!q){finishChallenge();return;}var html='<div class="question"><div class="question-text">'+(challengeState.current+1)+'. '+q.q+'</div><div class="options">';q.o.forEach(function(opt,i){var sel=challengeState.answers[challengeState.current]===i?' selected':'';var cls=challengeState.submitted?(i===q.a?' correct':(challengeState.answers[challengeState.current]===i?' wrong':'')):'';html+='<label class="option-label'+sel+cls+'"><input type="radio" name="q'+challengeState.current+'" value="'+i+'"'+(challengeState.submitted?' disabled':'')+(sel?' checked':'')+' onchange="('+selectOption.toString()+')('+challengeState.current+','+i+')">'+opt+'</label>';});html+='</div></div>';html+='<div class="challenge-actions">';if(!challengeState.submitted){html+='<button class="btn-primary" onclick="('+submitChallenge.toString()+')()">Submit Answer</button>';}else{if(challengeState.current<challengeState.questions.length-1){html+='<button class="btn-primary" onclick="('+nextQuestion.toString()+')()">Next Question</button>';}else{html+='<button class="btn-primary" onclick="('+finishChallenge.toString()+')()">See Results</button>';}}html+='</div>';challengeBody.innerHTML=html;}
+function selectOption(qIdx,optIdx){if(challengeState.submitted)return;challengeState.answers[qIdx]=optIdx;renderQuestion();}
+function submitChallenge(){challengeState.submitted=true;renderQuestion();}
+function nextQuestion(){challengeState.current++;challengeState.submitted=false;renderQuestion();}
+function finishChallenge(){var correct=0,total=challengeState.questions.length;challengeState.questions.forEach(function(q,i){if(challengeState.answers[i]===q.a)correct++;});completionScore.textContent='You scored '+correct+'/'+total;completionOverlay.classList.remove('hidden');}
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='complete'||document.readyState==='interactive')init();
 })();

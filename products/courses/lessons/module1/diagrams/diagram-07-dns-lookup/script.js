@@ -1,164 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"browser",name:"Web Browser",category:"Software",icon:"browser",shape:"circle",x:125,y:15,w:110,h:50,purpose:"Triggers a DNS lookup when you type a URL and press Enter",description:"The browser checks its own cache first, and if the IP isn't found, it asks the operating system's resolver to perform a DNS query.",why:"DNS lookup is the critical first step before any web request can happen",analogy:"Like looking up a friend's phone number before calling them",funFact:"Browsers cache DNS results aggressively, sometimes for minutes or hours",takeaway:"Every website visit starts with a DNS query, even if you don't notice it",mistake:"The browser doesn't query DNS servers directly. It asks the OS resolver",descriptionDetailed:"The browser first checks its internal DNS cache, then calls the operating system's gethostbyname or getaddrinfo function. The browser sets a timeout for the DNS query and will display an error if it fails. Chrome and Firefox also support DNS-over-HTTPS for encrypted lookups."},
-  {id:"resolver",name:"DNS Recursive Resolver",category:"Network",icon:"dns",shape:"rounded-rect",x:125,y:95,w:110,h:50,purpose:"Queries the DNS hierarchy on behalf of the client to find the IP address",description:"The resolver starts the lookup chain by contacting root servers, then TLD servers, and finally authoritative servers until it finds the answer.",why:"Resolvers do the heavy lifting of navigating the DNS hierarchy",analogy:"Like a research assistant who goes to the library, checks the catalog, and finds the book for you",funFact:"Google's public DNS at 8.8.8.8 handles over 100 billion queries per day",takeaway:"The resolver acts as your agent in the DNS lookup process",mistake:"A resolver doesn't own any domain data. It's just a middleman",descriptionDetailed:"The resolver is configured by the ISP or manually (like 8.8.8.8). It queries servers iteratively, starting from the root and following referrals. Results are cached with TTL values to speed up subsequent queries."},
-  {id:"root",name:"Root Name Server",category:"Network",icon:"server",shape:"hexagon",x:125,y:170,w:110,h:50,purpose:"Directs resolvers to the appropriate TLD server for the domain extension",description:"Root servers are the top of the DNS hierarchy, answering queries by pointing to TLD servers like .com, .org, or .net.",why:"Root servers are the starting point for every DNS resolution",analogy:"Like the main library index that tells you which section of the library to go to",funFact:"There are 13 root server identities, but they are replicated across hundreds of physical servers",takeaway:"Root servers don't know individual domain IPs. Only where to find TLD servers",mistake:"Root servers are not controlled by any single country or company",descriptionDetailed:"Root servers are operated by 12 organizations including Verisign, ICANN, and universities. They answer queries with a referral to the appropriate TLD name server. Anycast routing allows multiple physical servers to share one IP address for resilience."},
-  {id:"tld",name:"TLD Name Server",category:"Network",icon:"globe",shape:"pill",x:50,y:245,w:110,h:50,purpose:"Manages all domains under a specific top-level extension like .com or .org",description:"The TLD server stores the names of authoritative name servers for every domain registered under that extension.",why:"TLD servers are the bridge between domain extensions and specific domains",analogy:"Like a phone book for all names ending in .com",funFact:"The .com TLD has over 150 million registered domains",takeaway:"TLD servers know which authoritative server has details for each domain",mistake:"TLD servers don't store IP addresses. They store references to authoritative servers",descriptionDetailed:"TLD servers are operated by registries like Verisign (.com, .net) and PIR (.org). They maintain records of which name servers are authoritative for each registered domain. The resolver queries the TLD server with the domain name and receives a referral to the authoritative server."},
-  {id:"authoritative",name:"Authoritative Name Server",category:"Network",icon:"globe",shape:"pill",x:200,y:245,w:110,h:50,purpose:"Holds the actual DNS records for a specific domain and provides the final answer",description:"The authoritative server contains A, AAAA, MX, CNAME, and other records that map a domain to its IP address and services.",why:"Authoritative servers are the source of truth for domain information",analogy:"Like the county clerk's office that holds the official property records",funFact:"Authoritative servers can be configured with TTL values of seconds to days",takeaway:"This is the server that finally tells your browser the IP address",mistake:"Authoritative servers don't perform recursion. They only answer for domains they control",descriptionDetailed:"Authoritative servers host zone files containing resource records for the domain. They can be primary (master) or secondary (slave) for redundancy. Common record types include A (IPv4), AAAA (IPv6), MX (mail), CNAME (aliases), and TXT (text data)."},
-  {id:"cache",name:"DNS Cache",category:"Network",icon:"database",shape:"rounded-rect",x:125,y:320,w:110,h:50,purpose:"Stores recent DNS lookup results to speed up future queries",description:"DNS caches at every level. Browser, OS, resolver, and server. Store previously resolved IPs so repeat lookups are instant.",why:"Caching drastically reduces DNS lookup times and network traffic",analogy:"Like memorizing a frequently called phone number instead of looking it up each time",funFact:"DNS caching can reduce lookup times from hundreds of milliseconds to under one millisecond",takeaway:"Cached records remain valid only for their configured TTL period",mistake:"DNS caches can serve stale records if not managed properly",descriptionDetailed:"Each DNS response includes a TTL value telling the cache how long to keep the record. When a cached record expires, the next query triggers a fresh lookup. Negative caching also stores failed lookups to prevent repeated queries for nonexistent domains."}
-];
-var connections = [{from:"browser",to:"resolver"},{from:"resolver",to:"root"},{from:"root",to:"tld"},{from:"tld",to:"authoritative"},{from:"authoritative",to:"cache"}];
-var steps = [{id:"browser",label:"Step 1: Web Browser",status:"Exploring: Web Browser - Triggers a DNS lookup when you type a URL and press Enter"},{id:"resolver",label:"Step 2: DNS Recursive Resolver",status:"Exploring: DNS Recursive Resolver - Queries the DNS hierarchy on behalf of the client to find the IP address"},{id:"root",label:"Step 3: Root Name Server",status:"Exploring: Root Name Server - Directs resolvers to the appropriate TLD server for the domain extension"},{id:"tld",label:"Step 4: TLD Name Server",status:"Exploring: TLD Name Server - Manages all domains under a specific top-level extension like .com or .org"},{id:"authoritative",label:"Step 5: Authoritative Name Server",status:"Exploring: Authoritative Name Server - Holds the actual DNS records for a specific domain and provides the final answer"},{id:"cache",label:"Step 6: DNS Cache",status:"Exploring: DNS Cache - Stores recent DNS lookup results to speed up future queries"}];
-var tour = [{title:"Web Browser",description:"Triggers a DNS lookup when you type a URL and press Enter",componentId:"browser"},{title:"DNS Recursive Resolver",description:"Queries the DNS hierarchy on behalf of the client to find the IP address",componentId:"resolver"},{title:"Root Name Server",description:"Directs resolvers to the appropriate TLD server for the domain extension",componentId:"root"},{title:"TLD Name Server",description:"Manages all domains under a specific top-level extension like .com or .org",componentId:"tld"},{title:"Authoritative Name Server",description:"Holds the actual DNS records for a specific domain and provides the final answer",componentId:"authoritative"},{title:"DNS Cache",description:"Stores recent DNS lookup results to speed up future queries",componentId:"cache"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Dns Lookup',
-    subtitle: 'How Internet Works',
-    desc: 'Follow the DNS resolution chain from browser to root, TLD, and authoritative servers.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Follow the DNS resolution process from browser to authoritative server.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'Recursive Query',color:'#22c55e'},
-      {label:'Root Query',color:'#60a5fa'},
-      {label:'TLD Query',color:'#c084fc'},
-      {label:'Authoritative',color:'#f59e0b'},
-      {label:'Final Answer',color:'#22c55e'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "browser", "name": "Web Browser", "cat": "Software", "icon": "🌍", "x": 375, "y": 20, "desc": "The browser checks its own cache first, and if the IP isnt found, it asks the OS resolver.", "how": "The browser checks its internal DNS cache, then calls the operating systems gethostbyname function, setting a timeout for the query.", "why": "DNS lookup is the critical first step before any web request can happen", "analogy": "Like looking up a friends phone number before calling them", "fun": "Browsers cache DNS results aggressively, sometimes for minutes or hours", "take": "Every website visit starts with a DNS query, even if you dont notice it"}, {"id": "resolver", "name": "DNS Recursive Resolver", "cat": "Network", "icon": "🌐", "x": 375, "y": 105, "desc": "The resolver queries root, TLD, and authoritative servers iteratively until it finds the answer.", "how": "The resolver queries servers iteratively, starting from the root and following referrals, caching results with TTL values.", "why": "Resolvers do the heavy lifting of navigating the DNS hierarchy", "analogy": "Like a research assistant who goes to the library and finds the book for you", "fun": "Googles public DNS at 8.8.8.8 handles over 100 billion queries per day", "take": "The resolver acts as your agent in the DNS lookup process"}, {"id": "root", "name": "Root Name Server", "cat": "Infrastructure", "icon": "🖥️", "x": 375, "y": 190, "desc": "Root servers are the top of the DNS hierarchy, pointing to TLD servers like .com or .org.", "how": "Root servers answer queries with a referral to the appropriate TLD name server using anycast routing for resilience.", "why": "Root servers are the starting point for every DNS resolution", "analogy": "Like the main library index that tells you which section to go to", "fun": "There are 13 root server identities, replicated across hundreds of physical servers", "take": "Root servers dont know individual domain IPs, only where to find TLD servers"}, {"id": "tld", "name": "TLD Name Server", "cat": "Infrastructure", "icon": "🌐", "x": 150, "y": 285, "desc": "The TLD server stores the names of authoritative name servers for every domain under that extension.", "how": "TLD servers maintain records of which name servers are authoritative for each registered domain under their extension.", "why": "TLD servers are the bridge between domain extensions and specific domains", "analogy": "Like a phone book for all names ending in .com", "fun": "The .com TLD has over 150 million registered domains", "take": "TLD servers know which authoritative server has details for each domain"}, {"id": "auth", "name": "Authoritative Name Server", "cat": "Infrastructure", "icon": "🌐", "x": 600, "y": 285, "desc": "The authoritative server contains A, AAAA, MX, and other records that map a domain to its IP.", "how": "Authoritative servers host zone files containing resource records for the domain, providing the final answer to the resolver.", "why": "Authoritative servers are the source of truth for domain information", "analogy": "Like the county clerks office that holds official property records", "fun": "Authoritative servers can be configured with TTL values from seconds to days", "take": "This is the server that finally tells your browser the IP address"}, {"id": "cache", "name": "DNS Cache", "cat": "Network", "icon": "🗄️", "x": 375, "y": 355, "desc": "DNS caches at every level store previously resolved IPs for fast future lookups.", "how": "Each DNS response includes a TTL value telling the cache how long to keep the record before it expires.", "why": "Caching drastically reduces DNS lookup times and network traffic", "analogy": "Like memorizing a frequently called phone number instead of looking it up each time", "fun": "DNS caching can reduce lookup times from hundreds of milliseconds to under one millisecond", "take": "Cached records remain valid only for their configured TTL period"}];
+var CONNECTIONS=[{"from": "browser", "to": "resolver", "type": "fiber"}, {"from": "resolver", "to": "root", "type": "fiber"}, {"from": "root", "to": "tld", "type": "fiber"}, {"from": "tld", "to": "auth", "type": "fiber"}, {"from": "auth", "to": "cache", "type": "cable"}];
+var ROUTES={"A": {"name": "DNS Resolution Chain", "color": "#3b82f6", "path": ["browser", "resolver", "root", "tld", "auth", "cache"]}};
+var CHALLENGES=[{"q": "What is the first place a browser checks for a DNS record?", "opts": ["Root server", "Its own cache", "TLD server", "Authoritative server"], "ans": 1, "exp": "The browser first checks its internal DNS cache before making any external queries."}, {"q": "What is the role of a DNS recursive resolver?", "opts": ["Stores domain records", "Queries the DNS hierarchy on behalf of the client", "Hosts websites", "Assigns IP addresses"], "ans": 1, "exp": "The resolver queries root, TLD, and authoritative servers iteratively to find the IP address."}, {"q": "How many logical root name servers exist?", "opts": ["1", "7", "13", "100"], "ans": 2, "exp": "There are 13 logical root server identities, replicated across hundreds of physical servers."}, {"q": "What does a root server provide in response to a query?", "opts": ["The final IP address", "A referral to the TLD server", "The website content", "The email server"], "ans": 1, "exp": "Root servers respond with a referral to the appropriate TLD name server."}, {"q": "What does TLD stand for?", "opts": ["Top Level Domain", "Technical Link Directory", "Transfer Layer Data", "Terminal Location Device"], "ans": 0, "exp": "TLD stands for Top Level Domain, like .com, .org, or .net."}, {"q": "How many domains are registered under .com?", "opts": ["1 million", "15 million", "Over 150 million", "1 billion"], "ans": 2, "exp": "The .com TLD has over 150 million registered domains."}, {"q": "What record type maps a domain to an IPv4 address?", "opts": ["AAAA record", "MX record", "A record", "CNAME record"], "ans": 2, "exp": "An A record maps a domain name to an IPv4 address."}, {"q": "What does TTL in a DNS response control?", "opts": ["How long the record can be cached", "The Time To Live of packets", "Connection speed", "Query priority"], "ans": 0, "exp": "The TTL in a DNS response tells caches how long to keep the record before it expires."}, {"q": "What is DNS-over-HTTPS?", "opts": ["Faster DNS", "Encrypted DNS queries", "Offline DNS", "DNS for HTTPS websites"], "ans": 1, "exp": "DNS-over-HTTPS encrypts DNS queries to prevent eavesdropping and manipulation."}, {"q": "What does DNSSEC provide?", "opts": ["Faster lookups", "Validation and authentication of DNS data", "More IP addresses", "Compression of DNS responses"], "ans": 1, "exp": "DNSSEC provides cryptographic validation of DNS data to prevent spoofing."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    customChallenge: function(container, engine) {
-      // DNS Resolver Simulation
-      container.innerHTML = `
-        <div class="sim-interactive-area" style="padding: 20px;">
-          <div style="font-size: 14px; font-weight: 700; color: #60a5fa; margin-bottom: 6px;">DNS Lookup Resolver Lab</div>
-          <p style="font-size: 11px; color: #cbd5e1; margin-bottom: 12px;">Type a website address to see how recursive routers resolve domain names to IP addresses step-by-step.</p>
-          
-          <!-- Mock Browser Bar -->
-          <div class="glass-panel" style="display:flex; gap:10px; padding:10px; margin-bottom:16px; align-items:center;">
-            <span style="font-size:11px; font-weight:bold; color:#64748b;">https://</span>
-            <input class="sim-input" id="dns-url-input" type="text" placeholder="google.com" value="google.com" style="flex:1;">
-            <button class="act-btn" id="dns-resolve-btn" style="background:#0959C8; border-color:#3b82f6;">Resolve IP</button>
-          </div>
-          
-          <!-- Query Tracing Panel -->
-          <div class="sim-canvas" style="display:flex; flex-direction:column; padding:16px; gap:8px; overflow-y:auto; min-height:200px;">
-            <div id="dns-trace-logs" style="font-family: monospace; font-size:11px; color:#cbd5e1; line-height:1.6;">
-              <span style="color:#64748b;">Waiting for request... Enter URL and click 'Resolve IP'</span>
-            </div>
-          </div>
-          
-          <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-            <span id="dns-status-info" style="font-size:11px; font-weight:bold; color:#10b981;"></span>
-          </div>
-        </div>
-      `;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
 
-      var btn = container.querySelector('#dns-resolve-btn');
-      var input = container.querySelector('#dns-url-input');
-      var logs = container.querySelector('#dns-trace-logs');
-      var status = container.querySelector('#dns-status-info');
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
 
-      btn.addEventListener('click', function() {
-        var domain = input.value.trim().toLowerCase();
-        if (!domain) return;
-        runDnsResolver(domain);
-      });
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
 
-      function runDnsResolver(domain) {
-        btn.disabled = true;
-        logs.innerHTML = "";
-        status.textContent = "Resolving...";
-        
-        var ext = domain.split('.').pop() || "com";
-        var tldServer = `ns.tld-${ext}.net`;
-        var finalIp = "172.217.16.142"; // Mock IP
-        if (domain.includes("wikipedia")) finalIp = "91.198.174.192";
-        else if (domain.includes("consica")) finalIp = "104.21.32.228";
-
-        var stages = [
-          {
-            name: "1. Web Browser Cache",
-            text: `Checking Browser DNS cache for '${domain}'...`,
-            resp: "Cache miss. Querying Operating System Resolver..."
-          },
-          {
-            name: "2. Recursive Resolver",
-            text: "OS queries Recursive Resolver (e.g. 8.8.8.8)...",
-            resp: "Resolver starts query hierarchy. Querying Root Name Server..."
-          },
-          {
-            name: "3. Root Name Server",
-            text: `Querying Root Server [a.root-servers.net] for '${domain}'...`,
-            resp: `Root responds: "I don't know the IP, but here is the .${ext} TLD Server: [${tldServer}]"`
-          },
-          {
-            name: "4. TLD Name Server",
-            text: `Querying TLD Server [${tldServer}] for '${domain}'...`,
-            resp: `TLD responds: "Point to authoritative servers for ${domain}: [ns1.${domain}]"`
-          },
-          {
-            name: "5. Authoritative Server",
-            text: `Querying Authoritative Server [ns1.${domain}] for A record...`,
-            resp: `Authoritative returns A record: ${domain} -> ${finalIp} (TTL 300)`
-          },
-          {
-            name: "6. Resolution Complete",
-            text: `Saving ${domain} (${finalIp}) in Resolver and OS cache...`,
-            resp: `✓ Completed! IP Address resolved to ${finalIp}. Browser is fetching the webpage.`
-          }
-        ];
-
-        var stepIdx = 0;
-        function renderNext() {
-          if (stepIdx >= stages.length) {
-            btn.disabled = false;
-            status.textContent = "✓ Resolved Successfully";
-            engine.markCompleted();
-            return;
-          }
-          var s = stages[stepIdx];
-          logs.innerHTML += `<div style="margin-bottom:8px;">
-            <strong style="color:#60a5fa;">${s.name}</strong><br>
-            <span style="color:#cbd5e1;">&gt; ${s.text}</span><br>
-            <span style="color:#10b981;">&lt; ${s.resp}</span>
-          </div>`;
-          logs.scrollTop = logs.scrollHeight;
-          stepIdx++;
-          setTimeout(renderNext, 1200);
-        }
-        renderNext();
-      }
-    },
-
-    onReplay: function(engine) {
-      engine.t = 0;
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

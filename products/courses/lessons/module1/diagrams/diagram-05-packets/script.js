@@ -1,224 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"source",name:"Source Device",category:"End Point",icon:"laptop",shape:"rounded-rect",x:50,y:30,w:110,h:50,purpose:"Creates the data packet and sends it toward the destination",description:"The source device generates a packet with its own IP as the source and the destination's IP, then forwards it to the local router.",why:"Every data journey starts at a source device",analogy:"Like your house being the starting point for a package you ship",funFact:"The source device doesn't know the full route. Just the next hop",takeaway:"The source sets the destination address, but not the path taken",mistake:"Packets don't travel directly from source to destination. They hop through routers",descriptionDetailed:"The source device encapsulates the data with a TCP segment header and an IP packet header containing both source and destination addresses. It checks its routing table for the next hop IP and sends the packet to the default gateway. The source has no control over which path the packet takes through the network."},
-  {id:"router1",name:"Router One",category:"Network",icon:"router",shape:"hexagon",x:180,y:30,w:110,h:50,purpose:"Receives the packet from the source and forwards it toward the backbone",description:"The first router examines the destination IP, looks up its routing table, and forwards the packet to the next router closer to the destination.",why:"The first router connects your local network to the broader Internet",analogy:"Like your local post office that sorts mail for out-of-town delivery",funFact:"Consumer routers typically handle 15-50 Mbps of routing through their CPU",takeaway:"Each router only knows the next hop, not the entire path",mistake:"Routers don't route by domain name. They route by IP address",descriptionDetailed:"Router1 performs a lookup on the destination IP in its forwarding table using the longest prefix match algorithm. It decrements the TTL field, recalculates the checksum, and rewrites the MAC address for the next hop. The packet is then queued on the appropriate outgoing interface."},
-  {id:"router2",name:"Router Two",category:"Network",icon:"router",shape:"hexagon",x:310,y:30,w:110,h:50,purpose:"Acts as an intermediate hop, forwarding the packet across the network core",description:"The intermediate router receives the packet, performs another routing table lookup, and passes it further along toward the destination.",why:"Intermediate routers form the backbone that connects networks across continents",analogy:"Like a regional distribution center that routes packages between states",funFact:"Some backbone routers cost over $500,000 and process terabits per second",takeaway:"A packet may pass through many routers before reaching its destination",mistake:"Not all routers are equal. Backbone routers are far more powerful than home ones",descriptionDetailed:"Router2 uses dynamic routing protocols like OSPF or BGP to maintain its routing table. It can make real-time decisions based on network congestion, link failures, or policy rules. The packet's TTL is decremented again, and if it reaches zero, the packet is dropped."},
-  {id:"router3",name:"Router Three",category:"Network",icon:"router",shape:"hexagon",x:180,y:125,w:110,h:50,purpose:"Routes the packet closer to its final destination network",description:"The third router receives the packet and routes it toward the destination's local network, potentially the destination's ISP.",why:"Router3 helps bring the packet from the backbone to the destination region",analogy:"Like a local delivery truck that takes packages from the depot to neighborhoods",funFact:"BGP routers maintain a routing table with over 900,000 routes",takeaway:"The path is dynamic and can change even while data is being transmitted",mistake:"Routers don't remember packets. Each one is routed independently",descriptionDetailed:"Router3's routing table now has more specific routes for the destination network. It may have learned these routes through BGP peering with the destination's ISP. The packet is now nearing the destination's local network segment."},
-  {id:"destination",name:"Destination Device",category:"End Point",icon:"monitor",shape:"rounded-rect",x:310,y:125,w:110,h:50,purpose:"Receives the packet and reassembles it with others into the original data",description:"The destination device collects all the packets belonging to the same message, checks for errors, and reassembles them in order.",why:"The destination is where the data finally gets used",analogy:"Like the recipient of a package who opens it and checks the contents",funFact:"The destination sends back acknowledgment packets to confirm receipt",takeaway:"Packets can arrive out of order and must be reassembled correctly",mistake:"The destination doesn't just receive. It also acknowledges and requests retransmissions if needed",descriptionDetailed:"The destination's TCP stack checks each packet's sequence number and places it in the correct position in the receive buffer. Once all packets are received, the data is reassembled and passed to the application. Duplicate packets are discarded, and missing packets trigger retransmission requests."}
-];
-var connections = [{from:"source",to:"router1"},{from:"router1",to:"router2"},{from:"router2",to:"router3"},{from:"router3",to:"destination"}];
-var steps = [{id:"source",label:"Step 1: Source Device",status:"Exploring: Source Device - Creates the data packet and sends it toward the destination"},{id:"router1",label:"Step 2: Router One",status:"Exploring: Router One - Receives the packet from the source and forwards it toward the backbone"},{id:"router2",label:"Step 3: Router Two",status:"Exploring: Router Two - Acts as an intermediate hop, forwarding the packet across the network core"},{id:"router3",label:"Step 4: Router Three",status:"Exploring: Router Three - Routes the packet closer to its final destination network"},{id:"destination",label:"Step 5: Destination Device",status:"Exploring: Destination Device - Receives the packet and reassembles it with others into the original data"}];
-var tour = [{title:"Source Device",description:"Creates the data packet and sends it toward the destination",componentId:"source"},{title:"Router One",description:"Receives the packet from the source and forwards it toward the backbone",componentId:"router1"},{title:"Router Two",description:"Acts as an intermediate hop, forwarding the packet across the network core",componentId:"router2"},{title:"Router Three",description:"Routes the packet closer to its final destination region",componentId:"router3"},{title:"Destination Device",description:"Receives the packet and reassembles it with others into the original data",componentId:"destination"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Packets',
-    subtitle: 'How Internet Works',
-    desc: 'Watch how data is broken into packets and routed across a network.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Learn how data is broken into packets and routed across networks.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'Packet 1',color:'#22c55e'},
-      {label:'Hop 1',color:'#60a5fa'},
-      {label:'Hop 2',color:'#c084fc'},
-      {label:'Hop 3',color:'#f59e0b'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "source", "name": "Source Device", "cat": "End Point", "icon": "💻", "x": 60, "y": 140, "desc": "The source device generates a packet with its own IP as the source and the destinations IP, then forwards it to the local router.", "how": "The source encapsulates data with a TCP header and IP header containing source and destination addresses, then checks its routing table.", "why": "Every data journey starts at a source device", "analogy": "Like your house being the starting point for a package you ship", "fun": "The source device doesnt know the full route, just the next hop", "take": "The source sets the destination address but not the path taken"}, {"id": "router1", "name": "Router One", "cat": "Network", "icon": "📡", "x": 220, "y": 60, "desc": "The first router examines the destination IP, looks up its routing table, and forwards the packet to the next hop.", "how": "Router performs a longest prefix match on the destination IP in its forwarding table, decrements TTL, and rewrites the MAC address.", "why": "The first router connects your local network to the broader Internet", "analogy": "Like your local post office that sorts mail for out-of-town delivery", "fun": "Consumer routers typically handle 15-50 Mbps of routing through their CPU", "take": "Each router only knows the next hop, not the entire path"}, {"id": "router2", "name": "Router Two", "cat": "Network", "icon": "📡", "x": 380, "y": 140, "desc": "The intermediate router receives the packet, performs another routing table lookup, and passes it further along.", "how": "Router2 uses dynamic routing protocols like OSPF or BGP to maintain its routing table and make real-time decisions.", "why": "Intermediate routers form the backbone that connects networks across continents", "analogy": "Like a regional distribution center routing packages between states", "fun": "Some backbone routers cost over $500,000 and process terabits per second", "take": "A packet may pass through many routers before reaching its destination"}, {"id": "router3", "name": "Router Three", "cat": "Network", "icon": "📡", "x": 530, "y": 60, "desc": "The third router routes the packet toward the destinations local network and ISP.", "how": "Router3s routing table has more specific routes for the destination network, learned through BGP peering.", "why": "Router3 helps bring the packet from the backbone to the destination region", "analogy": "Like a local delivery truck that takes packages from the depot to neighborhoods", "fun": "BGP routers maintain a routing table with over 900,000 routes", "take": "The path is dynamic and can change even while data is being transmitted"}, {"id": "destination", "name": "Destination Device", "cat": "End Point", "icon": "🖥️", "x": 690, "y": 140, "desc": "The destination collects all packets, checks for errors, and reassembles them in order.", "how": "The TCP stack checks each packets sequence number, places it in the receive buffer, and passes reassembled data to the application.", "why": "The destination is where the data finally gets used", "analogy": "Like the recipient of a package who opens it and checks the contents", "fun": "The destination sends back acknowledgment packets to confirm receipt", "take": "Packets can arrive out of order and must be reassembled correctly"}];
+var CONNECTIONS=[{"from": "source", "to": "router1", "type": "fiber"}, {"from": "router1", "to": "router2", "type": "fiber"}, {"from": "router2", "to": "router3", "type": "fiber"}, {"from": "router3", "to": "destination", "type": "fiber"}];
+var ROUTES={"A": {"name": "Packet Hop Path", "color": "#3b82f6", "path": ["source", "router1", "router2", "router3", "destination"]}};
+var CHALLENGES=[{"q": "How does a router decide where to forward a packet?", "opts": ["Random selection", "It asks the source", "Looks up routing table", "Broadcasts to all networks"], "ans": 2, "exp": "The router performs a longest prefix match on the destination IP against its routing table."}, {"q": "What does TTL stand for in a packet header?", "opts": ["Total Transfer Length", "Time To Live", "Transmission Traffic Log", "Terminal Transfer Link"], "ans": 1, "exp": "TTL (Time To Live) prevents packets from looping forever by decrementing at each hop."}, {"q": "What happens when TTL reaches zero?", "opts": ["Packet speeds up", "Packet is dropped", "Packet is returned to sender", "Packet is duplicated"], "ans": 1, "exp": "When TTL reaches zero, the router drops the packet and may send an ICMP Time Exceeded message."}, {"q": "What routing protocol do backbone routers use?", "opts": ["RIP", "OSPF", "BGP", "IGRP"], "ans": 2, "exp": "BGP (Border Gateway Protocol) is used between autonomous systems on the Internet backbone."}, {"q": "What does the MAC address in a packet get rewritten for?", "opts": ["Each hop through a router", "The final destination only", "Never changes", "Only at the source"], "ans": 0, "exp": "Each router rewrites the source and destination MAC addresses for the next hop."}, {"q": "How does the destination ensure packets are in the right order?", "opts": ["By arrival time", "Using sequence numbers", "Asking the source", "By packet size"], "ans": 1, "exp": "TCP adds sequence numbers so the receiver can reorder packets correctly."}, {"q": "What happens if a packet is lost during transmission?", "opts": ["The connection fails", "TCP requests retransmission", "The packet is ignored", "A new connection is made"], "ans": 1, "exp": "TCP detects missing packets through acknowledgments and requests retransmission."}, {"q": "How many routes do BGP routers maintain in their routing table?", "opts": ["About 1,000", "About 100,000", "Over 900,000", "10 million"], "ans": 2, "exp": "BGP routers maintain routing tables with over 900,000 routes."}, {"q": "What is encapsulation in networking?", "opts": ["Wrapping data with protocol headers", "Encrypting the packet", "Compressing the data", "Splitting the data"], "ans": 0, "exp": "Encapsulation wraps data with protocol headers at each layer (TCP, IP, Ethernet)."}, {"q": "What size is a typical Ethernet packet payload?", "opts": ["256 bytes", "512 bytes", "1500 bytes", "64 KB"], "ans": 2, "exp": "The typical Ethernet MTU (Maximum Transmission Unit) is 1500 bytes."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    customChallenge: function(container, engine) {
-      // Packet Journey Simulator Challenge
-      container.innerHTML = `
-        <div class="sim-interactive-area" style="padding: 18px;">
-          <div style="font-size:14px; font-weight:700; color:#60a5fa; margin-bottom:6px;">Packet Journey Simulator</div>
-          <p style="font-size:11px; color:#94a3b8; margin-bottom:12px;">Simulate file splitting and packet switching over an unstable network with TCP retransmission.</p>
-          
-          <div style="display:flex; gap:16px; margin-bottom:12px; flex-wrap:wrap; align-items:center;">
-            <div>
-              <label style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase;">File Size</label>
-              <select class="sim-input" id="sim-file-size" style="margin-left:6px;">
-                <option value="3">Small File (3 Packets)</option>
-                <option value="6" selected>Medium File (6 Packets)</option>
-                <option value="10">Large File (10 Packets)</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase;">Packet Loss Rate</label>
-              <select class="sim-input" id="sim-loss-rate" style="margin-left:6px;">
-                <option value="0">0% (Perfect Connection)</option>
-                <option value="0.2">20% (Typical Mobile)</option>
-                <option value="0.4">40% (High Congestion)</option>
-              </select>
-            </div>
-            <button class="act-btn" id="sim-send-btn" style="background:#0959C8; border-color:#3b82f6;">🚀 Transmit File</button>
-          </div>
-          
-          <!-- Transmit Canvas -->
-          <div class="sim-canvas" style="display:flex; flex-direction:column; justify-content:space-between; padding:20px; overflow-y:auto; min-height:220px;">
-            <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:bold;">
-              <span>Source Device (Client)</span>
-              <span>Destination Server</span>
-            </div>
-            <div id="sim-packet-stream" style="position:relative; flex-grow:1; display:flex; align-items:center; justify-content:space-between; margin: 20px 0; min-height: 80px;">
-              <div style="font-size:32px;">💻</div>
-              <div id="sim-network-mesh" style="position:absolute; left:60px; right:60px; top:0; bottom:0; display:flex; justify-content:space-around; align-items:center;">
-                <!-- Mock Routers -->
-                <div class="glass-panel" style="padding:6px; font-size:10px; border-color:#64748b;">Router A</div>
-                <div class="glass-panel" style="padding:6px; font-size:10px; border-color:#64748b;">Router B</div>
-              </div>
-              <div style="font-size:32px;">🖥️</div>
-            </div>
-            <div id="sim-assembly-buffer" style="display:flex; gap:4px; padding:8px; background:rgba(0,0,0,0.2); border-radius:6px; min-height:40px; align-items:center; justify-content:center;">
-              <span style="font-size:11px; color:#64748b;">Assembly buffer waiting for packets...</span>
-            </div>
-          </div>
-          
-          <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
-            <span id="sim-packets-feedback" style="font-size:11px; font-weight:600; color:#cbd5e1;">Select options and click Transmit.</span>
-          </div>
-        </div>
-      `;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
 
-      var sendBtn = container.querySelector('#sim-send-btn');
-      var feedback = container.querySelector('#sim-packets-feedback');
-      var buffer = container.querySelector('#sim-assembly-buffer');
-      var canvas = container.querySelector('#sim-packet-stream');
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
 
-      sendBtn.addEventListener('click', function() {
-        var count = parseInt(container.querySelector('#sim-file-size').value);
-        var lossRate = parseFloat(container.querySelector('#sim-loss-rate').value);
-        runPacketSimulation(count, lossRate);
-      });
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
 
-      function runPacketSimulation(count, lossRate) {
-        sendBtn.disabled = true;
-        buffer.innerHTML = "";
-        feedback.style.color = "#cbd5e1";
-        feedback.textContent = "Splitting file into packets and transmitting...";
-
-        var arrived = {};
-        var list = [];
-        for (var i = 0; i < count; i++) {
-          list.push({ seq: i, attempts: 0 });
-        }
-
-        function transmitPackets(packetsToTransmit) {
-          if (!packetsToTransmit.length) {
-            checkCompletion();
-            return;
-          }
-          
-          var nextBatch = [];
-          var completedChecks = 0;
-
-          packetsToTransmit.forEach(function(pkt) {
-            pkt.attempts++;
-            var pEl = document.createElement('div');
-            pEl.textContent = `P${pkt.seq + 1}`;
-            pEl.style.cssText = `position:absolute; left:40px; top:30px; padding:4px 8px; background:#3b82f6; border-radius:4px; font-size:9px; font-weight:bold; color:#fff; transition:all 1.5s linear; z-index:99;`;
-            canvas.appendChild(pEl);
-
-            // Trigger anim path
-            var pathIdx = Math.floor(Math.random() * 2);
-            var destY = pathIdx === 0 ? -20 : 50;
-
-            setTimeout(function() {
-              pEl.style.left = "45%";
-              pEl.style.top = destY + "px";
-            }, 50);
-
-            setTimeout(function() {
-              var loss = Math.random() < lossRate;
-              if (loss) {
-                pEl.style.background = "#ef4444";
-                pEl.style.transform = "scale(0.5)";
-                pEl.style.opacity = "0";
-                feedback.style.color = "#f59e0b";
-                feedback.textContent = `⚠️ Packet Loss detected on P${pkt.seq + 1}. Awaiting TCP timeout...`;
-                nextBatch.push(pkt); // Need to retransmit
-                setTimeout(function() { pEl.remove(); }, 500);
-              } else {
-                pEl.style.left = "85%";
-                pEl.style.top = "30px";
-                setTimeout(function() {
-                  arived[pkt.seq] = true;
-                  updateBuffer();
-                  pEl.remove();
-                }, 500);
-              }
-              completedChecks++;
-              if (completedChecks === packetsToTransmit.length) {
-                setTimeout(function() {
-                  transmitPackets(nextBatch);
-                }, 1000);
-              }
-            }, 800);
-          });
-        }
-
-        function updateBuffer() {
-          buffer.innerHTML = "";
-          for (var i = 0; i < count; i++) {
-            var block = document.createElement('div');
-            block.style.cssText = `width:28px; height:24px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:bold; border-radius:4px;`;
-            if (arived[i]) {
-              block.textContent = `P${i+1}`;
-              block.style.background = "#10b981";
-              block.style.color = "#fff";
-            } else {
-              block.textContent = "-";
-              block.style.background = "rgba(255,255,255,0.05)";
-              block.style.color = "#64748b";
-            }
-            buffer.appendChild(block);
-          }
-        }
-
-        function checkCompletion() {
-          var allOk = true;
-          for (var i = 0; i < count; i++) {
-            if (!arived[i]) allOk = false;
-          }
-          if (allOk) {
-            feedback.style.color = "#10b981";
-            feedback.textContent = "✓ Success! All packets successfully arrived, ordered, and reassembled back into the original file.";
-            sendBtn.disabled = false;
-            engine.markCompleted();
-          }
-        }
-
-        updateBuffer();
-        transmitPackets(list);
-      }
-    },
-
-    onReplay: function(engine) {
-      engine.t = 0;
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"bios",name:"BIOS/UEFI Firmware",category:"Software",purpose:"Initializes hardware and starts the boot process when the computer powers on",description:"BIOS or UEFI firmware stored on the motherboard ROM performs Power-On Self-Test, initializes hardware, and loads the bootloader.",why:"The firmware is the first code that runs when you press the power button",analogy:"Like an alarm clock that wakes up and starts your morning routine",funFact:"UEFI replaced the older BIOS and supports mouse input and networking",takeaway:"The motherboard firmware initializes hardware before loading the OS",mistake:"BIOS isn\\'t stored on the hard drive—it\\'s on a chip on the motherboard",descriptionDetailed:"When power is applied, the CPU starts executing at a predefined firmware address. UEFI initializes the chipset, memory controller, and peripheral buses. It reads boot configuration from NVRAM."},    {id:"post",name:"Power-On Self-Test",category:"Software",purpose:"Verifies that essential hardware components are functioning correctly",description:"POST checks the CPU, memory, storage, and other critical components by sending test signals and reading status codes.",why:"POST catches hardware problems before the OS tries to use faulty components",analogy:"Like a pre-flight checklist that pilots go through before takeoff",funFact:"POST is so fast you usually don\\'t see it—but beep codes alert you if something fails",takeaway:"POST is the computer\\'s self-diagnostic check at every startup",mistake:"POST failures don\\'t crash the computer—they prevent it from booting",descriptionDetailed:"POST tests the CPU registers, verifies RAM with pattern writes, checks storage controllers, and initializes graphics. Errors are reported via beep codes or POST code displays."},    {id:"bootloader",name:"Bootloader",category:"Software",purpose:"Loads the operating system kernel into memory and starts it",description:"The bootloader is a small program that the firmware loads, which then finds the OS kernel on disk, loads it into RAM, and transfers control to it.",why:"The bootloader bridges the gap between firmware and OS",analogy:"Like a launchpad that prepares and initiates a rocket launch",funFact:"GRUB, the most common Linux bootloader, can boot from encrypted partitions",takeaway:"The bootloader finds and loads the OS kernel",mistake:"The bootloader isn\\'t part of the OS—it\\'s a separate program",descriptionDetailed:"The bootloader reads the Master Boot Record or GPT partition table. In UEFI systems, it\\'s an EFI application. The bootloader can present a menu of OS choices for dual-boot systems."},    {id:"kernel",name:"OS Kernel Boot",category:"Software",purpose:"Initializes system subsystems and takes full control of the hardware",description:"The kernel initializes memory management, schedules the first process, loads necessary drivers, and prepares the user environment.",why:"The kernel is the core of the OS that manages everything",analogy:"Like a ship captain who takes command and navigates after launch",funFact:"The Linux kernel boot process is called the Linux boot sequence",takeaway:"Kernel initialization sets up all core OS services",mistake:"The kernel doesn\\'t load the desktop environment—that comes later",descriptionDetailed:"The kernel decompresses itself (if compressed), sets up page tables, initializes interrupt handlers, mounts the root filesystem, and starts the init process as PID 1."},    {id:"init",name:"Init System",category:"Software",purpose:"Starts all system services and user-space components needed for operation",description:"The init system launches essential background services, network managers, display managers, and prepares the system for user login.",why:"Init transforms a running kernel into a usable operating system",analogy:"Like a facility manager who turns on all building systems before doors open",funFact:"Systemd is now the most widely used init system in Linux",takeaway:"The init system starts all services that make the computer useful",mistake:"Init doesn\\'t start everything at once—services have dependency ordering",descriptionDetailed:"Init reads configuration to determine which services to start and in what order. It manages service lifecycles, logging, and handles system shutdown."},    {id:"login",name:"Login Screen",category:"Software",purpose:"Authenticates users and creates a user session with appropriate permissions",description:"The login screen or display manager presents a login prompt, validates credentials, and starts the user\\'s desktop environment or shell.",why:"Login secures the system by ensuring only authorized users access it",analogy:"Like a reception desk that checks your ID before letting you enter",funFact:"Windows, Linux, and macOS all support automatic login as a convenience option",takeaway:"Login creates a user session with your personal settings and permissions",mistake:"Login doesn\\'t just authenticate—it also sets up your user environment",descriptionDetailed:"The display manager validates credentials against local or network user databases. On success, it creates a session with the user\\'s home directory, permissions, and preferences."}];
-var connections = [{from:"bios",to:"post"},{from:"post",to:"bootloader"},{from:"bootloader",to:"kernel"},{from:"kernel",to:"init"},{from:"init",to:"login"}];
-var steps = [{label:"Step 1: BIOS/UEFI Firmware",status:"Exploring: BIOS/UEFI Firmware - Initializes hardware and starts the boot process when the computer powers on"},{label:"Step 2: Power-On Self-Test",status:"Exploring: Power-On Self-Test - Verifies that essential hardware components are functioning correctly"},{label:"Step 3: Bootloader",status:"Exploring: Bootloader - Loads the operating system kernel into memory and starts it"},{label:"Step 4: OS Kernel Boot",status:"Exploring: OS Kernel Boot - Initializes system subsystems and takes full control of the hardware"},{label:"Step 5: Init System",status:"Exploring: Init System - Starts all system services and user-space components needed for operation"},{label:"Step 6: Login Screen",status:"Exploring: Login Screen - Authenticates users and creates a user session with appropriate permissions"}];
-var tour = [{title:"BIOS/UEFI Firmware",description:"Initializes hardware and starts the boot process when the computer powers on",componentId:"bios"},{title:"Power-On Self-Test",description:"Verifies that essential hardware components are functioning correctly",componentId:"post"},{title:"Bootloader",description:"Loads the operating system kernel into memory and starts it",componentId:"bootloader"},{title:"OS Kernel Boot",description:"Initializes system subsystems and takes full control of the hardware",componentId:"kernel"},{title:"Init System",description:"Starts all system services and user-space components needed for operation",componentId:"init"},{title:"Login Screen",description:"Authenticates users and creates a user session with appropriate permissions",componentId:"login"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"bios":{"x":130,"y":120,"fields":{"Purpose":"Hardware init + boot start","How It Works":"CPU starts at firmware address; UEFI initializes chipset, memory, buses.","Analogy":"Alarm clock waking you","Fun Fact":"UEFI supports mouse and networking","Key Takeaway":"Firmware starts before OS"},"desc":"First code on power-on."},"post":{"x":340,"y":120,"fields":{"Purpose":"Hardware self-test","How It Works":"Tests CPU, RAM patterns, storage, graphics; beep codes for errors.","Analogy":"Pre-flight checklist","Fun Fact":"Usually invisible, beeps = errors","Key Takeaway":"Catches hardware issues early"},"desc":"Power-On Self-Test diagnostic."},"bootloader":{"x":550,"y":120,"fields":{"Purpose":"Loads OS kernel","How It Works":"Firmware reads boot sector; bootloader loads kernel, sets up memory.","Analogy":"Launch pad","Fun Fact":"GRUB is most common Linux bootloader","Key Takeaway":"Bridges firmware and OS"},"desc":"Kernel loading program."},"kernel":{"x":200,"y":370,"fields":{"Purpose":"Initializes OS subsystems","How It Works":"Decompresses, sets up memory, drivers, filesystem, starts init.","Analogy":"Captain takes command","Fun Fact":"Loads into protected memory","Key Takeaway":"OS truly starts here"},"desc":"OS kernel initialization phase."},"init":{"x":420,"y":370,"fields":{"Purpose":"Starts system services","How It Works":"Starts services in order: networking, display, security, apps.","Analogy":"Manager assigning tasks","Fun Fact":"systemd starts services in parallel","Key Takeaway":"Creates user environment"},"desc":"First user-space process."}};
+  var CONNS=[{from:"bios",to:"post"},{from:"post",to:"bootloader"},{from:"bootloader",to:"kernel"},{from:"kernel",to:"init"}];
+  var CHALLENGES=[{q:"First code on power:",opts:["OS Kernel","Bootloader","BIOS/UEFI","Init"],ans:2},{q:"POST stands for:",opts:["Power-On Self-Test","Post-OS Test","Pre-Operational Test","Power-Off Test"],ans:0},{q:"Bootloader does:",opts:["Runs apps","Loads kernel","Checks hardware","Shuts down"],ans:1},{q:"Common Linux init:",opts:["init.d","systemd","launchd","sysV"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Boot',
-    subtitle: 'How Computers Work',
-    desc: 'Trace the boot process from BIOS to login screen.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Trace the boot process from power-on to login screen.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

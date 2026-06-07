@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"file",name:"File",category:"Storage",purpose:"A named container that stores related data on a storage device",description:"A file is the basic unit of storage, containing data like text, images, programs, or any digital content, identified by a name and extension.",why:"Files organize data into discrete, manageable units",analogy:"Like a document in a filing cabinet that contains specific information",funFact:"The first computer files were called datasets and used in the 1950s",takeaway:"Everything stored on a computer is stored in files",mistake:"A file\\'s extension doesn\\'t change its internal format—it just tells the OS what program to use",descriptionDetailed:"Files are stored as sequences of bytes on disk, organized by the filesystem into clusters or blocks. Each file has metadata including name, size, timestamps, and permissions."},    {id:"folder",name:"Folder (Directory)",category:"Storage",purpose:"Organizes files into a hierarchical structure for easy navigation",description:"Folders are special containers that hold files and other folders, creating a tree-like structure that helps users organize and find data.",why:"Folders bring order to the filesystem, preventing chaos",analogy:"Like a drawer in a filing cabinet that holds related documents",funFact:"The first hierarchical filesystem was introduced with Unix in the 1970s",takeaway:"Folders can contain files or other folders, creating a tree structure",mistake:"Folders aren\\'t physical locations—they\\'re logical groupings",descriptionDetailed:"Directories are special files containing a list of entries, each with a name and pointer to an inode. The root directory is the top of the hierarchy."},    {id:"path",name:"File Path",category:"Storage",purpose:"Specifies the unique location of a file or folder in the filesystem",description:"A path is a string that traces the route through the directory tree to reach a specific file, using separators and names.",why:"Paths allow users and programs to precisely locate any file",analogy:"Like directions to a house: city, street, then house number",funFact:"Maximum path length is 255 characters in most Unix systems",takeaway:"Absolute paths start from the root; relative paths start from the current directory",mistake:"Paths aren\\'t case-sensitive on Windows but are on Linux/macOS",descriptionDetailed:"Absolute paths begin with a root indicator. Relative paths start from the current working directory. Dot refers to current directory, dot-dot to parent."},    {id:"metadata",name:"Metadata",category:"Storage",purpose:"Data about files that describes their properties and attributes",description:"Metadata includes information like file size, creation date, modification date, permissions, owner, and file type.",why:"Metadata helps users and the OS understand files without reading them",analogy:"Like the label on a package showing weight, sender, and date",funFact:"A file\\'s metadata can reveal more than its contents sometimes",takeaway:"Metadata is stored separately from file data in the filesystem",mistake:"Metadata isn\\'t visible when you open a file—you see it in properties",descriptionDetailed:"In Unix, metadata is stored in an inode structure. NTFS stores metadata in the Master File Table. Extended attributes can store tags or security labels."},    {id:"permission",name:"File Permissions",category:"Security",purpose:"Controls which users can read, write, or execute a file",description:"Permissions define access rights for the file owner, group members, and others, using read (r), write (w), and execute (x) flags.",why:"Permissions protect files from unauthorized access and modification",analogy:"Like a lock on a door requiring specific keys",funFact:"In Unix, permissions are often represented as a three-digit octal number like 755",takeaway:"Permissions prevent unauthorized users from viewing or modifying files",mistake:"Execute permission means you can run it as a program, not just open it",descriptionDetailed:"Unix permissions have three tiers: owner, group, others. Each tier has read (4), write (2), execute (1) bits. ACLs provide more granular control."},    {id:"type",name:"File Type",category:"Storage",purpose:"Identifies the kind of data a file contains and which application should open it",description:"File types are indicated by extensions (.txt, .jpg) or magic bytes in the file header, telling the OS what format the data is in.",why:"File types ensure files are opened with the correct application",analogy:"Like the label on a can that tells you what food is inside",funFact:"The file command on Unix reads magic bytes, ignoring the extension",takeaway:"The OS uses file extensions to determine which program to launch",mistake:"Changing a file\\'s extension doesn\\'t change its data",descriptionDetailed:"The OS maintains a registry of file extensions mapped to programs. Magic bytes are the first few bytes identifying file format. MIME types are used on the web."}];
-var connections = [{from:"file",to:"folder"},{from:"folder",to:"path"},{from:"path",to:"metadata"},{from:"metadata",to:"permission"},{from:"permission",to:"type"}];
-var steps = [{label:"Step 1: File",status:"Exploring: File - A named container that stores related data on a storage device"},{label:"Step 2: Folder (Directory)",status:"Exploring: Folder (Directory) - Organizes files into a hierarchical structure for easy navigation"},{label:"Step 3: File Path",status:"Exploring: File Path - Specifies the unique location of a file or folder in the filesystem"},{label:"Step 4: Metadata",status:"Exploring: Metadata - Data about files that describes their properties and attributes"},{label:"Step 5: File Permissions",status:"Exploring: File Permissions - Controls which users can read, write, or execute a file"},{label:"Step 6: File Type",status:"Exploring: File Type - Identifies the kind of data a file contains and which application should open it"}];
-var tour = [{title:"File",description:"A named container that stores related data on a storage device",componentId:"file"},{title:"Folder (Directory)",description:"Organizes files into a hierarchical structure for easy navigation",componentId:"folder"},{title:"File Path",description:"Specifies the unique location of a file or folder in the filesystem",componentId:"path"},{title:"Metadata",description:"Data about files that describes their properties and attributes",componentId:"metadata"},{title:"File Permissions",description:"Controls which users can read, write, or execute a file",componentId:"permission"},{title:"File Type",description:"Identifies the kind of data a file contains and which application should open it",componentId:"type"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"file":{"x":130,"y":130,"fields":{"Purpose":"Named data container","How It Works":"Byte sequences on disk; filesystem organizes into clusters with metadata.","Analogy":"Filing cabinet document","Fun Fact":"Early files called datasets in 1950s","Key Takeaway":"Everything is files"},"desc":"Basic unit of digital storage."},"folder":{"x":340,"y":130,"fields":{"Purpose":"Hierarchical file organization","How It Works":"Special files with entries: names + inode pointers.","Analogy":"Drawer holding documents","Fun Fact":"Hierarchical FS: Unix 1970s","Key Takeaway":"Creates filesystem tree"},"desc":"Directory container for files."},"path":{"x":550,"y":130,"fields":{"Purpose":"Unique file location","How It Works":"Absolute from root; relative from current directory.","Analogy":"Map to destination","Fun Fact":"Windows max path: 260 chars","Key Takeaway":"Paths identify locations"},"desc":"Route through directory tree."},"metadata":{"x":200,"y":360,"fields":{"Purpose":"File property data","How It Works":"Stored in inodes/MFT: size, times, owner, permissions.","Analogy":"Package label","Fun Fact":"Not counted in file size","Key Takeaway":"Data about data"},"desc":"File attribute information."},"permission":{"x":470,"y":360,"fields":{"Purpose":"Access control","How It Works":"Unix: rwx bits for owner/group/other (755 = full + read).","Analogy":"Door locks","Fun Fact":"Foundation of Unix security","Key Takeaway":"Protects from unauthorized access"},"desc":"Read/write/execute controls."}};
+  var CONNS=[{from:"file",to:"folder"},{from:"folder",to:"path"},{from:"path",to:"metadata"},{from:"metadata",to:"permission"}];
+  var CHALLENGES=[{q:"Basic storage unit:",opts:["Folder","File","Path","Inode"],ans:1},{q:"Folders contain:",opts:["Files only","Folders only","Files and folders","Programs"],ans:2},{q:"Path provides:",opts:["Preview","Location","Size","Password"],ans:1},{q:"Metadata is:",opts:["Content","Data about file","Backup","Encryption"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Files',
-    subtitle: 'How Computers Work',
-    desc: 'Learn how files and folders organize data on storage devices.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Learn how files and folders organize data on storage.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildStepFlow(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

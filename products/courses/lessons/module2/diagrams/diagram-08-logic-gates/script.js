@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"and",name:"AND Gate",category:"Processing",purpose:"Outputs 1 only when both inputs are 1",description:"The AND gate performs logical conjunction: it produces a high output only when all its inputs are high, acting like a series circuit.",why:"AND gates enable conditional operations where multiple conditions must be met",analogy:"Like two light switches in series—both must be on for the light to work",funFact:"AND gates are made from just two transistors in series",takeaway:"AND is used when all conditions must be true for an action to occur",mistake:"AND doesn\\'t add values—it checks if both are true (1)",descriptionDetailed:"AND gate truth table: 0 AND 0 = 0, 0 AND 1 = 0, 1 AND 0 = 0, 1 AND 1 = 1. AND gates are used in bit masking to selectively clear bits."},    {id:"or",name:"OR Gate",category:"Processing",purpose:"Outputs 1 when at least one input is 1",description:"The OR gate performs logical disjunction: it produces a high output when any of its inputs is high, like a parallel circuit.",why:"OR gates enable operations where either condition can trigger a result",analogy:"Like two light switches in parallel—flipping either one turns the light on",funFact:"OR gates are the most fundamental building block of binary adders",takeaway:"OR is used when at least one condition must be true",mistake:"OR isn\\'t exclusive—it outputs 1 when either or both inputs are 1",descriptionDetailed:"OR gate truth table: 0 OR 0 = 0, 0 OR 1 = 1, 1 OR 0 = 1, 1 OR 1 = 1. OR gates are used to set specific bits in bitwise operations."},    {id:"not",name:"NOT Gate",category:"Processing",purpose:"Inverts a single input, outputting the opposite value",description:"The NOT gate is a simple inverter: it outputs 0 when the input is 1 and 1 when the input is 0.",why:"NOT gates provide logical negation, essential for building all other gates",analogy:"Like a light switch that\\'s always in the opposite position of what you set",funFact:"The NOT gate is made from just one transistor in CMOS technology",takeaway:"NOT flips a signal from 0 to 1 or from 1 to 0",mistake:"NOT doesn\\'t delete or cancel—it just inverts the binary value",descriptionDetailed:"NOT gate is the simplest logic gate, implemented as a single inverter circuit. It\\'s the basis for NAND and NOR universal gates."},    {id:"nand",name:"NAND Gate",category:"Processing",purpose:"Outputs 0 only when both inputs are 1 (opposite of AND)",description:"The NAND gate is an AND gate followed by a NOT: it outputs 0 only when all inputs are 1, and 1 otherwise.",why:"NAND is a universal gate—any other gate can be built from NAND gates alone",analogy:"Like a light that\\'s on except when both switches are flipped on",funFact:"Every chip in your computer could theoretically be built using only NAND gates",takeaway:"NAND gates are universal building blocks for all digital logic",mistake:"NAND is the most important gate in digital design for manufacturing efficiency",descriptionDetailed:"NAND gate is universal: you can build AND, OR, NOT, NOR, and XOR from NAND gates alone. NAND gates are simpler and faster than AND gates in chip manufacturing."},    {id:"nor",name:"NOR Gate",category:"Processing",purpose:"Outputs 1 only when both inputs are 0 (opposite of OR)",description:"The NOR gate is an OR gate followed by a NOT: it outputs 1 only when all inputs are 0, and 0 otherwise.",why:"NOR is also a universal gate, like NAND, from which all logic can be built",analogy:"Like a light that\\'s on only when both switches are off",funFact:"NOR gates are used in SR latches and flip-flops for memory circuits",takeaway:"NOR gates can also be used to build any other logic gate",mistake:"NOR is not just OR with opposite meaning—check its truth table carefully",descriptionDetailed:"NOR gate truth table: 0 NOR 0 = 1, 0 NOR 1 = 0, 1 NOR 0 = 0, 1 NOR 1 = 0. NOR is the dual of NAND and is also a universal gate."},    {id:"xor",name:"XOR Gate",category:"Processing",purpose:"Outputs 1 when inputs are different (one is 1, the other is 0)",description:"XOR stands for exclusive OR: it produces a high output only when the inputs differ, which is essential for addition circuits.",why:"XOR is the fundamental gate used in binary addition and error detection",analogy:"Like a party where you can come alone or bring a friend, but not both or neither",funFact:"XOR gates are the core of binary adders—a full adder uses two XOR gates",takeaway:"XOR tells you if two bits are different, making it essential for arithmetic",mistake:"XOR isn\\'t the same as OR—OR outputs 1 when both are 1, XOR does not",descriptionDetailed:"XOR gate truth table: 0 XOR 0 = 0, 0 XOR 1 = 1, 1 XOR 0 = 1, 1 XOR 1 = 0. XOR is used in parity checking and encryption algorithms."}];
-var connections = [{from:"and",to:"or"},{from:"or",to:"not"},{from:"not",to:"nand"},{from:"nand",to:"nor"},{from:"nor",to:"xor"}];
-var steps = [{label:"Step 1: AND Gate",status:"Exploring: AND Gate - Outputs 1 only when both inputs are 1"},{label:"Step 2: OR Gate",status:"Exploring: OR Gate - Outputs 1 when at least one input is 1"},{label:"Step 3: NOT Gate",status:"Exploring: NOT Gate - Inverts a single input, outputting the opposite value"},{label:"Step 4: NAND Gate",status:"Exploring: NAND Gate - Outputs 0 only when both inputs are 1 (opposite of AND)"},{label:"Step 5: NOR Gate",status:"Exploring: NOR Gate - Outputs 1 only when both inputs are 0 (opposite of OR)"},{label:"Step 6: XOR Gate",status:"Exploring: XOR Gate - Outputs 1 when inputs are different (one is 1, the other is 0)"}];
-var tour = [{title:"AND Gate",description:"Outputs 1 only when both inputs are 1",componentId:"and"},{title:"OR Gate",description:"Outputs 1 when at least one input is 1",componentId:"or"},{title:"NOT Gate",description:"Inverts a single input, outputting the opposite value",componentId:"not"},{title:"NAND Gate",description:"Outputs 0 only when both inputs are 1 (opposite of AND)",componentId:"nand"},{title:"NOR Gate",description:"Outputs 1 only when both inputs are 0 (opposite of OR)",componentId:"nor"},{title:"XOR Gate",description:"Outputs 1 when inputs are different (one is 1, the other is 0)",componentId:"xor"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"and":{"x":130,"y":120,"fields":{"Purpose":"Outputs 1 when both inputs are 1","How It Works":"Two transistors in series: 0+0=0, 0+1=0, 1+0=0, 1+1=1.","Analogy":"Two switches in series","Fun Fact":"Built from just 2 transistors","Key Takeaway":"All conditions must be true"},"desc":"Logical conjunction gate."},"or":{"x":310,"y":120,"fields":{"Purpose":"Outputs 1 when any input is 1","How It Works":"Parallel circuit: 0+0=0, 0+1=1, 1+0=1, 1+1=1.","Analogy":"Parallel switches","Fun Fact":"Building block of adders","Key Takeaway":"At least one must be true"},"desc":"Logical disjunction gate."},"not":{"x":490,"y":120,"fields":{"Purpose":"Inverts input","How It Works":"One transistor + resistor: 0 becomes 1, 1 becomes 0.","Analogy":"Opposite switch","Fun Fact":"Made from 1 transistor","Key Takeaway":"Provides negation"},"desc":"Signal inverter gate."},"nand":{"x":670,"y":120,"fields":{"Purpose":"Outputs 0 when both inputs are 1","How It Works":"AND + NOT. Universal gate - any gate from NANDs.","Analogy":"AND with flipped output","Fun Fact":"Most common gate in chips","Key Takeaway":"Universal building block"},"desc":"AND followed by NOT."},"nor":{"x":250,"y":370,"fields":{"Purpose":"Outputs 1 when both inputs are 0","How It Works":"OR + NOT. Also universal: 0+0=1, 0+1=0, 1+0=0, 1+1=0.","Analogy":"OR with inverted output","Fun Fact":"Also universal","Key Takeaway":"All inputs must be 0"},"desc":"OR followed by NOT."},"xor":{"x":510,"y":370,"fields":{"Purpose":"Outputs 1 when inputs differ","How It Works":"Inequality detector: 0+0=0, 0+1=1, 1+0=1, 1+1=0.","Analogy":"Are these different?","Fun Fact":"Core of binary adders","Key Takeaway":"Detects inequality"},"desc":"Exclusive OR gate."}};
+  var CONNS=[{from:"and",to:"or"},{from:"or",to:"not"},{from:"not",to:"nand"},{from:"nand",to:"nor"},{from:"nor",to:"xor"}];
+  var CHALLENGES=[{q:"AND outputs 1 when:",opts:["Any 1","Both 1","Both 0","Never"],ans:1},{q:"Which is universal?",opts:["AND","OR","NAND","XOR"],ans:2},{q:"NOT gate:",opts:["Outputs both","Inverts","Adds","Multiplies"],ans:1},{q:"XOR outputs 1 when:",opts:["Same","Different","Both 1","Both 0"],ans:1},{q:"NOR 0+0 = ?",opts:["0","1","Error","Undefined"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Logic Gates',
-    subtitle: 'How Computers Work',
-    desc: 'Explore the fundamental logic gates that build all digital circuits.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Explore the fundamental logic gates that build digital circuits.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

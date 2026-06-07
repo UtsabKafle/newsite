@@ -1,44 +1,231 @@
-(function(){'use strict';
-var components = [    {id:"quantum",name:"Quantum Computing",category:"Processing",purpose:"Uses quantum mechanical phenomena to solve problems impossible for classical computers",description:"Quantum computers use qubits that can exist in superposition of 0 and 1 simultaneously, enabling parallel computation on an exponential scale.",why:"Quantum computing could revolutionize cryptography, drug discovery, and optimization",analogy:"Like a lock that can try every key combination simultaneously",funFact:"Google\\'s Sycamore processor achieved quantum supremacy in 2019, solving a problem in 200 seconds that would take a supercomputer 10,000 years",takeaway:"Quantum computers excel at specific problems but won\\'t replace classical computers entirely",mistake:"Quantum computers don\\'t replace classical computers—they solve different types of problems",descriptionDetailed:"Qubits use quantum superposition and entanglement. Algorithms like Shor\\'s factor large numbers and Grover\\'s search databases exponentially faster. Error correction and qubit coherence remain major challenges."},    {id:"ai",name:"AI Computing",category:"Processing",purpose:"Simulates human intelligence to learn, reason, and make decisions",description:"AI systems use neural networks trained on massive datasets to recognize patterns, understand language, and make predictions.",why:"AI is transforming every industry from healthcare to transportation",analogy:"Like a brain that learns from experience rather than being programmed",funFact:"GPT-4 was trained on trillions of words and can pass professional exams",takeaway:"AI learns patterns from data rather than following explicit instructions",mistake:"AI doesn\\'t think or understand—it predicts statistically based on training data",descriptionDetailed:"Neural networks consist of layers of interconnected neurons. Deep learning uses many layers to learn hierarchical features. Training requires vast datasets and specialized hardware like GPUs."},    {id:"neuromorphic",name:"Neuromorphic Computing",category:"Processing",purpose:"Mimics the structure and function of biological brains for efficient computation",description:"Neuromorphic chips use artificial neurons and synapses that communicate through spikes, similar to biological neural networks.",why:"Neuromorphic computing could achieve brain-like efficiency for AI tasks",analogy:"Like building an artificial brain using electronic neurons and synapses",funFact:"Intel\\'s Loihi chip consumes energy comparable to a biological brain",takeaway:"Neuromorphic computing is designed for ultra-low-power AI processing",mistake:"Neuromorphic isn\\'t the same as neural network software—it\\'s hardware designed to match neural architecture",descriptionDetailed:"Neuromorphic hardware uses event-driven spikes instead of clock cycles. Synaptic weights are stored in memristors or SRAM. This architecture enables real-time learning with minimal power."},    {id:"optical",name:"Optical Computing",category:"Processing",purpose:"Uses light instead of electricity for ultra-fast data processing",description:"Optical computing uses photons to transmit and process data, achieving speeds limited only by the speed of light with minimal heat generation.",why:"Optical computing could overcome the speed and heat limits of electronic circuits",analogy:"Like replacing copper wires with fiber optics inside the computer",funFact:"Optical interconnects are already used in data centers to connect racks",takeaway:"Optical computing promises dramatically faster and more efficient processing",mistake:"Fully optical computers are still experimental—most current uses are optical interconnects",descriptionDetailed:"Optical computing uses lasers, modulators, and photodetectors to process information. Optical logic gates and switches operate at terahertz speeds. Challenges include miniaturization and integration with electronics."},    {id:"dna",name:"DNA Computing",category:"Storage",purpose:"Uses DNA molecules to store and process data at incredible density",description:"DNA computing encodes data in nucleotide sequences, achieving storage densities millions of times greater than electronic media.",why:"DNA storage could solve the growing problem of data storage density",analogy:"Like storing the entire Internet in a sugar cube-sized container",funFact:"1 gram of DNA can theoretically store 215 petabytes of data",takeaway:"DNA storage offers unprecedented data density but slow read/write speed",mistake:"DNA won\\'t replace SSDs—it\\'s best for archival, not active use",descriptionDetailed:"Data is encoded as sequences of A, T, C, G nucleotides. DNA synthesis writes data, and sequencing reads it. Error rates are addressed through redundancy. DNA computing can also solve optimization problems through molecular reactions."},    {id:"edge",name:"Edge Computing",category:"Network",purpose:"Processes data closer to where it\\'s generated rather than in centralized data centers",description:"Edge computing moves computation to local devices and gateways, reducing latency and bandwidth usage compared to cloud-only architectures.",why:"Edge computing enables real-time applications like autonomous vehicles and IoT",analogy:"Like having a local market instead of traveling to a distant city for everything",funFact:"By 2025, over 75% of enterprise data will be processed at the edge",takeaway:"Edge computing reduces latency by processing data locally instead of in the cloud",mistake:"Edge computing doesn\\'t replace the cloud—it complements it for time-sensitive tasks",descriptionDetailed:"Edge nodes include IoT devices, 5G base stations, and local servers. They run machine learning models locally and send only aggregated data to the cloud. Use cases include autonomous driving, industrial automation, and smart cities."}];
-var connections = [{from:"quantum",to:"ai"},{from:"ai",to:"neuromorphic"},{from:"neuromorphic",to:"optical"},{from:"optical",to:"dna"},{from:"dna",to:"edge"}];
-var steps = [{label:"Step 1: Quantum Computing",status:"Exploring: Quantum Computing - Uses quantum mechanical phenomena to solve problems impossible for classical computers"},{label:"Step 2: AI Computing",status:"Exploring: AI Computing - Simulates human intelligence to learn, reason, and make decisions"},{label:"Step 3: Neuromorphic Computing",status:"Exploring: Neuromorphic Computing - Mimics the structure and function of biological brains for efficient computation"},{label:"Step 4: Optical Computing",status:"Exploring: Optical Computing - Uses light instead of electricity for ultra-fast data processing"},{label:"Step 5: DNA Computing",status:"Exploring: DNA Computing - Uses DNA molecules to store and process data at incredible density"},{label:"Step 6: Edge Computing",status:"Exploring: Edge Computing - Processes data closer to where it\\'s generated rather than in centralized data centers"}];
-var tour = [{title:"Quantum Computing",description:"Uses quantum mechanical phenomena to solve problems impossible for classical computers",componentId:"quantum"},{title:"AI Computing",description:"Simulates human intelligence to learn, reason, and make decisions",componentId:"ai"},{title:"Neuromorphic Computing",description:"Mimics the structure and function of biological brains for efficient computation",componentId:"neuromorphic"},{title:"Optical Computing",description:"Uses light instead of electricity for ultra-fast data processing",componentId:"optical"},{title:"DNA Computing",description:"Uses DNA molecules to store and process data at incredible density",componentId:"dna"},{title:"Edge Computing",description:"Processes data closer to where it\\'s generated rather than in centralized data centers",componentId:"edge"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"quantum":{"x":130,"y":120,"fields":{"Purpose":"Quantum problems impossible classically","How It Works":"Qubits use superposition and entanglement; Shor/Grover algorithms.","Analogy":"Trying all keys at once","Fun Fact":"Sycamore achieved quantum supremacy 2019","Key Takeaway":"Excels at specific problems"},"desc":"Quantum mechanical computing."},"ai":{"x":340,"y":120,"fields":{"Purpose":"Learn and decide from data","How It Works":"Neural networks learn hierarchical features; training needs GPUs + big data.","Analogy":"Brain learning from experience","Fun Fact":"GPT-4 trained on trillions of words","Key Takeaway":"Learns patterns, not instructions"},"desc":"Artificial intelligence computing."},"neuromorphic":{"x":550,"y":120,"fields":{"Purpose":"Brain-mimicking chips","How It Works":"Artificial synapses/neurons in silicon; spiking networks use timed pulses.","Analogy":"Building a brain computer","Fun Fact":"Intel Loihi: 10000x less energy","Key Takeaway":"10,000x more efficient AI"},"desc":"Brain-inspired computing hardware."},"optical":{"x":200,"y":370,"fields":{"Purpose":"Light-based computing","How It Works":"Photons carry info; optical logic gates at femtosecond speeds.","Analogy":"Lightning messengers","Fun Fact":"100x faster than electronic","Key Takeaway":"Overcomes electronic speed limits"},"desc":"Photon-based processing."},"dna":{"x":460,"y":370,"fields":{"Purpose":"Molecular data storage","How It Works":"Data as A,C,G,T sequences; enzymes do chemical operations in parallel.","Analogy":"Internet in a sugar cube","Fun Fact":"1g DNA = 215 petabytes","Key Takeaway":"Highest storage density known"},"desc":"DNA-based computing."}};
+  var CONNS=[{from:"quantum",to:"ai"},{from:"ai",to:"neuromorphic"},{from:"neuromorphic",to:"optical"},{from:"optical",to:"dna"}];
+  var CHALLENGES=[{q:"Qubit multi-state property:",opts:["Entanglement","Superposition","Interference","Collapse"],ans:1},{q:"Sycamore 2019:",opts:["AI model","Quantum supremacy","DNA computer","Optical chip"],ans:1},{q:"Neuromorphic mimics:",opts:["Quantum physics","Brain structure","Optical signals","DNA"],ans:1},{q:"Optical computing uses:",opts:["Electrons","Photons","Protons","Neutrons"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Future Computing',
-    subtitle: 'How Computers Work',
-    desc: 'Explore emerging technologies shaping the future of computing.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Explore emerging technologies in computing.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
-    
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
+
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
+
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
+
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
+
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
+
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
+        });
+      }
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
       });
-    },
-    
-    onReplay: function(engine) {
-      engine.t = 0;
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+

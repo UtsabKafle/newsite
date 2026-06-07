@@ -1,58 +1,446 @@
-(function(){'use strict';
-var components = [
-  {id:"landingstation",name:"Landing Station",category:"Network",icon:"data-center",shape:"rounded-rect",x:30,y:72,w:110,h:56,purpose:"Connects undersea cables to the terrestrial Internet backbone on shore",description:"Landing stations are facilities on the coast where undersea cables come ashore and connect to fiber optic networks that spread across the continent.",why:"Landing stations are the bridge between underwater and land-based networks",analogy:"Like a seaport where ships dock and unload cargo onto trucks",funFact:"There are over 500 active undersea cable landing stations worldwide",takeaway:"Undersea cables connect to landing stations, not directly to your home",mistake:"Landing stations are heavily secured and often disguised to prevent sabotage",descriptionDetailed:"Landing stations house the equipment that terminates the undersea cable, including power feed equipment and optical line terminals. They convert optical signals from the cable into signals compatible with terrestrial networks. Most landing stations have redundant power and cooling."},
-  {id:"cable",name:"Undersea Fiber Optic Cable",category:"Network",icon:"cable",shape:"pill",x:160,y:72,w:110,h:56,purpose:"Carries data across oceans using pulses of light through hair-thin glass fibers",description:"The cable contains multiple fiber pairs, each carrying laser light pulses encoded with data, surrounded by layers of steel and plastic armor.",why:"Undersea cables carry over 95% of all international Internet traffic",analogy:"Like a super-fast underwater highway for data traveling at the speed of light",funFact:"The first transatlantic cable laid in 1858 could transmit just 1 word per 2 minutes",takeaway:"Undersea cables are still the backbone of global connectivity",mistake:"Cables aren\\'t just laid on the seafloor\u2014they\\'re buried near shore to prevent damage",descriptionDetailed:"Modern cables use dense wavelength division multiplexing to send multiple colors of light through each fiber. Cables are about the thickness of a garden hose and can span 6,000+ miles. Repeaters every 50-80 km amplify the optical signal."},
-  {id:"repeater",name:"Optical Repeater",category:"Network",icon:"chip",shape:"hexagon",x:290,y:48,w:110,h:56,purpose:"Amplifies the optical signal to prevent data loss over long distances",description:"Repeaters are placed at regular intervals along the cable to boost the weakening light signal so data can travel thousands of kilometers.",why:"Without repeaters, light signals would fade after a few hundred kilometers",analogy:"Like rest stops along a highway where drivers refuel for the next leg",funFact:"A single cable can have over 100 repeaters spaced 50-80 km apart",takeaway:"Repeaters allow undersea cables to span entire oceans",mistake:"Repeaters don\\'t regenerate data\u2014they simply amplify the optical signal",descriptionDetailed:"Repeaters contain erbium-doped fiber amplifiers that use laser pumping to boost signal strength. Modern repeaters support multiple wavelength channels simultaneously. They are powered electrically from the landing stations through the cable\\'s copper conductor."},
-  {id:"buoy",name:"Navigation Buoy",category:"Network",icon:"satellite",shape:"circle",x:420,y:72,w:110,h:56,purpose:"Marks cable locations and warns ships away from buried cables",description:"Buoys are placed near shore to mark the path of undersea cables and alert ships to avoid anchoring or fishing in cable areas.",why:"Ship anchors and fishing trawlers are the biggest threat to undersea cables",analogy:"Like warning signs posted near underground gas lines to prevent digging",funFact:"Over 100 cable breaks happen each year, mostly from ship anchors and fishing",takeaway:"Cables need protection from human activity, especially in shallow waters",mistake:"Buoys don\\'t transmit data\u2014they\\'re purely physical markers",descriptionDetailed:"Buoys are placed along the cable route near shorelines to visually mark the cable path. They are regulated by international maritime laws and cable protection zones. Cable repair ships can locate breaks and pull the cable up for repair."},
-  {id:"data",name:"Transmitted Data",category:"Network",icon:"data-center",shape:"rounded-rect",x:550,y:72,w:110,h:56,purpose:"Represents all Internet traffic traveling between continents through cables",description:"Data in the form of light pulses travels through the fiber at nearly the speed of light, carrying everything from emails to video streams.",why:"This data is the reason the global Internet exists\u2014connecting people worldwide",analogy:"Like all the conversations happening simultaneously through a massive fiber-optic telephone line",funFact:"A single undersea cable pair can carry the equivalent of 100 million HD movies simultaneously",takeaway:"Every international website visit, email, or stream likely travels through an undersea cable",mistake:"Data doesn\\'t travel instantaneously\u2014the speed of light in fiber is about 200,000 km/s",descriptionDetailed:"Data is encoded as laser light pulses using phase-shift keying or quadrature amplitude modulation. Multiple wavelengths of light travel through the same fiber using DWDM technology."}
-];
-var connections = [{from:"landingstation",to:"cable"},{from:"cable",to:"repeater"},{from:"repeater",to:"buoy"},{from:"buoy",to:"data"}];
-var steps = [{label:"Step 1: Landing Station",status:"Exploring: Landing Station - Connects undersea cables to the terrestrial Internet backbone on shore"},{label:"Step 2: Undersea Fiber Optic Cable",status:"Exploring: Undersea Fiber Optic Cable - Carries data across oceans using pulses of light through hair-thin glass fibers"},{label:"Step 3: Optical Repeater",status:"Exploring: Optical Repeater - Amplifies the optical signal to prevent data loss over long distances"},{label:"Step 4: Navigation Buoy",status:"Exploring: Navigation Buoy - Marks cable locations and warns ships away from buried cables"},{label:"Step 5: Transmitted Data",status:"Exploring: Transmitted Data - Represents all Internet traffic traveling between continents through cables"}];
-var tour = [{title:"Landing Station",description:"Connects undersea cables to the terrestrial Internet backbone on shore",componentId:"landingstation"},{title:"Undersea Fiber Optic Cable",description:"Carries data across oceans using pulses of light through hair-thin glass fibers",componentId:"cable"},{title:"Optical Repeater",description:"Amplifies the optical signal to prevent data loss over long distances",componentId:"repeater"},{title:"Navigation Buoy",description:"Marks cable locations and warns ships away from buried cables",componentId:"buoy"},{title:"Transmitted Data",description:"Represents all Internet traffic traveling between continents through cables",componentId:"data"}];
+(function(){
+'use strict';
+var D=document,W=window,$=function(s,p){return(p||D).querySelector(s)},
+$$=function(s,p){return Array.from((p||D).querySelectorAll(s))},
+NS='http://www.w3.org/2000/svg',CA=cancelAnimationFrame,RA=requestAnimationFrame;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Undersea Cables',
-    subtitle: 'How Internet Works',
-    desc: 'Explore the undersea fiber optic cables that connect continents.',
-    module: 1,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Explore the global undersea cable network connecting continents.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
-    packetFlow: [
-      {label:'Signal In',color:'#22c55e'},
-      {label:'Fiber Optics',color:'#60a5fa'},
-      {label:'Amplify',color:'#c084fc'},
-      {label:'Navigation',color:'#f59e0b'}
-    ],
+/* --- DATA --- */
+var NODES=[{"id": "landingstation", "name": "Landing Station", "cat": "Infrastructure", "icon": "🏗️", "x": 60, "y": 140, "desc": "Landing stations are facilities on the coast where undersea cables come ashore and connect to terrestrial fiber networks.", "how": "Landing stations house equipment that terminates the cable, including power feed equipment and optical line terminals.", "why": "Landing stations are the bridge between underwater and land-based networks", "analogy": "Like a seaport where ships dock and unload cargo onto trucks", "fun": "There are over 500 active undersea cable landing stations worldwide", "take": "Undersea cables connect to landing stations, not directly to your home"}, {"id": "cable", "name": "Undersea Fiber Optic Cable", "cat": "Infrastructure", "icon": "📡", "x": 240, "y": 90, "desc": "The cable contains multiple fiber pairs, each carrying laser light pulses encoded with data, surrounded by layers of armor.", "how": "Modern cables use dense wavelength division multiplexing to send multiple colors of light through each fiber, with repeaters every 50-80 km.", "why": "Undersea cables carry over 95 percent of all international Internet traffic", "analogy": "Like a super-fast underwater highway for data traveling at the speed of light", "fun": "The first transatlantic cable in 1858 could transmit just 1 word per 2 minutes", "take": "Undersea cables are still the backbone of global connectivity"}, {"id": "repeater", "name": "Optical Repeater", "cat": "Infrastructure", "icon": "🔄", "x": 410, "y": 50, "desc": "Repeaters amplify the weakening light signal so data can travel thousands of kilometers.", "how": "Repeaters contain erbium-doped fiber amplifiers that use laser pumping to boost signal strength for multiple wavelength channels.", "why": "Without repeaters, light signals would fade after a few hundred kilometers", "analogy": "Like rest stops along a highway where drivers refuel for the next leg", "fun": "A single cable can have over 100 repeaters spaced 50-80 km apart", "take": "Repeaters allow undersea cables to span entire oceans"}, {"id": "buoy", "name": "Navigation Buoy", "cat": "Safety", "icon": "⚓", "x": "560", "y": "140", "desc": "Buoys mark the path of undersea cables and alert ships to avoid anchoring in cable areas.", "how": "Buoys are placed along the cable route near shorelines to visually mark the cable path, regulated by international maritime laws.", "why": "Ship anchors and fishing trawlers are the biggest threat to undersea cables", "analogy": "Like warning signs posted near underground gas lines to prevent digging", "fun": "Over 100 cable breaks happen each year, mostly from ship anchors and fishing", "take": "Cables need protection from human activity, especially in shallow waters"}, {"id": "data", "name": "Transmitted Data", "cat": "Data", "icon": "💾", "x": 720, "y": "140", "desc": "Data in the form of light pulses travels through fiber at nearly the speed of light.", "how": "Data is encoded as laser light pulses using phase-shift keying or quadrature amplitude modulation through multiple wavelengths.", "why": "This data is the reason the global Internet exists", "analogy": "Like all conversations happening simultaneously through a massive fiber-optic line", "fun": "A single cable pair can carry 100 million HD movies simultaneously", "take": "Every international website visit likely travels through an undersea cable"}];
+var CONNECTIONS=[{"from": "landingstation", "to": "cable", "type": "cable"}, {"from": "cable", "to": "repeater", "type": "cable"}, {"from": "repeater", "to": "buoy", "type": "cable"}, {"from": "buoy", "to": "data", "type": "cable"}];
+var ROUTES={"A": {"name": "Transatlantic Path", "color": "#3b82f6", "path": ["landingstation", "cable", "repeater", "buoy", "data"]}};
+var CHALLENGES=[{"q": "What percentage of international Internet traffic travels through undersea cables?", "opts": ["About 50 percent", "About 75 percent", "Over 95 percent", "100 percent"], "ans": 2, "exp": "Undersea cables carry over 95 percent of all international Internet traffic."}, {"q": "How fast does light travel through fiber optic cable?", "opts": ["300,000 km/s (speed of light in vacuum)", "About 200,000 km/s", "About 100,000 km/s", "About 50,000 km/s"], "ans": 1, "exp": "Light in fiber travels at about 200,000 km/s due to the refractive index of glass."}, {"q": "What technology allows multiple data streams through one fiber?", "opts": ["Packet switching", "DWDM (Dense Wavelength Division Multiplexing)", "Time division", "Frequency hopping"], "ans": 1, "exp": "DWDM sends multiple colors (wavelengths) of light through a single fiber simultaneously."}, {"q": "How often are repeaters placed along undersea cables?", "opts": ["Every 10 km", "Every 50-80 km", "Every 500 km", "Every 1,000 km"], "ans": 1, "exp": "Repeaters are spaced every 50-80 km to amplify the weakening optical signal."}, {"q": "What is the biggest cause of undersea cable damage?", "opts": ["Underwater earthquakes", "Ship anchors and fishing", "Saltwater corrosion", "Shark bites"], "ans": 1, "exp": "Ship anchors and fishing trawlers cause over 100 cable breaks each year."}, {"q": "When was the first transatlantic telegraph cable laid?", "opts": ["1845", "1858", "1901", "1920"], "ans": 1, "exp": "The first transatlantic cable was laid in 1858, transmitting just 1 word per 2 minutes."}, {"q": "What material amplifies the signal in optical repeaters?", "opts": ["Silicon", "Erbium-doped fiber", "Copper wire", "Ruby crystal"], "ans": 1, "exp": "Erbium-doped fiber amplifiers (EDFAs) use laser pumping to boost signal strength."}, {"q": "How many active undersea cable landing stations are there worldwide?", "opts": ["About 100", "About 250", "Over 500", "Over 1,000"], "ans": 2, "exp": "There are over 500 active undersea cable landing stations worldwide."}, {"q": "What does a navigation buoy do?", "opts": ["Transmits data", "Marks cable locations to warn ships", "Generates power", "Monitors water temperature"], "ans": 1, "exp": "Buoys visually mark cable paths and alert ships to avoid anchoring in those areas."}, {"q": "What protects undersea cables near shore?", "opts": ["Floating on the surface", "Buried under the seabed", "Suspended above the ocean floor", "Encased in concrete"], "ans": 1, "exp": "Near shore, cables are buried under the seabed to protect them from ship anchors and fishing."}];
 
-    render: function(container, engine) {
-      engine.buildVisual(container);
-      engine._setStatus('Click any component to learn more');
-    },
+/* --- STATE --- */
+var S={
+  selected:null,packetCount:0,sending:false,route:null,
+  packets:[],traffic:[],particles:[],time:0,
+  sentPackets:0,hasCompleted:false,
+  speedMult:1,theme:'dark',challengeIdx:0,score:0,challengeDone:false
+};
+var rafId=null,lastTime=0,ts=0,DOM={};
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        var shape = bg.querySelector(':scope > :first-child');
-        if(!shape)return;
-        shape.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        shape.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+/* --- UTILITIES --- */
+function lerp(a,b,t){return a+(b-a)*t}
+function bezier(ax,ay,bx,by,cx,cy,dx,dy,t){
+  var mt=1-t,mt2=mt*mt,mt3=mt2*mt,t2=t*t,t3=t2*t;
+  return {x:mt3*ax+3*mt2*t*bx+3*mt*t2*cx+t3*dx,y:mt3*ay+3*mt2*t*by+3*mt*t2*cy+t3*dy};
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randid(){return Math.floor(Math.random()*9000+1000)}
+function esc(s){var d=D.createElement('div');d.textContent=s;return d.innerHTML}
 
-    onReplay: function(engine) {
-      engine.t = 0;
+/* --- SPEED --- */
+function setSpeed(val){
+  S.speedMult=0.25+(val/16)*3.75;
+  $('#speedDisplay').textContent=S.speedMult.toFixed(2).replace(/\.?0+$/,'')+'\u00d7';
+}
+
+/* --- SVG BUILDERS --- */
+function buildVisual(){
+  var bg=$('#background');
+  NODES.forEach(function(n){
+    var g=D.createElementNS(NS,'g');
+    g.setAttribute('class','node');g.dataset.id=n.id;
+    g.setAttribute('role','button');g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label','Select '+n.name);
+    var glow=D.createElementNS(NS,'circle');
+    glow.setAttribute('cx',n.x);glow.setAttribute('cy',n.y-4);
+    glow.setAttribute('r','22');glow.setAttribute('fill','url(#nodeGlow)');
+    g.appendChild(glow);
+    var bgEl=D.createElementNS(NS,'rect');
+    bgEl.setAttribute('x',n.x-24);bgEl.setAttribute('y',n.y-24);
+    bgEl.setAttribute('width','48');bgEl.setAttribute('height','48');
+    bgEl.setAttribute('rx','12');bgEl.setAttribute('class','node-bg');
+    g.appendChild(bgEl);
+    var txt=D.createElementNS(NS,'text');
+    txt.setAttribute('x',n.x);txt.setAttribute('y',n.y+1);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('font-size','20');
+    txt.setAttribute('class','node-icon');txt.textContent=n.icon;
+    g.appendChild(txt);
+    var lbl=D.createElementNS(NS,'text');
+    lbl.setAttribute('x',n.x);lbl.setAttribute('y',n.y+34);
+    lbl.setAttribute('class','node-label');lbl.textContent=n.name;
+    g.appendChild(lbl);
+    var slbl=D.createElementNS(NS,'text');
+    slbl.setAttribute('x',n.x);slbl.setAttribute('y',n.y+46);
+    slbl.setAttribute('class','node-sublabel');slbl.textContent=n.cat;
+    g.appendChild(slbl);
+    bg.appendChild(g);
+  });
+}
+
+function buildConnections(){
+  var cg=$('#connections');
+  CONNECTIONS.forEach(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    var p=D.createElementNS(NS,'path');
+    var mx=(f.x+t.x)/2,my=(f.y+t.y)/2;
+    var cy=c.type==='cable'?Math.max(f.y,t.y)+20:my;
+    p.setAttribute('d','M'+f.x+','+(f.y-4)+' Q'+mx+','+cy+' '+t.x+','+(t.y-4));
+    p.setAttribute('class','connection '+c.type);
+    cg.appendChild(p);
+  });
+}
+
+function buildTrafficDots(){
+  var tg=$('#trafficDots');
+  CONNECTIONS.forEach(function(c,i){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    if(!f||!t)return;
+    for(var j=0;j<3;j++){
+      var d=D.createElementNS(NS,'circle');
+      d.setAttribute('r','2');d.setAttribute('class','traffic-dot');
+      d.setAttribute('data-conn',i);d.setAttribute('data-offset',j/3+Math.random()*0.1);
+      d.setAttribute('fill',c.type==='fiber'?'#3b82f6':'#06b6d4');
+      tg.appendChild(d);
     }
   });
-});
+}
+
+/* --- PARTICLES --- */
+var pCtx=null;
+function initParticles(){
+  var canvas=$('#particles'),ctx=canvas.getContext('2d');
+  var mc=$('#mapWrap');
+  function resize(){
+    canvas.width=mc.offsetWidth;canvas.height=mc.offsetHeight;
+  }
+  resize();W.addEventListener('resize',resize,{passive:true});
+  var count=Math.min(60,Math.floor(canvas.width*canvas.height/15000));
+  S.particles=Array.from({length:count},function(){
+    return{x:rand(0,canvas.width),y:rand(0,canvas.height),vx:rand(-0.3,0.3),vy:rand(-0.3,0.3),r:rand(0.5,1.5),o:rand(0.1,0.3)};
+  });
+  return ctx;
+}
+function drawParticles(ctx,time){
+  if(!ctx)return;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  S.particles.forEach(function(p){
+    p.x+=p.vx*S.speedMult;p.y+=p.vy*S.speedMult;
+    if(p.x<0)p.x=ctx.canvas.width;if(p.x>ctx.canvas.width)p.x=0;
+    if(p.y<0)p.y=ctx.canvas.height;if(p.y>ctx.canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(59,130,246,'+p.o*(0.8+0.2*Math.sin(time*0.001+p.x*0.01))+')';
+    ctx.fill();
+  });
+}
+
+/* --- TRAFFIC --- */
+function getConnNodes(){
+  return CONNECTIONS.map(function(c){
+    var f=NODES.find(function(n){return n.id===c.from});
+    var t=NODES.find(function(n){return n.id===c.to});
+    return{from:f?{x:f.x,y:f.y-4}:{x:0,y:0},to:t?{x:t.x,y:t.y-4}:{x:0,y:0},type:c.type};
+  });
+}
+function animateTraffic(time){
+  var dots=$$('.traffic-dot');
+  var conns=getConnNodes();
+  dots.forEach(function(dot){
+    var ci=parseInt(dot.dataset.conn);
+    if(ci>=conns.length)return;
+    var c=conns[ci],off=parseFloat(dot.dataset.offset);
+    var t=(time*0.0001*S.speedMult+off)%1;
+    dot.setAttribute('cx',lerp(c.from.x,c.to.x,t));
+    dot.setAttribute('cy',lerp(c.from.y,c.to.y,t));
+  });
+}
+
+/* --- PACKETS --- */
+function getNodePos(id){
+  var n=NODES.find(function(n){return n.id===id});
+  return n?{x:n.x,y:n.y-4}:{x:0,y:0};
+}
+function getPathPoints(routeId){
+  var r=ROUTES[routeId];
+  if(!r||!r.path)return[];
+  return r.path.map(function(id){return getNodePos(id)});
+}
+function sendPacket(){
+  if(S.sending)return;
+  var routes=Object.keys(ROUTES);
+  var chosen=routes[Math.floor(Math.random()*routes.length)];
+  S.route=ROUTES[chosen];
+  var pts=getPathPoints(chosen);
+  if(pts.length<2)return;
+  S.sending=true;S.sentPackets++;
+  var btn=$('#sendBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;animation:spin 0.8s linear infinite">\u26A1</span> Traveling...';
+  var id=randid();
+  var packet={
+    id:id,points:pts,t:0,speed:(0.004+Math.random()*0.002)*S.speedMult,
+    baseSpeed:0.004+Math.random()*0.002,routeName:S.route.name,
+    color:S.route.color,forward:true,el:null,trailEls:[]
+  };
+  var pg=$('#packets');
+  var g=D.createElementNS(NS,'g');
+  for(var i=0;i<5;i++){
+    var tr=D.createElementNS(NS,'circle');
+    tr.setAttribute('r',2.5-i*0.4);tr.setAttribute('class','packet-trail');
+    tr.setAttribute('opacity',0.2-i*0.035);tr.setAttribute('fill',packet.color);
+    g.appendChild(tr);packet.trailEls.push(tr);
+  }
+  var dot=D.createElementNS(NS,'circle');
+  dot.setAttribute('r','6');dot.setAttribute('class','packet');
+  dot.setAttribute('fill',packet.color);dot.setAttribute('filter','url(#glow)');
+  g.appendChild(dot);packet.el=dot;
+  pg.appendChild(g);
+  S.packets.push(packet);
+  var ri=$('#routeInfo');
+  ri.innerHTML='<span style="color:'+packet.color+';font-weight:700">Route:</span> '+esc(S.route.name);
+  ri.classList.add('visible');
+}
+function hideTooltip(){var tt=$('#tooltip');tt.classList.remove('visible');}
+
+/* --- PACKET ANIMATION --- */
+function updatePackets(){
+  var pg=$('#packets');
+  S.packets.forEach(function(pkt,i){
+    var pts=pkt.points;
+    if(!pts||pts.length<2)return;
+    pkt.t+=pkt.speed*S.speedMult;
+    if(pkt.t>=1){
+      if(pkt.forward){
+        pkt.t=0;pkt.forward=false;
+        pkt.points=[].concat(pts).reverse();
+      }else{
+        S.packets.splice(i,1);
+        if(pkt.el&&pkt.el.parentNode)pg.removeChild(pkt.el.parentNode);
+        S.sending=false;
+        showCompletion();
+        return;
+      }
+    }
+    var t=pkt.t,segTotal=pts.length-1;
+    var seg=Math.min(Math.floor(t*segTotal),segTotal-1);
+    var segT=(t*segTotal)-seg;
+    var p0=pts[Math.max(0,seg-1)],p1=pts[seg];
+    var p2=pts[Math.min(segTotal,seg+1)],p3=pts[Math.min(segTotal,seg+2)];
+    var cx=bezier(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,segT);
+    pkt.trailEls.forEach(function(te,j){
+      var trailT=Math.max(0,t-(j+1)*0.02);
+      var seg2=Math.min(Math.floor(trailT*segTotal),segTotal-1);
+      var segT2=(trailT*segTotal)-seg2;
+      var idx=Math.max(0,+seg2-1);
+      var p0t=pts[Math.min(idx,pts.length-1)];
+      var p1t=pts[Math.min(seg2,pts.length-1)];
+      var p2t=pts[Math.min(seg2+1,pts.length-1)];
+      var p3t=pts[Math.min(seg2+2,pts.length-1)];
+      var ct=bezier(p0t.x,p0t.y,p1t.x,p1t.y,p2t.x,p2t.y,p3t.x,p3t.y,segT2);
+      te.setAttribute('cx',ct.x);te.setAttribute('cy',ct.y);
+    });
+    pkt.el.setAttribute('cx',cx.x);pkt.el.setAttribute('cy',cx.y);
+  });
+}
+
+/* --- COMPLETION --- */
+function showCompletion(){
+  if(S.hasCompleted)return;
+  S.hasCompleted=true;S.sending=false;
+  hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+  var dist=Math.floor(rand(500,3000)),time=Math.floor(rand(20,200));
+  var hops=S.route?S.route.path.length-1:5;
+  $('#statDist').textContent=dist.toLocaleString();
+  $('#statTime').textContent=time;
+  $('#statHops').textContent=hops;
+  var cp=$('#overlayPath');
+  var path=S.route?S.route.path:Object.values(ROUTES)[0].path;
+  var html='';
+  path.forEach(function(id,i){
+    var n=NODES.find(function(n){return n.id===id});
+    if(i>0)html+='<span style="margin:0 2px;color:var(--text-faint)">\u2192</span>';
+    html+='<span style="color:'+(i===0||i===path.length-1?'var(--success)':'var(--text)')+'">'+(n?esc(n.name):id)+'</span>';
+  });
+  cp.innerHTML=html;
+  setTimeout(function(){$('#completionOverlay').removeAttribute('hidden')},300);
+}
+function hideCompletion(){
+  S.hasCompleted=false;S.sentPackets=0;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];
+  $('#completionOverlay').setAttribute('hidden','');
+}
+
+/* --- INFO PANEL --- */
+function showInfo(id){
+  var n=NODES.find(function(n){return n.id===id});
+  if(!n)return;
+  var panel=$('#infoPanel');
+  $('#panelCat').textContent=n.cat||'Component';
+  $('#panelTitle').textContent=n.name;
+  $('#panelDesc').textContent=n.desc||'';
+  var html='';
+  if(n.how)html+='<div class="panel-section"><div class="panel-section-label">How It Works</div><div class="panel-section-value">'+esc(n.how)+'</div></div>';
+  if(n.why)html+='<div class="panel-section"><div class="panel-section-label">Why It Matters</div><div class="panel-section-value">'+esc(n.why)+'</div></div>';
+  if(n.analogy)html+='<div class="panel-section"><div class="panel-section-label">Real-World Analogy</div><div class="panel-section-value">'+esc(n.analogy)+'</div></div>';
+  if(n.fun)html+='<div class="panel-section"><div class="panel-section-label">Fun Fact</div><div class="panel-section-value">'+esc(n.fun)+'</div></div>';
+  if(n.take)html+='<div class="panel-section"><div class="panel-section-label">Key Takeaway</div><div class="panel-section-value">'+esc(n.take)+'</div></div>';
+  $('#panelSections').innerHTML=html;
+  panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+  S.selected=id;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  var nodeEl=$('[data-id="'+id+'"]');
+  if(nodeEl)nodeEl.classList.add('selected');
+}
+function hideInfo(){
+  var panel=$('#infoPanel');
+  panel.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  S.selected=null;
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+}
+
+/* --- THEME --- */
+function toggleTheme(){
+  var html=D.documentElement;
+  var current=html.getAttribute('data-theme');
+  var next=current==='light'?'dark':'light';
+  html.setAttribute('data-theme',next);
+  S.theme=next;
+  try{localStorage.setItem('consica-theme',next)}catch(e){}
+  var btn=$('#themeBtn');
+  btn.innerHTML=next==='dark'
+    ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  btn.setAttribute('aria-label',next==='dark'?'Switch to light mode':'Switch to dark mode');
+}
+function initTheme(){
+  var saved='dark';
+  try{saved=localStorage.getItem('consica-theme')||'dark'}catch(e){}
+  D.documentElement.setAttribute('data-theme',saved);
+  S.theme=saved;
+}
+
+/* --- CHALLENGE --- */
+function startChallenge(){
+  S.challengeIdx=0;S.score=0;S.challengeDone=false;
+  showQuestion();
+}
+function showQuestion(){
+  var cc=$('#challengeContent');
+  if(S.challengeIdx>=CHALLENGES.length||S.challengeDone){
+    cc.innerHTML='<div class="challenge-body"><div class="challenge-score">Quiz Complete! You scored '+S.score+'/'+CHALLENGES.length+'</div><button class="challenge-retry" id="challengeRetry">Retry Quiz</button></div>';
+    var rb=$('#challengeRetry');
+    if(rb)rb.addEventListener('click',startChallenge);
+    return;
+  }
+  var q=CHALLENGES[S.challengeIdx];
+  var html='<div class="challenge-body"><div class="challenge-q">'+(S.challengeIdx+1)+'. '+esc(q.q)+'</div><div class="challenge-opts">';
+  q.opts.forEach(function(o,i){
+    html+='<button class="challenge-opt" data-idx="'+i+'">'+esc(o)+'</button>';
+  });
+  html+='</div><div id="challengeFb"></div></div>';
+  cc.innerHTML=html;
+  $$('.challenge-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.disabled)return;
+      var idx=parseInt(btn.dataset.idx);
+      var correct=idx===CHALLENGES[S.challengeIdx].ans;
+      $$('.challenge-opt').forEach(function(b){b.disabled=true});
+      $$('.challenge-opt').forEach(function(b,i2){
+        b.classList.add(i2===CHALLENGES[S.challengeIdx].ans?'correct':'wrong');
+      });
+      if(correct)S.score++;
+      var fb=$('#challengeFb');
+      fb.innerHTML='<div class="challenge-feedback '+(correct?'correct':'wrong')+'">'+(correct?'\u2713 Correct! ':'\u2717 Incorrect. ')+esc(CHALLENGES[S.challengeIdx].exp)+'</div>';
+      fb.style.display='block';
+      setTimeout(function(){
+        S.challengeIdx++;
+        showQuestion();
+      },2000);
+    });
+  });
+}
+
+/* --- RESET --- */
+function resetDiagram(){
+  S.sending=false;
+  S.packets.forEach(function(p){if(p.el&&p.el.parentNode)p.el.parentNode.remove()});
+  S.packets=[];S.sentPackets=0;S.hasCompleted=false;S.selected=null;
+  $('#routeInfo').classList.remove('visible');$('#routeInfo').innerHTML='';
+  $$('.node.selected').forEach(function(el){el.classList.remove('selected')});
+  hideCompletion();hideInfo();hideTooltip();
+  var btn=$('#sendBtn');
+  btn.disabled=false;
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2v20M2 12h20"/></svg> Start Journey';
+}
+
+/* --- ANIMATION LOOP --- */
+function loop(time){
+  ts=time||0;
+  drawParticles(pCtx,time||0);
+  animateTraffic(time||0);
+  updatePackets();
+  rafId=RA(loop);
+}
+
+/* --- EVENTS --- */
+function bindEvents(){
+  var mc=$('#mapWrap');
+  mc.addEventListener('click',function(e){
+    var g=e.target.closest('[data-id]');
+    if(g){showInfo(g.dataset.id);return;}
+    var nd=e.target.closest('.node');
+    if(!nd)hideInfo();
+  });
+  mc.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      var g=e.target.closest('[data-id]');
+      if(g){e.preventDefault();showInfo(g.dataset.id);}
+    }
+  });
+  $('#sendBtn').addEventListener('click',sendPacket);
+  $('#panelClose').addEventListener('click',hideInfo);
+  D.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){hideInfo();hideCompletion()}
+  });
+  $('#overlayClose').addEventListener('click',hideCompletion);
+  $('#resetBtn').addEventListener('click',resetDiagram);
+  var slider=$('#speedSlider');
+  slider.addEventListener('input',function(){setSpeed(parseInt(this.value))});
+  setSpeed(parseInt(slider.value));
+  $('#themeBtn').addEventListener('click',toggleTheme);
+  var panel=$('#infoPanel');
+  var startY=0;
+  panel.addEventListener('touchstart',function(e){startY=e.touches[0].clientY},{passive:true});
+  panel.addEventListener('touchmove',function(e){
+    var dy=e.touches[0].clientY-startY;
+    if(dy>100)hideInfo();
+  },{passive:true});
+  startChallenge();
+}
+
+/* --- SKELETON FADE --- */
+function hideSkeleton(){
+  var skel=$('#skeleton');
+  if(!skel)return;
+  skel.style.opacity='0';
+  setTimeout(function(){if(skel.parentNode)skel.parentNode.removeChild(skel)},350);
+}
+
+/* --- INIT --- */
+try{
+  buildVisual();buildConnections();buildTrafficDots();
+  var ml=$('#mapLabel');if(ml)ml.remove();
+  pCtx=initParticles();
+  initTheme();
+  bindEvents();
+  rafId=RA(loop);
+  hideSkeleton();
+}catch(e){
+  console.error('Diagram init error:',e);
+  var err=D.createElement('div');
+  err.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0e1a;color:#ef4444;font-family:sans-serif;padding:40px;text-align:center';
+  err.innerHTML='<div><h2 style="font-size:18px;margin-bottom:8px">Diagram Error</h2><p style="font-size:13px;color:#94a3b8">'+esc(e.message||'Unknown error')+'</p></div>';
+  D.body.appendChild(err);
+}
+
+/* --- CLEANUP --- */
+W.addEventListener('beforeunload',function(){if(rafId)CA(rafId)});
 })();

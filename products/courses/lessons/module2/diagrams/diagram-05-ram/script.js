@@ -1,173 +1,231 @@
-(function(){'use strict';
-var components = [
-  {id:"dram",name:"DRAM Chip",category:"Memory",purpose:"Stores data as electrical charges in tiny capacitors that must be constantly refreshed",description:"Dynamic RAM stores each bit in a capacitor and transistor pair, where the capacitor holds a charge representing 1 or 0 but leaks over time.",why:"DRAM provides the main working memory that all programs run in",analogy:"Like a leaky bucket that needs constant refilling to keep its contents",funFact:"DRAM capacitors are so small that a single grain of salt could cover millions of them",takeaway:"DRAM is called dynamic because it must be refreshed thousands of times per second",mistake:"DRAM loses all data when power is turned off, unlike storage drives",descriptionDetailed:"Each DRAM cell has one transistor and one capacitor. The charge on the capacitor drains over milliseconds, so the memory controller must refresh every cell every 64ms. DRAM is organized in rows and columns accessed through RAS and CAS signals."},
-  {id:"addressbus",name:"Memory Address Bus",category:"Memory",purpose:"Carries the memory address from the CPU to indicate which location to access",description:"The address bus is a set of wires that transmit the specific memory location the CPU wants to read from or write to.",why:"The address bus determines how much memory a CPU can address",analogy:"Like a postal address that tells the mail carrier which house to deliver to",funFact:"A 32-bit address bus can only address 4 GB of memory, which is why 64-bit CPUs were needed",takeaway:"The address bus width limits the maximum RAM the system can use",mistake:"The address bus doesn't carry data—it only carries the location for data",descriptionDetailed:"Each wire in the address bus carries one bit of the address. A 64-bit address bus allows 2^64 memory locations. The memory controller decodes the address into row and column signals for the DRAM array."},
-  {id:"databus",name:"Data Bus",category:"Memory",purpose:"Transfers actual data between the CPU, memory, and peripherals",description:"The data bus carries the actual binary data being read from or written to memory, with its width determining how many bits transfer per cycle.",why:"The data bus width directly affects how much data can move per clock cycle",analogy:"Like the number of lanes on a highway determining how many cars can travel at once",funFact:"Modern CPUs have 64-bit data buses, transferring 8 bytes per memory access",takeaway:"A wider data bus means faster data transfer between CPU and RAM",mistake:"The data bus and address bus are separate—they carry different types of information",descriptionDetailed:"The data bus is bidirectional, allowing both reads and writes. Its width is typically equal to the CPU's word size. Modern systems use dual or quad memory channels to achieve wider total memory bandwidth."},
-  {id:"controller",name:"Memory Controller",category:"Memory",purpose:"Manages read and write operations between the CPU and DRAM modules",description:"The memory controller interprets CPU memory requests, handles DRAM refresh cycles, and optimizes access patterns for performance.",why:"The memory controller is essential for reliable and efficient memory operation",analogy:"Like a librarian who manages book checkouts and returns, ensuring everything is organized",funFact:"Modern CPUs integrate the memory controller directly on the chip instead of on the motherboard chipset",takeaway:"The memory controller handles timing, refresh, and data routing between CPU and RAM",mistake:"The memory controller doesn't just route data—it also manages DRAM-specific protocols",descriptionDetailed:"The memory controller translates CPU requests into DRAM commands: activate row, read column, precharge. It schedules commands to maximize bandwidth through bank interleaving and open-page policies."},
-  {id:"dimm",name:"DIMM Module",category:"Memory",purpose:"A physical circuit board that holds multiple DRAM chips and connects to the motherboard",description:"A Dual Inline Memory Module has DRAM chips soldered on both sides and an edge connector with contacts that plug into the motherboard slot.",why:"DIMMs package DRAM into standardized, replaceable modules",analogy:"Like a cartridge that holds multiple batteries together for easy installation",funFact:"The first DIMMs had 72 pins; modern DDR5 DIMMs have 288 pins",takeaway:"DIMMs are the physical form factor that makes RAM replaceable and upgradeable",mistake:"DDR3, DDR4, and DDR5 DIMMs are not interchangeable—they have different notch positions",descriptionDetailed:"A DIMM carries DRAM chips on a PCB with a 64-bit data bus (72-bit with ECC). The module has an SPD chip that tells the BIOS its timing and capacity. DDR transfers data on both rising and falling clock edges."}
-];
-var connections = [{from:"dram",to:"addressbus"},{from:"addressbus",to:"databus"},{from:"databus",to:"controller"},{from:"controller",to:"dimm"}];
-var steps = [{id:"dram",label:"Step 1: DRAM Chip",status:"Exploring: DRAM Chip - Stores data as electrical charges in tiny capacitors that must be constantly refreshed"},{id:"addressbus",label:"Step 2: Memory Address Bus",status:"Exploring: Memory Address Bus - Carries the memory address from the CPU to indicate which location to access"},{id:"databus",label:"Step 3: Data Bus",status:"Exploring: Data Bus - Transfers actual data between the CPU, memory, and peripherals"},{id:"controller",label:"Step 4: Memory Controller",status:"Exploring: Memory Controller - Manages read and write operations between the CPU and DRAM modules"},{id:"dimm",label:"Step 5: DIMM Module",status:"Exploring: DIMM Module - A physical circuit board that holds multiple DRAM chips and connects to the motherboard"}];
-var tour = [{title:"DRAM Chip",description:"Stores data as electrical charges in tiny capacitors that must be constantly refreshed",componentId:"dram"},{title:"Memory Address Bus",description:"Carries the memory address from the CPU to indicate which location to access",componentId:"addressbus"},{title:"Data Bus",description:"Transfers actual data between the CPU, memory, and peripherals",componentId:"databus"},{title:"Memory Controller",description:"Manages read and write operations between the CPU and DRAM modules",componentId:"controller"},{title:"DIMM Module",description:"A physical circuit board that holds multiple DRAM chips and connects to the motherboard",componentId:"dimm"}];
+﻿(function(){
+  var TH="consica-diagram-theme";
+  var NODES={"dram":{"x":130,"y":150,"fields":{"Purpose":"Stores data as capacitor charges","How It Works":"One transistor + one capacitor per cell; charge drains, refresh needed every 64ms.","Analogy":"Leaky bucket needing refills","Fun Fact":"Salt grain covers millions of cells","Key Takeaway":"Dynamic means constant refresh"},"desc":"Fundamental RAM storage cell."},"addressbus":{"x":340,"y":150,"fields":{"Purpose":"Carries memory addresses","How It Works":"Each wire = one address bit; 64-bit = 2^64 locations.","Analogy":"Postal address for data","Fun Fact":"32-bit bus limits to 4GB","Key Takeaway":"Width limits max RAM"},"desc":"Specifies which memory location to access."},"databus":{"x":550,"y":150,"fields":{"Purpose":"Transfers data between CPU and RAM","How It Works":"Bidirectional; 64-bit bus = 8 bytes per transfer.","Analogy":"Highway lanes for data","Fun Fact":"Dual-channel = 128-bit width","Key Takeaway":"Wider = faster transfers"},"desc":"Carries actual binary data."},"controller":{"x":200,"y":370,"fields":{"Purpose":"Manages read/write operations","How It Works":"Translates CPU requests to DRAM commands: activate row, read column, precharge.","Analogy":"Librarian managing checkouts","Fun Fact":"Modern CPUs have integrated controller","Key Takeaway":"Handles timing, refresh, routing"},"desc":"Memory management between CPU and DRAM."},"dimm":{"x":470,"y":370,"fields":{"Purpose":"Physical RAM module","How It Works":"PCB with DRAM chips, SPD chip for timing; DDR transfers on both clock edges.","Analogy":"Battery cartridge","Fun Fact":"DDR5 has 288 pins","Key Takeaway":"DDR generations not interchangeable"},"desc":"Circuit board holding DRAM chips."}};
+  var CONNS=[{from:"dram",to:"addressbus"},{from:"addressbus",to:"databus"},{from:"databus",to:"controller"},{from:"controller",to:"dimm"}];
+  var CHALLENGES=[{q:"DRAM stands for?",opts:["Dynamic RAM","Digital RAM","Dual RAM","Direct RAM"],ans:0},{q:"Why \"dynamic\"?",opts:["Changes size","Must refresh","Moves data","Faster than SRAM"],ans:1},{q:"What limits 32-bit to 4GB?",opts:["Data bus","Address bus","Clock speed","Cache"],ans:1},{q:"What does SPD store?",opts:["User data","Timing info","OS files","Drivers"],ans:1}];
+  var svg, infoPanel, overlay;
+  var ctx = {t:0, playing:false, speed:1, selectedId:null, theme:'dark'};
+  var rafId, quizAnswered = {}, quizSubmitted = false;
 
-deferInit(function(){
-  new DiagramEngine({
-    title: 'Ram',
-    subtitle: 'How Computers Work',
-    desc: 'Learn how RAM provides fast temporary storage for active programs.',
-    module: 2,
-    difficulty: 'Beginner',
-    time: '10',
-    objectives: 'Learn how RAM provides fast temporary storage for programs.',
-    components: components,
-    connections: connections,
-    steps: steps,
-    tour: tour,
+  function init(){
+    try {
+      var saved = localStorage.getItem(TH);
+      ctx.theme = saved || 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      setupDOM();
+      buildSVG();
+      setupEvents();
+      buildChallenge();
+      hideSkeleton();
+      startLoop();
+    } catch(e){ showError(e); }
+  }
 
-    render: function(container, engine) {
-      engine.buildClickExplorer(container);
-      engine._setStatus('Click any component to learn more');
-    },
+  function setupDOM(){
+    svg = document.getElementById('diagram-svg');
+    infoPanel = document.getElementById('info-panel');
+    overlay = document.getElementById('completion-overlay');
+    document.getElementById('theme-toggle').addEventListener('click', function(){
+      ctx.theme = ctx.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', ctx.theme);
+      localStorage.setItem(TH, ctx.theme);
+    });
+    document.getElementById('play-btn').addEventListener('click', function(){
+      ctx.playing = !ctx.playing;
+      this.innerHTML = ctx.playing ? 'â¸ Pause' : 'â–¶ Play';
+    });
+    document.getElementById('reset-btn').addEventListener('click', function(){
+      ctx.t = 0; ctx.playing = false;
+      document.getElementById('play-btn').innerHTML = 'â–¶ Play';
+      if(svg) svg.querySelectorAll('.flow-dot').forEach(function(d){ d.style.opacity = '0'; });
+    });
+    document.getElementById('info-close').addEventListener('click', closeInfo);
+    document.getElementById('completion-close').addEventListener('click', function(){ overlay.style.display = 'none'; });
+    document.getElementById('speed-slider').addEventListener('input', function(){
+      ctx.speed = parseFloat(this.value);
+      document.getElementById('speed-display').textContent = this.value + 'x';
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeInfo(); });
+  }
 
-    animate: function(engine) {
-      var svg = engine.el.visual.querySelector('svg');
-      if (!svg || engine.selectedId || !engine.playing) return;
-      var comps = svg.querySelectorAll('.component');
-      var idx = Math.floor(engine.t * 0.5) % comps.length;
-      comps.forEach(function(el, i) {
-        var bg = el.querySelector('.component-bg');
-        if (!bg) return;
-        bg.setAttribute('fill', i === idx ? '#1e2d50' : '#1a2235');
-        bg.setAttribute('stroke', i === idx ? '#0959C8' : '#2a3a55');
-      });
-    },
+  function buildSVG(){
+    var ids = Object.keys(NODES);
+    ids.forEach(function(id){
+      var n = NODES[id];
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','node-group');
+      g.setAttribute('data-id',id);
+      g.setAttribute('tabindex','0');
+      g.setAttribute('role','button');
+      g.setAttribute('aria-label', n.fields?.[Object.keys(n.fields)[0]] || id);
+      var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('class','node-bg');
+      bg.setAttribute('x', n.x - 60);
+      bg.setAttribute('y', n.y - 26);
+      bg.setAttribute('width','120');
+      bg.setAttribute('height','52');
+      bg.setAttribute('rx','8');
+      bg.setAttribute('fill','var(--surface,#1a2235)');
+      bg.setAttribute('stroke','var(--border,#2a3a55)');
+      bg.setAttribute('stroke-width','2');
+      g.appendChild(bg);
+      var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', n.x);
+      txt.setAttribute('y', n.y + 4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('fill','var(--text,#e9e8f0)');
+      txt.setAttribute('font-size','12');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      g.appendChild(txt);
+      g.addEventListener('click', function(){ selectNode(id); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectNode(id); } });
+      svg.appendChild(g);
+    });
+    CONNS.forEach(function(c){
+      var from = NODES[c.from], to = NODES[c.to];
+      if(!from || !to) return;
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', from.x + 60);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x - 60);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('stroke','var(--accent2,#3b82f6)');
+      line.setAttribute('stroke-width','2');
+      line.setAttribute('marker-end','url(#arrowhead)');
+      line.style.opacity = '0.5';
+      svg.insertBefore(line, svg.firstChild);
+      var dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('class','flow-dot');
+      dot.setAttribute('r','4');
+      dot.setAttribute('fill','var(--accent2,#3b82f6)');
+      dot.style.opacity = '0';
+      dot.dataset.cx = from.x + 60; dot.dataset.cy = from.y;
+      dot.dataset.tx = to.x - 60; dot.dataset.ty = to.y;
+      svg.appendChild(dot);
+    });
+  }
 
-    customChallenge: function(container, engine) {
-      // Memory Workspace Simulator
-      container.innerHTML = `
-        <div class="sim-interactive-area" style="padding: 16px;">
-          <div style="font-size: 14px; font-weight:700; color: #60a5fa; margin-bottom: 4px;">Memory Workspace Lab (16 GB RAM Capacity)</div>
-          <p style="font-size: 11px; color:#cbd5e1; margin-bottom: 12px;">Toggle active programs and witness memory consumption, memory warnings, and disk paging swap file creation.</p>
-          
-          <div style="display:flex; gap:16px; margin-bottom:12px; flex-wrap:wrap;">
-            <!-- Control toggles -->
-            <div class="glass-panel" style="flex:1; min-width:160px; padding:10px; display:flex; flex-direction:column; gap:6px;">
-              <span style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase;">Program Control</span>
-              <button class="act-btn ram-prog-toggle" data-size="2" data-name="Browser" style="justify-content:space-between;">🌐 Web Browser <span>2GB</span></button>
-              <button class="act-btn ram-prog-toggle" data-size="6" data-name="Game" style="justify-content:space-between;">🎮 Gaming Client <span>6GB</span></button>
-              <button class="act-btn ram-prog-toggle" data-size="8" data-name="VideoEdit" style="justify-content:space-between;">🎬 Video Editor <span>8GB</span></button>
-              <button class="act-btn ram-prog-toggle" data-size="1" data-name="Chat" style="justify-content:space-between;">💬 Chat Client <span>1GB</span></button>
-            </div>
-            
-            <!-- RAM Visualization Grid -->
-            <div class="glass-panel" style="flex:1.2; min-width:180px; padding:10px; display:flex; flex-direction:column; align-items:center;">
-              <span style="font-size:10px; font-weight:bold; color:#64748b; text-transform:uppercase; margin-bottom:8px;">RAM Allocation Grid</span>
-              <div id="ram-allocation-grid" style="display:grid; grid-template-columns: repeat(4, 30px); gap:6px; margin-bottom:8px;">
-                <!-- 16 blocks will be loaded here -->
-              </div>
-              <div id="ram-usage-text" style="font-size:11px; font-weight:bold; color:#cbd5e1;">Usage: 0 / 16 GB</div>
-            </div>
-          </div>
-          
-          <div class="glass-panel" style="padding:10px; background:rgba(0,0,0,0.3); border-radius:6px; min-height:60px; font-size:12px;">
-            <div id="ram-sim-feedback" style="color:#cbd5e1; font-weight:500;">Open programs to see RAM fill up. Close them to free memory.</div>
-          </div>
-        </div>
-      `;
+  function selectNode(id){
+    ctx.selectedId = id;
+    var n = NODES[id];
+    if(!n) return;
+    document.getElementById('info-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    var content = document.getElementById('info-content');
+    var html = '<p style="margin-bottom:10px;color:var(--text2)">' + n.desc + '</p>';
+    if(n.fields) Object.keys(n.fields).forEach(function(k){
+      html += '<p><strong>' + k + ':</strong> ' + n.fields[k] + '</p>';
+    });
+    content.innerHTML = html;
+    infoPanel.setAttribute('aria-hidden','false');
+    infoPanel.style.display = 'block';
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+    var sel = svg.querySelector('.node-group[data-id="'+id+'"] .node-bg');
+    if(sel) sel.setAttribute('stroke','var(--accent2,#3b82f6)');
+  }
 
-      var grid = container.querySelector('#ram-allocation-grid');
-      var usageText = container.querySelector('#ram-usage-text');
-      var feedback = container.querySelector('#ram-sim-feedback');
-      var btns = container.querySelectorAll('.ram-prog-toggle');
+  function closeInfo(){
+    infoPanel.setAttribute('aria-hidden','true');
+    infoPanel.style.display = 'none';
+    ctx.selectedId = null;
+    svg.querySelectorAll('.node-bg').forEach(function(b){ b.setAttribute('stroke','var(--border,#2a3a55)'); });
+  }
 
-      var activePrograms = {};
-
-      // Initialize 16 blocks
-      for (var i = 0; i < 16; i++) {
-        var block = document.createElement('div');
-        block.dataset.blockIdx = i;
-        block.style.cssText = "width:30px; height:24px; border-radius:4px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); transition:all 0.3s;";
-        grid.appendChild(block);
-      }
-
-      btns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var name = this.dataset.name;
-          var size = parseInt(this.dataset.size);
-          var active = this.classList.contains('active');
-
-          if (active) {
-            this.classList.remove('active');
-            delete activePrograms[name];
-          } else {
-            this.classList.add('active');
-            activePrograms[name] = size;
-          }
-          
-          updateRamGrid();
+  function startLoop(){
+    var last = 0;
+    function loop(time){
+      rafId = requestAnimationFrame(loop);
+      var dt = last ? (time - last) / 1000 : 0; last = time;
+      if(ctx.playing && ctx.t !== undefined){
+        ctx.t += dt * ctx.speed;
+        svg.querySelectorAll('.flow-dot').forEach(function(d){
+          var cx=parseFloat(d.dataset.cx)||0, cy=parseFloat(d.dataset.cy)||0;
+          var tx=parseFloat(d.dataset.tx)||0, ty=parseFloat(d.dataset.ty)||0;
+          var p = (ctx.t % 3) / 3;
+          d.setAttribute('cx', cx + (tx-cx)*p);
+          d.setAttribute('cy', cy + (ty-cy)*p);
+          d.style.opacity = '1';
         });
-      });
-
-      function updateRamGrid() {
-        var totalUsed = 0;
-        var blocks = container.querySelectorAll('[data-block-idx]');
-        
-        // Reset blocks
-        blocks.forEach(b => {
-          b.style.background = "rgba(255,255,255,0.02)";
-          b.style.borderColor = "rgba(255,255,255,0.06)";
-        });
-
-        var colors = {
-          Browser: "#3b82f6",
-          Game: "#a855f7",
-          VideoEdit: "#eab308",
-          Chat: "#10b981"
-        };
-
-        var curIdx = 0;
-        var swapNeeded = false;
-
-        for (var name in activePrograms) {
-          var size = activePrograms[name];
-          var color = colors[name] || "#3b82f6";
-          for (var i = 0; i < size; i++) {
-            if (curIdx < 16) {
-              var block = container.querySelector(`[data-block-idx="${curIdx}"]`);
-              if (block) {
-                block.style.background = color;
-                block.style.borderColor = "rgba(255,255,255,0.1)";
-              }
-              curIdx++;
-            } else {
-              swapNeeded = true;
-            }
-          }
-          totalUsed += size;
-        }
-
-        usageText.textContent = `Usage: ${totalUsed} / 16 GB`;
-
-        if (swapNeeded) {
-          usageText.style.color = "#ef4444";
-          feedback.style.color = "#f59e0b";
-          feedback.innerHTML = `⚠️ <strong>Memory Limit Exceeded!</strong> Operating system is creating a swap file on the SSD to store overflow pages. System performance is throttled!`;
-          engine.markCompleted(); // Trigger achievement when they trigger paging
-        } else if (totalUsed >= 14) {
-          usageText.style.color = "#f59e0b";
-          feedback.style.color = "#cbd5e1";
-          feedback.textContent = `RAM is near peak allocation. Opening additional heavy apps will trigger disk swapping.`;
-        } else {
-          usageText.style.color = "#cbd5e1";
-          feedback.style.color = "#cbd5e1";
-          feedback.textContent = totalUsed > 0 ? "Memory allocation optimized. System operations running at native speed." : "Open programs to see RAM fill up.";
-        }
       }
-    },
-
-    onReplay: function(engine) {
-      engine.t = 0;
+      var ids = Object.keys(NODES);
+      var idx = Math.floor(ctx.t * 0.5) % ids.length;
+      svg.querySelectorAll('.node-bg').forEach(function(bg, i){
+        bg.setAttribute('fill', i===idx ? 'var(--surface2,#1e2d50)' : 'var(--surface,#1a2235)');
+        bg.setAttribute('stroke', i===idx ? 'var(--accent2,#3b82f6)' : 'var(--border,#2a3a55)');
+      });
     }
-  });
-});
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function buildChallenge(){
+    var ctn = document.getElementById('challenge-container');
+    ctn.innerHTML = '';
+    quizAnswered = {}; quizSubmitted = false;
+    CHALLENGES.forEach(function(c, i){
+      var d = document.createElement('div'); d.className = 'challenge-question'; d.dataset.qi = i;
+      var qt = document.createElement('div'); qt.className = 'challenge-q-text'; qt.textContent = (i+1)+'. '+c.q;
+      d.appendChild(qt);
+      var opts = document.createElement('div'); opts.className = 'challenge-options';
+      c.opts.forEach(function(o, j){
+        var lbl = document.createElement('label'); lbl.className = 'challenge-option';
+        var r = document.createElement('input'); r.type = 'radio'; r.name = 'chq-'+i; r.value = j;
+        r.addEventListener('change', function(){
+          quizAnswered[i] = j;
+          opts.querySelectorAll('.challenge-option').forEach(function(l){ l.classList.remove('selected'); });
+          lbl.classList.add('selected');
+        });
+        lbl.appendChild(r); lbl.appendChild(document.createTextNode(' '+o));
+        opts.appendChild(lbl);
+      });
+      d.appendChild(opts); ctn.appendChild(d);
+    });
+    var sb = document.createElement('button'); sb.className = 'challenge-submit'; sb.textContent = 'Submit Answers';
+    sb.addEventListener('click', submitQuiz); ctn.appendChild(sb);
+  }
+
+  function submitQuiz(){
+    if(quizSubmitted) return;
+    var correct = 0;
+    CHALLENGES.forEach(function(c, i){
+      var opts = document.querySelector('.challenge-question[data-qi="'+i+'"] .challenge-options');
+      var labels = opts.querySelectorAll('.challenge-option');
+      labels.forEach(function(l, j){
+        var r = l.querySelector('input'); r.disabled = true;
+        if(j === c.ans) l.classList.add('correct');
+        else if(r.checked) l.classList.add('wrong');
+      });
+      if(typeof quizAnswered[i] !== 'undefined' && quizAnswered[i] === c.ans) correct++;
+    });
+    quizSubmitted = true;
+    var total = CHALLENGES.length;
+    var pct = Math.round((correct/total)*100);
+    var res = document.getElementById('challenge-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>Score: '+correct+'/'+total+' ('+pct+'%)</strong>';
+    if(pct >= 70){
+      res.innerHTML += '<br>Great job!';
+      overlay.style.display = 'flex';
+      document.getElementById('completion-score').textContent = 'Score: '+correct+'/'+total;
+      document.getElementById('completion-concepts').innerHTML = '<strong>Key Concepts:</strong><br>'+Object.keys(NODES).map(function(id){ return '- '+id; }).join('<br>');
+    } else {
+      res.innerHTML += '<br>Review and try again.';
+    }
+  }
+
+  function setupEvents(){} function hideSkeleton(){
+    var skel = document.getElementById('loading-skeleton');
+    if(skel) { skel.style.display = 'none'; skel.setAttribute('aria-hidden','true'); }
+    document.getElementById('diagram-container').style.display = 'block';
+  }
+
+  function showError(e){
+    var eb = document.getElementById('error-boundary');
+    eb.style.display = 'block';
+    eb.textContent = 'Error: ' + (e.message || 'Unexpected error. Refresh please.');
+    hideSkeleton();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
+
