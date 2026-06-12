@@ -1,7 +1,7 @@
 :root,
 [data-theme="dark"] {
   --brand-primary: #0959C8;
-  --brand-glow: rgba(9, 89, 200, 0.45);
+  --brand-hover: #0747A3;
   --surface-dark: #0A0E17;
   --surface-darker: #060910;
   --text-primary: #ffffff;
@@ -11,28 +11,30 @@
   --brand-text: #5694E4;
   --brand-text-soft: #5694E4;
   --text-on-brand: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --nav-glass: rgba(6, 9, 16, 0.72);
-  --nav-border: rgba(255, 255, 255, 0.06);
-  --aurora-opacity: 0.5;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --nav-glass: #060910;
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --aurora-opacity: 0;
   --gradient-text-start: #ffffff;
   --section-tint: rgba(255, 255, 255, 0.02);
-  --section-tint-hover: rgba(255, 255, 255, 0.08);
-  --ghost-bg: rgba(255, 255, 255, 0.05);
-  --ghost-border: rgba(255, 255, 255, 0.12);
+  --section-tint-hover: rgba(255, 255, 255, 0.06);
+  --ghost-bg: rgba(255, 255, 255, 0.04);
+  --ghost-border: rgba(255, 255, 255, 0.08);
   --ghost-text: rgba(255, 255, 255, 0.9);
   --input-bg: rgba(255, 255, 255, 0.04);
-  --input-border: rgba(255, 255, 255, 0.1);
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.2);
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
+  --input-border: rgba(255, 255, 255, 0.08);
+  --shadow-glass: none;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   --nav-height: 4.5rem;
   --mobile-nav-height: 4rem;
-  --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 [data-theme="light"] {
+  --brand-primary: #0959C8;
+  --brand-hover: #0747A3;
   --surface-dark: #f1f5f9;
   --surface-darker: #f8fafc;
   --text-primary: #0f172a;
@@ -42,20 +44,20 @@
   --text-on-brand: #ffffff;
   --brand-text: #0747A3;
   --brand-text-soft: #0959C8;
-  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-bg: rgba(15, 23, 42, 0.02);
   --glass-border: rgba(15, 23, 42, 0.08);
-  --nav-glass: rgba(248, 250, 252, 0.9);
-  --nav-border: rgba(15, 23, 42, 0.06);
-  --aurora-opacity: 0.22;
+  --nav-glass: #f8fafc;
+  --nav-border: rgba(15, 23, 42, 0.08);
+  --aurora-opacity: 0;
   --gradient-text-start: #0f172a;
-  --section-tint: rgba(9, 89, 200, 0.05);
-  --section-tint-hover: rgba(9, 89, 200, 0.1);
-  --ghost-bg: rgba(15, 23, 42, 0.04);
-  --ghost-border: rgba(15, 23, 42, 0.12);
+  --section-tint: rgba(9, 89, 200, 0.03);
+  --section-tint-hover: rgba(9, 89, 200, 0.06);
+  --ghost-bg: rgba(15, 23, 42, 0.03);
+  --ghost-border: rgba(15, 23, 42, 0.08);
   --ghost-text: #0f172a;
   --input-bg: rgba(255, 255, 255, 0.95);
-  --input-border: rgba(15, 23, 42, 0.12);
-  --shadow-glass: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --input-border: rgba(15, 23, 42, 0.08);
+  --shadow-glass: none;
 }
 
 *,
@@ -68,9 +70,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-body {
+body, button, input, textarea, select {
+  font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--surface-darker);
   color: var(--text-primary);
 }
@@ -150,20 +154,16 @@ footer {
 /* Glass */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-glass);
-  transition: background 0.35s var(--transition-smooth), border-color 0.35s, box-shadow 0.35s;
+  box-shadow: none;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .glass-nav {
   background: var(--nav-glass);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--nav-border);
-  transition: background 0.35s var(--transition-smooth), border-color 0.35s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 /* Theme toggle */
@@ -187,14 +187,12 @@ footer {
   background: var(--glass-bg);
   color: var(--text-primary);
   cursor: pointer;
-  transition: background 0.25s, border-color 0.25s, transform 0.2s var(--transition-smooth);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .theme-toggle:hover {
-  transform: translateY(-1px);
-  border-color: rgba(9, 89, 200, 0.35);
+  border-color: var(--brand-primary);
+  background-color: var(--section-tint-hover);
 }
 
 .theme-toggle:focus-visible {
@@ -214,7 +212,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.25s, transform 0.3s var(--transition-smooth);
+  transition: opacity 0.2s;
 }
 
 .theme-toggle__icon svg {
@@ -224,22 +222,22 @@ footer {
 
 .theme-toggle__icon--sun {
   opacity: 0;
-  transform: rotate(-30deg) scale(0.7);
+  transform: scale(0.9);
 }
 
 .theme-toggle__icon--moon {
   opacity: 1;
-  transform: rotate(0) scale(1);
+  transform: scale(1);
 }
 
 .theme-toggle.is-light .theme-toggle__icon--sun {
   opacity: 1;
-  transform: rotate(0) scale(1);
+  transform: scale(1);
 }
 
 .theme-toggle.is-light .theme-toggle__icon--moon {
   opacity: 0;
-  transform: rotate(30deg) scale(0.7);
+  transform: scale(0.9);
 }
 
 .nav-link {
@@ -263,18 +261,16 @@ footer {
   font-size: 0.9375rem;
   color: var(--text-on-brand);
   background: var(--brand-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
   border-radius: 9999px;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.25s var(--transition-smooth), box-shadow 0.25s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  will-change: transform;
+  transition: background-color 0.2s;
+  box-shadow: none;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(9, 89, 200, 0.45);
+  background-color: var(--brand-hover);
 }
 
 .btn-primary:focus-visible {
@@ -297,7 +293,7 @@ footer {
   border-radius: 9999px;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.25s var(--transition-smooth);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .btn-ghost:hover {
@@ -308,9 +304,8 @@ footer {
 
 /* Cards */
 .card-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.4s var(--transition-smooth);
-  will-change: transform;
+  transition: background-color 0.2s, border-color 0.2s;
+}
 }
 
 .section-label {

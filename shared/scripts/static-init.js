@@ -146,6 +146,47 @@
   }
 
   let previewsLoaded = false;
+  function initProductSwitcher() {
+    const cards = document.querySelectorAll('#products a[href]');
+    const previewPanes = document.querySelectorAll('.product-preview-pane');
+
+    function switchActive(placeholderId, activeCard) {
+      previewPanes.forEach(pane => {
+        if (pane.id === placeholderId) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+      cards.forEach(card => {
+        if (card === activeCard) {
+          card.classList.add('border-brand-400/30', 'bg-brand-500/5');
+        } else {
+          card.classList.remove('border-brand-400/30', 'bg-brand-500/5');
+        }
+      });
+    }
+
+    cards.forEach(card => {
+      const href = card.getAttribute('href') || '';
+      let targetId = '';
+      if (href.includes('academy')) targetId = 'academy-preview-placeholder';
+      else if (href.includes('ai-systems')) targetId = 'ai-preview-placeholder';
+      else if (href.includes('lms')) targetId = 'lms-preview-placeholder';
+      else if (href.includes('school-systems')) targetId = 'sms-preview-placeholder';
+      else if (href.includes('saas-tools')) targetId = 'saas-preview-placeholder';
+      else if (href.includes('enterprise')) targetId = 'enterprise-preview-placeholder';
+
+      if (targetId) {
+        card.addEventListener('mouseenter', () => switchActive(targetId, card));
+        card.addEventListener('focus', () => switchActive(targetId, card));
+      }
+    });
+
+    const academyCard = Array.from(cards).find(c => (c.getAttribute('href') || '').includes('academy'));
+    switchActive('academy-preview-placeholder', academyCard);
+  }
+
   function loadEcosystemPreviews() {
     if (previewsLoaded) return;
     previewsLoaded = true;
@@ -170,6 +211,7 @@
           const isMobile = window.innerWidth <= 768;
           const layout = isMobile ? 'mobile' : 'desktop';
           injectEcosystemPreviews(layout);
+          initProductSwitcher();
         }
       };
       document.body.appendChild(s);

@@ -120,12 +120,13 @@
     }
 
     .mobile-bottom-nav {
-      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+      box-shadow: none;
+      border-top: 1px solid var(--glass-border);
     }
 
     #mobile-drawer aside {
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: var(--nav-glass);
+      border-left: 1px solid var(--nav-border);
     }
 
     .safe-top {
@@ -159,19 +160,7 @@ img{max-width:100%;height:auto}
   }
   </script>
 </head>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a0a716c0a71ec1c34c481ee/1joscm46l';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -183,13 +172,7 @@ s0.parentNode.insertBefore(s1,s0);
     </div>
   </div>
 
-  <!-- Aurora Layer background -->
-  <div id="aurora-layer" class="aurora-layer pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-    <div class="aurora-blob aurora-blob-1"></div>
-    <div class="aurora-blob aurora-blob-2"></div>
-    <div class="aurora-blob aurora-blob-3"></div>
-    <div class="aurora-mesh"></div>
-  </div>
+
 
   <div id="app-root" class="relative z-10 min-h-screen">
     <!-- Navbar / Header -->
@@ -231,7 +214,7 @@ s0.parentNode.insertBefore(s1,s0);
                 d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
           </button>
-          <a href="#contact" class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
+          <a href="#contact" class="btn-primary text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
           <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false"
             aria-controls="mobile-drawer" aria-label="Open menu">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -270,7 +253,7 @@ s0.parentNode.insertBefore(s1,s0);
           <a href="#contact" class="mobile-nav-link text-base text-theme-soft py-1">Contact</a>
         </div>
         <div class="drawer-contact-row mt-6 flex flex-col gap-3">
-          <a href="#contact" class="btn-primary magnetic-btn text-center w-full !py-2 !text-sm">Contact</a>
+          <a href="#contact" class="btn-primary text-center w-full !py-2 !text-sm">Contact</a>
         </div>
       </aside>
     </div>
@@ -282,7 +265,7 @@ s0.parentNode.insertBefore(s1,s0);
       <section id="hero"
         class="relative pt-12 pb-6 px-5 lg:min-h-[750px] lg:flex lg:items-center lg:pt-20 lg:pb-12 lg:px-8 md:min-h-[600px] md:flex md:items-center md:pt-20 md:pb-12 md:px-6"
         aria-labelledby="hero-heading">
-        <div id="hero-particles" class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true"></div>
+        
         <div class="max-w-[1600px] mx-auto w-full grid md:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
           <div class="reveal">
             <p class="section-label mb-2.5 lg:mb-4">Consica Ecosystem</p>
@@ -294,8 +277,8 @@ s0.parentNode.insertBefore(s1,s0);
               engineering, educational platforms, SaaS utility, and deep-tech innovation into one connected digital
               experience.</p>
             <div class="mt-6 flex flex-col gap-2.5 md:mt-8 md:flex-row md:flex-wrap md:gap-4">
-              <a href="#products" class="btn-primary magnetic-btn text-center">Explore ecosystem</a>
-              <a href="#contact" class="btn-ghost magnetic-btn text-center font-semibold">Build with us</a>
+              <a href="#products" class="btn-primary text-center">Explore ecosystem</a>
+              <a href="#contact" class="btn-ghost text-center font-semibold">Build with us</a>
             </div>
           </div>
           <!-- Platform Preview Placeholder (Injected by static-init.js) -->
@@ -308,7 +291,7 @@ s0.parentNode.insertBefore(s1,s0);
 
         <!-- Scroll Indicator (Visible on desktop) -->
         <div
-          class="hidden md:flex absolute bottom-0 left-[50%] -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer reveal z-20 animate-bounce"
+          class="hidden md:flex absolute bottom-0 left-[50%] -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer reveal z-20"
           style="transition-delay: 0.8s"
           onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
           <div class="w-5 h-8 border-2 border-theme-faint rounded-full relative">
@@ -333,31 +316,31 @@ s0.parentNode.insertBefore(s1,s0);
               style="animation-delay: 0.1s; animation-fill-mode: forwards;">
 
               <!-- Placeholder 1: Academy -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-1"
+              <div class="product-preview-pane active"
                 id="academy-preview-placeholder"></div>
 
               <!-- Placeholder 2: Ecommerce -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-2"
+              <div class="product-preview-pane"
                 id="ecommerce-preview-placeholder"></div>
 
               <!-- Placeholder 3: LMS -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-3"
+              <div class="product-preview-pane"
                 id="lms-preview-placeholder"></div>
 
               <!-- Placeholder 4: AI -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-4"
+              <div class="product-preview-pane"
                 id="ai-preview-placeholder"></div>
 
               <!-- Placeholder 5: SMS -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-5"
+              <div class="product-preview-pane"
                 id="sms-preview-placeholder"></div>
 
               <!-- Placeholder 6: Enterprise -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-6"
+              <div class="product-preview-pane"
                 id="enterprise-preview-placeholder"></div>
 
               <!-- Placeholder 7: SaaS Tools Console -->
-              <div class="absolute inset-0 flex justify-center items-center animate-product-loop-7"
+              <div class="product-preview-pane"
                 id="saas-preview-placeholder"></div>
 
               <!-- Invisible spacer to maintain container height -->
@@ -1260,9 +1243,9 @@ s0.parentNode.insertBefore(s1,s0);
 
             <!-- Vertical / Horizontal Separator -->
             <div
-              class="hidden lg:block w-px self-stretch bg-gradient-to-b from-transparent via-brand-500/40 to-transparent">
+              class="hidden lg:block w-px self-stretch bg-brand-500/20">
             </div>
-            <div class="h-px w-full bg-gradient-to-r from-transparent via-brand-500/20 to-transparent lg:hidden"></div>
+            <div class="h-px w-full bg-brand-500/10 lg:hidden"></div>
 
             <!-- Form -->
             <div class="relative">
@@ -1290,7 +1273,7 @@ s0.parentNode.insertBefore(s1,s0);
                     placeholder="Tell us about your project..."></textarea>
                 </div>
                 <button type="submit"
-                  class="btn-primary !py-2.5 !px-5 !text-xs !mt-4 w-full lg:magnetic-btn lg:!py-3.5 lg:!px-7 lg:!text-sm lg:!mt-0">Send
+                  class="btn-primary !py-2.5 !px-5 !text-xs !mt-4 w-full lg:!py-3.5 lg:!px-7 lg:!text-sm lg:!mt-0">Send
                   message</button>
                 <p id="form-status" class="text-sm text-brand-300 hidden mt-4" role="status"></p>
               </form>
