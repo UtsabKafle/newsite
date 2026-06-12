@@ -207,6 +207,11 @@
   animation: row-highlight-pulse 2s ease-out;
 }
 
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-float-delay {

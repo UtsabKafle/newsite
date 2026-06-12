@@ -118,7 +118,15 @@
       heroPreviewPlaceholder.innerHTML = window.ConsicaElements.platformPreview(layout);
     }
 
-    // Ecosystem Previews (Loop elements)
+    if (previewsLoaded) {
+      injectEcosystemPreviews(layout);
+    }
+  }
+
+  function injectEcosystemPreviews(layout) {
+    const isMobile = window.innerWidth <= 768;
+    const resolvedLayout = layout || (isMobile ? 'mobile' : 'desktop');
+    
     const placeholders = {
       'academy-preview-placeholder': 'academyPreview',
       'ecommerce-preview-placeholder': 'ecommercePreview',
@@ -132,8 +140,59 @@
     for (const [id, funcName] of Object.entries(placeholders)) {
       const el = document.getElementById(id);
       if (el && window.ConsicaElements?.[funcName]) {
-        el.innerHTML = window.ConsicaElements[funcName](layout);
+        el.innerHTML = window.ConsicaElements[funcName](resolvedLayout);
       }
+    }
+  }
+
+  let previewsLoaded = false;
+  function loadEcosystemPreviews() {
+    if (previewsLoaded) return;
+    previewsLoaded = true;
+
+    const scripts = [
+      'shared/elements/academy-preview.js',
+      'shared/elements/ecommerce-preview.js',
+      'shared/elements/lms-preview.js',
+      'shared/elements/ai-preview.js',
+      'shared/elements/sms-preview.js',
+      'shared/elements/enterprise-preview.js',
+      'shared/elements/saas-tools.js'
+    ];
+
+    let loadedCount = 0;
+    scripts.forEach(src => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => {
+        loadedCount++;
+        if (loadedCount === scripts.length) {
+          const isMobile = window.innerWidth <= 768;
+          const layout = isMobile ? 'mobile' : 'desktop';
+          injectEcosystemPreviews(layout);
+        }
+      };
+      document.body.appendChild(s);
+    });
+  }
+
+  function initPreviewLazyLoading() {
+    const productsSec = document.getElementById('products');
+    if (productsSec && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadEcosystemPreviews();
+          observer.disconnect();
+        }
+      }, { rootMargin: '300px' });
+      observer.observe(productsSec);
+    }
+    
+    // Fallback: load when idle or after 2.5 seconds timeout
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(() => setTimeout(loadEcosystemPreviews, 1000));
+    } else {
+      window.addEventListener('load', () => setTimeout(loadEcosystemPreviews, 2000));
     }
   }
 
@@ -155,6 +214,7 @@
     initContactForm();
     initSmoothScroll();
     injectPreviews();
+    initPreviewLazyLoading();
     
     // Initialize animations
     if (window.ConsicaAnimations?.init) {
