@@ -1,0 +1,2496 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ESP32 Circuit Simulator</title>
+<style>
+  :root{
+    --bg:#0b0e14; --panel:#11161f; --panel2:#161c27; --line:#222b39;
+    --text:#e6edf3; --text2:#9aa7b8; --text3:#5d6b7e;
+    --accent:#3b9eff; --accent2:#1f6feb; --good:#3fb950; --warn:#e3b341; --bad:#f85149;
+    --serial:#1eff7a;
+    --canvas1:#0f1620; --canvas2:#070a0f; --dot:#16202c;
+  }
+  /* clean bluish light theme */
+  body.light-theme{
+    --bg:#e9f0fb; --panel:#ffffff; --panel2:#f1f6fd; --line:#d3e0f1;
+    --text:#16263b; --text2:#4a5d75; --text3:#8195ad;
+    --accent:#1f6feb; --accent2:#1559c4; --good:#1f9d4d; --warn:#b5781a; --bad:#d63a31;
+    /* white circuit canvas, like the blocks canvas */
+    --canvas1:#ffffff; --canvas2:#eef4fc; --dot:#ccd9ec;
+  }
+  /* re-skin every hard-coded dark surface for the light theme */
+  body.light-theme #toolbar{ background:linear-gradient(180deg,#ffffff,#eaf1fb); box-shadow:0 2px 8px rgba(40,70,120,.12); }
+  body.light-theme .brand .chip:after{ background:#e9f0fb; }
+  body.light-theme .tb-btn{ background:linear-gradient(180deg,#ffffff,#eef4fc); color:var(--text); }
+  body.light-theme .tb-btn:hover{ background:linear-gradient(180deg,#eef4fc,#dfe9f7); border-color:#9fb6d6; }
+  body.light-theme .tb-btn.active{ color:var(--accent2); }
+  body.light-theme .dot{ background:#b9c6d8; }
+  body.light-theme .pal-item{ background:linear-gradient(180deg,#ffffff,#f1f6fd); }
+  body.light-theme .pal-item:hover{ border-color:#9fb6d6; box-shadow:0 4px 12px rgba(40,70,120,.14); }
+  body.light-theme .pal-thumb{ background:radial-gradient(circle at 40% 35%,#f5f9ff,#e1eaf7); border-color:#d3e0f1; }
+  body.light-theme #hint{ background:rgba(255,255,255,.85); color:var(--text2); }
+  body.light-theme .pin:hover{ stroke:#1f6feb; fill:rgba(31,111,235,.2); }
+  body.light-theme #code-panel{ background:#f4f7fc; }
+  body.light-theme #code-head{ background:linear-gradient(180deg,#ffffff,#eaf1fb); }
+  body.light-theme #gutter{ background:#eef4fc; color:#9bb0c8; }
+  body.light-theme #highlight{ color:#1b2735; }
+  body.light-theme #code{ caret-color:#1b2735; }
+  body.light-theme .c-kw{color:#0b62d6;} body.light-theme .c-str{color:#117a2e;}
+  body.light-theme .c-com{color:#7a8aa0;} body.light-theme .c-num{color:#b35900;}
+  body.light-theme .c-pre{color:#7a3fb5;} body.light-theme .c-fn{color:#9a6a1a;}
+  body.light-theme #blockly-div{ background:#f4f7fc; }
+  body.light-theme .conn-table td{ border-bottom:1px solid #e4ebf5; }
+  body.light-theme .conn-table tr:hover td{ background:rgba(31,111,235,.06); }
+  body.light-theme .wire-dot{ border-color:rgba(40,70,120,.25); }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; overscroll-behavior:none;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); overflow:hidden; user-select:none;
+    -webkit-font-smoothing:antialiased; touch-action:pan-y;
+  }
+  #app{display:flex; flex-direction:column; height:100vh; height:100dvh;}
+  .mobile-only{display:none;}
+  /* elements that are actively pointer-dragged should not also trigger native scroll/zoom gestures */
+  #canvas-svg, .pal-item, .pin, #code-resizer{touch-action:none;}
+
+  /* ---------- Toolbar ---------- */
+  #toolbar{
+    height:48px; flex:0 0 48px; display:flex; align-items:center; gap:8px; padding:0 14px;
+    background:linear-gradient(180deg,#19212e,#10151d); border-bottom:1px solid var(--line);
+    box-shadow:0 2px 8px rgba(0,0,0,.4); z-index:30;
+    overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  #toolbar::-webkit-scrollbar{display:none;}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:700; letter-spacing:.3px; margin-right:8px; flex-shrink:0;}
+  .brand .chip{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#cfd6df,#7f8a99);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.5),0 1px 3px rgba(0,0,0,.5); position:relative;}
+  .brand .chip:after{content:"";position:absolute;inset:5px;border-radius:2px;background:#0e1620;}
+  .brand small{color:var(--text2); font-weight:500; font-size:11px;}
+  .sep{width:1px;height:26px;background:var(--line);margin:0 4px; flex-shrink:0;}
+  .tb-btn{
+    background:linear-gradient(180deg,#222c3b,#1a222e); color:var(--text); border:1px solid var(--line);
+    border-radius:7px; padding:7px 12px; font-size:12.5px; cursor:pointer; display:flex; align-items:center; gap:6px;
+    transition:.12s; white-space:nowrap; flex-shrink:0;
+  }
+  .tb-btn:hover{border-color:#3a4a60; background:linear-gradient(180deg,#283446,#1e2734);}
+  .tb-btn.active{border-color:var(--accent); color:#cfe6ff; box-shadow:0 0 0 1px rgba(59,158,255,.4) inset;}
+  .tb-btn.run{background:linear-gradient(180deg,#2ea043,#1f7a32); border-color:#2a8a3c; color:#fff; font-weight:600;}
+  .tb-btn.run.on{background:linear-gradient(180deg,#f0883e,#c4621f); border-color:#c4621f;}
+  .tb-btn.flash{background:linear-gradient(180deg,#3b9eff,#1f6feb); border-color:#1f6feb; color:#fff; font-weight:600;}
+  .spacer{flex:1;}
+  .status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2); padding:0 6px; flex-shrink:0;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#444;}
+  .dot.on{background:var(--good); box-shadow:0 0 8px var(--good);}
+
+  /* ---------- Middle ---------- */
+  #middle{flex:1; display:flex; min-height:0;}
+  .panel-title{font-size:10.5px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text3);
+    padding:11px 13px 7px; font-weight:700; display:flex; align-items:center; gap:8px;}
+
+  /* Palette */
+  #palette{width:200px; flex:0 0 200px; background:var(--panel); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; min-height:0;}
+  #palette-list{overflow-y:auto; padding:4px 9px 16px; flex:1;}
+  .pal-item{
+    background:linear-gradient(180deg,#19212e,#141a24); border:1px solid var(--line); border-radius:9px;
+    padding:8px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:grab; transition:.12s;
+  }
+  .pal-item:hover{border-color:#3a4a60; transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.35);}
+  .pal-item:active{cursor:grabbing;}
+  .pal-thumb{width:54px;height:54px;flex:0 0 54px;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 40% 35%,#1d2735,#0e131b); border-radius:7px; border:1px solid #0a0e14;}
+  .pal-thumb svg{display:block;}
+  .pal-meta b{font-size:12.5px; display:block; color:var(--text);}
+  .pal-meta span{font-size:10.5px; color:var(--text3);}
+
+  /* Canvas */
+  #canvas-area{flex:1; position:relative; min-width:0; overflow:hidden;
+    background:radial-gradient(circle at 50% 30%,var(--canvas1),var(--canvas2) 80%);}
+  #canvas-svg{position:absolute; inset:0; width:100%; height:100%;}
+  #hint{position:absolute; left:14px; bottom:12px; font-size:11.5px; color:var(--text3);
+    background:rgba(10,14,20,.7); border:1px solid var(--line); padding:6px 10px; border-radius:7px;
+    pointer-events:none;}
+  .pin{cursor:crosshair;}
+  .pin:hover{stroke:#fff; stroke-width:2; fill:rgba(120,200,255,.25);}
+  .comp-g.selected .selbox{display:block;}
+  .selbox{display:none;}
+
+  /* Inspector */
+  #inspector{width:240px; flex:0 0 240px; background:var(--panel); border-left:1px solid var(--line);
+    display:flex; flex-direction:column; min-height:0; overflow-y:auto;}
+  .insp-sec{border-bottom:1px solid var(--line); padding-bottom:10px;}
+  .prop-row{display:flex; align-items:center; justify-content:space-between; padding:5px 13px; font-size:12px; gap:8px;}
+  .prop-row label{color:var(--text2);}
+  .prop-row select,.prop-row input[type=color]{background:var(--panel2); color:var(--text);
+    border:1px solid var(--line); border-radius:6px; padding:4px 6px; font-size:12px;}
+  .prop-row input[type=color]{padding:1px; width:36px; height:24px; cursor:pointer;}
+  .mini-btn{background:var(--panel2); border:1px solid var(--line); color:var(--text2); border-radius:6px;
+    padding:5px 9px; font-size:11.5px; cursor:pointer;}
+  .mini-btn:hover{border-color:#3a4a60; color:var(--text);}
+  .mini-btn.danger:hover{border-color:var(--bad); color:#ffb4ad;}
+  .readout{display:flex; justify-content:space-between; padding:5px 13px; font-size:12px;}
+  .readout .v{font-family:"SF Mono",Menlo,Consolas,monospace; color:var(--accent);}
+  #empty-msg{color:var(--text3); font-size:11.5px; padding:8px 13px; line-height:1.6;}
+  #serial-wrap{flex:1; display:flex; flex-direction:column; min-height:150px;}
+  #serial{flex:1; background:#05080a; border:1px solid var(--line); border-radius:7px; margin:0 11px 11px;
+    overflow-y:auto; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:11px; color:var(--serial);
+    padding:8px 9px; line-height:1.55; white-space:pre-wrap; word-break:break-word;}
+  #serial .sys{color:#6fb3ff;} #serial .warn{color:var(--warn);} #serial .dim{color:#3a7a55;}
+  .serial-bar{display:flex; align-items:center; gap:6px; padding:6px 11px;}
+  .serial-bar .mini-btn{font-size:11px; padding:3px 7px;}
+
+  /* ---------- Code panel ---------- */
+  #code-panel{height:172px; flex:0 0 172px; background:#0a0d12; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; position:relative; min-height:90px;}
+  #code-resizer{position:absolute; top:-3px; left:0; right:0; height:6px; cursor:ns-resize; z-index:10;}
+  #code-resizer:hover{background:rgba(59,158,255,.25);}
+  #blockly-div{flex:1; min-height:0; width:100%; background:#1a2230;}
+  body.light-theme #blockly-div{background:#eef3fb;}
+  #blockly-toggle.on{border-color:var(--accent); color:#cfe6ff;}
+  #code-head{height:34px; flex:0 0 34px; display:flex; align-items:center; gap:9px; padding:0 12px;
+    background:linear-gradient(180deg,#141a24,#0d1219); border-bottom:1px solid var(--line);}
+  #code-head .file{font-size:12px; color:var(--text2); font-family:"SF Mono",Menlo,monospace;}
+  #code-head .file b{color:var(--text);}
+  #editor-wrap{flex:1; display:flex; overflow:hidden; position:relative; font-family:"SF Mono",Menlo,Consolas,monospace;}
+  #gutter{flex:0 0 46px; background:#0a0d12; color:#3a4656; text-align:right; padding:8px 8px 8px 0;
+    font-size:12.5px; line-height:18px; user-select:none; overflow:hidden; border-right:1px solid var(--line);}
+  #code-scroll{flex:1; position:relative; overflow:auto;}
+  #highlight,#code{margin:0; padding:8px 12px; font-family:inherit; font-size:12.5px; line-height:18px;
+    white-space:pre; tab-size:2;}
+  #highlight{position:absolute; inset:0; pointer-events:none; color:#c9d6e3; overflow:hidden;}
+  #code{position:relative; background:transparent; color:transparent; caret-color:#fff; width:100%;
+    min-height:100%; resize:none; outline:none; border:0; -webkit-text-fill-color:transparent;}
+  .c-kw{color:#79c0ff;} .c-str{color:#7ee787;} .c-com{color:#6e7d8c; font-style:italic;}
+  .c-num{color:#ffa657;} .c-pre{color:#d2a8ff;} .c-fn{color:#f0b66b;}
+
+  /* ---------- Connection Map Modal ---------- */
+  #conn-overlay{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.72); z-index:200;
+    align-items:center; justify-content:center;
+  }
+  #conn-overlay.open{display:flex;}
+  #conn-modal{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    width:min(760px,96vw); max-height:82vh; display:flex; flex-direction:column;
+    box-shadow:0 12px 40px rgba(0,0,0,.7);
+  }
+  #conn-modal-head{
+    display:flex; align-items:center; padding:14px 18px; border-bottom:1px solid var(--line);
+    gap:10px;
+  }
+  #conn-modal-head h2{font-size:14px; font-weight:700; flex:1;}
+  #conn-modal-body{overflow-y:auto; padding:14px 18px 18px; flex:1;}
+  .conn-table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .conn-table th{text-align:left; padding:7px 10px; font-size:10.5px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--line); font-weight:700;}
+  .conn-table td{padding:8px 10px; border-bottom:1px solid #181f2a; vertical-align:middle;}
+  .conn-table tr:last-child td{border-bottom:none;}
+  .conn-table tr:hover td{background:rgba(255,255,255,.03);}
+  .wire-dot{
+    display:inline-block; width:11px; height:11px; border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.25); margin-right:7px; vertical-align:middle;
+    box-shadow:0 0 5px currentColor; flex-shrink:0;
+  }
+  .conn-pin{font-family:"SF Mono",Menlo,Consolas,monospace; font-size:11.5px;
+    background:var(--panel2); border:1px solid var(--line); border-radius:5px;
+    padding:2px 7px; white-space:nowrap; display:inline-block;}
+  .conn-pin.esp{color:#79c0ff;} .conn-pin.comp{color:#7ee787;}
+  .no-conn{color:var(--text3); font-size:12px; padding:12px 0;}
+  .conn-section-title{
+    font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text3);
+    font-weight:700; padding:10px 0 4px; margin-top:4px;
+  }
+
+  ::-webkit-scrollbar-thumb{background:#222c3b; border-radius:6px; border:2px solid transparent; background-clip:padding-box;}
+  ::-webkit-scrollbar-thumb:hover{background:#2e3c50; background-clip:padding-box;}
+  #drag-ghost{position:fixed; pointer-events:none; z-index:999; opacity:.85;
+    filter:drop-shadow(0 6px 10px rgba(0,0,0,.6)); display:none;}
+
+  /* ---------- Sidebar backdrop (mobile drawers) ---------- */
+  #sidebar-backdrop{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:110;
+    opacity:0; transition:opacity .2s ease;
+  }
+  #sidebar-backdrop.open{display:block; opacity:1;}
+
+  /* ==========================================================================
+     RESPONSIVE / MOBILE
+     ========================================================================== */
+  @media (max-width:900px){
+    .mobile-only{display:flex !important;}
+    .desktop-only{display:none !important;}
+
+    #toolbar{padding:0 8px; gap:6px;}
+    .brand small{display:none;}
+    .tb-btn{padding:8px 10px; font-size:12px;}
+
+    #middle{position:relative; overflow:hidden;}
+
+    /* Palette + Inspector become off-canvas drawers */
+    #palette, #inspector{
+      position:absolute; top:0; bottom:0; z-index:120; width:82vw; max-width:300px;
+      box-shadow:2px 0 24px rgba(0,0,0,.5); transition:transform .22s ease; will-change:transform;
+    }
+    #palette{left:0; transform:translateX(-100%);}
+    #palette.open{transform:translateX(0);}
+    #inspector{right:0; border-left:1px solid var(--line); box-shadow:-2px 0 24px rgba(0,0,0,.5);
+      transform:translateX(100%);}
+    #inspector.open{transform:translateX(0);}
+    #inspector .panel-title{display:flex; align-items:center; justify-content:space-between;}
+
+    #canvas-area{width:100%;}
+    #hint{font-size:10.5px; max-width:62vw; left:8px; bottom:8px; padding:5px 8px;}
+
+    /* Code panel: shorter by default, still resizable */
+    #code-panel{flex-basis:150px; height:150px; min-height:70px;}
+    #code-head .file{font-size:11px;}
+    #code-resizer{height:14px; top:-7px;}   /* bigger touch target for the resize handle */
+
+    /* Connection modal fills more of a small screen */
+    #conn-modal{width:96vw; max-height:88vh;}
+    .conn-table{font-size:11.5px;}
+    .conn-table th, .conn-table td{padding:6px 6px;}
+  }
+
+  @media (max-width:520px){
+    .brand span.chip{width:18px;height:18px;}
+    .brand{font-size:13px; gap:6px; margin-right:4px;}
+    .tb-btn{padding:7px 8px; font-size:11.5px; gap:4px;}
+    .status{padding:0 3px; font-size:11px;}
+    #palette, #inspector{width:88vw;}
+    #code-panel{flex-basis:130px; height:130px;}
+  }
+</style>
+
+<!-- Google Blockly (self-contained via CDN) — used for block-based programming -->
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- Toolbar -->
+  <div id="toolbar">
+    <button class="tb-btn mobile-only" id="m-parts-btn" onclick="toggleSidebar('palette')" title="Parts">☰</button>
+    <div class="brand"><span class="chip"></span> ESP32 Sim <small>Circuit Lab</small></div>
+    <div class="sep"></div>
+    <button class="tb-btn active" id="m-select" onclick="setMode('select')">↖ Select</button>
+    <button class="tb-btn" id="m-wire" onclick="setMode('wire')">〜 Wire</button>
+    <button class="tb-btn" id="m-delete" onclick="setMode('delete')">✕ Delete</button>
+    <button class="tb-btn" onclick="showConnMap()">🔌 Connections</button>
+    <div class="sep"></div>
+    <button class="tb-btn" onclick="rotateSelected()">⟳ Rotate</button>
+    <button class="tb-btn" onclick="clearCanvas()">🗑 Clear</button>
+    <div class="sep"></div>
+    <button class="tb-btn" onclick="saveProject()" title="Download circuit as .json">💾 Save</button>
+    <button class="tb-btn" onclick="loadProject()" title="Load circuit from .json">📂 Load</button>
+    <button class="tb-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle dark / light theme">☀️ Light</button>
+    <div class="spacer"></div>
+    <div class="status"><span class="dot" id="sim-dot"></span><span id="sim-status">Idle</span></div>
+    <button class="tb-btn flash" onclick="flash()">⚡ Flash</button>
+    <button class="tb-btn run" id="run-btn" onclick="toggleSim()">▶ Run</button>
+    <button class="tb-btn mobile-only" id="m-inspector-btn" onclick="toggleSidebar('inspector')" title="Inspector / Serial">📊</button>
+  </div>
+  <input type="file" id="load-file" accept=".json,application/json" style="display:none" onchange="handleLoadFile(event)">
+
+  <!-- Middle -->
+  <div id="middle">
+    <div id="sidebar-backdrop" onclick="closeSidebars()"></div>
+    <!-- Palette -->
+    <div id="palette">
+      <div class="panel-title">Components <button class="mini-btn mobile-only" style="margin-left:auto" onclick="closeSidebars()">✕</button></div>
+      <div id="palette-list"></div>
+    </div>
+
+    <!-- Canvas -->
+    <div id="canvas-area">
+      <svg id="canvas-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div id="hint">Drag component onto board • Wire mode: drag pin → pin • Right-click wire to bend • Press Space to run</div>
+    </div>
+
+    <!-- Inspector -->
+    <div id="inspector">
+      <div class="insp-sec">
+        <div class="panel-title">Inspector <button class="mini-btn mobile-only" style="margin-left:auto" onclick="closeSidebars()">✕</button></div>
+        <div id="empty-msg">No component selected.<br>Click a part on the board to view and edit its properties.</div>
+        <div id="prop-body" style="display:none;"></div>
+      </div>
+      <div class="insp-sec">
+        <div class="panel-title">Live Readouts</div>
+        <div id="readouts"></div>
+      </div>
+      <div id="serial-wrap" class="insp-sec" style="border-bottom:none;">
+        <div class="panel-title">Serial Monitor</div>
+        <div class="serial-bar">
+          <span style="font-size:11px;color:var(--text3);font-family:monospace;flex:1;">115200 baud</span>
+          <button class="mini-btn" onclick="clearSerial()">Clear</button>
+        </div>
+        <div id="serial"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Code panel -->
+  <div id="code-panel">
+    <div id="code-resizer"></div>
+    <div id="code-head">
+      <span class="file"><b>sketch.ino</b> — Arduino / C++</span>
+      <div class="spacer"></div>
+      <button class="mini-btn" id="blockly-toggle" onclick="toggleBlockly()" title="Switch between text and visual blocks">🧩 Blocks</button>
+      <button class="mini-btn" onclick="resetCode()">Reset</button>
+    </div>
+    <div id="editor-wrap">
+      <div id="gutter"></div>
+      <div id="code-scroll">
+        <pre id="highlight"></pre>
+        <textarea id="code" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+      </div>
+    </div>
+    <div id="blockly-div" style="display:none;"></div>
+  </div>
+</div>
+<svg id="drag-ghost" xmlns="http://www.w3.org/2000/svg"></svg>
+
+<!-- Connection Map Modal -->
+<div id="conn-overlay" onclick="if(event.target===this)closeConnMap()">
+  <div id="conn-modal">
+    <div id="conn-modal-head">
+      <h2>🔌 Connection Map</h2>
+      <span style="font-size:11px;color:var(--text3);flex:1">Shows all wired pin connections</span>
+      <button class="mini-btn" onclick="closeConnMap()">✕ Close</button>
+    </div>
+    <div id="conn-modal-body">
+      <p class="no-conn">No connections yet.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   ESP32 Circuit Simulator — photorealistic SVG components, wiring & simulation
+   ========================================================================== */
+
+/* ---------- Shared SVG defs (gradients + filters) ---------- */
+function sharedDefs(){
+  return `<defs>
+    <filter id="fDrop" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="fWire" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.6" stdDeviation="1.4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="fGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <pattern id="dotgrid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.4" fill="${typeof themeLight!=='undefined'&&themeLight?'#ccd9ec':'#16202c'}"/>
+    </pattern>
+    <linearGradient id="lead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4f6f8"/><stop offset="22%" stop-color="#c9d0d8"/>
+      <stop offset="50%" stop-color="#9aa3ad"/><stop offset="78%" stop-color="#6b727b"/>
+      <stop offset="100%" stop-color="#3f444b"/>
+    </linearGradient>
+    <linearGradient id="leadH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eef1f4"/><stop offset="50%" stop-color="#aeb6bf"/>
+      <stop offset="100%" stop-color="#5a6068"/>
+    </linearGradient>
+    <radialGradient id="gold" cx="38%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffe9a8"/><stop offset="45%" stop-color="#e8b94e"/>
+      <stop offset="100%" stop-color="#9c7320"/>
+    </radialGradient>
+    <radialGradient id="goldRing" cx="40%" cy="38%" r="70%">
+      <stop offset="0%" stop-color="#ffdf8e"/><stop offset="55%" stop-color="#d9a73d"/>
+      <stop offset="100%" stop-color="#7e5e18"/>
+    </radialGradient>
+    <radialGradient id="brass" cx="38%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#ffe7a0"/><stop offset="40%" stop-color="#d9a93c"/>
+      <stop offset="100%" stop-color="#7c5a16"/>
+    </radialGradient>
+    <radialGradient id="metalCan" cx="32%" cy="28%" r="80%">
+      <stop offset="0%" stop-color="#f2f4f6"/><stop offset="35%" stop-color="#c2c8cf"/>
+      <stop offset="70%" stop-color="#878e96"/><stop offset="100%" stop-color="#4a4f56"/>
+    </radialGradient>
+    <linearGradient id="shieldCan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e9edf1"/><stop offset="30%" stop-color="#b8c0c9"/>
+      <stop offset="60%" stop-color="#8d96a0"/><stop offset="100%" stop-color="#646c75"/>
+    </linearGradient>
+    <linearGradient id="icBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3d42"/><stop offset="14%" stop-color="#26282c"/>
+      <stop offset="100%" stop-color="#101113"/>
+    </linearGradient>
+    <linearGradient id="ceramic" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#efe0c2"/><stop offset="22%" stop-color="#dcc69b"/>
+      <stop offset="55%" stop-color="#c9ad79"/><stop offset="100%" stop-color="#9c8049"/>
+    </linearGradient>
+    <linearGradient id="bluePcb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b7fd6"/><stop offset="50%" stop-color="#1763ab"/>
+      <stop offset="100%" stop-color="#0e4a85"/>
+    </linearGradient>
+    <linearGradient id="greenPcb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#176b3a"/><stop offset="50%" stop-color="#0f5128"/>
+      <stop offset="100%" stop-color="#0a3a1c"/>
+    </linearGradient>
+    <radialGradient id="potHousing" cx="36%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#5a6470"/><stop offset="55%" stop-color="#333b45"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </radialGradient>
+    <radialGradient id="potKnob" cx="34%" cy="28%" r="78%">
+      <stop offset="0%" stop-color="#8c96a3"/><stop offset="55%" stop-color="#4a525d"/>
+      <stop offset="100%" stop-color="#23282f"/>
+    </radialGradient>
+    <radialGradient id="buzzer" cx="36%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#4d535b"/><stop offset="45%" stop-color="#26292e"/>
+      <stop offset="100%" stop-color="#0e0f11"/>
+    </radialGradient>
+    <radialGradient id="btnBody" cx="40%" cy="32%" r="80%">
+      <stop offset="0%" stop-color="#3a3d42"/><stop offset="60%" stop-color="#1d1f22"/>
+      <stop offset="100%" stop-color="#0c0d0e"/>
+    </radialGradient>
+  </defs>`;
+}
+
+const BAND = {red:'#c0392b',brown:'#5a3a22',black:'#191919',orange:'#e07b1a',gold:'#caa340',
+  yellow:'#e0c020',green:'#2e8b3c',blue:'#2659b5',violet:'#7a45b5',gray:'#888',white:'#eee'};
+const RES_VALUES = {
+  '220':{label:'220 Ω', bands:['red','red','brown','gold']},
+  '1k' :{label:'1 kΩ',  bands:['brown','black','red','gold']},
+  '10k':{label:'10 kΩ', bands:['brown','black','orange','gold']},
+};
+const LED_COL = {
+  red:  {base:'#e8412f', light:'#ffb0a4', dark:'#6f0900', glow:'#ff3a26', collar:'#9c2418'},
+  green:{base:'#2fd06a', light:'#b6ffcf', dark:'#06521f', glow:'#36ff7e', collar:'#1c7a3c'},
+  blue: {base:'#3a7bf0', light:'#bcd2ff', dark:'#06204f', glow:'#3f7dff', collar:'#1f3f8a'},
+};
+function glare(cx,cy,rx,ry,op){return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" opacity="${op}"/>`;}
+
+/* ============================================================================
+   COMPONENT RENDERERS
+   ========================================================================== */
+const LED = (variant)=>({
+  name:'LED', sub:variant[0].toUpperCase()+variant.slice(1), w:40, h:74,
+  pins:[{name:'A',x:14,y:72,kind:'gpio'},{name:'K',x:26,y:72,kind:'gnd'}],
+  body(inst){
+    const c = LED_COL[variant]; const lit = inst.lit;
+    const grad = `g-${variant}-${inst.id}-${lit?1:0}`;
+    return `
+    <defs>
+      <radialGradient id="${grad}" cx="36%" cy="28%" r="74%">
+        <stop offset="0%" stop-color="#ffffff"/><stop offset="15%" stop-color="${c.light}"/>
+        <stop offset="50%" stop-color="${lit?c.glow:c.base}"/><stop offset="100%" stop-color="${c.dark}"/>
+      </radialGradient>
+      <radialGradient id="glow-${grad}" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="${c.glow}" stop-opacity="0.95"/>
+        <stop offset="55%" stop-color="${c.glow}" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="${c.glow}" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="20" cy="22" r="30" fill="url(#glow-${grad})" opacity="${lit?1:0}">
+      ${lit?'<animate attributeName="opacity" values="0.6;1;0.6" dur="1.1s" repeatCount="indefinite"/>':''}
+    </circle>
+    <rect x="12.5" y="34" width="3.2" height="40" rx="1.4" fill="url(#lead)"/>
+    <rect x="24.5" y="34" width="3.2" height="32" rx="1.4" fill="url(#lead)"/>
+    <ellipse cx="20" cy="33" rx="15" ry="5" fill="${c.collar}"/>
+    <rect x="5" y="28" width="30" height="6" fill="${c.collar}"/>
+    <rect x="32.5" y="28" width="2.5" height="7" fill="${c.dark}" opacity="0.85"/>
+    <g filter="url(#fDrop)">
+      <path d="M6,31 L6,17 A14,14 0 0 1 34,17 L34,31 A14,5 0 0 1 6,31 Z" fill="url(#${grad})"
+        stroke="${c.dark}" stroke-opacity="0.35" stroke-width="0.6"/>
+    </g>
+    <ellipse cx="20" cy="22" rx="8.5" ry="11" fill="#fff" opacity="${lit?0.28:0.14}"/>
+    ${glare(14,14,4,7,lit?0.85:0.6)} ${glare(25,12,2,3.5,0.5)}`;
+  },
+  thumb(){ const c=LED_COL[variant];
+    return `<svg width="44" height="44" viewBox="0 0 40 74"><defs>
+      <radialGradient id="t-${variant}" cx="36%" cy="28%" r="74%">
+      <stop offset="0%" stop-color="#fff"/><stop offset="15%" stop-color="${c.light}"/>
+      <stop offset="50%" stop-color="${c.base}"/><stop offset="100%" stop-color="${c.dark}"/></radialGradient></defs>
+      <rect x="12.5" y="34" width="3.2" height="40" rx="1.4" fill="#aab"/>
+      <rect x="24.5" y="34" width="3.2" height="32" rx="1.4" fill="#aab"/>
+      <rect x="5" y="28" width="30" height="6" fill="${c.collar}"/>
+      <path d="M6,31 L6,17 A14,14 0 0 1 34,17 L34,31 A14,5 0 0 1 6,31 Z" fill="url(#t-${variant})"/>
+      ${glare(14,14,4,7,0.6)}</svg>`;
+  }
+});
+
+const RESISTOR = (val)=>({
+  name:'Resistor', sub:RES_VALUES[val].label, w:96, h:34,
+  pins:[{name:'1',x:0,y:17,kind:'sig'},{name:'2',x:96,y:17,kind:'sig'}],
+  body(inst){
+    const v = RES_VALUES[inst.value||val]; const bx=[28,36,46,66];
+    let bandsSvg='';
+    v.bands.forEach((b,i)=>{ bandsSvg += `<rect x="${bx[i]}" y="6.5" width="4.5" height="21" rx="1" fill="${BAND[b]}"/>
+      <rect x="${bx[i]}" y="6.5" width="1.4" height="21" fill="#fff" opacity="0.18"/>`; });
+    return `
+    <rect x="0" y="15.5" width="22" height="3" rx="1.5" fill="url(#leadH)"/>
+    <rect x="74" y="15.5" width="22" height="3" rx="1.5" fill="url(#leadH)"/>
+    <g filter="url(#fDrop)">
+      <rect x="20" y="5" width="56" height="24" rx="11" fill="url(#ceramic)"/>
+      <ellipse cx="20" cy="17" rx="6" ry="12" fill="#cbb083"/>
+      <ellipse cx="76" cy="17" rx="6" ry="12" fill="#bfa173"/>
+    </g>
+    <rect x="22" y="8.5" width="52" height="3" rx="1.5" fill="#fff" opacity="0.32"/>
+    <rect x="22" y="24" width="52" height="2.5" rx="1.5" fill="#000" opacity="0.16"/>
+    ${bandsSvg}`;
+  },
+  thumb(){ const v=RES_VALUES[val]; let bs='';const bx=[28,36,46,66];
+    v.bands.forEach((b,i)=>bs+=`<rect x="${bx[i]}" y="6.5" width="4.5" height="21" fill="${BAND[b]}"/>`);
+    return `<svg width="50" height="22" viewBox="0 0 96 34"><defs>
+      <linearGradient id="cer-t-${val}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#efe0c2"/><stop offset="100%" stop-color="#9c8049"/></linearGradient></defs>
+      <rect x="0" y="15.5" width="96" height="3" fill="#aab"/>
+      <rect x="20" y="5" width="56" height="24" rx="11" fill="url(#cer-t-${val})"/>
+      <rect x="22" y="8.5" width="52" height="3" fill="#fff" opacity="0.32"/>${bs}</svg>`;
+  }
+});
+
+const HCSR04 = ()=>({
+  name:'HC-SR04', sub:'Ultrasonic', w:124, h:62,
+  pins:[{name:'VCC',x:42,y:60,kind:'pwr'},{name:'Trig',x:56,y:60,kind:'gpio'},
+        {name:'Echo',x:70,y:60,kind:'gpio'},{name:'GND',x:84,y:60,kind:'gnd'}],
+  body(inst){
+    const trans=(cx)=>`
+      <g filter="url(#fDrop)"><circle cx="${cx}" cy="24" r="19" fill="url(#metalCan)" stroke="#3a3f45" stroke-width="1"/></g>
+      <circle cx="${cx}" cy="24" r="15" fill="none" stroke="#5b6068" stroke-width="1.4"/>
+      <circle cx="${cx}" cy="24" r="13" fill="#2a2d31"/>
+      <circle cx="${cx}" cy="24" r="9.5" fill="#3a3d42"/>
+      <circle cx="${cx}" cy="24" r="9.5" fill="none" stroke="#15161a" stroke-width="2"/>
+      <circle cx="${cx}" cy="24" r="5" fill="#0c0d0f"/>
+      <circle cx="${cx}" cy="24" r="11.5" fill="none" stroke="#1a1c1f" stroke-width="0.6" opacity="0.6"/>
+      ${glare(cx-6,17,4,3,0.5)}`;
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3.5}" y="50" width="7" height="9" rx="1" fill="#0c2a14"/>
+      <circle cx="${p.x}" cy="56" r="3.2" fill="url(#gold)"/><circle cx="${p.x}" cy="56" r="1.2" fill="#3a2c08"/>
+      <text x="${p.x}" y="49" font-size="4.6" fill="#dce8ff" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="2" y="2" width="120" height="56" rx="4" fill="url(#bluePcb)" stroke="#0a3a6a" stroke-width="1"/></g>
+    <rect x="2" y="2" width="120" height="3" rx="2" fill="#fff" opacity="0.12"/>
+    ${trans(30)} ${trans(94)}
+    <rect x="54" y="14" width="16" height="11" rx="1" fill="url(#icBody)"/>
+    <rect x="55" y="15.5" width="14" height="2" fill="#3a3d42"/>
+    <rect x="56" y="30" width="12" height="7" rx="1" fill="#c9cdd2"/>
+    <rect x="57" y="31" width="10" height="5" fill="#9aa0a8"/>
+    <circle cx="49" cy="33" r="2" fill="#1a1c1f"/><circle cx="75" cy="33" r="2" fill="#1a1c1f"/>
+    <text x="62" y="45" font-size="6.5" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold" letter-spacing="0.5">HC-SR04</text>
+    ${pads}`;
+  },
+  thumb(){return `<svg width="54" height="30" viewBox="0 0 124 62"><defs>
+    <linearGradient id="bluePcb-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b7fd6"/><stop offset="100%" stop-color="#0e4a85"/></linearGradient>
+    <radialGradient id="mc-t" cx="32%" cy="28%" r="80%"><stop offset="0%" stop-color="#f2f4f6"/><stop offset="70%" stop-color="#878e96"/><stop offset="100%" stop-color="#4a4f56"/></radialGradient></defs>
+    <rect x="2" y="2" width="120" height="56" rx="4" fill="url(#bluePcb-t)"/>
+    <circle cx="30" cy="24" r="19" fill="url(#mc-t)"/><circle cx="30" cy="24" r="9" fill="#1a1c1f"/>
+    <circle cx="94" cy="24" r="19" fill="url(#mc-t)"/><circle cx="94" cy="24" r="9" fill="#1a1c1f"/>
+    <text x="62" y="46" font-size="7" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold">HC-SR04</text></svg>`;}
+});
+
+const DHT11 = ()=>({
+  name:'DHT11', sub:'Temp / Humidity', w:54, h:66,
+  pins:[{name:'VCC',x:14,y:64,kind:'pwr'},{name:'DATA',x:27,y:64,kind:'gpio'},{name:'GND',x:40,y:64,kind:'gnd'}],
+  body(inst){
+    let holes='';
+    for(let r=0;r<4;r++)for(let cc=0;cc<3;cc++){
+      holes+=`<circle cx="${16+cc*11}" cy="${16+r*8}" r="2.4" fill="#0a0d12"/>
+        <circle cx="${16+cc*11}" cy="${16+r*8}" r="2.4" fill="none" stroke="#000" stroke-width="0.5"/>`;
+    }
+    let pins='';
+    this.pins.forEach(p=>{ pins+=`<rect x="${p.x-1.4}" y="52" width="2.8" height="12" fill="url(#lead)"/>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="3" y="2" width="48" height="50" rx="4" fill="url(#bluePcb)" stroke="#0a3a6a" stroke-width="1"/></g>
+    <rect x="3" y="2" width="48" height="3" rx="2" fill="#fff" opacity="0.13"/>
+    <rect x="9" y="9" width="36" height="30" rx="3" fill="#123a66"/>
+    <rect x="9.5" y="9.5" width="35" height="29" rx="2.6" fill="#0c2a4d" stroke="#0a2038" stroke-width="0.6"/>
+    ${holes}
+    <text x="27" y="48" font-size="7" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold" letter-spacing="0.6">DHT11</text>
+    ${pins}`;
+  },
+  thumb(){return `<svg width="40" height="50" viewBox="0 0 54 66"><defs>
+    <linearGradient id="dht-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b7fd6"/><stop offset="100%" stop-color="#0e4a85"/></linearGradient></defs>
+    <rect x="3" y="2" width="48" height="50" rx="4" fill="url(#dht-t)"/>
+    <rect x="9" y="9" width="36" height="30" rx="3" fill="#0c2a4d"/>
+    <circle cx="16" cy="16" r="2.4" fill="#0a0d12"/><circle cx="27" cy="16" r="2.4" fill="#0a0d12"/><circle cx="38" cy="16" r="2.4" fill="#0a0d12"/>
+    <circle cx="16" cy="28" r="2.4" fill="#0a0d12"/><circle cx="27" cy="28" r="2.4" fill="#0a0d12"/><circle cx="38" cy="28" r="2.4" fill="#0a0d12"/>
+    <text x="27" y="48" font-size="7" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold">DHT11</text>
+    <rect x="13" y="52" width="2.8" height="12" fill="#aab"/><rect x="26" y="52" width="2.8" height="12" fill="#aab"/><rect x="39" y="52" width="2.8" height="12" fill="#aab"/></svg>`;}
+});
+
+const BUTTON = ()=>({
+  name:'Push Button', sub:'Tact Switch', w:56, h:56,
+  pins:[{name:'1a',x:8,y:8,kind:'sig'},{name:'2a',x:48,y:8,kind:'sig'},
+        {name:'1b',x:8,y:48,kind:'sig'},{name:'2b',x:48,y:48,kind:'sig'}],
+  body(inst){
+    const col = inst.color || '#e8412f'; const pressed = inst.pressed;
+    let legs='';
+    [[6,6],[50,6],[6,50],[50,50]].forEach(([x,y])=>{
+      legs+=`<rect x="${x-3}" y="${y-3}" width="6" height="6" rx="1" fill="url(#lead)"/>
+        <circle cx="${x}" cy="${y}" r="2" fill="#cfd6df"/>`; });
+    const lc = `bc-${inst.id}`;
+    return `
+    ${legs}
+    <g filter="url(#fDrop)"><rect x="9" y="9" width="38" height="38" rx="4" fill="url(#btnBody)" stroke="#000" stroke-width="0.8"/></g>
+    <rect x="11" y="11" width="34" height="9" rx="3" fill="#fff" opacity="0.06"/>
+    <rect x="13" y="13" width="30" height="30" rx="3" fill="none" stroke="#000" stroke-width="0.6" opacity="0.5"/>
+    <defs><radialGradient id="${lc}" cx="36%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="#fff"/><stop offset="22%" stop-color="${col}" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="${col}"/><stop offset="100%" stop-color="#000" stop-opacity="0.85"/></radialGradient></defs>
+    <ellipse cx="28" cy="30" rx="12" ry="11.5" fill="#000" opacity="0.3"/>
+    <circle cx="28" cy="28" r="${pressed?11:12}" fill="url(#${lc})" stroke="#000" stroke-opacity="0.4" stroke-width="0.6"
+      ${pressed?'':'filter="url(#fDrop)"'}/>
+    ${glare(24,23,3.5,5,0.7)}`;
+  },
+  thumb(){return `<svg width="44" height="44" viewBox="0 0 56 56"><defs>
+    <radialGradient id="btn-t" cx="40%" cy="32%" r="80%"><stop offset="0%" stop-color="#3a3d42"/><stop offset="100%" stop-color="#0c0d0e"/></radialGradient>
+    <radialGradient id="cap-t" cx="36%" cy="28%" r="72%"><stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="#e8412f"/><stop offset="100%" stop-color="#600"/></radialGradient></defs>
+    <rect x="3" y="3" width="6" height="6" fill="#cfd6df"/><rect x="47" y="3" width="6" height="6" fill="#cfd6df"/>
+    <rect x="3" y="47" width="6" height="6" fill="#cfd6df"/><rect x="47" y="47" width="6" height="6" fill="#cfd6df"/>
+    <rect x="9" y="9" width="38" height="38" rx="4" fill="url(#btn-t)"/>
+    <circle cx="28" cy="28" r="12" fill="url(#cap-t)"/>${glare(24,23,3.5,5,0.7)}</svg>`;}
+});
+
+const LDR = ()=>({
+  name:'LDR', sub:'Photoresistor', w:44, h:60,
+  pins:[{name:'1',x:15,y:58,kind:'sig'},{name:'2',x:29,y:58,kind:'sig'}],
+  body(inst){
+    const path='M9,14 L35,14 L35,18 L9,18 L9,22 L35,22 L35,26 L9,26 L9,30 L35,30';
+    return `
+    <rect x="13.5" y="30" width="3" height="28" rx="1.4" fill="url(#lead)"/>
+    <rect x="27.5" y="30" width="3" height="28" rx="1.4" fill="url(#lead)"/>
+    <defs><radialGradient id="ldrFace-${inst.id}" cx="40%" cy="34%" r="70%">
+      <stop offset="0%" stop-color="#fbeec6"/><stop offset="55%" stop-color="#d9b257"/><stop offset="100%" stop-color="#9c7a2e"/></radialGradient></defs>
+    <g filter="url(#fDrop)"><circle cx="22" cy="22" r="19" fill="url(#ldrFace-${inst.id})" stroke="#7a5e2a" stroke-width="1"/></g>
+    <path d="${path}" fill="none" stroke="#f3ead0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+    <path d="${path}" fill="none" stroke="#7a5e2a" stroke-width="0.5" opacity="0.5"/>
+    ${glare(15,14,5,4,0.55)}`;
+  },
+  thumb(){return `<svg width="40" height="44" viewBox="0 0 44 60"><defs>
+    <radialGradient id="ldr-t" cx="40%" cy="34%" r="70%"><stop offset="0%" stop-color="#fbeec6"/><stop offset="100%" stop-color="#9c7a2e"/></radialGradient></defs>
+    <rect x="13.5" y="30" width="3" height="28" fill="#aab"/><rect x="27.5" y="30" width="3" height="28" fill="#aab"/>
+    <circle cx="22" cy="22" r="19" fill="url(#ldr-t)"/>
+    <path d="M9,14 L35,14 L35,18 L9,18 L9,22 L35,22 L35,26 L9,26 L9,30 L35,30" fill="none" stroke="#f3ead0" stroke-width="2.2"/>
+    ${glare(15,14,5,4,0.55)}</svg>`;}
+});
+
+const POT = ()=>({
+  name:'Potentiometer', sub:'10 kΩ', w:64, h:74, knob:true,
+  pins:[{name:'1',x:18,y:70,kind:'gnd'},{name:'W',x:32,y:70,kind:'analog'},{name:'3',x:46,y:70,kind:'pwr'}],
+  body(inst){
+    const val = inst.val==null?2048:inst.val;
+    const ang = 135 + (val/4095)*270;
+    const rad = (ang-90)*Math.PI/180;
+    const ix = 32 + Math.cos(rad)*9, iy = 30 + Math.sin(rad)*9;
+    let ticks='';
+    for(let a=135;a<=405;a+=27){ const r=(a-90)*Math.PI/180;
+      const x1=32+Math.cos(r)*23,y1=30+Math.sin(r)*23,x2=32+Math.cos(r)*19,y2=30+Math.sin(r)*19;
+      ticks+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#cfd6df" stroke-width="1.1" opacity="0.7"/>`; }
+    let knurl='';
+    for(let a=0;a<360;a+=30){ const r=a*Math.PI/180;
+      knurl+=`<line x1="${32+Math.cos(r)*9.5}" y1="${30+Math.sin(r)*9.5}" x2="${32+Math.cos(r)*11}" y2="${30+Math.sin(r)*11}" stroke="#11151b" stroke-width="1.3"/>`; }
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-2.5}" y="60" width="5" height="11" rx="1" fill="url(#lead)"/>
+      <circle cx="${p.x}" cy="66" r="2.6" fill="url(#gold)"/>`; });
+    return `
+    ${pads}
+    <g filter="url(#fDrop)"><circle cx="32" cy="30" r="28" fill="url(#potHousing)" stroke="#0c0f14" stroke-width="1"/></g>
+    <circle cx="32" cy="30" r="24" fill="#20262e"/>
+    <circle cx="32" cy="30" r="24" fill="none" stroke="#0c0f14" stroke-width="1"/>
+    ${ticks}
+    <circle cx="32" cy="30" r="12.5" fill="url(#potKnob)" stroke="#11151b" stroke-width="1" filter="url(#fDrop)"/>
+    ${knurl}
+    <line x1="32" y1="30" x2="${ix}" y2="${iy}" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+    ${glare(27,24,4,3,0.5)}`;
+  },
+  thumb(){return `<svg width="46" height="46" viewBox="0 0 64 74"><defs>
+    <radialGradient id="pot-t" cx="36%" cy="30%" r="75%"><stop offset="0%" stop-color="#5a6470"/><stop offset="100%" stop-color="#161b22"/></radialGradient>
+    <radialGradient id="potk-t" cx="34%" cy="28%" r="78%"><stop offset="0%" stop-color="#8c96a3"/><stop offset="100%" stop-color="#23282f"/></radialGradient></defs>
+    <circle cx="32" cy="30" r="28" fill="url(#pot-t)"/><circle cx="32" cy="30" r="24" fill="#20262e"/>
+    <circle cx="32" cy="30" r="12.5" fill="url(#potk-t)"/><line x1="32" y1="30" x2="32" y2="20" stroke="#fff" stroke-width="2.4"/>
+    <circle cx="18" cy="66" r="2.6" fill="url(#gold)"/><circle cx="32" cy="66" r="2.6" fill="url(#gold)"/><circle cx="46" cy="66" r="2.6" fill="url(#gold)"/></svg>`;}
+});
+
+const BUZZER = ()=>({
+  name:'Buzzer', sub:'Piezo', w:54, h:62,
+  pins:[{name:'+',x:21,y:58,kind:'gpio'},{name:'-',x:33,y:58,kind:'gnd'}],
+  body(inst){
+    const act = inst.buzzing;
+    let waves='';
+    if(act){ for(let i=0;i<3;i++){
+      waves+=`<circle cx="27" cy="26" r="${20+i*7}" fill="none" stroke="#7ee7ff" stroke-width="1.6" opacity="0">
+        <animate attributeName="opacity" values="0.8;0" dur="0.9s" begin="${i*0.3}s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="${20+i*7};${30+i*7}" dur="0.9s" begin="${i*0.3}s" repeatCount="indefinite"/></circle>`; } }
+    return `
+    <rect x="19" y="44" width="3" height="14" rx="1.4" fill="url(#lead)"/>
+    <rect x="31" y="44" width="3" height="14" rx="1.4" fill="url(#lead)"/>
+    <g filter="url(#fDrop)"><circle cx="27" cy="26" r="24" fill="url(#buzzer)" stroke="#000" stroke-width="1"/></g>
+    <circle cx="27" cy="26" r="24" fill="none" stroke="#3a3d42" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="27" cy="26" r="14" fill="url(#brass)"/>
+    <circle cx="27" cy="26" r="14" fill="none" stroke="#7c5a16" stroke-width="0.8"/>
+    <circle cx="27" cy="26" r="6" fill="#c9cdd2"/>
+    <circle cx="27" cy="26" r="6" fill="none" stroke="#8a8f96" stroke-width="0.8"/>
+    <circle cx="27" cy="26" r="1.6" fill="#5a5f66"/>
+    <text x="40" y="16" font-size="9" fill="#f85149" font-family="Arial" font-weight="bold">+</text>
+    ${glare(19,17,5,4,0.45)}
+    ${waves}`;
+  },
+  thumb(){return `<svg width="44" height="44" viewBox="0 0 54 62"><defs>
+    <radialGradient id="buz-t" cx="36%" cy="30%" r="80%"><stop offset="0%" stop-color="#4d535b"/><stop offset="100%" stop-color="#0e0f11"/></radialGradient></defs>
+    <circle cx="27" cy="26" r="24" fill="url(#buz-t)"/><circle cx="27" cy="26" r="14" fill="url(#brass)"/>
+    <circle cx="27" cy="26" r="6" fill="#c9cdd2"/><text x="40" y="16" font-size="9" fill="#f85149" font-weight="bold">+</text>
+    ${glare(19,17,5,4,0.45)}</svg>`;}
+});
+
+/* ---------- Flame sensor module (KY-026 style) ---------- */
+const FLAME_SENSOR = ()=>({
+  name:'Flame Sensor', sub:'IR flame', w:96, h:54,
+  pins:[{name:'AO',x:30,y:52,kind:'analog'},{name:'DO',x:44,y:52,kind:'gpio'},
+        {name:'GND',x:58,y:52,kind:'gnd'},{name:'VCC',x:72,y:52,kind:'pwr'}],
+  body(inst){
+    const hot = inst.flameNear;
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3.5}" y="42" width="7" height="9" rx="1" fill="#0c2a14"/>
+      <circle cx="${p.x}" cy="48" r="3.2" fill="url(#gold)"/><circle cx="${p.x}" cy="48" r="1.2" fill="#3a2c08"/>
+      <text x="${p.x}" y="41" font-size="4.4" fill="#dce8ff" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="2" y="2" width="92" height="44" rx="4" fill="url(#bluePcb)" stroke="#0a3a6a" stroke-width="1"/></g>
+    <rect x="2" y="2" width="92" height="3" rx="2" fill="#fff" opacity="0.12"/>
+    <!-- IR receiver dome (black) -->
+    <g filter="url(#fDrop)"><ellipse cx="18" cy="22" rx="11" ry="13" fill="#16181c" stroke="#000" stroke-width="1"/></g>
+    <ellipse cx="15" cy="17" rx="3" ry="4" fill="#3a3f47" opacity="0.7"/>
+    ${hot?`<ellipse cx="18" cy="22" rx="13" ry="15" fill="#ff7a1a" opacity="0.55" filter="url(#fGlow)"/>`:''}
+    <!-- trim pot -->
+    <circle cx="50" cy="16" r="7" fill="#1c5fa8"/><rect x="46" y="14" width="8" height="2.4" fill="#dfe6ee"/>
+    <!-- comparator IC -->
+    <rect x="60" y="10" width="22" height="13" rx="1" fill="url(#icBody)"/>
+    <text x="71" y="19.5" font-size="4.6" fill="#9aa0a8" text-anchor="middle" font-family="monospace">LM393</text>
+    <!-- power / signal LEDs -->
+    <circle cx="44" cy="30" r="2.4" fill="#e8412f"/>
+    <circle cx="54" cy="30" r="2.4" fill="${hot?'#36ff7e':'#0c3a1c'}"/>
+    <text x="30" y="40" font-size="5" fill="#fff" font-family="Arial" font-weight="bold">FLAME</text>
+    ${pads}`;
+  },
+  thumb(){return `<svg width="50" height="28" viewBox="0 0 96 54"><defs>
+    <linearGradient id="fls-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b7fd6"/><stop offset="100%" stop-color="#0e4a85"/></linearGradient></defs>
+    <rect x="2" y="2" width="92" height="44" rx="4" fill="url(#fls-t)"/>
+    <ellipse cx="18" cy="22" rx="11" ry="13" fill="#16181c"/>
+    <rect x="60" y="10" width="22" height="13" rx="1" fill="#1a1c1f"/>
+    <circle cx="50" cy="16" r="7" fill="#1c5fa8"/>
+    <text x="30" y="40" font-size="6" fill="#fff" font-weight="bold">FLAME</text></svg>`;}
+});
+
+/* ---------- Stimuli (draggable test objects, no electrical pins) ---------- */
+const OBSTACLE = ()=>({
+  name:'Obstacle', sub:'Drag near ultrasonic', w:58, h:58, stimulus:'obstacle', pins:[],
+  body(inst){
+    return `
+    <defs><linearGradient id="obs-${inst.id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#caa46a"/><stop offset="45%" stop-color="#a9824a"/><stop offset="100%" stop-color="#6e5026"/></linearGradient></defs>
+    <g filter="url(#fDrop)">
+      <polygon points="10,16 48,16 56,8 18,8" fill="#d9b984"/>
+      <polygon points="48,16 48,52 56,44 56,8" fill="#7a5c30"/>
+      <rect x="10" y="16" width="38" height="36" rx="2" fill="url(#obs-${inst.id})" stroke="#5b431f" stroke-width="1"/>
+    </g>
+    <rect x="14" y="22" width="30" height="2" fill="#5b431f" opacity="0.4"/>
+    <rect x="14" y="40" width="30" height="2" fill="#5b431f" opacity="0.4"/>
+    ${glare(18,20,5,3,0.35)}
+    <text x="29" y="58" font-size="6" fill="#9aa7b8" text-anchor="middle" font-family="Arial">wall</text>`;
+  },
+  thumb(){return `<svg width="44" height="44" viewBox="0 0 58 58">
+    <polygon points="10,16 48,16 56,8 18,8" fill="#d9b984"/>
+    <polygon points="48,16 48,52 56,44 56,8" fill="#7a5c30"/>
+    <rect x="10" y="16" width="38" height="36" rx="2" fill="#a9824a" stroke="#5b431f"/></svg>`;}
+});
+const FLAME_OBJ = ()=>({
+  name:'Flame', sub:'Drag near flame sensor', w:42, h:60, stimulus:'flame', pins:[],
+  body(inst){
+    return `
+    <defs>
+      <radialGradient id="fl-${inst.id}" cx="50%" cy="65%" r="60%">
+        <stop offset="0%" stop-color="#fff6cf"/><stop offset="35%" stop-color="#ffd24a"/>
+        <stop offset="70%" stop-color="#ff7a1a"/><stop offset="100%" stop-color="#e03b10"/></radialGradient>
+      <radialGradient id="flc-${inst.id}" cx="50%" cy="60%" r="55%">
+        <stop offset="0%" stop-color="#fff3e0"/><stop offset="60%" stop-color="#ffd24a"/><stop offset="100%" stop-color="#ff9b2f" stop-opacity="0"/></radialGradient>
+    </defs>
+    <ellipse cx="21" cy="30" rx="20" ry="26" fill="#ff7a1a" opacity="0.3" filter="url(#fGlow)"/>
+    <path d="M21,6 C33,20 36,30 30,42 C40,38 36,18 36,18 C40,30 38,48 21,54 C4,48 2,30 6,18 C6,18 2,38 12,42 C6,30 9,20 21,6 Z" fill="url(#fl-${inst.id})">
+      <animate attributeName="opacity" values="0.92;1;0.9" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M21,20 C28,30 28,38 21,46 C14,38 14,30 21,20 Z" fill="url(#flc-${inst.id})"/>
+    <ellipse cx="21" cy="40" rx="6" ry="9" fill="#3a6df0" opacity="0.5"/>`;
+  },
+  thumb(){return `<svg width="34" height="46" viewBox="0 0 42 60"><defs>
+    <radialGradient id="fl-t" cx="50%" cy="65%" r="60%"><stop offset="0%" stop-color="#fff6cf"/><stop offset="70%" stop-color="#ff7a1a"/><stop offset="100%" stop-color="#e03b10"/></radialGradient></defs>
+    <path d="M21,6 C33,20 36,30 30,42 C40,38 36,18 36,18 C40,30 38,48 21,54 C4,48 2,30 6,18 C6,18 2,38 12,42 C6,30 9,20 21,6 Z" fill="url(#fl-t)"/></svg>`;}
+});
+
+/* ---------- OLED display (SSD1306 0.96" I²C) ---------- */
+const OLED = ()=>({
+  name:'OLED Display', sub:'128×64 I²C', w:82, h:74,
+  pins:[{name:'GND',x:24,y:7,kind:'gnd'},{name:'VCC',x:38,y:7,kind:'pwr'},
+        {name:'SCL',x:52,y:7,kind:'gpio'},{name:'SDA',x:66,y:7,kind:'gpio'}],
+  body(inst){
+    const lines = (inst.screenLines && inst.screenLines.length) ? inst.screenLines.slice(-5) : [];
+    let txt='';
+    if(lines.length){
+      lines.forEach((ln,i)=>{ txt+=`<text x="11" y="${30+i*9}" font-size="7.5" fill="#a6ecff" font-family="monospace">${String(ln).slice(0,18).replace(/[<&>]/g,'')}</text>`; });
+    } else {
+      txt=`<text x="41" y="44" font-size="8" fill="#3a6f8f" text-anchor="middle" font-family="monospace">${simRunning?'':'OLED'}</text>`;
+    }
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3}" y="3" width="6" height="8" rx="1" fill="#0c2030"/>
+      <circle cx="${p.x}" cy="7" r="2.6" fill="url(#gold)"/>
+      <text x="${p.x}" y="17" font-size="3.8" fill="#8fb6d4" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="2" y="2" width="78" height="70" rx="4" fill="#0b1622" stroke="#05101a" stroke-width="1"/></g>
+    <rect x="6" y="18" width="70" height="50" rx="2" fill="#04111c"/>
+    <rect x="6" y="18" width="70" height="50" rx="2" fill="none" stroke="#1d3b52" stroke-width="1"/>
+    ${glare(14,24,8,3,0.06)}
+    ${txt}
+    ${pads}`;
+  },
+  thumb(){return `<svg width="46" height="42" viewBox="0 0 82 74">
+    <rect x="2" y="2" width="78" height="70" rx="4" fill="#0b1622"/>
+    <rect x="6" y="18" width="70" height="50" rx="2" fill="#04111c" stroke="#1d3b52"/>
+    <text x="11" y="34" font-size="8" fill="#a6ecff" font-family="monospace">Hello!</text>
+    <text x="11" y="46" font-size="8" fill="#a6ecff" font-family="monospace">ESP32</text></svg>`;}
+});
+
+/* ---------- Servo motor (SG90) ---------- */
+const SERVO = ()=>({
+  name:'Servo Motor', sub:'SG90', w:98, h:60,
+  pins:[{name:'GND',x:94,y:16,kind:'gnd'},{name:'VCC',x:94,y:28,kind:'pwr'},{name:'SIG',x:94,y:40,kind:'gpio'}],
+  body(inst){
+    const ang = (inst.angle==null?90:inst.angle), rot = ang-90;
+    let wires='';
+    [['#6a4a2a',16],['#d23a2a',28],['#e08a1a',40]].forEach(([col,y])=>{
+      wires+=`<path d="M62,${y} C74,${y} 80,${y} 94,${y}" stroke="${col}" stroke-width="3" fill="none" stroke-linecap="round"/>`; });
+    return `
+    <defs><linearGradient id="sv-${inst.id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2aa6d6"/><stop offset="100%" stop-color="#1366a0"/></linearGradient></defs>
+    ${wires}
+    <g filter="url(#fDrop)">
+      <rect x="2" y="18" width="62" height="6" rx="2" fill="#1f7fb5"/>
+      <rect x="2" y="40" width="62" height="6" rx="2" fill="#1f7fb5"/>
+      <rect x="8" y="10" width="50" height="44" rx="3" fill="url(#sv-${inst.id})" stroke="#0c4a78" stroke-width="1"/>
+    </g>
+    <rect x="10" y="12" width="46" height="6" rx="2" fill="#fff" opacity="0.14"/>
+    <circle cx="26" cy="30" r="10" fill="#d3dae2" stroke="#8a929c" stroke-width="1"/>
+    <g transform="rotate(${rot} 26 30)">
+      <rect x="23.5" y="6" width="5" height="26" rx="2.5" fill="#eef1f4" stroke="#aab2bb" stroke-width="0.6"/>
+      <circle cx="26" cy="8" r="3.6" fill="#eef1f4" stroke="#aab2bb" stroke-width="0.6"/>
+      <circle cx="26" cy="8" r="1.2" fill="#7a8088"/>
+    </g>
+    <circle cx="26" cy="30" r="3.4" fill="#9aa3ad"/><circle cx="26" cy="30" r="1.4" fill="#5a5f66"/>
+    <text x="46" y="44" font-size="6.5" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold">SG90</text>
+    <text x="${ang>90?70:18}" y="${rot>0?52:14}" font-size="6" fill="#0c4a78" text-anchor="middle" font-family="monospace">${Math.round(ang)}°</text>`;
+  },
+  thumb(){return `<svg width="50" height="32" viewBox="0 0 98 60"><defs>
+    <linearGradient id="sv-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2aa6d6"/><stop offset="100%" stop-color="#1366a0"/></linearGradient></defs>
+    <rect x="2" y="18" width="62" height="6" fill="#1f7fb5"/><rect x="2" y="40" width="62" height="6" fill="#1f7fb5"/>
+    <rect x="8" y="10" width="50" height="44" rx="3" fill="url(#sv-t)"/>
+    <circle cx="26" cy="30" r="10" fill="#d3dae2"/><rect x="23.5" y="6" width="5" height="26" rx="2.5" fill="#eef1f4"/>
+    <path d="M62,28 H92" stroke="#d23a2a" stroke-width="3"/></svg>`;}
+});
+
+/* ---------- Vibration sensor (SW-420) ---------- */
+const VIBRATION = ()=>({
+  name:'Vibration Sensor', sub:'SW-420', w:86, h:48,
+  pins:[{name:'DO',x:30,y:46,kind:'gpio'},{name:'GND',x:44,y:46,kind:'gnd'},{name:'VCC',x:58,y:46,kind:'pwr'}],
+  body(inst){
+    const on=inst.vibrating;
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3.5}" y="36" width="7" height="9" rx="1" fill="#0c2a14"/>
+      <circle cx="${p.x}" cy="42" r="3" fill="url(#gold)"/>
+      <text x="${p.x}" y="35" font-size="4.2" fill="#dce8ff" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="2" y="2" width="82" height="40" rx="4" fill="url(#bluePcb)" stroke="#0a3a6a" stroke-width="1"/></g>
+    <rect x="2" y="2" width="82" height="3" rx="2" fill="#fff" opacity="0.12"/>
+    ${on?`<ellipse cx="20" cy="20" rx="16" ry="12" fill="#7ee7ff" opacity="0.5" filter="url(#fGlow)"/>`:''}
+    <!-- vibration switch barrel -->
+    <rect x="8" y="14" width="26" height="12" rx="6" fill="#1a1c1f" stroke="#000" stroke-width="0.8"/>
+    <rect x="10" y="17" width="22" height="2" fill="#3a3f47"/><rect x="10" y="21" width="22" height="2" fill="#3a3f47"/>
+    <circle cx="34" cy="20" r="2" fill="#c9cdd2"/>
+    <!-- trim pot + IC + leds -->
+    <circle cx="50" cy="14" r="6" fill="#1c5fa8"/><rect x="46.5" y="12.5" width="7" height="2" fill="#dfe6ee"/>
+    <rect x="60" y="9" width="20" height="12" rx="1" fill="url(#icBody)"/>
+    <text x="70" y="17" font-size="4" fill="#9aa0a8" text-anchor="middle" font-family="monospace">393</text>
+    <circle cx="48" cy="28" r="2.4" fill="#e8412f"/>
+    <circle cx="58" cy="28" r="2.4" fill="${on?'#36ff7e':'#0c3a1c'}"/>
+    <text x="30" y="33" font-size="4.6" fill="#fff" font-family="Arial" font-weight="bold">SW-420</text>
+    ${pads}`;
+  },
+  thumb(){return `<svg width="48" height="27" viewBox="0 0 86 48"><defs>
+    <linearGradient id="vib-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b7fd6"/><stop offset="100%" stop-color="#0e4a85"/></linearGradient></defs>
+    <rect x="2" y="2" width="82" height="40" rx="4" fill="url(#vib-t)"/>
+    <rect x="8" y="14" width="26" height="12" rx="6" fill="#1a1c1f"/><circle cx="50" cy="14" r="6" fill="#1c5fa8"/>
+    <text x="30" y="34" font-size="6" fill="#fff" font-weight="bold">SW-420</text></svg>`;}
+});
+
+/* ---------- Gas sensor (MQ-2) ---------- */
+const GAS = ()=>({
+  name:'Gas Sensor', sub:'MQ-2', w:76, h:70,
+  pins:[{name:'AO',x:18,y:68,kind:'analog'},{name:'DO',x:32,y:68,kind:'gpio'},
+        {name:'GND',x:46,y:68,kind:'gnd'},{name:'VCC',x:60,y:68,kind:'pwr'}],
+  body(inst){
+    const lvl=inst.level==null?20:inst.level, alarm=lvl>50;
+    let mesh='';
+    for(let i=-3;i<=3;i++){ mesh+=`<line x1="${38+i*4}" y1="6" x2="${38+i*4}" y2="38" stroke="#7a8088" stroke-width="0.7" opacity="0.7"/>`; }
+    for(let j=0;j<5;j++){ mesh+=`<line x1="16" y1="${10+j*6}" x2="60" y2="${10+j*6}" stroke="#7a8088" stroke-width="0.7" opacity="0.7"/>`; }
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3.5}" y="58" width="7" height="9" rx="1" fill="#0c2a14"/>
+      <circle cx="${p.x}" cy="64" r="3" fill="url(#gold)"/>
+      <text x="${p.x}" y="57" font-size="4.2" fill="#dce8ff" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    return `
+    <g filter="url(#fDrop)"><rect x="4" y="40" width="68" height="18" rx="3" fill="#9a1f2a" stroke="#5e0f16" stroke-width="1"/></g>
+    <rect x="4" y="40" width="68" height="3" rx="2" fill="#fff" opacity="0.12"/>
+    <text x="38" y="53" font-size="6" fill="#ffd9d9" text-anchor="middle" font-family="Arial" font-weight="bold">MQ-2</text>
+    <!-- steel mesh sensing cap -->
+    <g filter="url(#fDrop)"><ellipse cx="38" cy="22" rx="24" ry="20" fill="url(#metalCan)" stroke="#4a4f56" stroke-width="1"/></g>
+    <clipPath id="gasclip-${inst.id}"><ellipse cx="38" cy="22" rx="22" ry="18"/></clipPath>
+    <g clip-path="url(#gasclip-${inst.id})">${mesh}</g>
+    <ellipse cx="38" cy="22" rx="22" ry="18" fill="none" stroke="#3a3f45" stroke-width="1"/>
+    ${alarm?`<ellipse cx="38" cy="22" rx="26" ry="22" fill="#ff7a1a" opacity="0.4" filter="url(#fGlow)"/>`:''}
+    ${glare(28,14,5,3,0.5)}
+    ${pads}`;
+  },
+  thumb(){return `<svg width="44" height="40" viewBox="0 0 76 70"><defs>
+    <radialGradient id="gas-t" cx="32%" cy="28%" r="80%"><stop offset="0%" stop-color="#f2f4f6"/><stop offset="70%" stop-color="#878e96"/><stop offset="100%" stop-color="#4a4f56"/></radialGradient></defs>
+    <rect x="4" y="40" width="68" height="18" rx="3" fill="#9a1f2a"/><text x="38" y="53" font-size="7" fill="#ffd9d9" text-anchor="middle" font-weight="bold">MQ-2</text>
+    <ellipse cx="38" cy="22" rx="24" ry="20" fill="url(#gas-t)"/></svg>`;}
+});
+
+/* ---------- Rain drop sensor ---------- */
+const RAIN = ()=>({
+  name:'Rain Sensor', sub:'Raindrop', w:88, h:60,
+  pins:[{name:'AO',x:22,y:58,kind:'analog'},{name:'DO',x:36,y:58,kind:'gpio'},
+        {name:'GND',x:50,y:58,kind:'gnd'},{name:'VCC',x:64,y:58,kind:'pwr'}],
+  body(inst){
+    const lvl=inst.level==null?0:inst.level, wet=lvl>50;
+    let drops='';
+    const n=Math.round(lvl/100*7);
+    for(let i=0;i<n;i++){ const x=14+ (i*9)%56, y=10+((i*13)%18);
+      drops+=`<circle cx="${x}" cy="${y}" r="2.4" fill="#6fc3ff" opacity="0.85"/><ellipse cx="${x}" cy="${y-2}" rx="0.8" ry="1.4" fill="#cdeaff" opacity="0.8"/>`; }
+    let pads='';
+    this.pins.forEach(p=>{ pads+=`<rect x="${p.x-3.5}" y="48" width="7" height="9" rx="1" fill="#0c2a14"/>
+      <circle cx="${p.x}" cy="54" r="3" fill="url(#gold)"/>
+      <text x="${p.x}" y="47" font-size="4.2" fill="#dce8ff" text-anchor="middle" font-family="monospace">${p.name}</text>`; });
+    // collector plate (gold serpentine traces)
+    let traces='';
+    for(let i=0;i<8;i++){ traces+=`<line x1="${10+i*8}" y1="6" x2="${10+i*8}" y2="34" stroke="#caa340" stroke-width="2"/>`; }
+    return `
+    <g filter="url(#fDrop)"><rect x="4" y="4" width="76" height="34" rx="3" fill="#15392a" stroke="#0a2418" stroke-width="1"/></g>
+    <g clip-path="none">${traces}</g>
+    <rect x="4" y="4" width="76" height="34" rx="3" fill="none" stroke="#0a2418" stroke-width="1"/>
+    ${wet?`<rect x="4" y="4" width="76" height="34" rx="3" fill="#3aa0ff" opacity="0.18"/>`:''}
+    ${drops}
+    <g filter="url(#fDrop)"><rect x="22" y="40" width="44" height="12" rx="2" fill="url(#bluePcb)"/></g>
+    <text x="44" y="48.5" font-size="5.5" fill="#fff" text-anchor="middle" font-family="Arial" font-weight="bold">RAIN</text>
+    ${pads}`;
+  },
+  thumb(){return `<svg width="50" height="34" viewBox="0 0 88 60"><defs>
+    <linearGradient id="rain-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b7fd6"/><stop offset="100%" stop-color="#0e4a85"/></linearGradient></defs>
+    <rect x="4" y="4" width="76" height="34" rx="3" fill="#15392a"/>
+    <line x1="14" y1="6" x2="14" y2="34" stroke="#caa340" stroke-width="2"/><line x1="30" y1="6" x2="30" y2="34" stroke="#caa340" stroke-width="2"/>
+    <line x1="46" y1="6" x2="46" y2="34" stroke="#caa340" stroke-width="2"/><line x1="62" y1="6" x2="62" y2="34" stroke="#caa340" stroke-width="2"/>
+    <rect x="22" y="40" width="44" height="12" rx="2" fill="url(#rain-t)"/><text x="44" y="49" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">RAIN</text></svg>`;}
+});
+
+/* ---------- ESP32 dev board ---------- */
+const ESP_PINS_L = ['EN','VP','VN','D34','D35','D32','D33','D25','D26','D27','D14','D12','D13','GND','VIN'];
+const ESP_PINS_R = ['D23','D22','TX0','RX0','D21','GND','D19','D18','D5','TX2','RX2','D4','D0','D2','D15'];
+const ESP_GPIO = {
+  EN:{kind:'sig'},VP:{gpio:36,kind:'analog'},VN:{gpio:39,kind:'analog'},
+  D34:{gpio:34,kind:'analog'},D35:{gpio:35,kind:'analog'},D32:{gpio:32,kind:'analog'},D33:{gpio:33,kind:'analog'},
+  D25:{gpio:25,kind:'gpio'},D26:{gpio:26,kind:'gpio'},D27:{gpio:27,kind:'gpio'},D14:{gpio:14,kind:'gpio'},
+  D12:{gpio:12,kind:'gpio'},D13:{gpio:13,kind:'gpio'},GND:{kind:'gnd'},VIN:{kind:'pwr'},
+  D23:{gpio:23,kind:'gpio'},D22:{gpio:22,kind:'gpio'},TX0:{gpio:1,kind:'gpio'},RX0:{gpio:3,kind:'gpio'},
+  D21:{gpio:21,kind:'gpio'},D19:{gpio:19,kind:'gpio'},D18:{gpio:18,kind:'gpio'},D5:{gpio:5,kind:'gpio'},
+  TX2:{gpio:17,kind:'gpio'},RX2:{gpio:16,kind:'gpio'},D4:{gpio:4,kind:'gpio'},D0:{gpio:0,kind:'gpio'},
+  D2:{gpio:2,kind:'gpio'},D15:{gpio:15,kind:'gpio'},
+};
+const ESP_W=152, ESP_TOP=34, ESP_PITCH=21.4;
+/* Blockly pin dropdown options — real ESP32 silk names as labels,
+   GPIO number (or label) as the value so the simulator/Arduino map correctly. */
+const PIN_OPTIONS = (()=>{
+  const seen=new Set(), out=[];
+  ESP_PINS_L.concat(ESP_PINS_R).forEach(lab=>{
+    if(seen.has(lab)) return; seen.add(lab);
+    const g=ESP_GPIO[lab];
+    out.push([lab, g && g.gpio!=null ? String(g.gpio) : lab]);
+  });
+  return out;
+})();
+const ESP32 = ()=>{
+  const pins=[];
+  ESP_PINS_L.forEach((lab,i)=>pins.push({name:lab+'_L',label:lab,x:12,y:ESP_TOP+i*ESP_PITCH,kind:ESP_GPIO[lab].kind,gpio:ESP_GPIO[lab].gpio}));
+  ESP_PINS_R.forEach((lab,i)=>pins.push({name:lab+'_R',label:lab,x:ESP_W-12,y:ESP_TOP+i*ESP_PITCH,kind:ESP_GPIO[lab].kind,gpio:ESP_GPIO[lab].gpio}));
+  const h = ESP_TOP + 15*ESP_PITCH + 16;
+  return {
+    name:'ESP32', sub:'WROOM-32 DevKit', w:ESP_W, h:h, pins,
+    body(inst){
+      const led2 = espPinHigh(2);
+      let pads='';
+      pins.forEach(p=>{
+        const lx = p.x<ESP_W/2 ? p.x+9 : p.x-9;
+        const anchor = p.x<ESP_W/2 ? 'start':'end';
+        pads+=`<rect x="${p.x-7}" y="${p.y-7}" width="14" height="14" rx="2.5" fill="#0a3018"/>
+          <circle cx="${p.x}" cy="${p.y}" r="5.6" fill="url(#goldRing)"/>
+          <circle cx="${p.x}" cy="${p.y}" r="2.4" fill="#1c2a16"/>
+          <text x="${lx}" y="${p.y+3}" font-size="7.4" fill="#eef3ee" text-anchor="${anchor}" font-family="monospace">${p.label}</text>`;
+      });
+      let traces='';
+      for(let i=0;i<6;i++){ const y=70+i*34;
+        traces+=`<path d="M30,${y} H${ESP_W-30}" stroke="#1c7a44" stroke-width="1.4" opacity="0.32"/>`; }
+      traces+=`<path d="M40,60 V${h-60}" stroke="#1c7a44" stroke-width="1.4" opacity="0.28"/>
+               <path d="M${ESP_W-40},60 V${h-60}" stroke="#1c7a44" stroke-width="1.4" opacity="0.28"/>`;
+      let ant='M30,12 '; for(let i=0;i<6;i++){ ant+= 'l5,-6 l5,6 '; }
+      return `
+      <g filter="url(#fDrop)"><rect x="2" y="2" width="${ESP_W-4}" height="${h-4}" rx="8" fill="url(#greenPcb)" stroke="#072a14" stroke-width="1.2"/></g>
+      <rect x="2" y="2" width="${ESP_W-4}" height="4" rx="2" fill="#fff" opacity="0.08"/>
+      ${traces}
+      <path d="${ant}" fill="none" stroke="#cfd6df" stroke-width="1.6" opacity="0.85"/>
+      <g filter="url(#fDrop)"><rect x="22" y="26" width="${ESP_W-44}" height="92" rx="4" fill="url(#shieldCan)" stroke="#5a626b" stroke-width="1"/></g>
+      <rect x="24" y="28" width="${ESP_W-48}" height="88" rx="3" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="0.8"/>
+      <rect x="26" y="30" width="${ESP_W-52}" height="10" rx="2" fill="#fff" opacity="0.18"/>
+      <text x="${ESP_W/2}" y="64" font-size="9.5" fill="#3a3f45" text-anchor="middle" font-family="Arial" font-weight="bold" letter-spacing="0.5">ESP32</text>
+      <text x="${ESP_W/2}" y="78" font-size="7" fill="#4a5057" text-anchor="middle" font-family="Arial" letter-spacing="1">WROOM-32</text>
+      <rect x="${ESP_W-44}" y="92" width="18" height="18" fill="#2a2d31"/>
+      <rect x="${ESP_W-42}" y="94" width="14" height="14" fill="#cfd6df" opacity="0.5"/>
+      <g filter="url(#fDrop)"><rect x="28" y="${h-118}" width="26" height="16" rx="1.5" fill="url(#icBody)"/></g>
+      ${icLegs(28,h-118,26,16)}
+      <text x="41" y="${h-107}" font-size="4.4" fill="#9aa0a8" text-anchor="middle" font-family="monospace">1117</text>
+      <g filter="url(#fDrop)"><rect x="${ESP_W-58}" y="${h-122}" width="30" height="20" rx="1.5" fill="url(#icBody)"/></g>
+      ${icLegs(ESP_W-58,h-122,30,20)}
+      <text x="${ESP_W-43}" y="${h-110}" font-size="4.4" fill="#9aa0a8" text-anchor="middle" font-family="monospace">CH340</text>
+      ${tactBtn(30,h-72,'EN')} ${tactBtn(ESP_W-50,h-72,'BOOT')}
+      ${tinyLed(64,h-70,'#f85149',true)}
+      ${tinyLed(ESP_W-64,h-70,'#3a7bf0',led2)}
+      <text x="64" y="${h-58}" font-size="4.6" fill="#cfe0cf" text-anchor="middle" font-family="monospace">PWR</text>
+      <text x="${ESP_W-64}" y="${h-58}" font-size="4.6" fill="#cfe0cf" text-anchor="middle" font-family="monospace">D2</text>
+      <g filter="url(#fDrop)"><rect x="${ESP_W/2-22}" y="${h-22}" width="44" height="22" rx="9" fill="url(#metalCan)" stroke="#3a3f45" stroke-width="1"/></g>
+      <rect x="${ESP_W/2-16}" y="${h-17}" width="32" height="12" rx="6" fill="#15171a"/>
+      <rect x="${ESP_W/2-12}" y="${h-13}" width="24" height="4" rx="2" fill="url(#gold)" opacity="0.85"/>
+      ${pads}`;
+    },
+    thumb(){return `<svg width="40" height="52" viewBox="0 0 ${ESP_W} ${h}" preserveAspectRatio="xMidYMid meet"><defs>
+      <linearGradient id="esp-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#176b3a"/><stop offset="100%" stop-color="#0a3a1c"/></linearGradient>
+      <linearGradient id="sh-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e9edf1"/><stop offset="100%" stop-color="#646c75"/></linearGradient></defs>
+      <rect x="2" y="2" width="${ESP_W-4}" height="${h-4}" rx="8" fill="url(#esp-t)"/>
+      <rect x="22" y="26" width="${ESP_W-44}" height="92" rx="4" fill="url(#sh-t)"/>
+      <text x="${ESP_W/2}" y="72" font-size="14" fill="#3a3f45" text-anchor="middle" font-weight="bold">ESP32</text>
+      <rect x="${ESP_W/2-22}" y="${h-22}" width="44" height="22" rx="9" fill="#888"/></svg>`;}
+  };
+};
+function icLegs(x,y,w,h){ let s=''; const n=Math.max(3,Math.floor(w/6));
+  for(let i=0;i<n;i++){ const lx=x+4+i*(w-8)/(n-1);
+    s+=`<rect x="${lx-1.4}" y="${y-3}" width="2.8" height="3" fill="#c9cdd2"/><rect x="${lx-1.4}" y="${y+h}" width="2.8" height="3" fill="#c9cdd2"/>`; }
+  return s; }
+function tactBtn(x,y,label){ return `
+  <rect x="${x-3}" y="${y-3}" width="6" height="3" fill="#cfd6df"/><rect x="${x+15}" y="${y-3}" width="6" height="3" fill="#cfd6df"/>
+  <rect x="${x-3}" y="${y+12}" width="6" height="3" fill="#cfd6df"/><rect x="${x+15}" y="${y+12}" width="6" height="3" fill="#cfd6df"/>
+  <rect x="${x}" y="${y}" width="18" height="12" rx="2" fill="url(#btnBody)" stroke="#000" stroke-width="0.5"/>
+  <circle cx="${x+9}" cy="${y+6}" r="3.4" fill="#cfd6df"/><circle cx="${x+9}" cy="${y+6}" r="3.4" fill="none" stroke="#777" stroke-width="0.5"/>
+  <text x="${x+9}" y="${y+24}" font-size="4.6" fill="#cfe0cf" text-anchor="middle" font-family="monospace">${label}</text>`; }
+function tinyLed(x,y,col,on){ return `
+  <defs><radialGradient id="tl-${x}-${y}" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff"/>
+    <stop offset="40%" stop-color="${col}"/><stop offset="100%" stop-color="#000" stop-opacity="0.7"/></radialGradient></defs>
+  ${on?`<circle cx="${x}" cy="${y}" r="9" fill="${col}" opacity="0.55" filter="url(#fGlow)"/>`:''}
+  <circle cx="${x}" cy="${y}" r="4" fill="url(#tl-${x}-${y})" stroke="#000" stroke-opacity="0.4" stroke-width="0.5"/>
+  ${glare(x-1.3,y-1.3,1.3,1,0.7)}`; }
+
+/* ---------- Component registry ---------- */
+const REGISTRY = {
+  'led-red':()=>LED('red'), 'led-green':()=>LED('green'), 'led-blue':()=>LED('blue'),
+  'res-220':()=>RESISTOR('220'), 'res-1k':()=>RESISTOR('1k'), 'res-10k':()=>RESISTOR('10k'),
+  'hcsr04':HCSR04, 'dht11':DHT11, 'button':BUTTON, 'ldr':LDR, 'pot':POT, 'buzzer':BUZZER,
+  'flame-sensor':FLAME_SENSOR, 'oled':OLED, 'servo':SERVO, 'vibration':VIBRATION, 'gas':GAS, 'rain':RAIN,
+  'obstacle':OBSTACLE, 'flame':FLAME_OBJ, 'esp32':ESP32,
+};
+const PALETTE_ORDER = ['esp32','led-red','led-green','led-blue','res-220','res-1k','res-10k',
+  'pot','button','ldr','buzzer','dht11','hcsr04','flame-sensor','oled','servo','vibration','gas','rain','obstacle','flame'];
+
+/* ============================================================================
+   STATE
+   ========================================================================== */
+let comps = [], wires = [], nextId = 1;
+let mode = 'select', selected = null, selectedWire = null, wireStart = null, simRunning = false;
+let themeLight = false;   /* dark/light theme */
+let wireDrag = null;      /* live drag-and-drop wiring temp state */
+const svg = document.getElementById('canvas-svg');
+const espState = {};
+function espPinHigh(g){ return espState[g]===1; }
+
+/* ============================================================================
+   PALETTE
+   ========================================================================== */
+function buildPalette(){
+  const list = document.getElementById('palette-list'); list.innerHTML='';
+  PALETTE_ORDER.forEach(type=>{
+    const def = REGISTRY[type]();
+    const el = document.createElement('div');
+    el.className='pal-item'; el.dataset.type=type;
+    el.innerHTML=`<div class="pal-thumb">${def.thumb()}</div>
+      <div class="pal-meta"><b>${def.name}</b><span>${def.sub||''}</span></div>`;
+    el.addEventListener('pointerdown', e=>startPaletteDrag(e,type));
+    list.appendChild(el);
+  });
+}
+
+/* palette drag → drop */
+let dragType=null;
+function startPaletteDrag(e,type){
+  e.preventDefault(); dragType=type;
+  if(window.matchMedia('(max-width:900px)').matches) closeSidebars();
+  const def=REGISTRY[type]();
+  const ghost=document.getElementById('drag-ghost');
+  ghost.setAttribute('viewBox',`0 0 ${def.w} ${def.h}`);
+  const gw=Math.min(def.w,110), gh=Math.min(def.h,110);
+  ghost.setAttribute('width', gw); ghost.setAttribute('height', gh);
+  ghost.innerHTML = sharedDefs()+ def.body({id:'ghost',type});
+  ghost.style.display='block'; moveGhost(e);
+  window.addEventListener('pointermove',moveGhost);
+  window.addEventListener('pointerup',dropGhost,{once:true});
+}
+function moveGhost(e){
+  const g=document.getElementById('drag-ghost');
+  const w=parseFloat(g.getAttribute('width')), h=parseFloat(g.getAttribute('height'));
+  g.style.left=(e.clientX-w/2)+'px'; g.style.top=(e.clientY-h/2)+'px';
+}
+function dropGhost(e){
+  window.removeEventListener('pointermove',moveGhost);
+  document.getElementById('drag-ghost').style.display='none';
+  const rect=svg.getBoundingClientRect();
+  if(e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom){
+    const def=REGISTRY[dragType]();
+    addComp(dragType, e.clientX-rect.left-def.w/2, e.clientY-rect.top-def.h/2);
+  }
+  dragType=null;
+}
+function addComp(type,x,y){
+  const def=REGISTRY[type]();
+  const c={id:'c'+(nextId++), type, def, x:Math.max(4,x), y:Math.max(4,y), rot:0};
+  if(type.startsWith('res-')) c.value=type.split('-')[1];
+  if(type==='pot') c.val=2048;
+  if(type==='button') c.color='#e8412f';
+  if(type==='servo') c.angle=90;
+  if(type==='vibration') c.vibrating=false;
+  if(type==='gas') c.level=20;
+  if(type==='rain') c.level=0;
+  if(type==='oled') c.screenLines=[];
+  comps.push(c); render(); selectComp(c.id);
+  return c;
+}
+
+/* ============================================================================
+   RENDER
+   ========================================================================== */
+function instWrapper(c){
+  let pinDots='';
+  c.def.pins.forEach(p=>{
+    pinDots+=`<circle class="pin" data-c="${c.id}" data-p="${p.name}" cx="${p.x}" cy="${p.y}" r="7" fill="transparent"/>`;
+  });
+  return `<g class="comp-body" transform="rotate(${c.rot||0} ${c.def.w/2} ${c.def.h/2})">
+    ${c.def.body(c)} ${pinDots}
+    <rect class="selbox" x="-5" y="-5" width="${c.def.w+10}" height="${c.def.h+10}" rx="6"
+      fill="none" stroke="#3b9eff" stroke-width="1.5" stroke-dasharray="5 4"/>
+  </g>`;
+}
+function render(){
+  let s = sharedDefs();
+  s += `<rect x="0" y="0" width="100%" height="100%" fill="url(#dotgrid)"/>`;
+  wires.forEach(w=>{ s+=renderWire(w); });
+  if(wireStart){ s+=`<circle cx="${wireStart.x}" cy="${wireStart.y}" r="5" fill="#3b9eff" opacity="0.7"/>`; }
+  if(wireDrag){
+    const dx=wireDrag.x2-wireDrag.x1, c1x=wireDrag.x1+dx*0.5, c2x=wireDrag.x2-dx*0.5;
+    s+=`<path d="M${wireDrag.x1},${wireDrag.y1} C${c1x},${wireDrag.y1} ${c2x},${wireDrag.y2} ${wireDrag.x2},${wireDrag.y2}"
+        fill="none" stroke="#3b9eff" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 5"
+        opacity="0.9" style="pointer-events:none"/>
+      <circle cx="${wireDrag.x1}" cy="${wireDrag.y1}" r="5" fill="#3b9eff" style="pointer-events:none"/>
+      <circle cx="${wireDrag.x2}" cy="${wireDrag.y2}" r="4" fill="#fff" stroke="#3b9eff" stroke-width="1.6" style="pointer-events:none"/>`;
+  }
+  comps.forEach(c=>{
+    s+=`<g class="comp-g ${selected===c.id?'selected':''}" data-comp-id="${c.id}"
+      transform="translate(${c.x},${c.y})">${instWrapper(c)}</g>`;
+  });
+  svg.innerHTML=s;
+}
+function pinWorld(compId,pinName){
+  const c=comps.find(x=>x.id===compId); if(!c) return null;
+  const p=c.def.pins.find(x=>x.name===pinName); if(!p) return null;
+  let px=p.x, py=p.y;
+  if(c.rot){ const cx=c.def.w/2, cy=c.def.h/2, a=c.rot*Math.PI/180, dx=px-cx, dy=py-cy;
+    px=cx+dx*Math.cos(a)-dy*Math.sin(a); py=cy+dx*Math.sin(a)+dy*Math.cos(a); }
+  return {x:c.x+px, y:c.y+py};
+}
+function renderWire(w){
+  const a=pinWorld(...w.from.split(':')), b=pinWorld(...w.to.split(':'));
+  if(!a||!b) return '';
+  const sel = selectedWire===w.id;
+
+  /* build path: if wire has bend points use polyline-style cubic segments, else auto-curve */
+  let path;
+  const bends = w.bends || [];
+  if(bends.length===0){
+    const dx=b.x-a.x, c1x=a.x+dx*0.5, c2x=b.x-dx*0.5;
+    path=`M${a.x},${a.y} C${c1x},${a.y} ${c2x},${b.y} ${b.x},${b.y}`;
+  } else {
+    const pts=[a,...bends,b];
+    let d=`M${pts[0].x},${pts[0].y}`;
+    for(let i=1;i<pts.length;i++){
+      const p0=pts[i-1],p1=pts[i];
+      const mx=(p0.x+p1.x)/2, my=(p0.y+p1.y)/2;
+      d+=` Q${p0.x},${p0.y} ${mx},${my}`;
+    }
+    d+=` L${b.x},${b.y}`;
+    path=d;
+  }
+
+  /* bend point handles (shown when wire selected) */
+  let bendHandles='';
+  if(sel){
+    bends.forEach((bp,i)=>{
+      bendHandles+=`<circle class="bend-handle" data-wire-id="${w.id}" data-bend-idx="${i}"
+        cx="${bp.x}" cy="${bp.y}" r="6" fill="${w.color}" stroke="#fff" stroke-width="1.5"
+        style="cursor:move;" opacity="0.9"/>`;
+    });
+    /* midpoint add-hint dot */
+    const allPts=[a,...bends,b];
+    for(let i=0;i<allPts.length-1;i++){
+      const mx=(allPts[i].x+allPts[i+1].x)/2, my=(allPts[i].y+allPts[i+1].y)/2;
+      bendHandles+=`<circle class="bend-add" data-wire-id="${w.id}" data-seg="${i}"
+        cx="${mx}" cy="${my}" r="4" fill="#fff" stroke="${w.color}" stroke-width="1.5" opacity="0.6"
+        style="cursor:crosshair;" title="Add bend point"/>`;
+    }
+  }
+
+  return `<g data-wire-id="${w.id}" style="cursor:pointer;">
+    ${sel?`<path d="${path}" fill="none" stroke="${themeLight?'#1f6feb':'#fff'}" stroke-width="7" stroke-linecap="round" opacity="0.35"/>`:''}
+    <path d="${path}" fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" opacity="0.001"/>
+    ${themeLight?`<path d="${path}" fill="none" stroke="#5d6b7e" stroke-width="5" stroke-linecap="round" opacity="0.9"/>`:''}
+    <path d="${path}" fill="none" stroke="${w.color}" stroke-width="3.4" stroke-linecap="round" filter="url(#fWire)"/>
+    <path d="${path}" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.22"/>
+    <circle cx="${a.x}" cy="${a.y}" r="3.2" fill="${w.color}" stroke="#000" stroke-opacity="0.4"/>
+    <circle cx="${b.x}" cy="${b.y}" r="3.2" fill="${w.color}" stroke="#000" stroke-opacity="0.4"/>
+    ${bendHandles}
+  </g>`;
+}
+
+/* ============================================================================
+   INTERACTION
+   ========================================================================== */
+function setMode(m){
+  mode=m; wireStart=null;
+  ['select','wire','delete'].forEach(x=>document.getElementById('m-'+x).classList.toggle('active',x===m));
+  svg.style.cursor = m==='wire'?'crosshair':(m==='delete'?'not-allowed':'default');
+  render();
+}
+let drag=null;
+let bendDrag=null; /* {wireId, bendIdx} */
+
+svg.addEventListener('contextmenu', e=>{
+  e.preventDefault();
+  const wireEl = e.target.closest('[data-wire-id]');
+  if(!wireEl) return;
+  const wid = wireEl.dataset.wireId;
+  const w = wires.find(x=>x.id===wid);
+  if(!w) return;
+  /* add bend point at click position */
+  const rect=svg.getBoundingClientRect();
+  const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  if(!w.bends) w.bends=[];
+  /* insert closest to segment midpoint */
+  const a=pinWorld(...w.from.split(':')), b=pinWorld(...w.to.split(':'));
+  const allPts=[a,...w.bends,b];
+  let bestSeg=0, bestDist=Infinity;
+  for(let i=0;i<allPts.length-1;i++){
+    const px=(allPts[i].x+allPts[i+1].x)/2, py=(allPts[i].y+allPts[i+1].y)/2;
+    const d=Math.hypot(mx-px,my-py);
+    if(d<bestDist){bestDist=d;bestSeg=i;}
+  }
+  w.bends.splice(bestSeg,0,{x:mx,y:my});
+  selectWire(wid); render();
+});
+
+svg.addEventListener('pointerdown', e=>{
+  /* bend handle drag */
+  const bh = e.target.closest('.bend-handle');
+  if(bh){
+    e.stopPropagation();
+    const wid=bh.dataset.wireId, idx=parseInt(bh.dataset.bendIdx);
+    bendDrag={wid,idx};
+    window.addEventListener('pointermove',moveBendDrag);
+    window.addEventListener('pointerup',endBendDrag,{once:true});
+    return;
+  }
+  /* bend-add click */
+  const ba = e.target.closest('.bend-add');
+  if(ba){
+    e.stopPropagation();
+    const wid=ba.dataset.wireId, seg=parseInt(ba.dataset.seg);
+    const w=wires.find(x=>x.id===wid); if(!w) return;
+    if(!w.bends) w.bends=[];
+    const rect=svg.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    w.bends.splice(seg,0,{x:mx,y:my});
+    selectWire(wid); render(); return;
+  }
+
+  const pin = e.target.closest('.pin');
+  const wireEl = e.target.closest('[data-wire-id]');
+  const compEl = e.target.closest('[data-comp-id]');
+  if(mode==='wire'){ if(pin) startWireDrag(pin.dataset.c, pin.dataset.p, e); return; }
+  if(mode==='delete'){
+    if(wireEl){ wires=wires.filter(w=>w.id!==wireEl.dataset.wireId); render(); return; }
+    if(compEl){ deleteComp(compEl.dataset.compId); return; }
+    return;
+  }
+  if(wireEl && !compEl){ selectWire(wireEl.dataset.wireId); return; }
+  if(compEl){
+    const cid=compEl.dataset.compId, c=comps.find(x=>x.id===cid);
+    selectComp(cid);
+    if(c.def.knob){
+      const rect=svg.getBoundingClientRect();
+      const lx=e.clientX-rect.left-c.x, ly=e.clientY-rect.top-c.y;
+      if(Math.hypot(lx-32,ly-30)<26){ drag={potId:cid}; potDrag(e);
+        window.addEventListener('pointermove',potDrag);
+        window.addEventListener('pointerup',endDrag,{once:true}); return; }
+    }
+    if(c.def.name==='Push Button'){ c.pressed=true; render();
+      window.addEventListener('pointerup',()=>{ c.pressed=false; render(); },{once:true}); }
+    const rect=svg.getBoundingClientRect();
+    drag={compId:cid, ox:e.clientX-rect.left-c.x, oy:e.clientY-rect.top-c.y, moved:false};
+    window.addEventListener('pointermove',moveDrag);
+    window.addEventListener('pointerup',endDrag,{once:true});
+  } else { selectComp(null); selectWire(null); }
+});
+
+function moveBendDrag(e){
+  if(!bendDrag) return;
+  const w=wires.find(x=>x.id===bendDrag.wid); if(!w||!w.bends) return;
+  const rect=svg.getBoundingClientRect();
+  w.bends[bendDrag.idx]={x:e.clientX-rect.left, y:e.clientY-rect.top};
+  render();
+}
+function endBendDrag(){
+  bendDrag=null;
+  window.removeEventListener('pointermove',moveBendDrag);
+  render();
+}
+function moveDrag(e){
+  if(!drag||!drag.compId) return;
+  const c=comps.find(x=>x.id===drag.compId); if(!c) return;
+  const rect=svg.getBoundingClientRect();
+  c.x=Math.round(e.clientX-rect.left-drag.ox); c.y=Math.round(e.clientY-rect.top-drag.oy);
+  drag.moved=true;
+  if(simRunning){ updateLeds(); updateReadouts(); }   /* live sensor response while dragging stimuli */
+  else render();
+}
+function potDrag(e){
+  const c=comps.find(x=>x.id===drag.potId); if(!c) return;
+  const rect=svg.getBoundingClientRect();
+  const lx=e.clientX-rect.left-c.x-32, ly=e.clientY-rect.top-c.y-30;
+  let ang=Math.atan2(ly,lx)*180/Math.PI+90; if(ang<0)ang+=360;
+  let a=ang; if(a<135) a+=360; a=Math.max(135,Math.min(405,a));
+  c.val=Math.round((a-135)/270*4095);
+  render(); updateInspector(); updateReadouts();
+}
+function endDrag(){
+  drag=null;
+  window.removeEventListener('pointermove',moveDrag);
+  window.removeEventListener('pointermove',potDrag);
+  render();
+}
+function handleWirePin(compId,pin){
+  const wp=pinWorld(compId,pin);
+  if(!wireStart){ wireStart={compId,pin,...wp}; render(); return; }
+  if(wireStart.compId===compId && wireStart.pin===pin){ wireStart=null; render(); return; }
+  const from=`${wireStart.compId}:${wireStart.pin}`, to=`${compId}:${pin}`;
+  const color=wireColor(wireStart.compId,wireStart.pin, compId,pin);
+  wires.push({id:'w'+(nextId++), from, to, color});
+  wireStart=null; render(); updateReadouts();
+}
+/* 10 rotating wire colors — vivid and distinct */
+const WIRE_COLORS = [
+  '#e03030', /* red */
+  '#ffffff', /* white */
+  '#1a9eff', /* blue */
+  '#f5a623', /* orange */
+  '#3fd670', /* green */
+  '#c44dff', /* purple */
+  '#ffee33', /* yellow */
+  '#00e5d4', /* cyan */
+  '#ff69b4', /* pink */
+  '#ff8c00', /* dark-orange */
+];
+let wireColorIndex = 0;
+
+function wireColor(c1,p1,c2,p2){
+  const color = WIRE_COLORS[wireColorIndex % WIRE_COLORS.length];
+  wireColorIndex++;
+  return color;
+}
+function pinKind(compId,pin){
+  const c=comps.find(x=>x.id===compId); const p=c&&c.def.pins.find(x=>x.name===pin);
+  return p?p.kind:'sig';
+}
+function deleteComp(id){
+  comps=comps.filter(c=>c.id!==id);
+  wires=wires.filter(w=>!w.from.startsWith(id+':')&&!w.to.startsWith(id+':'));
+  if(selected===id) selectComp(null);
+  render(); updateReadouts();
+}
+function clearCanvas(){ comps=[]; wires=[]; selectComp(null); selectWire(null); render(); updateReadouts(); }
+function rotateSelected(){ const c=comps.find(x=>x.id===selected); if(c){ c.rot=(c.rot+90)%360; render(); } }
+
+/* ============================================================================
+   SELECTION + INSPECTOR
+   ========================================================================== */
+function selectComp(id){ selected=id; if(id) selectedWire=null; render(); updateInspector(); autoOpenInspectorMobile(id); }
+function selectWire(id){ selectedWire=id; if(id) selected=null; render(); updateInspector(); autoOpenInspectorMobile(id); }
+function autoOpenInspectorMobile(id){
+  if(!id || !window.matchMedia('(max-width:900px)').matches) return;
+  const insp=document.getElementById('inspector');
+  if(insp && !insp.classList.contains('open')){
+    document.getElementById('palette').classList.remove('open');
+    insp.classList.add('open');
+    document.getElementById('sidebar-backdrop').classList.add('open');
+  }
+}
+function toggleSidebar(which){
+  const el=document.getElementById(which);
+  const wasOpen=el.classList.contains('open');
+  closeSidebars();
+  if(!wasOpen){
+    el.classList.add('open');
+    document.getElementById('sidebar-backdrop').classList.add('open');
+  }
+}
+function closeSidebars(){
+  document.getElementById('palette').classList.remove('open');
+  document.getElementById('inspector').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('open');
+}
+function updateInspector(){
+  const empty=document.getElementById('empty-msg'), body=document.getElementById('prop-body');
+  if(selectedWire){
+    const w=wires.find(x=>x.id===selectedWire);
+    empty.style.display='none'; body.style.display='block';
+    const bendCount=(w.bends||[]).length;
+    body.innerHTML=`
+      <div class="prop-row"><label>Type</label><span style="color:var(--text)">Wire</span></div>
+      <div class="prop-row"><label>Color</label>
+        <input type="color" value="${w.color}" onchange="setWireColor('${w.id}',this.value)"></div>
+      <div class="prop-row"><label>Bend pts</label><span style="color:var(--text2)">${bendCount}</span></div>
+      <div class="prop-row" style="font-size:10.5px;color:var(--text3);padding:3px 13px;line-height:1.5;">
+        Right-click wire to add bend. Drag ● handles to reshape.
+      </div>
+      ${bendCount>0?`<div class="prop-row"><label></label><button class="mini-btn" onclick="clearBends('${w.id}')">Clear bends</button></div>`:''}
+      <div class="prop-row"><label></label><button class="mini-btn danger" onclick="delWire('${w.id}')">Delete wire</button></div>`;
+    return;
+  }
+  const c=comps.find(x=>x.id===selected);
+  if(!c){ empty.style.display='block'; body.style.display='none'; return; }
+  empty.style.display='none'; body.style.display='block';
+  let rows=`<div class="prop-row"><label>Component</label><span style="color:var(--text)">${c.def.name}</span></div>
+    <div class="prop-row"><label>Type</label><span style="color:var(--text2)">${c.def.sub||c.type}</span></div>`;
+  if(c.type.startsWith('res-')){
+    rows+=`<div class="prop-row"><label>Value</label><select onchange="setResVal('${c.id}',this.value)">
+      ${Object.keys(RES_VALUES).map(k=>`<option value="${k}" ${c.value===k?'selected':''}>${RES_VALUES[k].label}</option>`).join('')}
+    </select></div>`;
+  }
+  if(c.type==='button'){
+    rows+=`<div class="prop-row"><label>Cap color</label>
+      <input type="color" value="${c.color}" onchange="setBtnColor('${c.id}',this.value)"></div>`;
+  }
+  if(c.type==='pot'){
+    rows+=`<div class="prop-row"><label>ADC value</label><span class="v">${c.val}</span></div>
+      <div class="prop-row"><label></label><span style="font-size:11px;color:var(--text3)">drag the knob to change</span></div>`;
+  }
+  if(c.type==='gas' || c.type==='rain'){
+    const lbl = c.type==='gas' ? 'Gas level' : 'Wetness';
+    rows+=`<div class="prop-row"><label>${lbl}</label><span class="v">${c.level||0}%</span></div>
+      <div class="prop-row"><input type="range" min="0" max="100" value="${c.level||0}" style="width:100%"
+        oninput="setSensorLevel('${c.id}',this.value)"></div>
+      <div class="prop-row"><label></label><span style="font-size:11px;color:var(--text3)">slide to simulate</span></div>`;
+  }
+  if(c.type==='vibration'){
+    rows+=`<div class="prop-row"><label>State</label><span class="v">${c.vibrating?'⚡ shaking':'still'}</span></div>
+      <div class="prop-row"><label></label><button class="mini-btn" onclick="toggleVibration('${c.id}')">${c.vibrating?'Stop shaking':'Shake it'}</button></div>`;
+  }
+  if(c.type==='servo'){
+    rows+=`<div class="prop-row"><label>Angle</label><span class="v">${Math.round(c.angle==null?90:c.angle)}°</span></div>
+      <div class="prop-row"><input type="range" min="0" max="180" value="${c.angle==null?90:c.angle}" style="width:100%"
+        oninput="setServoAngle('${c.id}',this.value)"></div>`;
+  }
+  if(c.type==='oled'){
+    rows+=`<div class="prop-row"><label></label><button class="mini-btn" onclick="oledClearOne('${c.id}')">Clear screen</button></div>`;
+  }
+  rows+=`<div class="prop-row"><label>Position</label><span style="color:var(--text3);font-size:11px">${Math.round(c.x)}, ${Math.round(c.y)}</span></div>
+    <div class="prop-row"><label></label>
+      <span><button class="mini-btn" onclick="rotateSelected()">⟳ Rotate</button>
+      <button class="mini-btn danger" onclick="deleteComp('${c.id}')">Delete</button></span></div>`;
+  body.innerHTML=rows;
+}
+function setResVal(id,v){ const c=comps.find(x=>x.id===id); c.value=v; render(); updateInspector(); }
+function setBtnColor(id,v){ const c=comps.find(x=>x.id===id); c.color=v; render(); }
+function setSensorLevel(id,v){ const c=comps.find(x=>x.id===id); if(c){ c.level=parseInt(v); render(); updateInspector(); updateReadouts(); } }
+function toggleVibration(id){ const c=comps.find(x=>x.id===id); if(c){ c.vibrating=!c.vibrating; render(); updateInspector(); updateReadouts(); } }
+function setServoAngle(id,v){ const c=comps.find(x=>x.id===id); if(c){ c.angle=parseInt(v); render(); updateInspector(); updateReadouts(); } }
+function oledClearOne(id){ const c=comps.find(x=>x.id===id); if(c){ c.screenLines=[]; render(); } }
+function setWireColor(id,v){ const w=wires.find(x=>x.id===id); w.color=v; render(); }
+function clearBends(id){ const w=wires.find(x=>x.id===id); if(w) w.bends=[]; render(); updateInspector(); }
+function delWire(id){ wires=wires.filter(w=>w.id!==id); selectWire(null); render(); updateReadouts(); }
+
+/* ============================================================================
+   NET CONNECTIVITY → drive LEDs / buzzer
+   ========================================================================== */
+function buildNets(){
+  const parent={};
+  function find(a){ if(parent[a]===undefined)parent[a]=a; return parent[a]===a?a:(parent[a]=find(parent[a])); }
+  function uni(a,b){ parent[find(a)]=find(b); }
+  comps.forEach(c=>c.def.pins.forEach(p=>find(c.id+':'+p.name)));
+  wires.forEach(w=>uni(w.from,w.to));
+  return {find};
+}
+function netIsHigh(net,pinId){
+  const root=net.find(pinId); let high=false;
+  comps.forEach(c=>{ if(c.type!=='esp32') return;
+    c.def.pins.forEach(p=>{ if(net.find(c.id+':'+p.name)===root && p.gpio!=null && espPinHigh(p.gpio)) high=true; }); });
+  return high;
+}
+function updateLeds(){
+  const net=buildNets();
+  comps.forEach(c=>{
+    if(c.type.startsWith('led-')) c.lit = simRunning && netIsHigh(net,c.id+':A');
+    if(c.type==='buzzer')        c.buzzing = simRunning && netIsHigh(net,c.id+':+');
+    if(c.type==='flame-sensor')  c.flameNear = simRunning && flameDist(c)<=FLAME_RANGE;
+  });
+  render();
+}
+
+/* ============================================================================
+   ARDUINO INTERPRETER (lightweight subset)
+   ========================================================================== */
+/* ---- code → bodies (handles comments + #define) ---- */
+function stripComments(src){ return src.replace(/\/\/[^\n]*/g,'').replace(/\/\*[\s\S]*?\*\//g,''); }
+function applyDefines(code){
+  const defs={};
+  code.replace(/#define\s+(\w+)\s+([^\n]+)/g,(m,k,v)=>{ defs[k]=v.trim(); return ''; });
+  code=code.replace(/#define\s+\w+\s+[^\n]+/g,'');
+  if(Object.keys(defs).length){               // substitute, but never inside string/char literals
+    code=code.replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|([A-Za-z_]\w*)/g,(m,str,word)=>
+      str?str:(defs[word]!==undefined?defs[word]:word));
+  }
+  return code;
+}
+function extractBody(code,fn){
+  const i=code.indexOf('void '+fn); if(i<0) return '';
+  const b=code.indexOf('{',i); if(b<0)return ''; let depth=0;
+  for(let j=b;j<code.length;j++){ if(code[j]==='{')depth++; else if(code[j]==='}'){depth--; if(depth===0)return code.slice(b+1,j);} }
+  return '';
+}
+function statements(body){ return body.replace(/[{}]/g,' ').split(';').map(s=>s.trim()).filter(Boolean); }
+function parseSketch(src){
+  const code=applyDefines(stripComments(src));
+  return {setup:statements(extractBody(code,'setup')), loop:statements(extractBody(code,'loop'))};
+}
+
+/* ============================================================================
+   ARDUINO RUNTIME — transpile the C++ subset to async JS and run it.
+   Handles digitalWrite/Read, analogWrite/Read, Serial, delay, pinMode, if/else,
+   for/while, comparisons, variables, and sensor helpers readDistance(),
+   flameDetected(), flameLevel(). The text editor and the Blockly-generated
+   code both flow through here unchanged.
+   ========================================================================== */
+let progStop=true, progTimers=[], progStart=0, sensorTimer=null;
+
+function cppToJs(body){
+  let b=body
+    .replace(/\bSerial\.println\s*\(/g,'_println(')
+    .replace(/\bSerial\.print\s*\(/g,'_print(')
+    .replace(/\bSerial\.begin\s*\(/g,'_noop(')
+    .replace(/\bpinMode\s*\(/g,'_noop(')
+    .replace(/\bdigitalWrite\s*\(/g,'_dw(')
+    .replace(/\banalogWrite\s*\(/g,'_aw(')
+    .replace(/\bdigitalRead\s*\(/g,'_dr(')
+    .replace(/\banalogRead\s*\(/g,'_ar(')
+    .replace(/\breadDistance\s*\(/g,'_dist(')
+    .replace(/\bflameDetected\s*\(/g,'_flameD(')
+    .replace(/\bflameLevel\s*\(/g,'_flameA(')
+    .replace(/\bservoWrite\s*\(/g,'_servo(')
+    .replace(/\boledClear\s*\(/g,'_oledClear(')
+    .replace(/\boledPrint\s*\(/g,'_oled(')
+    .replace(/\bmillis\s*\(/g,'_millis(')
+    .replace(/\bdelay\s*\(/g,'await _delay(');
+  // C/C++ type declarations → JS let
+  b=b.replace(/\b(?:unsigned\s+)?(?:int|long|float|double|bool|boolean|byte|char|word|String|uint8_t|uint16_t|uint32_t|size_t)\b(\s+[A-Za-z_])/g,' let$1');
+  b=b.replace(/\bconst\s+let\b/g,'const');
+  return b;
+}
+function buildRunner(setupBody, loopBody){
+  const js = `
+    "use strict";
+    const {_dw,_aw,_dr,_ar,_delay,_println,_print,_noop,_dist,_flameD,_flameA,_servo,_oled,_oledClear,_millis,_stopped,_err,_gap,_setTimer}=api;
+    const HIGH=1,LOW=0,INPUT=0,OUTPUT=1,INPUT_PULLUP=2,LED_BUILTIN=2;
+    return (async function(){
+      async function setup(){ ${cppToJs(setupBody)} }
+      async function loop(){ ${cppToJs(loopBody)} }
+      try{ await setup(); }catch(e){ _err('setup',e); return; }
+      (function step(){
+        if(_stopped()) return;
+        (async function(){
+          try{ await loop(); }catch(e){ _err('loop',e); return; }
+          if(!_stopped()) _setTimer(setTimeout(step,_gap));
+        })();
+      })();
+    })();
+  `;
+  return new Function('api', js);
+}
+
+/* ---- IO + sensor API exposed to the runtime ---- */
+function normPin(p){
+  if(typeof p==='number') return p;
+  const s=String(p).trim();
+  if(/^-?\d+$/.test(s)) return Number(s);
+  const g=ESP_GPIO[s]; return g && g.gpio!=null ? g.gpio : s;
+}
+function fmtVal(x){
+  if(typeof x==='number') return Number.isInteger(x)?String(x):String(Math.round(x*100)/100);
+  return String(x);
+}
+const SIM_API = {
+  _dw:(p,v)=>{ espState[normPin(p)]=v?1:0; updateLeds(); },
+  _aw:(p,v)=>{ espState[normPin(p)]=(Number(v)||0)>0?1:0; updateLeds(); },
+  _dr:(p)=> digitalReadValue(normPin(p)),
+  _ar:(p)=> analogReadValue(normPin(p)),
+  _dist:(t)=> ultrasonicDistanceByPin(normPin(t)),
+  _flameD:(p)=> flameDigitalByPin(normPin(p)),
+  _flameA:(p)=> flameAnalogByPin(normPin(p)),
+  _servo:(p,angle)=> servoWriteByPin(normPin(p), Number(angle)||0),
+  _oled:(x)=> oledPrintAll(fmtVal(x)),
+  _oledClear:()=> oledClearAll(),
+  _println:(x)=> serialPrint(fmtVal(x)+'\n'),
+  _print:(x)=> serialPrint(fmtVal(x)),
+  _noop:()=>{},
+  _millis:()=> Math.max(0, Math.floor(performance.now()-progStart)),
+  _stopped:()=> progStop,
+  _err:(where,e)=> serialPrint(`<span class="warn">⚠ runtime error in ${where}(): ${String((e&&e.message)||e)}</span>\n`,true),
+  _gap:16,
+  _setTimer:(t)=>{ progTimers.push(t); },
+  _delay:(ms)=> new Promise(res=>{ if(progStop){res();return;} progTimers.push(setTimeout(res, Math.max(0,Math.min(20000,Number(ms)||0)))); }),
+};
+function readAnalog(p){ return analogReadValue(normPin(p)); }  /* back-compat */
+
+/* ---- proximity / stimulus model ---- */
+const PX_PER_CM = 4, FLAME_RANGE = 200;
+function compCenter(c){ return { x:c.x + c.def.w/2, y:c.y + c.def.h/2 }; }
+function nearestStimulus(sensor, kind){
+  const a=compCenter(sensor); let best=Infinity;
+  comps.forEach(o=>{ if(!o.def || o.def.stimulus!==kind) return;
+    const b=compCenter(o), d=Math.hypot(a.x-b.x,a.y-b.y); if(d<best) best=d; });
+  return best;
+}
+function distanceCM(sensor){
+  const px=nearestStimulus(sensor,'obstacle');
+  return isFinite(px)? Math.max(2, Math.min(400, px/PX_PER_CM)) : 400;
+}
+function flameDist(sensor){ return nearestStimulus(sensor,'flame'); }
+function flameLevelOf(sensor){ const d=flameDist(sensor); return (isFinite(d)&&d<=FLAME_RANGE)? Math.round(4095*(1-d/FLAME_RANGE)) : 0; }
+function espNetRoot(net,gpio){
+  let root=null;
+  comps.forEach(c=>{ if(c.type!=='esp32')return;
+    c.def.pins.forEach(p=>{ if(p.gpio===gpio) root=net.find(c.id+':'+p.name); }); });
+  return root;
+}
+function sensorOnNet(net, gpio, type, pinNames){
+  const root=espNetRoot(net,gpio); if(root==null) return null;
+  let found=null;
+  comps.forEach(c=>{ if(c.type!==type)return;
+    pinNames.forEach(pn=>{ if(c.def.pins.find(x=>x.name===pn) && net.find(c.id+':'+pn)===root) found=c; }); });
+  return found;
+}
+function ultrasonicDistanceByPin(gpio){
+  const net=buildNets();
+  let s=sensorOnNet(net,gpio,'hcsr04',['Trig','Echo','VCC','GND']) || comps.find(c=>c.type==='hcsr04');
+  return s? Math.round(distanceCM(s)*10)/10 : 400;
+}
+function flameDigitalByPin(gpio){
+  const net=buildNets();
+  let s=sensorOnNet(net,gpio,'flame-sensor',['DO','AO']) || comps.find(c=>c.type==='flame-sensor');
+  return s ? (flameDist(s)<=FLAME_RANGE ? 1 : 0) : 0;
+}
+function flameAnalogByPin(gpio){
+  const net=buildNets();
+  let s=sensorOnNet(net,gpio,'flame-sensor',['AO','DO']) || comps.find(c=>c.type==='flame-sensor');
+  return s ? flameLevelOf(s) : 0;
+}
+function digitalReadValue(gpio){
+  const net=buildNets(), root=espNetRoot(net,gpio); let v=0;
+  if(root!=null) comps.forEach(c=>{
+    if(c.type==='button'){ ['1a','2a','1b','2b'].forEach(pn=>{ if(net.find(c.id+':'+pn)===root && c.pressed) v=1; }); }
+    if(c.type==='flame-sensor'){ if(net.find(c.id+':DO')===root && flameDist(c)<=FLAME_RANGE) v=1; }
+    if(c.type==='vibration'){ if(net.find(c.id+':DO')===root && c.vibrating) v=1; }
+    if(c.type==='gas'){ if(net.find(c.id+':DO')===root && (c.level||0)>50) v=1; }
+    if(c.type==='rain'){ if(net.find(c.id+':DO')===root && (c.level||0)>50) v=1; }
+  });
+  if(!v && espState[gpio]!=null) v=espState[gpio];
+  return v;
+}
+function analogReadValue(gpio){
+  const net=buildNets(), root=espNetRoot(net,gpio); let v=0;
+  if(root!=null) comps.forEach(c=>{
+    if(c.type==='pot' && net.find(c.id+':W')===root) v=c.val;
+    if(c.type==='flame-sensor' && net.find(c.id+':AO')===root) v=flameLevelOf(c);
+    if(c.type==='gas'  && net.find(c.id+':AO')===root) v=Math.round((c.level||0)/100*4095);
+    if(c.type==='rain' && net.find(c.id+':AO')===root) v=Math.round((c.level||0)/100*4095);
+    if(c.type==='ldr' && (net.find(c.id+':1')===root || net.find(c.id+':2')===root)) v=2048;
+  });
+  return v;
+}
+/* ---- actuators (OLED, servo) ---- */
+function servoWriteByPin(gpio, angle){
+  angle=Math.max(0,Math.min(180,angle));
+  const net=buildNets();
+  let s=sensorOnNet(net,gpio,'servo',['SIG']) || comps.find(c=>c.type==='servo');
+  if(s){ s.angle=angle; render(); }
+}
+function oledPrintAll(text){
+  let any=false;
+  comps.forEach(c=>{ if(c.type==='oled'){ (c.screenLines||(c.screenLines=[])).push(text); if(c.screenLines.length>5) c.screenLines.shift(); any=true; } });
+  if(any) render();
+}
+function oledClearAll(){ comps.forEach(c=>{ if(c.type==='oled') c.screenLines=[]; }); render(); }
+
+/* ============================================================================
+   SIMULATION CONTROL
+   ========================================================================== */
+function toggleSim(){ simRunning?stopSim():startSim(); }
+function startSim(){
+  simRunning=true; progStop=false; progTimers=[]; progStart=performance.now();
+  const rb=document.getElementById('run-btn'); rb.textContent='■ Stop'; rb.classList.add('on');
+  document.getElementById('sim-dot').classList.add('on');
+  document.getElementById('sim-status').textContent='Running';
+  for(const k in espState) delete espState[k];
+  comps.forEach(c=>{ if(c.type==='oled') c.screenLines=[]; });   /* fresh display each run */
+  let err=null, runner=null;
+  try{
+    const code=applyDefines(stripComments(document.getElementById('code').value));
+    runner=buildRunner(extractBody(code,'setup'), extractBody(code,'loop'));
+  }catch(e){ err=e; }
+  if(runner){ try{ runner(SIM_API); }catch(e){ err=e; } }
+  if(err) serialPrint(`<span class="warn">⚠ could not start sketch: ${String(err.message||err)}</span>\n`,true);
+  startSensors(); updateLeds(); updateReadouts();
+}
+function stopSim(){
+  simRunning=false; progStop=true;
+  progTimers.forEach(clearTimeout); progTimers=[];
+  const rb=document.getElementById('run-btn'); rb.textContent='▶ Run'; rb.classList.remove('on');
+  document.getElementById('sim-dot').classList.remove('on');
+  document.getElementById('sim-status').textContent='Idle';
+  stopSensors();
+  for(const k in espState) delete espState[k];
+  updateLeds(); updateReadouts();
+}
+/* periodic sensor reports to the serial monitor (values reflect real stimuli) */
+function startSensors(){
+  sensorTimer=setInterval(()=>{
+    if(!simRunning) return;
+    comps.forEach(c=>{
+      if(c.type==='dht11'){
+        const t=(20+pseudo(c.id+'t')*8).toFixed(1), h=(40+pseudo(c.id+'h')*25).toFixed(0);
+        serialPrint(`<span class="dim">[DHT11]</span> Temp: ${t}°C  Humidity: ${h}%\n`,true);
+      }
+      if(c.type==='hcsr04'){
+        serialPrint(`<span class="dim">[HC-SR04]</span> Distance: ${distanceCM(c).toFixed(1)} cm\n`,true);
+      }
+      if(c.type==='flame-sensor'){
+        const det=flameDist(c)<=FLAME_RANGE;
+        serialPrint(`<span class="dim">[FLAME]</span> ${det?'🔥 FIRE DETECTED':'no fire'} (level ${flameLevelOf(c)})\n`,true);
+      }
+    });
+    updateReadouts();
+  },2000);
+}
+function stopSensors(){ clearInterval(sensorTimer); }
+let pseudoSeed=1234.5;
+function pseudo(salt){
+  pseudoSeed=(pseudoSeed*9301+49297)%233280; let n=pseudoSeed/233280;
+  for(let i=0;i<salt.length;i++) n=(n+salt.charCodeAt(i)*0.013)%1;
+  return n;
+}
+/* readouts */
+function updateReadouts(){
+  const ro=document.getElementById('readouts');
+  let rows=`<div class="readout"><span>Simulation</span><span class="v">${simRunning?'running':'stopped'}</span></div>`;
+  rows+=`<div class="readout"><span>Components</span><span class="v">${comps.length}</span></div>`;
+  rows+=`<div class="readout"><span>Wires</span><span class="v">${wires.length}</span></div>`;
+  comps.filter(c=>c.type==='pot').forEach((c,i)=>{
+    const volt=(c.val/4095*3.3).toFixed(2);
+    rows+=`<div class="readout"><span>Pot ${i+1} ADC</span><span class="v">${c.val} (${volt}V)</span></div>`; });
+  comps.filter(c=>c.type==='hcsr04').forEach((c,i)=>{
+    rows+=`<div class="readout"><span>Ultrasonic ${i+1}</span><span class="v">${distanceCM(c).toFixed(1)} cm</span></div>`; });
+  comps.filter(c=>c.type==='flame-sensor').forEach((c,i)=>{
+    const det=flameDist(c)<=FLAME_RANGE;
+    rows+=`<div class="readout"><span>Flame ${i+1}</span><span class="v">${det?'🔥 '+flameLevelOf(c):'none'}</span></div>`; });
+  comps.filter(c=>c.type==='gas').forEach((c,i)=>{
+    rows+=`<div class="readout"><span>Gas ${i+1}</span><span class="v">${Math.round((c.level||0)/100*4095)} ${(c.level||0)>50?'⚠':''}</span></div>`; });
+  comps.filter(c=>c.type==='rain').forEach((c,i)=>{
+    rows+=`<div class="readout"><span>Rain ${i+1}</span><span class="v">${(c.level||0)}% ${(c.level||0)>50?'💧':''}</span></div>`; });
+  comps.filter(c=>c.type==='vibration').forEach((c,i)=>{
+    rows+=`<div class="readout"><span>Vibration ${i+1}</span><span class="v">${c.vibrating?'⚡ shaking':'still'}</span></div>`; });
+  comps.filter(c=>c.type==='servo').forEach((c,i)=>{
+    rows+=`<div class="readout"><span>Servo ${i+1}</span><span class="v">${Math.round(c.angle==null?90:c.angle)}°</span></div>`; });
+  comps.filter(c=>c.type.startsWith('led-')).forEach((c,i)=>{
+    rows+=`<div class="readout"><span>LED ${i+1}</span><span class="v">${c.lit?'ON':'off'}</span></div>`; });
+  ro.innerHTML=rows;
+}
+
+/* ============================================================================
+   SERIAL MONITOR
+   ========================================================================== */
+function serialPrint(html,isHtml){
+  const out=document.getElementById('serial');
+  const span=document.createElement('span');
+  if(isHtml) span.innerHTML=html; else span.textContent=html;
+  out.appendChild(span); out.scrollTop=out.scrollHeight;
+}
+function clearSerial(){ document.getElementById('serial').innerHTML=''; }
+
+/* ============================================================================
+   FLASH (fake compile/upload)
+   ========================================================================== */
+function flash(){
+  clearSerial();
+  const lines=[
+    ['<span class="sys">Compiling sketch.ino...</span>\n',true,150],
+    ['Detecting libraries used...\n',false,250],
+    ['<span class="sys">Linking everything together...</span>\n',true,350],
+    ['Sketch uses 284,531 bytes (21%) of program storage space.\n',false,250],
+    ['<span class="warn">esptool.py v4.5 — Connecting to ESP32 on /dev/ttyUSB0...</span>\n',true,300],
+    ['Chip is ESP32-D0WD-V3 (revision v3.0)\n',false,200],
+    ['Writing at 0x00010000... (100%)\n',false,400],
+    ['<span class="sys">Hash of data verified.</span>\n',true,250],
+    ['<span class="sys">Leaving... Hard resetting via RTS pin...</span>\n',true,250],
+    ['<span class="dim">── Upload complete. Running sketch ──</span>\n',true,200],
+  ];
+  let i=0;
+  (function next(){
+    if(i>=lines.length){ if(!simRunning) startSim(); return; }
+    const [t,h,d]=lines[i++]; serialPrint(t,h); setTimeout(next,d);
+  })();
+}
+
+/* ============================================================================
+   CODE EDITOR (highlight + line numbers + resize)
+   ========================================================================== */
+const DEFAULT_CODE = `// ESP32 Blink — toggles the onboard LED on GPIO 2
+#define LED 2
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  Serial.begin(115200);
+  Serial.println("ESP32 ready");
+}
+
+void loop() {
+  digitalWrite(LED, HIGH);
+  Serial.println("LED ON");
+  delay(1000);
+  digitalWrite(LED, LOW);
+  Serial.println("LED OFF");
+  delay(1000);
+}
+`;
+const codeEl=document.getElementById('code');
+const hlEl=document.getElementById('highlight');
+const gutEl=document.getElementById('gutter');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const KW_RE=/\b(void|int|long|float|double|char|bool|boolean|byte|short|unsigned|signed|const|static|volatile|if|else|for|while|do|switch|case|break|continue|return|true|false|HIGH|LOW|INPUT|OUTPUT|INPUT_PULLUP|LED_BUILTIN|String)\b/;
+function highlightFull(code){
+  const re=/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(#\w+)|\b(void|int|long|float|double|char|bool|boolean|byte|short|unsigned|signed|const|static|volatile|if|else|for|while|do|switch|case|break|continue|return|true|false|HIGH|LOW|INPUT|OUTPUT|INPUT_PULLUP|LED_BUILTIN|String)\b|([A-Za-z_]\w*)(?=\s*\()|\b(\d+\.?\d*[fLuU]?)\b/g;
+  let out='',last=0,m;
+  while((m=re.exec(code))){
+    out+=esc(code.slice(last,m.index));
+    if(m[1]) out+=`<span class="c-com">${esc(m[1])}</span>`;
+    else if(m[2]) out+=`<span class="c-str">${esc(m[2])}</span>`;
+    else if(m[3]) out+=`<span class="c-pre">${esc(m[3])}</span>`;
+    else if(m[4]) out+=`<span class="c-kw">${esc(m[4])}</span>`;
+    else if(m[5]) out+=`<span class="c-fn">${esc(m[5])}</span>`;
+    else if(m[6]) out+=`<span class="c-num">${esc(m[6])}</span>`;
+    last=re.lastIndex;
+  }
+  out+=esc(code.slice(last));
+  return out;
+}
+function updateEditor(){
+  const code=codeEl.value;
+  hlEl.innerHTML=highlightFull(code)+'\n';
+  const lines=code.split('\n').length;
+  let g=''; for(let i=1;i<=lines;i++) g+=i+'\n';
+  gutEl.textContent=g;
+}
+codeEl.addEventListener('input',updateEditor);
+codeEl.addEventListener('scroll',()=>{ hlEl.scrollTop=codeEl.scrollTop; hlEl.scrollLeft=codeEl.scrollLeft; gutEl.scrollTop=codeEl.scrollTop; });
+codeEl.addEventListener('keydown',e=>{
+  if(e.key==='Tab'){ e.preventDefault();
+    const s=codeEl.selectionStart, en=codeEl.selectionEnd;
+    codeEl.value=codeEl.value.slice(0,s)+'  '+codeEl.value.slice(en);
+    codeEl.selectionStart=codeEl.selectionEnd=s+2; updateEditor(); }
+});
+function resetCode(){ codeEl.value=DEFAULT_CODE; updateEditor(); }
+
+/* code panel resize */
+(function(){
+  const panel=document.getElementById('code-panel'), rz=document.getElementById('code-resizer');
+  let resizing=false;
+  rz.addEventListener('pointerdown',e=>{ resizing=true; e.preventDefault();
+    window.addEventListener('pointermove',doResize);
+    window.addEventListener('pointerup',()=>{resizing=false; window.removeEventListener('pointermove',doResize);},{once:true}); });
+  function doResize(e){ if(!resizing)return;
+    const h=Math.max(90,Math.min(window.innerHeight-160, window.innerHeight-e.clientY));
+    panel.style.height=h+'px'; panel.style.flexBasis=h+'px'; }
+})();
+
+/* ============================================================================
+   KEYBOARD
+   ========================================================================== */
+window.addEventListener('keydown',e=>{
+  if(document.activeElement===codeEl) return;
+  if(e.code==='Space'){ e.preventDefault(); toggleSim(); }
+  if(e.key==='Delete'||e.key==='Backspace'){ if(selected) deleteComp(selected); else if(selectedWire) delWire(selectedWire); }
+  if(e.key==='r'||e.key==='R'){ rotateSelected(); }
+  if(e.key==='Escape'){ wireStart=null; selectComp(null); selectWire(null); render(); }
+  if(e.key==='1') setMode('select'); if(e.key==='2') setMode('wire'); if(e.key==='3') setMode('delete');
+});
+setInterval(()=>{ if(simRunning) updateReadouts(); },800);
+
+/* ============================================================================
+   CONNECTION MAP
+   ========================================================================== */
+function showConnMap(){
+  const body=document.getElementById('conn-modal-body');
+  if(wires.length===0){
+    body.innerHTML='<p class="no-conn">No wires placed yet. Add wires in Wire mode to see connections here.</p>';
+    document.getElementById('conn-overlay').classList.add('open');
+    return;
+  }
+
+  /* Helper: get a human label for a pin endpoint */
+  function pinLabel(endpoint){
+    const [cid,pin]=endpoint.split(':');
+    const c=comps.find(x=>x.id===cid);
+    if(!c) return {comp:'?',pin,isEsp:false};
+    return {comp:c.def.name+(c.type.startsWith('led-')?` (${c.def.sub})`:''), pin, isEsp:c.type==='esp32'};
+  }
+
+  /* Build table rows per wire */
+  let rows='';
+  wires.forEach((w,i)=>{
+    const fa=pinLabel(w.from), fb=pinLabel(w.to);
+    const dotStyle=`background:${w.color};color:${w.color};`;
+    /* determine which side is ESP and which is component */
+    let espSide=null, compSide=null;
+    if(fa.isEsp){ espSide=fa; compSide=fb; }
+    else if(fb.isEsp){ espSide=fb; compSide=fa; }
+
+    if(espSide){
+      rows+=`<tr>
+        <td><span class="wire-dot" style="${dotStyle}"></span> Wire ${i+1}</td>
+        <td><span class="conn-pin esp">${espSide.pin.replace(/_[LR]$/,'')}</span></td>
+        <td style="color:var(--text3);font-size:11px;">→</td>
+        <td><span style="color:var(--text2);font-size:11px;">${compSide.comp}</span>
+            &nbsp;<span class="conn-pin comp">${compSide.pin}</span></td>
+      </tr>`;
+    } else {
+      /* wire between two non-ESP components */
+      rows+=`<tr>
+        <td><span class="wire-dot" style="${dotStyle}"></span> Wire ${i+1}</td>
+        <td><span style="color:var(--text2);font-size:11px;">${fa.comp}</span>
+            &nbsp;<span class="conn-pin comp">${fa.pin}</span></td>
+        <td style="color:var(--text3);font-size:11px;">⟷</td>
+        <td><span style="color:var(--text2);font-size:11px;">${fb.comp}</span>
+            &nbsp;<span class="conn-pin comp">${fb.pin}</span></td>
+      </tr>`;
+    }
+  });
+
+  body.innerHTML=`
+    <div class="conn-section-title">ESP32 Pin Connections</div>
+    <table class="conn-table">
+      <thead><tr>
+        <th>Wire</th><th>ESP32 Pin</th><th></th><th>Connected To</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin-top:12px;font-size:11px;color:var(--text3);">
+      Tip: Wire colors here match the canvas. Right-click a wire on the canvas to add bend points.
+    </div>`;
+
+  document.getElementById('conn-overlay').classList.add('open');
+}
+function closeConnMap(){
+  document.getElementById('conn-overlay').classList.remove('open');
+}
+
+
+/* ============================================================================
+   FEATURE: DRAG-AND-DROP WIRING
+   pointerdown on a pin → temp wire follows cursor → pointerup on a valid
+   target pin finalizes the connection; dropping in empty space cancels it.
+   Coordinates are translated through the SVG bounding box so the temp wire
+   anchors precisely to the pointer.
+   ========================================================================== */
+function svgPoint(e){
+  const rect = svg.getBoundingClientRect();
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+function startWireDrag(compId, pin, e){
+  const wp = pinWorld(compId, pin);
+  if(!wp) return;
+  const p = svgPoint(e);
+  wireDrag = { compId, pin, x1: wp.x, y1: wp.y, x2: p.x, y2: p.y };
+  window.addEventListener('pointermove', moveWireDrag);
+  window.addEventListener('pointerup', endWireDrag, { once:true });
+  render();
+}
+function moveWireDrag(e){
+  if(!wireDrag) return;
+  const p = svgPoint(e);
+  wireDrag.x2 = p.x; wireDrag.y2 = p.y;
+  render();
+}
+function endWireDrag(e){
+  window.removeEventListener('pointermove', moveWireDrag);
+  if(!wireDrag){ return; }
+  /* the temp wire has pointer-events:none, so elementFromPoint returns the
+     pin (or component) actually sitting under the cursor */
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  const pinEl = el && el.closest ? el.closest('.pin') : null;
+  if(pinEl){
+    const tc = pinEl.dataset.c, tp = pinEl.dataset.p;
+    const sameSelf = (tc === wireDrag.compId && tp === wireDrag.pin);
+    const from = `${wireDrag.compId}:${wireDrag.pin}`, to = `${tc}:${tp}`;
+    const dup = wires.some(w => (w.from===from&&w.to===to) || (w.from===to&&w.to===from));
+    if(!sameSelf && !dup){
+      wires.push({ id:'w'+(nextId++), from, to,
+        color: wireColor(wireDrag.compId, wireDrag.pin, tc, tp) });
+    }
+  }
+  wireDrag = null;
+  render(); updateReadouts();
+}
+
+/* ============================================================================
+   FEATURE: DARK / LIGHT THEME TOGGLE
+   ========================================================================== */
+function toggleTheme(){
+  themeLight = !themeLight;
+  document.body.classList.toggle('light-theme', themeLight);
+  const b = document.getElementById('theme-btn');
+  if(b) b.textContent = themeLight ? '🌙 Dark' : '☀️ Light';
+  render();                       /* re-render so the grid dots pick the theme */
+  if(blocklyWorkspace && blocklyMode) Blockly.svgResize(blocklyWorkspace);
+}
+
+/* ============================================================================
+   FEATURE: SAVE / LOAD PROJECT (.json)
+   ========================================================================== */
+function serializeState(){
+  let blocks = null;
+  /* save the visual block program too (Blockly workspace state) */
+  if(blocklyWorkspace && Blockly.serialization && Blockly.serialization.workspaces){
+    try{ blocks = Blockly.serialization.workspaces.save(blocklyWorkspace); }catch(e){ blocks=null; }
+  }
+  return {
+    app: 'esp32-circuit-simulator', version: 2,
+    theme: themeLight ? 'light' : 'dark',
+    nextId,
+    comps: comps.map(c => ({ id:c.id, type:c.type, x:c.x, y:c.y, rot:c.rot||0,
+      value:c.value, val:c.val, color:c.color, level:c.level, angle:c.angle,
+      vibrating:c.vibrating, screenLines:c.screenLines })),
+    wires: wires.map(w => ({ id:w.id, from:w.from, to:w.to, color:w.color,
+      bends:(w.bends||[]).map(b=>({x:b.x,y:b.y})) })),
+    code: codeEl.value,
+    blocksMode: blocklyMode,
+    blocks,                       /* visual blocks workspace */
+  };
+}
+function sanitizeFilename(n){
+  n=(n||'').trim().replace(/[\\/:*?"<>|]+/g,'_').replace(/\.json$/i,'');
+  return n || 'esp32-circuit';
+}
+function saveProject(){
+  const raw = prompt('Save project as… (file name)', 'esp32-circuit');
+  if(raw===null) return;         /* user cancelled */
+  const name = sanitizeFilename(raw);
+  const data = serializeState();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  serialPrint(`<span class="sys">Project saved → ${name}.json (code, blocks &amp; circuit)</span>\n`, true);
+}
+function loadProject(){ document.getElementById('load-file').click(); }
+function handleLoadFile(e){
+  const file = e.target.files && e.target.files[0];
+  if(!file){ return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { applyProject(JSON.parse(reader.result)); }
+    catch(err){ alert('Could not load file: invalid or corrupt project JSON.'); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+function applyProject(d){
+  if(!d || !Array.isArray(d.comps)){ alert('Not a valid ESP32 circuit project file.'); return; }
+  if(simRunning) stopSim();
+  /* rebuild components, re-attaching their renderer definition */
+  comps = d.comps.filter(c=>REGISTRY[c.type]).map(c=>{
+    const def = REGISTRY[c.type]();
+    const nc = { id:c.id, type:c.type, def, x:c.x, y:c.y, rot:c.rot||0 };
+    if(c.value!=null)     nc.value=c.value;
+    if(c.val!=null)       nc.val=c.val;
+    if(c.color!=null)     nc.color=c.color;
+    if(c.level!=null)     nc.level=c.level;
+    if(c.angle!=null)     nc.angle=c.angle;
+    if(c.vibrating!=null) nc.vibrating=c.vibrating;
+    if(Array.isArray(c.screenLines)) nc.screenLines=c.screenLines.slice();
+    return nc;
+  });
+  wires = (d.wires||[]).map(w=>({ id:w.id, from:w.from, to:w.to, color:w.color, bends:w.bends||[] }));
+  /* keep id counter ahead of anything loaded */
+  let maxId = 0;
+  comps.concat(wires).forEach(o=>{ const n=parseInt(String(o.id).replace(/\D/g,'')); if(n>maxId)maxId=n; });
+  nextId = Math.max(d.nextId||0, maxId+1);
+  /* restore code + theme */
+  if(typeof d.code === 'string'){ codeEl.value = d.code; updateEditor(); }
+  const wantLight = d.theme === 'light';
+  if(wantLight !== themeLight) toggleTheme();
+  /* restore the visual blocks workspace, if present */
+  if(d.blocks && typeof Blockly!=='undefined' && ensureBlockly() &&
+     Blockly.serialization && Blockly.serialization.workspaces){
+    try{ Blockly.serialization.workspaces.load(d.blocks, blocklyWorkspace); }
+    catch(e){ /* ignore malformed block data */ }
+    if(d.blocksMode && !blocklyMode) toggleBlockly();
+    else if(!d.blocksMode && blocklyMode) toggleBlockly();
+  }
+  selectComp(null); selectWire(null); render(); updateReadouts();
+  serialPrint('<span class="sys">Project loaded ('+comps.length+' parts, '+wires.length+' wires, code &amp; blocks).</span>\n', true);
+}
+
+/* ============================================================================
+   FEATURE: BLOCK-BASED PROGRAMMING (Google Blockly → Arduino C++)
+   A minimal block set for secondary-level students. Generated C++ is piped
+   invisibly into codeEl.value so the existing parseSketch() VM runs unchanged.
+   ========================================================================== */
+let blocklyMode = false, blocklyWorkspace = null, blocklyGen = null;
+
+/* category toolbox — organized for students */
+const BLOCKLY_TOOLBOX = { kind:'categoryToolbox', contents:[
+  { kind:'category', name:'Structure', colour:'#5b7fdb', contents:[
+    { kind:'block', type:'setup_loop_wrapper' },
+    { kind:'block', type:'delay_block' },
+    { kind:'block', type:'repeat_times' },
+    { kind:'block', type:'set_pin_mode' },
+  ]},
+  { kind:'category', name:'Output', colour:'#3f9e57', contents:[
+    { kind:'block', type:'set_digital_pin' },
+    { kind:'block', type:'pin_state' },
+    { kind:'block', type:'serial_print' },
+    { kind:'block', type:'say_text' },
+    { kind:'block', type:'servo_write' },
+    { kind:'block', type:'oled_print' },
+    { kind:'block', type:'oled_clear' },
+  ]},
+  { kind:'category', name:'Sensors', colour:'#c8553d', contents:[
+    { kind:'block', type:'read_digital_pin' },
+    { kind:'block', type:'read_analog_pin' },
+    { kind:'block', type:'ultrasonic_read' },
+    { kind:'block', type:'flame_read_digital' },
+    { kind:'block', type:'flame_read_analog' },
+    { kind:'block', type:'gas_read_analog' },
+    { kind:'block', type:'gas_read_digital' },
+    { kind:'block', type:'rain_read_analog' },
+    { kind:'block', type:'rain_read_digital' },
+    { kind:'block', type:'vibration_read' },
+  ]},
+  { kind:'category', name:'Logic', colour:'#8a5fd0', contents:[
+    { kind:'block', type:'if_do' },
+    { kind:'block', type:'if_else' },
+    { kind:'block', type:'compare_block' },
+    { kind:'block', type:'logic_boolean' },
+  ]},
+  { kind:'category', name:'Math', colour:'#2d8aa8', contents:[
+    { kind:'block', type:'math_number' },
+    { kind:'block', type:'math_arithmetic' },
+  ]},
+]};
+
+function defineBlocklyBlocks(){
+  const PIN = () => ({ type:'field_dropdown', name:'PIN', options:PIN_OPTIONS });
+  Blockly.defineBlocksWithJsonArray([
+    {
+      type:'setup_loop_wrapper',
+      message0:'⚙ setup — run once %1 %2', args0:[{type:'input_dummy'},{type:'input_statement',name:'SETUP'}],
+      message1:'🔁 loop — repeat forever %1 %2', args1:[{type:'input_dummy'},{type:'input_statement',name:'LOOP'}],
+      colour:'#5b7fdb', tooltip:'The main structure of an ESP32 program.'
+    },
+    {
+      type:'delay_block', message0:'wait %1 milliseconds',
+      args0:[{type:'field_number', name:'MS', value:1000, min:0, precision:1}],
+      previousStatement:null, nextStatement:null, colour:'#5b7fdb', tooltip:'delay() — pause the program.'
+    },
+    {
+      type:'repeat_times', message0:'repeat %1 times %2 %3',
+      args0:[{type:'field_number', name:'TIMES', value:10, min:0, precision:1},
+             {type:'input_dummy'},{type:'input_statement', name:'DO'}],
+      previousStatement:null, nextStatement:null, colour:'#5b7fdb', tooltip:'Repeat the blocks inside a number of times.'
+    },
+    {
+      type:'set_pin_mode', message0:'set pin %1 as %2',
+      args0:[PIN(), {type:'field_dropdown', name:'MODE',
+        options:[['OUTPUT','OUTPUT'],['INPUT','INPUT'],['INPUT_PULLUP','INPUT_PULLUP']]}],
+      inputsInline:true, previousStatement:null, nextStatement:null, colour:'#5b7fdb',
+      tooltip:'pinMode() — set a pin as input or output.'
+    },
+    {
+      type:'set_digital_pin', message0:'set pin %1 to %2',
+      args0:[PIN(), {type:'input_value', name:'STATE', check:'PinState'}],
+      inputsInline:true, previousStatement:null, nextStatement:null, colour:'#3f9e57',
+      tooltip:'digitalWrite() — turn a pin HIGH or LOW.'
+    },
+    {
+      type:'pin_state', message0:'%1',
+      args0:[{type:'field_dropdown', name:'STATE', options:[['HIGH ⚡','HIGH'],['LOW ○','LOW']]}],
+      output:'PinState', colour:'#d08a2e', tooltip:'A pin level: HIGH (on) or LOW (off).'
+    },
+    {
+      type:'serial_print', message0:'print %1 to serial',
+      args0:[{type:'input_value', name:'MSG'}],
+      inputsInline:true, previousStatement:null, nextStatement:null, colour:'#3f9e57',
+      tooltip:'Serial.println() — print a value to the serial monitor.'
+    },
+    {
+      type:'say_text', message0:'text %1',
+      args0:[{type:'field_input', name:'TEXT', text:'Hello'}],
+      output:'String', colour:'#3f9e57', tooltip:'A piece of text.'
+    },
+    {
+      type:'read_digital_pin', message0:'read digital pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'digitalRead() — 1 (HIGH) or 0 (LOW).'
+    },
+    {
+      type:'read_analog_pin', message0:'read analog pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'analogRead() — a value 0–4095.'
+    },
+    {
+      type:'ultrasonic_read', message0:'ultrasonic distance (cm) trig %1 echo %2',
+      args0:[{type:'field_dropdown', name:'TRIG', options:PIN_OPTIONS},
+             {type:'field_dropdown', name:'ECHO', options:PIN_OPTIONS}],
+      inputsInline:true, output:'Number', colour:'#c8553d',
+      tooltip:'Distance in cm to the nearest object in front of the HC-SR04.'
+    },
+    {
+      type:'flame_read_digital', message0:'flame detected? pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'Flame sensor digital output — 1 if fire is near.'
+    },
+    {
+      type:'flame_read_analog', message0:'flame level pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'Flame sensor analog level (0–4095, higher = closer fire).'
+    },
+    {
+      type:'if_do', message0:'if %1 then %2 %3',
+      args0:[{type:'input_value', name:'IF'},{type:'input_dummy'},{type:'input_statement', name:'DO'}],
+      previousStatement:null, nextStatement:null, colour:'#8a5fd0', tooltip:'Run blocks only when the test is true.'
+    },
+    {
+      type:'if_else', message0:'if %1 then %2 %3 else %4',
+      args0:[{type:'input_value', name:'IF'},{type:'input_dummy'},{type:'input_statement', name:'DO'},
+             {type:'input_statement', name:'ELSE'}],
+      previousStatement:null, nextStatement:null, colour:'#8a5fd0', tooltip:'Choose between two sets of blocks.'
+    },
+    {
+      type:'compare_block', message0:'%1 %2 %3',
+      args0:[{type:'input_value', name:'A', check:'Number'},
+             {type:'field_dropdown', name:'OP', options:[['=','=='],['≠','!='],['<','<'],['>','>'],['≤','<='],['≥','>=']]},
+             {type:'input_value', name:'B', check:'Number'}],
+      inputsInline:true, output:'Boolean', colour:'#8a5fd0', tooltip:'Compare two numbers.'
+    },
+    /* ---- actuators ---- */
+    {
+      type:'servo_write', message0:'servo on pin %1 to %2 °',
+      args0:[PIN(), {type:'field_number', name:'ANGLE', value:90, min:0, max:180, precision:1}],
+      inputsInline:true, previousStatement:null, nextStatement:null, colour:'#3f9e57',
+      tooltip:'servoWrite() — rotate the servo horn to an angle (0–180°).'
+    },
+    {
+      type:'oled_print', message0:'OLED show %1', args0:[{type:'input_value', name:'MSG'}],
+      inputsInline:true, previousStatement:null, nextStatement:null, colour:'#3f9e57',
+      tooltip:'Print a line of text/number to the OLED display.'
+    },
+    {
+      type:'oled_clear', message0:'OLED clear screen',
+      previousStatement:null, nextStatement:null, colour:'#3f9e57', tooltip:'Clear the OLED display.'
+    },
+    /* ---- extra sensors ---- */
+    {
+      type:'gas_read_analog', message0:'gas level pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'MQ-2 analog gas concentration (0–4095).'
+    },
+    {
+      type:'gas_read_digital', message0:'gas alarm? pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'MQ-2 digital output — 1 when gas exceeds the threshold.'
+    },
+    {
+      type:'rain_read_analog', message0:'rain level pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'Rain sensor analog wetness (0–4095).'
+    },
+    {
+      type:'rain_read_digital', message0:'raining? pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'Rain sensor digital output — 1 when wet.'
+    },
+    {
+      type:'vibration_read', message0:'vibration? pin %1', args0:[PIN()],
+      output:'Number', colour:'#c8553d', tooltip:'SW-420 digital output — 1 when shaking.'
+    },
+  ]);
+}
+
+function setupBlocklyGenerator(){
+  blocklyGen = Blockly.JavaScript
+    || (Blockly.javascript && Blockly.javascript.javascriptGenerator);
+  if(!blocklyGen) return false;
+  const G = blocklyGen;
+  const def = (type, fn) => { if(G.forBlock) G.forBlock[type] = fn; G[type] = fn; };
+  const pinTok = v => /^\d+$/.test(String(v)) ? String(v) : `"${v}"`;   /* numeric pins bare, named pins quoted */
+  const val = (b,n,d) => G.valueToCode(b,n,0) || d;
+  const stmt = (b,n) => G.statementToCode(b,n) || '';
+
+  def('setup_loop_wrapper', b =>
+    `void setup() {\n${stmt(b,'SETUP')}}\n\nvoid loop() {\n${stmt(b,'LOOP')}}\n`);
+  def('delay_block', b => `delay(${b.getFieldValue('MS')});\n`);
+  def('repeat_times', b => `for (int i = 0; i < ${b.getFieldValue('TIMES')}; i++) {\n${stmt(b,'DO')}}\n`);
+  def('set_pin_mode', b => `pinMode(${pinTok(b.getFieldValue('PIN'))}, ${b.getFieldValue('MODE')});\n`);
+  def('set_digital_pin', b => `digitalWrite(${pinTok(b.getFieldValue('PIN'))}, ${val(b,'STATE','HIGH')});\n`);
+  def('pin_state', b => [b.getFieldValue('STATE'), 0]);
+  def('serial_print', b => `Serial.println(${val(b,'MSG','""')});\n`);
+  def('say_text', b => {
+    const t = String(b.getFieldValue('TEXT')).replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+    return [`"${t}"`, 0];
+  });
+  def('read_digital_pin', b => [`digitalRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('read_analog_pin',  b => [`analogRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('ultrasonic_read',  b => [`readDistance(${pinTok(b.getFieldValue('TRIG'))}, ${pinTok(b.getFieldValue('ECHO'))})`, 0]);
+  def('flame_read_digital', b => [`flameDetected(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('flame_read_analog',  b => [`flameLevel(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('if_do',   b => `if (${val(b,'IF','false')}) {\n${stmt(b,'DO')}}\n`);
+  def('if_else', b => `if (${val(b,'IF','false')}) {\n${stmt(b,'DO')}} else {\n${stmt(b,'ELSE')}}\n`);
+  def('compare_block', b => [`(${val(b,'A','0')} ${b.getFieldValue('OP')} ${val(b,'B','0')})`, 0]);
+  /* actuators */
+  def('servo_write', b => `servoWrite(${pinTok(b.getFieldValue('PIN'))}, ${b.getFieldValue('ANGLE')});\n`);
+  def('oled_print', b => `oledPrint(${val(b,'MSG','""')});\n`);
+  def('oled_clear', () => `oledClear();\n`);
+  /* extra sensors map to standard reads, routed to the wired sensor */
+  def('gas_read_analog',  b => [`analogRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('gas_read_digital', b => [`digitalRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('rain_read_analog',  b => [`analogRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('rain_read_digital', b => [`digitalRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  def('vibration_read', b => [`digitalRead(${pinTok(b.getFieldValue('PIN'))})`, 0]);
+  return true;
+}
+
+const BLOCKLY_SEED_XML = `
+<xml>
+  <block type="setup_loop_wrapper" x="30" y="30">
+    <statement name="SETUP"></statement>
+    <statement name="LOOP">
+      <block type="set_digital_pin"><field name="PIN">2</field>
+        <value name="STATE"><block type="pin_state"><field name="STATE">HIGH</field></block></value>
+        <next>
+          <block type="delay_block"><field name="MS">1000</field>
+            <next>
+              <block type="set_digital_pin"><field name="PIN">2</field>
+                <value name="STATE"><block type="pin_state"><field name="STATE">LOW</field></block></value>
+                <next><block type="delay_block"><field name="MS">1000</field></block></next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>`;
+
+function ensureBlockly(){
+  if(blocklyWorkspace) return true;
+  if(typeof Blockly === 'undefined'){
+    alert('Blockly could not be loaded (no internet connection?). The text editor still works.');
+    return false;
+  }
+  defineBlocklyBlocks();
+  if(!setupBlocklyGenerator()){ alert('Blockly code generator unavailable.'); return false; }
+  blocklyWorkspace = Blockly.inject('blockly-div', {
+    toolbox: BLOCKLY_TOOLBOX, scrollbars:true, trashcan:true,
+    zoom:{ controls:true, wheel:true, startScale:0.95 },
+    grid:{ spacing:24, length:2, colour:'#33415588', snap:true },
+  });
+  /* seed with a ready-made blink program */
+  try{
+    const dom = (Blockly.utils && Blockly.utils.xml && Blockly.utils.xml.textToDom)
+      ? Blockly.utils.xml.textToDom(BLOCKLY_SEED_XML)
+      : Blockly.Xml.textToDom(BLOCKLY_SEED_XML);
+    Blockly.Xml.domToWorkspace(dom, blocklyWorkspace);
+  }catch(err){ /* seeding is best-effort */ }
+  blocklyWorkspace.addChangeListener(() => { if(blocklyMode) generateFromBlocks(); });
+  /* keep the Blockly canvas in sync when the code panel is resized */
+  if(window.ResizeObserver){
+    new ResizeObserver(()=>{ if(blocklyMode && blocklyWorkspace) Blockly.svgResize(blocklyWorkspace); })
+      .observe(document.getElementById('blockly-div'));
+  }
+  return true;
+}
+function generateFromBlocks(){
+  if(!blocklyWorkspace || !blocklyGen) return;
+  let code = '';
+  try{ code = blocklyGen.workspaceToCode(blocklyWorkspace); }catch(err){ return; }
+  if(code && code.trim()){
+    codeEl.value = code;   /* invisibly feed the existing simulator VM */
+    updateEditor();
+  }
+}
+function toggleBlockly(){
+  const wantBlocks = !blocklyMode;
+  if(wantBlocks && !ensureBlockly()) return;
+  blocklyMode = wantBlocks;
+  document.getElementById('editor-wrap').style.display = blocklyMode ? 'none' : 'flex';
+  document.getElementById('blockly-div').style.display = blocklyMode ? 'block' : 'none';
+  const btn = document.getElementById('blockly-toggle');
+  btn.textContent = blocklyMode ? '📝 Text Editor' : '🧩 Blocks';
+  btn.classList.toggle('on', blocklyMode);
+  if(blocklyMode){
+    Blockly.svgResize(blocklyWorkspace);
+    generateFromBlocks();
+  }
+}
+/* keep Blockly canvas sized with the resizable panel */
+window.addEventListener('resize', ()=>{ if(blocklyWorkspace && blocklyMode) Blockly.svgResize(blocklyWorkspace); });
+
+/* ============================================================================
+   INIT — demo scene
+   ========================================================================== */
+function initDemo(){
+  resetCode(); buildPalette();
+  addComp('esp32', 90, 40);
+  addComp('led-red', 430, 70);
+  addComp('res-220', 320, 210);
+  addComp('hcsr04', 380, 300);
+  addComp('obstacle', 560, 310);
+  render(); selectComp(null); updateReadouts();
+  serialPrint('<span class="dim">Serial monitor ready @ 115200 baud. Drag the wall toward the ultrasonic sensor, then press ▶ Run.</span>\n',true);
+}
+initDemo();
+</script>
+</body>
+</html>
