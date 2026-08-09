@@ -1,0 +1,187 @@
+/*
+  MINIMALIST DESIGN SYSTEM — Inspired by NikitHamal (f:\NikitHamal)
+  Ultra-clean, modern, typography-focused layout
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-sans);
+
+  --max-width: 720px;
+
+  /* NikitHamal Light Palette */
+  --bg: #faf9f6;
+  --bg-elevated: #ffffff;
+  --bg-hover: #f3f2ef;
+
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #8e8e93;
+
+  --border-line: rgba(0, 0, 0, 0.09);
+  --border-strong: rgba(0, 0, 0, 0.16);
+
+  --pill-bg: #18181b;
+  --pill-text: #ffffff;
+  --pill-hover: #27272a;
+
+  --accent-link: #18181b;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+  --bg: #0e0e10;
+  --bg-elevated: #161618;
+  --bg-hover: #1f1f22;
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border-line: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  --pill-bg: #f4f4f5;
+  --pill-text: #0e0e10;
+  --pill-hover: #e4e4e7;
+
+  --accent-link: #f4f4f5;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg) !important;
+  color: var(--text-primary) !important;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.minimal-wrapper {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px 24px 80px 24px;
+}
+
+/* Serif Headings */
+.serif-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+/* Mono Accents */
+.mono-text {
+  font-family: var(--font-mono);
+}
+
+/* Accordion List */
+.accordion-list {
+  border-top: 1px solid var(--border-line);
+  margin-bottom: 48px;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border-line);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.accordion-header:hover {
+  color: var(--text-secondary);
+}
+
+.accordion-prefix {
+  font-family: var(--font-mono);
+  margin-right: 12px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  display: inline-block;
+}
+
+.accordion-header:hover .accordion-prefix,
+.accordion-item.open .accordion-prefix {
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.accordion-icon {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: transform var(--transition-smooth), color var(--transition-fast);
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(45deg);
+  color: var(--text-primary);
+}
+
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-smooth);
+}
+
+.accordion-item.open .accordion-body {
+  grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+  overflow: hidden;
+  padding: 0 0 24px 0;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Action Pill */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pill-bg);
+  color: var(--pill-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+.pill-btn:hover {
+  background-color: var(--pill-hover);
+  transform: translateY(-2px);
+  color: var(--pill-text);
+}
