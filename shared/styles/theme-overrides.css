@@ -41,15 +41,15 @@ html[data-theme="light"] #app-root [class*="hover:bg-white"]:hover {
 }
 
 html[data-theme="light"] #app-root .text-brand-200 {
-  color: #2475d9 !important;
+  color: #004ac6 !important;
 }
 
 html[data-theme="light"] #app-root .text-brand-300 {
-  color: var(--brand-text, #0747a3) !important;
+  color: var(--brand-text, #004ac6) !important;
 }
 
 html[data-theme="light"] #app-root .group:hover .group-hover\:text-brand-200 {
-  color: #0959c8 !important;
+  color: #004ac6 !important;
 }
 
 html[data-theme="light"] .btn-ghost {

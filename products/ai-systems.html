@@ -123,6 +123,8 @@
 }
 
 .glass-panel{overflow-wrap:break-word;word-break:break-word}</style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap">
+  <link rel="stylesheet" href="../shared/styles/material3-neb.css">
 </head>
 
 <body class="font-body bg-surface-darker text-theme antialiased overflow-x-hidden scrollbar-none pb-16 lg:pb-0">
@@ -146,60 +148,44 @@
 
   <div id="app-root" class="relative z-10 min-h-screen">
     <!-- Navbar / Header -->
-    <header class="fixed top-0 left-0 right-0 z-40 glass-nav safe-top">
-      <nav class="max-w-[1600px] mx-auto px-5 lg:px-8 h-14 lg:h-[var(--nav-height)] flex items-center justify-between"
-        aria-label="Main navigation">
-        <a href="../index.html" class="flex items-center gap-2.5">
-          <span id="main-logo-trigger" class="flex items-center">
-            <!-- White logo for dark mode -->
-            <img src="../assets/images/logol.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-light max-w-full">
-            <!-- Black logo for light mode -->
-            <img src="../assets/images/logob.png" alt="Consica Labs" class="h-6 lg:h-7 html-logo-dark max-w-full">
-          </span>
-          <span class="font-display font-bold text-base lg:text-lg tracking-tight uppercase">Consica Labs</span>
-        </a>
-        <div class="hidden lg:flex items-center gap-8">
-          <a href="../index.html#hero" class="nav-link text-sm">Home</a>
-          <a href="../index.html#products" class="nav-link text-sm">Products</a>
-          <a href="../index.html#services" class="nav-link text-sm">Services</a>
-          <a href="../index.html#vision" class="nav-link text-sm">Philosophy</a>
-          <a href="../index.html#team" class="nav-link text-sm">Team</a>
-          <a href="../index.html#lab" class="nav-link text-sm">Lab</a>
-          <a href="../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
-          <a href="../index.html#careers" class="nav-link text-sm">Careers</a>
-          <a href="../index.html#contact" class="nav-link text-sm">Contact</a>
-        </div>
-        <div class="nav-actions flex items-center gap-3">
-          <!-- Theme Toggle Button -->
-          <button type="button"
-            class="theme-toggle-btn p-2 rounded-lg glass-panel text-theme-muted hover:text-theme transition-colors"
-            aria-label="Toggle theme">
-            <svg class="w-5 h-5 theme-show-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-            </svg>
-            <svg class="w-5 h-5 theme-show-light" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-          <a href="../index.html#contact"
-            class="btn-primary magnetic-btn text-sm py-2.5 px-5 hidden sm:inline-flex">Contact</a>
-          <button type="button" id="mobile-menu-btn" class="p-2 rounded-lg glass-panel lg:hidden" aria-expanded="false"
-            aria-controls="mobile-drawer" aria-label="Open menu">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <path d="M4 8h16M4 16h16" />
-            </svg>
-          </button>
-        </div>
+    <header class="md-topbar">
+      <a href="../index.html" class="md-topbar-brand">
+        <span id="main-logo-trigger" class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="18.4 9.6 75 78" class="brand-logo-svg" aria-label="Consica Labs">
+          <path class="logo-path" d="m55 60.6c4.1 1 7.9-0.6 9.9-3.6-2.9-4-4.3-9.1-4.4-16v-3.1c-3.2-0.9-6.1-0.5-8.7 0.8-2.9 1.6-6.1 4.9-6.1 9.7 0 6.3 4.2 11.1 9.3 12.2z"/>
+          <path class="logo-path" d="m55.9 70.9c-10.1 0-21.4-8.7-21.5-22.2-0.1-4.8 1.6-10.7 6.1-15.1 3.2-3.2 7.8-7 15.8-7l3.5 0.1h0.5v-16.6c-1.1-0.1-2.3-0.1-3.7-0.1-16-0.1-37.5 11.8-37.6 36.8-0.2 15.7 9 40.5 37.6 40.5h36.8v-16.4h-37.5z"/>
+          <path class="logo-path" d="m93.4 48.8h-6.9c-3.5 0-6.5-3.1-6.5-6.9v-31.7h-16.2v30.8c0 12.1 8.6 22.9 22.2 23l7.2 0.1v-15.3h0.2z"/>
+        </svg>
+        <span>Consica Labs</span>
+      </span>
+        </span>
+      </a>
+      <nav class="md-nav-pill md-topbar-nav" aria-label="Main navigation">
+        <a href="../index.html#hero">Home</a>
+        <a href="../products/academy.html" >Academy</a>
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#contact">Contact</a>
       </nav>
+      <div class="md-topbar-actions">
+        <button type="button" class="md-btn-icon theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="material-symbols-outlined theme-show-dark">light_mode</span>
+          <span class="material-symbols-outlined theme-show-light">dark_mode</span>
+        </button>
+        <a href="../index.html#contact" class="md-btn md-btn-filled md-hide-mobile">Get Started</a>
+        <button type="button" id="mobile-menu-btn" class="md-btn-icon lg:hidden" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
     </header>
 
     <!-- Logo overlay for branded interaction -->
-    <div id="logo-branding-overlay" class="logo-overlay">
-      <img class="max-w-full" src="../assets/images/consica.png" alt="Consica Labs">
+    <div id="logo-branding-overlay" class="logo-overlay flex items-center justify-center p-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="18.4 9.6 75 78" class="brand-logo-svg w-32 h-32 md:w-48 md:h-48" style="height: auto; width: 160px;">
+        <path class="logo-path" d="m55 60.6c4.1 1 7.9-0.6 9.9-3.6-2.9-4-4.3-9.1-4.4-16v-3.1c-3.2-0.9-6.1-0.5-8.7 0.8-2.9 1.6-6.1 4.9-6.1 9.7 0 6.3 4.2 11.1 9.3 12.2z"/>
+        <path class="logo-path" d="m55.9 70.9c-10.1 0-21.4-8.7-21.5-22.2-0.1-4.8 1.6-10.7 6.1-15.1 3.2-3.2 7.8-7 15.8-7l3.5 0.1h0.5v-16.6c-1.1-0.1-2.3-0.1-3.7-0.1-16-0.1-37.5 11.8-37.6 36.8-0.2 15.7 9 40.5 37.6 40.5h36.8v-16.4h-37.5z"/>
+        <path class="logo-path" d="m93.4 48.8h-6.9c-3.5 0-6.5-3.1-6.5-6.9v-31.7h-16.2v30.8c0 12.1 8.6 22.9 22.2 23l7.2 0.1v-15.3h0.2z"/>
+      </svg>
     </div>
 
     <!-- Mobile Drawer menu -->
@@ -216,7 +202,6 @@
           <a href="../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
           <a href="../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
-          <a href="../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
           <a href="../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
           <a href="../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
           <a href="../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
@@ -340,7 +325,7 @@
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Company</h4>
             <ul class="space-y-2 text-sm text-theme-muted">
-              <li><a href="../index.html#vision" class="hover:text-theme transition-colors">Philosophy</a></li>
+              <li></li>
               <li><a href="../index.html#team" class="hover:text-theme transition-colors">Team</a></li>
               <li><a href="../index.html#careers" class="hover:text-theme transition-colors">Careers</a></li>
               <li><a href="../index.html#contact" class="hover:text-theme transition-colors">Contact</a></li>
@@ -366,6 +351,36 @@
 
   <!-- Static Page Initializer -->
   <script src="../shared/scripts/static-init.js" defer></script>
+
+  <!-- Bottom Navigation (Liquid Glass Capsule for Mobile — NEB Pattern) -->
+  <nav class="md-bottomnav">
+    <div class="md-bottomnav-pill">
+      <a href="../index.html" class="md-bottomnav-item" aria-label="Home">
+        <div class="md-bottomnav-icon-wrapper">
+          <span class="material-symbols-outlined">home</span>
+        </div>
+        <span class="md-bottomnav-label">Home</span>
+      </a>
+      <a href="../products/academy.html" class="md-bottomnav-item" aria-label="Academy">
+        <div class="md-bottomnav-icon-wrapper">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <span class="md-bottomnav-label">Academy</span>
+      </a>
+      <a href="../index.html#products" class="md-bottomnav-item" aria-label="Products">
+        <div class="md-bottomnav-icon-wrapper">
+          <span class="material-symbols-outlined">apps</span>
+        </div>
+        <span class="md-bottomnav-label">Products</span>
+      </a>
+      <a href="../index.html#services" class="md-bottomnav-item" aria-label="Services">
+        <div class="md-bottomnav-icon-wrapper">
+          <span class="material-symbols-outlined">build</span>
+        </div>
+        <span class="md-bottomnav-label">Services</span>
+      </a>
+    </div>
+  </nav>
 </body>
 
 </html>

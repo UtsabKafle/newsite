@@ -9,37 +9,58 @@
   padding: 0;
 }
 
-/* ── Variables & Custom Palette ── */
-:root {
-  --brand: #0959C8;
-  --brand-light: #3b82f6;
-  --brand-dark: #1d4ed8;
-  --brand-glow: rgba(9, 89, 200, 0.45);
-  --brand-subtle: rgba(9, 89, 200, 0.15);
+/* ── Variables & Custom Palette (NEB Material 3 Integration) ── */
+:root,
+[data-theme="dark"] {
+  --brand: #004ac6;
+  --brand-light: #B4C5FF;
+  --brand-dark: #003EA8;
+  --brand-glow: rgba(0, 74, 198, 0.45);
+  --brand-subtle: rgba(0, 74, 198, 0.15);
   --success: #10b981;
   --success-glow: rgba(16, 185, 129, 0.35);
   --warning: #f59e0b;
-  --danger: #ef4444;
-  --surface: #070a12;
-  --surface-tint: rgba(10, 15, 30, 0.7);
-  --surface2: #0f172a;
-  --surface3: #1e293b;
-  --text: #f8fafc;
-  --text-muted: #cbd5e1;
-  --text-faint: #64748b;
+  --danger: #ba1a1a;
+  --surface: #0B1C30;
+  --surface-tint: rgba(11, 28, 48, 0.85);
+  --surface2: #131B2E;
+  --surface3: #1A2133;
+  --text: #E5EEFF;
+  --text-muted: #C3C6D7;
+  --text-faint: rgba(229, 238, 255, 0.5);
   --radius: 16px;
   --radius-sm: 10px;
   --radius-xs: 6px;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Poppins', system-ui, -apple-system, sans-serif;
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 25px var(--brand-glow);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   --glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-  --border: 1px solid rgba(255, 255, 255, 0.08);
+  --border: 1px solid rgba(255, 255, 255, 0.1);
   --border-faint: rgba(255, 255, 255, 0.15);
   --border-pool: rgba(255, 255, 255, 0.06);
   --surface-pool: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="light"] {
+  --brand: #004ac6;
+  --brand-light: #004ac6;
+  --brand-dark: #002D78;
+  --brand-glow: rgba(0, 74, 198, 0.2);
+  --brand-subtle: rgba(0, 74, 198, 0.08);
+  --surface: #F5F6F8;
+  --surface-tint: rgba(245, 246, 248, 0.9);
+  --surface2: #FFFFFF;
+  --surface3: #F1F3F6;
+  --text: #0B1C30;
+  --text-muted: #434655;
+  --text-faint: #737686;
+  --glass: linear-gradient(135deg, rgba(11, 28, 48, 0.03), rgba(11, 28, 48, 0.01));
+  --border: 1px solid rgba(11, 28, 48, 0.08);
+  --border-faint: rgba(11, 28, 48, 0.12);
+  --border-pool: rgba(11, 28, 48, 0.06);
+  --surface-pool: rgba(11, 28, 48, 0.03);
 }
 
 /* ── Reduced Motion ── */

@@ -1,7 +1,7 @@
 (function () {
   // 1. Theme Management
   function getTheme() {
-    return localStorage.getItem('consica-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    return localStorage.getItem('consica-theme') || localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   }
 
   function applyTheme(theme) {
@@ -14,6 +14,7 @@
       document.documentElement.classList.remove('light');
     }
     localStorage.setItem('consica-theme', theme);
+    localStorage.setItem('theme', theme);
   }
 
   function initTheme() {
