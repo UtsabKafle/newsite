@@ -250,7 +250,7 @@ img{max-width:100%;height:auto}
 
       <!-- 1. HERO SECTION -->
       <section id="hero"
-        class="relative pt-16 pb-12 px-6 lg:min-h-[600px] lg:flex lg:items-center lg:pt-24 lg:pb-16 lg:px-12 md:min-h-[500px] md:flex md:items-center md:pt-20 md:pb-12"
+        class="relative pt-16 pb-12 px-6 lg:min-h-[500px] lg:flex lg:items-center lg:pt-24 lg:pb-16 lg:px-12 md:min-h-[450px] md:flex md:items-center md:pt-20 md:pb-12"
         aria-labelledby="hero-heading">
         
         <div class="max-w-[1200px] mx-auto w-full text-center relative z-10">
@@ -268,218 +268,100 @@ img{max-width:100%;height:auto}
             </div>
           </div>
         </div>
-
-        <!-- Scroll Indicator (Visible on desktop) -->
-        <div
-          class="hidden md:flex absolute bottom-0 left-[50%] -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer reveal z-20"
-          style="transition-delay: 0.8s"
-          onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-          <div class="w-5 h-8 border-2 border-theme-faint rounded-full relative">
-            <div
-              class="absolute top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-brand-500 rounded-full animate-mouse-wheel">
-            </div>
-          </div>
-          <span class="text-[9px] font-bold tracking-[0.25em] text-theme-muted uppercase mt-1">Scroll</span>
-        </div>
       </section>
 
-      <!-- 2. ECOSYSTEM (PRODUCTS) SECTION -->
+      <!-- 2. ECOSYSTEM (REAL PRODUCTS) SECTION -->
       <section id="products"
-        class="px-5 py-16 md:px-6 md:py-20 lg:px-8 lg:pt-32 lg:pb-20 max-w-[1600px] mx-auto relative overflow-hidden"
+        class="px-5 py-12 md:px-8 md:py-16 max-w-[1400px] mx-auto relative overflow-hidden"
         aria-labelledby="products-heading">
-        <div class="grid lg:grid-cols-[1.3fr,1fr] gap-12 lg:gap-20 items-center relative z-10">
+        <div class="reveal text-center mb-8 lg:mb-12">
+          <p class="section-label">Ecosystem</p>
+          <h2 id="products-heading" class="section-title text-3xl tracking-tight leading-tight md:text-5xl mt-3">
+            Product Universe</h2>
+          <p class="mt-3.5 text-[15px] leading-relaxed text-theme-muted max-w-2xl mx-auto">
+            Live interconnected platforms designed for intelligent technology, modern learning, interactive simulations, and student community.</p>
+        </div>
 
-          <!-- Left: Dynamic Mockup loop animation -->
-          <div class="reveal flex justify-center items-center order-2 lg:order-1 lg:-ml-16 xl:-ml-24">
-            <div
-              class="relative w-full flex justify-center opacity-0 animate-slide-zoom-in-left scale-[0.85] origin-center xl:scale-100"
-              style="animation-delay: 0.1s; animation-fill-mode: forwards;">
-
-              <!-- Placeholder 1: Academy -->
-              <div class="product-preview-pane active"
-                id="academy-preview-placeholder"></div>
-
-              <!-- Placeholder 2: Ecommerce -->
-              <div class="product-preview-pane"
-                id="ecommerce-preview-placeholder"></div>
-
-              <!-- Placeholder 3: LMS -->
-              <div class="product-preview-pane"
-                id="lms-preview-placeholder"></div>
-
-              <!-- Placeholder 4: AI -->
-              <div class="product-preview-pane"
-                id="ai-preview-placeholder"></div>
-
-              <!-- Placeholder 5: SMS -->
-              <div class="product-preview-pane"
-                id="sms-preview-placeholder"></div>
-
-              <!-- Placeholder 6: Enterprise -->
-              <div class="product-preview-pane"
-                id="enterprise-preview-placeholder"></div>
-
-              <!-- Placeholder 7: SaaS Tools Console -->
-              <div class="product-preview-pane"
-                id="saas-preview-placeholder"></div>
-
-              <!-- Invisible spacer to maintain container height -->
-              <div class="invisible pointer-events-none w-[260px] h-[260px] md:h-[520px]"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- 1. Consica AI -->
+          <a href="https://ai.consicalabs.com/" target="_blank" rel="noopener noreferrer"
+            class="reveal card-3d glass-panel p-6 block group hover:border-brand-400/30 transition-all text-left flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-4">
+                <span class="text-brand-300">
+                  <span class="material-symbols-outlined text-3xl">psychology</span>
+                </span>
+                <span class="text-xs px-2.5 py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">AI &amp; Intelligence</span>
+              </div>
+              <h3 class="text-lg font-display font-semibold group-hover:text-brand-200 transition-colors">
+                Consica AI</h3>
+              <p class="mt-2 text-sm leading-relaxed text-theme-muted">
+                Enterprise AI models, intelligent agents, custom knowledge graphs, and automated NLP pipelines.</p>
             </div>
-          </div>
+            <span class="inline-flex items-center gap-1.5 mt-6 text-sm text-brand-300 font-semibold group-hover:translate-x-1 transition-transform">
+              ai.consicalabs.com <span class="material-symbols-outlined text-base">open_in_new</span>
+            </span>
+          </a>
 
-          <!-- Right: Product Grid List -->
-          <div class="order-1 lg:order-2 text-center lg:text-left">
-            <div class="reveal mb-6 lg:mb-10">
-              <p class="section-label">Ecosystem</p>
-              <h2 id="products-heading" class="section-title text-3xl tracking-tight leading-tight md:text-5xl mt-3">
-                Product universe</h2>
-              <p class="mt-3.5 text-[14px] leading-relaxed lg:mt-4 text-theme-muted max-w-xl mx-auto lg:mx-0">
-                Interconnected platforms designed to scale from modern classrooms to enterprise-grade operations.</p>
+          <!-- 2. Consica Academy -->
+          <a href="https://academy.consicalabs.com/" target="_blank" rel="noopener noreferrer"
+            class="reveal card-3d glass-panel p-6 block group hover:border-brand-400/30 transition-all text-left flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-4">
+                <span class="text-brand-300">
+                  <span class="material-symbols-outlined text-3xl">school</span>
+                </span>
+                <span class="text-xs px-2.5 py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">EdTech</span>
+              </div>
+              <h3 class="text-lg font-display font-semibold group-hover:text-brand-200 transition-colors">
+                Consica Academy</h3>
+              <p class="mt-2 text-sm leading-relaxed text-theme-muted">
+                Premium coding education, structured computer science paths, interactive diagrams, and live mentorship.</p>
             </div>
+            <span class="inline-flex items-center gap-1.5 mt-6 text-sm text-brand-300 font-semibold group-hover:translate-x-1 transition-transform">
+              academy.consicalabs.com <span class="material-symbols-outlined text-base">open_in_new</span>
+            </span>
+          </a>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-              <!-- Academy -->
-              <a href="products/academy.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">EdTech</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  Consica Academy</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Premium coding education for the next generation. Mentorship, physical computing, and project-ready
-                  skills.</p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
-
-              <!-- AI Systems -->
-              <a href="products/ai-systems.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path
-                        d="M9.59 4.59A2 2 0 1 1 11 8H9m1.59 11.41A2 2 0 1 1 9 16h2m5.59-11.41A2 2 0 1 1 15 8h2m-1.59 11.41A2 2 0 1 1 17 16h-2m-9.41-4h12.82" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">Intelligence</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  AI Systems</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Enterprise AI that augments decision-making. Custom models, ML pipelines, and secure automation.</p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
-
-              <!-- LMS Platforms -->
-              <a href="products/lms.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path d="M19 11H5m14-4H5m14 8H5m14 4H5" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">EdTech</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  IMS Platforms</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Learning management at institutional scale. Integrated testing, progress analytics, and custom
-                  portals.</p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
-
-              <!-- School Systems -->
-              <a href="products/school-systems.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">Education</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  School Systems</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Unified school operations. Attendance, grading, fee tracking, and messaging in one central app.</p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
-
-              <!-- SaaS Tools -->
-              <a href="products/saas-tools.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path
-                        d="M19 11a7 7 0 0 1-7 7m0 0a7 7 0 0 1-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">SaaS</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  SaaS Tools</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Subscription software built to scale. Billing, user roles, APIs, and micro-analytics pre-integrated.
-                </p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
-
-              <!-- Enterprise Software -->
-              <a href="products/enterprise.html"
-                class="reveal card-3d glass-panel p-3.5 lg:p-5 block group hover:border-brand-400/25 transition-all text-left">
-                <div class="flex items-start justify-between">
-                  <span class="scale-75 lg:scale-90 origin-left text-brand-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path
-                        d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m5-8h1m-1 4h1m-1 4h1m-5 4v-4h4v4" />
-                    </svg>
-                  </span>
-                  <span
-                    class="text-[8px] px-1.5 py-0.5 lg:text-[10px] lg:px-2 lg:py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">Enterprise</span>
-                </div>
-                <h3
-                  class="mt-2 text-sm lg:mt-3 lg:text-base font-display font-semibold group-hover:text-brand-200 transition-colors">
-                  Enterprise Software</h3>
-                <p class="mt-1 text-[11px] leading-normal lg:mt-1.5 lg:text-[13px] lg:leading-relaxed text-theme-muted">
-                  Mission-critical systems for complex organizations. High availability, robust security, and long term
-                  scale.</p>
-                <span
-                  class="inline-flex items-center gap-1 mt-2 text-[11px] lg:mt-3 lg:text-[13px] text-brand-300 font-semibold">Explore
-                  →</span>
-              </a>
+          <!-- 3. Consica Sims -->
+          <a href="https://sims.consicalabs.com/" target="_blank" rel="noopener noreferrer"
+            class="reveal card-3d glass-panel p-6 block group hover:border-brand-400/30 transition-all text-left flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-4">
+                <span class="text-brand-300">
+                  <span class="material-symbols-outlined text-3xl">science</span>
+                </span>
+                <span class="text-xs px-2.5 py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">Interactive Lab</span>
+              </div>
+              <h3 class="text-lg font-display font-semibold group-hover:text-brand-200 transition-colors">
+                Consica Sims</h3>
+              <p class="mt-2 text-sm leading-relaxed text-theme-muted">
+                Interactive computer science simulations, hardware architecture visualizations, and open research laboratory demos.</p>
             </div>
-          </div>
+            <span class="inline-flex items-center gap-1.5 mt-6 text-sm text-brand-300 font-semibold group-hover:translate-x-1 transition-transform">
+              sims.consicalabs.com <span class="material-symbols-outlined text-base">open_in_new</span>
+            </span>
+          </a>
 
+          <!-- 4. NEBians -->
+          <a href="https://nebians.consica.com.np/" target="_blank" rel="noopener noreferrer"
+            class="reveal card-3d glass-panel p-6 block group hover:border-brand-400/30 transition-all text-left flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-4">
+                <span class="text-brand-300">
+                  <span class="material-symbols-outlined text-3xl">forum</span>
+                </span>
+                <span class="text-xs px-2.5 py-1 font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">Community</span>
+              </div>
+              <h3 class="text-lg font-display font-semibold group-hover:text-brand-200 transition-colors">
+                NEBians</h3>
+              <p class="mt-2 text-sm leading-relaxed text-theme-muted">
+                Nepali student learning community — AI study tools, discussion forum, educational resources, and exam result checker.</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 mt-6 text-sm text-brand-300 font-semibold group-hover:translate-x-1 transition-transform">
+              nebians.consica.com.np <span class="material-symbols-outlined text-base">open_in_new</span>
+            </span>
+          </a>
         </div>
       </section>
 
