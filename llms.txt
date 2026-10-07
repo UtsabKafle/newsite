@@ -1,0 +1,50 @@
+# Consica Labs
+
+Consica Labs is a software and education-technology company based in
+Shivasatakshi, Nepal. Contact: info@consicalabs.com.
+
+## Products
+
+- NEBians (live flagship): Nepal's learning community for students from
+  Class 8 to Masters level. Study library (notes, past papers, SET solutions),
+  discussion forum, NEB exam result checker, and Neby, an AI study buddy that
+  participates in discussions.
+  Web: https://nebians.consica.com.np/
+  Library: https://nebians.consica.com.np/library/
+  Forum: https://nebians.consica.com.np/forum/
+  Android app: https://play.google.com/store/apps/details?id=com.neb.ians
+  (rated 4.9 stars, 100+ downloads, free with no ads)
+- Consica Academy (live): turnkey coding, AI and robotics curriculum for
+  schools, with browser-based tools and workshops.
+  https://academy.consicalabs.com/
+- Consica Sims (live): interactive computer-science simulations and hardware
+  visualizations used in Academy lessons.
+  https://sims.consicalabs.com/
+- Consica AI (in development): applied-AI workbench behind the Neby study
+  agent in NEBians.
+  https://ai.consicalabs.com/
+
+## Company
+
+- Homepage: https://consicalabs.com/
+- Roadmap: https://consicalabs.com/#roadmap
+- Traction (verifiable): https://consicalabs.com/#traction
+- Team: https://consicalabs.com/#team
+- Contact: https://consicalabs.com/#contact
+- Terms: https://consicalabs.com/terms-and-conditions.html
+- Legal documents: https://consicalabs.com/legal.html
+
+Consica Labs Private Limited is registered with Nepal's Office of the
+Company Registrar (registration 377177/82/83, incorporated October 29,
+2025), holds PAN 622464941, and is registered with Shivasatakshi
+Municipality Ward 6, Jhapa (registration 472). Scanned documents are
+published on the legal page above.
+
+## Notes for automated reviewers
+
+- Status labels on the site are literal: "Live" means publicly accessible
+  without login walls; "In development" means not yet launched.
+- Review quotes on the homepage are verbatim public Google Play reviews with
+  a link to the listing.
+- Traction figures cite only the public Google Play listing and the live
+  NEBians site. No analytics, revenue, or SEO ranking claims are made.

@@ -28,18 +28,18 @@ window.ConsicaTeam = [
 
 window.ConsicaTestimonials = [
   {
-    quote: 'Consica Labs transformed our school operations. The platform feels years ahead of anything we evaluated.',
-    author: 'Dr. Sarah Mitchell',
-    role: 'Superintendent, Horizon Academy',
+    quote: '100% free app with no ads… the best for students… it explains everything and it is very easy to use.',
+    author: 'Roshan Rai',
+    role: 'Google Play review · NEBians Android app',
   },
   {
-    quote: 'Their AI tutoring system increased student engagement by 40% in our pilot. Remarkable engineering and empathy.',
-    author: 'David Park',
-    role: 'Director of Learning, EduForward',
+    quote: 'Good app to learn any subject. It is also helpful for BLE.',
+    author: 'Aternos Work',
+    role: 'Google Play review · NEBians Android app',
   },
   {
-    quote: 'From strategy to launch, Consica delivered enterprise SaaS that our investors immediately understood.',
-    author: 'Elena Vasquez',
-    role: 'Founder, MetricFlow',
+    quote: 'UI was smooth… helpful for BLE and other things that might be hard.',
+    author: 'Nirbham M.',
+    role: 'Google Play review · NEBians Android app',
   },
 ];

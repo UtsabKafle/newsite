@@ -390,10 +390,15 @@
 .md-nav-pill {
   display: inline-flex;
   gap: 2px;
-  background: var(--md-surface-muted);
+  background: #ffffff;
   border-radius: var(--md-radius-full);
   padding: 4px;
-  border: 1px solid var(--md-border-subtle);
+  border: 1px solid var(--md-border-subtle, #E2E4E8);
+}
+
+[data-theme="dark"] .md-nav-pill {
+  background: var(--md-surface-container, #1A2133);
+  border-color: var(--md-border-subtle, #252B3E);
 }
 
 .md-nav-pill a {

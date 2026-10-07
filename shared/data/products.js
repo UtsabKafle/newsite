@@ -1,5 +1,16 @@
 window.ConsicaProducts = [
   {
+    id: 'nebians',
+    name: 'NEBians',
+    category: 'Live · Flagship',
+    tagline: "Nepal's live learning community",
+    description: 'Study library, discussion forum, exam results and the Neby AI study buddy — live on web and Android, rated 4.9 stars on Google Play.',
+    href: 'https://nebians.consica.com.np/',
+    icon: 'graduation',
+    color: '#22c55e',
+    external: true,
+  },
+  {
     id: 'academy',
     name: 'Consica Academy',
     category: 'EdTech',

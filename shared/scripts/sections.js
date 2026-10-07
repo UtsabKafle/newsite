@@ -25,7 +25,7 @@ window.ConsicaSections = (function () {
               ${ConsicaDOM.logoHTML('h-7')}
               <span class="font-display font-bold text-xl tracking-tight uppercase">${B.name}</span>
             </a>
-            <p class="mt-3 text-sm text-theme-muted max-w-sm">Software · EdTech · SaaS · Innovation Lab. Building trust through intelligent technology.</p>
+            <p class="mt-3 text-sm text-theme-muted max-w-sm">Builders of NEBians — Nepal's live learning community — plus Consica Academy coding education.</p>
           </div>
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-theme-faint mb-4">Products</h4>
@@ -148,13 +148,13 @@ window.ConsicaSections = (function () {
         <div class="${!isDesktop ? 'order-1 text-center' : 'text-left'}">
           <div class="reveal ${isMobile ? 'mb-6' : 'mb-10'}">
             <p class="section-label">Ecosystem</p>
-            <h2 id="products-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl'} ${isDesktop ? 'md:text-5xl' : 'md:text-4xl'} mt-3">Product universe</h2>
-            <p class="${isMobile ? 'mt-3.5 text-[14px] leading-relaxed' : 'mt-4'} text-theme-muted max-w-xl ${!isDesktop ? 'mx-auto' : ''}">Interconnected platforms designed to scale from classroom to enterprise.</p>
+            <h2 id="products-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl'} ${isDesktop ? 'md:text-5xl' : 'md:text-4xl'} mt-3">Products people can open today</h2>
+            <p class="${isMobile ? 'mt-3.5 text-[14px] leading-relaxed' : 'mt-4'} text-theme-muted max-w-xl ${!isDesktop ? 'mx-auto' : ''}">One flagship in production with real users — plus education platforms we operate alongside it.</p>
           </div>
           
           <div class="grid ${isMobile ? 'grid-cols-1' : 'sm:grid-cols-2'} gap-4 lg:gap-5">
             ${P.map((p, i) => `
-              <a href="${href(p.href)}" class="reveal card-3d glass-panel ${layout === 'mobile' ? 'p-3.5' : 'p-5'} block group hover:border-brand-400/25 transition-all text-left" style="transition-delay: ${i * 0.05}s">
+              <a href="${href(p.href)}"${p.external ? ' target="_blank" rel="noopener noreferrer"' : ''} class="reveal card-3d glass-panel ${layout === 'mobile' ? 'p-3.5' : 'p-5'} block group hover:border-brand-400/25 transition-all text-left" style="transition-delay: ${i * 0.05}s">
                 <div class="flex items-start justify-between">
                   <span class="${layout === 'mobile' ? 'scale-75 origin-left' : 'scale-90 origin-left'}">${iconProduct(p.icon)}</span>
                   <span class="${layout === 'mobile' ? 'text-[8px] px-1.5 py-0.5' : 'text-[10px] px-2 py-1'} font-bold tracking-wide text-brand-300 bg-brand-500/10 rounded-full">${p.category}</span>
@@ -174,19 +174,24 @@ window.ConsicaSections = (function () {
   function services(layout) {
     const isMobile = layout === 'mobile';
     const pad = isMobile ? 'px-5 py-12' : 'px-8 py-20 max-w-[1600px] mx-auto';
-    const grid = isMobile ? 'grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3';
+    const cards = [
+      { badge: 'Live today', badgeClass: 'text-green-300 bg-green-500/10', title: 'Neby answers in the forum', desc: 'Neby already participates in NEBians discussions — posting explanations, answering follow-ups, and keeping study threads moving for Classes 8–12 and beyond.' },
+      { badge: 'In progress', badgeClass: 'text-amber-300 bg-amber-500/10', title: 'Curriculum-grounded tutoring', desc: 'Step-by-step explanations aligned to the NEB syllabus, with retrieval over our own library so answers cite real notes and past papers instead of guessing.' },
+      { badge: 'Next', badgeClass: 'text-amber-300 bg-amber-500/10', title: 'Nepali-first, safe by design', desc: 'Mixed Nepali–English support for real classrooms, with teacher oversight, age-appropriate guardrails, and transparent AI labelling on every Neby post.' },
+    ];
     return `
-    <section id="services" class="${pad}" aria-labelledby="services-heading">
+    <section id="roadmap" class="${pad}" aria-labelledby="roadmap-heading">
       <div class="reveal ${isMobile ? 'mb-6' : 'mb-12'}">
-        <p class="section-label">Capabilities</p>
-        <h2 id="services-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-4xl'} mt-3">What we build</h2>
+        <p class="section-label">Roadmap</p>
+        <h2 id="roadmap-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-4xl'} mt-3">What we're building next</h2>
+        <p class="${isMobile ? 'mt-3 text-[14px] leading-relaxed' : 'mt-4'} text-theme-muted max-w-2xl">Neby, our study buddy inside NEBians, already answers questions and explains concepts to students every day. Next up: tutoring grounded in our own library, better Nepali-language support, and safe, curriculum-aligned answers.</p>
       </div>
-      <div class="grid ${grid} gap-4">
-        ${S.map((s, i) => `
-          <div class="reveal glass-panel ${layout === 'mobile' ? 'p-3 aspect-square flex flex-col justify-center items-center text-center gap-1.5' : 'p-5'} card-3d hover:bg-section-tint transition-colors" style="transition-delay: ${i * 0.03}s">
-            <span class="block ${layout === 'mobile' ? 'mb-0' : 'mb-3'}">${ConsicaDOM.svgIconHTML(s.icon, layout === 'mobile' ? 'w-5 h-5 text-brand-300' : 'w-6 h-6 text-brand-300')}</span>
-            <h3 class="${layout === 'mobile' ? 'text-[12px] font-bold tracking-tight leading-tight' : 'mt-3 font-display font-semibold'}">${s.name}</h3>
-            <p class="${layout === 'mobile' ? 'text-[9.5px] leading-normal text-theme-muted line-clamp-3 px-1' : 'mt-1 text-sm text-theme-muted'}">${s.desc}</p>
+      <div class="grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-3'} gap-4">
+        ${cards.map((c, i) => `
+          <div class="reveal glass-panel ${isMobile ? 'p-5' : 'p-6'} card-3d" style="transition-delay: ${i * 0.08}s">
+            <span class="text-xs px-2.5 py-1 font-bold tracking-wide ${c.badgeClass} rounded-full">${c.badge}</span>
+            <h3 class="mt-3 font-display font-semibold ${isMobile ? 'text-base' : 'text-lg'}">${c.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-theme-muted">${c.desc}</p>
           </div>
         `).join('')}
       </div>
@@ -314,29 +319,22 @@ window.ConsicaSections = (function () {
   function lab(layout) {
     const isMobile = layout === 'mobile';
     const pad = isMobile ? 'px-5 py-12' : 'px-8 py-20 max-w-[1600px] mx-auto';
-    const l = B.lab;
-    const cardPad = isMobile ? 'p-3.5' : 'p-5';
-    const titleStyle = isMobile ? 'text-sm font-semibold' : 'text-base font-semibold';
-    const badgeStyle = isMobile ? 'text-[8px] px-1.5 py-0.5' : 'text-xs px-2 py-1';
-    const descStyle = isMobile ? 'mt-1.5 text-[11px] leading-normal text-theme-muted' : 'mt-2 text-sm text-theme-muted';
+    const t = B.traction;
 
     return `
-    <section id="lab" class="${pad} relative overflow-hidden" aria-labelledby="lab-heading">
-      <div class="relative reveal">
-        <p class="section-label">${l.title}</p>
-        <h2 id="lab-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-5xl'} mt-3">${l.subtitle}</h2>
-        <p class="${isMobile ? 'mt-3.5 text-[14px] leading-relaxed' : 'mt-4'} text-theme-muted max-w-2xl">${l.body}</p>
-        <div class="mt-10 grid ${layout === 'mobile' ? 'grid-cols-1' : 'md:grid-cols-2'} gap-4">
-          ${l.experiments.map((e, i) => `
-            <div class="glass-panel ${cardPad} border-l-2 border-brand-400 reveal" style="transition-delay: ${i * 0.05}s">
-              <div class="flex justify-between items-start">
-                <h3 class="font-display ${titleStyle}">${e.name}</h3>
-                <span class="${badgeStyle} rounded-full bg-brand-500/15 text-brand-200">${e.status}</span>
-              </div>
-              <p class="${descStyle}">${e.desc}</p>
-            </div>
-          `).join('')}
-        </div>
+    <section id="traction" class="${pad} relative overflow-hidden" aria-labelledby="traction-heading">
+      <div class="relative reveal text-center ${isMobile ? 'mb-6' : 'mb-10'}">
+        <p class="section-label">${t.title}</p>
+        <h2 id="traction-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-4xl'} mt-3">${t.subtitle}</h2>
+        <p class="${isMobile ? 'mt-3 text-[14px] leading-relaxed' : 'mt-3'} text-theme-muted max-w-xl mx-auto">${t.body}</p>
+      </div>
+      <div class="grid ${isMobile ? 'grid-cols-2' : 'md:grid-cols-4'} gap-4">
+        ${t.stats.map((s, i) => `
+          <a href="${s.href}" target="_blank" rel="noopener noreferrer" class="reveal glass-panel ${isMobile ? 'p-5' : 'p-6'} text-center card-3d block" style="transition-delay: ${i * 0.06}s">
+            <p class="font-display font-bold ${isMobile ? 'text-3xl' : 'text-4xl'} text-brand-300">${s.value}</p>
+            <p class="mt-1.5 ${isMobile ? 'text-xs' : 'text-sm'} text-theme-muted">${s.label}</p>
+          </a>
+        `).join('')}
       </div>
     </section>`;
   }
@@ -353,8 +351,9 @@ window.ConsicaSections = (function () {
     return `
     <section id="testimonials" class="${pad}" aria-labelledby="testimonials-heading">
       <div class="reveal text-center ${isMobile ? 'mb-6' : 'mb-10'}">
-        <p class="section-label">Trust</p>
-        <h2 id="testimonials-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-4xl'} mt-3">What partners say</h2>
+        <p class="section-label">Reviews</p>
+        <h2 id="testimonials-heading" class="section-title ${isMobile ? 'text-3xl tracking-tight leading-tight' : 'text-3xl md:text-4xl'} mt-3">What learners say</h2>
+        <p class="${isMobile ? 'mt-3 text-[14px]' : 'mt-3'} text-theme-muted">Verbatim public reviews from the <a href="https://play.google.com/store/apps/details?id=com.neb.ians" target="_blank" rel="noopener noreferrer" class="underline hover:text-theme">NEBians Google Play listing</a>.</p>
       </div>
       <div class="${layout === 'mobile' ? 'space-y-4' : 'grid md:grid-cols-3 gap-5'}">
         ${Testimonials.map((t, i) => `

@@ -110,11 +110,11 @@ function getModuleDashboardHTML(m) {
         <div class="hidden lg:flex items-center gap-8">
           <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
           <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
-          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#roadmap" class="nav-link text-sm">Services</a>
           <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
           <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
-          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
-          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#traction" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#traction" class="nav-link text-sm">Testimonials</a>
           <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
           <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
         </div>
@@ -151,11 +151,11 @@ function getModuleDashboardHTML(m) {
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
-          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#roadmap" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
           <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
           <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
-          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
-          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#traction" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#traction" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
@@ -175,7 +175,7 @@ function getModuleDashboardHTML(m) {
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
           <span class="text-[10px] font-medium">Products</span>
         </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+        <a href="../../../../index.html#roadmap" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
           <span class="text-[10px] font-medium">Services</span>
         </a>
@@ -377,11 +377,11 @@ function getChapterHTML(m, c) {
         <div class="hidden lg:flex items-center gap-8">
           <a href="../../../../index.html#hero" class="nav-link text-sm">Home</a>
           <a href="../../../../index.html#products" class="nav-link text-sm">Products</a>
-          <a href="../../../../index.html#services" class="nav-link text-sm">Services</a>
+          <a href="../../../../index.html#roadmap" class="nav-link text-sm">Services</a>
           <a href="../../../../index.html#vision" class="nav-link text-sm">Philosophy</a>
           <a href="../../../../index.html#team" class="nav-link text-sm">Team</a>
-          <a href="../../../../index.html#lab" class="nav-link text-sm">Lab</a>
-          <a href="../../../../index.html#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="../../../../index.html#traction" class="nav-link text-sm">Lab</a>
+          <a href="../../../../index.html#traction" class="nav-link text-sm">Testimonials</a>
           <a href="../../../../index.html#careers" class="nav-link text-sm">Careers</a>
           <a href="../../../../index.html#contact" class="nav-link text-sm">Contact</a>
         </div>
@@ -418,11 +418,11 @@ function getChapterHTML(m, c) {
         <div class="flex flex-col gap-4">
           <a href="../../../../index.html#hero" class="mobile-nav-link text-lg text-theme-soft py-2">Home</a>
           <a href="../../../../index.html#products" class="mobile-nav-link text-lg text-theme-soft py-2">Products</a>
-          <a href="../../../../index.html#services" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
+          <a href="../../../../index.html#roadmap" class="mobile-nav-link text-lg text-theme-soft py-2">Services</a>
           <a href="../../../../index.html#vision" class="mobile-nav-link text-lg text-theme-soft py-2">Philosophy</a>
           <a href="../../../../index.html#team" class="mobile-nav-link text-lg text-theme-soft py-2">Team</a>
-          <a href="../../../../index.html#lab" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
-          <a href="../../../../index.html#testimonials" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
+          <a href="../../../../index.html#traction" class="mobile-nav-link text-lg text-theme-soft py-2">Lab</a>
+          <a href="../../../../index.html#traction" class="mobile-nav-link text-lg text-theme-soft py-2">Testimonials</a>
           <a href="../../../../index.html#careers" class="mobile-nav-link text-lg text-theme-soft py-2">Careers</a>
           <a href="../../../../index.html#contact" class="mobile-nav-link text-lg text-theme-soft py-2">Contact</a>
         </div>
@@ -442,7 +442,7 @@ function getChapterHTML(m, c) {
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
           <span class="text-[10px] font-medium">Products</span>
         </a>
-        <a href="../../../../index.html#services" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
+        <a href="../../../../index.html#roadmap" class="bottom-nav-item flex flex-col items-center gap-0.5 text-theme-faint hover:text-brand-300 transition-colors min-w-[64px] py-1">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
           <span class="text-[10px] font-medium">Services</span>
         </a>

@@ -8,6 +8,7 @@ window.ConsicaDOM = {
   },
 
   productHref(href) {
+    if (/^https?:\/\//.test(href)) return href;
     const base = this.base();
     if (base === '../') return href.replace('products/', '');
     return `${base}${href}`;
