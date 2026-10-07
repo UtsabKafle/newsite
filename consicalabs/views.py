@@ -23,7 +23,7 @@ def serve_static_site(request, path=""):
         "products", "shared", "assets", "contents", 
         "desktop", "mobile", "tablet", "tools", "tutor", "scratch"
     }
-    allowed_files = {"index.html", "robots.txt", "sitemap.xml"}
+    allowed_files = {"index.html", "robots.txt", "sitemap.xml", "terms-and-conditions.html"}
 
     # Determine the first segment of the path
     parts = normalized_path.split(os.sep)
